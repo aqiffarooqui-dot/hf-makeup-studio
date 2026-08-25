@@ -10,9 +10,8 @@ export const STUDIO_CONFIG = {
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
   // Top Authenticity Banner
-  announcement:[ "✨ 100% Genuine Certified Cosmetics • Choose Between International Luxury & Premium Drugstore Vanity ✨",
-                🎉 Limited Wedding Season Offer: Use Code BRIDE2026 for Flat 10% OFF!
-]
+  announcement:["✨ 100% Genuine Certified Cosmetics • Choose Between International Luxury & Premium Drugstore Vanity ✨",
+                🎉 Limited Wedding Season Offer: Use Code BRIDE2026 for Flat 10% OFF!]
 
   // =======================================================
   // 🏷️ VALID DISCOUNT COUPON CODES (PREVENTS FRAUD)
