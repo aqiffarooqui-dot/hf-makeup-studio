@@ -1,14 +1,16 @@
 // =======================================================
-// 💄 HUSNA FAROOQUI MAKEUP - OFFICIAL PACKAGES & CONFIG
+// 💄 HUSNA FAROOQUI MAKEUP - OFFICIAL CONFIG
 // =======================================================
 
 export const STUDIO_CONFIG = {
-  adminPin: "8760", // 🔒 Private Admin PIN
+  adminPin: "8760",
   whatsappNumber: "919997210876",
-  instagramHandle: "husna_farooqui_makeup", // Exact Instagram Username
+  instagramHandle: "husna_farooqui_makeup",
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
-  // 📢 MULTI-ANNOUNCEMENTS (Cycles automatically in the top banner)
+  // 🎛️ Feature Toggles
+  showOfferSection: true, // Enable / Disable Top Banner Announcements
+
   announcements: [
     "✨ 100% Genuine Certified Cosmetics • International Luxury & Premium Drugstore Collections ✨",
     "🎉 Limited Season Offer: Use Code BRIDE2026 for Flat 10% OFF!",
@@ -16,24 +18,31 @@ export const STUDIO_CONFIG = {
     "👑 The Royal Bridal Package (International Luxury) now includes 1 FREE Guest Makeover!"
   ],
 
-  // 🎈 FLOATING PROMO BANNER
+  // 🎈 Floating Notification Config
   floatingBanner: {
-    enabled: true,
+    enabled: true, // Enable / Disable Floating Notification
     tag: "LIMITED PROMO",
     title: "Flat 10% OFF Wedding Season Deal",
     code: "BRIDE2026",
-    actionText: "Apply Code in Calculator"
+    actionText: "Apply"
   },
 
-  // 🏷️ DISCOUNT COUPONS
+  // 🏷️ Discount Coupons with Configurable Max Usage Limits
+  // maxUses: 1 (single use), 5, 10, or 'unlimited'
   validCoupons: {
-    "BRIDE2026": { type: "percent", value: 10, label: "10% Seasonal Wedding Discount" },
-    "HUSNA15": { type: "percent", value: 15, label: "15% Special Bridal Promo" },
-    "ROYAL1000": { type: "flat", value: 1000, label: "₹1,000 Flat Off on Packages" },
-    "WELCOME500": { type: "flat", value: 500, label: "₹500 Flat First-Booking Offer" }
+    "BRIDE2026": { type: "percent", value: 10, label: "10% Seasonal Wedding Discount", maxUses: 1 },
+    "HUSNA15": { type: "percent", value: 15, label: "15% Special Bridal Promo", maxUses: 1 },
+    "ROYAL1000": { type: "flat", value: 1000, label: "₹1,000 Flat Off on Packages", maxUses: 5 },
+    "WELCOME500": { type: "flat", value: 500, label: "₹500 Flat First-Booking Offer", maxUses: "unlimited" }
   },
 
-  // 💄 PACKAGE PRICING BY PRODUCT TIER
+  // 💄 Guest Pricing & Discount Rules
+  guestPricingRules: {
+    discountPercent: 15 // % discount given on additional guest makeups when booked alongside main package
+  },
+
+  // 💄 Package Pricing
+  // extraGuestRate is calculated directly from package pricing or custom rate
   pricingByKit: {
     drugstore: {
       name: "Premium Drugstore / Classic HD Kit",
@@ -44,7 +53,7 @@ export const STUDIO_CONFIG = {
       cocktail_glam: 7000,
       engagement_bride: 8000,
       royal_bridal: 15000,
-      extraGuestRate: 2500 // Extra guest rate for Drugstore tier
+      guestBaseRate: 2500 // Base party rate for extra guests under drugstore tier
     },
     international: {
       name: "International Luxury Vanity Kit",
@@ -55,21 +64,19 @@ export const STUDIO_CONFIG = {
       cocktail_glam: 10000,
       engagement_bride: 12000,
       royal_bridal: 25000,
-      extraGuestRate: 3500 // Extra guest rate for International Luxury tier
+      guestBaseRate: 4000 // Base party rate for extra guests under luxury tier
     }
   },
 
-  // Package Descriptions & Numbers
   packageDetails: {
     simple_party: { num: 1, name: "Simple Party Makeup", desc: "Clean, elegant, and subtle daytime or evening event makeup." },
     hd_party: { num: 2, name: "HD Party Makeup", desc: "High-definition finish for a flawless, camera-ready, and long-lasting look." },
     super_hd_party: { num: 3, name: "Super HD Party Makeup", desc: "Premium, ultra-smooth finish using advanced makeup techniques for a picture-perfect look." },
     cocktail_glam: { num: 4, name: "Cocktail Glam Look", desc: "Bold, glamorous, and statement-making styles, perfect for cocktail nights and receptions." },
     engagement_bride: { num: 5, name: "Engagement Bride", desc: "A stunning, radiant look tailored perfectly for your ring ceremony." },
-    royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup for family/friend." }
+    royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup." }
   },
 
-  // 🚗 CONVENIENCE & TRAVEL CHARGES (Cab Fare from Okhla/Jamia)
   convenienceZones: {
     delhi_near: { name: "South Delhi / Nearby (Okhla, Jamia, Saket, Lajpat)", fee: 350, distance: "~5-10 km" },
     delhi_central: { name: "Central / East Delhi (CP, Mayur Vihar, Laxmi Nagar)", fee: 600, distance: "~15-20 km" },
@@ -81,7 +88,6 @@ export const STUDIO_CONFIG = {
     outstation_up: { name: "Moradabad / Sambhal / Outstation UP", fee: 1500, distance: "Intercity" }
   },
 
-  // Categorized Vanity Brands
   internationalBrands: [
     { name: "NARS", desc: "Radiant Creamy Foundations", category: "Prestige Base" },
     { name: "Charlotte Tilbury", desc: "Flawless Filter & Airbrush Setting", category: "Glow & Polish" },
