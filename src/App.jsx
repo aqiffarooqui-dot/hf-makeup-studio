@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Sparkles, 
-  Instagram, 
   Heart, 
   Calendar, 
   MapPin, 
@@ -24,6 +23,23 @@ import {
   Gift
 } from 'lucide-react';
 
+// Custom Instagram SVG Component
+const InstagramIcon = ({ className = "w-4 h-4" }) => (
+  <svg 
+    className={className} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('ad-studio');
   const [selectedStrategy, setSelectedStrategy] = useState('classic');
@@ -35,7 +51,7 @@ export default function App() {
     subheadline: "Meet Husna Farooqui — Serving Delhi & Amroha",
     offerText: "✨ Pre-Book Now & Get 15% OFF + Free Bridal Trial",
     igHandle: "@husna_farooqui_makeup",
-    primaryColor: "gold", // gold, rose, emerald, deep-red
+    primaryColor: "gold",
     badge: "Limited Booking 2024-2025"
   });
 
@@ -123,7 +139,6 @@ export default function App() {
 
   const currentStrategyObj = strategies.find(s => s.id === selectedStrategy);
 
-  // Price Calculation Logic
   const calculatePrice = () => {
     let base = 0;
     if (calcService === 'bridal') base = 18000;
@@ -142,7 +157,6 @@ export default function App() {
   const handleCopyCaption = () => {
     const textToCopy = `✨ ${currentStrategyObj.headline} ✨\n\n${currentStrategyObj.subheadline}\n\n🌟 What We Offer:\n• Exquisite Bridal Makeovers\n• Vibrant Pre-Wedding & Haldi Looks\n• Glamorous Party & Festive Makeup\n• Custom Styles Tailored Just For You\n\n${currentStrategyObj.offerText}\n\n📸 Instagram: ${adConfig.igHandle}\n💌 Bookings Open! Slide into our DMs now!`;
     
-    // Clipboard fallback for iframe execution
     const textArea = document.createElement("textarea");
     textArea.value = textToCopy;
     document.body.appendChild(textArea);
@@ -220,13 +234,13 @@ export default function App() {
             rel="noopener noreferrer"
             className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold px-4 py-2.5 rounded-full transition shadow-md shadow-pink-500/20"
           >
-            <Instagram className="w-4 h-4" />
+            <InstagramIcon className="w-4 h-4" />
             <span className="hidden sm:inline">@husna_farooqui_makeup</span>
           </a>
         </div>
 
         {/* Mobile Nav */}
-        <div className="md:hidden flex overflow-x-auto border-t border-neutral-800 bg-neutral-900/60 p-2 gap-2 scrollbar-none">
+        <div className="md:hidden flex overflow-x-auto border-t border-neutral-800 bg-neutral-900/60 p-2 gap-2">
           {[
             { id: 'ad-studio', label: 'Ad Studio', icon: Sliders },
             { id: 'services', label: 'Services', icon: Crown },
@@ -258,7 +272,6 @@ export default function App() {
         {/* TAB 1: AD CAMPAIGN STUDIO */}
         {activeTab === 'ad-studio' && (
           <div className="space-y-8">
-            {/* Intro */}
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-widest">
                 <Sparkles className="w-3.5 h-3.5" /> Marketing Campaign Hub
@@ -307,8 +320,6 @@ export default function App() {
 
             {/* Live Canvas Banner Rendering */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              
-              {/* Visual Ad Banner Canvas (Left/Top) */}
               <div className="lg:col-span-8 space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-semibold text-stone-400 flex items-center gap-2">
@@ -317,14 +328,7 @@ export default function App() {
                   <span className="text-xs text-amber-400/80 font-mono">1200 x 630 (Social Banner Format)</span>
                 </div>
 
-                {/* THE CANVAS CARD */}
                 <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-neutral-900 shadow-2xl p-6 sm:p-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-neutral-800 via-neutral-950 to-black">
-                  
-                  {/* Glowing background decor */}
-                  <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-                  <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                  {/* Header Badge */}
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-neutral-800">
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-amber-400" />
@@ -337,10 +341,7 @@ export default function App() {
                     </span>
                   </div>
 
-                  {/* Banner Content Layout */}
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                    
-                    {/* Left Column: Text Content */}
                     <div className="md:col-span-7 space-y-4">
                       <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-stone-100 leading-tight">
                         {currentStrategyObj.headline}
@@ -357,7 +358,6 @@ export default function App() {
                         </div>
                       </div>
 
-                      {/* Bullets */}
                       <ul className="grid grid-cols-1 gap-2 text-xs text-stone-300">
                         {currentStrategyObj.bullets.map((b, idx) => (
                           <li key={idx} className="flex items-center gap-2">
@@ -367,10 +367,9 @@ export default function App() {
                         ))}
                       </ul>
 
-                      {/* Instagram & Booking Footer */}
                       <div className="pt-3 flex flex-wrap items-center gap-4 text-xs font-mono">
                         <div className="flex items-center gap-1.5 text-pink-400 bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-500/20">
-                          <Instagram className="w-4 h-4" />
+                          <InstagramIcon className="w-4 h-4" />
                           <span>{adConfig.igHandle}</span>
                         </div>
                         <div className="flex items-center gap-1.5 text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-lg border border-amber-400/20">
@@ -380,14 +379,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Right Column: Visual Mockup Showcase */}
                     <div className="md:col-span-5 flex flex-col items-center justify-center">
                       <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-amber-500/40 shadow-2xl bg-neutral-900 group">
-                        
-                        {/* Stylized Aesthetic Visual Placeholder */}
                         <div className="w-full h-full bg-gradient-to-b from-stone-900 via-rose-950/40 to-neutral-950 flex flex-col items-center justify-between p-6 text-center">
-                          
-                          {/* Top Decorative Ornament */}
                           <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mt-2">
                             <Crown className="w-8 h-8 text-amber-400" />
                           </div>
@@ -396,7 +390,6 @@ export default function App() {
                             <div className="text-amber-200 font-serif text-lg font-bold">Bridal & Festive</div>
                             <p className="text-stone-400 text-xs italic">"Enhancing Natural Beauty with Royal Glamour"</p>
                             
-                            {/* Tags */}
                             <div className="flex flex-wrap justify-center gap-1 mt-3">
                               {['Haldi Look', 'Grand Bridal', 'Festive Glam'].map((tag, tIdx) => (
                                 <span key={tIdx} className="text-[10px] bg-neutral-950/80 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/20">
@@ -411,7 +404,6 @@ export default function App() {
                           </div>
                         </div>
 
-                        {/* Floating Instagram Tag */}
                         <div className="absolute top-3 right-3 bg-neutral-950/90 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-amber-500/40 shadow-md">
                           @husna_farooqui_makeup
                         </div>
@@ -420,7 +412,6 @@ export default function App() {
 
                   </div>
 
-                  {/* Bottom Footer Line */}
                   <div className="mt-8 pt-4 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-2">
                     <p className="flex items-center gap-2">
                       <MessageSquare className="w-4 h-4 text-amber-400" />
@@ -428,24 +419,15 @@ export default function App() {
                     </p>
                     <span className="text-amber-400 font-semibold">📍 Delhi & Amroha Bridal Specialist</span>
                   </div>
-
                 </div>
               </div>
 
-              {/* Controls & Copy Caption Box (Right/Bottom) */}
+              {/* Controls */}
               <div className="lg:col-span-4 space-y-6">
-                
-                {/* Caption Generator */}
                 <div className="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-sm text-stone-100 flex items-center gap-2">
-                      <Copy className="w-4 h-4 text-amber-400" /> Social Media Copy Generator
-                    </h3>
-                  </div>
-
-                  <p className="text-xs text-stone-400">
-                    Use this optimized Instagram/Facebook caption customized for your chosen strategy:
-                  </p>
+                  <h3 className="font-semibold text-sm text-stone-100 flex items-center gap-2">
+                    <Copy className="w-4 h-4 text-amber-400" /> Social Media Copy Generator
+                  </h3>
 
                   <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-800 font-mono text-xs text-stone-300 max-h-56 overflow-y-auto space-y-2 leading-relaxed">
                     <p>✨ {currentStrategyObj.headline} ✨</p>
@@ -482,10 +464,9 @@ export default function App() {
                   </button>
                 </div>
 
-                {/* Direct Action Box */}
                 <div className="bg-neutral-900/60 rounded-2xl p-6 border border-amber-500/20 space-y-4 text-center">
                   <div className="w-12 h-12 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto">
-                    <Instagram className="w-6 h-6" />
+                    <InstagramIcon className="w-6 h-6" />
                   </div>
                   <div>
                     <h4 className="font-serif font-bold text-stone-100">Direct Instagram Booking</h4>
@@ -500,13 +481,10 @@ export default function App() {
                     Open @husna_farooqui_makeup
                   </a>
                 </div>
-
               </div>
-
             </div>
           </div>
         )}
-
 
         {/* TAB 2: SERVICES & PACKAGES */}
         {activeTab === 'services' && (
@@ -534,8 +512,7 @@ export default function App() {
                     "Custom Eyelashes & Hair Styling",
                     "Outfit & Dupatta Draping",
                     "Jewelry Setting & Touch-up Kit"
-                  ],
-                  color: "from-amber-500/20 to-rose-500/20"
+                  ]
                 },
                 {
                   title: "Vibrant Haldi & Mehendi",
@@ -546,8 +523,7 @@ export default function App() {
                     "Floral theme complimenting styles",
                     "Soft romantic hair styling",
                     "Lightweight feel for long events"
-                  ],
-                  color: "from-amber-500/20 to-yellow-500/20"
+                  ]
                 },
                 {
                   title: "Party & Reception Glam",
@@ -558,8 +534,7 @@ export default function App() {
                     "Long-lasting camera ready finish",
                     "Hairstyling included",
                     "Eyelashes & Saree Draping"
-                  ],
-                  color: "from-purple-500/20 to-pink-500/20"
+                  ]
                 },
                 {
                   title: "Pre-Wedding Shoot",
@@ -570,8 +545,7 @@ export default function App() {
                     "Multiple touch-ups support",
                     "Versatile hairstyle options",
                     "On-location travel setup"
-                  ],
-                  color: "from-rose-500/20 to-red-500/20"
+                  ]
                 }
               ].map((service, index) => (
                 <div 
@@ -613,7 +587,6 @@ export default function App() {
           </div>
         )}
 
-
         {/* TAB 3: PRICE ESTIMATOR CALCULATOR */}
         {activeTab === 'calculator' && (
           <div className="max-w-4xl mx-auto space-y-8">
@@ -630,11 +603,7 @@ export default function App() {
             </div>
 
             <div className="bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-800 grid grid-cols-1 md:grid-cols-12 gap-8">
-              
-              {/* Inputs */}
               <div className="md:col-span-7 space-y-6">
-                
-                {/* Service Selection */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2">
                     Select Primary Service
@@ -662,7 +631,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Location Selection */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2">
                     Event Location
@@ -689,7 +657,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Additional Party Makeups Slider */}
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <label className="text-xs font-semibold text-stone-300 uppercase tracking-wider">
@@ -705,14 +672,8 @@ export default function App() {
                     onChange={(e) => setPartyCount(parseInt(e.target.value))}
                     className="w-full accent-amber-500 bg-neutral-800 h-2 rounded-lg cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-stone-500 mt-1">
-                    <span>0 (Just Bride)</span>
-                    <span>5 Family Members</span>
-                    <span>10 Guests</span>
-                  </div>
                 </div>
 
-                {/* Checkbox Options */}
                 <div className="space-y-3 pt-2">
                   <label className="flex items-center space-x-3 cursor-pointer">
                     <input
@@ -738,10 +699,8 @@ export default function App() {
                     </span>
                   </label>
                 </div>
-
               </div>
 
-              {/* Price Calculation Output Box */}
               <div className="md:col-span-5 bg-neutral-950 rounded-2xl p-6 border border-amber-500/30 flex flex-col justify-between space-y-6">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">
@@ -757,23 +716,6 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="space-y-2 text-xs border-t border-b border-neutral-800 py-4">
-                  <div className="flex justify-between text-stone-400">
-                    <span>Base Makeover:</span>
-                    <span className="text-stone-200">Selected</span>
-                  </div>
-                  <div className="flex justify-between text-stone-400">
-                    <span>Guest Add-ons ({partyCount}):</span>
-                    <span className="text-stone-200">₹{(partyCount * 3500).toLocaleString('en-IN')}</span>
-                  </div>
-                  <div className="flex justify-between text-stone-400">
-                    <span>Trial Session:</span>
-                    <span className="text-amber-400 font-medium">
-                      {calcService === 'bridal' ? 'FREE' : (includeTrial ? '₹2,500' : 'None')}
-                    </span>
-                  </div>
-                </div>
-
                 <button
                   onClick={() => setActiveTab('booking')}
                   className="w-full py-3 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow-lg shadow-amber-500/10 hover:opacity-95 transition"
@@ -781,11 +723,9 @@ export default function App() {
                   Book This Estimate Now
                 </button>
               </div>
-
             </div>
           </div>
         )}
-
 
         {/* TAB 4: BOOKING APPOINTMENT */}
         {activeTab === 'booking' && (
