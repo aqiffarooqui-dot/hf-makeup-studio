@@ -52,7 +52,7 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
 export default function App() {
   const [activeTab, setActiveTab] = useState('services');
 
-  // Business Details
+  // Business Details (Number hidden from UI, used only for backend link)
   const BUSINESS_PHONE = "919997210876"; 
   const IG_USERNAME = "husna_farooqui_makeup";
 
@@ -88,19 +88,22 @@ export default function App() {
     return base + locationFee + partyTotal + trialCost + drapingCost;
   };
 
-  // WhatsApp Booking Link Generator
+  // Fixed WhatsApp Booking Link Generator (Properly encodes special characters like & and line breaks)
   const sendToWhatsApp = (e) => {
     e.preventDefault();
-    const message = `✨ *New Booking Request - H&F Makeup* ✨%0A%0A` +
-      `👤 *Client Name:* ${encodeURIComponent(booking.name)}%0A` +
-      `📞 *Client Phone:* ${encodeURIComponent(booking.phone)}%0A` +
-      `💄 *Service:* ${encodeURIComponent(booking.eventType)}%0A` +
-      `📅 *Event Date:* ${encodeURIComponent(booking.eventDate)}%0A` +
-      `📍 *Location:* ${encodeURIComponent(booking.location)}%0A` +
-      `📝 *Notes:* ${encodeURIComponent(booking.notes || 'None')}%0A%0A` +
+
+    const rawText = 
+      `✨ *New Booking Request - H&F Makeup* ✨\n\n` +
+      `👤 *Client Name:* ${booking.name}\n` +
+      `📞 *Client Phone:* ${booking.phone}\n` +
+      `💄 *Service:* ${booking.eventType}\n` +
+      `📅 *Event Date:* ${booking.eventDate}\n` +
+      `📍 *Location:* ${booking.location}\n` +
+      `📝 *Notes:* ${booking.notes || 'None'}\n\n` +
       `_Sent from H&F Studio Web App_`;
 
-    window.open(`https://wa.me/${BUSINESS_PHONE}?text=${message}`, '_blank');
+    const encodedMessage = encodeURIComponent(rawText);
+    window.open(`https://wa.me/${BUSINESS_PHONE}?text=${encodedMessage}`, '_blank');
   };
 
   return (
@@ -482,7 +485,7 @@ export default function App() {
                     <input
                       type="tel"
                       required
-                      placeholder="+91 99972 10876"
+                      placeholder="+91 98765 43210"
                       value={booking.phone}
                       onChange={(e) => setBooking({ ...booking, phone: e.target.value })}
                       className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-stone-100 focus:outline-none focus:border-amber-500"
@@ -550,13 +553,13 @@ export default function App() {
                   />
                 </div>
 
-                {/* Submit to WhatsApp */}
+                {/* Submit to WhatsApp (Phone number hidden from button text) */}
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2"
+                  className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <WhatsAppIcon className="w-5 h-5" />
-                  <span>Send Request on WhatsApp (+91 99972 10876)</span>
+                  <span>Send Request on WhatsApp</span>
                 </button>
               </form>
 
@@ -587,7 +590,7 @@ export default function App() {
             <span className="font-serif font-bold text-stone-200">Husna Farooqui Makeup</span>
             <span>• Delhi & Amroha</span>
           </div>
-          <p>Bookings & Inquiries: +91 99972 10876 & @{IG_USERNAME}</p>
+          <p>Bookings & Inquiries: WhatsApp & @{IG_USERNAME}</p>
         </div>
       </footer>
     </div>
