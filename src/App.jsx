@@ -11,7 +11,7 @@ import {
   Star, 
   Car,
   CheckCircle2,
-  Sparkle
+  PackageCheck
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 
@@ -31,9 +31,11 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('menu');
+  const [selectedKit, setSelectedKit] = useState('international'); // 'international' | 'drugstore'
 
   // Calculator State
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
+  const [calcKit, setCalcKit] = useState('international');
   const [calcZone, setCalcZone] = useState('delhi_near');
   const [extraPartyCount, setExtraPartyCount] = useState(0);
 
@@ -42,32 +44,40 @@ export default function App() {
     name: '',
     phone: '',
     eventDate: '',
+    kitType: 'international',
     packageKey: 'royal_bridal',
     zoneKey: 'delhi_near',
     venueAddress: '',
     notes: ''
   });
 
+  const getPackagePrice = (packageKey, kitType = selectedKit) => {
+    return STUDIO_CONFIG.pricingByKit[kitType][packageKey];
+  };
+
   const calculateEstimate = () => {
-    const pkg = STUDIO_CONFIG.packages[calcPackage];
-    let base = pkg ? pkg.price : 15000;
+    let base = STUDIO_CONFIG.pricingByKit[calcKit][calcPackage];
     let zone = STUDIO_CONFIG.convenienceZones[calcZone];
     let convenienceFee = zone ? zone.fee : 350;
-    let extraPartyCost = extraPartyCount * 2500;
+    let extraGuestRate = calcKit === 'international' ? 3500 : 2500;
+    let extraPartyCost = extraPartyCount * extraGuestRate;
     return base + convenienceFee + extraPartyCost;
   };
 
   const handleBookingSubmit = (e) => {
     e.preventDefault();
-    const pkg = STUDIO_CONFIG.packages[booking.packageKey];
+    const pkg = STUDIO_CONFIG.packageDetails[booking.packageKey];
+    const price = STUDIO_CONFIG.pricingByKit[booking.kitType][booking.packageKey];
+    const kitName = STUDIO_CONFIG.pricingByKit[booking.kitType].name;
     const zone = STUDIO_CONFIG.convenienceZones[booking.zoneKey];
     
     const message = 
       `✨ *New Booking Request - Husna Farooqui Makeup* ✨\n\n` +
       `👤 *Client Name:* ${booking.name}\n` +
       `📞 *Client Phone:* ${booking.phone}\n` +
-      `💄 *Package:* ${pkg.num}. ${pkg.name} (₹${pkg.price.toLocaleString('en-IN')})\n` +
-      `📅 *Date:* ${booking.eventDate}\n` +
+      `💎 *Product Kit Chosen:* ${kitName}\n` +
+      `💄 *Package:* ${pkg.num}. ${pkg.name} (₹${price.toLocaleString('en-IN')})\n` +
+      `📅 *Preferred Date:* ${booking.eventDate}\n` +
       `📍 *Location Zone:* ${zone?.name} (Convenience: ₹${zone?.fee})\n` +
       `🏠 *Exact Venue Address:* ${booking.venueAddress || 'Not Provided'}\n` +
       `📝 *Notes/Requests:* ${booking.notes || 'None'}\n\n` +
@@ -109,7 +119,7 @@ export default function App() {
           <nav className="hidden md:flex space-x-1 bg-neutral-900/90 p-1.5 rounded-full border border-neutral-800">
             {[
               { id: 'menu', label: 'Packages & Pricing', icon: Crown },
-              { id: 'brands', label: 'International Brands', icon: Star },
+              { id: 'brands', label: 'Vanity Brands', icon: Star },
               { id: 'calculator', label: 'Price Estimator', icon: Calculator },
               { id: 'booking', label: 'Book on WhatsApp', icon: Calendar }
             ].map((tab) => {
@@ -142,7 +152,7 @@ export default function App() {
           </a>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Mobile Navigation */}
         <div className="md:hidden flex justify-around border-t border-neutral-800 bg-neutral-900/90 p-2">
           {[
             { id: 'menu', label: 'Packages', icon: Crown },
@@ -172,7 +182,7 @@ export default function App() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
 
-        {/* TAB 1: OFFICIAL PACKAGES & PRICING */}
+        {/* TAB 1: PACKAGES & PRICING WITH PRODUCT TIER TOGGLE */}
         {activeTab === 'menu' && (
           <div className="space-y-10">
             
@@ -184,36 +194,44 @@ export default function App() {
                 Makeup Packages & Pricing
               </h2>
               <p className="text-stone-300 text-sm leading-relaxed">
-                Thank you so much for showing interest in my services! I would love to be a part of your special day and create the perfect look for you.
+                Choose your preferred product vanity kit to view customized package pricing for your event.
               </p>
-              <p className="text-xs text-stone-400 italic">
-                Below are the details of my makeup packages and current pricing. Every look is customized to enhance your natural beauty and ensure you shine throughout your event.
-              </p>
-            </div>
 
-            {/* Authenticity Bar */}
-            <div className="bg-gradient-to-r from-neutral-900 via-neutral-900/90 to-amber-950/40 border border-amber-500/30 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-6 h-6 text-amber-400" />
-                </div>
-                <div>
-                  <h4 className="font-serif font-bold text-sm text-stone-100">100% Genuine Luxury Vanity</h4>
-                  <p className="text-xs text-stone-400">Exclusively using NARS, Charlotte Tilbury, Too Faced, Benefit, Urban Decay, Tarte, Laura Mercier & Coty Airspun.</p>
-                </div>
+              {/* PRODUCT KIT SELECTOR BUTTONS */}
+              <div className="inline-flex flex-col sm:flex-row p-1.5 bg-neutral-900 rounded-2xl border border-neutral-800 mt-3 gap-1.5">
+                <button
+                  onClick={() => setSelectedKit('international')}
+                  className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                    selectedKit === 'international'
+                      ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 shadow-md shadow-amber-500/20'
+                      : 'text-stone-400 hover:text-stone-200'
+                  }`}
+                >
+                  <Crown className="w-4 h-4" />
+                  <span>International Luxury Kit (Bridal ₹25,000)</span>
+                </button>
+                <button
+                  onClick={() => setSelectedKit('drugstore')}
+                  className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                    selectedKit === 'drugstore'
+                      ? 'bg-neutral-800 text-amber-300 border border-neutral-700 shadow-md'
+                      : 'text-stone-400 hover:text-stone-200'
+                  }`}
+                >
+                  <PackageCheck className="w-4 h-4" />
+                  <span>Premium Drugstore Kit (Bridal ₹15,000)</span>
+                </button>
               </div>
-              <button
-                onClick={() => setActiveTab('brands')}
-                className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-amber-300 text-xs font-semibold rounded-xl border border-neutral-700 whitespace-nowrap"
-              >
-                View Brand Details →
-              </button>
+
+              <p className="text-xs text-amber-400/90 font-medium">
+                Currently showing: <span className="underline font-bold">{STUDIO_CONFIG.pricingByKit[selectedKit].name}</span>
+              </p>
             </div>
 
             {/* Packages Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
-              {/* Left: Party Makeup Packages */}
+              {/* Left Column: Party Makeup Packages */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
                   <span className="text-lg">💄</span>
@@ -222,20 +240,22 @@ export default function App() {
 
                 <div className="space-y-3.5">
                   {partyPackages.map((key) => {
-                    const item = STUDIO_CONFIG.packages[key];
+                    const item = STUDIO_CONFIG.packageDetails[key];
+                    const price = getPackagePrice(key);
                     return (
                       <div key={key} className="bg-neutral-900/90 border border-neutral-800 hover:border-amber-500/40 rounded-2xl p-4 transition-all flex flex-col justify-between space-y-3">
                         <div className="flex justify-between items-baseline">
                           <h4 className="font-serif font-bold text-stone-100 text-base">
                             {item.num}. {item.name}
                           </h4>
-                          <span className="font-serif font-bold text-lg text-amber-400">₹{item.price.toLocaleString('en-IN')}</span>
+                          <span className="font-serif font-bold text-lg text-amber-400">₹{price.toLocaleString('en-IN')}</span>
                         </div>
                         <p className="text-xs text-stone-400 leading-relaxed">{item.desc}</p>
                         <button
                           onClick={() => {
                             setCalcPackage(key);
-                            setBooking(prev => ({ ...prev, packageKey: key }));
+                            setCalcKit(selectedKit);
+                            setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
                             setActiveTab('booking');
                           }}
                           className="self-end text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1"
@@ -249,7 +269,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Right: Signature & Bridal Packages */}
+              {/* Right Column: Signature & Bridal Packages */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
                   <Crown className="w-5 h-5 text-amber-400" />
@@ -258,7 +278,8 @@ export default function App() {
 
                 <div className="space-y-3.5">
                   {bridalPackages.map((key) => {
-                    const item = STUDIO_CONFIG.packages[key];
+                    const item = STUDIO_CONFIG.packageDetails[key];
+                    const price = getPackagePrice(key);
                     return (
                       <div key={key} className={`bg-neutral-900/90 rounded-2xl p-5 border transition-all flex flex-col justify-between space-y-3 ${item.badge ? 'border-amber-500/50 bg-gradient-to-b from-neutral-900 to-amber-950/20 ring-1 ring-amber-500/20' : 'border-neutral-800'}`}>
                         <div>
@@ -267,11 +288,11 @@ export default function App() {
                               <span>{item.num}. {item.name}</span>
                               {item.badge && (
                                 <span className="text-[10px] bg-amber-400/10 text-amber-400 px-2 py-0.5 rounded-full border border-amber-400/30 font-sans">
-                                  {item.badge}
+                                  {selectedKit === 'international' ? 'Royal International Luxury' : 'Classic Signature'}
                                 </span>
                               )}
                             </h4>
-                            <span className="font-serif font-bold text-xl text-amber-400">₹{item.price.toLocaleString('en-IN')}</span>
+                            <span className="font-serif font-bold text-xl text-amber-400">₹{price.toLocaleString('en-IN')}</span>
                           </div>
                           <p className="text-xs text-stone-300 mt-2 leading-relaxed">{item.desc}</p>
                         </div>
@@ -279,7 +300,8 @@ export default function App() {
                         <button
                           onClick={() => {
                             setCalcPackage(key);
-                            setBooking(prev => ({ ...prev, packageKey: key }));
+                            setCalcKit(selectedKit);
+                            setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
                             setActiveTab('booking');
                           }}
                           className="self-end text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1"
@@ -307,11 +329,11 @@ export default function App() {
                 </li>
                 <li className="space-y-1">
                   <span className="font-semibold text-stone-200 block">• Convenience Charges:</span>
-                  <span>Convenience allowance is calculated transparently based on cab travel distance from our Okhla/Jamia Nagar base.</span>
+                  <span>Calculated based on cab travel distance from our Okhla/Jamia Nagar base.</span>
                 </li>
                 <li className="space-y-1">
                   <span className="font-semibold text-stone-200 block">• Customization:</span>
-                  <span>Hair styling, custom draping, and lashes are included / available upon request.</span>
+                  <span>Hairstyling, custom draping, and lashes are included / available upon request.</span>
                 </li>
               </ul>
             </div>
@@ -319,58 +341,108 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: BRAND SHOWCASE */}
+        {/* TAB 2: BRAND SHOWCASE (SUBSECTIONS FOR INTERNATIONAL & DRUGSTORE) */}
         {activeTab === 'brands' && (
-          <div className="space-y-8">
+          <div className="space-y-10">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-widest">
-                Our Certified Vanity
+                Vanity & Products
               </span>
               <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-100">
-                100% Authentic Branded Products
+                100% Authentic Product Collections
               </h2>
               <p className="text-stone-400 text-sm">
-                No replicas or local substitutes. We use world-renowned international brands for skin safety and unmatched camera results.
+                Explore our two specialized product categories curated for skin safety, long wear, and high definition.
               </p>
             </div>
 
-            {/* Brand Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {STUDIO_CONFIG.vanityBrands.map((brand, idx) => (
-                <div key={idx} className="bg-neutral-900/90 rounded-2xl p-5 border border-amber-500/20 hover:border-amber-500/50 transition-all flex flex-col justify-between space-y-3">
-                  <div>
-                    <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider bg-amber-400/10 px-2 py-0.5 rounded">
-                      {brand.category}
-                    </span>
-                    <h3 className="font-serif font-bold text-lg text-stone-100 mt-2">{brand.name}</h3>
-                    <p className="text-xs text-stone-400 mt-1 leading-relaxed">{brand.desc}</p>
-                  </div>
-                  <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-semibold pt-2 border-t border-neutral-800">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>100% Authentic & Original</span>
-                  </div>
+            {/* SUBSECTION 1: INTERNATIONAL LUXURY BRANDS */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-amber-500/40">
+                <div className="flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-amber-400" />
+                  <h3 className="font-serif font-bold text-xl text-amber-300">Subsection A: International Luxury Brands</h3>
                 </div>
-              ))}
+                <span className="text-xs bg-amber-400/10 text-amber-300 px-3 py-1 rounded-full border border-amber-400/20 font-mono">
+                  Bridal Package: ₹25,000
+                </span>
+              </div>
+              <p className="text-xs text-stone-400">
+                Prestige global luxury cosmetics designed for grand weddings, zero flashback under 4K cameras, and 16+ hour water-resistant wear.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                {STUDIO_CONFIG.internationalBrands.map((brand, idx) => (
+                  <div key={idx} className="bg-neutral-900/90 rounded-2xl p-5 border border-amber-500/30 hover:border-amber-400 transition-all flex flex-col justify-between space-y-3">
+                    <div>
+                      <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider bg-amber-400/10 px-2 py-0.5 rounded">
+                        {brand.category}
+                      </span>
+                      <h4 className="font-serif font-bold text-base text-stone-100 mt-2">{brand.name}</h4>
+                      <p className="text-xs text-stone-400 mt-1 leading-relaxed">{brand.desc}</p>
+                    </div>
+                    <div className="flex items-center gap-1 text-[11px] text-amber-300 font-semibold pt-2 border-t border-neutral-800">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>International Luxury Original</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Skin Guarantee Bar */}
+            {/* SUBSECTION 2: PREMIUM DRUGSTORE & HIGH-PERFORMANCE ESSENTIALS */}
+            <div className="space-y-4 pt-6">
+              <div className="flex items-center justify-between pb-2 border-b border-neutral-700">
+                <div className="flex items-center gap-2">
+                  <PackageCheck className="w-5 h-5 text-rose-400" />
+                  <h3 className="font-serif font-bold text-xl text-rose-300">Subsection B: Premium Drugstore & Professional Essentials</h3>
+                </div>
+                <span className="text-xs bg-neutral-800 text-stone-300 px-3 py-1 rounded-full border border-neutral-700 font-mono">
+                  Bridal Package: ₹15,000
+                </span>
+              </div>
+              <p className="text-xs text-stone-400">
+                Dermatologically certified, high-pigment professional cosmetics that offer great camera coverage, durability, and smooth velvet matte finish.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                {STUDIO_CONFIG.drugstoreBrands.map((brand, idx) => (
+                  <div key={idx} className="bg-neutral-900/60 rounded-2xl p-5 border border-neutral-800 hover:border-neutral-700 transition-all flex flex-col justify-between space-y-3">
+                    <div>
+                      <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider bg-neutral-800 px-2 py-0.5 rounded">
+                        {brand.category}
+                      </span>
+                      <h4 className="font-serif font-bold text-base text-stone-100 mt-2">{brand.name}</h4>
+                      <p className="text-xs text-stone-400 mt-1 leading-relaxed">{brand.desc}</p>
+                    </div>
+                    <div className="flex items-center gap-1 text-[11px] text-stone-400 font-semibold pt-2 border-t border-neutral-800">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>100% Authentic Standard</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Safety Bar */}
             <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div className="space-y-1">
                 <span className="text-xl">🧴</span>
-                <h5 className="font-serif font-bold text-xs text-stone-200">Sanitized Brushes & Sponges</h5>
-                <p className="text-[11px] text-stone-500">Deep-cleaned and sanitized with professional brush cleanser before every single makeup session.</p>
+                <h5 className="font-serif font-bold text-xs text-stone-200">Sanitized Vanity</h5>
+                <p className="text-[11px] text-stone-500">Every brush and sponge is deep-cleaned and sanitized with professional brush cleanser before every session.</p>
               </div>
               <div className="space-y-1">
                 <span className="text-xl">✨</span>
                 <h5 className="font-serif font-bold text-xs text-stone-200">Zero Flashback Formula</h5>
-                <p className="text-[11px] text-stone-500">Fine-milled powders (Laura Mercier & Coty Airspun) that photograph seamlessly under heavy 4K wedding lighting.</p>
+                <p className="text-[11px] text-stone-500">Fine-milled powders (Laura Mercier & Coty Airspun) photograph seamlessly under high-intensity wedding lights.</p>
               </div>
               <div className="space-y-1">
                 <span className="text-xl">💎</span>
-                <h5 className="font-serif font-bold text-xs text-stone-200">Sensitive-Skin Friendly</h5>
-                <p className="text-[11px] text-stone-500">Tested to suit Indian skin tones, preventing breakout risks, oxidization, and patchiness.</p>
+                <h5 className="font-serif font-bold text-xs text-stone-200">No Replicas Policy</h5>
+                <p className="text-[11px] text-stone-500">All products are guaranteed original, purchased directly from authorized brand stores.</p>
               </div>
             </div>
+
           </div>
         )}
 
@@ -379,22 +451,54 @@ export default function App() {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-widest">
-                Transparent Estimation
+                Interactive Estimate
               </span>
               <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-100">
                 Package & Distance Cost Calculator
               </h2>
               <p className="text-stone-400 text-sm">
-                Calculates travel convenience based on cab distance from our base in <strong className="text-amber-300">Okhla / Jamia Nagar</strong>.
+                Select your product kit, service package, and venue zone to calculate your exact estimated investment.
               </p>
             </div>
 
             <div className="bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-800 grid grid-cols-1 md:grid-cols-12 gap-8">
               <div className="md:col-span-7 space-y-6">
                 
+                {/* Kit Selection */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2">
-                    1. Select Makeup Package
+                    1. Select Product Vanity Kit
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setCalcKit('international')}
+                      className={`p-3 rounded-xl text-xs font-semibold border text-left transition ${
+                        calcKit === 'international'
+                          ? 'bg-amber-500/20 border-amber-400 text-amber-300'
+                          : 'bg-neutral-950 border-neutral-800 text-stone-400'
+                      }`}
+                    >
+                      👑 International Luxury (Bridal ₹25,000)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCalcKit('drugstore')}
+                      className={`p-3 rounded-xl text-xs font-semibold border text-left transition ${
+                        calcKit === 'drugstore'
+                          ? 'bg-neutral-800 border-amber-400 text-amber-300'
+                          : 'bg-neutral-950 border-neutral-800 text-stone-400'
+                      }`}
+                    >
+                      ✨ Premium Drugstore (Bridal ₹15,000)
+                    </button>
+                  </div>
+                </div>
+
+                {/* Package Selection */}
+                <div>
+                  <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2">
+                    2. Select Makeup Package
                   </label>
                   <select
                     value={calcPackage}
@@ -402,21 +506,22 @@ export default function App() {
                     className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-amber-300 font-semibold focus:outline-none focus:border-amber-500"
                   >
                     <optgroup label="Party Makeup Packages">
-                      <option value="simple_party">1. Simple Party Makeup (₹1,500)</option>
-                      <option value="hd_party">2. HD Party Makeup (₹2,500)</option>
-                      <option value="super_hd_party">3. Super HD Party Makeup (₹4,000)</option>
-                      <option value="cocktail_glam">4. Cocktail Glam Look (₹7,000)</option>
+                      <option value="simple_party">1. Simple Party Makeup (₹{STUDIO_CONFIG.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
+                      <option value="hd_party">2. HD Party Makeup (₹{STUDIO_CONFIG.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
+                      <option value="super_hd_party">3. Super HD Party Makeup (₹{STUDIO_CONFIG.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
+                      <option value="cocktail_glam">4. Cocktail Glam Look (₹{STUDIO_CONFIG.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
                     </optgroup>
                     <optgroup label="Signature & Bridal Packages">
-                      <option value="engagement_bride">5. Engagement Bride (₹8,000)</option>
-                      <option value="royal_bridal">6. The Royal Bridal Package (₹15,000)</option>
+                      <option value="engagement_bride">5. Engagement Bride (₹{STUDIO_CONFIG.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
+                      <option value="royal_bridal">6. The Royal Bridal Package (₹{STUDIO_CONFIG.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
                     </optgroup>
                   </select>
                 </div>
 
+                {/* Zone Selection */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2 flex items-center justify-between">
-                    <span>2. Venue Location / Zone</span>
+                    <span>3. Venue Location / Zone</span>
                     <span className="text-[10px] text-amber-400 font-mono flex items-center gap-1">
                       <Car className="w-3 h-3" /> Cab Rate from Jamia Nagar
                     </span>
@@ -434,10 +539,11 @@ export default function App() {
                   </select>
                 </div>
 
+                {/* Extra Party Makeup Count */}
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <label className="text-xs font-semibold text-stone-300 uppercase tracking-wider">
-                      3. Additional Family Party Makeups
+                      4. Additional Family Party Makeups
                     </label>
                     <span className="text-amber-400 text-xs font-bold font-mono">{extraPartyCount} Person(s)</span>
                   </div>
@@ -450,12 +556,13 @@ export default function App() {
                     className="w-full accent-amber-500 bg-neutral-800 h-2 rounded-lg cursor-pointer"
                   />
                   <span className="text-[10px] text-stone-500 block mt-1">
-                    {calcPackage === 'royal_bridal' ? '*(Note: Royal Bridal package includes 1 FREE family makeup already)' : '*Standard HD party makeup @ ₹2,500/person'}
+                    {calcPackage === 'royal_bridal' ? '*(Note: Royal Bridal package includes 1 FREE family makeup already)' : `*Party rate: ₹${calcKit === 'international' ? '3,500' : '2,500'}/person`}
                   </span>
                 </div>
 
               </div>
 
+              {/* Estimate Output Box */}
               <div className="md:col-span-5 bg-neutral-950 rounded-2xl p-6 border border-amber-500/30 flex flex-col justify-between space-y-6">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">
@@ -466,14 +573,14 @@ export default function App() {
                     <span>{calculateEstimate().toLocaleString('en-IN')}</span>
                   </div>
                   <p className="text-[11px] text-stone-400 mt-2">
-                    Package: <span className="text-amber-300 font-semibold">{STUDIO_CONFIG.packages[calcPackage]?.name}</span>
+                    Kit: <span className="text-amber-300 font-semibold">{STUDIO_CONFIG.pricingByKit[calcKit].name}</span>
                   </p>
                 </div>
 
                 <div className="space-y-2 text-xs border-t border-b border-neutral-800 py-4">
                   <div className="flex justify-between text-stone-400">
                     <span>Base Package:</span>
-                    <span className="text-stone-200">₹{STUDIO_CONFIG.packages[calcPackage]?.price.toLocaleString('en-IN')}</span>
+                    <span className="text-stone-200">₹{STUDIO_CONFIG.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span>
                   </div>
                   <div className="flex justify-between text-stone-400">
                     <span>Convenience (Cab):</span>
@@ -481,7 +588,7 @@ export default function App() {
                   </div>
                   <div className="flex justify-between text-stone-400">
                     <span>Extra Guests ({extraPartyCount}):</span>
-                    <span className="text-stone-200">₹{(extraPartyCount * 2500).toLocaleString('en-IN')}</span>
+                    <span className="text-stone-200">₹{(extraPartyCount * (calcKit === 'international' ? 3500 : 2500)).toLocaleString('en-IN')}</span>
                   </div>
                 </div>
 
@@ -490,14 +597,15 @@ export default function App() {
                     setBooking(prev => ({
                       ...prev,
                       packageKey: calcPackage,
+                      kitType: calcKit,
                       zoneKey: calcZone,
-                      notes: `Estimated Cost: ₹${calculateEstimate().toLocaleString('en-IN')} (Includes ${extraPartyCount} extra guest makeups, Convenience Zone: ${STUDIO_CONFIG.convenienceZones[calcZone]?.name})`
+                      notes: `Estimated Cost: ₹${calculateEstimate().toLocaleString('en-IN')} (Kit: ${STUDIO_CONFIG.pricingByKit[calcKit].name}, ${extraPartyCount} extra guests)`
                     }));
                     setActiveTab('booking');
                   }}
                   className="w-full py-3 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow-lg shadow-amber-500/10 hover:opacity-95 transition flex items-center justify-center gap-2"
                 >
-                  <span>Book This Look</span>
+                  <span>Book This Package</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -505,7 +613,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: DIRECT BOOKING PORTAL */}
+        {/* TAB 4: DIRECT BOOKING PORTAL (WITH KIT SELECTOR) */}
         {activeTab === 'booking' && (
           <div className="max-w-2xl mx-auto space-y-8">
             <div className="text-center space-y-3">
@@ -516,12 +624,14 @@ export default function App() {
                 Reserve Your Date with Husna
               </h2>
               <p className="text-stone-400 text-sm">
-                Lock in your date. Send your details directly to our WhatsApp booking desk.
+                Select your product vanity kit and service to send an instant booking request to WhatsApp.
               </p>
             </div>
 
             <div className="bg-neutral-900 rounded-3xl p-6 sm:p-8 border border-neutral-800 space-y-6">
               <form onSubmit={handleBookingSubmit} className="space-y-4">
+                
+                {/* Full Name */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
                     Your Full Name *
@@ -536,6 +646,7 @@ export default function App() {
                   />
                 </div>
 
+                {/* Phone & Date */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
@@ -565,6 +676,22 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Product Kit Selector in Booking */}
+                <div>
+                  <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
+                    Select Product Vanity Kit *
+                  </label>
+                  <select
+                    value={booking.kitType}
+                    onChange={(e) => setBooking({ ...booking, kitType: e.target.value })}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-amber-300 font-semibold focus:outline-none focus:border-amber-500"
+                  >
+                    <option value="international">👑 100% International Luxury Kit (NARS, Charlotte Tilbury, Too Faced - Bridal ₹25,000)</option>
+                    <option value="drugstore">✨ Premium Drugstore & Professional Kit (PAC, Coty Airspun, Maybelline - Bridal ₹15,000)</option>
+                  </select>
+                </div>
+
+                {/* Package & Zone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
@@ -575,12 +702,12 @@ export default function App() {
                       onChange={(e) => setBooking({ ...booking, packageKey: e.target.value })}
                       className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-stone-100 focus:outline-none focus:border-amber-500"
                     >
-                      <option value="royal_bridal">6. The Royal Bridal Package (₹15,000)</option>
-                      <option value="engagement_bride">5. Engagement Bride (₹8,000)</option>
-                      <option value="cocktail_glam">4. Cocktail Glam Look (₹7,000)</option>
-                      <option value="super_hd_party">3. Super HD Party Makeup (₹4,000)</option>
-                      <option value="hd_party">2. HD Party Makeup (₹2,500)</option>
-                      <option value="simple_party">1. Simple Party Makeup (₹1,500)</option>
+                      <option value="royal_bridal">6. The Royal Bridal Package (₹{STUDIO_CONFIG.pricingByKit[booking.kitType].royal_bridal.toLocaleString('en-IN')})</option>
+                      <option value="engagement_bride">5. Engagement Bride (₹{STUDIO_CONFIG.pricingByKit[booking.kitType].engagement_bride.toLocaleString('en-IN')})</option>
+                      <option value="cocktail_glam">4. Cocktail Glam Look (₹{STUDIO_CONFIG.pricingByKit[booking.kitType].cocktail_glam.toLocaleString('en-IN')})</option>
+                      <option value="super_hd_party">3. Super HD Party Makeup (₹{STUDIO_CONFIG.pricingByKit[booking.kitType].super_hd_party.toLocaleString('en-IN')})</option>
+                      <option value="hd_party">2. HD Party Makeup (₹{STUDIO_CONFIG.pricingByKit[booking.kitType].hd_party.toLocaleString('en-IN')})</option>
+                      <option value="simple_party">1. Simple Party Makeup (₹{STUDIO_CONFIG.pricingByKit[booking.kitType].simple_party.toLocaleString('en-IN')})</option>
                     </select>
                   </div>
 
@@ -602,6 +729,7 @@ export default function App() {
                   </div>
                 </div>
 
+                {/* Venue Address */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
                     Exact Venue Address / Landmark
@@ -615,6 +743,7 @@ export default function App() {
                   />
                 </div>
 
+                {/* Notes */}
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
                     Additional Details / Inquiries
@@ -669,4 +798,3 @@ export default function App() {
     </div>
   );
 }
-
