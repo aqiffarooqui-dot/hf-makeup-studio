@@ -18,7 +18,7 @@ import {
   Sparkle
 } from 'lucide-react';
 
-// Custom Brand Icons (No external package dependency issues)
+// Custom Brand Icons
 const InstagramIcon = ({ className = "w-4 h-4" }) => (
   <svg 
     className={className} 
@@ -52,8 +52,8 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
 export default function App() {
   const [activeTab, setActiveTab] = useState('services');
 
-  // Business Details (Apna WhatsApp number yahan set karein - with 91)
-  const BUSINESS_PHONE = "919876543210"; 
+  // Business Details
+  const BUSINESS_PHONE = "919997210876"; 
   const IG_USERNAME = "husna_farooqui_makeup";
 
   // Price Calculator State
@@ -482,7 +482,7 @@ export default function App() {
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 99972 10876"
                       value={booking.phone}
                       onChange={(e) => setBooking({ ...booking, phone: e.target.value })}
                       className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-stone-100 focus:outline-none focus:border-amber-500"
@@ -556,7 +556,7 @@ export default function App() {
                   className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2"
                 >
                   <WhatsAppIcon className="w-5 h-5" />
-                  <span>Send Request on WhatsApp</span>
+                  <span>Send Request on WhatsApp (+91 99972 10876)</span>
                 </button>
               </form>
 
@@ -587,7 +587,7 @@ export default function App() {
             <span className="font-serif font-bold text-stone-200">Husna Farooqui Makeup</span>
             <span>• Delhi & Amroha</span>
           </div>
-          <p>Bookings & Inquiries: WhatsApp & @{IG_USERNAME}</p>
+          <p>Bookings & Inquiries: +91 99972 10876 & @{IG_USERNAME}</p>
         </div>
       </footer>
     </div>
