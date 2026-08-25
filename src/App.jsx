@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon
+  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight, Percent
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { getLiveConfig, saveLiveConfig } from './firebase';
@@ -37,7 +37,7 @@ export default function App() {
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
   const [adminDraft, setAdminDraft] = useState(STUDIO_CONFIG);
-  const [adminActiveSection, setAdminActiveSection] = useState('prices');
+  const [adminActiveSection, setAdminActiveSection] = useState('toggles');
   const [isSaving, setIsSaving] = useState(false);
 
   const logoClickRef = useRef({ count: 0, lastTime: 0 });
@@ -52,9 +52,8 @@ export default function App() {
   const [couponInput, setCouponInput] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponError, setCouponError] = useState('');
-  const [usedCoupons, setUsedCoupons] = useState([]);
+  const [usageTracker, setUsageTracker] = useState({});
 
-  // Theme preference loading
   useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
     if (savedTheme) {
@@ -97,7 +96,7 @@ export default function App() {
     logoClickRef.current.lastTime = now;
   };
 
-  // Fetch live config from Firebase / Local Storage
+  // Fetch live config
   useEffect(() => {
     async function initConfig() {
       const live = await getLiveConfig(STUDIO_CONFIG);
@@ -117,17 +116,16 @@ export default function App() {
     }
   }, [config.announcements]);
 
-  // Load redeemed coupons
+  // Load coupon redemption counts from storage
   useEffect(() => {
     try {
-      const redeemed = JSON.parse(localStorage.getItem('hf_redeemed_coupons_v1') || '[]');
-      setUsedCoupons(redeemed);
+      const tracker = JSON.parse(localStorage.getItem('hf_coupon_usage_tracker_v2') || '{}');
+      setUsageTracker(tracker);
     } catch {
-      setUsedCoupons([]);
+      setUsageTracker({});
     }
   }, []);
 
-  // Form State
   const [booking, setBooking] = useState({
     name: '',
     phone: '',
@@ -147,6 +145,23 @@ export default function App() {
     return config.pricingByKit[kitType][packageKey];
   };
 
+  // Helper: calculate extra guest price based on package and discount percentage
+  const getGuestRateDetails = (kit, pkgKey) => {
+    const selectedPkgPrice = config.pricingByKit[kit][pkgKey] || 5000;
+    const basePartyRate = config.pricingByKit[kit].guestBaseRate || (kit === 'international' ? 4000 : 2500);
+    // Dynamic rate tied to package
+    const effectiveBaseGuestRate = Math.min(basePartyRate, Math.round(selectedPkgPrice * 0.4));
+    const discountPercent = config.guestPricingRules?.discountPercent || 0;
+    const discountedRate = Math.round(effectiveBaseGuestRate * (1 - discountPercent / 100));
+
+    return {
+      originalRate: effectiveBaseGuestRate,
+      discountedRate,
+      discountPercent
+    };
+  };
+
+  // Coupon Verification with Multi-Usage Rules
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
@@ -156,15 +171,21 @@ export default function App() {
       setCouponError('Please enter a coupon code.');
       return;
     }
-    if (usedCoupons.includes(code)) {
-      setCouponError('⚠️ This coupon has already been redeemed on this device.');
-      return;
-    }
+
     const couponData = config.validCoupons[code];
     if (!couponData) {
       setCouponError('❌ Invalid coupon code.');
       return;
     }
+
+    const maxUses = couponData.maxUses ?? 1;
+    const currentUses = usageTracker[code] || 0;
+
+    if (maxUses !== 'unlimited' && currentUses >= Number(maxUses)) {
+      setCouponError('This coupon has already been redeemed');
+      return;
+    }
+
     setAppliedCoupon({ code, ...couponData });
     setCouponInput(code);
     setCouponError('');
@@ -177,11 +198,12 @@ export default function App() {
   };
 
   const calculateGross = (kit, pkgKey, zoneKey, partyCount) => {
-    let base = config.pricingByKit[kit][pkgKey];
-    let zone = config.convenienceZones[zoneKey];
-    let convenienceFee = zone ? zone.fee : 350;
-    let extraGuestRate = config.pricingByKit[kit].extraGuestRate || (kit === 'international' ? 3500 : 2500);
-    return base + convenienceFee + (partyCount * extraGuestRate);
+    const base = config.pricingByKit[kit][pkgKey];
+    const zone = config.convenienceZones[zoneKey];
+    const convenienceFee = zone ? zone.fee : 350;
+    const { discountedRate } = getGuestRateDetails(kit, pkgKey);
+    const extraPartyCost = partyCount * discountedRate;
+    return base + convenienceFee + extraPartyCost;
   };
 
   const getDiscountAmount = (gross) => {
@@ -206,10 +228,13 @@ export default function App() {
     const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
 
     if (appliedCoupon) {
-      const updated = [...usedCoupons, appliedCoupon.code];
-      setUsedCoupons(updated);
+      const updatedTracker = {
+        ...usageTracker,
+        [appliedCoupon.code]: (usageTracker[appliedCoupon.code] || 0) + 1
+      };
+      setUsageTracker(updatedTracker);
       try {
-        localStorage.setItem('hf_redeemed_coupons_v1', JSON.stringify(updated));
+        localStorage.setItem('hf_coupon_usage_tracker_v2', JSON.stringify(updatedTracker));
       } catch (err) {
         console.error(err);
       }
@@ -249,13 +274,11 @@ export default function App() {
       await saveLiveConfig(adminDraft);
       setConfig(adminDraft);
       setShowAdminModal(false);
-      alert('🎉 All settings, rates, and offers published live successfully!');
+      alert('🎉 All settings, toggles, rates, and coupon rules saved live!');
     } catch (err) {
-      console.warn("Remote save notice:", err);
-      // Fallback local save is already handled in saveLiveConfig
       setConfig(adminDraft);
       setShowAdminModal(false);
-      alert('✅ Changes saved locally and applied live to your app!');
+      alert('✅ Changes saved locally and applied live!');
     } finally {
       setIsSaving(false);
     }
@@ -274,19 +297,20 @@ export default function App() {
   return (
     <div className={`min-h-screen ${bgClass} font-sans selection:bg-amber-500 selection:text-black transition-colors duration-300 relative`}>
       
-      {/* 📢 Top Announcement Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-amber-700/90 to-rose-950 border-b border-amber-500/30 text-amber-200 py-2.5 px-4 text-xs sm:text-sm text-center font-medium tracking-wide flex items-center justify-center gap-2 shadow-inner">
-        <Volume2 className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
-        <span className="transition-all duration-500 transform inline-block">
-          {config.announcements[announcementIdx] || config.announcements[0]}
-        </span>
-      </div>
+      {/* 📢 Top Announcement Banner (Conditionally Rendered) */}
+      {config.showOfferSection !== false && (
+        <div className="bg-gradient-to-r from-amber-950 via-amber-700/90 to-rose-950 border-b border-amber-500/30 text-amber-200 py-2.5 px-4 text-xs sm:text-sm text-center font-medium tracking-wide flex items-center justify-center gap-2 shadow-inner">
+          <Volume2 className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+          <span className="transition-all duration-500 transform inline-block">
+            {config.announcements[announcementIdx] || config.announcements[0]}
+          </span>
+        </div>
+      )}
 
       {/* Header */}
       <header className={`sticky top-0 z-40 backdrop-blur-md ${headerBgClass} border-b transition-colors duration-300`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           
-          {/* Brand Logo (Secret Triple Click for Admin) */}
           <div 
             onClick={handleSecretLogoClick}
             className="flex items-center space-x-3 cursor-pointer select-none group"
@@ -331,7 +355,6 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-2.5">
-            {/* ☀️ / 🌙 Day & Night Mode Toggle */}
             <button
               onClick={toggleTheme}
               title={isDarkMode ? "Switch to Light Mode" : "Switch to Night Mode"}
@@ -344,7 +367,6 @@ export default function App() {
               {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
             </button>
 
-            {/* Instagram Profile Direct Link */}
             <a
               href={instagramProfileUrl}
               target="_blank"
@@ -401,7 +423,6 @@ export default function App() {
                 Choose your preferred product vanity kit to view customized package pricing.
               </p>
 
-              {/* Product Kit Toggle */}
               <div className={`inline-flex flex-col sm:flex-row p-1.5 rounded-2xl border mt-3 gap-1.5 ${isDarkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-stone-100 border-stone-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
@@ -522,7 +543,6 @@ export default function App() {
                 100% Authentic Products
               </h2>
             </div>
-            {/* International Brands */}
             <div className="space-y-4">
               <h3 className="font-serif font-bold text-xl text-amber-500">Subsection A: International Luxury Brands</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -535,7 +555,6 @@ export default function App() {
                 ))}
               </div>
             </div>
-            {/* Drugstore Brands */}
             <div className="space-y-4 pt-4">
               <h3 className="font-serif font-bold text-xl text-rose-500">Subsection B: Premium Drugstore & Professional</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -587,13 +606,28 @@ export default function App() {
 
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-semibold uppercase tracking-wider">4. Extra Guests</label>
+                    <label className="text-xs font-semibold uppercase tracking-wider">4. Additional Family Party Makeups</label>
                     <span className="text-amber-500 text-xs font-bold font-mono">{extraPartyCount} Person(s)</span>
                   </div>
                   <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-amber-500 h-2 rounded-lg cursor-pointer" />
-                  <span className={`text-[10px] block mt-1 ${mutedTextClass}`}>
-                    *Extra guest rate: ₹{(config.pricingByKit[calcKit].extraGuestRate || 2500).toLocaleString('en-IN')}/person
-                  </span>
+                  
+                  {/* Dynamic Rate & Discount calculation display */}
+                  {(() => {
+                    const { originalRate, discountedRate, discountPercent } = getGuestRateDetails(calcKit, calcPackage);
+                    return (
+                      <div className="flex items-center justify-between text-[11px] mt-1.5">
+                        <span className={mutedTextClass}>
+                          Rate per person: <strong className="text-amber-500 font-mono">₹{discountedRate.toLocaleString('en-IN')}</strong>
+                          {discountPercent > 0 && <span className="line-through text-stone-500 ml-1.5 font-mono">₹{originalRate.toLocaleString('en-IN')}</span>}
+                        </span>
+                        {discountPercent > 0 && (
+                          <span className="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">
+                            {discountPercent}% Guest Discount Applied
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Coupon Code Section */}
@@ -625,7 +659,10 @@ export default function App() {
                 <div className="space-y-2 text-xs border-t border-b border-stone-200/20 py-3">
                   <div className={`flex justify-between ${mutedTextClass}`}><span>Base:</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
                   <div className={`flex justify-between ${mutedTextClass}`}><span>Cab Fee:</span><span className="text-amber-500 font-medium">₹{config.convenienceZones[calcZone]?.fee}</span></div>
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Guests ({extraPartyCount}):</span><span>₹{(extraPartyCount * (config.pricingByKit[calcKit].extraGuestRate || 2500)).toLocaleString('en-IN')}</span></div>
+                  <div className={`flex justify-between ${mutedTextClass}`}>
+                    <span>Extra Guests ({extraPartyCount}):</span>
+                    <span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedRate).toLocaleString('en-IN')}</span>
+                  </div>
                   {appliedCoupon && <div className="flex justify-between text-emerald-500 font-semibold"><span>Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>}
                 </div>
                 <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className="w-full py-3 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow">Book This Package</button>
@@ -695,7 +732,6 @@ export default function App() {
                 </button>
               </form>
 
-              {/* Direct Instagram DM Link */}
               <div className="pt-4 mt-6 border-t border-stone-200/20 text-center space-y-2">
                 <p className={`text-xs ${mutedTextClass}`}>Prefer chatting directly on Instagram?</p>
                 <a
@@ -714,7 +750,7 @@ export default function App() {
 
       </main>
 
-      {/* 🔒 HIDDEN ADMIN CONTROL PANEL MODAL */}
+      {/* 🔒 HIDDEN MASTER ADMIN CONTROL PANEL */}
       {showAdminModal && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
           <div className={`border rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto space-y-6 ${isDarkMode ? 'bg-neutral-900 border-amber-500/50 text-stone-100' : 'bg-white border-amber-400 text-stone-900 shadow-2xl'}`}>
@@ -730,7 +766,7 @@ export default function App() {
               <form onSubmit={handleVerifyPin} className="space-y-4 py-8 text-center">
                 <Lock className="w-10 h-10 text-amber-500 mx-auto animate-bounce" />
                 <h4 className="font-serif font-bold text-base">Enter Admin Security PIN</h4>
-                <p className={`text-xs ${mutedTextClass}`}>Enter your 4-digit code to access and update all prices, offers, and settings.</p>
+                <p className={`text-xs ${mutedTextClass}`}>Enter your 4-digit code to access and update all prices, toggles, and limits.</p>
                 <input
                   type="password"
                   maxLength={6}
@@ -748,11 +784,11 @@ export default function App() {
                 {/* Admin Sub-navigation */}
                 <div className="flex overflow-x-auto gap-2 border-b border-stone-200/20 pb-2.5">
                   {[
-                    { id: 'prices', label: '💄 All Package Prices' },
+                    { id: 'toggles', label: '🎛️ Section Toggles & Notification' },
+                    { id: 'prices', label: '💄 Package & Guest Prices' },
+                    { id: 'coupons', label: '🏷️ Coupons & Limits' },
                     { id: 'announcements', label: '📢 Top Announcements' },
-                    { id: 'coupons', label: '🏷️ Discount Coupons' },
-                    { id: 'convenience', label: '🚗 Cab & Travel Fees' },
-                    { id: 'general', label: '⚙️ General & Floating Banner' }
+                    { id: 'convenience', label: '🚗 Cab & Travel Fees' }
                   ].map(sec => (
                     <button
                       key={sec.id}
@@ -769,10 +805,120 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* 1. PRICES & EXTRA GUEST CHARGES */}
+                {/* 1. TOGGLES & FLOATING NOTIFICATION */}
+                {adminActiveSection === 'toggles' && (
+                  <div className="space-y-4">
+                    <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
+                      <h4 className="font-bold uppercase text-amber-500">🎛️ Display Toggles</h4>
+                      
+                      <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
+                        <div>
+                          <span className="font-bold block text-sm">Top Announcement Bar</span>
+                          <span className={mutedTextClass}>Show or hide the rolling top offer line</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setAdminDraft({ ...adminDraft, showOfferSection: !adminDraft.showOfferSection })}
+                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.showOfferSection ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
+                        >
+                          {adminDraft.showOfferSection ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+                          <span>{adminDraft.showOfferSection ? 'ENABLED' : 'DISABLED'}</span>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-between py-2">
+                        <div>
+                          <span className="font-bold block text-sm">Bottom-Right Floating Promo Notification</span>
+                          <span className={mutedTextClass}>Show or hide the pop-up offer box</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setAdminDraft({
+                            ...adminDraft,
+                            floatingBanner: { ...adminDraft.floatingBanner, enabled: !adminDraft.floatingBanner.enabled }
+                          })}
+                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.floatingBanner?.enabled ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
+                        >
+                          {adminDraft.floatingBanner?.enabled ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+                          <span>{adminDraft.floatingBanner?.enabled ? 'ENABLED' : 'DISABLED'}</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Floating notification details */}
+                    <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
+                      <h4 className="font-bold uppercase text-amber-500">🎈 Floating Notification Settings</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                          <label className="block text-[11px] mb-1">Title</label>
+                          <input
+                            type="text"
+                            value={adminDraft.floatingBanner?.title || ''}
+                            onChange={(e) => setAdminDraft({
+                              ...adminDraft,
+                              floatingBanner: { ...adminDraft.floatingBanner, title: e.target.value }
+                            })}
+                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] mb-1">Coupon Code</label>
+                          <input
+                            type="text"
+                            value={adminDraft.floatingBanner?.code || ''}
+                            onChange={(e) => setAdminDraft({
+                              ...adminDraft,
+                              floatingBanner: { ...adminDraft.floatingBanner, code: e.target.value.toUpperCase() }
+                            })}
+                            className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] mb-1">Button Action Text</label>
+                          <input
+                            type="text"
+                            value={adminDraft.floatingBanner?.actionText || 'Apply'}
+                            onChange={(e) => setAdminDraft({
+                              ...adminDraft,
+                              floatingBanner: { ...adminDraft.floatingBanner, actionText: e.target.value }
+                            })}
+                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* 2. PRICES & GUEST DISCOUNT PERCENTAGE */}
                 {adminActiveSection === 'prices' && (
                   <div className="space-y-6">
-                    {/* International Luxury Tier */}
+                    
+                    {/* Guest Discount Rate Setting */}
+                    <div className={`p-4 rounded-2xl border space-y-2 ${isDarkMode ? 'bg-amber-950/20 border-amber-500/50' : 'bg-amber-50 border-amber-300'}`}>
+                      <h4 className="font-bold text-amber-500 uppercase tracking-wider text-xs flex items-center gap-1.5">
+                        <Percent className="w-4 h-4" /> Additional Guest Discount Rule
+                      </h4>
+                      <div className="flex items-center gap-3">
+                        <label className="text-xs">Set Discount on Extra Guest Makeup Booking:</label>
+                        <div className="flex items-center gap-1">
+                          <input
+                            type="number"
+                            min="0"
+                            max="90"
+                            value={adminDraft.guestPricingRules?.discountPercent ?? 15}
+                            onChange={(e) => setAdminDraft({
+                              ...adminDraft,
+                              guestPricingRules: { ...adminDraft.guestPricingRules, discountPercent: Number(e.target.value) }
+                            })}
+                            className={`w-20 p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
+                          />
+                          <span className="font-bold text-amber-500">% OFF</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* International Tier */}
                     <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-neutral-950 border-amber-500/30' : 'bg-stone-50 border-amber-300'}`}>
                       <h4 className="font-bold text-amber-500 uppercase tracking-wider text-xs">👑 International Luxury Vanity Tier (₹)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -794,15 +940,15 @@ export default function App() {
                           </div>
                         ))}
                         <div>
-                          <label className="block text-[11px] mb-1 font-bold text-rose-500">Extra Guest (Per Person)</label>
+                          <label className="block text-[11px] mb-1 font-bold text-amber-500">Base Guest Rate (Before Discount)</label>
                           <input
                             type="number"
-                            value={adminDraft.pricingByKit.international.extraGuestRate || 3500}
+                            value={adminDraft.pricingByKit.international.guestBaseRate || 4000}
                             onChange={(e) => setAdminDraft({
                               ...adminDraft,
                               pricingByKit: {
                                 ...adminDraft.pricingByKit,
-                                international: { ...adminDraft.pricingByKit.international, extraGuestRate: Number(e.target.value) }
+                                international: { ...adminDraft.pricingByKit.international, guestBaseRate: Number(e.target.value) }
                               }
                             })}
                             className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
@@ -811,9 +957,9 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Premium Drugstore Tier */}
+                    {/* Drugstore Tier */}
                     <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-neutral-950 border-stone-800' : 'bg-stone-50 border-stone-300'}`}>
-                      <h4 className="font-bold text-rose-500 uppercase tracking-wider text-xs">✨ Premium Drugstore & Professional Tier (₹)</h4>
+                      <h4 className="font-bold text-rose-500 uppercase tracking-wider text-xs">✨ Premium Drugstore Tier (₹)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {partyPackages.concat(bridalPackages).map((pkgKey) => (
                           <div key={pkgKey}>
@@ -833,15 +979,15 @@ export default function App() {
                           </div>
                         ))}
                         <div>
-                          <label className="block text-[11px] mb-1 font-bold text-rose-500">Extra Guest (Per Person)</label>
+                          <label className="block text-[11px] mb-1 font-bold text-rose-500">Base Guest Rate (Before Discount)</label>
                           <input
                             type="number"
-                            value={adminDraft.pricingByKit.drugstore.extraGuestRate || 2500}
+                            value={adminDraft.pricingByKit.drugstore.guestBaseRate || 2500}
                             onChange={(e) => setAdminDraft({
                               ...adminDraft,
                               pricingByKit: {
                                 ...adminDraft.pricingByKit,
-                                drugstore: { ...adminDraft.pricingByKit.drugstore, extraGuestRate: Number(e.target.value) }
+                                drugstore: { ...adminDraft.pricingByKit.drugstore, guestBaseRate: Number(e.target.value) }
                               }
                             })}
                             className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
@@ -852,7 +998,127 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 2. ANNOUNCEMENTS */}
+                {/* 3. COUPONS & LIMITS (1 TO X OR UNLIMITED) */}
+                {adminActiveSection === 'coupons' && (
+                  <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-bold uppercase text-amber-500">🏷️ Discount Coupons & Max Redemption Limits</h4>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newCode = prompt("Enter new Coupon Code (e.g. SPECIAL20):");
+                          if (newCode) {
+                            const cleanCode = newCode.trim().toUpperCase();
+                            setAdminDraft({
+                              ...adminDraft,
+                              validCoupons: {
+                                ...adminDraft.validCoupons,
+                                [cleanCode]: { type: "percent", value: 10, label: "Special Offer", maxUses: 1 }
+                              }
+                            });
+                          }
+                        }}
+                        className="px-2.5 py-1 bg-amber-500 text-neutral-950 font-bold rounded-lg flex items-center gap-1 text-[11px]"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Add Coupon
+                      </button>
+                    </div>
+
+                    <div className="space-y-3 pt-1">
+                      {Object.entries(adminDraft.validCoupons).map(([code, cData]) => (
+                        <div key={code} className={`p-3 rounded-xl border flex flex-col sm:flex-row gap-3 items-center justify-between ${isDarkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-stone-200'}`}>
+                          <div className="w-full sm:w-1/5">
+                            <span className="font-mono font-bold text-amber-500 text-sm">{code}</span>
+                          </div>
+                          
+                          <div className="w-full sm:w-1/4 flex gap-2">
+                            <select
+                              value={cData.type}
+                              onChange={(e) => setAdminDraft({
+                                ...adminDraft,
+                                validCoupons: {
+                                  ...adminDraft.validCoupons,
+                                  [code]: { ...cData, type: e.target.value }
+                                }
+                              })}
+                              className={`p-1.5 rounded-lg border text-xs ${inputBgClass}`}
+                            >
+                              <option value="percent">% Off</option>
+                              <option value="flat">₹ Flat</option>
+                            </select>
+                            <input
+                              type="number"
+                              value={cData.value}
+                              onChange={(e) => setAdminDraft({
+                                ...adminDraft,
+                                validCoupons: {
+                                  ...adminDraft.validCoupons,
+                                  [code]: { ...cData, value: Number(e.target.value) }
+                                }
+                              })}
+                              className={`w-16 p-1.5 rounded-lg border font-mono ${inputBgClass}`}
+                            />
+                          </div>
+
+                          {/* Usage Limit Selector */}
+                          <div className="w-full sm:w-1/4 flex items-center gap-1.5">
+                            <label className="text-[10px] text-stone-400">Limit:</label>
+                            <select
+                              value={cData.maxUses ?? 1}
+                              onChange={(e) => setAdminDraft({
+                                ...adminDraft,
+                                validCoupons: {
+                                  ...adminDraft.validCoupons,
+                                  [code]: { 
+                                    ...cData, 
+                                    maxUses: e.target.value === 'unlimited' ? 'unlimited' : Number(e.target.value) 
+                                  }
+                                }
+                              })}
+                              className={`p-1.5 rounded-lg border text-xs font-bold ${inputBgClass}`}
+                            >
+                              <option value={1}>1 Time Only</option>
+                              <option value={2}>2 Times</option>
+                              <option value={3}>3 Times</option>
+                              <option value={5}>5 Times</option>
+                              <option value={10}>10 Times</option>
+                              <option value="unlimited">♾️ Unlimited</option>
+                            </select>
+                          </div>
+
+                          <div className="w-full sm:w-1/4">
+                            <input
+                              type="text"
+                              value={cData.label}
+                              onChange={(e) => setAdminDraft({
+                                ...adminDraft,
+                                validCoupons: {
+                                  ...adminDraft.validCoupons,
+                                  [code]: { ...cData, label: e.target.value }
+                                }
+                              })}
+                              className={`w-full p-1.5 rounded-lg border text-xs ${inputBgClass}`}
+                            />
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = { ...adminDraft.validCoupons };
+                              delete updated[code];
+                              setAdminDraft({ ...adminDraft, validCoupons: updated });
+                            }}
+                            className="text-rose-500 hover:bg-rose-500/10 p-1.5 rounded-lg"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 4. ANNOUNCEMENTS */}
                 {adminActiveSection === 'announcements' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                     <div className="flex justify-between items-center">
@@ -895,98 +1161,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 3. COUPONS */}
-                {adminActiveSection === 'coupons' && (
-                  <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                    <div className="flex justify-between items-center">
-                      <h4 className="font-bold uppercase text-amber-500">🏷️ Active Discount Promo Codes</h4>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const newCode = prompt("Enter new Coupon Code (e.g. SPECIAL20):");
-                          if (newCode) {
-                            const cleanCode = newCode.trim().toUpperCase();
-                            setAdminDraft({
-                              ...adminDraft,
-                              validCoupons: {
-                                ...adminDraft.validCoupons,
-                                [cleanCode]: { type: "percent", value: 10, label: "Special Discount Offer" }
-                              }
-                            });
-                          }
-                        }}
-                        className="px-2.5 py-1 bg-amber-500 text-neutral-950 font-bold rounded-lg flex items-center gap-1 text-[11px]"
-                      >
-                        <Plus className="w-3.5 h-3.5" /> Add Coupon
-                      </button>
-                    </div>
-
-                    <div className="space-y-3 pt-1">
-                      {Object.entries(adminDraft.validCoupons).map(([code, cData]) => (
-                        <div key={code} className={`p-3 rounded-xl border flex flex-col sm:flex-row gap-3 items-center justify-between ${isDarkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-stone-200'}`}>
-                          <div className="w-full sm:w-1/4">
-                            <span className="font-mono font-bold text-amber-500 text-sm">{code}</span>
-                          </div>
-                          <div className="w-full sm:w-1/4 flex gap-2">
-                            <select
-                              value={cData.type}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                validCoupons: {
-                                  ...adminDraft.validCoupons,
-                                  [code]: { ...cData, type: e.target.value }
-                                }
-                              })}
-                              className={`p-1.5 rounded-lg border text-xs ${inputBgClass}`}
-                            >
-                              <option value="percent">% Percent</option>
-                              <option value="flat">₹ Flat Off</option>
-                            </select>
-                            <input
-                              type="number"
-                              value={cData.value}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                validCoupons: {
-                                  ...adminDraft.validCoupons,
-                                  [code]: { ...cData, value: Number(e.target.value) }
-                                }
-                              })}
-                              className={`w-20 p-1.5 rounded-lg border font-mono ${inputBgClass}`}
-                            />
-                          </div>
-                          <div className="w-full sm:w-1/3">
-                            <input
-                              type="text"
-                              value={cData.label}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                validCoupons: {
-                                  ...adminDraft.validCoupons,
-                                  [code]: { ...cData, label: e.target.value }
-                                }
-                              })}
-                              className={`w-full p-1.5 rounded-lg border text-xs ${inputBgClass}`}
-                            />
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const updated = { ...adminDraft.validCoupons };
-                              delete updated[code];
-                              setAdminDraft({ ...adminDraft, validCoupons: updated });
-                            }}
-                            className="text-rose-500 hover:bg-rose-500/10 p-1.5 rounded-lg"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. CONVENIENCE */}
+                {/* 5. CONVENIENCE */}
                 {adminActiveSection === 'convenience' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                     <h4 className="font-bold uppercase text-amber-500">🚗 Cab & Convenience Rates by Zone</h4>
@@ -1015,77 +1190,6 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 5. GENERAL & FLOATING BANNER */}
-                {adminActiveSection === 'general' && (
-                  <div className="space-y-4">
-                    <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                      <h4 className="font-bold uppercase text-amber-500">⚙️ General Business Details</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-[11px] mb-1">WhatsApp Phone (with 91)</label>
-                          <input
-                            type="text"
-                            value={adminDraft.whatsappNumber}
-                            onChange={(e) => setAdminDraft({ ...adminDraft, whatsappNumber: e.target.value })}
-                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] mb-1">Instagram Username</label>
-                          <input
-                            type="text"
-                            value={adminDraft.instagramHandle}
-                            onChange={(e) => setAdminDraft({ ...adminDraft, instagramHandle: e.target.value })}
-                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                      <h4 className="font-bold uppercase text-amber-500">🎈 Floating Bottom Banner Notification</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div>
-                          <label className="block text-[11px] mb-1">Title</label>
-                          <input
-                            type="text"
-                            value={adminDraft.floatingBanner.title}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              floatingBanner: { ...adminDraft.floatingBanner, title: e.target.value }
-                            })}
-                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] mb-1">Promo Code</label>
-                          <input
-                            type="text"
-                            value={adminDraft.floatingBanner.code}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              floatingBanner: { ...adminDraft.floatingBanner, code: e.target.value.toUpperCase() }
-                            })}
-                            className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] mb-1">Badge Tag</label>
-                          <input
-                            type="text"
-                            value={adminDraft.floatingBanner.tag}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              floatingBanner: { ...adminDraft.floatingBanner, tag: e.target.value }
-                            })}
-                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 <button
                   type="submit"
                   disabled={isSaving}
@@ -1101,7 +1205,7 @@ export default function App() {
       )}
 
       {/* Floating Bottom Banner */}
-      {config.floatingBanner?.enabled && showFloatingBanner && (
+      {config.floatingBanner?.enabled !== false && showFloatingBanner && (
         <aside 
           aria-label="Promotional offer"
           className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-md border border-amber-500/50 p-4 rounded-2xl shadow-2xl animate-fade-in ${
@@ -1111,19 +1215,25 @@ export default function App() {
           <div className="flex items-start justify-between gap-3">
             <Gift className="w-5 h-5 text-amber-500 shrink-0 animate-bounce" />
             <div className="flex-1">
-              <span className="text-[10px] font-bold text-amber-500 uppercase bg-amber-500/15 px-2 py-0.5 rounded">{config.floatingBanner.tag}</span>
-              <h4 className="font-serif font-bold text-xs mt-1">{config.floatingBanner.title}</h4>
-              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className="text-amber-500 font-mono font-bold">{config.floatingBanner.code}</span></p>
+              <span className="text-[10px] font-bold text-amber-500 uppercase bg-amber-500/15 px-2 py-0.5 rounded">{config.floatingBanner?.tag}</span>
+              <h4 className="font-serif font-bold text-xs mt-1">{config.floatingBanner?.title}</h4>
+              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className="text-amber-500 font-mono font-bold">{config.floatingBanner?.code}</span></p>
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="text-stone-400 hover:text-stone-700 p-1"><X className="w-4 h-4" /></button>
           </div>
-          <button onClick={() => { handleApplyCoupon(null, config.floatingBanner.code); setActiveTab('calculator'); }} className="mt-3 w-full py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow">
-            {config.floatingBanner.actionText}
+          <button 
+            onClick={() => { 
+              handleApplyCoupon(null, config.floatingBanner?.code); 
+              setActiveTab('calculator'); 
+            }} 
+            className="mt-3 w-full py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow"
+          >
+            {config.floatingBanner?.actionText || "Apply"}
           </button>
         </aside>
       )}
 
-      {/* Clean Footer (No Admin Links Visible) */}
+      {/* Footer */}
       <footer className={`border-t py-8 mt-16 text-xs ${isDarkMode ? 'border-neutral-900 bg-neutral-950 text-stone-400' : 'border-stone-200 bg-white text-stone-600'}`}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
