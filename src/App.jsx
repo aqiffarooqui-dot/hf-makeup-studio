@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, Edit3
+  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { getLiveConfig, saveLiveConfig } from './firebase';
@@ -31,14 +31,16 @@ export default function App() {
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  // Admin Modal & Full Control States
+  // Secret Admin Trigger
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
   const [adminDraft, setAdminDraft] = useState(STUDIO_CONFIG);
-  const [adminActiveSection, setAdminActiveSection] = useState('prices'); // 'prices' | 'announcements' | 'coupons' | 'convenience' | 'general'
+  const [adminActiveSection, setAdminActiveSection] = useState('prices');
   const [isSaving, setIsSaving] = useState(false);
+
+  const logoClickRef = useRef({ count: 0, lastTime: 0 });
 
   // Calculator State
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
@@ -52,7 +54,7 @@ export default function App() {
   const [couponError, setCouponError] = useState('');
   const [usedCoupons, setUsedCoupons] = useState([]);
 
-  // Load Saved Theme
+  // Theme preference loading
   useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
     if (savedTheme) {
@@ -68,7 +70,34 @@ export default function App() {
     });
   };
 
-  // 1. Fetch live config from Firebase
+  // Keyboard shortcut for Admin: Ctrl + Shift + A
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        setShowAdminModal(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Secret Logo Triple Tap Trigger
+  const handleSecretLogoClick = () => {
+    const now = Date.now();
+    if (now - logoClickRef.current.lastTime < 600) {
+      logoClickRef.current.count += 1;
+      if (logoClickRef.current.count >= 3) {
+        setShowAdminModal(true);
+        logoClickRef.current.count = 0;
+      }
+    } else {
+      logoClickRef.current.count = 1;
+    }
+    logoClickRef.current.lastTime = now;
+  };
+
+  // Fetch live config from Firebase / Local Storage
   useEffect(() => {
     async function initConfig() {
       const live = await getLiveConfig(STUDIO_CONFIG);
@@ -78,7 +107,7 @@ export default function App() {
     initConfig();
   }, []);
 
-  // 2. Auto-cycle announcements
+  // Auto-cycle announcements
   useEffect(() => {
     if (config.announcements && config.announcements.length > 1) {
       const timer = setInterval(() => {
@@ -88,7 +117,7 @@ export default function App() {
     }
   }, [config.announcements]);
 
-  // 3. Load used coupons
+  // Load redeemed coupons
   useEffect(() => {
     try {
       const redeemed = JSON.parse(localStorage.getItem('hf_redeemed_coupons_v1') || '[]');
@@ -110,7 +139,6 @@ export default function App() {
     notes: ''
   });
 
-  // Direct Social Media Links
   const instagramHandleClean = (config.instagramHandle || 'husna_farooqui_makeup').replace(/^@/, '');
   const instagramProfileUrl = `https://www.instagram.com/${instagramHandleClean}/`;
   const instagramDmUrl = `https://ig.me/m/${instagramHandleClean}`;
@@ -119,7 +147,6 @@ export default function App() {
     return config.pricingByKit[kitType][packageKey];
   };
 
-  // Coupon Verification
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
@@ -135,7 +162,7 @@ export default function App() {
     }
     const couponData = config.validCoupons[code];
     if (!couponData) {
-      setCouponError('❌ Invalid coupon code. Enter a valid promotional code.');
+      setCouponError('❌ Invalid coupon code.');
       return;
     }
     setAppliedCoupon({ code, ...couponData });
@@ -168,7 +195,6 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // Booking Submit to WhatsApp
   const handleBookingSubmit = (e) => {
     e.preventDefault();
     const pkg = config.packageDetails[booking.packageKey];
@@ -206,7 +232,6 @@ export default function App() {
     window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  // Admin PIN Verify
   const handleVerifyPin = (e) => {
     e.preventDefault();
     if (pinInput === (config.adminPin || '8760')) {
@@ -217,7 +242,6 @@ export default function App() {
     }
   };
 
-  // Save to Firebase Live Backend
   const handleSaveToBackend = async (e) => {
     e.preventDefault();
     setIsSaving(true);
@@ -225,9 +249,13 @@ export default function App() {
       await saveLiveConfig(adminDraft);
       setConfig(adminDraft);
       setShowAdminModal(false);
-      alert('🎉 All settings, rates, and offers published live to Firebase!');
+      alert('🎉 All settings, rates, and offers published live successfully!');
     } catch (err) {
-      alert('Error saving updates: ' + err.message);
+      console.warn("Remote save notice:", err);
+      // Fallback local save is already handled in saveLiveConfig
+      setConfig(adminDraft);
+      setShowAdminModal(false);
+      alert('✅ Changes saved locally and applied live to your app!');
     } finally {
       setIsSaving(false);
     }
@@ -236,7 +264,6 @@ export default function App() {
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
 
-  // Dynamic Theme Colors
   const bgClass = isDarkMode ? "bg-neutral-950 text-stone-100" : "bg-stone-50 text-stone-900";
   const headerBgClass = isDarkMode ? "bg-neutral-950/90 border-neutral-800" : "bg-white/95 border-amber-200/60 shadow-sm";
   const cardBgClass = isDarkMode ? "bg-neutral-900/90 border-neutral-800 hover:border-amber-500/40" : "bg-white border-stone-200 hover:border-amber-400 shadow-sm";
@@ -258,8 +285,14 @@ export default function App() {
       {/* Header */}
       <header className={`sticky top-0 z-40 backdrop-blur-md ${headerBgClass} border-b transition-colors duration-300`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 p-0.5 shadow-lg shadow-amber-500/10">
+          
+          {/* Brand Logo (Secret Triple Click for Admin) */}
+          <div 
+            onClick={handleSecretLogoClick}
+            className="flex items-center space-x-3 cursor-pointer select-none group"
+            title="Husna Farooqui Makeup"
+          >
+            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 p-0.5 shadow-lg shadow-amber-500/10 group-active:scale-95 transition-transform">
               <div className={`w-full h-full ${isDarkMode ? 'bg-neutral-950' : 'bg-white'} rounded-full flex items-center justify-center`}>
                 <Crown className="w-6 h-6 text-amber-500" />
               </div>
@@ -309,19 +342,6 @@ export default function App() {
               }`}
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-            </button>
-
-            {/* 🔒 Admin Lock */}
-            <button
-              onClick={() => setShowAdminModal(true)}
-              title="Admin Manager"
-              className={`p-2.5 rounded-full border transition flex items-center justify-center ${
-                isDarkMode 
-                  ? 'bg-neutral-900 border-neutral-800 text-stone-400 hover:text-amber-400' 
-                  : 'bg-stone-100 border-stone-300 text-stone-600 hover:text-amber-600'
-              }`}
-            >
-              <Lock className="w-4 h-4" />
             </button>
 
             {/* Instagram Profile Direct Link */}
@@ -682,7 +702,7 @@ export default function App() {
                   href={instagramDmUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded-xl shadow hover:opacity-95 transition"
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-xs font-bold rounded-xl shadow hover:opacity-95 transition"
                 >
                   <InstagramIcon className="w-4 h-4" />
                   <span>DM Directly on Instagram (@{instagramHandleClean})</span>
@@ -694,7 +714,7 @@ export default function App() {
 
       </main>
 
-      {/* 🔒 COMPLETE ADMIN CONTROL PANEL MODAL */}
+      {/* 🔒 HIDDEN ADMIN CONTROL PANEL MODAL */}
       {showAdminModal && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
           <div className={`border rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto space-y-6 ${isDarkMode ? 'bg-neutral-900 border-amber-500/50 text-stone-100' : 'bg-white border-amber-400 text-stone-900 shadow-2xl'}`}>
@@ -749,7 +769,7 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* 1. SECTION: ALL PACKAGE PRICES & EXTRA GUEST RATES */}
+                {/* 1. PRICES & EXTRA GUEST CHARGES */}
                 {adminActiveSection === 'prices' && (
                   <div className="space-y-6">
                     {/* International Luxury Tier */}
@@ -832,7 +852,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 2. SECTION: ANNOUNCEMENTS */}
+                {/* 2. ANNOUNCEMENTS */}
                 {adminActiveSection === 'announcements' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                     <div className="flex justify-between items-center">
@@ -875,7 +895,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 3. SECTION: COUPONS */}
+                {/* 3. COUPONS */}
                 {adminActiveSection === 'coupons' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                     <div className="flex justify-between items-center">
@@ -966,7 +986,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 4. SECTION: CONVENIENCE ZONES */}
+                {/* 4. CONVENIENCE */}
                 {adminActiveSection === 'convenience' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                     <h4 className="font-bold uppercase text-amber-500">🚗 Cab & Convenience Rates by Zone</h4>
@@ -995,7 +1015,7 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 5. SECTION: GENERAL & FLOATING BANNER */}
+                {/* 5. GENERAL & FLOATING BANNER */}
                 {adminActiveSection === 'general' && (
                   <div className="space-y-4">
                     <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
@@ -1072,7 +1092,7 @@ export default function App() {
                   className="w-full py-3.5 bg-gradient-to-r from-amber-500 via-rose-500 to-amber-500 text-neutral-950 font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg"
                 >
                   <Save className="w-4 h-4" />
-                  <span>{isSaving ? 'Publishing Live to Google Firebase...' : 'Save & Publish All Changes Live'}</span>
+                  <span>{isSaving ? 'Publishing Live to Firebase...' : 'Save & Publish All Changes Live'}</span>
                 </button>
               </form>
             )}
@@ -1103,7 +1123,7 @@ export default function App() {
         </aside>
       )}
 
-      {/* Footer */}
+      {/* Clean Footer (No Admin Links Visible) */}
       <footer className={`border-t py-8 mt-16 text-xs ${isDarkMode ? 'border-neutral-900 bg-neutral-950 text-stone-400' : 'border-stone-200 bg-white text-stone-600'}`}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
@@ -1111,18 +1131,14 @@ export default function App() {
             <span className="font-serif font-bold">Husna Farooqui Makeup</span>
             <span>• Delhi (Okhla / Jamia) & Amroha</span>
           </div>
-          <div className="flex items-center gap-4">
-            <a 
-              href={instagramProfileUrl} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="hover:text-amber-500 transition underline"
-            >
-              Instagram: @{instagramHandleClean}
-            </a>
-            <span>•</span>
-            <button onClick={() => setShowAdminModal(true)} className="hover:text-amber-500 transition underline">Admin Manager</button>
-          </div>
+          <a 
+            href={instagramProfileUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:text-amber-500 transition underline"
+          >
+            Instagram: @{instagramHandleClean}
+          </a>
         </div>
       </footer>
     </div>
