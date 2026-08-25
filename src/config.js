@@ -4,13 +4,25 @@
 
 export const STUDIO_CONFIG = {
   whatsappNumber: "919997210876",
-  instagramHandle: "husna.farooqui.makeup",
+  instagramHandle: "husna.farooqui.makeup", // Clean handle without @
 
   // Base Studio Location
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
   // Top Authenticity Banner
   announcement: "✨ 100% Genuine Certified Cosmetics • Choose Between International Luxury & Premium Drugstore Vanity ✨",
+
+  // =======================================================
+  // 🏷️ VALID DISCOUNT COUPON CODES (PREVENTS FRAUD)
+  // Aap yahan Naye Coupons add ya purane remove kar sakte hain.
+  // Sirf yahan listed codes hi accept honge!
+  // =======================================================
+  validCoupons: {
+    "BRIDE2026": { discountPercent: 10, description: "10% OFF Wedding Special Offer" },
+    "HUSNA15": { discountPercent: 15, description: "15% Special Festival Discount" },
+    "WELCOME500": { discountAmount: 500, description: "Flat ₹500 OFF On First Booking" },
+    "ROYAL1000": { discountAmount: 1000, description: "Flat ₹1,000 OFF On Royal Bridal Package" }
+  },
 
   // Package Pricing by Product Tier
   pricingByKit: {
