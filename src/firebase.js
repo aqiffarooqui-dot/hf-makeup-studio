@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
-// ⚠️ REPLACE THESE KEYS WITH YOUR ACTUAL COPIED KEYS FROM STEP 1
+// ⚠️ Ensure your actual Firebase credentials are pasted here
 const firebaseConfig = {
   apiKey: "AIzaSyDrf7qAcl7lnvVNI3yQUXsdRRnNEqfsxt8",
   authDomain: "hf-makeup-backend.firebaseapp.com",
@@ -11,29 +11,53 @@ const firebaseConfig = {
   appId: "1:1034643523470:web:26c99d9d59f2d679f586df"
 };
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+let db = null;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (e) {
+  console.warn("Firebase initialization skipped, fallback active.");
+}
 
-// Helper to fetch live config
+// Timeout helper so it never gets stuck
+const withTimeout = (promise, ms = 5000) => {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error("Firebase request timed out")), ms))
+  ]);
+};
+
+// Fetch live config
 export async function getLiveConfig(defaultConfig) {
   try {
+    const savedLocal = localStorage.getItem('hf_live_backup_config');
+    const localParsed = savedLocal ? JSON.parse(savedLocal) : null;
+
+    if (!db) return localParsed || defaultConfig;
+
     const docRef = doc(db, "app_settings", "live_config");
-    const docSnap = await getDoc(docRef);
+    const docSnap = await withTimeout(getDoc(docRef), 4000);
+
     if (docSnap.exists()) {
-      return { ...defaultConfig, ...docSnap.data() };
+      const liveData = { ...defaultConfig, ...docSnap.data() };
+      localStorage.setItem('hf_live_backup_config', JSON.stringify(liveData));
+      return liveData;
     } else {
-      // First time initialization: save default config to Firestore
-      await setDoc(docRef, defaultConfig);
-      return defaultConfig;
+      await withTimeout(setDoc(docRef, defaultConfig), 4000);
+      return localParsed || defaultConfig;
     }
   } catch (err) {
-    console.error("Firestore sync fallback to local config:", err);
-    return defaultConfig;
+    console.warn("Using local cache / default config:", err.message);
+    const savedLocal = localStorage.getItem('hf_live_backup_config');
+    return savedLocal ? JSON.parse(savedLocal) : defaultConfig;
   }
 }
 
-// Helper to save live config from Admin Panel
+// Save live config with persistent backup
 export async function saveLiveConfig(updatedConfig) {
+  localStorage.setItem('hf_live_backup_config', JSON.stringify(updatedConfig));
+  if (!db) return;
+
   const docRef = doc(db, "app_settings", "live_config");
-  await setDoc(docRef, updatedConfig);
+  await withTimeout(setDoc(docRef, updatedConfig), 6000);
 }
