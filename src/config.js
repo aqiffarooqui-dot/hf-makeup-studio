@@ -1,15 +1,22 @@
+// =======================================================
+// 💄 HUSNA FAROOQUI MAKEUP - OFFICIAL PACKAGES & CONFIG
+// =======================================================
+
 export const STUDIO_CONFIG = {
-  adminPin: "8760", // 🔒 Change your private Admin PIN here
+  adminPin: "8760", // 🔒 Private Admin PIN
   whatsappNumber: "919997210876",
-  instagramHandle: "husna.farooqui.makeup",
+  instagramHandle: "husna_farooqui_makeup", // Exact Instagram Username
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
+  // 📢 MULTI-ANNOUNCEMENTS (Cycles automatically in the top banner)
   announcements: [
-    "✨ 100% Genuine Certified Cosmetics • Choose Between International Luxury & Premium Drugstore Vanity ✨",
+    "✨ 100% Genuine Certified Cosmetics • International Luxury & Premium Drugstore Collections ✨",
     "🎉 Limited Season Offer: Use Code BRIDE2026 for Flat 10% OFF!",
-    "📍 Serving Delhi NCR (From Okhla / Jamia Nagar) & Amroha • Pre-Bookings Open"
+    "📍 Serving Delhi NCR (From Okhla / Jamia Nagar) & Amroha • Pre-Bookings Open",
+    "👑 The Royal Bridal Package (International Luxury) now includes 1 FREE Guest Makeover!"
   ],
 
+  // 🎈 FLOATING PROMO BANNER
   floatingBanner: {
     enabled: true,
     tag: "LIMITED PROMO",
@@ -18,6 +25,7 @@ export const STUDIO_CONFIG = {
     actionText: "Apply Code in Calculator"
   },
 
+  // 🏷️ DISCOUNT COUPONS
   validCoupons: {
     "BRIDE2026": { type: "percent", value: 10, label: "10% Seasonal Wedding Discount" },
     "HUSNA15": { type: "percent", value: 15, label: "15% Special Bridal Promo" },
@@ -25,6 +33,7 @@ export const STUDIO_CONFIG = {
     "WELCOME500": { type: "flat", value: 500, label: "₹500 Flat First-Booking Offer" }
   },
 
+  // 💄 PACKAGE PRICING BY PRODUCT TIER
   pricingByKit: {
     drugstore: {
       name: "Premium Drugstore / Classic HD Kit",
@@ -34,7 +43,8 @@ export const STUDIO_CONFIG = {
       super_hd_party: 4000,
       cocktail_glam: 7000,
       engagement_bride: 8000,
-      royal_bridal: 15000
+      royal_bridal: 15000,
+      extraGuestRate: 2500 // Extra guest rate for Drugstore tier
     },
     international: {
       name: "International Luxury Vanity Kit",
@@ -44,19 +54,22 @@ export const STUDIO_CONFIG = {
       super_hd_party: 6000,
       cocktail_glam: 10000,
       engagement_bride: 12000,
-      royal_bridal: 25000
+      royal_bridal: 25000,
+      extraGuestRate: 3500 // Extra guest rate for International Luxury tier
     }
   },
 
+  // Package Descriptions & Numbers
   packageDetails: {
     simple_party: { num: 1, name: "Simple Party Makeup", desc: "Clean, elegant, and subtle daytime or evening event makeup." },
     hd_party: { num: 2, name: "HD Party Makeup", desc: "High-definition finish for a flawless, camera-ready, and long-lasting look." },
     super_hd_party: { num: 3, name: "Super HD Party Makeup", desc: "Premium, ultra-smooth finish using advanced makeup techniques for a picture-perfect look." },
     cocktail_glam: { num: 4, name: "Cocktail Glam Look", desc: "Bold, glamorous, and statement-making styles, perfect for cocktail nights and receptions." },
     engagement_bride: { num: 5, name: "Engagement Bride", desc: "A stunning, radiant look tailored perfectly for your ring ceremony." },
-    royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup." }
+    royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup for family/friend." }
   },
 
+  // 🚗 CONVENIENCE & TRAVEL CHARGES (Cab Fare from Okhla/Jamia)
   convenienceZones: {
     delhi_near: { name: "South Delhi / Nearby (Okhla, Jamia, Saket, Lajpat)", fee: 350, distance: "~5-10 km" },
     delhi_central: { name: "Central / East Delhi (CP, Mayur Vihar, Laxmi Nagar)", fee: 600, distance: "~15-20 km" },
@@ -68,6 +81,7 @@ export const STUDIO_CONFIG = {
     outstation_up: { name: "Moradabad / Sambhal / Outstation UP", fee: 1500, distance: "Intercity" }
   },
 
+  // Categorized Vanity Brands
   internationalBrands: [
     { name: "NARS", desc: "Radiant Creamy Foundations", category: "Prestige Base" },
     { name: "Charlotte Tilbury", desc: "Flawless Filter & Airbrush Setting", category: "Glow & Polish" },
