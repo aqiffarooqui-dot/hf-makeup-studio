@@ -9,76 +9,77 @@ export const STUDIO_CONFIG = {
   // Base Studio Location
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
-  // Top Authenticity & Quality Banner
-  announcement: "✨ 100% Authenticated & International Branded Luxury Products Used Across All Services ✨",
+  // Top Authenticity Banner
+  announcement: "✨ 100% Genuine Certified Cosmetics • Choose Between International Luxury & Premium Drugstore Vanity ✨",
 
-  // Exact Packages & Pricing
-  packages: {
-    // Party Makeup Packages
-    simple_party: { 
-      num: 1,
-      name: "Simple Party Makeup", 
-      price: 1500, 
-      desc: "Clean, elegant, and subtle daytime or evening event makeup." 
+  // Package Pricing by Product Tier
+  pricingByKit: {
+    // 1. Classic HD / Premium Drugstore Kit
+    drugstore: {
+      name: "Premium Drugstore / Classic HD Kit",
+      tagline: "High-performance, skin-safe, trusted long-wear products (PAC, Milani, Maybelline, Coty Airspun)",
+      simple_party: 1500,
+      hd_party: 2500,
+      super_hd_party: 4000,
+      cocktail_glam: 7000,
+      engagement_bride: 8000,
+      royal_bridal: 15000,
     },
-    hd_party: { 
-      num: 2,
-      name: "HD Party Makeup", 
-      price: 2500, 
-      desc: "High-definition finish for a flawless, camera-ready, and long-lasting look." 
-    },
-    super_hd_party: { 
-      num: 3,
-      name: "Super HD Party Makeup", 
-      price: 4000, 
-      desc: "Premium, ultra-smooth finish using advanced makeup techniques for a picture-perfect look." 
-    },
-    cocktail_glam: { 
-      num: 4,
-      name: "Cocktail Glam Look", 
-      price: 7000, 
-      desc: "Bold, glamorous, and statement-making styles, perfect for cocktail nights and receptions." 
-    },
-
-    // Signature & Bridal Packages
-    engagement_bride: { 
-      num: 5,
-      name: "Engagement Bride", 
-      price: 8000, 
-      desc: "A stunning, radiant look tailored perfectly for your ring ceremony." 
-    },
-    royal_bridal: { 
-      num: 6,
-      name: "The Royal Bridal Package", 
-      price: 15000, 
-      badge: "Signature Bridal",
-      desc: "The ultimate bridal transformation: a detailed and flawless full-face makeup look designed to perfection, featuring custom draping, elaborate eye makeup, full hair styling, and premium long-lasting products. Includes ONE complimentary party makeup for a family member or friend." 
+    // 2. 100% International Luxury Kit
+    international: {
+      name: "International Luxury Vanity Kit",
+      tagline: "Ultra-luxury international prestige brands (NARS, Charlotte Tilbury, Too Faced, Huda, Laura Mercier)",
+      simple_party: 2500,
+      hd_party: 4000,
+      super_hd_party: 6000,
+      cocktail_glam: 10000,
+      engagement_bride: 12000,
+      royal_bridal: 25000, // Explicitly ₹25,000 for Royal Bridal
     }
+  },
+
+  // Package Catalog Details
+  packageDetails: {
+    simple_party: { num: 1, name: "Simple Party Makeup", desc: "Clean, elegant, and subtle daytime or evening event makeup." },
+    hd_party: { num: 2, name: "HD Party Makeup", desc: "High-definition finish for a flawless, camera-ready, and long-lasting look." },
+    super_hd_party: { num: 3, name: "Super HD Party Makeup", desc: "Premium, ultra-smooth finish using advanced makeup techniques for a picture-perfect look." },
+    cocktail_glam: { num: 4, name: "Cocktail Glam Look", desc: "Bold, glamorous, and statement-making styles, perfect for cocktail nights and receptions." },
+    engagement_bride: { num: 5, name: "Engagement Bride", desc: "A stunning, radiant look tailored perfectly for your ring ceremony." },
+    royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup for family/friend." }
   },
 
   // Distance/Cab Based Convenience Charges (From Okhla / Jamia Nagar base)
   convenienceZones: {
-    // Delhi Zones
     delhi_near: { name: "South Delhi / Nearby (Okhla, Jamia, Saket, Lajpat)", fee: 350, distance: "~5-10 km" },
     delhi_central: { name: "Central / East Delhi (CP, Mayur Vihar, Laxmi Nagar)", fee: 600, distance: "~15-20 km" },
     delhi_west: { name: "West Delhi (Janakpuri, Rajouri, Dwarka)", fee: 900, distance: "~25-35 km" },
     delhi_north: { name: "North Delhi / Rohini / Pitampura", fee: 1100, distance: "~30-40 km" },
     noida_faridabad: { name: "Noida / Greater Noida / Faridabad", fee: 750, distance: "~15-25 km" },
     gurugram: { name: "Gurugram (Cyber City, Golf Course Rd)", fee: 1200, distance: "~35-45 km" },
-    // Amroha & Outstation
     amroha: { name: "Amroha City & Nearby", fee: 500, distance: "Local Base" },
     outstation_up: { name: "Moradabad / Sambhal / Outstation UP", fee: 1500, distance: "Intercity" }
   },
 
-  // Updated Official Vanity Brands
-  vanityBrands: [
-    { name: "NARS", desc: "Radiant Creamy Base & Longwear Foundations", category: "Base & Complexion" },
-    { name: "Charlotte Tilbury", desc: "Hollywood Flawless Filter & Airbrush Finish", category: "Glow & Setting" },
-    { name: "Too Faced", desc: "Born This Way Complexion & Concealers", category: "Full Coverage" },
-    { name: "Benefit", desc: "Precise Brow Artistry & Porefessional Primers", category: "Brows & Primers" },
-    { name: "Urban Decay", desc: "All Nighter 16HR Lock Setting Sprays", category: "Long-Stay Setting" },
-    { name: "Tarte", desc: "Shape Tape Concealers & Amazonian Clay", category: "High Definition" },
+  // Categorized Vanity Brands
+  internationalBrands: [
+    { name: "NARS", desc: "Light Reflecting & Radiant Creamy Foundations", category: "Prestige Base" },
+    { name: "Charlotte Tilbury", desc: "Hollywood Flawless Filter & Airbrush Setting", category: "Glow & Polish" },
+    { name: "Too Faced", desc: "Born This Way Complexion & Multi-Use Concealers", category: "High Coverage" },
+    { name: "Benefit Cosmetics", desc: "Precisely My Brow & Porefessional Primers", category: "Brows & Pore Prep" },
+    { name: "Urban Decay", desc: "All Nighter 16HR Lock-in Setting Spray", category: "Long-Stay Seal" },
+    { name: "Tarte", desc: "Shape Tape Concealers & Clay Eyeshadows", category: "HD Eye & Face" },
     { name: "Laura Mercier", desc: "Translucent Loose Setting Powder (Zero Flashback)", category: "Baking & Setting" },
-    { name: "Coty Airspun", desc: "Extra Coverage Micro-spun Flawless Setting", category: "Velvet Matte Finish" }
+    { name: "Dior / Huda Beauty", desc: "Backstage Glow & FauxFilter High-Pigment Palettes", category: "Luxury Pigments" }
+  ],
+
+  drugstoreBrands: [
+    { name: "Coty Airspun", desc: "Loose Face Powder for Velvet Matte Oil-Control", category: "Baking Powder" },
+    { name: "PAC Cosmetics", desc: "HD Liquid Foundations, Lash Primers & Lashes", category: "HD Complexion" },
+    { name: "Milani", desc: "Baked Blushes & Conceal + Perfect Bases", category: "Cheeks & Glow" },
+    { name: "Maybelline SuperStay", desc: "24HR Matte Foundation & Ink Lip Crayon Base", category: "Long-Wear Base" },
+    { name: "L'Oréal Infallible", desc: "Fresh Wear Breathable Foundation & Concealers", category: "Base & Setting" },
+    { name: "NYX Professional", desc: "Epic Ink Liners, Setting Sprays & Color Correctors", category: "Liners & Correction" },
+    { name: "Embryolisse", desc: "Lait-Crème Concentré Moisturizing Skin Primer", category: "Skin Prep Base" },
+    { name: "Kryolan DermaColor", desc: "Camouflage Waterproof Spot & Tattoo Coverage", category: "Correction & Fix" }
   ]
 };
