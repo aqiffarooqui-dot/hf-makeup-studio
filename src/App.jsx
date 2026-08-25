@@ -7,10 +7,9 @@ import {
   Calculator, 
   Crown, 
   ChevronRight, 
-  ShieldCheck,
-  Star,
-  Layers,
-  HeartHandshake,
+  ShieldCheck, 
+  Star, 
+  Car,
   CheckCircle2,
   Sparkle
 } from 'lucide-react';
@@ -35,7 +34,7 @@ export default function App() {
 
   // Calculator State
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
-  const [calcLocation, setCalcLocation] = useState('delhi');
+  const [calcZone, setCalcZone] = useState('delhi_near');
   const [extraPartyCount, setExtraPartyCount] = useState(0);
 
   // Booking Form State
@@ -44,14 +43,16 @@ export default function App() {
     phone: '',
     eventDate: '',
     packageKey: 'royal_bridal',
-    location: 'Delhi NCR',
+    zoneKey: 'delhi_near',
+    venueAddress: '',
     notes: ''
   });
 
   const calculateEstimate = () => {
     const pkg = STUDIO_CONFIG.packages[calcPackage];
     let base = pkg ? pkg.price : 15000;
-    let convenienceFee = calcLocation === 'delhi' ? STUDIO_CONFIG.convenience.delhi : STUDIO_CONFIG.convenience.amroha;
+    let zone = STUDIO_CONFIG.convenienceZones[calcZone];
+    let convenienceFee = zone ? zone.fee : 350;
     let extraPartyCost = extraPartyCount * 2500;
     return base + convenienceFee + extraPartyCost;
   };
@@ -59,16 +60,18 @@ export default function App() {
   const handleBookingSubmit = (e) => {
     e.preventDefault();
     const pkg = STUDIO_CONFIG.packages[booking.packageKey];
+    const zone = STUDIO_CONFIG.convenienceZones[booking.zoneKey];
     
     const message = 
       `✨ *New Booking Request - Husna Farooqui Makeup* ✨\n\n` +
       `👤 *Client Name:* ${booking.name}\n` +
       `📞 *Client Phone:* ${booking.phone}\n` +
-      `💄 *Selected Package:* ${pkg.num}. ${pkg.name} (₹${pkg.price.toLocaleString('en-IN')})\n` +
-      `📅 *Preferred Date:* ${booking.eventDate}\n` +
-      `📍 *Location:* ${booking.location}\n` +
-      `📝 *Notes/Inquiries:* ${booking.notes || 'None'}\n\n` +
-      `_Sent via Official H&F Makeup Web App_`;
+      `💄 *Package:* ${pkg.num}. ${pkg.name} (₹${pkg.price.toLocaleString('en-IN')})\n` +
+      `📅 *Date:* ${booking.eventDate}\n` +
+      `📍 *Location Zone:* ${zone?.name} (Convenience: ₹${zone?.fee})\n` +
+      `🏠 *Exact Venue Address:* ${booking.venueAddress || 'Not Provided'}\n` +
+      `📝 *Notes/Requests:* ${booking.notes || 'None'}\n\n` +
+      `_Base Studio: ${STUDIO_CONFIG.baseLocation}_`;
 
     const encoded = encodeURIComponent(message);
     window.open(`https://api.whatsapp.com/send?phone=${STUDIO_CONFIG.whatsappNumber}&text=${encoded}`, '_blank');
@@ -166,14 +169,13 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Container */}
+      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
 
         {/* TAB 1: OFFICIAL PACKAGES & PRICING */}
         {activeTab === 'menu' && (
           <div className="space-y-10">
             
-            {/* Greeting Header */}
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-widest">
                 Welcome to Husna Farooqui Makeup
@@ -189,29 +191,29 @@ export default function App() {
               </p>
             </div>
 
-            {/* Authenticity Card */}
+            {/* Authenticity Bar */}
             <div className="bg-gradient-to-r from-neutral-900 via-neutral-900/90 to-amber-950/40 border border-amber-500/30 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-6 h-6 text-amber-400" />
                 </div>
                 <div>
-                  <h4 className="font-serif font-bold text-sm text-stone-100">100% Genuine & Luxury Authenticated Products</h4>
-                  <p className="text-xs text-stone-400">All products and services are authentic. International branded cosmetics used exclusively.</p>
+                  <h4 className="font-serif font-bold text-sm text-stone-100">100% Genuine Luxury Vanity</h4>
+                  <p className="text-xs text-stone-400">Exclusively using NARS, Charlotte Tilbury, Too Faced, Benefit, Urban Decay, Tarte, Laura Mercier & Coty Airspun.</p>
                 </div>
               </div>
               <button
                 onClick={() => setActiveTab('brands')}
                 className="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-amber-300 text-xs font-semibold rounded-xl border border-neutral-700 whitespace-nowrap"
               >
-                View Vanity Brands →
+                View Brand Details →
               </button>
             </div>
 
             {/* Packages Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
-              {/* Left Column: Party Makeup Packages */}
+              {/* Left: Party Makeup Packages */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
                   <span className="text-lg">💄</span>
@@ -247,7 +249,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Right Column: Signature & Bridal Packages */}
+              {/* Right: Signature & Bridal Packages */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
                   <Crown className="w-5 h-5 text-amber-400" />
@@ -293,7 +295,7 @@ export default function App() {
 
             </div>
 
-            {/* Terms & Booking Conditions with Convenience Update */}
+            {/* Terms & Conditions */}
             <div className="bg-neutral-900/60 rounded-2xl p-6 border border-neutral-800 space-y-3">
               <h4 className="font-serif font-bold text-sm text-stone-200 uppercase tracking-wider flex items-center gap-2">
                 <span>📌</span> Terms & Booking Conditions
@@ -305,7 +307,7 @@ export default function App() {
                 </li>
                 <li className="space-y-1">
                   <span className="font-semibold text-stone-200 block">• Convenience Charges:</span>
-                  <span>Convenience allowance may apply depending on the venue location outside the main service area.</span>
+                  <span>Convenience allowance is calculated transparently based on cab travel distance from our Okhla/Jamia Nagar base.</span>
                 </li>
                 <li className="space-y-1">
                   <span className="font-semibold text-stone-200 block">• Customization:</span>
@@ -317,115 +319,73 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: INTERNATIONAL & DRUGSTORE BRANDS */}
+        {/* TAB 2: BRAND SHOWCASE */}
         {activeTab === 'brands' && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-widest">
-                Our Vanity & Products
+                Our Certified Vanity
               </span>
               <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-100">
-                100% Authentic Branded Vanity
+                100% Authentic Branded Products
               </h2>
               <p className="text-stone-400 text-sm">
-                We believe your skin deserves only pure, certified, and world-class luxury cosmetics.
+                No replicas or local substitutes. We use world-renowned international brands for skin safety and unmatched camera results.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-neutral-900 rounded-3xl p-6 border border-amber-500/40 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
+            {/* Brand Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {STUDIO_CONFIG.vanityBrands.map((brand, idx) => (
+                <div key={idx} className="bg-neutral-900/90 rounded-2xl p-5 border border-amber-500/20 hover:border-amber-500/50 transition-all flex flex-col justify-between space-y-3">
                   <div>
-                    <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Global Prestige</span>
-                    <h3 className="font-serif font-bold text-xl text-stone-100">Luxury International Brands</h3>
+                    <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider bg-amber-400/10 px-2 py-0.5 rounded">
+                      {brand.category}
+                    </span>
+                    <h3 className="font-serif font-bold text-lg text-stone-100 mt-2">{brand.name}</h3>
+                    <p className="text-xs text-stone-400 mt-1 leading-relaxed">{brand.desc}</p>
                   </div>
-                  <Crown className="w-6 h-6 text-amber-400" />
-                </div>
-                
-                <p className="text-xs text-stone-300">
-                  Used for Bridal, Cocktail Glam & Party transformations to guarantee high definition, zero-flashback, and 16+ hour wear.
-                </p>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2">
-                  {[
-                    { name: "M•A•C Cosmetics", type: "Base & Studio Fix" },
-                    { name: "Huda Beauty", type: "Palettes & Setting Powder" },
-                    { name: "Dior Backstage", type: "Glow & Foundation" },
-                    { name: "NARS", type: "Radiant Creamy Base" },
-                    { name: "Charlotte Tilbury", type: "Flawless Filter" },
-                    { name: "Anastasia Beverly Hills", type: "Brows & Highlighters" }
-                  ].map((brand, bIdx) => (
-                    <div key={bIdx} className="bg-neutral-950 p-3 rounded-xl border border-neutral-800 text-center space-y-1">
-                      <div className="font-semibold text-xs text-amber-200">{brand.name}</div>
-                      <div className="text-[10px] text-stone-500">{brand.type}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-neutral-900 rounded-3xl p-6 border border-neutral-800 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
-                  <div>
-                    <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Hydration & Prep</span>
-                    <h3 className="font-serif font-bold text-xl text-stone-100">Skin Prep & Setting Essentials</h3>
+                  <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-semibold pt-2 border-t border-neutral-800">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>100% Authentic & Original</span>
                   </div>
-                  <Sparkles className="w-6 h-6 text-amber-400" />
                 </div>
-                
-                <p className="text-xs text-stone-300">
-                  Prep serums and waterproof setting sprays formulated for Indian wedding weather, humidity, and long tears-and-sweat ceremonies.
-                </p>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-2">
-                  {[
-                    { name: "Urban Decay", type: "All Nighter Setting Spray" },
-                    { name: "Laura Mercier", type: "Translucent Powder" },
-                    { name: "Too Faced", type: "Born This Way" },
-                    { name: "Embryolisse", type: "Lait-Crème Concentré" },
-                    { name: "Smashbox", type: "Photo Finish Primers" },
-                    { name: "PAC / Kryolan", type: "Specialized Correction" }
-                  ].map((brand, bIdx) => (
-                    <div key={bIdx} className="bg-neutral-950 p-3 rounded-xl border border-neutral-800 text-center space-y-1">
-                      <div className="font-semibold text-xs text-stone-200">{brand.name}</div>
-                      <div className="text-[10px] text-stone-500">{brand.type}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
 
+            {/* Skin Guarantee Bar */}
             <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               <div className="space-y-1">
                 <span className="text-xl">🧴</span>
-                <h5 className="font-serif font-bold text-xs text-stone-200">Sanitized Brushes & Tools</h5>
-                <p className="text-[11px] text-stone-500">Every brush and sponge is deep-cleaned and UV sanitized before every client.</p>
+                <h5 className="font-serif font-bold text-xs text-stone-200">Sanitized Brushes & Sponges</h5>
+                <p className="text-[11px] text-stone-500">Deep-cleaned and sanitized with professional brush cleanser before every single makeup session.</p>
               </div>
               <div className="space-y-1">
                 <span className="text-xl">✨</span>
-                <h5 className="font-serif font-bold text-xs text-stone-200">Zero Replica / Fake Policy</h5>
-                <p className="text-[11px] text-stone-500">100% authentic purchases sourced directly from authorized brand stores.</p>
+                <h5 className="font-serif font-bold text-xs text-stone-200">Zero Flashback Formula</h5>
+                <p className="text-[11px] text-stone-500">Fine-milled powders (Laura Mercier & Coty Airspun) that photograph seamlessly under heavy 4K wedding lighting.</p>
               </div>
               <div className="space-y-1">
                 <span className="text-xl">💎</span>
-                <h5 className="font-serif font-bold text-xs text-stone-200">Skin-Friendly & Safe</h5>
-                <p className="text-[11px] text-stone-500">Formulas tested to suit sensitive, dry, and combination Indian skin types.</p>
+                <h5 className="font-serif font-bold text-xs text-stone-200">Sensitive-Skin Friendly</h5>
+                <p className="text-[11px] text-stone-500">Tested to suit Indian skin tones, preventing breakout risks, oxidization, and patchiness.</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* TAB 3: PRICE CALCULATOR (WITH CONVENIENCE) */}
+        {/* TAB 3: PRICE & CONVENIENCE CALCULATOR */}
         {activeTab === 'calculator' && (
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-widest">
-                Interactive Estimate
+                Transparent Estimation
               </span>
               <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-100">
-                Package Cost Calculator
+                Package & Distance Cost Calculator
               </h2>
               <p className="text-stone-400 text-sm">
-                Select your package and venue location to calculate your exact booking estimate.
+                Calculates travel convenience based on cab distance from our base in <strong className="text-amber-300">Okhla / Jamia Nagar</strong>.
               </p>
             </div>
 
@@ -434,7 +394,7 @@ export default function App() {
                 
                 <div>
                   <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2">
-                    Select Makeup Package
+                    1. Select Makeup Package
                   </label>
                   <select
                     value={calcPackage}
@@ -455,35 +415,29 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2">
-                    Event Venue Location
+                  <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-2 flex items-center justify-between">
+                    <span>2. Venue Location / Zone</span>
+                    <span className="text-[10px] text-amber-400 font-mono flex items-center gap-1">
+                      <Car className="w-3 h-3" /> Cab Rate from Jamia Nagar
+                    </span>
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { id: 'delhi', name: 'Delhi NCR' },
-                      { id: 'amroha', name: 'Amroha & Nearby' }
-                    ].map(loc => (
-                      <button
-                        key={loc.id}
-                        type="button"
-                        onClick={() => setCalcLocation(loc.id)}
-                        className={`p-3 rounded-xl text-xs font-medium flex items-center justify-center gap-2 border transition ${
-                          calcLocation === loc.id
-                            ? 'bg-amber-500/10 border-amber-500 text-amber-300 font-semibold'
-                            : 'bg-neutral-950 border-neutral-800 text-stone-400'
-                        }`}
-                      >
-                        <MapPin className="w-3.5 h-3.5" />
-                        <span>{loc.name}</span>
-                      </button>
+                  <select
+                    value={calcZone}
+                    onChange={(e) => setCalcZone(e.target.value)}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-stone-200 focus:outline-none focus:border-amber-500"
+                  >
+                    {Object.entries(STUDIO_CONFIG.convenienceZones).map(([key, zone]) => (
+                      <option key={key} value={key}>
+                        {zone.name} (+₹{zone.fee})
+                      </option>
                     ))}
-                  </div>
+                  </select>
                 </div>
 
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <label className="text-xs font-semibold text-stone-300 uppercase tracking-wider">
-                      Additional Family Party Makeups
+                      3. Additional Family Party Makeups
                     </label>
                     <span className="text-amber-400 text-xs font-bold font-mono">{extraPartyCount} Person(s)</span>
                   </div>
@@ -522,12 +476,12 @@ export default function App() {
                     <span className="text-stone-200">₹{STUDIO_CONFIG.packages[calcPackage]?.price.toLocaleString('en-IN')}</span>
                   </div>
                   <div className="flex justify-between text-stone-400">
-                    <span>Extra Guests ({extraPartyCount}):</span>
-                    <span className="text-stone-200">₹{(extraPartyCount * 2500).toLocaleString('en-IN')}</span>
+                    <span>Convenience (Cab):</span>
+                    <span className="text-amber-300">₹{STUDIO_CONFIG.convenienceZones[calcZone]?.fee} ({STUDIO_CONFIG.convenienceZones[calcZone]?.distance})</span>
                   </div>
                   <div className="flex justify-between text-stone-400">
-                    <span>Convenience:</span>
-                    <span className="text-stone-200">{calcLocation === 'delhi' ? '₹1,000 (Delhi)' : '₹500 (Amroha)'}</span>
+                    <span>Extra Guests ({extraPartyCount}):</span>
+                    <span className="text-stone-200">₹{(extraPartyCount * 2500).toLocaleString('en-IN')}</span>
                   </div>
                 </div>
 
@@ -536,8 +490,8 @@ export default function App() {
                     setBooking(prev => ({
                       ...prev,
                       packageKey: calcPackage,
-                      location: calcLocation === 'delhi' ? 'Delhi NCR' : 'Amroha',
-                      notes: `Estimated Cost: ₹${calculateEstimate().toLocaleString('en-IN')} with ${extraPartyCount} extra guest makeups.`
+                      zoneKey: calcZone,
+                      notes: `Estimated Cost: ₹${calculateEstimate().toLocaleString('en-IN')} (Includes ${extraPartyCount} extra guest makeups, Convenience Zone: ${STUDIO_CONFIG.convenienceZones[calcZone]?.name})`
                     }));
                     setActiveTab('booking');
                   }}
@@ -551,7 +505,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: BOOKING FORM */}
+        {/* TAB 4: DIRECT BOOKING PORTAL */}
         {activeTab === 'booking' && (
           <div className="max-w-2xl mx-auto space-y-8">
             <div className="text-center space-y-3">
@@ -562,7 +516,7 @@ export default function App() {
                 Reserve Your Date with Husna
               </h2>
               <p className="text-stone-400 text-sm">
-                Lock in your date. Send your inquiry directly to our WhatsApp booking desk!
+                Lock in your date. Send your details directly to our WhatsApp booking desk.
               </p>
             </div>
 
@@ -585,7 +539,7 @@ export default function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
-                      Your WhatsApp / Contact Number *
+                      Your WhatsApp / Phone Number *
                     </label>
                     <input
                       type="tel"
@@ -632,19 +586,33 @@ export default function App() {
 
                   <div>
                     <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
-                      Event Venue City
+                      Venue Location Zone
                     </label>
                     <select
-                      value={booking.location}
-                      onChange={(e) => setBooking({ ...booking, location: e.target.value })}
-                      className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                      value={booking.zoneKey}
+                      onChange={(e) => setBooking({ ...booking, zoneKey: e.target.value })}
+                      className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-xs text-stone-100 focus:outline-none focus:border-amber-500"
                     >
-                      <option>Delhi NCR</option>
-                      <option>Amroha</option>
-                      <option>Moradabad / Nearby</option>
-                      <option>Destination Venue</option>
+                      {Object.entries(STUDIO_CONFIG.convenienceZones).map(([key, zone]) => (
+                        <option key={key} value={key}>
+                          {zone.name} (+₹{zone.fee})
+                        </option>
+                      ))}
                     </select>
                   </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-stone-300 uppercase tracking-wider mb-1">
+                    Exact Venue Address / Landmark
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Hotel Crowne Plaza, Mayur Vihar / Near Batla House Jamia"
+                    value={booking.venueAddress}
+                    onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-stone-100 focus:outline-none focus:border-amber-500"
+                  />
                 </div>
 
                 <div>
@@ -693,7 +661,7 @@ export default function App() {
           <div className="flex items-center space-x-2">
             <Crown className="w-4 h-4 text-amber-400" />
             <span className="font-serif font-bold text-stone-200">Husna Farooqui Makeup</span>
-            <span>• Delhi & Amroha</span>
+            <span>• Delhi (Okhla / Jamia) & Amroha</span>
           </div>
           <p>Bookings & Portfolio: @{STUDIO_CONFIG.instagramHandle}</p>
         </div>
