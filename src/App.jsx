@@ -9,12 +9,13 @@ import {
   ChevronRight, 
   ShieldCheck, 
   Star, 
-  Car,
-  CheckCircle2,
-  PackageCheck,
-  Tag,
-  Gift,
-  XCircle
+  Car, 
+  CheckCircle2, 
+  PackageCheck, 
+  Tag, 
+  Gift, 
+  X, 
+  Volume2
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 
@@ -40,6 +41,10 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
 
+  // Multi-Announcement State
+  const [announcementIdx, setAnnouncementIdx] = useState(0);
+  const [showFloatingBanner, setShowFloatingBanner] = useState(true);
+
   // Calculator State
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
@@ -52,7 +57,17 @@ export default function App() {
   const [couponError, setCouponError] = useState('');
   const [usedCoupons, setUsedCoupons] = useState([]);
 
-  // Load redeemed coupons from localStorage
+  // Auto-Cycle Top Announcements Every 4.5 Seconds
+  useEffect(() => {
+    if (STUDIO_CONFIG.announcements && STUDIO_CONFIG.announcements.length > 1) {
+      const timer = setInterval(() => {
+        setAnnouncementIdx((prev) => (prev + 1) % STUDIO_CONFIG.announcements.length);
+      }, 4500);
+      return () => clearInterval(timer);
+    }
+  }, []);
+
+  // Load Redeemed Coupons from LocalStorage
   useEffect(() => {
     try {
       const redeemed = JSON.parse(localStorage.getItem('hf_redeemed_coupons_v1') || '[]');
@@ -79,10 +94,10 @@ export default function App() {
   };
 
   // Coupon Validation Handler
-  const handleApplyCoupon = (e) => {
-    e.preventDefault();
+  const handleApplyCoupon = (e, customCode) => {
+    if (e) e.preventDefault();
     setCouponError('');
-    const code = couponInput.trim().toUpperCase();
+    const code = (customCode || couponInput).trim().toUpperCase();
 
     if (!code) {
       setCouponError('Please enter a coupon code.');
@@ -101,6 +116,7 @@ export default function App() {
     }
 
     setAppliedCoupon({ code, ...couponData });
+    setCouponInput(code);
     setCouponError('');
   };
 
@@ -146,7 +162,6 @@ export default function App() {
     const bookingDiscount = getDiscountAmount(bookingGross);
     const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
 
-    // Save coupon as redeemed on this device
     if (appliedCoupon) {
       const updated = [...usedCoupons, appliedCoupon.code];
       setUsedCoupons(updated);
@@ -179,12 +194,14 @@ export default function App() {
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-stone-100 font-sans selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen bg-neutral-950 text-stone-100 font-sans selection:bg-amber-500 selection:text-black relative">
       
-      {/* Top Banner */}
-      <div className="bg-gradient-to-r from-amber-950 via-amber-700/80 to-rose-950 border-b border-amber-500/30 text-amber-200 py-2.5 px-4 text-xs sm:text-sm text-center font-medium tracking-wide flex items-center justify-center gap-2">
-        <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
-        <span>{STUDIO_CONFIG.announcement}</span>
+      {/* 📢 DYNAMIC AUTO-CYCLING TOP ANNOUNCEMENT BANNER */}
+      <div className="bg-gradient-to-r from-amber-950 via-amber-700/80 to-rose-950 border-b border-amber-500/30 text-amber-200 py-2.5 px-4 text-xs sm:text-sm text-center font-medium tracking-wide flex items-center justify-center gap-2 overflow-hidden shadow-inner">
+        <Volume2 className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+        <span className="transition-all duration-500 transform inline-block">
+          {STUDIO_CONFIG.announcements[announcementIdx]}
+        </span>
       </div>
 
       {/* Header */}
@@ -284,7 +301,7 @@ export default function App() {
                 Choose your preferred product vanity kit to view customized package pricing for your event.
               </p>
 
-              {/* PRODUCT KIT SELECTOR BUTTONS */}
+              {/* Product Kit Toggle */}
               <div className="inline-flex flex-col sm:flex-row p-1.5 bg-neutral-900 rounded-2xl border border-neutral-800 mt-3 gap-1.5">
                 <button
                   onClick={() => setSelectedKit('international')}
@@ -318,7 +335,7 @@ export default function App() {
             {/* Packages Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
-              {/* Left Column: Party Makeup Packages */}
+              {/* Left Column: Party Makeup */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
                   <span className="text-lg">💄</span>
@@ -356,7 +373,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Right Column: Signature & Bridal Packages */}
+              {/* Right Column: Bridal & Signature */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
                   <Crown className="w-5 h-5 text-amber-400" />
@@ -627,7 +644,7 @@ export default function App() {
                   </span>
                 </div>
 
-                {/* 🏷️ DISCOUNT COUPON CODE SECTION */}
+                {/* Discount Coupon Code Box */}
                 <div className="pt-2 border-t border-neutral-800 space-y-2">
                   <label className="block text-xs font-semibold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
                     <Tag className="w-3.5 h-3.5" /> Apply Discount Coupon
@@ -908,6 +925,52 @@ export default function App() {
         )}
 
       </main>
+
+      {/* 🎈 FLOATING PROMO BANNER (Bottom-Right Floating Alert) */}
+      {STUDIO_CONFIG.floatingBanner?.enabled && showFloatingBanner && (
+        <aside 
+          aria-label="Promotional offer"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 bg-neutral-900/95 backdrop-blur-md border border-amber-500/50 p-4 rounded-2xl shadow-2xl shadow-amber-500/10 animate-fade-in"
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-rose-500 p-0.5 shrink-0">
+              <div className="w-full h-full bg-neutral-950 rounded-[10px] flex items-center justify-center">
+                <Gift className="w-4 h-4 text-amber-400 animate-bounce" />
+              </div>
+            </div>
+            <div className="flex-1 space-y-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-400/10 px-2 py-0.5 rounded">
+                  {STUDIO_CONFIG.floatingBanner.tag}
+                </span>
+              </div>
+              <h4 className="font-serif font-bold text-xs text-stone-100 leading-tight">
+                {STUDIO_CONFIG.floatingBanner.title}
+              </h4>
+              <p className="text-[11px] text-stone-400">
+                Use code <span className="text-amber-300 font-mono font-bold">{STUDIO_CONFIG.floatingBanner.code}</span>
+              </p>
+            </div>
+            <button
+              onClick={() => setShowFloatingBanner(false)}
+              className="text-stone-400 hover:text-stone-100 p-1 rounded-lg"
+              title="Close notification"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <button
+            onClick={() => {
+              handleApplyCoupon(null, STUDIO_CONFIG.floatingBanner.code);
+              setActiveTab('calculator');
+            }}
+            className="mt-3 w-full py-2 bg-gradient-to-r from-amber-500 to-rose-500 hover:opacity-90 text-neutral-950 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5"
+          >
+            <span>{STUDIO_CONFIG.floatingBanner.actionText}</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </aside>
+      )}
 
       {/* Footer */}
       <footer className="border-t border-neutral-900 bg-neutral-950 py-8 mt-16 text-xs text-stone-400">
