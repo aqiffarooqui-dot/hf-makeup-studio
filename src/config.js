@@ -4,33 +4,40 @@
 
 export const STUDIO_CONFIG = {
   whatsappNumber: "919997210876",
-  instagramHandle: "husna.farooqui.makeup", // Clean handle without @
+  instagramHandle: "husna.farooqui.makeup",
 
   // Base Studio Location
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
-  // Top Authenticity Banner
+  // 📢 MULTI-ANNOUNCEMENTS (Cycles automatically in the top banner)
+  // Add as many new lines as you want here
   announcements: [
     "✨ 100% Genuine Certified Cosmetics • Choose Between International Luxury & Premium Drugstore Vanity ✨",
-    "🎉 Limited Wedding Season Offer: Use Code BRIDE2026 for Flat 10% OFF!",
-    "📍 Serving Delhi NCR (From Okhla / Jamia Nagar) & Amroha • Pre-Bookings Open"
+    "🎉 Limited Season Offer: Use Code BRIDE2026 for Flat 10% OFF!",
+    "📍 Serving Delhi NCR (From Okhla / Jamia Nagar) & Amroha • Pre-Bookings Open",
+    "👑 The Royal Bridal Package (International Luxury) now includes 1 FREE Guest Makeover!"
   ],
 
-  // =======================================================
-  // 🏷️ VALID DISCOUNT COUPON CODES (PREVENTS FRAUD)
-  // Aap yahan Naye Coupons add ya purane remove kar sakte hain.
-  // Sirf yahan listed codes hi accept honge!
-  // =======================================================
+  // 🎈 FLOATING PROMO BANNER (Bottom-left floating alert)
+  floatingBanner: {
+    enabled: true,
+    tag: "LIMITED PROMO",
+    title: "Flat 10% OFF Wedding Season Deal",
+    code: "BRIDE2026",
+    actionText: "Apply Code in Calculator"
+  },
+
+  // 🔒 STRICT DISCOUNT COUPON REGISTRY
+  // Add, update, or remove promo codes here easily
   validCoupons: {
-    "BRIDE2026": { discountPercent: 10, description: "10% OFF Wedding Special Offer" },
-    "HUSNA15": { discountPercent: 15, description: "15% Special Festival Discount" },
-    "WELCOME500": { discountAmount: 500, description: "Flat ₹500 OFF On First Booking" },
-    "ROYAL1000": { discountAmount: 1000, description: "Flat ₹1,000 OFF On Royal Bridal Package" }
+    "BRIDE2026": { type: "percent", value: 10, label: "10% Seasonal Wedding Discount" },
+    "HUSNA15": { type: "percent", value: 15, label: "15% Special Bridal Promo" },
+    "ROYAL1000": { type: "flat", value: 1000, label: "₹1,000 Flat Off on Packages" },
+    "WELCOME500": { type: "flat", value: 500, label: "₹500 Flat First-Booking Offer" }
   },
 
   // Package Pricing by Product Tier
   pricingByKit: {
-    // 1. Classic HD / Premium Drugstore Kit
     drugstore: {
       name: "Premium Drugstore / Classic HD Kit",
       tagline: "High-performance, skin-safe, trusted long-wear products (PAC, Milani, Maybelline, Coty Airspun)",
@@ -39,9 +46,8 @@ export const STUDIO_CONFIG = {
       super_hd_party: 4000,
       cocktail_glam: 7000,
       engagement_bride: 8000,
-      royal_bridal: 15000,
+      royal_bridal: 15000
     },
-    // 2. 100% International Luxury Kit
     international: {
       name: "International Luxury Vanity Kit",
       tagline: "Ultra-luxury international prestige brands (NARS, Charlotte Tilbury, Too Faced, Huda, Laura Mercier)",
@@ -50,7 +56,7 @@ export const STUDIO_CONFIG = {
       super_hd_party: 6000,
       cocktail_glam: 10000,
       engagement_bride: 12000,
-      royal_bridal: 25000, // Explicitly ₹25,000 for Royal Bridal
+      royal_bridal: 25000
     }
   },
 
@@ -64,7 +70,7 @@ export const STUDIO_CONFIG = {
     royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup for family/friend." }
   },
 
-  // Distance/Cab Based Convenience Charges (From Okhla / Jamia Nagar base)
+  // Distance / Cab Based Convenience Charges (From Okhla / Jamia Nagar)
   convenienceZones: {
     delhi_near: { name: "South Delhi / Nearby (Okhla, Jamia, Saket, Lajpat)", fee: 350, distance: "~5-10 km" },
     delhi_central: { name: "Central / East Delhi (CP, Mayur Vihar, Laxmi Nagar)", fee: 600, distance: "~15-20 km" },
