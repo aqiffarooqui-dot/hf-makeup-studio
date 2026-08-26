@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon
+  Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
+  Play, Film, ExternalLink
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig } from './firebase';
@@ -19,25 +20,25 @@ const DEFAULT_PACKAGE_IMAGES = {
 };
 
 const DEFAULT_GALLERY = [
-  { title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80" },
-  { title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80" },
-  { title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80" },
-  { title: "Ultra HD Party Look", sub: "Long-Wear Flawless Base", url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80" }
+  { type: "image", title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80" },
+  { type: "image", title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80" },
+  { type: "image", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80" },
+  { type: "image", title: "Ultra HD Party Look", sub: "Long-Wear Flawless Base", url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80" }
 ];
 
 const THEME_STYLES = {
   liquid_glass: {
     accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
     btnPrimary: "bg-white/25 hover:bg-white/35 text-white font-bold border border-white/40 shadow-xl shadow-cyan-500/20 backdrop-blur-2xl",
-    accentText: "text-cyan-300",
+    accentText: "text-cyan-400",
     accentBorder: "border-cyan-400/40",
     glow: "shadow-cyan-500/30",
-    activeNav: "bg-white/20 text-white border border-white/40 shadow-lg shadow-cyan-500/20"
+    activeNav: "bg-white/25 text-white border border-white/40 shadow-lg shadow-cyan-500/20"
   },
   one_ui_9: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
     btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md shadow-amber-500/25",
-    accentText: "text-amber-400",
+    accentText: "text-amber-500",
     accentBorder: "border-amber-500/30",
     glow: "shadow-amber-500/20",
     activeNav: "bg-amber-500 text-neutral-950 font-bold shadow-md"
@@ -53,7 +54,7 @@ const THEME_STYLES = {
   google_minimal: {
     accentGradient: "from-blue-500 via-teal-400 to-emerald-400",
     btnPrimary: "bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md",
-    accentText: "text-blue-400",
+    accentText: "text-blue-500",
     accentBorder: "border-blue-500/30",
     glow: "shadow-blue-500/20",
     activeNav: "bg-blue-600 text-white font-bold shadow-md"
@@ -61,7 +62,7 @@ const THEME_STYLES = {
   champagne: {
     accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
     btnPrimary: "bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold",
-    accentText: "text-amber-400",
+    accentText: "text-amber-500",
     accentBorder: "border-amber-400/30",
     glow: "shadow-amber-400/20",
     activeNav: "bg-amber-400 text-neutral-950 font-bold shadow"
@@ -69,7 +70,7 @@ const THEME_STYLES = {
   emerald: {
     accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
     btnPrimary: "bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold",
-    accentText: "text-emerald-400",
+    accentText: "text-emerald-500",
     accentBorder: "border-emerald-500/30",
     glow: "shadow-emerald-500/20",
     activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow"
@@ -77,7 +78,7 @@ const THEME_STYLES = {
   violet: {
     accentGradient: "from-purple-400 via-pink-400 to-rose-400",
     btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold",
-    accentText: "text-purple-400",
+    accentText: "text-purple-500",
     accentBorder: "border-purple-500/30",
     glow: "shadow-purple-500/20",
     activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow"
@@ -130,7 +131,6 @@ export default function App() {
   const canvasRef = useRef(null);
   const [generatedCardUrl, setGeneratedCardUrl] = useState(null);
 
-  // Dynamic Google Font Injection
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -171,7 +171,6 @@ export default function App() {
         });
       }
 
-      // Handle Profile Photo resolution (Instagram or Custom Image)
       let resolvedProfileImage = DEFAULT_PROFILE_IMG;
       if (live.profilePhotoType === 'instagram' && live.instagramHandle) {
         resolvedProfileImage = `https://unavatar.io/instagram/${live.instagramHandle.replace(/^@/, '')}?fallback=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
@@ -274,7 +273,6 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // Generate Booking Card Image & Route
   const handleGenerateAndShareImage = (targetChannel = 'whatsapp') => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -401,14 +399,13 @@ export default function App() {
   const isLiquidGlass = activeColorThemeKey === 'liquid_glass';
   const bgClass = isDarkMode ? (isLiquidGlass ? "bg-[#030712] text-[#f8fafc]" : "bg-[#0b0c0e] text-[#f2f4f8]") : "bg-[#f8fafc] text-[#0f172a]";
   
-  // High-Grade iOS Frosted Blur & One UI Squircle tokens
   const headerBgClass = isDarkMode 
     ? (isLiquidGlass ? "bg-[#080d1e]/50 backdrop-blur-3xl border-b border-white/10" : "bg-[#0b0c0e]/85 backdrop-blur-xl border-b border-[#232730]") 
-    : "bg-white/80 backdrop-blur-2xl border-b border-slate-200/80 shadow-sm";
+    : "bg-white/85 backdrop-blur-2xl border-b border-slate-200/80 shadow-sm";
   
   const cardBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20 hover:scale-[1.01] transition-all duration-300" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20 hover:scale-[1.01] transition-all duration-300") 
-    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50 hover:scale-[1.01] transition-all duration-300";
+    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20") 
+    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50";
     
   const subCardBgClass = isDarkMode 
     ? (isLiquidGlass ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08]" : "bg-[#0f1117] border border-[#232730]") 
@@ -418,6 +415,10 @@ export default function App() {
     ? (isLiquidGlass ? "bg-white/[0.06] border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" : "bg-[#0f1117] border border-[#282d38] text-[#f2f4f8] focus:border-amber-500") 
     : "bg-white border border-slate-300 text-slate-900";
     
+  // 🌟 FIX: Light/Dark Mode Contrast for Nav Tabs & Text Hover
+  const navTextClass = isDarkMode 
+    ? "text-slate-400 hover:text-white hover:bg-white/10" 
+    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/80 font-semibold";
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
 
   return (
@@ -425,7 +426,7 @@ export default function App() {
       
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      {/* Top Ticker */}
+      {/* Top Banner Ticker */}
       {config.showOfferSection !== false && (
         <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs sm:text-sm text-center font-bold tracking-wide flex items-center justify-center gap-2 shadow-sm`}>
           <Volume2 className="w-3.5 h-3.5 shrink-0 animate-pulse" />
@@ -435,7 +436,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Fluid Header with Profile Avatar */}
+      {/* Header */}
       <header className={`sticky top-0 z-40 ${headerBgClass} transition-colors duration-300`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           
@@ -458,8 +459,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* Nav Tabs with Sharp Legibility & Spring Click */}
-          <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-white/80 border-slate-200 shadow-sm'}`}>
+          {/* Nav Tabs with Strict Hover Legibility Fix */}
+          <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-slate-100/80 border-slate-200/80 shadow-sm'}`}>
             {[
               { id: 'menu', label: 'Packages', icon: Crown },
               { id: 'gallery', label: 'Transformations', icon: Camera },
@@ -476,7 +477,7 @@ export default function App() {
                   className={`flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 active:scale-95 ${
                     isActive
                       ? `${currentTheme.activeNav}`
-                      : `${mutedTextClass} hover:text-white hover:bg-white/10`
+                      : `${navTextClass}`
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -512,7 +513,7 @@ export default function App() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`md:hidden flex justify-around border-t p-2 backdrop-blur-2xl ${isDarkMode ? 'border-white/10 bg-[#080d1e]/80' : 'border-slate-200 bg-white/90'}`}>
+        <div className={`md:hidden flex justify-around border-t p-2 backdrop-blur-2xl ${isDarkMode ? 'border-white/10 bg-[#080d1e]/80' : 'border-slate-200 bg-white/95'}`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown },
             { id: 'gallery', label: 'Looks', icon: Camera },
@@ -528,7 +529,7 @@ export default function App() {
                 className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${
                   isActive
                     ? `${currentTheme.activeNav}`
-                    : `${mutedTextClass}`
+                    : `${navTextClass}`
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -556,14 +557,13 @@ export default function App() {
                 Select your preferred cosmetic kit tier below to view exact package rates:
               </p>
 
-              {/* Kit Switcher Pill */}
-              <div className={`inline-flex p-1.5 rounded-2xl border mt-2 gap-1.5 backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-white border-slate-200 shadow-sm'}`}>
+              <div className={`inline-flex p-1.5 rounded-2xl border mt-2 gap-1.5 backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-slate-100 border-slate-200 shadow-sm'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
                     selectedKit === 'international'
                       ? `${currentTheme.btnPrimary}`
-                      : `${mutedTextClass} hover:text-white`
+                      : `${navTextClass}`
                   }`}
                 >
                   <Crown className="w-3.5 h-3.5" />
@@ -574,7 +574,7 @@ export default function App() {
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
                     selectedKit === 'drugstore'
                       ? `${currentTheme.btnPrimary}`
-                      : `${mutedTextClass} hover:text-white`
+                      : `${navTextClass}`
                   }`}
                 >
                   <PackageCheck className="w-3.5 h-3.5" />
@@ -655,21 +655,66 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: GALLERY */}
+        {/* TAB 2: TRANSFORMATIONS & REELS GALLERY */}
         {activeTab === 'gallery' && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>Client Portfolio</span>
-              <h2 className="text-3xl sm:text-4xl font-bold">Signature Transformations</h2>
+              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>
+                Client Transformations & Reels
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold">Signature Makeover Portfolio</h2>
+              <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
+                Explore real bridal looks, dewy skin finishes, and client makeover reels by {config.studioName || "HUSNA FAROOQUI"}.
+              </p>
             </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {(config.galleryPhotos || DEFAULT_GALLERY).map((photo, idx) => (
-                <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group`}>
+              {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => (
+                <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group flex flex-col justify-between`}>
                   <div className="h-80 overflow-hidden relative bg-neutral-900">
-                    <img src={photo.url} alt={photo.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4 text-white">
-                      <span className={`text-[10px] uppercase font-mono font-bold ${currentTheme.accentText}`}>{photo.sub}</span>
-                      <h4 className="font-bold text-base mt-0.5">{photo.title}</h4>
+                    
+                    {/* Render Video, Instagram Embed Link, or Photo */}
+                    {item.type === 'video' ? (
+                      <video 
+                        src={item.url} 
+                        controls 
+                        muted 
+                        loop 
+                        playsInline 
+                        className="w-full h-full object-cover" 
+                      />
+                    ) : item.type === 'instagram_reel' ? (
+                      <div className="w-full h-full relative group">
+                        <img 
+                          src={item.thumbnail || item.url || DEFAULT_PROFILE_IMG} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                        />
+                        <a 
+                          href={item.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="absolute inset-0 bg-black/40 hover:bg-black/20 flex flex-col items-center justify-center text-white transition-colors"
+                        >
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
+                            <Play className="w-6 h-6 text-white ml-0.5" />
+                          </div>
+                          <span className="text-[11px] font-bold mt-2 bg-black/60 px-3 py-1 rounded-full flex items-center gap-1">
+                            Watch Instagram Reel <ExternalLink className="w-3 h-3" />
+                          </span>
+                        </a>
+                      </div>
+                    ) : (
+                      <img 
+                        src={item.url} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      />
+                    )}
+
+                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                      <span className={`text-[10px] uppercase font-mono font-bold ${currentTheme.accentText}`}>{item.sub}</span>
+                      <h4 className="font-bold text-base mt-0.5">{item.title}</h4>
                     </div>
                   </div>
                 </div>
@@ -758,7 +803,7 @@ export default function App() {
                   })()}
                 </div>
 
-                {/* Promo Code Input */}
+                {/* Promo Code Box */}
                 <div className="pt-2 border-t border-white/10 space-y-2">
                   <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
                     <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
@@ -805,7 +850,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 5: BOOKING FORM (POLISHED BUTTON TEXT & HEADING) */}
+        {/* TAB 5: BOOKING FORM */}
         {activeTab === 'booking' && (
           <div className="max-w-2xl mx-auto space-y-8">
             <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 space-y-5`}>
@@ -871,7 +916,7 @@ export default function App() {
                   <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-sm`} />
                 </div>
 
-                {/* 🚀 Polished Clean Action Buttons */}
+                {/* Polished Clean Action Buttons */}
                 <div className="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     type="button"
@@ -907,7 +952,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Offer Banner */}
+      {/* Floating Banner */}
       {config.floatingBanner?.enabled !== false && showFloatingBanner && (
         <aside 
           aria-label="Promotional offer"
