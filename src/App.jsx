@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight,
-  Send, Percent, Camera, Award, Heart, Layers
+  Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
-import { getLiveConfig, saveLiveConfig } from './firebase';
+import { getLiveConfig } from './firebase';
 
 const InstagramIcon = ({ className = "w-4 h-4" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -22,7 +21,6 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
   </svg>
 );
 
-// Fallback image provider
 const DEFAULT_PACKAGE_IMAGES = {
   simple_party: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80",
   hd_party: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80",
@@ -48,17 +46,6 @@ export default function App() {
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  // Secret Admin Trigger
-  const [showAdminModal, setShowAdminModal] = useState(false);
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
-  const [pinInput, setPinInput] = useState('');
-  const [pinError, setPinError] = useState('');
-  const [adminDraft, setAdminDraft] = useState(STUDIO_CONFIG);
-  const [adminActiveSection, setAdminActiveSection] = useState('toggles');
-  const [isSaving, setIsSaving] = useState(false);
-
-  const logoClickRef = useRef({ count: 0, lastTime: 0 });
-
   // Calculator State
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
@@ -73,9 +60,7 @@ export default function App() {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    }
+    if (savedTheme) setIsDarkMode(savedTheme === 'dark');
   }, []);
 
   const toggleTheme = () => {
@@ -86,37 +71,11 @@ export default function App() {
     });
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-        e.preventDefault();
-        setShowAdminModal(true);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const handleSecretLogoClick = () => {
-    const now = Date.now();
-    if (now - logoClickRef.current.lastTime < 600) {
-      logoClickRef.current.count += 1;
-      if (logoClickRef.current.count >= 3) {
-        setShowAdminModal(true);
-        logoClickRef.current.count = 0;
-      }
-    } else {
-      logoClickRef.current.count = 1;
-    }
-    logoClickRef.current.lastTime = now;
-  };
-
-  // Safe Firebase Fetch with Image Fallback Preserved
+  // Fetch Live Config from Firebase
   useEffect(() => {
     async function initConfig() {
       const live = await getLiveConfig(STUDIO_CONFIG);
       
-      // Ensure images are never empty even if old Firebase doc lacked them
       const mergedPackageDetails = { ...STUDIO_CONFIG.packageDetails };
       if (live.packageDetails) {
         Object.keys(mergedPackageDetails).forEach(k => {
@@ -135,7 +94,6 @@ export default function App() {
       };
 
       setConfig(cleanLive);
-      setAdminDraft(cleanLive);
     }
     initConfig();
   }, []);
@@ -291,37 +249,9 @@ export default function App() {
     window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
   };
 
-  const handleVerifyPin = (e) => {
-    e.preventDefault();
-    if (pinInput === (config.adminPin || '8760')) {
-      setIsAdminAuthenticated(true);
-      setPinError('');
-    } else {
-      setPinError('Incorrect PIN. Please check your access code.');
-    }
-  };
-
-  const handleSaveToBackend = async (e) => {
-    e.preventDefault();
-    setIsSaving(true);
-    try {
-      await saveLiveConfig(adminDraft);
-      setConfig(adminDraft);
-      setShowAdminModal(false);
-      alert('🎉 All settings, prices, and guest discounts saved live!');
-    } catch (err) {
-      setConfig(adminDraft);
-      setShowAdminModal(false);
-      alert('✅ Changes saved locally and applied live!');
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
 
-  // Samsung One UI 9 / Glassmorphism Palette
   const bgClass = isDarkMode ? "bg-[#0b0c0e] text-[#f2f4f8]" : "bg-[#f4f6fa] text-[#1a1c22]";
   const headerBgClass = isDarkMode ? "bg-[#0b0c0e]/80 border-[#232730]" : "bg-white/80 border-[#e5e9f2] shadow-sm";
   const cardBgClass = isDarkMode 
@@ -334,7 +264,6 @@ export default function App() {
   return (
     <div className={`min-h-screen ${bgClass} font-sans selection:bg-amber-500 selection:text-black transition-colors duration-300 relative overflow-x-hidden`}>
       
-      {/* 📢 Minimal Notification Pill */}
       {config.showOfferSection !== false && (
         <div className="bg-gradient-to-r from-amber-600 via-rose-600 to-amber-600 text-white py-2 px-4 text-xs sm:text-sm text-center font-medium tracking-wide flex items-center justify-center gap-2 shadow-sm">
           <Volume2 className="w-3.5 h-3.5 shrink-0 animate-pulse" />
@@ -344,16 +273,12 @@ export default function App() {
         </div>
       )}
 
-      {/* Header - One UI Style Fluid App Bar */}
+      {/* Header */}
       <header className={`sticky top-0 z-40 backdrop-blur-xl ${headerBgClass} border-b transition-colors duration-300`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           
-          <div 
-            onClick={handleSecretLogoClick}
-            className="flex items-center space-x-3.5 cursor-pointer select-none group"
-            title="Husna Farooqui Makeup"
-          >
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-amber-400 p-0.5 shadow-md shadow-amber-500/20 group-active:scale-95 transition-transform duration-200">
+          <div className="flex items-center space-x-3.5 select-none">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-amber-400 p-0.5 shadow-md shadow-amber-500/20">
               <div className={`w-full h-full ${isDarkMode ? 'bg-[#0b0c0e]' : 'bg-white'} rounded-[14px] flex items-center justify-center`}>
                 <Crown className="w-5 h-5 text-amber-500" />
               </div>
@@ -420,7 +345,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Mobile Navigation Bar */}
+        {/* Mobile Navigation */}
         <div className={`md:hidden flex justify-around border-t p-2 ${isDarkMode ? 'border-[#232730] bg-[#0b0c0e]/95' : 'border-[#e5e9f2] bg-white/95'}`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown },
@@ -447,14 +372,12 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Container */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
 
-        {/* TAB 1: PACKAGES & PRICING */}
+        {/* TAB 1: MENU */}
         {activeTab === 'menu' && (
           <div className="space-y-10">
-            
-            {/* Header / Kit Switcher */}
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-semibold tracking-wide">
                 Professional Vanity Packages
@@ -466,7 +389,6 @@ export default function App() {
                 Select your preferred cosmetic kit tier below to view exact package rates:
               </p>
 
-              {/* One UI Pill Toggle */}
               <div className={`inline-flex p-1.5 rounded-2xl border mt-2 gap-1.5 ${isDarkMode ? 'bg-[#14171f] border-[#232730]' : 'bg-white border-[#e5e9f2]'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
@@ -493,9 +415,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Packages Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              
               {/* Party Packages */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/20">
@@ -598,10 +518,9 @@ export default function App() {
                   })}
                 </div>
               </div>
-
             </div>
 
-            {/* Quality Badges */}
+            {/* Badges */}
             <div className={`p-6 rounded-3xl border grid grid-cols-1 sm:grid-cols-3 gap-6 text-center ${subCardBgClass}`}>
               <div className="space-y-1.5">
                 <ShieldCheck className="w-6 h-6 text-amber-500 mx-auto" />
@@ -619,11 +538,10 @@ export default function App() {
                 <p className={`text-[11px] ${mutedTextClass}`}>Hairstyling, lashes, and custom jewelry setting.</p>
               </div>
             </div>
-
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS (FIXED & HIGH-APPEAL) */}
+        {/* TAB 2: TRANSFORMATIONS */}
         {activeTab === 'gallery' && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -886,356 +804,6 @@ export default function App() {
 
       </main>
 
-      {/* 🔒 HIDDEN MASTER ADMIN CONTROL PANEL */}
-      {showAdminModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className={`border rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto space-y-6 ${isDarkMode ? 'bg-[#14171f] border-amber-500/50 text-stone-100' : 'bg-white border-amber-400 text-stone-900 shadow-2xl'}`}>
-            <div className="flex items-center justify-between pb-3 border-b border-stone-200/20">
-              <div className="flex items-center gap-2 text-amber-500">
-                <Settings className="w-5 h-5" />
-                <h3 className="font-serif font-bold text-lg">Master Admin Control Panel</h3>
-              </div>
-              <button onClick={() => { setShowAdminModal(false); setIsAdminAuthenticated(false); setPinInput(''); }} className="text-stone-400 hover:text-stone-100 font-bold text-sm">✕ Close</button>
-            </div>
-
-            {!isAdminAuthenticated ? (
-              <form onSubmit={handleVerifyPin} className="space-y-4 py-8 text-center">
-                <Lock className="w-10 h-10 text-amber-500 mx-auto animate-bounce" />
-                <h4 className="font-serif font-bold text-base">Enter Admin Security PIN</h4>
-                <p className={`text-xs ${mutedTextClass}`}>Enter your 4-digit code to access settings.</p>
-                <input
-                  type="password"
-                  maxLength={6}
-                  placeholder="PIN"
-                  value={pinInput}
-                  onChange={(e) => setPinInput(e.target.value)}
-                  className="w-40 text-center tracking-widest text-lg bg-neutral-950 border border-neutral-700 rounded-2xl p-3 text-amber-400 font-mono mx-auto block"
-                />
-                {pinError && <p className="text-xs text-rose-500 font-medium">{pinError}</p>}
-                <button type="submit" className="px-6 py-2.5 bg-amber-500 text-neutral-950 font-bold text-xs rounded-2xl shadow">Unlock Panel</button>
-              </form>
-            ) : (
-              <form onSubmit={handleSaveToBackend} className="space-y-6 text-xs">
-                
-                {/* Admin Sub-navigation */}
-                <div className="flex overflow-x-auto gap-2 border-b border-stone-200/20 pb-2.5">
-                  {[
-                    { id: 'toggles', label: '🎛️ Section Toggles & Guest Discount' },
-                    { id: 'prices', label: '💄 Package Prices' },
-                    { id: 'coupons', label: '🏷️ Coupons & Limits' },
-                    { id: 'announcements', label: '📢 Top Announcements' },
-                    { id: 'convenience', label: '🚗 Travel & Convenience' }
-                  ].map(sec => (
-                    <button
-                      key={sec.id}
-                      type="button"
-                      onClick={() => setAdminActiveSection(sec.id)}
-                      className={`px-3 py-1.5 rounded-xl whitespace-nowrap font-semibold text-xs transition ${
-                        adminActiveSection === sec.id
-                          ? 'bg-amber-500 text-neutral-950 font-bold'
-                          : `${mutedTextClass} hover:bg-amber-500/10`
-                      }`}
-                    >
-                      {sec.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* 1. SECTION TOGGLES & GUEST DISCOUNT CONTROL */}
-                {adminActiveSection === 'toggles' && (
-                  <div className="space-y-4">
-                    
-                    {/* 👥 Guest Discount Control Box */}
-                    <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-amber-950/20 border-amber-500/50' : 'bg-amber-50 border-amber-300'}`}>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-bold uppercase text-amber-500 text-xs flex items-center gap-1.5">
-                            <Percent className="w-4 h-4" /> Extra Guest Discount Toggle (Backend Control)
-                          </h4>
-                          <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>
-                            Toggle ON/OFF guest discount directly.
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setAdminDraft({
-                            ...adminDraft,
-                            guestDiscount: {
-                              ...adminDraft.guestDiscount,
-                              enabled: !adminDraft.guestDiscount?.enabled
-                            }
-                          })}
-                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.guestDiscount?.enabled !== false ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
-                        >
-                          {adminDraft.guestDiscount?.enabled !== false ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
-                          <span>{adminDraft.guestDiscount?.enabled !== false ? 'DISCOUNT ACTIVE' : 'DISABLED'}</span>
-                        </button>
-                      </div>
-
-                      {adminDraft.guestDiscount?.enabled !== false && (
-                        <div className="flex items-center gap-3 pt-2 border-t border-amber-500/20">
-                          <label className="text-xs font-semibold">Set Guest Discount Percentage:</label>
-                          <div className="flex items-center gap-1">
-                            <input
-                              type="number"
-                              min="0"
-                              max="80"
-                              value={adminDraft.guestDiscount?.discountPercent ?? 15}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                guestDiscount: {
-                                  ...adminDraft.guestDiscount,
-                                  discountPercent: Number(e.target.value)
-                                }
-                              })}
-                              className={`w-20 p-2 rounded-xl border font-mono font-bold ${inputBgClass}`}
-                            />
-                            <span className="font-bold text-amber-500">% OFF</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                      <h4 className="font-bold uppercase text-amber-500">🎛️ Master Feature Toggles</h4>
-                      
-                      <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
-                        <div>
-                          <span className="font-bold block text-sm text-amber-500">Discounts & Coupon Code System</span>
-                          <span className={mutedTextClass}>Turn off entire promo code functionality</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setAdminDraft({ ...adminDraft, enableDiscountsAndCoupons: !adminDraft.enableDiscountsAndCoupons })}
-                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.enableDiscountsAndCoupons !== false ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
-                        >
-                          {adminDraft.enableDiscountsAndCoupons !== false ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
-                          <span>{adminDraft.enableDiscountsAndCoupons !== false ? 'ENABLED' : 'DISABLED'}</span>
-                        </button>
-                      </div>
-
-                      <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
-                        <div>
-                          <span className="font-bold block text-sm">Top Announcement Offer Banner</span>
-                          <span className={mutedTextClass}>Show or hide the rolling top offer bar</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setAdminDraft({ ...adminDraft, showOfferSection: !adminDraft.showOfferSection })}
-                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.showOfferSection ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
-                        >
-                          {adminDraft.showOfferSection ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
-                          <span>{adminDraft.showOfferSection ? 'ENABLED' : 'DISABLED'}</span>
-                        </button>
-                      </div>
-
-                      <div className="flex items-center justify-between py-2">
-                        <div>
-                          <span className="font-bold block text-sm">Bottom Floating Promo Notification</span>
-                          <span className={mutedTextClass}>Show or hide the floating notification</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setAdminDraft({
-                            ...adminDraft,
-                            floatingBanner: { ...adminDraft.floatingBanner, enabled: !adminDraft.floatingBanner?.enabled }
-                          })}
-                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.floatingBanner?.enabled ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
-                        >
-                          {adminDraft.floatingBanner?.enabled ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
-                          <span>{adminDraft.floatingBanner?.enabled ? 'ENABLED' : 'DISABLED'}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* 2. ALL PACKAGE PRICES */}
-                {adminActiveSection === 'prices' && (
-                  <div className="space-y-6">
-                    <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-[#0f1117] border-amber-500/30' : 'bg-stone-50 border-amber-300'}`}>
-                      <h4 className="font-bold text-amber-500 uppercase tracking-wider text-xs">👑 International Luxury Vanity Tier (₹)</h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {partyPackages.concat(bridalPackages).map((pkgKey) => (
-                          <div key={pkgKey}>
-                            <label className="block text-[11px] mb-1 capitalize font-medium">{pkgKey.replace(/_/g, ' ')}</label>
-                            <input
-                              type="number"
-                              value={adminDraft.pricingByKit.international[pkgKey]}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                pricingByKit: {
-                                  ...adminDraft.pricingByKit,
-                                  international: { ...adminDraft.pricingByKit.international, [pkgKey]: Number(e.target.value) }
-                                }
-                              })}
-                              className={`w-full p-2 rounded-xl border font-mono ${inputBgClass}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-[#0f1117] border-stone-800' : 'bg-stone-50 border-stone-300'}`}>
-                      <h4 className="font-bold text-rose-500 uppercase tracking-wider text-xs">✨ Premium Drugstore Tier (₹)</h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {partyPackages.concat(bridalPackages).map((pkgKey) => (
-                          <div key={pkgKey}>
-                            <label className="block text-[11px] mb-1 capitalize font-medium">{pkgKey.replace(/_/g, ' ')}</label>
-                            <input
-                              type="number"
-                              value={adminDraft.pricingByKit.drugstore[pkgKey]}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                pricingByKit: {
-                                  ...adminDraft.pricingByKit,
-                                  drugstore: { ...adminDraft.pricingByKit.drugstore, [pkgKey]: Number(e.target.value) }
-                                }
-                              })}
-                              className={`w-full p-2 rounded-xl border font-mono ${inputBgClass}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* 3. COUPONS & LIMITS */}
-                {adminActiveSection === 'coupons' && (
-                  <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                    <div className="flex justify-between items-center">
-                      <h4 className="font-bold uppercase text-amber-500">🏷️ Discount Coupons</h4>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const newCode = prompt("Enter new Coupon Code:");
-                          if (newCode) {
-                            const cleanCode = newCode.trim().toUpperCase();
-                            setAdminDraft({
-                              ...adminDraft,
-                              validCoupons: {
-                                ...adminDraft.validCoupons,
-                                [cleanCode]: { type: "percent", value: 10, label: "Special Offer", maxUses: 1 }
-                              }
-                            });
-                          }
-                        }}
-                        className="px-2.5 py-1 bg-amber-500 text-neutral-950 font-bold rounded-xl flex items-center gap-1 text-[11px]"
-                      >
-                        <Plus className="w-3.5 h-3.5" /> Add
-                      </button>
-                    </div>
-
-                    <div className="space-y-3 pt-1">
-                      {Object.entries(adminDraft.validCoupons).map(([code, cData]) => (
-                        <div key={code} className={`p-3 rounded-2xl border flex flex-col sm:flex-row gap-3 items-center justify-between ${isDarkMode ? 'bg-[#0f1117] border-neutral-800' : 'bg-white border-stone-200'}`}>
-                          <span className="font-mono font-bold text-amber-500 text-sm">{code}</span>
-                          <div className="flex gap-2">
-                            <select
-                              value={cData.type}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                validCoupons: {
-                                  ...adminDraft.validCoupons,
-                                  [code]: { ...cData, type: e.target.value }
-                                }
-                              })}
-                              className={`p-1.5 rounded-xl border text-xs ${inputBgClass}`}
-                            >
-                              <option value="percent">% Off</option>
-                              <option value="flat">₹ Flat</option>
-                            </select>
-                            <input
-                              type="number"
-                              value={cData.value}
-                              onChange={(e) => setAdminDraft({
-                                ...adminDraft,
-                                validCoupons: {
-                                  ...adminDraft.validCoupons,
-                                  [code]: { ...cData, value: Number(e.target.value) }
-                                }
-                              })}
-                              className={`w-16 p-1.5 rounded-xl border font-mono ${inputBgClass}`}
-                            />
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const updated = { ...adminDraft.validCoupons };
-                              delete updated[code];
-                              setAdminDraft({ ...adminDraft, validCoupons: updated });
-                            }}
-                            className="text-rose-500 hover:bg-rose-500/10 p-1.5 rounded-xl"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. ANNOUNCEMENTS */}
-                {adminActiveSection === 'announcements' && (
-                  <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                    <h4 className="font-bold uppercase text-amber-500">📢 Top Announcement Banner</h4>
-                    {adminDraft.announcements.map((line, idx) => (
-                      <input
-                        key={idx}
-                        type="text"
-                        value={line}
-                        onChange={(e) => {
-                          const updated = [...adminDraft.announcements];
-                          updated[idx] = e.target.value;
-                          setAdminDraft({ ...adminDraft, announcements: updated });
-                        }}
-                        className={`w-full p-2.5 rounded-xl border ${inputBgClass}`}
-                      />
-                    ))}
-                  </div>
-                )}
-
-                {/* 5. TRAVEL CONVENIENCE */}
-                {adminActiveSection === 'convenience' && (
-                  <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                    <h4 className="font-bold uppercase text-amber-500">🚗 Convenience Rates by Zone</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {Object.entries(adminDraft.convenienceZones).map(([zoneKey, zData]) => (
-                        <div key={zoneKey} className={`p-3 rounded-2xl border space-y-1.5 ${isDarkMode ? 'bg-[#0f1117] border-neutral-800' : 'bg-white border-stone-200'}`}>
-                          <span className="font-semibold block text-xs">{zData.name}</span>
-                          <input
-                            type="number"
-                            value={zData.fee}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              convenienceZones: {
-                                ...adminDraft.convenienceZones,
-                                [zoneKey]: { ...zData, fee: Number(e.target.value) }
-                              }
-                            })}
-                            className={`w-28 p-1.5 rounded-xl border font-mono font-bold ${inputBgClass}`}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSaving}
-                  className="w-full py-3 bg-amber-500 text-neutral-950 font-bold text-xs rounded-2xl shadow hover:opacity-95 transition-all"
-                >
-                  <Save className="w-4 h-4 inline-block mr-1" />
-                  <span>{isSaving ? 'Saving...' : 'Save & Publish Live'}</span>
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Floating Promo Banner */}
       {config.floatingBanner?.enabled !== false && showFloatingBanner && (
         <aside 
@@ -1265,7 +833,7 @@ export default function App() {
         </aside>
       )}
 
-      {/* Clean Footer */}
+      {/* Footer */}
       <footer className={`border-t py-8 mt-16 text-xs ${isDarkMode ? 'border-[#232730] bg-[#0b0c0e] text-[#8e95a5]' : 'border-[#e5e9f2] bg-white text-[#5e6678]'}`}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
