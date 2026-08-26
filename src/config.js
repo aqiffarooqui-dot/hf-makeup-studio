@@ -9,33 +9,31 @@ export const STUDIO_CONFIG = {
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
   // 🎛️ Master Feature Toggles
-  showOfferSection: true,          // Top Banner Announcements
-  enableDiscountsAndCoupons: true, // Master Promo Codes
-  bookingChannel: "whatsapp",      // 'whatsapp' | 'instagram'
+  showOfferSection: true,
+  enableDiscountsAndCoupons: true,
+  bookingChannel: "whatsapp",
 
-  // 👥 Dynamic Guest Discount Setting (Controllable via Admin Panel)
+  // 👥 Dynamic Guest Discount Setting
   guestDiscount: {
-    enabled: true,          // Toggle ON/OFF extra guest discount from backend
-    discountPercent: 15     // Discount % given on extra family/guest makeups
+    enabled: true,
+    discountPercent: 15
   },
 
   announcements: [
-    "✨ 100% Genuine Certified Luxury Cosmetics • Flawless HD & 16HR Water-Resistant Finish ✨",
+    "✨ 100% Genuine Certified Luxury Cosmetics • Flawless HD & 16HR Finish ✨",
     "🎉 Limited Season Offer: Use Code BRIDE2026 for Flat 10% OFF!",
-    "📍 Serving South Delhi, Noida, Gurugram, Central Delhi & Amroha • Slots Filling Fast",
+    "📍 Serving South Delhi, Noida, Gurugram, Central Delhi & Amroha • Pre-Bookings Open",
     "👑 The Royal Bridal Package (International Luxury) includes 1 FREE Family Makeover!"
   ],
 
-  // 🎈 Floating Notification Config
   floatingBanner: {
     enabled: true,
     tag: "SPECIAL WEDDING OFFER",
     title: "Flat 10% OFF Signature Bridal Look",
     code: "BRIDE2026",
-    actionText: "Apply Offer"
+    actionText: "Apply"
   },
 
-  // 🏷️ Discount Coupons
   validCoupons: {
     "BRIDE2026": { type: "percent", value: 10, label: "10% Seasonal Wedding Discount", maxUses: 1 },
     "HUSNA15": { type: "percent", value: 15, label: "15% Special Bridal Promo", maxUses: 1 },
@@ -43,7 +41,6 @@ export const STUDIO_CONFIG = {
     "WELCOME500": { type: "flat", value: 500, label: "₹500 Flat First-Booking Offer", maxUses: "unlimited" }
   },
 
-  // 💄 Package Pricing
   pricingByKit: {
     drugstore: {
       name: "Premium Drugstore / Classic HD Kit",
@@ -72,50 +69,48 @@ export const STUDIO_CONFIG = {
       num: 1, 
       name: "Simple Party Makeup", 
       desc: "Clean, elegant, and subtle daytime or evening event makeup.",
-      image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80"
+      image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80"
     },
     hd_party: { 
       num: 2, 
       name: "HD Party Makeup", 
       desc: "High-definition finish for a flawless, camera-ready, and long-lasting look.",
-      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&q=80"
+      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80"
     },
     super_hd_party: { 
       num: 3, 
       name: "Super HD Party Makeup", 
       desc: "Premium, ultra-smooth finish using advanced makeup techniques for a picture-perfect look.",
-      image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&q=80"
+      image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80"
     },
     cocktail_glam: { 
       num: 4, 
       name: "Cocktail Glam Look", 
       desc: "Bold, glamorous, and statement-making styles, perfect for cocktail nights and receptions.",
-      image: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&q=80"
+      image: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80"
     },
     engagement_bride: { 
       num: 5, 
       name: "Engagement Bride", 
       desc: "A stunning, radiant look tailored perfectly for your ring ceremony.",
-      image: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&q=80"
+      image: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80"
     },
     royal_bridal: { 
       num: 6, 
       name: "The Royal Bridal Package", 
       badge: "Signature Bridal", 
       desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup.",
-      image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80"
+      image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80"
     }
   },
 
-  // 📸 Visual Showcase Gallery
   galleryPhotos: [
-    { title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80" },
-    { title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&q=80" },
-    { title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&q=80" },
-    { title: "Ultra HD Party Look", sub: "Long-Wear Flawless Base", url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&q=80" }
+    { title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80" },
+    { title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80" },
+    { title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80" },
+    { title: "Ultra HD Party Look", sub: "Long-Wear Flawless Base", url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80" }
   ],
 
-  // 🚗 Convenience Travel Zones
   convenienceZones: {
     delhi_near: { name: "South Delhi / Nearby (Okhla, Jamia, Saket, Lajpat)", fee: 350, distance: "~5-10 km" },
     delhi_central: { name: "Central / East Delhi (CP, Mayur Vihar, Laxmi Nagar)", fee: 600, distance: "~15-20 km" },
