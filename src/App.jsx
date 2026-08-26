@@ -128,13 +128,12 @@ const getCleanInstagramHandle = (handleOrUrl) => {
   return clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
 };
 
-// 🌟 Ultra-Reliable Multi-Source Profile Image Resolver
+// 🌟 Reliable Instagram & Custom Profile Image Resolver with Proxies
 const resolveProfileImageUrl = (configData) => {
   if (configData.profilePhotoType === 'instagram') {
     const handle = getCleanInstagramHandle(configData.instagramHandle);
     if (handle) {
-      // Primary Unavatar CDN with proxy fallback
-      return `https://unavatar.io/instagram/${handle}`;
+      return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
     }
   }
   if (configData.profileImage && configData.profileImage.trim().length > 0) {
@@ -303,51 +302,59 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
+  // 📄 LUXURY WHITE APPOINTMENT SLIP (ALIGNED & CLAMPED)
   const handleGenerateAndShareImage = (targetChannel = 'whatsapp') => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1080;
-    canvas.height = 1420;
+    canvas.height = 1560;
 
-    const bgGradient = ctx.createLinearGradient(0, 0, 1080, 1420);
-    bgGradient.addColorStop(0, '#0c0e14');
-    bgGradient.addColorStop(0.5, '#141724');
-    bgGradient.addColorStop(1, '#08090d');
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, 1080, 1420);
+    // Pure Pearl White Clean Luxury Canvas
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, 1080, 1560);
 
-    ctx.strokeStyle = '#d4af37';
-    ctx.lineWidth = 12;
-    ctx.strokeRect(36, 36, 1080 - 72, 1420 - 72);
+    // Subtle Marble Background Gradient Accent
+    const bgGrad = ctx.createRadialGradient(540, 300, 50, 540, 780, 800);
+    bgGrad.addColorStop(0, '#ffffff');
+    bgGrad.addColorStop(1, '#f8fafc');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(20, 20, 1040, 1520);
 
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.3)';
+    // Double Gold Frame
+    ctx.strokeStyle = '#b48a3c';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(36, 36, 1008, 1488);
+
+    ctx.strokeStyle = 'rgba(180, 138, 60, 0.25)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 1080 - 96, 1420 - 96);
+    ctx.strokeRect(48, 48, 984, 1464);
 
+    // Studio Header
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#d4af37';
-    ctx.font = 'bold 52px serif';
-    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 140);
+    ctx.fillStyle = '#996515';
+    ctx.font = 'bold 50px serif';
+    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 130);
 
-    ctx.fillStyle = '#f3a4b5';
-    ctx.font = '28px sans-serif';
-    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 190);
+    ctx.fillStyle = '#be123c';
+    ctx.font = '600 26px sans-serif';
+    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 175);
 
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
+    // Divider Line
+    ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(120, 230);
-    ctx.lineTo(960, 230);
+    ctx.moveTo(140, 210);
+    ctx.lineTo(940, 210);
     ctx.stroke();
 
-    ctx.fillStyle = '#d4af37';
-    ctx.font = 'bold 36px sans-serif';
-    ctx.fillText('✨ OFFICIAL VIP APPOINTMENT SLIP ✨', 540, 290);
+    // Badge
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 30px sans-serif';
+    ctx.fillText('✨ OFFICIAL APPOINTMENT SLIP ✨', 540, 265);
 
-    ctx.textAlign = 'left';
-    ctx.font = '32px sans-serif';
-
+    // Data Extraction
     const pkg = config.packageDetails[booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
     const kitName = config.pricingByKit[booking.kitType].name;
@@ -357,49 +364,73 @@ export default function App() {
     const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
 
     const rows = [
-      { label: 'CLIENT NAME:', val: booking.name || 'Not Provided' },
-      { label: 'PHONE NUMBER:', val: booking.phone || 'Not Provided' },
-      { label: 'EVENT DATE:', val: booking.eventDate || 'Not Provided' },
-      { label: 'VANITY KIT:', val: kitName },
-      { label: 'PACKAGE:', val: `${pkg.num}. ${pkg.name}` },
-      { label: 'VENUE ZONE:', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
-      { label: 'ADDRESS:', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
-      { label: 'PROMO CODE:', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'None' }
+      { label: 'CLIENT NAME', val: booking.name || 'Not Provided' },
+      { label: 'PHONE NUMBER', val: booking.phone || 'Not Provided' },
+      { label: 'EVENT DATE', val: booking.eventDate || 'Not Provided' },
+      { label: 'VANITY KIT', val: kitName },
+      { label: 'PACKAGE', val: `${pkg.num}. ${pkg.name}` },
+      { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
+      { label: 'EXACT ADDRESS', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
+      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Code Applied' }
     ];
 
-    let startY = 380;
-    rows.forEach(row => {
-      ctx.fillStyle = '#9ca3af';
-      ctx.font = 'bold 28px sans-serif';
-      ctx.fillText(row.label, 120, startY);
+    let startY = 350;
+    const labelX = 100;
+    const valX = 390;
+    const maxValWidth = 580;
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 32px sans-serif';
-      ctx.fillText(row.val, 400, startY);
+    rows.forEach((row, idx) => {
+      // Row Background Pill for Readability
+      ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.7)' : 'rgba(255, 255, 255, 0.9)';
+      ctx.fillRect(80, startY - 34, 920, 68);
 
-      startY += 80;
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#64748b';
+      ctx.font = 'bold 22px sans-serif';
+      ctx.fillText(row.label, labelX, startY + 8);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 24px sans-serif';
+
+      // Smart String Truncate to prevent overflowing
+      let displayVal = row.val;
+      while (ctx.measureText(displayVal).width > maxValWidth && displayVal.length > 4) {
+        displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
+      }
+      ctx.fillText(displayVal, valX, startY + 8);
+
+      startY += 82;
     });
 
-    ctx.fillStyle = 'rgba(212, 175, 55, 0.15)';
-    ctx.fillRect(100, 1060, 880, 160);
-    ctx.strokeStyle = '#d4af37';
+    // Total Investment Card (Gold Accent Border on White)
+    ctx.fillStyle = '#fefce8';
+    ctx.fillRect(80, 1060, 920, 180);
+    ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 3;
-    ctx.strokeRect(100, 1060, 880, 160);
+    ctx.strokeRect(80, 1060, 920, 180);
 
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#fef08a';
-    ctx.font = '30px sans-serif';
-    ctx.fillText('ESTIMATED TOTAL INVESTMENT', 540, 1110);
+    ctx.fillStyle = '#854d0e';
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1110);
 
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1180);
+    ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
 
-    ctx.fillStyle = '#9ca3af';
-    ctx.font = '24px sans-serif';
-    ctx.fillText(`📍 Base Location: ${config.baseLocation} • WhatsApp: +${config.whatsappNumber}`, 540, 1290);
-    ctx.fillStyle = '#f43f5e';
-    ctx.fillText(`Instagram: @${instagramHandleClean}`, 540, 1335);
+    // Footer Info Box
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#475569';
+    ctx.font = '22px sans-serif';
+    ctx.fillText(`📍 Base Location: ${config.baseLocation} • WhatsApp: +${config.whatsappNumber}`, 540, 1310);
+
+    ctx.fillStyle = '#e11d48';
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText(`Official Instagram: @${instagramHandleClean}`, 540, 1355);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '18px sans-serif';
+    ctx.fillText('Present this official digital slip during your vanity appointment confirmation.', 540, 1410);
 
     const imageUrl = canvas.toDataURL('image/png');
     setGeneratedCardUrl(imageUrl);
@@ -411,7 +442,7 @@ export default function App() {
 
     setTimeout(() => {
       if (targetChannel === 'whatsapp') {
-        const text = encodeURIComponent(`✨ *Hello ${config.studioName || "Husna Farooqui"} Studio!* Here are my booking details for ${booking.name || 'Client'}. I have saved my Booking Slip Image and am attaching it here!`);
+        const text = encodeURIComponent(`✨ *Hello ${config.studioName || "Husna Farooqui"} Studio!* Here are my appointment details for ${booking.name || 'Client'}. I have downloaded and attached my official Booking Slip!`);
         window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${text}`, '_blank');
       } else {
         window.open(instagramProfileUrl, '_blank');
@@ -434,8 +465,8 @@ export default function App() {
     : "bg-white/85 backdrop-blur-2xl border-b border-slate-200/80 shadow-sm";
   
   const cardBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20 hover:scale-[1.01] transition-all duration-300" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20 hover:scale-[1.01] transition-all duration-300") 
-    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50 hover:scale-[1.01] transition-all duration-300";
+    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20") 
+    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50";
     
   const subCardBgClass = isDarkMode 
     ? (isLiquidGlass ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08]" : "bg-[#0f1117] border border-[#232730]") 
@@ -965,7 +996,7 @@ export default function App() {
 
                 {generatedCardUrl && (
                   <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
-                    <p className="text-xs text-emerald-400 font-bold">🎉 HD Appointment Slip Generated & Saved!</p>
+                    <p className="text-xs text-emerald-400 font-bold">🎉 Official Appointment Slip Generated & Saved!</p>
                     <a href={generatedCardUrl} download="Booking_Slip.png" className="text-xs text-slate-300 underline inline-flex items-center gap-1 font-semibold">
                       <Download className="w-3.5 h-3.5" /> Download Slip Again
                     </a>
@@ -978,7 +1009,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Offer Banner */}
+      {/* Floating Banner */}
       {config.floatingBanner?.enabled !== false && showFloatingBanner && (
         <aside 
           aria-label="Promotional offer"
