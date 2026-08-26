@@ -9,7 +9,7 @@ export const STUDIO_CONFIG = {
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
   // 🎛️ Master Feature Toggles
-  showOfferSection: true,      // Enable / Disable Top Banner Announcements
+  showOfferSection: true,          // Enable / Disable Top Banner Announcements
   enableDiscountsAndCoupons: true, // Enable / Disable entire Discount & Coupon System
 
   announcements: [
@@ -69,6 +69,7 @@ export const STUDIO_CONFIG = {
     royal_bridal: { num: 6, name: "The Royal Bridal Package", badge: "Signature Bridal", desc: "The ultimate bridal transformation: detailed full-face makeup, custom draping, elaborate eye artistry, full hairstyling, and 1 complimentary party makeup." }
   },
 
+  // 🚗 Convenience Zones
   convenienceZones: {
     delhi_near: { name: "South Delhi / Nearby (Okhla, Jamia, Saket, Lajpat)", fee: 350, distance: "~5-10 km" },
     delhi_central: { name: "Central / East Delhi (CP, Mayur Vihar, Laxmi Nagar)", fee: 600, distance: "~15-20 km" },
