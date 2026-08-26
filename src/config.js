@@ -1,19 +1,15 @@
 // =======================================================
-// 💄 HUSNA FAROOQUI MAKEUP - OFFICIAL CONFIG
+// 💄 HUSNA FAROOQUI MAKEUP - DEFAULT FALLBACK CONFIG
 // =======================================================
 
 export const STUDIO_CONFIG = {
-  adminPin: "8760",
   whatsappNumber: "919997210876",
   instagramHandle: "husna_farooqui_makeup",
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
-  // 🎛️ Master Feature Toggles
   showOfferSection: true,
   enableDiscountsAndCoupons: true,
-  bookingChannel: "whatsapp",
 
-  // 👥 Dynamic Guest Discount Setting
   guestDiscount: {
     enabled: true,
     discountPercent: 15
