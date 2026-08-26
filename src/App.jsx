@@ -243,7 +243,7 @@ export default function App() {
       `💎 *Product Kit:* ${kitName}\n` +
       `💄 *Package:* ${pkg.num}. ${pkg.name} (₹${basePrice.toLocaleString('en-IN')})\n` +
       `📅 *Preferred Date:* ${booking.eventDate}\n` +
-      `📍 *Location Zone:* ${zone?.name} (Convenience: ₹${zone?.fee})\n` +
+      `📍 *Location Zone:* ${zone?.name} (Convenience Fee: ₹${zone?.fee})\n` +
       `🏠 *Exact Address:* ${booking.venueAddress || 'Not Provided'}\n` +
       (appliedCoupon && config.enableDiscountsAndCoupons !== false ? `🏷️ *Applied Coupon:* ${appliedCoupon.code} (-₹${bookingDiscount.toLocaleString('en-IN')} OFF)\n` : '') +
       `💰 *Estimated Total:* ₹${bookingFinal.toLocaleString('en-IN')}\n` +
@@ -592,7 +592,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider mb-2">3. Venue Zone (Cab from Jamia)</label>
+                  <label className="block text-xs font-semibold uppercase tracking-wider mb-2">3. Venue Zone</label>
                   <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} border rounded-xl px-4 py-3 text-xs`}>
                     {Object.entries(config.convenienceZones).map(([key, zone]) => (
                       <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
@@ -615,7 +615,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Coupon Code Section (Conditionally Rendered by Master Toggle) */}
+                {/* Coupon Code Section */}
                 {config.enableDiscountsAndCoupons !== false && (
                   <div className="pt-2 border-t border-stone-200/20 space-y-2">
                     <label className="block text-xs font-semibold text-amber-500 uppercase tracking-wider flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> Promo Coupon Code</label>
@@ -645,7 +645,7 @@ export default function App() {
                 </div>
                 <div className="space-y-2 text-xs border-t border-b border-stone-200/20 py-3">
                   <div className={`flex justify-between ${mutedTextClass}`}><span>Base:</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Cab Fee:</span><span className="text-amber-500 font-medium">₹{config.convenienceZones[calcZone]?.fee}</span></div>
+                  <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee:</span><span className="text-amber-500 font-medium">₹{config.convenienceZones[calcZone]?.fee}</span></div>
                   <div className={`flex justify-between ${mutedTextClass}`}>
                     <span>Extra Guests ({extraPartyCount}):</span>
                     <span>₹{(extraPartyCount * getGuestRate(calcKit, calcPackage)).toLocaleString('en-IN')}</span>
@@ -777,7 +777,7 @@ export default function App() {
                     { id: 'prices', label: '💄 Package Prices' },
                     { id: 'coupons', label: '🏷️ Coupons & Limits' },
                     { id: 'announcements', label: '📢 Top Announcements' },
-                    { id: 'convenience', label: '🚗 Cab & Travel Fees' }
+                    { id: 'convenience', label: '🚗 Travel & Convenience' }
                   ].map(sec => (
                     <button
                       key={sec.id}
@@ -794,7 +794,7 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* 1. SECTION TOGGLES (Offer Bar, Floating Notification, Discounts & Coupons) */}
+                {/* 1. SECTION TOGGLES */}
                 {adminActiveSection === 'toggles' && (
                   <div className="space-y-4">
                     <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
@@ -896,11 +896,11 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 2. ALL PACKAGE PRICES (GUEST PRICE DIRECTLY INHERITED) */}
+                {/* 2. ALL PACKAGE PRICES */}
                 {adminActiveSection === 'prices' && (
                   <div className="space-y-6">
                     <div className={`p-3 rounded-xl border text-[11px] ${isDarkMode ? 'bg-amber-950/20 border-amber-500/40 text-amber-300' : 'bg-amber-50 border-amber-300 text-amber-800'}`}>
-                      ℹ️ <strong>Package-Based Guest Pricing Active:</strong> When a customer selects any package (e.g. Simple Party ₹1,500 or Royal Bridal ₹25,000), the extra guest makeup price automatically matches that selected package price per person.
+                      ℹ️ <strong>Package-Based Guest Pricing Active:</strong> When a customer selects any package, the guest makeup price automatically matches that selected package price per person.
                     </div>
 
                     {/* International Tier */}
@@ -1115,16 +1115,16 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 5. CONVENIENCE */}
+                {/* 5. TRAVEL & CONVENIENCE */}
                 {adminActiveSection === 'convenience' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                    <h4 className="font-bold uppercase text-amber-500">🚗 Cab & Convenience Rates by Zone</h4>
+                    <h4 className="font-bold uppercase text-amber-500">🚗 Convenience Rates by Zone</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {Object.entries(adminDraft.convenienceZones).map(([zoneKey, zData]) => (
                         <div key={zoneKey} className={`p-3 rounded-xl border space-y-1.5 ${isDarkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-stone-200'}`}>
                           <span className="font-semibold block text-xs">{zData.name}</span>
                           <div className="flex gap-2 items-center">
-                            <span className="text-[11px] text-stone-400">Cab Fee (₹):</span>
+                            <span className="text-[11px] text-stone-400">Convenience Fee (₹):</span>
                             <input
                               type="number"
                               value={zData.fee}
