@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight
+  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight,
+  Send, MessageCircle, Copy
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { getLiveConfig, saveLiveConfig } from './firebase';
@@ -213,7 +214,8 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  const handleBookingSubmit = (e) => {
+  // Dynamic Booking Dispatcher (Instagram DM vs WhatsApp)
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
     const pkg = config.packageDetails[booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
@@ -250,7 +252,19 @@ export default function App() {
       `📝 *Notes/Requests:* ${booking.notes || 'None'}\n\n` +
       `_Base Studio: ${config.baseLocation}_`;
 
-    window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
+    if (config.bookingChannel === 'instagram') {
+      // Copy formatted message to clipboard for easy paste into Instagram DM
+      try {
+        await navigator.clipboard.writeText(message);
+      } catch (err) {
+        console.warn("Clipboard write skipped:", err);
+      }
+      alert("📋 Your booking details have been copied! Opening Instagram DM directly—please paste and send your message.");
+      window.open(instagramDmUrl, '_blank');
+    } else {
+      // WhatsApp Channel
+      window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
+    }
   };
 
   const handleVerifyPin = (e) => {
@@ -330,7 +344,7 @@ export default function App() {
               { id: 'menu', label: 'Packages & Pricing', icon: Crown },
               { id: 'brands', label: 'Vanity Brands', icon: Star },
               { id: 'calculator', label: 'Price Estimator', icon: Calculator },
-              { id: 'booking', label: 'Book on WhatsApp', icon: Calendar }
+              { id: 'booking', label: config.bookingChannel === 'instagram' ? 'Book on Instagram' : 'Book on WhatsApp', icon: Calendar }
             ].map((tab) => {
               const Icon = tab.icon;
               return (
@@ -607,10 +621,9 @@ export default function App() {
                   </div>
                   <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-amber-500 h-2 rounded-lg cursor-pointer" />
                   
-                  {/* Direct Package-Based Guest Price Display */}
                   <div className="flex items-center justify-between text-[11px] mt-1.5">
                     <span className={mutedTextClass}>
-                      Guest Rate (Based on Selected Package): <strong className="text-amber-500 font-mono">₹{getGuestRate(calcKit, calcPackage).toLocaleString('en-IN')}</strong> / person
+                      Guest Rate: <strong className="text-amber-500 font-mono">₹{getGuestRate(calcKit, calcPackage).toLocaleString('en-IN')}</strong> / person (matches package)
                     </span>
                   </div>
                 </div>
@@ -715,22 +728,30 @@ export default function App() {
                   <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} border rounded-xl px-4 py-3 text-sm`} />
                 </div>
 
-                <button type="submit" className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg">
-                  <WhatsAppIcon className="w-5 h-5" />
-                  <span>Send Request to WhatsApp</span>
+                {/* Dynamic Submit Button based on Active Admin Channel */}
+                <button
+                  type="submit"
+                  className={`w-full py-3.5 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg transition hover:opacity-95 ${
+                    config.bookingChannel === 'instagram'
+                      ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500'
+                      : 'bg-emerald-600 hover:bg-emerald-500'
+                  }`}
+                >
+                  {config.bookingChannel === 'instagram' ? <InstagramIcon className="w-5 h-5" /> : <WhatsAppIcon className="w-5 h-5" />}
+                  <span>{config.bookingChannel === 'instagram' ? 'Send Booking Request on Instagram' : 'Send Request to WhatsApp'}</span>
                 </button>
               </form>
 
               <div className="pt-4 mt-6 border-t border-stone-200/20 text-center space-y-2">
-                <p className={`text-xs ${mutedTextClass}`}>Prefer chatting directly on Instagram?</p>
+                <p className={`text-xs ${mutedTextClass}`}>Direct Instagram Profile & Inquiries:</p>
                 <a
-                  href={instagramDmUrl}
+                  href={instagramProfileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-xs font-bold rounded-xl shadow hover:opacity-95 transition"
+                  className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-stone-500/10 hover:bg-stone-500/20 text-stone-300 text-xs font-semibold rounded-xl border border-stone-500/20 transition"
                 >
-                  <InstagramIcon className="w-4 h-4" />
-                  <span>DM Directly on Instagram (@{instagramHandleClean})</span>
+                  <InstagramIcon className="w-4 h-4 text-pink-400" />
+                  <span>View @{instagramHandleClean} on Instagram</span>
                 </a>
               </div>
             </div>
@@ -773,7 +794,7 @@ export default function App() {
                 {/* Admin Sub-navigation */}
                 <div className="flex overflow-x-auto gap-2 border-b border-stone-200/20 pb-2.5">
                   {[
-                    { id: 'toggles', label: '🎛️ Section Toggles' },
+                    { id: 'toggles', label: '🎛️ Routing & Section Toggles' },
                     { id: 'prices', label: '💄 Package Prices' },
                     { id: 'coupons', label: '🏷️ Coupons & Limits' },
                     { id: 'announcements', label: '📢 Top Announcements' },
@@ -794,9 +815,47 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* 1. SECTION TOGGLES */}
+                {/* 1. SECTION TOGGLES (Channel Selector + Toggles) */}
                 {adminActiveSection === 'toggles' && (
                   <div className="space-y-4">
+                    
+                    {/* Primary Booking Destination Channel */}
+                    <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-amber-950/20 border-amber-500/50' : 'bg-amber-50 border-amber-300'}`}>
+                      <h4 className="font-bold uppercase text-amber-500 text-xs flex items-center gap-2">
+                        <span>📲</span> Destination Booking Channel (Choose Where Inquiries Go)
+                      </h4>
+                      <div className="grid grid-cols-2 gap-3 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setAdminDraft({ ...adminDraft, bookingChannel: 'instagram' })}
+                          className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold transition ${
+                            adminDraft.bookingChannel === 'instagram'
+                              ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white border-transparent shadow-lg'
+                              : `${inputBgClass} opacity-70`
+                          }`}
+                        >
+                          <InstagramIcon className="w-4 h-4" />
+                          <span>Direct Instagram DM (Selected)</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setAdminDraft({ ...adminDraft, bookingChannel: 'whatsapp' })}
+                          className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold transition ${
+                            adminDraft.bookingChannel === 'whatsapp'
+                              ? 'bg-emerald-600 text-white border-transparent shadow-lg'
+                              : `${inputBgClass} opacity-70`
+                          }`}
+                        >
+                          <WhatsAppIcon className="w-4 h-4" />
+                          <span>WhatsApp Channel</span>
+                        </button>
+                      </div>
+                      <p className={`text-[11px] ${mutedTextClass}`}>
+                        *When set to <strong>Instagram</strong>, the client's booking summary is prepared, automatically copied to their clipboard, and sent directly to your Instagram Direct Message screen without revealing your WhatsApp number.
+                      </p>
+                    </div>
+
                     <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                       <h4 className="font-bold uppercase text-amber-500">🎛️ Master Feature Toggles</h4>
                       
