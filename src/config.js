@@ -8,8 +8,9 @@ export const STUDIO_CONFIG = {
   instagramHandle: "husna_farooqui_makeup",
   baseLocation: "Okhla / Jamia Nagar, New Delhi",
 
-  // 🎛️ Feature Toggles
-  showOfferSection: true, // Enable / Disable Top Banner Announcements
+  // 🎛️ Master Feature Toggles
+  showOfferSection: true,      // Enable / Disable Top Banner Announcements
+  enableDiscountsAndCoupons: true, // Enable / Disable entire Discount & Coupon System
 
   announcements: [
     "✨ 100% Genuine Certified Cosmetics • International Luxury & Premium Drugstore Collections ✨",
@@ -20,7 +21,7 @@ export const STUDIO_CONFIG = {
 
   // 🎈 Floating Notification Config
   floatingBanner: {
-    enabled: true, // Enable / Disable Floating Notification
+    enabled: true,
     tag: "LIMITED PROMO",
     title: "Flat 10% OFF Wedding Season Deal",
     code: "BRIDE2026",
@@ -28,7 +29,6 @@ export const STUDIO_CONFIG = {
   },
 
   // 🏷️ Discount Coupons with Configurable Max Usage Limits
-  // maxUses: 1 (single use), 5, 10, or 'unlimited'
   validCoupons: {
     "BRIDE2026": { type: "percent", value: 10, label: "10% Seasonal Wedding Discount", maxUses: 1 },
     "HUSNA15": { type: "percent", value: 15, label: "15% Special Bridal Promo", maxUses: 1 },
@@ -36,13 +36,7 @@ export const STUDIO_CONFIG = {
     "WELCOME500": { type: "flat", value: 500, label: "₹500 Flat First-Booking Offer", maxUses: "unlimited" }
   },
 
-  // 💄 Guest Pricing & Discount Rules
-  guestPricingRules: {
-    discountPercent: 15 // % discount given on additional guest makeups when booked alongside main package
-  },
-
   // 💄 Package Pricing
-  // extraGuestRate is calculated directly from package pricing or custom rate
   pricingByKit: {
     drugstore: {
       name: "Premium Drugstore / Classic HD Kit",
@@ -52,8 +46,7 @@ export const STUDIO_CONFIG = {
       super_hd_party: 4000,
       cocktail_glam: 7000,
       engagement_bride: 8000,
-      royal_bridal: 15000,
-      guestBaseRate: 2500 // Base party rate for extra guests under drugstore tier
+      royal_bridal: 15000
     },
     international: {
       name: "International Luxury Vanity Kit",
@@ -63,8 +56,7 @@ export const STUDIO_CONFIG = {
       super_hd_party: 6000,
       cocktail_glam: 10000,
       engagement_bride: 12000,
-      royal_bridal: 25000,
-      guestBaseRate: 4000 // Base party rate for extra guests under luxury tier
+      royal_bridal: 25000
     }
   },
 
