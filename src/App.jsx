@@ -3,7 +3,7 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight,
-  Send, MessageCircle, Copy
+  Send, Percent, Image, Award, Heart, Eye
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { getLiveConfig, saveLiveConfig } from './firebase';
@@ -140,18 +140,27 @@ export default function App() {
 
   const instagramHandleClean = (config.instagramHandle || 'husna_farooqui_makeup').replace(/^@/, '');
   const instagramProfileUrl = `https://www.instagram.com/${instagramHandleClean}/`;
-  const instagramDmUrl = `https://ig.me/m/${instagramHandleClean}`;
 
   const getPackagePrice = (packageKey, kitType = selectedKit) => {
     return config.pricingByKit[kitType][packageKey];
   };
 
-  // Direct 1:1 Package-based Guest Price
-  const getGuestRate = (kit, pkgKey) => {
-    return config.pricingByKit[kit][pkgKey] || 2500;
+  // Dynamic Guest Rate Calculation (with Admin Toggle & Discount %)
+  const getGuestRateDetails = (kit, pkgKey) => {
+    const rawPrice = config.pricingByKit[kit][pkgKey] || 2500;
+    const isDiscountActive = config.guestDiscount?.enabled !== false;
+    const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
+    const discountedPrice = Math.round(rawPrice * (1 - discountPercent / 100));
+
+    return {
+      rawPrice,
+      discountedPrice,
+      discountPercent,
+      isDiscountActive: isDiscountActive && discountPercent > 0
+    };
   };
 
-  // Coupon Verification with Multi-Usage Rules & Master Toggle Check
+  // Coupon Verification
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
@@ -197,8 +206,8 @@ export default function App() {
     const base = config.pricingByKit[kit][pkgKey];
     const zone = config.convenienceZones[zoneKey];
     const convenienceFee = zone ? zone.fee : 350;
-    const guestRate = getGuestRate(kit, pkgKey);
-    const extraPartyCost = partyCount * guestRate;
+    const { discountedPrice } = getGuestRateDetails(kit, pkgKey);
+    const extraPartyCost = partyCount * discountedPrice;
     return base + convenienceFee + extraPartyCost;
   };
 
@@ -214,8 +223,7 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // Dynamic Booking Dispatcher (Instagram DM vs WhatsApp)
-  const handleBookingSubmit = async (e) => {
+  const handleBookingSubmit = (e) => {
     e.preventDefault();
     const pkg = config.packageDetails[booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
@@ -239,10 +247,10 @@ export default function App() {
     }
 
     const message = 
-      `✨ *New Booking Request - Husna Farooqui Makeup* ✨\n\n` +
+      `✨ *New VIP Booking Request - Husna Farooqui Makeup* ✨\n\n` +
       `👤 *Client Name:* ${booking.name}\n` +
       `📞 *Client Phone:* ${booking.phone}\n` +
-      `💎 *Product Kit:* ${kitName}\n` +
+      `💎 *Vanity Kit:* ${kitName}\n` +
       `💄 *Package:* ${pkg.num}. ${pkg.name} (₹${basePrice.toLocaleString('en-IN')})\n` +
       `📅 *Preferred Date:* ${booking.eventDate}\n` +
       `📍 *Location Zone:* ${zone?.name} (Convenience Fee: ₹${zone?.fee})\n` +
@@ -250,21 +258,9 @@ export default function App() {
       (appliedCoupon && config.enableDiscountsAndCoupons !== false ? `🏷️ *Applied Coupon:* ${appliedCoupon.code} (-₹${bookingDiscount.toLocaleString('en-IN')} OFF)\n` : '') +
       `💰 *Estimated Total:* ₹${bookingFinal.toLocaleString('en-IN')}\n` +
       `📝 *Notes/Requests:* ${booking.notes || 'None'}\n\n` +
-      `_Base Studio: ${config.baseLocation}_`;
+      `_Official Studio: ${config.baseLocation}_`;
 
-    if (config.bookingChannel === 'instagram') {
-      // Copy formatted message to clipboard for easy paste into Instagram DM
-      try {
-        await navigator.clipboard.writeText(message);
-      } catch (err) {
-        console.warn("Clipboard write skipped:", err);
-      }
-      alert("📋 Your booking details have been copied! Opening Instagram DM directly—please paste and send your message.");
-      window.open(instagramDmUrl, '_blank');
-    } else {
-      // WhatsApp Channel
-      window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
-    }
+    window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleVerifyPin = (e) => {
@@ -284,7 +280,7 @@ export default function App() {
       await saveLiveConfig(adminDraft);
       setConfig(adminDraft);
       setShowAdminModal(false);
-      alert('🎉 All settings, toggles, rates, and coupon rules saved live!');
+      alert('🎉 All settings, prices, and guest discounts saved live!');
     } catch (err) {
       setConfig(adminDraft);
       setShowAdminModal(false);
@@ -299,13 +295,13 @@ export default function App() {
 
   const bgClass = isDarkMode ? "bg-neutral-950 text-stone-100" : "bg-stone-50 text-stone-900";
   const headerBgClass = isDarkMode ? "bg-neutral-950/90 border-neutral-800" : "bg-white/95 border-amber-200/60 shadow-sm";
-  const cardBgClass = isDarkMode ? "bg-neutral-900/90 border-neutral-800 hover:border-amber-500/40" : "bg-white border-stone-200 hover:border-amber-400 shadow-sm";
+  const cardBgClass = isDarkMode ? "bg-neutral-900/90 border-neutral-800 hover:border-amber-500/50" : "bg-white border-stone-200 hover:border-amber-400 shadow-md";
   const subCardBgClass = isDarkMode ? "bg-neutral-950 border-neutral-800" : "bg-stone-100 border-stone-300";
   const inputBgClass = isDarkMode ? "bg-neutral-950 border-neutral-800 text-stone-100" : "bg-stone-50 border-stone-300 text-stone-900";
   const mutedTextClass = isDarkMode ? "text-stone-400" : "text-stone-600";
 
   return (
-    <div className={`min-h-screen ${bgClass} font-sans selection:bg-amber-500 selection:text-black transition-colors duration-300 relative`}>
+    <div className={`min-h-screen ${bgClass} font-sans selection:bg-amber-500 selection:text-black transition-colors duration-300 relative overflow-x-hidden`}>
       
       {/* 📢 Top Announcement Banner */}
       {config.showOfferSection !== false && (
@@ -326,34 +322,38 @@ export default function App() {
             className="flex items-center space-x-3 cursor-pointer select-none group"
             title="Husna Farooqui Makeup"
           >
-            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 to-rose-500 p-0.5 shadow-lg shadow-amber-500/10 group-active:scale-95 transition-transform">
+            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-amber-300 p-0.5 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
               <div className={`w-full h-full ${isDarkMode ? 'bg-neutral-950' : 'bg-white'} rounded-full flex items-center justify-center`}>
-                <Crown className="w-6 h-6 text-amber-500" />
+                <Crown className="w-6 h-6 text-amber-500 animate-pulse" />
               </div>
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-wider bg-gradient-to-r from-amber-500 via-rose-500 to-amber-600 bg-clip-text text-transparent font-serif">
+              <h1 className="text-xl font-bold tracking-wider bg-gradient-to-r from-amber-400 via-rose-400 to-amber-500 bg-clip-text text-transparent font-serif">
                 HUSNA FAROOQUI
               </h1>
-              <p className="text-xs text-amber-500 font-mono tracking-widest uppercase">Professional Makeup Artist</p>
+              <p className="text-xs text-amber-500 font-mono tracking-widest uppercase flex items-center gap-1">
+                <span>Celebrity & Bridal Artist</span>
+                <Sparkles className="w-3 h-3" />
+              </p>
             </div>
           </div>
 
-          <nav className="hidden md:flex space-x-1 p-1.5 rounded-full border border-amber-500/20 bg-amber-500/5">
+          <nav className="hidden md:flex space-x-1 p-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 backdrop-blur-md">
             {[
               { id: 'menu', label: 'Packages & Pricing', icon: Crown },
+              { id: 'gallery', label: 'Transformations', icon: Image },
               { id: 'brands', label: 'Vanity Brands', icon: Star },
               { id: 'calculator', label: 'Price Estimator', icon: Calculator },
-              { id: 'booking', label: config.bookingChannel === 'instagram' ? 'Book on Instagram' : 'Book on WhatsApp', icon: Calendar }
+              { id: 'booking', label: 'Book Appointment', icon: Calendar }
             ].map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md shadow-amber-500/20'
+                      ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md shadow-amber-500/20 scale-105'
                       : `${mutedTextClass} hover:text-amber-500 hover:bg-amber-500/10`
                   }`}
                 >
@@ -381,7 +381,7 @@ export default function App() {
               href={instagramProfileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 text-white text-xs font-bold px-4 py-2.5 rounded-full transition shadow-md"
+              className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:scale-105 text-white text-xs font-bold px-4 py-2.5 rounded-full transition-all duration-300 shadow-md shadow-pink-500/20"
             >
               <InstagramIcon className="w-4 h-4" />
               <span className="hidden sm:inline">@{instagramHandleClean}</span>
@@ -393,7 +393,7 @@ export default function App() {
         <div className={`md:hidden flex justify-around border-t p-2 ${isDarkMode ? 'border-neutral-800 bg-neutral-950/90' : 'border-stone-200 bg-white/90'}`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown },
-            { id: 'brands', label: 'Brands', icon: Star },
+            { id: 'gallery', label: 'Gallery', icon: Image },
             { id: 'calculator', label: 'Estimate', icon: Calculator },
             { id: 'booking', label: 'Book', icon: Calendar }
           ].map((tab) => {
@@ -421,24 +421,28 @@ export default function App() {
 
         {/* TAB 1: MENU */}
         {activeTab === 'menu' && (
-          <div className="space-y-10">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-semibold uppercase tracking-widest">
-                Welcome to Husna Farooqui Makeup
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold">
-                Makeup Packages & Pricing
+          <div className="space-y-12 animate-fade-in">
+            
+            {/* Hero Section with Ambient Glow */}
+            <div className="text-center max-w-3xl mx-auto space-y-4 relative">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-semibold uppercase tracking-widest shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" />
+                <span>Luxury Bridal & HD Artistry</span>
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-serif font-bold tracking-tight bg-gradient-to-r from-amber-200 via-rose-200 to-amber-400 bg-clip-text text-transparent">
+                Flawless Looks Curated For Your Big Day
               </h2>
-              <p className={`text-sm leading-relaxed ${mutedTextClass}`}>
-                Choose your preferred product vanity kit to view customized package pricing.
+              <p className={`text-sm sm:text-base leading-relaxed ${mutedTextClass}`}>
+                Experience bespoke, high-definition makeup transformations with zero camera flashback and unmatched 16-hour endurance.
               </p>
 
-              <div className={`inline-flex flex-col sm:flex-row p-1.5 rounded-2xl border mt-3 gap-1.5 ${isDarkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-stone-100 border-stone-300'}`}>
+              {/* Product Kit Selector */}
+              <div className={`inline-flex flex-col sm:flex-row p-1.5 rounded-2xl border mt-3 gap-1.5 shadow-xl ${isDarkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-stone-100 border-stone-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                  className={`px-5 py-3 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
                     selectedKit === 'international'
-                      ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 shadow-md font-bold'
+                      ? 'bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 shadow-lg shadow-amber-500/25 scale-[1.02]'
                       : `${mutedTextClass} hover:text-amber-500`
                   }`}
                 >
@@ -447,7 +451,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                  className={`px-5 py-3 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
                     selectedKit === 'drugstore'
                       ? 'bg-neutral-800 text-amber-300 border border-neutral-700 shadow-md'
                       : `${mutedTextClass} hover:text-amber-500`
@@ -459,98 +463,216 @@ export default function App() {
               </div>
             </div>
 
+            {/* Packages Grid with High-Appeal Visual Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Party Packages */}
+              
+              {/* Party Makeup Packages */}
               <div className="space-y-4">
-                <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
-                  <span className="text-lg">💄</span>
-                  <h3 className="font-serif font-bold text-lg text-amber-500 tracking-wide uppercase">Party Makeup Packages</h3>
+                <div className="flex items-center justify-between pb-2 border-b border-amber-500/30">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-xl">💄</span>
+                    <h3 className="font-serif font-bold text-lg text-amber-500 tracking-wide uppercase">Party Makeup Collection</h3>
+                  </div>
+                  <span className="text-[11px] text-amber-400/80 font-mono font-medium">Ready in 60 Mins</span>
                 </div>
-                <div className="space-y-3.5">
+
+                <div className="space-y-4">
                   {partyPackages.map((key) => {
                     const item = config.packageDetails[key];
                     const price = getPackagePrice(key);
                     return (
-                      <div key={key} className={`${cardBgClass} rounded-2xl p-5 border transition flex flex-col justify-between space-y-3`}>
-                        <div className="flex justify-between items-baseline">
-                          <h4 className="font-serif font-bold text-base">{item.num}. {item.name}</h4>
-                          <span className="font-serif font-bold text-lg text-amber-500">₹{price.toLocaleString('en-IN')}</span>
+                      <div key={key} className={`${cardBgClass} rounded-2xl overflow-hidden border transition-all duration-300 group hover:-translate-y-1`}>
+                        <div className="flex flex-col sm:flex-row">
+                          {item.image && (
+                            <div className="sm:w-36 h-36 sm:h-auto shrink-0 relative overflow-hidden bg-neutral-900">
+                              <img 
+                                src={item.image} 
+                                alt={item.name} 
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/60 to-transparent"></div>
+                            </div>
+                          )}
+                          <div className="p-4 flex-1 flex flex-col justify-between space-y-2.5">
+                            <div>
+                              <div className="flex justify-between items-baseline">
+                                <h4 className="font-serif font-bold text-base">{item.num}. {item.name}</h4>
+                                <span className="font-serif font-bold text-lg text-amber-500">₹{price.toLocaleString('en-IN')}</span>
+                              </div>
+                              <p className={`text-xs mt-1 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
+                            </div>
+                            <button
+                              onClick={() => {
+                                setCalcPackage(key);
+                                setCalcKit(selectedKit);
+                                setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
+                                setActiveTab('booking');
+                              }}
+                              className="self-end text-xs text-amber-500 hover:text-rose-500 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform"
+                            >
+                              <span>Book This Look</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </div>
-                        <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
-                        <button
-                          onClick={() => {
-                            setCalcPackage(key);
-                            setCalcKit(selectedKit);
-                            setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
-                            setActiveTab('booking');
-                          }}
-                          className="self-end text-xs text-amber-500 hover:text-rose-500 font-semibold flex items-center gap-1"
-                        >
-                          <span>Book This Look</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
                       </div>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Bridal Packages */}
+              {/* Signature & Bridal Packages */}
               <div className="space-y-4">
-                <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/30">
-                  <Crown className="w-5 h-5 text-amber-500" />
-                  <h3 className="font-serif font-bold text-lg text-amber-500 tracking-wide uppercase">Signature & Bridal Packages</h3>
+                <div className="flex items-center justify-between pb-2 border-b border-amber-500/30">
+                  <div className="flex items-center space-x-2">
+                    <Crown className="w-5 h-5 text-amber-500 animate-bounce" />
+                    <h3 className="font-serif font-bold text-lg text-amber-500 tracking-wide uppercase">Signature Bridal Collection</h3>
+                  </div>
+                  <span className="text-[11px] text-rose-400 font-mono font-bold uppercase">Pre-Book Early</span>
                 </div>
-                <div className="space-y-3.5">
+
+                <div className="space-y-4">
                   {bridalPackages.map((key) => {
                     const item = config.packageDetails[key];
                     const price = getPackagePrice(key);
                     return (
-                      <div key={key} className={`${cardBgClass} rounded-2xl p-5 border transition flex flex-col justify-between space-y-3 ${item.badge ? 'border-amber-500/60 ring-1 ring-amber-500/20' : ''}`}>
-                        <div>
-                          <div className="flex justify-between items-baseline">
-                            <h4 className="font-serif font-bold text-base flex items-center gap-2">
-                              <span>{item.num}. {item.name}</span>
-                              {item.badge && (
-                                <span className="text-[10px] bg-amber-500/15 text-amber-500 px-2 py-0.5 rounded-full border border-amber-500/30 font-sans">
-                                  {selectedKit === 'international' ? 'Royal Luxury' : 'Classic'}
-                                </span>
-                              )}
-                            </h4>
-                            <span className="font-serif font-bold text-xl text-amber-500">₹{price.toLocaleString('en-IN')}</span>
+                      <div key={key} className={`${cardBgClass} rounded-2xl overflow-hidden border transition-all duration-300 group hover:-translate-y-1 ${item.badge ? 'border-amber-500/60 ring-2 ring-amber-500/20 shadow-xl' : ''}`}>
+                        <div className="flex flex-col sm:flex-row">
+                          {item.image && (
+                            <div className="sm:w-44 h-44 sm:h-auto shrink-0 relative overflow-hidden bg-neutral-900">
+                              <img 
+                                src={item.image} 
+                                alt={item.name} 
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/60 to-transparent"></div>
+                            </div>
+                          )}
+                          <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                              <div className="flex justify-between items-baseline">
+                                <h4 className="font-serif font-bold text-base flex items-center gap-2">
+                                  <span>{item.num}. {item.name}</span>
+                                  {item.badge && (
+                                    <span className="text-[10px] bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold px-2 py-0.5 rounded-full font-sans shadow">
+                                      Signature VIP
+                                    </span>
+                                  )}
+                                </h4>
+                                <span className="font-serif font-bold text-xl text-amber-500">₹{price.toLocaleString('en-IN')}</span>
+                              </div>
+                              <p className={`text-xs mt-1.5 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
+                            </div>
+                            <button
+                              onClick={() => {
+                                setCalcPackage(key);
+                                setCalcKit(selectedKit);
+                                setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
+                                setActiveTab('booking');
+                              }}
+                              className="self-end px-4 py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 text-xs font-bold rounded-xl shadow-md hover:scale-105 transition-all flex items-center gap-1.5"
+                            >
+                              <span>Reserve Bridal Slot</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </button>
                           </div>
-                          <p className={`text-xs mt-2 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
                         </div>
-                        <button
-                          onClick={() => {
-                            setCalcPackage(key);
-                            setCalcKit(selectedKit);
-                            setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
-                            setActiveTab('booking');
-                          }}
-                          className="self-end text-xs text-amber-500 hover:text-rose-500 font-semibold flex items-center gap-1"
-                        >
-                          <span>Reserve Bridal Slot</span>
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
                       </div>
                     );
                   })}
                 </div>
               </div>
+
+            </div>
+
+            {/* Why Brides Choose Us - High Trust Section */}
+            <div className={`p-6 sm:p-8 rounded-3xl border grid grid-cols-1 md:grid-cols-3 gap-6 text-center ${subCardBgClass}`}>
+              <div className="space-y-2">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-sm">100% Authentic Luxury Vanity</h4>
+                <p className={`text-xs ${mutedTextClass}`}>Zero duplicate cosmetics. Handpicked original imports from NARS, Huda Beauty & Charlotte Tilbury.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="w-10 h-10 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center mx-auto">
+                  <Award className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-sm">Flashback-Proof & 16HR Wear</h4>
+                <p className={`text-xs ${mutedTextClass}`}>High-definition makeup crafted for 4K video shoots and extreme humidity resistance.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto">
+                  <Heart className="w-5 h-5" />
+                </div>
+                <h4 className="font-serif font-bold text-sm">Custom Draping & Styling</h4>
+                <p className={`text-xs ${mutedTextClass}`}>Includes personalized dupatta setting, premium 3D silk lashes, and ornate hair accessories.</p>
+              </div>
+            </div>
+
+          </div>
+        )}
+
+        {/* TAB 2: GALLERY & VISUAL TRANSFORMATIONS */}
+        {activeTab === 'gallery' && (
+          <div className="space-y-10 animate-fade-in">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-semibold uppercase tracking-widest">
+                Real Client Transformations
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold">
+                Signature Portfolio Highlights
+              </h2>
+              <p className={`text-sm ${mutedTextClass}`}>
+                Every bride is unique. Explore our signature radiant bridal and evening reception makeovers.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {config.galleryPhotos.map((photo, idx) => (
+                <div key={idx} className={`${cardBgClass} rounded-2xl overflow-hidden border group transition-all duration-300 hover:shadow-2xl`}>
+                  <div className="h-72 overflow-hidden relative">
+                    <img 
+                      src={photo.url} 
+                      alt={photo.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                      <span className="text-[10px] uppercase font-mono tracking-widest text-amber-400">{photo.sub}</span>
+                      <h4 className="font-serif font-bold text-base mt-0.5">{photo.title}</h4>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={`p-6 rounded-2xl border text-center space-y-3 ${subCardBgClass}`}>
+              <h4 className="font-serif font-bold text-base">Want to see more live videos & reels?</h4>
+              <p className={`text-xs ${mutedTextClass}`}>Follow our official Instagram handle for daily makeover updates and behind-the-scenes.</p>
+              <a 
+                href={instagramProfileUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-xs font-bold rounded-xl shadow-lg hover:scale-105 transition-transform"
+              >
+                <InstagramIcon className="w-4 h-4" />
+                <span>Visit Instagram Portfolio (@{instagramHandleClean})</span>
+              </a>
             </div>
           </div>
         )}
 
-        {/* TAB 2: BRANDS */}
+        {/* TAB 3: BRANDS */}
         {activeTab === 'brands' && (
-          <div className="space-y-10">
+          <div className="space-y-10 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-semibold uppercase tracking-widest">
                 Vanity & Products
               </span>
               <h2 className="text-3xl sm:text-4xl font-serif font-bold">
-                100% Authentic Products
+                100% Authentic Product Lineup
               </h2>
             </div>
             <div className="space-y-4">
@@ -580,16 +702,16 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 3: ESTIMATOR */}
+        {/* TAB 4: ESTIMATOR (WITH DYNAMIC GUEST DISCOUNT SWITCH) */}
         {activeTab === 'calculator' && (
-          <div className="max-w-4xl mx-auto space-y-8">
+          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
             <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 border grid grid-cols-1 md:grid-cols-12 gap-8`}>
               <div className="md:col-span-7 space-y-6">
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider mb-2">1. Select Vanity Kit</label>
                   <div className="grid grid-cols-2 gap-3">
-                    <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-xl text-xs font-semibold border text-left ${calcKit === 'international' ? 'bg-amber-500/20 border-amber-500 text-amber-500' : `${subCardBgClass} ${mutedTextClass}`}`}>👑 International Luxury</button>
-                    <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-xl text-xs font-semibold border text-left ${calcKit === 'drugstore' ? 'bg-amber-500/20 border-amber-500 text-amber-500' : `${subCardBgClass} ${mutedTextClass}`}`}>✨ Premium Drugstore</button>
+                    <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-xl text-xs font-semibold border text-left ${calcKit === 'international' ? 'bg-amber-500/20 border-amber-500 text-amber-500 font-bold' : `${subCardBgClass} ${mutedTextClass}`}`}>👑 International Luxury</button>
+                    <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-xl text-xs font-semibold border text-left ${calcKit === 'drugstore' ? 'bg-amber-500/20 border-amber-500 text-amber-500 font-bold' : `${subCardBgClass} ${mutedTextClass}`}`}>✨ Premium Drugstore</button>
                   </div>
                 </div>
 
@@ -621,11 +743,25 @@ export default function App() {
                   </div>
                   <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-amber-500 h-2 rounded-lg cursor-pointer" />
                   
-                  <div className="flex items-center justify-between text-[11px] mt-1.5">
-                    <span className={mutedTextClass}>
-                      Guest Rate: <strong className="text-amber-500 font-mono">₹{getGuestRate(calcKit, calcPackage).toLocaleString('en-IN')}</strong> / person (matches package)
-                    </span>
-                  </div>
+                  {/* Dynamic Guest Rate & Applied Discount Display */}
+                  {(() => {
+                    const { rawPrice, discountedPrice, discountPercent, isDiscountActive } = getGuestRateDetails(calcKit, calcPackage);
+                    return (
+                      <div className="flex items-center justify-between text-[11px] mt-1.5">
+                        <span className={mutedTextClass}>
+                          Guest Rate: <strong className="text-amber-500 font-mono">₹{discountedPrice.toLocaleString('en-IN')}</strong> / person
+                          {isDiscountActive && (
+                            <span className="line-through text-stone-500 ml-1.5 font-mono">₹{rawPrice.toLocaleString('en-IN')}</span>
+                          )}
+                        </span>
+                        {isDiscountActive && (
+                          <span className="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">
+                            {discountPercent}% Guest Discount Applied
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Coupon Code Section */}
@@ -648,35 +784,35 @@ export default function App() {
                 )}
               </div>
 
-              <div className={`md:col-span-5 ${subCardBgClass} rounded-2xl p-6 border flex flex-col justify-between space-y-6`}>
+              <div className={`md:col-span-5 ${subCardBgClass} rounded-2xl p-6 border flex flex-col justify-between space-y-6 shadow-xl`}>
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-500">Total Estimate</span>
-                  <div className="mt-2 text-3xl font-serif font-bold flex items-baseline gap-1">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-500">Total Investment</span>
+                  <div className="mt-2 text-3xl sm:text-4xl font-serif font-bold flex items-baseline gap-1">
                     <span className="text-amber-500 text-2xl">₹</span>
                     <span>{finalEstimate.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs border-t border-b border-stone-200/20 py-3">
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Base:</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
+                  <div className={`flex justify-between ${mutedTextClass}`}><span>Base Package:</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
                   <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee:</span><span className="text-amber-500 font-medium">₹{config.convenienceZones[calcZone]?.fee}</span></div>
                   <div className={`flex justify-between ${mutedTextClass}`}>
                     <span>Extra Guests ({extraPartyCount}):</span>
-                    <span>₹{(extraPartyCount * getGuestRate(calcKit, calcPackage)).toLocaleString('en-IN')}</span>
+                    <span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedPrice).toLocaleString('en-IN')}</span>
                   </div>
                   {appliedCoupon && config.enableDiscountsAndCoupons !== false && (
                     <div className="flex justify-between text-emerald-500 font-semibold"><span>Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
                   )}
                 </div>
-                <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className="w-full py-3 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow">Book This Package</button>
+                <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className="w-full py-3.5 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow-lg hover:scale-105 transition-all">Book This Package</button>
               </div>
             </div>
           </div>
         )}
 
-        {/* TAB 4: BOOKING FORM */}
+        {/* TAB 5: BOOKING FORM */}
         {activeTab === 'booking' && (
-          <div className="max-w-2xl mx-auto space-y-8">
-            <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 border`}>
+          <div className="max-w-2xl mx-auto space-y-8 animate-fade-in">
+            <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 border shadow-xl`}>
               <form onSubmit={handleBookingSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider mb-1">Full Name *</label>
@@ -728,17 +864,12 @@ export default function App() {
                   <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} border rounded-xl px-4 py-3 text-sm`} />
                 </div>
 
-                {/* Dynamic Submit Button based on Active Admin Channel */}
                 <button
                   type="submit"
-                  className={`w-full py-3.5 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg transition hover:opacity-95 ${
-                    config.bookingChannel === 'instagram'
-                      ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500'
-                      : 'bg-emerald-600 hover:bg-emerald-500'
-                  }`}
+                  className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 hover:scale-[1.02] transition-all"
                 >
-                  {config.bookingChannel === 'instagram' ? <InstagramIcon className="w-5 h-5" /> : <WhatsAppIcon className="w-5 h-5" />}
-                  <span>{config.bookingChannel === 'instagram' ? 'Send Booking Request on Instagram' : 'Send Request to WhatsApp'}</span>
+                  <WhatsAppIcon className="w-5 h-5" />
+                  <span>Send Booking Request to WhatsApp</span>
                 </button>
               </form>
 
@@ -760,7 +891,7 @@ export default function App() {
 
       </main>
 
-      {/* 🔒 HIDDEN MASTER ADMIN CONTROL PANEL */}
+      {/* 🔒 MASTER ADMIN CONTROL PANEL */}
       {showAdminModal && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
           <div className={`border rounded-3xl max-w-3xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto space-y-6 ${isDarkMode ? 'bg-neutral-900 border-amber-500/50 text-stone-100' : 'bg-white border-amber-400 text-stone-900 shadow-2xl'}`}>
@@ -794,7 +925,7 @@ export default function App() {
                 {/* Admin Sub-navigation */}
                 <div className="flex overflow-x-auto gap-2 border-b border-stone-200/20 pb-2.5">
                   {[
-                    { id: 'toggles', label: '🎛️ Routing & Section Toggles' },
+                    { id: 'toggles', label: '🎛️ Section Toggles & Guest Discount' },
                     { id: 'prices', label: '💄 Package Prices' },
                     { id: 'coupons', label: '🏷️ Coupons & Limits' },
                     { id: 'announcements', label: '📢 Top Announcements' },
@@ -815,55 +946,68 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* 1. SECTION TOGGLES (Channel Selector + Toggles) */}
+                {/* 1. SECTION TOGGLES & GUEST DISCOUNT CONTROL */}
                 {adminActiveSection === 'toggles' && (
                   <div className="space-y-4">
                     
-                    {/* Primary Booking Destination Channel */}
+                    {/* 👥 Guest Discount Control Box */}
                     <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-amber-950/20 border-amber-500/50' : 'bg-amber-50 border-amber-300'}`}>
-                      <h4 className="font-bold uppercase text-amber-500 text-xs flex items-center gap-2">
-                        <span>📲</span> Destination Booking Channel (Choose Where Inquiries Go)
-                      </h4>
-                      <div className="grid grid-cols-2 gap-3 pt-1">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-bold uppercase text-amber-500 text-xs flex items-center gap-1.5">
+                            <Percent className="w-4 h-4" /> Extra Guest Discount Toggle (Backend Control)
+                          </h4>
+                          <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>
+                            Toggle ON/OFF guest discount directly. When enabled, extra guests receive this custom % off.
+                          </p>
+                        </div>
                         <button
                           type="button"
-                          onClick={() => setAdminDraft({ ...adminDraft, bookingChannel: 'instagram' })}
-                          className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold transition ${
-                            adminDraft.bookingChannel === 'instagram'
-                              ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white border-transparent shadow-lg'
-                              : `${inputBgClass} opacity-70`
-                          }`}
+                          onClick={() => setAdminDraft({
+                            ...adminDraft,
+                            guestDiscount: {
+                              ...adminDraft.guestDiscount,
+                              enabled: !adminDraft.guestDiscount?.enabled
+                            }
+                          })}
+                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.guestDiscount?.enabled !== false ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
                         >
-                          <InstagramIcon className="w-4 h-4" />
-                          <span>Direct Instagram DM (Selected)</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => setAdminDraft({ ...adminDraft, bookingChannel: 'whatsapp' })}
-                          className={`p-3 rounded-xl border flex items-center justify-center gap-2 font-bold transition ${
-                            adminDraft.bookingChannel === 'whatsapp'
-                              ? 'bg-emerald-600 text-white border-transparent shadow-lg'
-                              : `${inputBgClass} opacity-70`
-                          }`}
-                        >
-                          <WhatsAppIcon className="w-4 h-4" />
-                          <span>WhatsApp Channel</span>
+                          {adminDraft.guestDiscount?.enabled !== false ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+                          <span>{adminDraft.guestDiscount?.enabled !== false ? 'DISCOUNT ACTIVE' : 'DISABLED'}</span>
                         </button>
                       </div>
-                      <p className={`text-[11px] ${mutedTextClass}`}>
-                        *When set to <strong>Instagram</strong>, the client's booking summary is prepared, automatically copied to their clipboard, and sent directly to your Instagram Direct Message screen without revealing your WhatsApp number.
-                      </p>
+
+                      {adminDraft.guestDiscount?.enabled !== false && (
+                        <div className="flex items-center gap-3 pt-2 border-t border-amber-500/20">
+                          <label className="text-xs font-semibold">Set Guest Discount Percentage:</label>
+                          <div className="flex items-center gap-1">
+                            <input
+                              type="number"
+                              min="0"
+                              max="80"
+                              value={adminDraft.guestDiscount?.discountPercent ?? 15}
+                              onChange={(e) => setAdminDraft({
+                                ...adminDraft,
+                                guestDiscount: {
+                                  ...adminDraft.guestDiscount,
+                                  discountPercent: Number(e.target.value)
+                                }
+                              })}
+                              className={`w-20 p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
+                            />
+                            <span className="font-bold text-amber-500">% OFF</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                       <h4 className="font-bold uppercase text-amber-500">🎛️ Master Feature Toggles</h4>
                       
-                      {/* Master Discount & Coupon Toggle */}
                       <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
                         <div>
                           <span className="font-bold block text-sm text-amber-500">Discounts & Coupon Code System</span>
-                          <span className={mutedTextClass}>Turn off entire discount/coupon functionality across calculator and booking</span>
+                          <span className={mutedTextClass}>Turn off entire promo code functionality across the app</span>
                         </div>
                         <button
                           type="button"
@@ -875,7 +1019,6 @@ export default function App() {
                         </button>
                       </div>
 
-                      {/* Top Banner Toggle */}
                       <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
                         <div>
                           <span className="font-bold block text-sm">Top Announcement Offer Banner</span>
@@ -891,7 +1034,6 @@ export default function App() {
                         </button>
                       </div>
 
-                      {/* Floating Notification Toggle */}
                       <div className="flex items-center justify-between py-2">
                         <div>
                           <span className="font-bold block text-sm">Bottom Floating Promo Notification</span>
@@ -910,48 +1052,6 @@ export default function App() {
                         </button>
                       </div>
                     </div>
-
-                    <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                      <h4 className="font-bold uppercase text-amber-500">🎈 Floating Notification Settings</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div>
-                          <label className="block text-[11px] mb-1">Title</label>
-                          <input
-                            type="text"
-                            value={adminDraft.floatingBanner?.title || ''}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              floatingBanner: { ...adminDraft.floatingBanner, title: e.target.value }
-                            })}
-                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] mb-1">Coupon Code</label>
-                          <input
-                            type="text"
-                            value={adminDraft.floatingBanner?.code || ''}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              floatingBanner: { ...adminDraft.floatingBanner, code: e.target.value.toUpperCase() }
-                            })}
-                            className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-[11px] mb-1">Button Action Text</label>
-                          <input
-                            type="text"
-                            value={adminDraft.floatingBanner?.actionText || 'Apply'}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              floatingBanner: { ...adminDraft.floatingBanner, actionText: e.target.value }
-                            })}
-                            className={`w-full p-2 rounded-lg border ${inputBgClass}`}
-                          />
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 )}
 
@@ -959,10 +1059,9 @@ export default function App() {
                 {adminActiveSection === 'prices' && (
                   <div className="space-y-6">
                     <div className={`p-3 rounded-xl border text-[11px] ${isDarkMode ? 'bg-amber-950/20 border-amber-500/40 text-amber-300' : 'bg-amber-50 border-amber-300 text-amber-800'}`}>
-                      ℹ️ <strong>Package-Based Guest Pricing Active:</strong> When a customer selects any package, the guest makeup price automatically matches that selected package price per person.
+                      ℹ️ <strong>Direct Package-Based Pricing:</strong> Updating any package price directly controls the base price and extra guest pricing.
                     </div>
 
-                    {/* International Tier */}
                     <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-neutral-950 border-amber-500/30' : 'bg-stone-50 border-amber-300'}`}>
                       <h4 className="font-bold text-amber-500 uppercase tracking-wider text-xs">👑 International Luxury Vanity Tier (₹)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -986,7 +1085,6 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Drugstore Tier */}
                     <div className={`p-4 rounded-2xl border space-y-3 ${isDarkMode ? 'bg-neutral-950 border-stone-800' : 'bg-stone-50 border-stone-300'}`}>
                       <h4 className="font-bold text-rose-500 uppercase tracking-wider text-xs">✨ Premium Drugstore Tier (₹)</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -1206,7 +1304,7 @@ export default function App() {
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="w-full py-3.5 bg-gradient-to-r from-amber-500 via-rose-500 to-amber-500 text-neutral-950 font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full py-3.5 bg-gradient-to-r from-amber-500 via-rose-500 to-amber-500 text-neutral-950 font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg hover:scale-[1.01] transition-all"
                 >
                   <Save className="w-4 h-4" />
                   <span>{isSaving ? 'Publishing Live to Firebase...' : 'Save & Publish All Changes Live'}</span>
@@ -1222,7 +1320,7 @@ export default function App() {
         <aside 
           aria-label="Promotional offer"
           className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-md border border-amber-500/50 p-4 rounded-2xl shadow-2xl animate-fade-in ${
-            isDarkMode ? 'bg-neutral-900/95 text-stone-100' : 'bg-white/95 text-stone-900'
+            isDarkMode ? 'bg-neutral-900/95 text-stone-100 shadow-amber-500/10' : 'bg-white/95 text-stone-900 shadow-xl'
           }`}
         >
           <div className="flex items-start justify-between gap-3">
@@ -1239,7 +1337,7 @@ export default function App() {
               handleApplyCoupon(null, config.floatingBanner?.code); 
               setActiveTab('calculator'); 
             }} 
-            className="mt-3 w-full py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow"
+            className="mt-3 w-full py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow hover:scale-[1.02] transition-transform"
           >
             {config.floatingBanner?.actionText || "Apply"}
           </button>
@@ -1252,7 +1350,7 @@ export default function App() {
           <div className="flex items-center space-x-2">
             <Crown className="w-4 h-4 text-amber-500" />
             <span className="font-serif font-bold">Husna Farooqui Makeup</span>
-            <span>• Delhi (Okhla / Jamia) & Amroha</span>
+            <span>• Delhi NCR (Okhla / Jamia) & Amroha</span>
           </div>
           <a 
             href={instagramProfileUrl} 
