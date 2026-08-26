@@ -5,21 +5,7 @@ import {
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
-import { getLiveConfig } from './firebase';
-
-const InstagramIcon = ({ className = "w-4 h-4" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
-);
-
-const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-  </svg>
-);
+import { subscribeToLiveConfig } from './firebase';
 
 const DEFAULT_PACKAGE_IMAGES = {
   simple_party: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80",
@@ -36,6 +22,20 @@ const DEFAULT_GALLERY = [
   { title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80" },
   { title: "Ultra HD Party Look", sub: "Long-Wear Flawless Base", url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80" }
 ];
+
+const InstagramIcon = ({ className = "w-4 h-4" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+  </svg>
+);
 
 export default function App() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
@@ -60,7 +60,9 @@ export default function App() {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
-    if (savedTheme) setIsDarkMode(savedTheme === 'dark');
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+    }
   }, []);
 
   const toggleTheme = () => {
@@ -71,11 +73,9 @@ export default function App() {
     });
   };
 
-  // Fetch Live Config from Firebase
+  // Real-Time Live Sync with Firebase File
   useEffect(() => {
-    async function initConfig() {
-      const live = await getLiveConfig(STUDIO_CONFIG);
-      
+    const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
       const mergedPackageDetails = { ...STUDIO_CONFIG.packageDetails };
       if (live.packageDetails) {
         Object.keys(mergedPackageDetails).forEach(k => {
@@ -88,14 +88,16 @@ export default function App() {
       }
 
       const cleanLive = {
+        ...STUDIO_CONFIG,
         ...live,
         packageDetails: mergedPackageDetails,
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
       };
 
       setConfig(cleanLive);
-    }
-    initConfig();
+    });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -233,7 +235,7 @@ export default function App() {
     }
 
     const message = 
-      `✨ *New Booking Request - Husna Farooqui Makeup* ✨\n\n` +
+      `✨ *New Booking Request - ${config.studioName || "Husna Farooqui Makeup"}* ✨\n\n` +
       `👤 *Client Name:* ${booking.name}\n` +
       `📞 *Client Phone:* ${booking.phone}\n` +
       `💎 *Vanity Kit:* ${kitName}\n` +
@@ -285,10 +287,10 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight font-serif bg-gradient-to-r from-amber-400 to-rose-400 bg-clip-text text-transparent">
-                HUSNA FAROOQUI
+                {config.studioName || "HUSNA FAROOQUI"}
               </h1>
               <p className="text-[11px] text-amber-500/90 font-medium tracking-wide flex items-center gap-1">
-                <span>Certified Bridal Artist</span>
+                <span>{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
                 <Sparkles className="w-2.5 h-2.5" />
               </p>
             </div>
@@ -552,7 +554,7 @@ export default function App() {
                 Signature Transformations
               </h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
-                Real bridal, engagement, and party glamour transformations by Husna Farooqui.
+                Real bridal, engagement, and party glamour transformations by {config.studioName || "Husna Farooqui"}.
               </p>
             </div>
 
@@ -815,9 +817,9 @@ export default function App() {
           <div className="flex items-start justify-between gap-3">
             <Gift className="w-5 h-5 text-amber-500 shrink-0" />
             <div className="flex-1">
-              <span className="text-[10px] font-bold text-amber-500 uppercase bg-amber-500/10 px-2 py-0.5 rounded-full">{config.floatingBanner?.tag}</span>
-              <h4 className="font-serif font-bold text-xs mt-1">{config.floatingBanner?.title}</h4>
-              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className="text-amber-500 font-mono font-bold">{config.floatingBanner?.code}</span></p>
+              <span className="text-[10px] font-bold text-amber-500 uppercase bg-amber-500/10 px-2 py-0.5 rounded-full">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+              <h4 className="font-serif font-bold text-xs mt-1">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className="text-amber-500 font-mono font-bold">{config.floatingBanner?.code || "BRIDE2026"}</span></p>
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="text-stone-400 hover:text-stone-700 p-1"><X className="w-4 h-4" /></button>
           </div>
@@ -838,7 +840,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
             <Crown className="w-4 h-4 text-amber-500" />
-            <span className="font-serif font-bold">Husna Farooqui Makeup</span>
+            <span className="font-serif font-bold">{config.studioName || "Husna Farooqui Makeup"}</span>
             <span>• Delhi NCR & Amroha</span>
           </div>
           <a 
