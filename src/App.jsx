@@ -128,7 +128,6 @@ const getCleanInstagramHandle = (handleOrUrl) => {
   return clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
 };
 
-// 🌟 Reliable Instagram & Custom Profile Image Resolver with Proxies
 const resolveProfileImageUrl = (configData) => {
   if (configData.profilePhotoType === 'instagram') {
     const handle = getCleanInstagramHandle(configData.instagramHandle);
@@ -163,7 +162,7 @@ export default function App() {
 
   const [imgLoadFailed, setImgLoadFailed] = useState(false);
   const canvasRef = useRef(null);
-  const [generatedCardUrl, setGeneratedCardUrl] = useState(null);
+  const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
   useEffect(() => {
     const link = document.createElement('link');
@@ -302,8 +301,13 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 LUXURY WHITE APPOINTMENT SLIP (ALIGNED & CLAMPED)
-  const handleGenerateAndShareImage = (targetChannel = 'whatsapp') => {
+  // 🚀 ON-DEMAND JPG GENERATOR (ONLY TRIGGERED ON BUTTON TAP)
+  const handleGenerateAndShareJpg = (targetChannel = 'whatsapp') => {
+    if (!booking.name.trim() || !booking.phone.trim()) {
+      alert("Please fill your Name and Phone Number before booking.");
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -311,23 +315,23 @@ export default function App() {
     canvas.width = 1080;
     canvas.height = 1560;
 
-    // Pure Pearl White Clean Luxury Canvas
+    // Solid Pure White Background for JPG
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, 1080, 1560);
 
-    // Subtle Marble Background Gradient Accent
-    const bgGrad = ctx.createRadialGradient(540, 300, 50, 540, 780, 800);
+    // Subtle Luxury Radiant Glow
+    const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
     bgGrad.addColorStop(0, '#ffffff');
     bgGrad.addColorStop(1, '#f8fafc');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(20, 20, 1040, 1520);
 
-    // Double Gold Frame
+    // Double Royal Gold Borders
     ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 6;
+    ctx.lineWidth = 7;
     ctx.strokeRect(36, 36, 1008, 1488);
 
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.25)';
+    ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 2;
     ctx.strokeRect(48, 48, 984, 1464);
 
@@ -354,7 +358,7 @@ export default function App() {
     ctx.font = 'bold 30px sans-serif';
     ctx.fillText('✨ OFFICIAL APPOINTMENT SLIP ✨', 540, 265);
 
-    // Data Extraction
+    // Pricing & Details Calculation
     const pkg = config.packageDetails[booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
     const kitName = config.pricingByKit[booking.kitType].name;
@@ -371,7 +375,7 @@ export default function App() {
       { label: 'PACKAGE', val: `${pkg.num}. ${pkg.name}` },
       { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
       { label: 'EXACT ADDRESS', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
-      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Code Applied' }
+      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Applied' }
     ];
 
     let startY = 350;
@@ -380,8 +384,7 @@ export default function App() {
     const maxValWidth = 580;
 
     rows.forEach((row, idx) => {
-      // Row Background Pill for Readability
-      ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.7)' : 'rgba(255, 255, 255, 0.9)';
+      ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff';
       ctx.fillRect(80, startY - 34, 920, 68);
 
       ctx.textAlign = 'left';
@@ -392,7 +395,6 @@ export default function App() {
       ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 24px sans-serif';
 
-      // Smart String Truncate to prevent overflowing
       let displayVal = row.val;
       while (ctx.measureText(displayVal).width > maxValWidth && displayVal.length > 4) {
         displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
@@ -402,7 +404,7 @@ export default function App() {
       startY += 82;
     });
 
-    // Total Investment Card (Gold Accent Border on White)
+    // Total Investment Box
     ctx.fillStyle = '#fefce8';
     ctx.fillRect(80, 1060, 920, 180);
     ctx.strokeStyle = '#b48a3c';
@@ -418,7 +420,7 @@ export default function App() {
     ctx.font = 'bold 64px serif';
     ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
 
-    // Footer Info Box
+    // Footer Info
     ctx.textAlign = 'center';
     ctx.fillStyle = '#475569';
     ctx.font = '22px sans-serif';
@@ -432,17 +434,20 @@ export default function App() {
     ctx.font = '18px sans-serif';
     ctx.fillText('Present this official digital slip during your vanity appointment confirmation.', 540, 1410);
 
-    const imageUrl = canvas.toDataURL('image/png');
-    setGeneratedCardUrl(imageUrl);
+    // 🔥 Convert to High-Quality True JPG Format
+    const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
+    setGeneratedJpgUrl(jpgUrl);
 
+    // Auto Download JPG File
     const downloadLink = document.createElement('a');
-    downloadLink.download = `Booking_Slip_${booking.name || 'Client'}.png`;
-    downloadLink.href = imageUrl;
+    downloadLink.download = `Appointment_Slip_${booking.name.replace(/\s+/g, '_')}.jpg`;
+    downloadLink.href = jpgUrl;
     downloadLink.click();
 
+    // Direct Route to WhatsApp or Instagram Chat
     setTimeout(() => {
       if (targetChannel === 'whatsapp') {
-        const text = encodeURIComponent(`✨ *Hello ${config.studioName || "Husna Farooqui"} Studio!* Here are my appointment details for ${booking.name || 'Client'}. I have downloaded and attached my official Booking Slip!`);
+        const text = encodeURIComponent(`✨ *Hello ${config.studioName || "Husna Farooqui"} Studio!* Here are my booking details for ${booking.name}. I have generated my JPG Appointment Slip and attached it here!`);
         window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${text}`, '_blank');
       } else {
         window.open(instagramProfileUrl, '_blank');
@@ -486,6 +491,7 @@ export default function App() {
   return (
     <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} selection:bg-cyan-500 selection:text-black transition-colors duration-300 relative overflow-x-hidden`}>
       
+      {/* Hidden Canvas for On-Demand Slip Generation */}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {/* Top Banner */}
@@ -974,10 +980,11 @@ export default function App() {
                   <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} border rounded-2xl px-4 py-3 text-sm`} />
                 </div>
 
+                {/* 🚀 On-Demand JPG Generation Buttons */}
                 <div className="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     type="button"
-                    onClick={() => handleGenerateAndShareImage('whatsapp')}
+                    onClick={() => handleGenerateAndShareJpg('whatsapp')}
                     className="py-3.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
@@ -986,7 +993,7 @@ export default function App() {
 
                   <button
                     type="button"
-                    onClick={() => handleGenerateAndShareImage('instagram')}
+                    onClick={() => handleGenerateAndShareJpg('instagram')}
                     className="py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20 transition-all"
                   >
                     <InstagramIcon className="w-4 h-4" />
@@ -994,11 +1001,11 @@ export default function App() {
                   </button>
                 </div>
 
-                {generatedCardUrl && (
+                {generatedJpgUrl && (
                   <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
-                    <p className="text-xs text-emerald-400 font-bold">🎉 Official Appointment Slip Generated & Saved!</p>
-                    <a href={generatedCardUrl} download="Booking_Slip.png" className="text-xs text-slate-300 underline inline-flex items-center gap-1 font-semibold">
-                      <Download className="w-3.5 h-3.5" /> Download Slip Again
+                    <p className="text-xs text-emerald-400 font-bold">🎉 Official Appointment Slip (.JPG) Generated & Saved!</p>
+                    <a href={generatedJpgUrl} download="Appointment_Slip.jpg" className="text-xs text-slate-300 underline inline-flex items-center gap-1 font-semibold">
+                      <Download className="w-3.5 h-3.5" /> Re-download JPG Slip
                     </a>
                   </div>
                 )}
