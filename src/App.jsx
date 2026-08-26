@@ -3,7 +3,7 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink
+  Play, Film, ExternalLink, User
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig } from './firebase';
@@ -109,6 +109,40 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
   </svg>
 );
 
+const getCleanInstagramUrl = (handleOrUrl) => {
+  if (!handleOrUrl) return "https://www.instagram.com/husna_farooqui_makeup/";
+  let clean = String(handleOrUrl).trim();
+  if (clean.startsWith('http://') || clean.startsWith('https://')) {
+    return clean;
+  }
+  clean = clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
+  return `https://www.instagram.com/${clean}/`;
+};
+
+const getCleanInstagramHandle = (handleOrUrl) => {
+  if (!handleOrUrl) return "husna_farooqui_makeup";
+  let clean = String(handleOrUrl).trim();
+  if (clean.includes('instagram.com/')) {
+    clean = clean.split('instagram.com/')[1].split('/')[0].split('?')[0];
+  }
+  return clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
+};
+
+// 🌟 Ultra-Reliable Multi-Source Profile Image Resolver
+const resolveProfileImageUrl = (configData) => {
+  if (configData.profilePhotoType === 'instagram') {
+    const handle = getCleanInstagramHandle(configData.instagramHandle);
+    if (handle) {
+      // Primary Unavatar CDN with proxy fallback
+      return `https://unavatar.io/instagram/${handle}`;
+    }
+  }
+  if (configData.profileImage && configData.profileImage.trim().length > 0) {
+    return configData.profileImage;
+  }
+  return DEFAULT_PROFILE_IMG;
+};
+
 export default function App() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
@@ -128,6 +162,7 @@ export default function App() {
   const [couponError, setCouponError] = useState('');
   const [usageTracker, setUsageTracker] = useState({});
 
+  const [imgLoadFailed, setImgLoadFailed] = useState(false);
   const canvasRef = useRef(null);
   const [generatedCardUrl, setGeneratedCardUrl] = useState(null);
 
@@ -137,7 +172,9 @@ export default function App() {
     link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
     document.head.appendChild(link);
     return () => {
-      if (document.head.contains(link)) document.head.removeChild(link);
+      if (document.head && document.head.contains(link)) {
+        document.head.removeChild(link);
+      }
     };
   }, []);
 
@@ -171,22 +208,15 @@ export default function App() {
         });
       }
 
-      let resolvedProfileImage = DEFAULT_PROFILE_IMG;
-      if (live.profilePhotoType === 'instagram' && live.instagramHandle) {
-        resolvedProfileImage = `https://unavatar.io/instagram/${live.instagramHandle.replace(/^@/, '')}?fallback=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
-      } else if (live.profileImage) {
-        resolvedProfileImage = live.profileImage;
-      }
-
       const cleanLive = {
         ...STUDIO_CONFIG,
         ...live,
-        profileImage: resolvedProfileImage,
         packageDetails: mergedPackageDetails,
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
       };
 
       setConfig(cleanLive);
+      setImgLoadFailed(false);
     });
 
     return () => unsubscribe();
@@ -212,8 +242,8 @@ export default function App() {
     notes: ''
   });
 
-  const instagramHandleClean = (config.instagramHandle || 'husna_farooqui_makeup').replace(/^@/, '');
-  const instagramProfileUrl = `https://www.instagram.com/${instagramHandleClean}/`;
+  const instagramProfileUrl = getCleanInstagramUrl(config.instagramHandle);
+  const instagramHandleClean = getCleanInstagramHandle(config.instagramHandle);
 
   const getPackagePrice = (packageKey, kitType = selectedKit) => {
     return config.pricingByKit[kitType][packageKey];
@@ -404,8 +434,8 @@ export default function App() {
     : "bg-white/85 backdrop-blur-2xl border-b border-slate-200/80 shadow-sm";
   
   const cardBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20") 
-    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50";
+    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20 hover:scale-[1.01] transition-all duration-300" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20 hover:scale-[1.01] transition-all duration-300") 
+    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50 hover:scale-[1.01] transition-all duration-300";
     
   const subCardBgClass = isDarkMode 
     ? (isLiquidGlass ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08]" : "bg-[#0f1117] border border-[#232730]") 
@@ -415,18 +445,19 @@ export default function App() {
     ? (isLiquidGlass ? "bg-white/[0.06] border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" : "bg-[#0f1117] border border-[#282d38] text-[#f2f4f8] focus:border-amber-500") 
     : "bg-white border border-slate-300 text-slate-900";
     
-  // 🌟 FIX: Light/Dark Mode Contrast for Nav Tabs & Text Hover
   const navTextClass = isDarkMode 
     ? "text-slate-400 hover:text-white hover:bg-white/10" 
     : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/80 font-semibold";
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
+
+  const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
 
   return (
     <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} selection:bg-cyan-500 selection:text-black transition-colors duration-300 relative overflow-x-hidden`}>
       
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      {/* Top Banner Ticker */}
+      {/* Top Banner */}
       {config.showOfferSection !== false && (
         <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs sm:text-sm text-center font-bold tracking-wide flex items-center justify-center gap-2 shadow-sm`}>
           <Volume2 className="w-3.5 h-3.5 shrink-0 animate-pulse" />
@@ -443,8 +474,9 @@ export default function App() {
           <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-200 cursor-pointer">
             <div className={`w-12 h-12 rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg ${currentTheme.glow} overflow-hidden`}>
               <img 
-                src={config.profileImage || DEFAULT_PROFILE_IMG} 
+                src={resolvedAvatar} 
                 alt={config.studioName || "Artist"} 
+                onError={() => setImgLoadFailed(true)}
                 className="w-full h-full object-cover rounded-[16px]"
               />
             </div>
@@ -459,7 +491,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Nav Tabs with Strict Hover Legibility Fix */}
           <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-slate-100/80 border-slate-200/80 shadow-sm'}`}>
             {[
               { id: 'menu', label: 'Packages', icon: Crown },
@@ -655,7 +686,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS & REELS GALLERY */}
+        {/* TAB 2: TRANSFORMATIONS */}
         {activeTab === 'gallery' && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -672,8 +703,6 @@ export default function App() {
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => (
                 <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group flex flex-col justify-between`}>
                   <div className="h-80 overflow-hidden relative bg-neutral-900">
-                    
-                    {/* Render Video, Instagram Embed Link, or Photo */}
                     {item.type === 'video' ? (
                       <video 
                         src={item.url} 
@@ -691,7 +720,7 @@ export default function App() {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                         />
                         <a 
-                          href={item.url} 
+                          href={getCleanInstagramUrl(item.url)} 
                           target="_blank" 
                           rel="noopener noreferrer" 
                           className="absolute inset-0 bg-black/40 hover:bg-black/20 flex flex-col items-center justify-center text-white transition-colors"
@@ -723,7 +752,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 3: VANITY BRANDS */}
+        {/* TAB 3: BRANDS */}
         {activeTab === 'brands' && (
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -803,7 +832,6 @@ export default function App() {
                   })()}
                 </div>
 
-                {/* Promo Code Box */}
                 <div className="pt-2 border-t border-white/10 space-y-2">
                   <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
                     <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
@@ -850,11 +878,10 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 5: BOOKING FORM */}
+        {/* TAB 5: BOOKING */}
         {activeTab === 'booking' && (
           <div className="max-w-2xl mx-auto space-y-8">
             <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 space-y-5`}>
-              
               <div className="border-b border-white/10 pb-3">
                 <h3 className="font-bold text-base flex items-center gap-2">
                   <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
@@ -913,10 +940,9 @@ export default function App() {
 
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider mb-1">Exact Address / Landmark</label>
-                  <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-sm`} />
+                  <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} border rounded-2xl px-4 py-3 text-sm`} />
                 </div>
 
-                {/* Polished Clean Action Buttons */}
                 <div className="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     type="button"
@@ -952,7 +978,7 @@ export default function App() {
 
       </main>
 
-      {/* Floating Banner */}
+      {/* Floating Offer Banner */}
       {config.floatingBanner?.enabled !== false && showFloatingBanner && (
         <aside 
           aria-label="Promotional offer"
