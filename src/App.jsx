@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight, Percent
+  Volume2, Lock, Settings, Plus, Trash2, Save, Sun, Moon, ToggleLeft, ToggleRight
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { getLiveConfig, saveLiveConfig } from './firebase';
@@ -145,26 +145,21 @@ export default function App() {
     return config.pricingByKit[kitType][packageKey];
   };
 
-  // Helper: calculate extra guest price based on package and discount percentage
-  const getGuestRateDetails = (kit, pkgKey) => {
-    const selectedPkgPrice = config.pricingByKit[kit][pkgKey] || 5000;
-    const basePartyRate = config.pricingByKit[kit].guestBaseRate || (kit === 'international' ? 4000 : 2500);
-    // Dynamic rate tied to package
-    const effectiveBaseGuestRate = Math.min(basePartyRate, Math.round(selectedPkgPrice * 0.4));
-    const discountPercent = config.guestPricingRules?.discountPercent || 0;
-    const discountedRate = Math.round(effectiveBaseGuestRate * (1 - discountPercent / 100));
-
-    return {
-      originalRate: effectiveBaseGuestRate,
-      discountedRate,
-      discountPercent
-    };
+  // Direct 1:1 Package-based Guest Price
+  const getGuestRate = (kit, pkgKey) => {
+    return config.pricingByKit[kit][pkgKey] || 2500;
   };
 
-  // Coupon Verification with Multi-Usage Rules
+  // Coupon Verification with Multi-Usage Rules & Master Toggle Check
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
+
+    if (config.enableDiscountsAndCoupons === false) {
+      setCouponError('Discounts and coupons are currently disabled.');
+      return;
+    }
+
     const code = (customCode || couponInput).trim().toUpperCase();
 
     if (!code) {
@@ -201,12 +196,13 @@ export default function App() {
     const base = config.pricingByKit[kit][pkgKey];
     const zone = config.convenienceZones[zoneKey];
     const convenienceFee = zone ? zone.fee : 350;
-    const { discountedRate } = getGuestRateDetails(kit, pkgKey);
-    const extraPartyCost = partyCount * discountedRate;
+    const guestRate = getGuestRate(kit, pkgKey);
+    const extraPartyCost = partyCount * guestRate;
     return base + convenienceFee + extraPartyCost;
   };
 
   const getDiscountAmount = (gross) => {
+    if (config.enableDiscountsAndCoupons === false) return 0;
     if (!appliedCoupon) return 0;
     if (appliedCoupon.type === 'percent') return Math.round((gross * appliedCoupon.value) / 100);
     if (appliedCoupon.type === 'flat') return Math.min(gross, appliedCoupon.value);
@@ -227,7 +223,7 @@ export default function App() {
     const bookingDiscount = getDiscountAmount(bookingGross);
     const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
 
-    if (appliedCoupon) {
+    if (appliedCoupon && config.enableDiscountsAndCoupons !== false) {
       const updatedTracker = {
         ...usageTracker,
         [appliedCoupon.code]: (usageTracker[appliedCoupon.code] || 0) + 1
@@ -249,7 +245,7 @@ export default function App() {
       `📅 *Preferred Date:* ${booking.eventDate}\n` +
       `📍 *Location Zone:* ${zone?.name} (Convenience: ₹${zone?.fee})\n` +
       `🏠 *Exact Address:* ${booking.venueAddress || 'Not Provided'}\n` +
-      (appliedCoupon ? `🏷️ *Applied Coupon:* ${appliedCoupon.code} (-₹${bookingDiscount.toLocaleString('en-IN')} OFF)\n` : '') +
+      (appliedCoupon && config.enableDiscountsAndCoupons !== false ? `🏷️ *Applied Coupon:* ${appliedCoupon.code} (-₹${bookingDiscount.toLocaleString('en-IN')} OFF)\n` : '') +
       `💰 *Estimated Total:* ₹${bookingFinal.toLocaleString('en-IN')}\n` +
       `📝 *Notes/Requests:* ${booking.notes || 'None'}\n\n` +
       `_Base Studio: ${config.baseLocation}_`;
@@ -297,7 +293,7 @@ export default function App() {
   return (
     <div className={`min-h-screen ${bgClass} font-sans selection:bg-amber-500 selection:text-black transition-colors duration-300 relative`}>
       
-      {/* 📢 Top Announcement Banner (Conditionally Rendered) */}
+      {/* 📢 Top Announcement Banner */}
       {config.showOfferSection !== false && (
         <div className="bg-gradient-to-r from-amber-950 via-amber-700/90 to-rose-950 border-b border-amber-500/30 text-amber-200 py-2.5 px-4 text-xs sm:text-sm text-center font-medium tracking-wide flex items-center justify-center gap-2 shadow-inner">
           <Volume2 className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
@@ -611,41 +607,32 @@ export default function App() {
                   </div>
                   <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-amber-500 h-2 rounded-lg cursor-pointer" />
                   
-                  {/* Dynamic Rate & Discount calculation display */}
-                  {(() => {
-                    const { originalRate, discountedRate, discountPercent } = getGuestRateDetails(calcKit, calcPackage);
-                    return (
-                      <div className="flex items-center justify-between text-[11px] mt-1.5">
-                        <span className={mutedTextClass}>
-                          Rate per person: <strong className="text-amber-500 font-mono">₹{discountedRate.toLocaleString('en-IN')}</strong>
-                          {discountPercent > 0 && <span className="line-through text-stone-500 ml-1.5 font-mono">₹{originalRate.toLocaleString('en-IN')}</span>}
-                        </span>
-                        {discountPercent > 0 && (
-                          <span className="text-emerald-500 font-bold bg-emerald-500/10 px-2 py-0.5 rounded text-[10px]">
-                            {discountPercent}% Guest Discount Applied
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
+                  {/* Direct Package-Based Guest Price Display */}
+                  <div className="flex items-center justify-between text-[11px] mt-1.5">
+                    <span className={mutedTextClass}>
+                      Guest Rate (Based on Selected Package): <strong className="text-amber-500 font-mono">₹{getGuestRate(calcKit, calcPackage).toLocaleString('en-IN')}</strong> / person
+                    </span>
+                  </div>
                 </div>
 
-                {/* Coupon Code Section */}
-                <div className="pt-2 border-t border-stone-200/20 space-y-2">
-                  <label className="block text-xs font-semibold text-amber-500 uppercase tracking-wider flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> Promo Coupon Code</label>
-                  {appliedCoupon ? (
-                    <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-xl p-3 flex items-center justify-between">
-                      <div className="text-xs font-bold text-emerald-500 font-mono">{appliedCoupon.code} Applied ({appliedCoupon.label})</div>
-                      <button type="button" onClick={handleRemoveCoupon} className="text-stone-400 hover:text-rose-500 text-xs underline">Remove</button>
-                    </div>
-                  ) : (
-                    <div className="flex gap-2">
-                      <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} border rounded-xl px-3 py-2 text-xs uppercase font-mono`} />
-                      <button type="button" onClick={handleApplyCoupon} className="px-4 py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow">Apply</button>
-                    </div>
-                  )}
-                  {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
-                </div>
+                {/* Coupon Code Section (Conditionally Rendered by Master Toggle) */}
+                {config.enableDiscountsAndCoupons !== false && (
+                  <div className="pt-2 border-t border-stone-200/20 space-y-2">
+                    <label className="block text-xs font-semibold text-amber-500 uppercase tracking-wider flex items-center gap-1.5"><Tag className="w-3.5 h-3.5" /> Promo Coupon Code</label>
+                    {appliedCoupon ? (
+                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-xl p-3 flex items-center justify-between">
+                        <div className="text-xs font-bold text-emerald-500 font-mono">{appliedCoupon.code} Applied ({appliedCoupon.label})</div>
+                        <button type="button" onClick={handleRemoveCoupon} className="text-stone-400 hover:text-rose-500 text-xs underline">Remove</button>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2">
+                        <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} border rounded-xl px-3 py-2 text-xs uppercase font-mono`} />
+                        <button type="button" onClick={handleApplyCoupon} className="px-4 py-2 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow">Apply</button>
+                      </div>
+                    )}
+                    {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
+                  </div>
+                )}
               </div>
 
               <div className={`md:col-span-5 ${subCardBgClass} rounded-2xl p-6 border flex flex-col justify-between space-y-6`}>
@@ -661,9 +648,11 @@ export default function App() {
                   <div className={`flex justify-between ${mutedTextClass}`}><span>Cab Fee:</span><span className="text-amber-500 font-medium">₹{config.convenienceZones[calcZone]?.fee}</span></div>
                   <div className={`flex justify-between ${mutedTextClass}`}>
                     <span>Extra Guests ({extraPartyCount}):</span>
-                    <span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedRate).toLocaleString('en-IN')}</span>
+                    <span>₹{(extraPartyCount * getGuestRate(calcKit, calcPackage)).toLocaleString('en-IN')}</span>
                   </div>
-                  {appliedCoupon && <div className="flex justify-between text-emerald-500 font-semibold"><span>Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>}
+                  {appliedCoupon && config.enableDiscountsAndCoupons !== false && (
+                    <div className="flex justify-between text-emerald-500 font-semibold"><span>Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
+                  )}
                 </div>
                 <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className="w-full py-3 bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold text-xs rounded-xl shadow">Book This Package</button>
               </div>
@@ -784,8 +773,8 @@ export default function App() {
                 {/* Admin Sub-navigation */}
                 <div className="flex overflow-x-auto gap-2 border-b border-stone-200/20 pb-2.5">
                   {[
-                    { id: 'toggles', label: '🎛️ Section Toggles & Notification' },
-                    { id: 'prices', label: '💄 Package & Guest Prices' },
+                    { id: 'toggles', label: '🎛️ Section Toggles' },
+                    { id: 'prices', label: '💄 Package Prices' },
                     { id: 'coupons', label: '🏷️ Coupons & Limits' },
                     { id: 'announcements', label: '📢 Top Announcements' },
                     { id: 'convenience', label: '🚗 Cab & Travel Fees' }
@@ -805,16 +794,33 @@ export default function App() {
                   ))}
                 </div>
 
-                {/* 1. TOGGLES & FLOATING NOTIFICATION */}
+                {/* 1. SECTION TOGGLES (Offer Bar, Floating Notification, Discounts & Coupons) */}
                 {adminActiveSection === 'toggles' && (
                   <div className="space-y-4">
                     <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
-                      <h4 className="font-bold uppercase text-amber-500">🎛️ Display Toggles</h4>
+                      <h4 className="font-bold uppercase text-amber-500">🎛️ Master Feature Toggles</h4>
                       
+                      {/* Master Discount & Coupon Toggle */}
                       <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
                         <div>
-                          <span className="font-bold block text-sm">Top Announcement Bar</span>
-                          <span className={mutedTextClass}>Show or hide the rolling top offer line</span>
+                          <span className="font-bold block text-sm text-amber-500">Discounts & Coupon Code System</span>
+                          <span className={mutedTextClass}>Turn off entire discount/coupon functionality across calculator and booking</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setAdminDraft({ ...adminDraft, enableDiscountsAndCoupons: !adminDraft.enableDiscountsAndCoupons })}
+                          className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.enableDiscountsAndCoupons !== false ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
+                        >
+                          {adminDraft.enableDiscountsAndCoupons !== false ? <ToggleRight className="w-5 h-5" /> : <ToggleLeft className="w-5 h-5" />}
+                          <span>{adminDraft.enableDiscountsAndCoupons !== false ? 'ENABLED' : 'DISABLED'}</span>
+                        </button>
+                      </div>
+
+                      {/* Top Banner Toggle */}
+                      <div className="flex items-center justify-between py-2 border-b border-stone-200/10">
+                        <div>
+                          <span className="font-bold block text-sm">Top Announcement Offer Banner</span>
+                          <span className={mutedTextClass}>Show or hide the rolling top offer bar</span>
                         </div>
                         <button
                           type="button"
@@ -826,16 +832,17 @@ export default function App() {
                         </button>
                       </div>
 
+                      {/* Floating Notification Toggle */}
                       <div className="flex items-center justify-between py-2">
                         <div>
-                          <span className="font-bold block text-sm">Bottom-Right Floating Promo Notification</span>
-                          <span className={mutedTextClass}>Show or hide the pop-up offer box</span>
+                          <span className="font-bold block text-sm">Bottom Floating Promo Notification</span>
+                          <span className={mutedTextClass}>Show or hide the floating notification</span>
                         </div>
                         <button
                           type="button"
                           onClick={() => setAdminDraft({
                             ...adminDraft,
-                            floatingBanner: { ...adminDraft.floatingBanner, enabled: !adminDraft.floatingBanner.enabled }
+                            floatingBanner: { ...adminDraft.floatingBanner, enabled: !adminDraft.floatingBanner?.enabled }
                           })}
                           className={`p-2 rounded-xl flex items-center gap-2 font-bold ${adminDraft.floatingBanner?.enabled ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/40' : 'bg-rose-500/20 text-rose-500 border border-rose-500/40'}`}
                         >
@@ -845,7 +852,6 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Floating notification details */}
                     <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                       <h4 className="font-bold uppercase text-amber-500">🎈 Floating Notification Settings</h4>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -890,32 +896,11 @@ export default function App() {
                   </div>
                 )}
 
-                {/* 2. PRICES & GUEST DISCOUNT PERCENTAGE */}
+                {/* 2. ALL PACKAGE PRICES (GUEST PRICE DIRECTLY INHERITED) */}
                 {adminActiveSection === 'prices' && (
                   <div className="space-y-6">
-                    
-                    {/* Guest Discount Rate Setting */}
-                    <div className={`p-4 rounded-2xl border space-y-2 ${isDarkMode ? 'bg-amber-950/20 border-amber-500/50' : 'bg-amber-50 border-amber-300'}`}>
-                      <h4 className="font-bold text-amber-500 uppercase tracking-wider text-xs flex items-center gap-1.5">
-                        <Percent className="w-4 h-4" /> Additional Guest Discount Rule
-                      </h4>
-                      <div className="flex items-center gap-3">
-                        <label className="text-xs">Set Discount on Extra Guest Makeup Booking:</label>
-                        <div className="flex items-center gap-1">
-                          <input
-                            type="number"
-                            min="0"
-                            max="90"
-                            value={adminDraft.guestPricingRules?.discountPercent ?? 15}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              guestPricingRules: { ...adminDraft.guestPricingRules, discountPercent: Number(e.target.value) }
-                            })}
-                            className={`w-20 p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
-                          />
-                          <span className="font-bold text-amber-500">% OFF</span>
-                        </div>
-                      </div>
+                    <div className={`p-3 rounded-xl border text-[11px] ${isDarkMode ? 'bg-amber-950/20 border-amber-500/40 text-amber-300' : 'bg-amber-50 border-amber-300 text-amber-800'}`}>
+                      ℹ️ <strong>Package-Based Guest Pricing Active:</strong> When a customer selects any package (e.g. Simple Party ₹1,500 or Royal Bridal ₹25,000), the extra guest makeup price automatically matches that selected package price per person.
                     </div>
 
                     {/* International Tier */}
@@ -939,21 +924,6 @@ export default function App() {
                             />
                           </div>
                         ))}
-                        <div>
-                          <label className="block text-[11px] mb-1 font-bold text-amber-500">Base Guest Rate (Before Discount)</label>
-                          <input
-                            type="number"
-                            value={adminDraft.pricingByKit.international.guestBaseRate || 4000}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              pricingByKit: {
-                                ...adminDraft.pricingByKit,
-                                international: { ...adminDraft.pricingByKit.international, guestBaseRate: Number(e.target.value) }
-                              }
-                            })}
-                            className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
-                          />
-                        </div>
                       </div>
                     </div>
 
@@ -978,31 +948,16 @@ export default function App() {
                             />
                           </div>
                         ))}
-                        <div>
-                          <label className="block text-[11px] mb-1 font-bold text-rose-500">Base Guest Rate (Before Discount)</label>
-                          <input
-                            type="number"
-                            value={adminDraft.pricingByKit.drugstore.guestBaseRate || 2500}
-                            onChange={(e) => setAdminDraft({
-                              ...adminDraft,
-                              pricingByKit: {
-                                ...adminDraft.pricingByKit,
-                                drugstore: { ...adminDraft.pricingByKit.drugstore, guestBaseRate: Number(e.target.value) }
-                              }
-                            })}
-                            className={`w-full p-2 rounded-lg border font-mono font-bold ${inputBgClass}`}
-                          />
-                        </div>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* 3. COUPONS & LIMITS (1 TO X OR UNLIMITED) */}
+                {/* 3. COUPONS & LIMITS */}
                 {adminActiveSection === 'coupons' && (
                   <div className={`p-4 rounded-2xl border space-y-3 ${subCardBgClass}`}>
                     <div className="flex justify-between items-center">
-                      <h4 className="font-bold uppercase text-amber-500">🏷️ Discount Coupons & Max Redemption Limits</h4>
+                      <h4 className="font-bold uppercase text-amber-500">🏷️ Discount Coupons & Usage Limits</h4>
                       <button
                         type="button"
                         onClick={() => {
@@ -1060,7 +1015,6 @@ export default function App() {
                             />
                           </div>
 
-                          {/* Usage Limit Selector */}
                           <div className="w-full sm:w-1/4 flex items-center gap-1.5">
                             <label className="text-[10px] text-stone-400">Limit:</label>
                             <select
@@ -1233,7 +1187,7 @@ export default function App() {
         </aside>
       )}
 
-      {/* Footer */}
+      {/* Clean Footer */}
       <footer className={`border-t py-8 mt-16 text-xs ${isDarkMode ? 'border-neutral-900 bg-neutral-950 text-stone-400' : 'border-stone-200 bg-white text-stone-600'}`}>
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2">
