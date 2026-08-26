@@ -6,7 +6,8 @@ import {
   Play, Film, ExternalLink, User
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
-import { subscribeToLiveConfig } from './firebase';
+import { subscribeToLiveConfig, db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 
@@ -163,6 +164,7 @@ export default function App() {
   const [imgLoadFailed, setImgLoadFailed] = useState(false);
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const link = document.createElement('link');
@@ -301,12 +303,14 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 🚀 ON-DEMAND JPG GENERATOR (ONLY TRIGGERED ON BUTTON TAP)
-  const handleGenerateAndShareJpg = (targetChannel = 'whatsapp') => {
+  // 🚀 ON-DEMAND BOOKING & FIREBASE SYNC TO ADMIN CONSOLE
+  const handleGenerateAndShareJpg = async (targetChannel = 'whatsapp') => {
     if (!booking.name.trim() || !booking.phone.trim()) {
       alert("Please fill your Name and Phone Number before booking.");
       return;
     }
+
+    setIsSubmitting(true);
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -315,11 +319,10 @@ export default function App() {
     canvas.width = 1080;
     canvas.height = 1560;
 
-    // Solid Pure White Background for JPG
+    // Pure White Luxury Canvas
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, 1080, 1560);
 
-    // Subtle Luxury Radiant Glow
     const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
     bgGrad.addColorStop(0, '#ffffff');
     bgGrad.addColorStop(1, '#f8fafc');
@@ -353,12 +356,12 @@ export default function App() {
     ctx.lineTo(940, 210);
     ctx.stroke();
 
-    // Badge
+    // 🌟 Updated Badge Title
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 30px sans-serif';
-    ctx.fillText('✨ OFFICIAL APPOINTMENT SLIP ✨', 540, 265);
+    ctx.fillText('✨ OFFICIAL BOOKING CONFIRMATION ✨', 540, 265);
 
-    // Pricing & Details Calculation
+    // Calculations
     const pkg = config.packageDetails[booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
     const kitName = config.pricingByKit[booking.kitType].name;
@@ -404,7 +407,7 @@ export default function App() {
       startY += 82;
     });
 
-    // Total Investment Box
+    // Total Box
     ctx.fillStyle = '#fefce8';
     ctx.fillRect(80, 1060, 920, 180);
     ctx.strokeStyle = '#b48a3c';
@@ -420,7 +423,7 @@ export default function App() {
     ctx.font = 'bold 64px serif';
     ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
 
-    // Footer Info
+    // Footer
     ctx.textAlign = 'center';
     ctx.fillStyle = '#475569';
     ctx.font = '22px sans-serif';
@@ -434,21 +437,55 @@ export default function App() {
     ctx.font = '18px sans-serif';
     ctx.fillText('Present this official digital slip during your vanity appointment confirmation.', 540, 1410);
 
-    // 🔥 Convert to High-Quality True JPG Format
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
 
-    // Auto Download JPG File
+    // Auto-save JPG
     const downloadLink = document.createElement('a');
-    downloadLink.download = `Appointment_Slip_${booking.name.replace(/\s+/g, '_')}.jpg`;
+    downloadLink.download = `Booking_Confirmation_${booking.name.replace(/\s+/g, '_')}.jpg`;
     downloadLink.href = jpgUrl;
     downloadLink.click();
 
-    // Direct Route to WhatsApp or Instagram Chat
+    // 📋 Save Booking Real-time to Firebase Firestore for Admin App
+    try {
+      await addDoc(collection(db, "bookings"), {
+        clientName: booking.name,
+        clientPhone: booking.phone,
+        eventDate: booking.eventDate,
+        kitType: kitName,
+        packageName: `${pkg.num}. ${pkg.name}`,
+        zoneName: zone?.name || 'Delhi/NCR',
+        zoneFee: zone?.fee || 350,
+        venueAddress: booking.venueAddress || 'Not Provided',
+        appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
+        discountAmount: bookingDiscount,
+        totalAmount: bookingFinal,
+        status: 'pending',
+        createdAt: serverTimestamp()
+      });
+    } catch (err) {
+      console.warn("Booking saved locally; Firestore log:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
+
+    // 💬 Clean WhatsApp / Instagram Routing (Removed Slip Text)
     setTimeout(() => {
+      const cleanMessage = 
+        `✨ *New Booking Request - ${config.studioName || "HUSNA FAROOQUI"}* ✨\n\n` +
+        `👤 *Client Name:* ${booking.name}\n` +
+        `📞 *Phone Number:* ${booking.phone}\n` +
+        `📅 *Event Date:* ${booking.eventDate}\n` +
+        `💎 *Vanity Kit:* ${kitName}\n` +
+        `💄 *Package:* ${pkg.num}. ${pkg.name}\n` +
+        `📍 *Zone / Location:* ${zone?.name}\n` +
+        `🏠 *Exact Address:* ${booking.venueAddress || 'Not Provided'}\n` +
+        (appliedCoupon ? `🏷️ *Coupon:* ${appliedCoupon.code} (-₹${bookingDiscount})\n` : '') +
+        `💰 *Estimated Total:* ₹${bookingFinal.toLocaleString('en-IN')}\n\n` +
+        `_Studio Base: ${config.baseLocation}_`;
+
       if (targetChannel === 'whatsapp') {
-        const text = encodeURIComponent(`✨ *Hello ${config.studioName || "Husna Farooqui"} Studio!* Here are my booking details for ${booking.name}. I have generated my JPG Appointment Slip and attached it here!`);
-        window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${text}`, '_blank');
+        window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(cleanMessage)}`, '_blank');
       } else {
         window.open(instagramProfileUrl, '_blank');
       }
@@ -491,7 +528,6 @@ export default function App() {
   return (
     <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} selection:bg-cyan-500 selection:text-black transition-colors duration-300 relative overflow-x-hidden`}>
       
-      {/* Hidden Canvas for On-Demand Slip Generation */}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {/* Top Banner */}
@@ -741,27 +777,11 @@ export default function App() {
                 <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group flex flex-col justify-between`}>
                   <div className="h-80 overflow-hidden relative bg-neutral-900">
                     {item.type === 'video' ? (
-                      <video 
-                        src={item.url} 
-                        controls 
-                        muted 
-                        loop 
-                        playsInline 
-                        className="w-full h-full object-cover" 
-                      />
+                      <video src={item.url} controls muted loop playsInline className="w-full h-full object-cover" />
                     ) : item.type === 'instagram_reel' ? (
                       <div className="w-full h-full relative group">
-                        <img 
-                          src={item.thumbnail || item.url || DEFAULT_PROFILE_IMG} 
-                          alt={item.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                        />
-                        <a 
-                          href={getCleanInstagramUrl(item.url)} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="absolute inset-0 bg-black/40 hover:bg-black/20 flex flex-col items-center justify-center text-white transition-colors"
-                        >
+                        <img src={item.thumbnail || item.url || DEFAULT_PROFILE_IMG} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <a href={getCleanInstagramUrl(item.url)} target="_blank" rel="noopener noreferrer" className="absolute inset-0 bg-black/40 hover:bg-black/20 flex flex-col items-center justify-center text-white transition-colors">
                           <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
                             <Play className="w-6 h-6 text-white ml-0.5" />
                           </div>
@@ -771,11 +791,7 @@ export default function App() {
                         </a>
                       </div>
                     ) : (
-                      <img 
-                        src={item.url} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                      />
+                      <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     )}
 
                     <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
@@ -980,32 +996,33 @@ export default function App() {
                   <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} border rounded-2xl px-4 py-3 text-sm`} />
                 </div>
 
-                {/* 🚀 On-Demand JPG Generation Buttons */}
                 <div className="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     type="button"
+                    disabled={isSubmitting}
                     onClick={() => handleGenerateAndShareJpg('whatsapp')}
-                    className="py-3.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all"
+                    className="py-3.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all disabled:opacity-50"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
-                    <span>Send Booking (WhatsApp)</span>
+                    <span>{isSubmitting ? 'Syncing...' : 'Send Booking (WhatsApp)'}</span>
                   </button>
 
                   <button
                     type="button"
+                    disabled={isSubmitting}
                     onClick={() => handleGenerateAndShareJpg('instagram')}
-                    className="py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20 transition-all"
+                    className="py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20 transition-all disabled:opacity-50"
                   >
                     <InstagramIcon className="w-4 h-4" />
-                    <span>Send Booking (Instagram)</span>
+                    <span>{isSubmitting ? 'Syncing...' : 'Send Booking (Instagram)'}</span>
                   </button>
                 </div>
 
                 {generatedJpgUrl && (
                   <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
-                    <p className="text-xs text-emerald-400 font-bold">🎉 Official Appointment Slip (.JPG) Generated & Saved!</p>
-                    <a href={generatedJpgUrl} download="Appointment_Slip.jpg" className="text-xs text-slate-300 underline inline-flex items-center gap-1 font-semibold">
-                      <Download className="w-3.5 h-3.5" /> Re-download JPG Slip
+                    <p className="text-xs text-emerald-400 font-bold">🎉 Official Booking Confirmation (.JPG) Generated & Saved!</p>
+                    <a href={generatedJpgUrl} download="Booking_Confirmation.jpg" className="text-xs text-slate-300 underline inline-flex items-center gap-1 font-semibold">
+                      <Download className="w-3.5 h-3.5" /> Re-download JPG
                     </a>
                   </div>
                 )}
