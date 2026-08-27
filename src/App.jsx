@@ -11,6 +11,7 @@ import { subscribeToLiveConfig, db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
+const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
 
 const DEFAULT_KIT_IMAGES = {
   international: {
@@ -201,12 +202,10 @@ export default function App() {
   const [viewingPackage, setViewingPackage] = useState(null);
   const [nowTick, setNowTick] = useState(Date.now());
 
-  // Estimate & Direct Booking States
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
   const [calcZone, setCalcZone] = useState('delhi_near');
 
-  // 👥 Dynamic Per-Person Extra Family Makeups Array
   const [familyGuests, setFamilyGuests] = useState([]);
 
   const [clientName, setClientName] = useState('');
@@ -222,7 +221,6 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imgLoadFailed, setImgLoadFailed] = useState(false);
   
-  // Feedback & Suggestion States
   const [feedbackName, setFeedbackName] = useState('');
   const [feedbackPhone, setFeedbackPhone] = useState('');
   const [feedbackRating, setFeedbackRating] = useState(5);
@@ -230,7 +228,6 @@ export default function App() {
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
   const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
 
-  // Share & QR Modal State
   const [showShareModal, setShowShareModal] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
@@ -310,6 +307,7 @@ export default function App() {
       setConfig({
         ...STUDIO_CONFIG,
         ...live,
+        studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
         kitText: mergedKitText,
         kitImages: mergedKitImages,
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
@@ -403,7 +401,7 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 Minimalist Luxury "BOOKING SENT RECEIPT" (.JPG)
+  // Minimalist Luxury "BOOKING SENT RECEIPT" (.JPG)
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -606,7 +604,6 @@ export default function App() {
     }
   };
 
-  // Submit Feedback to Firebase
   const handleSubmitFeedback = async (e) => {
     e.preventDefault();
     if (!feedbackMessage.trim()) return;
@@ -673,6 +670,9 @@ export default function App() {
 
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
 
+  const shouldShowLogoInHeader = config.toggles?.showLogoOnApp !== false && config.studioLogo;
+  const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
+
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden`}>
@@ -710,7 +710,7 @@ export default function App() {
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
-            {config.toggles?.showLogoOnApp !== false && config.studioLogo ? (
+            {shouldShowLogoInHeader ? (
               <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
                 <img src={config.studioLogo} alt="Studio Logo" className="w-full h-full object-contain rounded-[24px]" />
               </div>
@@ -841,17 +841,17 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar (With Studio Logo) */}
+      {/* 💎 Header */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              {config.toggles?.showLogoOnApp !== false && config.studioLogo ? (
+              {shouldShowLogoInHeader ? (
                 <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
                   <img src={config.studioLogo} alt="Logo" className="w-full h-full object-contain" />
                 </div>
-              ) : (
+              ) : shouldShowProfileInHeader ? (
                 <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
                   <img 
                     src={resolvedAvatar} 
@@ -859,6 +859,10 @@ export default function App() {
                     onError={() => setImgLoadFailed(true)}
                     className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
                   />
+                </div>
+              ) : (
+                <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <Crown className="w-5 h-5" />
                 </div>
               )}
               
@@ -1163,7 +1167,7 @@ export default function App() {
                     </select>
                   </div>
 
-                  {/* 👥 Per-Person Extra Family Makeup Builder */}
+                  {/* Extra Family Makeup Customizer */}
                   <div className="pt-2 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
@@ -1344,7 +1348,7 @@ export default function App() {
           </div>
         )}
 
-        {/* 💬 CLIENT FEEDBACK & SUGGESTIONS SECTION */}
+        {/* 💬 CLIENT FEEDBACK & SUGGESTIONS */}
         <section className={`mt-12 p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-4xl mx-auto space-y-4`}>
           <div className="text-center space-y-1">
             <span className={`text-[10px] font-bold uppercase tracking-wider ${currentTheme.accentText}`}>Client Experience</span>
