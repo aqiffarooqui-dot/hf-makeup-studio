@@ -30,6 +30,25 @@ const DEFAULT_KIT_IMAGES = {
   }
 };
 
+const DEFAULT_KIT_TEXT = {
+  international: {
+    simple_party: { num: 1, name: "Simple Party Makeup (Luxury)", desc: "Natural dewy skin glow with Dior & NARS, soft contour & luxury hair styling." },
+    hd_party: { num: 2, name: "HD Party Makeup (Luxury)", desc: "High-definition camera ready base with Charlotte Tilbury & Huda, designer hair styling." },
+    super_hd_party: { num: 3, name: "Super HD Glam Party (Luxury)", desc: "Flawless poreless glass skin, 3D luxury lashes, statement eye look & hair artistry." },
+    cocktail_glam: { num: 4, name: "Cocktail / Reception Glam (Luxury)", desc: "Red-carpet celebrity glam, smokey or shimmer eye art, luxury extensions & styling." },
+    engagement_bride: { num: 5, name: "Engagement / Sagan Bride (Luxury)", desc: "Radiant luxury bridal base, sculpted features, premium lash drama, draping & hair styling." },
+    royal_bridal: { num: 6, name: "Royal Asian Bridal (Luxury)", desc: "Signature bridal artistry, 16HR waterproof HD finish with Estee Lauder & MAC, master draping & styling." }
+  },
+  drugstore: {
+    simple_party: { num: 1, name: "Simple Party Makeup (HD Classic)", desc: "Clean everyday fresh look, light foundation base & classic hair styling." },
+    hd_party: { num: 2, name: "HD Party Makeup (HD Classic)", desc: "High-definition camera ready base with PAC/Milani, customized eye look & hair styling." },
+    super_hd_party: { num: 3, name: "Super HD Glam Party (HD Classic)", desc: "Long-wear HD base, dramatic eye shimmer, 3D lashes & elegant hair styling." },
+    cocktail_glam: { num: 4, name: "Cocktail / Reception Glam (HD Classic)", desc: "Even toned radiant glam, bold lip contour, full party hair styling." },
+    engagement_bride: { num: 5, name: "Engagement / Sagan Bride (HD Classic)", desc: "HD bridal glow, durable base, customized lash placement, dupatta draping." },
+    royal_bridal: { num: 6, name: "Royal Asian Bridal (HD Classic)", desc: "Complete Asian bridal makeover, smudge-proof HD base, jewelry setting & bridal draping." }
+  }
+};
+
 const DEFAULT_GALLERY = [
   { type: "image", title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80" },
   { type: "video", title: "Dewy Glow Finishing", sub: "16HR Stay Artistry", url: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-woman-applying-makeup-41419-large.mp4" },
@@ -160,7 +179,7 @@ export default function App() {
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  // 🎬 Cinematic Intro Splash Screen State
+  // 🎬 Cinematic Splash Screen State
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
 
@@ -258,12 +277,15 @@ export default function App() {
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
       };
 
-      const mergedPackageDetails = { ...STUDIO_CONFIG.packageDetails, ...(live.packageDetails || {}) };
+      const mergedKitText = {
+        international: { ...DEFAULT_KIT_TEXT.international, ...(live.kitText?.international || {}) },
+        drugstore: { ...DEFAULT_KIT_TEXT.drugstore, ...(live.kitText?.drugstore || {}) }
+      };
 
       setConfig({
         ...STUDIO_CONFIG,
         ...live,
-        packageDetails: mergedPackageDetails,
+        kitText: mergedKitText,
         kitImages: mergedKitImages,
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
       });
@@ -283,7 +305,7 @@ export default function App() {
 
   const getGuestRateDetails = (kit, pkgKey) => {
     const rawPrice = config.pricingByKit[kit][pkgKey] || 2500;
-    const isDiscountActive = config.guestDiscount?.enabled !== false;
+    const isDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
     const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
     const discountedPrice = Math.round(rawPrice * (1 - discountPercent / 100));
 
@@ -295,9 +317,16 @@ export default function App() {
     };
   };
 
+  // 🏷️ Granular Promo Code Checker (Checks global toggle + individual code active status)
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
+
+    if (config.toggles?.enableCoupons === false || config.enableDiscountsAndCoupons === false) {
+      setCouponError('❌ Coupon system is currently disabled by studio.');
+      return;
+    }
+
     const code = (customCode || couponInput).trim().toUpperCase();
     if (!code) return;
 
@@ -306,6 +335,12 @@ export default function App() {
       setCouponError('❌ Invalid promo coupon code.');
       return;
     }
+
+    if (couponData.enabled === false) {
+      setCouponError('⚠️ This promo coupon code is currently inactive or expired.');
+      return;
+    }
+
     setAppliedCoupon({ code, ...couponData });
     setCouponInput(code);
     setCouponError('');
@@ -376,7 +411,7 @@ export default function App() {
     ctx.font = 'bold 30px sans-serif';
     ctx.fillText('✨ OFFICIAL BOOKING CONFIRMATION ✨', 540, 265);
 
-    const pkg = config.packageDetails[booking.packageKey];
+    const pkgText = config.kitText?.[booking.kitType]?.[booking.packageKey] || DEFAULT_KIT_TEXT[booking.kitType][booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
     const kitName = config.pricingByKit[booking.kitType].name;
     const zone = config.convenienceZones[booking.zoneKey];
@@ -389,7 +424,7 @@ export default function App() {
       { label: 'PHONE NUMBER', val: booking.phone || 'Not Provided' },
       { label: 'EVENT DATE', val: booking.eventDate || 'Not Provided' },
       { label: 'VANITY KIT', val: kitName },
-      { label: 'PACKAGE', val: `${pkg.num}. ${pkg.name}` },
+      { label: 'PACKAGE', val: `${pkgText.num}. ${pkgText.name}` },
       { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
       { label: 'EXACT ADDRESS', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
       { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Applied' }
@@ -453,7 +488,7 @@ export default function App() {
     if (!booking.name.trim() || !booking.phone.trim()) return;
 
     setIsSubmitting(true);
-    const pkg = config.packageDetails[booking.packageKey];
+    const pkgText = config.kitText?.[booking.kitType]?.[booking.packageKey] || DEFAULT_KIT_TEXT[booking.kitType][booking.packageKey];
     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
     const zone = config.convenienceZones[booking.zoneKey];
     const bookingGross = basePrice + (zone ? zone.fee : 350);
@@ -466,7 +501,7 @@ export default function App() {
         clientPhone: booking.phone.trim(),
         eventDate: booking.eventDate,
         kitType: config.pricingByKit[booking.kitType].name,
-        packageName: `${pkg.num}. ${pkg.name}`,
+        packageName: `${pkgText.num}. ${pkgText.name}`,
         zoneName: zone?.name || 'Delhi NCR',
         venueAddress: booking.venueAddress || 'Not Provided',
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
@@ -549,8 +584,8 @@ export default function App() {
 
       {/* 🔍 PACKAGE VIEW DETAILS MODAL */}
       {viewingPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in">
-          <div className={`max-w-md w-full rounded-3xl p-6 border shadow-2xl space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300 animate-fade-in">
+          <div className={`max-w-md w-full rounded-3xl p-6 border shadow-2xl space-y-4 transform transition-all duration-300 scale-100 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
@@ -566,7 +601,7 @@ export default function App() {
             <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>
 
             <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-              <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit} Luxury Kit</strong></div>
+              <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit'}</strong></div>
               <div className="flex justify-between"><span>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>
               <div className="flex justify-between"><span>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
               <div className="flex justify-between font-bold text-sm pt-1">
@@ -583,7 +618,7 @@ export default function App() {
                 setViewingPackage(null);
                 setActiveTab('booking');
               }}
-              className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5`}
+              className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5 transition-transform duration-200`}
             >
               <span>Proceed to Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -599,8 +634,8 @@ export default function App() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {/* Top Banner Ticker */}
-      {config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm`}>
+      {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
+        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm transition-all duration-300`}>
           <Volume2 className="w-3.5 h-3.5 shrink-0 animate-bounce" />
           <span className="truncate max-w-4xl font-semibold">
             {config.announcements[announcementIdx] || config.announcements[0]}
@@ -630,22 +665,22 @@ export default function App() {
           </div>
         </div>
 
-        {/* Dynamic Nav Pills */}
+        {/* Dynamic Nav Pills with Smooth State Transitions */}
         <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/70 border-slate-300/80'}`}>
           {[
-            { id: 'menu', label: 'Packages', icon: Crown },
-            { id: 'gallery', label: 'Transformations', icon: Camera },
-            { id: 'brands', label: 'Vanity', icon: Star },
-            { id: 'calculator', label: 'Estimator', icon: Calculator },
-            { id: 'booking', label: 'Book Online', icon: Calendar }
-          ].map(tab => {
+            { id: 'menu', label: 'Packages', icon: Crown, show: true },
+            { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
+            { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+            { id: 'calculator', label: 'Estimator', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+            { id: 'booking', label: 'Book Online', icon: Calendar, show: true }
+          ].filter(t => t.show).map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 active:scale-90 ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 ease-out active:scale-90 ${
                   isActive ? currentTheme.activeNav : navTextClass
                 }`}
               >
@@ -661,7 +696,7 @@ export default function App() {
           <button
             onClick={toggleTheme}
             title="Toggle Day/Night Mode"
-            className={`p-2.5 rounded-2xl border transition-all active:scale-90 flex items-center justify-center ${
+            className={`p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
               isDarkMode 
                 ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
                 : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
@@ -674,7 +709,7 @@ export default function App() {
             href={getCleanInstagramUrl(config.instagramHandle)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-2xl transition-all shadow-md shadow-pink-500/20"
+            className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
           >
             <Camera className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
@@ -685,18 +720,18 @@ export default function App() {
       {/* Mobile Nav */}
       <div className={`md:hidden flex justify-around border-t p-2 backdrop-blur-3xl sticky bottom-0 z-40 ${isDarkMode ? 'border-white/10 bg-[#080d1e]/90 text-slate-300' : 'border-slate-200 bg-white/95 text-slate-800'}`}>
         {[
-          { id: 'menu', label: 'Packages', icon: Crown },
-          { id: 'gallery', label: 'Looks', icon: Camera },
-          { id: 'calculator', label: 'Estimate', icon: Calculator },
-          { id: 'booking', label: 'Book', icon: Calendar }
-        ].map((tab) => {
+          { id: 'menu', label: 'Packages', icon: Crown, show: true },
+          { id: 'gallery', label: 'Looks', icon: Camera, show: config.toggles?.enableGallery !== false },
+          { id: 'calculator', label: 'Estimate', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+          { id: 'booking', label: 'Book', icon: Calendar, show: true }
+        ].filter(t => t.show).map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${
+              className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 ${
                 isActive ? currentTheme.activeNav : navTextClass
               }`}
             >
@@ -707,31 +742,31 @@ export default function App() {
         })}
       </div>
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+      {/* Main Content Area with Smooth Dynamic Transitions */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 transition-all duration-500">
 
-        {/* TAB 1: PACKAGES MENU WITH VIEW + BOOK ACTIONS */}
+        {/* TAB 1: PACKAGES MENU WITH KIT-SPECIFIC TITLES & DESCRIPTIONS */}
         {activeTab === 'menu' && (
-          <div className="space-y-10 animate-fade-in">
+          <div className="space-y-10 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Professional Vanity Packages
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
-              <p className={`text-xs sm:text-sm ${mutedTextClass}`}>Select kit tier below to view package pricing:</p>
+              <p className={`text-xs sm:text-sm ${mutedTextClass}`}>Select kit tier below to view package pricing & details:</p>
 
-              {/* Tier Toggle Switch */}
+              {/* Tier Toggle Switch with Smooth Animation */}
               <div className={`inline-flex p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1.5 shadow-lg ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : navTextClass}`}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : navTextClass}`}
                 >
                   <Crown className="w-3.5 h-3.5 text-amber-400" />
                   <span>International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : navTextClass}`}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : navTextClass}`}
                 >
                   <PackageCheck className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Premium HD Kit</span>
@@ -739,14 +774,15 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 transition-all duration-300">
               {partyPackages.concat(bridalPackages).map((key) => {
-                const item = config.packageDetails[key] || STUDIO_CONFIG.packageDetails[key];
+                // 📝 Kit-Specific Text (Titles & Descriptions)
+                const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit[selectedKit][key];
                 const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
 
                 return (
-                  <div key={key} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01]`}>
+                  <div key={`${selectedKit}_${key}`} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in`}>
                     <div className="w-full sm:w-32 h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 relative">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     </div>
@@ -763,7 +799,7 @@ export default function App() {
                       <div className="flex items-center justify-end gap-2 pt-1">
                         <button
                           onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                          className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition active:scale-95 ${isDarkMode ? 'border-white/10 hover:bg-white/10 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700'}`}
+                          className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition-all duration-200 active:scale-95 ${isDarkMode ? 'border-white/10 hover:bg-white/10 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700'}`}
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Details</span>
@@ -776,7 +812,7 @@ export default function App() {
                             setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
                             setActiveTab('booking');
                           }}
-                          className={`px-4 py-1.5 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 transition-all flex items-center gap-1`}
+                          className={`px-4 py-1.5 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 transition-all duration-200 flex items-center gap-1`}
                         >
                           <span>Book</span>
                           <ChevronRight className="w-3.5 h-3.5" />
@@ -791,8 +827,8 @@ export default function App() {
         )}
 
         {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK LIVE AUTO-PLAYING VIDEOS & GIFS */}
-        {activeTab === 'gallery' && (
-          <div className="space-y-8 animate-fade-in">
+        {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
+          <div className="space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Client Transformations & Reels
@@ -808,7 +844,7 @@ export default function App() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between`}>
+                  <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in`}>
                     <div className="h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
                       {isVideo ? (
                         <video
@@ -844,8 +880,8 @@ export default function App() {
         )}
 
         {/* TAB 3: VANITY BRANDS */}
-        {activeTab === 'brands' && (
-          <div className="space-y-8 animate-fade-in">
+        {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
+          <div className="space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>Authentic Vanity</span>
               <h2 className="text-3xl sm:text-4xl font-bold">Products In Our Kit</h2>
@@ -853,7 +889,7 @@ export default function App() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {config.internationalBrands?.map((brand, idx) => (
-                <div key={idx} className={`${cardBgClass} rounded-2xl p-4`}>
+                <div key={idx} className={`${cardBgClass} rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] animate-fade-in`}>
                   <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
                   <h4 className="font-bold text-sm mt-2">{brand.name}</h4>
                   <p className={`text-xs mt-1 ${mutedTextClass}`}>{brand.desc}</p>
@@ -864,8 +900,8 @@ export default function App() {
         )}
 
         {/* TAB 4: ESTIMATOR & CALCULATOR */}
-        {activeTab === 'calculator' && (
-          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+        {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
+          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in transition-opacity duration-300">
             <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8`}>
               <div className="md:col-span-7 space-y-5">
                 <div>
@@ -920,29 +956,31 @@ export default function App() {
                   })()}
                 </div>
 
-                {/* Promo Code Box */}
-                <div className="pt-2 border-t border-white/10 space-y-2">
-                  <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
-                    <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
-                  </label>
-                  {appliedCoupon ? (
-                    <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between">
-                      <div>
-                        <div className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</div>
-                        <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold mt-0.5">
-                          🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
-                        </p>
+                {/* Promo Code Box with Global & Individual Active Check */}
+                {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
+                  <div className="pt-2 border-t border-white/10 space-y-2">
+                    <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
+                      <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
+                    </label>
+                    {appliedCoupon ? (
+                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between">
+                        <div>
+                          <div className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</div>
+                          <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold mt-0.5">
+                            🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                          </p>
+                        </div>
+                        <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline">Remove</button>
                       </div>
-                      <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline">Remove</button>
-                    </div>
-                  ) : (
-                    <div className="flex gap-2">
-                      <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
-                      <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95`}>Apply</button>
-                    </div>
-                  )}
-                  {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
-                </div>
+                    ) : (
+                      <div className="flex gap-2">
+                        <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
+                        <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>Apply</button>
+                      </div>
+                    )}
+                    {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
+                  </div>
+                )}
               </div>
 
               <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
@@ -961,7 +999,7 @@ export default function App() {
                     <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
                   )}
                 </div>
-                <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition-all`}>Book Package</button>
+                <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition-all duration-200`}>Book Package</button>
               </div>
             </div>
           </div>
@@ -969,7 +1007,7 @@ export default function App() {
 
         {/* TAB 5: BOOKING FORM */}
         {activeTab === 'booking' && (
-          <div className="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-3xl shadow-2xl animate-fade-in space-y-5">
+          <div className="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-3xl shadow-2xl animate-fade-in space-y-5 transition-opacity duration-300">
             {isBookingDone ? (
               <div className="text-center py-8 space-y-4 animate-scale-up">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
@@ -984,7 +1022,7 @@ export default function App() {
                     <Download className="w-3.5 h-3.5" /> Re-download JPG Slip
                   </a>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 mt-4`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 mt-4 transition-transform duration-200`}>
                   Book Another Appointment
                 </button>
               </div>
@@ -1050,7 +1088,7 @@ export default function App() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2`}
+                  className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
                 >
                   <Check className="w-4 h-4" />
                   <span>{isSubmitting ? 'Recording...' : 'Confirm & Reserve Appointment'}</span>
@@ -1063,8 +1101,8 @@ export default function App() {
       </main>
 
       {/* Floating Offer Widget */}
-      {config.floatingBanner?.enabled !== false && showFloatingBanner && (
-        <aside aria-label="Promotional offer" className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl ${isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'}`}>
+      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && (
+        <aside aria-label="Promotional offer" className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl transition-all duration-300 ${isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'}`}>
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0`} />
             <div className="flex-1">
@@ -1074,7 +1112,7 @@ export default function App() {
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1"><X className="w-4 h-4" /></button>
           </div>
-          <button onClick={() => { handleApplyCoupon(null, config.floatingBanner?.code); setActiveTab('calculator'); }} className={`mt-3 w-full py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95`}>
+          <button onClick={() => { handleApplyCoupon(null, config.floatingBanner?.code); setActiveTab('calculator'); }} className={`mt-3 w-full py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>
             {config.floatingBanner?.actionText || "Apply"}
           </button>
         </aside>
