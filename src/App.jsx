@@ -4,7 +4,7 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash
+  Receipt, FileText, Hash, Wrench, ShieldAlert
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -340,7 +340,7 @@ export default function App() {
     setCouponError('');
 
     if (config.toggles?.enableCoupons === false || config.enableDiscountsAndCoupons === false) {
-      setCouponError('❌ Coupon system is currently disabled by studio.');
+      setCouponError('❌ Coupon system is currently disabled.');
       return;
     }
 
@@ -390,7 +390,7 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 High-Res White Luxury "BOOKING SENT RECEIPT" (.JPG) with Booking Number
+  // 📄 Official White Luxury "BOOKING SENT RECEIPT" (.JPG) - Studio Name & WhatsApp removed, Verified Seal added
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -408,22 +408,24 @@ export default function App() {
     ctx.fillStyle = bgGrad;
     ctx.fillRect(20, 20, 1040, 1640);
 
+    // Double Gold Authenticity Bevel Borders
     ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 7;
+    ctx.lineWidth = 6;
     ctx.strokeRect(36, 36, 1008, 1608);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 2;
     ctx.strokeRect(48, 48, 984, 1584);
 
+    // Header (No Studio Label)
     ctx.textAlign = 'center';
     ctx.fillStyle = '#996515';
-    ctx.font = 'bold 50px serif';
-    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 125);
+    ctx.font = 'bold 52px serif';
+    ctx.fillText('HUSNA FAROOQUI', 540, 125);
 
     ctx.fillStyle = '#be123c';
-    ctx.font = '600 26px sans-serif';
-    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 170);
+    ctx.font = '600 24px sans-serif';
+    ctx.fillText('Celebrity & Bridal Makeup Artist', 540, 170);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
     ctx.lineWidth = 1.5;
@@ -433,7 +435,7 @@ export default function App() {
     ctx.stroke();
 
     ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 30px sans-serif';
+    ctx.font = 'bold 28px sans-serif';
     ctx.fillText('✨ OFFICIAL BOOKING SENT RECEIPT ✨', 540, 255);
 
     const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
@@ -445,13 +447,13 @@ export default function App() {
     const rows = [
       { label: 'BOOKING NUMBER', val: bNumber || '#HF-PENDING' },
       { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
-      { label: 'PHONE NUMBER', val: clientPhone || 'Not Provided' },
+      { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
       { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
       { label: 'VANITY KIT', val: kitName },
       { label: 'MAIN PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${basePrice})` },
       { label: 'EXTRA GUESTS', val: `${extraPartyCount} Person(s) (+₹${extraPartyCount * discountedPrice})` },
-      { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
-      { label: 'EXACT ADDRESS', val: venueAddress || 'Studio Visit / To be confirmed' },
+      { label: 'VENUE LOCATION', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
+      { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' },
       { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${discountAmount} OFF)` : 'No Promo Applied' }
     ];
 
@@ -466,7 +468,7 @@ export default function App() {
       ctx.fillText(row.label, 100, startY + 8);
 
       ctx.fillStyle = idx === 0 ? '#0369a1' : '#0f172a';
-      ctx.font = idx === 0 ? 'bold 25px monospace' : 'bold 23px sans-serif';
+      ctx.font = idx === 0 ? 'bold 24px monospace' : 'bold 22px sans-serif';
 
       let displayVal = row.val;
       while (ctx.measureText(displayVal).width > 580 && displayVal.length > 4) {
@@ -476,42 +478,49 @@ export default function App() {
       startY += 76;
     });
 
+    // Total Amount Box
     ctx.fillStyle = '#fefce8';
-    ctx.fillRect(80, 1100, 920, 180);
+    ctx.fillRect(80, 1100, 920, 175);
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 3;
-    ctx.strokeRect(80, 1100, 920, 180);
+    ctx.strokeRect(80, 1100, 920, 175);
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#854d0e';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1150);
+    ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, 1150);
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1230);
+    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1225);
+
+    // Official Certified Authenticity Badge Stamp (Aligns & Replaces WhatsApp/Studio labels)
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(80, 1310, 920, 130);
+    ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(80, 1310, 920, 130);
+
+    ctx.fillStyle = '#047857';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('✔ OFFICIAL DIGITAL VERIFICATION SEAL • AUTHENTIC RECORD', 540, 1355);
 
     ctx.fillStyle = '#475569';
-    ctx.font = '22px sans-serif';
-    ctx.fillText(`📍 Base Location: ${config.baseLocation} • Studio WhatsApp: +${config.whatsappNumber}`, 540, 1370);
+    ctx.font = '20px sans-serif';
+    ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1400);
 
-    ctx.fillStyle = '#e11d48';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1415);
-
-    ctx.fillStyle = '#64748b';
-    ctx.font = 'italic 18px sans-serif';
-    ctx.fillText('Status: Booking Request Sent. Studio will verify schedule and send Confirmed Slip.', 540, 1475);
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = 'italic 16px sans-serif';
+    ctx.fillText('Booking Request Transmitted. Official confirmation status will update once reviewed.', 540, 1490);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
   };
 
-  // Direct Booking Handler from Estimator
   const handleDirectEstimateBooking = async (e) => {
     e.preventDefault();
     if (!clientName.trim() || !clientPhone.trim() || !eventDate) {
-      alert("Please fill your Name, WhatsApp Phone, and Event Date.");
+      alert("Please fill your Name, Contact Phone, and Event Date.");
       return;
     }
 
@@ -521,7 +530,6 @@ export default function App() {
     const zone = config.convenienceZones[calcZone];
     const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
 
-    // 🔢 Generate Dynamic Unique Booking Number
     const generatedBookingNo = `#HF-${Math.floor(100000 + Math.random() * 900000)}`;
     setCurrentBookingNumber(generatedBookingNo);
 
@@ -591,6 +599,37 @@ export default function App() {
   const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
   const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
   const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
+
+  // 🛑 Polite App Maintenance / Down Mode Overlay
+  if (config.isAppDown || config.maintenanceMode) {
+    return (
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden`}>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className="max-w-md w-full rounded-3xl p-8 border border-white/20 bg-white/[0.05] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
+          <div className="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-lg">
+            <Wrench className="w-8 h-8 animate-bounce" />
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+              Scheduled System Upgrade
+            </span>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500 bg-clip-text text-transparent">
+              We'll Be Back Shortly
+            </h2>
+            <p className="text-xs leading-relaxed text-slate-300">
+              We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience and look forward to welcoming you soon.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left text-xs space-y-1">
+            <div className="flex justify-between"><span className="text-slate-400">Artist:</span><span className="font-bold text-white">{config.studioName || "Husna Farooqui"}</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-pink-400 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
@@ -684,7 +723,7 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar */}
+      {/* 💎 Header & Top Nav Bar */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           
@@ -844,16 +883,16 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS (LIVE SIGNATURE GALLERY) */}
+        {/* TAB 2: TRANSFORMATIONS (UPDATED POLISHED HEADINGS) */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
-                Client Transformations & Reels
+                Discover Beautiful Makeup Transformations
               </span>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Live Signature Gallery</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Featured Beauty Gallery</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
-                All client makeover transformations and artistry reels auto-play in high definition.
+                Explore our finest client transformations and artistry, crafted with precision, creativity, and elegance.
               </p>
             </div>
 
@@ -917,7 +956,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (WITH BOOKING NUMBER ON SENT RECEIPT) */}
+        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             
@@ -1061,7 +1100,7 @@ export default function App() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>WhatsApp Phone *</label>
+                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Contact Phone *</label>
                         <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
                       </div>
                       <div>
@@ -1077,10 +1116,10 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right Summary Box */}
+                {/* Right Summary Box (Amount Instead of Investment) */}
                 <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
                   <div>
-                    <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Investment Summary</span>
+                    <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
                     <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
                       <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
                       <span>{finalEstimate.toLocaleString('en-IN')}</span>
