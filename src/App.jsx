@@ -4,7 +4,7 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash, Wrench, ShieldAlert
+  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -145,10 +145,6 @@ const getTimeRemaining = (expiryDateStr) => {
 
   return {
     expired: false,
-    days,
-    hours,
-    minutes,
-    seconds,
     text: `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`
   };
 };
@@ -202,7 +198,6 @@ export default function App() {
 
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
-
   const [viewingPackage, setViewingPackage] = useState(null);
   const [nowTick, setNowTick] = useState(Date.now());
 
@@ -210,7 +205,9 @@ export default function App() {
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
   const [calcZone, setCalcZone] = useState('delhi_near');
-  const [extraPartyCount, setExtraPartyCount] = useState(0);
+
+  // 👥 Dynamic Per-Person Extra Family Makeups Array
+  const [familyGuests, setFamilyGuests] = useState([]);
 
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
@@ -238,7 +235,6 @@ export default function App() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const igRef = urlParams.get('ig') || urlParams.get('ref') || urlParams.get('utm_source') || 'Direct Visit';
-        
         await addDoc(collection(db, "visitor_logs"), {
           instagramIdOrSource: igRef,
           userAgent: navigator.userAgent || 'Unknown Device',
@@ -294,7 +290,6 @@ export default function App() {
         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
       };
-
       const mergedKitText = {
         international: { ...DEFAULT_KIT_TEXT.international, ...(live.kitText?.international || {}) },
         drugstore: { ...DEFAULT_KIT_TEXT.drugstore, ...(live.kitText?.drugstore || {}) }
@@ -321,43 +316,56 @@ export default function App() {
     }
   }, [config.announcements]);
 
-  const getGuestRateDetails = (kit, pkgKey) => {
-    const rawPrice = config.pricingByKit[kit][pkgKey] || 2500;
+  // Add a new custom family guest with chosen kit & package
+  const handleAddFamilyGuest = () => {
+    setFamilyGuests([...familyGuests, {
+      id: Date.now(),
+      name: `Guest #${familyGuests.length + 1}`,
+      kit: 'international',
+      packageKey: 'hd_party'
+    }]);
+  };
+
+  const handleRemoveFamilyGuest = (id) => {
+    setFamilyGuests(familyGuests.filter(g => g.id !== id));
+  };
+
+  const handleUpdateFamilyGuest = (id, field, value) => {
+    setFamilyGuests(familyGuests.map(g => g.id === id ? { ...g, [field]: value } : g));
+  };
+
+  // Calculate Family Guests Total Amount with Active Guest Savings
+  const calculateFamilyGuestsTotal = () => {
     const isDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
     const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
-    const discountedPrice = Math.round(rawPrice * (1 - discountPercent / 100));
 
-    return {
-      rawPrice,
-      discountedPrice,
-      discountPercent,
-      isDiscountActive: isDiscountActive && discountPercent > 0
-    };
+    let subtotal = 0;
+    familyGuests.forEach(g => {
+      const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+      const finalPrice = isDiscountActive ? Math.round(raw * (1 - discountPercent / 100)) : raw;
+      subtotal += finalPrice;
+    });
+    return subtotal;
   };
 
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
-
     if (config.toggles?.enableCoupons === false || config.enableDiscountsAndCoupons === false) {
       setCouponError('❌ Coupon system is currently disabled.');
       return;
     }
-
     const code = (customCode || couponInput).trim().toUpperCase();
     if (!code) return;
-
     const couponData = config.validCoupons?.[code];
     if (!couponData) {
       setCouponError('❌ Invalid promo coupon code.');
       return;
     }
-
     if (couponData.enabled === false) {
       setCouponError('⚠️ This promo coupon code is currently disabled.');
       return;
     }
-
     if (couponData.expiryDate) {
       const timeRemaining = getTimeRemaining(couponData.expiryDate);
       if (timeRemaining && timeRemaining.expired) {
@@ -365,19 +373,15 @@ export default function App() {
         return;
       }
     }
-
     setAppliedCoupon({ code, ...couponData });
     setCouponInput(code);
     setCouponError('');
   };
 
-  const calculateGross = (kit, pkgKey, zoneKey, partyCount) => {
-    const base = config.pricingByKit[kit][pkgKey];
-    const zone = config.convenienceZones[zoneKey];
-    const convenienceFee = zone ? zone.fee : 350;
-    const { discountedPrice } = getGuestRateDetails(kit, pkgKey);
-    return base + convenienceFee + (partyCount * discountedPrice);
-  };
+  const mainPackagePrice = config.pricingByKit[calcKit]?.[calcPackage] || 15000;
+  const zoneFee = config.convenienceZones[calcZone]?.fee || 350;
+  const familyGuestsTotal = calculateFamilyGuestsTotal();
+  const grossEstimate = mainPackagePrice + zoneFee + familyGuestsTotal;
 
   const getDiscountAmount = (gross) => {
     if (!appliedCoupon) return 0;
@@ -386,85 +390,80 @@ export default function App() {
     return 0;
   };
 
-  const grossEstimate = calculateGross(calcKit, calcPackage, calcZone, extraPartyCount);
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 Official White Luxury "BOOKING SENT RECEIPT" (.JPG) - Studio Name & WhatsApp removed, Verified Seal added
+  // 📄 Official White Luxury "BOOKING SENT RECEIPT" (.JPG)
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1080;
-    canvas.height = 1680;
+    canvas.height = 1720;
 
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1680);
+    ctx.fillRect(0, 0, 1080, 1720);
 
     const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
     bgGrad.addColorStop(0, '#ffffff');
     bgGrad.addColorStop(1, '#f8fafc');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1640);
+    ctx.fillRect(20, 20, 1040, 1680);
 
-    // Double Gold Authenticity Bevel Borders
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 6;
-    ctx.strokeRect(36, 36, 1008, 1608);
+    ctx.strokeRect(36, 36, 1008, 1648);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 984, 1584);
+    ctx.strokeRect(48, 48, 984, 1624);
 
-    // Header (No Studio Label)
     ctx.textAlign = 'center';
     ctx.fillStyle = '#996515';
     ctx.font = 'bold 52px serif';
-    ctx.fillText('HUSNA FAROOQUI', 540, 125);
+    ctx.fillText('HUSNA FAROOQUI', 540, 120);
 
     ctx.fillStyle = '#be123c';
     ctx.font = '600 24px sans-serif';
-    ctx.fillText('Celebrity & Bridal Makeup Artist', 540, 170);
+    ctx.fillText('Celebrity & Bridal Makeup Artist', 540, 165);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(140, 205);
-    ctx.lineTo(940, 205);
+    ctx.moveTo(140, 200);
+    ctx.lineTo(940, 200);
     ctx.stroke();
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 28px sans-serif';
-    ctx.fillText('✨ OFFICIAL BOOKING SENT RECEIPT ✨', 540, 255);
+    ctx.fillText('✨ OFFICIAL BOOKING SENT RECEIPT ✨', 540, 250);
 
     const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
-    const basePrice = config.pricingByKit[calcKit][calcPackage];
     const kitName = config.pricingByKit[calcKit].name;
     const zone = config.convenienceZones[calcZone];
-    const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
 
     const rows = [
       { label: 'BOOKING NUMBER', val: bNumber || '#HF-PENDING' },
       { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
       { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
       { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
-      { label: 'VANITY KIT', val: kitName },
-      { label: 'MAIN PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${basePrice})` },
-      { label: 'EXTRA GUESTS', val: `${extraPartyCount} Person(s) (+₹${extraPartyCount * discountedPrice})` },
+      { label: 'VANITY TIER', val: kitName },
+      { label: 'MAIN PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${mainPackagePrice})` },
+      { label: 'EXTRA GUESTS', val: `${familyGuests.length} Custom Guest(s) (+₹${familyGuestsTotal})` },
       { label: 'VENUE LOCATION', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
       { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' },
       { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${discountAmount} OFF)` : 'No Promo Applied' }
     ];
 
-    let startY = 330;
+    let startY = 320;
     rows.forEach((row, idx) => {
       ctx.fillStyle = idx === 0 ? 'rgba(6, 182, 212, 0.12)' : (idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff');
-      ctx.fillRect(80, startY - 30, 920, 62);
+      ctx.fillRect(80, startY - 30, 920, 60);
 
       ctx.textAlign = 'left';
       ctx.fillStyle = idx === 0 ? '#0284c7' : '#64748b';
-      ctx.font = idx === 0 ? 'bold 23px monospace' : 'bold 22px sans-serif';
+      ctx.font = idx === 0 ? 'bold 22px monospace' : 'bold 21px sans-serif';
       ctx.fillText(row.label, 100, startY + 8);
 
       ctx.fillStyle = idx === 0 ? '#0369a1' : '#0f172a';
@@ -475,7 +474,7 @@ export default function App() {
         displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
       }
       ctx.fillText(displayVal, 390, startY + 8);
-      startY += 76;
+      startY += 74;
     });
 
     // Total Amount Box
@@ -488,13 +487,13 @@ export default function App() {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#854d0e';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, 1150);
+    ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, 1145);
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1225);
+    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1220);
 
-    // Official Certified Authenticity Badge Stamp (Aligns & Replaces WhatsApp/Studio labels)
+    // Official Verification Seal
     ctx.fillStyle = '#f8fafc';
     ctx.fillRect(80, 1310, 920, 130);
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
@@ -511,7 +510,7 @@ export default function App() {
 
     ctx.fillStyle = '#94a3b8';
     ctx.font = 'italic 16px sans-serif';
-    ctx.fillText('Booking Request Transmitted. Official confirmation status will update once reviewed.', 540, 1490);
+    ctx.fillText('Booking Request Transmitted. Status will update once verified in master schedule.', 540, 1490);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
@@ -526,10 +525,7 @@ export default function App() {
 
     setIsSubmitting(true);
     const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
-    const basePrice = config.pricingByKit[calcKit][calcPackage];
     const zone = config.convenienceZones[calcZone];
-    const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
-
     const generatedBookingNo = `#HF-${Math.floor(100000 + Math.random() * 900000)}`;
     setCurrentBookingNumber(generatedBookingNo);
 
@@ -542,9 +538,10 @@ export default function App() {
         kitType: config.pricingByKit[calcKit].name,
         packageKey: calcPackage,
         packageName: `${pkgText.num}. ${pkgText.name}`,
-        basePackagePrice: basePrice,
-        extraGuestsCount: extraPartyCount,
-        extraGuestsCost: extraPartyCount * discountedPrice,
+        basePackagePrice: mainPackagePrice,
+        extraGuestsCount: familyGuests.length,
+        extraGuestsList: familyGuests,
+        extraGuestsCost: familyGuestsTotal,
         zoneName: zone?.name || 'Delhi NCR',
         zoneFee: zone?.fee || 350,
         venueAddress: venueAddress || 'Not Provided',
@@ -600,7 +597,6 @@ export default function App() {
   const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
   const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
 
-  // 🛑 Polite App Maintenance / Down Mode Overlay
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden`}>
@@ -723,7 +719,7 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Header & Top Nav Bar */}
+      {/* 💎 Universal Header & Top Navigation Bar */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           
@@ -773,7 +769,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* 🚀 Universal Responsive Top Tabs Bar */}
           <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
             <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
               {[
@@ -883,7 +878,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS (UPDATED POLISHED HEADINGS) */}
+        {/* TAB 2: TRANSFORMATIONS */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -956,7 +951,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" */}
+        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (WITH DETAILED PER-PERSON EXTRA FAMILY OPTIONS) */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             
@@ -970,9 +965,9 @@ export default function App() {
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold">Booking Request Sent!</h3>
-                <p className={`text-xs ${mutedTextClass} max-w-sm mx-auto leading-relaxed`}>
-                  Thank you <strong>{clientName}</strong>! Your appointment has been recorded in our database under <strong>{currentBookingNumber}</strong>. Click below to download your official <strong>Booking Sent Receipt</strong>.
+                <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
+                <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
+                  Your booking has been successfully submitted. We’ll notify you shortly once the status is updated.
                 </p>
 
                 {generatedJpgUrl && (
@@ -999,7 +994,7 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Select Vanity Kit Tier</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
                       <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
@@ -1007,7 +1002,7 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Select Main Package</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Package</label>
                     <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
                       <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
                       <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
@@ -1027,28 +1022,65 @@ export default function App() {
                     </select>
                   </div>
 
-                  {/* Extra Family Makeups Slider */}
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <label className="text-xs font-bold uppercase tracking-wider">Extra Family Party Makeups</label>
-                      <span className={`${currentTheme.accentText} text-xs font-bold font-mono`}>{extraPartyCount} Person(s)</span>
+                  {/* 👥 Per-Person Extra Family Makeup Builder */}
+                  <div className="pt-2 border-t border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-xs uppercase tracking-wider text-white flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-cyan-400" /> Extra Family Makeup Customizer
+                        </h4>
+                        <p className={`text-[11px] ${mutedTextClass}`}>Choose individual vanity tier & look for each family guest.</p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleAddFamilyGuest}
+                        className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Add Guest
+                      </button>
                     </div>
-                    <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-cyan-400 h-2 rounded-lg cursor-pointer" />
-                    {(() => {
-                      const { rawPrice, discountedPrice, discountPercent, isDiscountActive } = getGuestRateDetails(calcKit, calcPackage);
-                      return (
-                        <div className="flex items-center justify-between text-[11px] mt-1.5">
-                          <span className={mutedTextClass}>
-                            Guest Rate: <strong className={`${currentTheme.accentText} font-mono`}>₹{discountedPrice.toLocaleString('en-IN')}</strong> / person
-                          </span>
-                          {isDiscountActive && (
-                            <span className="text-emerald-500 dark:text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded-full text-[10px] border border-emerald-500/30">
-                              {discountPercent}% Guest Discount Applied
-                            </span>
-                          )}
-                        </div>
-                      );
-                    })()}
+
+                    {familyGuests.length > 0 && (
+                      <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                        {familyGuests.map((guest, idx) => (
+                          <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
+                            <div className="flex items-center justify-between">
+                              <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
+                              <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-2">
+                              <div>
+                                <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
+                                <select
+                                  value={guest.kit}
+                                  onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
+                                  className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                >
+                                  <option value="international">👑 Luxury Kit</option>
+                                  <option value="drugstore">✨ HD Kit</option>
+                                </select>
+                              </div>
+
+                              <div>
+                                <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Package Look</label>
+                                <select
+                                  value={guest.packageKey}
+                                  onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
+                                  className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                >
+                                  <option value="simple_party">Simple Party (₹{config.pricingByKit[guest.kit].simple_party})</option>
+                                  <option value="hd_party">HD Party (₹{config.pricingByKit[guest.kit].hd_party})</option>
+                                  <option value="super_hd_party">Super HD Glam (₹{config.pricingByKit[guest.kit].super_hd_party})</option>
+                                  <option value="cocktail_glam">Cocktail Glam (₹{config.pricingByKit[guest.kit].cocktail_glam})</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Promo Code Box */}
@@ -1087,7 +1119,7 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Client Booking Information */}
+                  {/* Client Details */}
                   <div className="pt-3 border-t border-white/10 space-y-3">
                     <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
                       <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
@@ -1116,7 +1148,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right Summary Box (Amount Instead of Investment) */}
+                {/* Right Summary Box */}
                 <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
                   <div>
                     <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
@@ -1127,9 +1159,9 @@ export default function App() {
                   </div>
 
                   <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look ({config.packageDetails[calcPackage]?.name}):</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{config.convenienceZones[calcZone]?.fee}</span></div>
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Family Guests ({extraPartyCount}):</span><span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedPrice).toLocaleString('en-IN')}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look ({config.packageDetails[calcPackage]?.name}):</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{zoneFee}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
                     {appliedCoupon && (
                       <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
                     )}
