@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
-  ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
-  Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink, User
+  Crown, Sparkles, Calendar, Calculator, PackageCheck, Tag, 
+  CheckCircle2, Volume2, Sun, Moon, Check, Phone, MapPin, Camera, Star,
+  Play, Film, Award, Heart, ShieldCheck, ChevronRight, Download
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -22,124 +21,19 @@ const DEFAULT_PACKAGE_IMAGES = {
 
 const DEFAULT_GALLERY = [
   { type: "image", title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80" },
+  { type: "video", title: "Dewy Glow Finishing", sub: "16HR Stay Artistry", url: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-woman-applying-makeup-41419-large.mp4" },
   { type: "image", title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80" },
-  { type: "image", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80" },
-  { type: "image", title: "Ultra HD Party Look", sub: "Long-Wear Flawless Base", url: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80" }
+  { type: "image", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80" }
 ];
 
-const THEME_STYLES = {
-  liquid_glass: {
-    accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
-    btnPrimary: "bg-white/25 hover:bg-white/35 text-white font-bold border border-white/40 shadow-xl shadow-cyan-500/20 backdrop-blur-2xl",
-    accentText: "text-cyan-400",
-    accentBorder: "border-cyan-400/40",
-    glow: "shadow-cyan-500/30",
-    activeNav: "bg-white/25 text-white border border-white/40 shadow-lg shadow-cyan-500/20"
-  },
-  one_ui_9: {
-    accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md shadow-amber-500/25",
-    accentText: "text-amber-500",
-    accentBorder: "border-amber-500/30",
-    glow: "shadow-amber-500/20",
-    activeNav: "bg-amber-500 text-neutral-950 font-bold shadow-md"
-  },
-  gold_rose: {
-    accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold",
-    accentText: "text-amber-500",
-    accentBorder: "border-amber-500/30",
-    glow: "shadow-amber-500/20",
-    activeNav: "bg-amber-500 text-neutral-950 font-bold shadow"
-  },
-  google_minimal: {
-    accentGradient: "from-blue-500 via-teal-400 to-emerald-400",
-    btnPrimary: "bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md",
-    accentText: "text-blue-500",
-    accentBorder: "border-blue-500/30",
-    glow: "shadow-blue-500/20",
-    activeNav: "bg-blue-600 text-white font-bold shadow-md"
-  },
-  champagne: {
-    accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
-    btnPrimary: "bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold",
-    accentText: "text-amber-500",
-    accentBorder: "border-amber-400/30",
-    glow: "shadow-amber-400/20",
-    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow"
-  },
-  emerald: {
-    accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
-    btnPrimary: "bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold",
-    accentText: "text-emerald-500",
-    accentBorder: "border-emerald-500/30",
-    glow: "shadow-emerald-500/20",
-    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow"
-  },
-  violet: {
-    accentGradient: "from-purple-400 via-pink-400 to-rose-400",
-    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold",
-    accentText: "text-purple-500",
-    accentBorder: "border-purple-500/30",
-    glow: "shadow-purple-500/20",
-    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow"
+// Helper to auto-detect if media url is a video format or base64 video
+const isVideoMedia = (item) => {
+  if (item.type === 'video') return true;
+  if (typeof item.url === 'string') {
+    const u = item.url.toLowerCase();
+    return u.startsWith('data:video') || u.endsWith('.mp4') || u.endsWith('.webm') || u.endsWith('.mov') || u.endsWith('.mkv') || u.includes('video/');
   }
-};
-
-const FONT_MAP = {
-  sans: "'Plus Jakarta Sans', sans-serif",
-  outfit: "'Outfit', sans-serif",
-  comic: "'Comic Neue', 'Comic Sans MS', cursive, sans-serif",
-  serif: "'Playfair Display', serif",
-  cormorant: "'Cormorant Garamond', serif",
-  cinzel: "'Cinzel', serif",
-  montserrat: "'Montserrat', sans-serif"
-};
-
-const InstagramIcon = ({ className = "w-4 h-4" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
-);
-
-const WhatsAppIcon = ({ className = "w-4 h-4" }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-  </svg>
-);
-
-const getCleanInstagramUrl = (handleOrUrl) => {
-  if (!handleOrUrl) return "https://www.instagram.com/husna_farooqui_makeup/";
-  let clean = String(handleOrUrl).trim();
-  if (clean.startsWith('http://') || clean.startsWith('https://')) {
-    return clean;
-  }
-  clean = clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
-  return `https://www.instagram.com/${clean}/`;
-};
-
-const getCleanInstagramHandle = (handleOrUrl) => {
-  if (!handleOrUrl) return "husna_farooqui_makeup";
-  let clean = String(handleOrUrl).trim();
-  if (clean.includes('instagram.com/')) {
-    clean = clean.split('instagram.com/')[1].split('/')[0].split('?')[0];
-  }
-  return clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
-};
-
-const resolveProfileImageUrl = (configData) => {
-  if (configData.profilePhotoType === 'instagram') {
-    const handle = getCleanInstagramHandle(configData.instagramHandle);
-    if (handle) {
-      return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
-    }
-  }
-  if (configData.profileImage && configData.profileImage.trim().length > 0) {
-    return configData.profileImage;
-  }
-  return DEFAULT_PROFILE_IMG;
+  return false;
 };
 
 export default function App() {
@@ -147,53 +41,23 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
   const [isDarkMode, setIsDarkMode] = useState(true);
-
   const [announcementIdx, setAnnouncementIdx] = useState(0);
-  const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  const [calcPackage, setCalcPackage] = useState('royal_bridal');
-  const [calcKit, setCalcKit] = useState('international');
-  const [calcZone, setCalcZone] = useState('delhi_near');
-  const [extraPartyCount, setExtraPartyCount] = useState(0);
+  const [booking, setBooking] = useState({
+    name: '',
+    phone: '',
+    eventDate: '',
+    kitType: 'international',
+    packageKey: 'royal_bridal',
+    zoneKey: 'delhi_near',
+    venueAddress: ''
+  });
 
-  const [couponInput, setCouponInput] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponInput, setCouponInput] = useState('');
   const [couponError, setCouponError] = useState('');
-  const [usageTracker, setUsageTracker] = useState({});
-
-  const [imgLoadFailed, setImgLoadFailed] = useState(false);
-  const canvasRef = useRef(null);
-  const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
+  const [isBookingDone, setIsBookingDone] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
-    document.head.appendChild(link);
-    return () => {
-      if (document.head && document.head.contains(link)) {
-        document.head.removeChild(link);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('hf_theme_preference');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    } else if (config.theme?.defaultMode) {
-      setIsDarkMode(config.theme.defaultMode === 'dark');
-    }
-  }, [config.theme?.defaultMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(prev => {
-      const next = !prev;
-      localStorage.setItem('hf_theme_preference', next ? 'dark' : 'light');
-      return next;
-    });
-  };
 
   useEffect(() => {
     const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
@@ -216,7 +80,6 @@ export default function App() {
       };
 
       setConfig(cleanLive);
-      setImgLoadFailed(false);
     });
 
     return () => unsubscribe();
@@ -231,409 +94,105 @@ export default function App() {
     }
   }, [config.announcements]);
 
-  const [booking, setBooking] = useState({
-    name: '',
-    phone: '',
-    eventDate: '',
-    kitType: 'international',
-    packageKey: 'royal_bridal',
-    zoneKey: 'delhi_near',
-    venueAddress: '',
-    notes: ''
-  });
-
-  const instagramProfileUrl = getCleanInstagramUrl(config.instagramHandle);
-  const instagramHandleClean = getCleanInstagramHandle(config.instagramHandle);
-
-  const getPackagePrice = (packageKey, kitType = selectedKit) => {
-    return config.pricingByKit[kitType][packageKey];
-  };
-
-  const getGuestRateDetails = (kit, pkgKey) => {
-    const rawPrice = config.pricingByKit[kit][pkgKey] || 2500;
-    const isDiscountActive = config.guestDiscount?.enabled !== false;
-    const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
-    const discountedPrice = Math.round(rawPrice * (1 - discountPercent / 100));
-
-    return {
-      rawPrice,
-      discountedPrice,
-      discountPercent,
-      isDiscountActive: isDiscountActive && discountPercent > 0
-    };
-  };
-
-  const handleApplyCoupon = (e, customCode) => {
-    if (e) e.preventDefault();
-    setCouponError('');
-    const code = (customCode || couponInput).trim().toUpperCase();
-    if (!code) return;
-
-    const couponData = config.validCoupons?.[code];
-    if (!couponData) {
-      setCouponError('❌ Invalid promo coupon code.');
-      return;
+  const calculateBookingTotal = () => {
+    const base = config.pricingByKit[booking.kitType][booking.packageKey] || 15000;
+    const zoneFee = config.convenienceZones[booking.zoneKey]?.fee || 350;
+    let disc = 0;
+    if (appliedCoupon) {
+      disc = appliedCoupon.type === 'percent' ? Math.round((base + zoneFee) * appliedCoupon.value / 100) : appliedCoupon.value;
     }
-    setAppliedCoupon({ code, ...couponData });
-    setCouponInput(code);
-    setCouponError('');
+    return { gross: base + zoneFee, discount: disc, finalAmount: Math.max(0, base + zoneFee - disc) };
   };
 
-  const handleRemoveCoupon = () => {
-    setAppliedCoupon(null);
-    setCouponInput('');
-  };
-
-  const calculateGross = (kit, pkgKey, zoneKey, partyCount) => {
-    const base = config.pricingByKit[kit][pkgKey];
-    const zone = config.convenienceZones[zoneKey];
-    const convenienceFee = zone ? zone.fee : 350;
-    const { discountedPrice } = getGuestRateDetails(kit, pkgKey);
-    return base + convenienceFee + (partyCount * discountedPrice);
-  };
-
-  const getDiscountAmount = (gross) => {
-    if (!appliedCoupon) return 0;
-    if (appliedCoupon.type === 'percent') return Math.round((gross * appliedCoupon.value) / 100);
-    if (appliedCoupon.type === 'flat') return Math.min(gross, appliedCoupon.value);
-    return 0;
-  };
-
-  const grossEstimate = calculateGross(calcKit, calcPackage, calcZone, extraPartyCount);
-  const discountAmount = getDiscountAmount(grossEstimate);
-  const finalEstimate = Math.max(0, grossEstimate - discountAmount);
-
-  // 🚀 ON-DEMAND BOOKING & FIREBASE SYNC TO ADMIN CONSOLE
-  const handleGenerateAndShareJpg = async (targetChannel = 'whatsapp') => {
-    if (!booking.name.trim() || !booking.phone.trim()) {
-      alert("Please fill your Name and Phone Number before booking.");
-      return;
-    }
+  const handleBookingSubmit = async (e) => {
+    e.preventDefault();
+    if (!booking.name.trim() || !booking.phone.trim()) return;
 
     setIsSubmitting(true);
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = 1080;
-    canvas.height = 1560;
-
-    // Pure White Luxury Canvas
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1560);
-
-    const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
-    bgGrad.addColorStop(0, '#ffffff');
-    bgGrad.addColorStop(1, '#f8fafc');
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1520);
-
-    // Double Royal Gold Borders
-    ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 7;
-    ctx.strokeRect(36, 36, 1008, 1488);
-
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 984, 1464);
-
-    // Studio Header
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#996515';
-    ctx.font = 'bold 50px serif';
-    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 130);
-
-    ctx.fillStyle = '#be123c';
-    ctx.font = '600 26px sans-serif';
-    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 175);
-
-    // Divider Line
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(140, 210);
-    ctx.lineTo(940, 210);
-    ctx.stroke();
-
-    // 🌟 Updated Badge Title
-    ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 30px sans-serif';
-    ctx.fillText('✨ OFFICIAL BOOKING CONFIRMATION ✨', 540, 265);
-
-    // Calculations
-    const pkg = config.packageDetails[booking.packageKey];
-    const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
-    const kitName = config.pricingByKit[booking.kitType].name;
+    const { finalAmount, discount } = calculateBookingTotal();
+    const pkg = config.packageDetails[booking.packageKey] || { num: 6, name: 'Royal Bridal' };
     const zone = config.convenienceZones[booking.zoneKey];
-    const bookingGross = basePrice + (zone ? zone.fee : 350);
-    const bookingDiscount = getDiscountAmount(bookingGross);
-    const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
 
-    const rows = [
-      { label: 'CLIENT NAME', val: booking.name || 'Not Provided' },
-      { label: 'PHONE NUMBER', val: booking.phone || 'Not Provided' },
-      { label: 'EVENT DATE', val: booking.eventDate || 'Not Provided' },
-      { label: 'VANITY KIT', val: kitName },
-      { label: 'PACKAGE', val: `${pkg.num}. ${pkg.name}` },
-      { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
-      { label: 'EXACT ADDRESS', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
-      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Applied' }
-    ];
-
-    let startY = 350;
-    const labelX = 100;
-    const valX = 390;
-    const maxValWidth = 580;
-
-    rows.forEach((row, idx) => {
-      ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff';
-      ctx.fillRect(80, startY - 34, 920, 68);
-
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 22px sans-serif';
-      ctx.fillText(row.label, labelX, startY + 8);
-
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 24px sans-serif';
-
-      let displayVal = row.val;
-      while (ctx.measureText(displayVal).width > maxValWidth && displayVal.length > 4) {
-        displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
-      }
-      ctx.fillText(displayVal, valX, startY + 8);
-
-      startY += 82;
-    });
-
-    // Total Box
-    ctx.fillStyle = '#fefce8';
-    ctx.fillRect(80, 1060, 920, 180);
-    ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(80, 1060, 920, 180);
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#854d0e';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1110);
-
-    ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
-
-    // Footer
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#475569';
-    ctx.font = '22px sans-serif';
-    ctx.fillText(`📍 Base Location: ${config.baseLocation} • WhatsApp: +${config.whatsappNumber}`, 540, 1310);
-
-    ctx.fillStyle = '#e11d48';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.fillText(`Official Instagram: @${instagramHandleClean}`, 540, 1355);
-
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '18px sans-serif';
-    ctx.fillText('Present this official digital slip during your vanity appointment confirmation.', 540, 1410);
-
-    const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
-    setGeneratedJpgUrl(jpgUrl);
-
-    // Auto-save JPG
-    const downloadLink = document.createElement('a');
-    downloadLink.download = `Booking_Confirmation_${booking.name.replace(/\s+/g, '_')}.jpg`;
-    downloadLink.href = jpgUrl;
-    downloadLink.click();
-
-    // 📋 Save Booking Real-time to Firebase Firestore for Admin App
     try {
       await addDoc(collection(db, "bookings"), {
-        clientName: booking.name,
-        clientPhone: booking.phone,
+        clientName: booking.name.trim(),
+        clientPhone: booking.phone.trim(),
         eventDate: booking.eventDate,
-        kitType: kitName,
+        kitType: config.pricingByKit[booking.kitType].name,
         packageName: `${pkg.num}. ${pkg.name}`,
-        zoneName: zone?.name || 'Delhi/NCR',
-        zoneFee: zone?.fee || 350,
+        zoneName: zone?.name || 'Delhi NCR',
         venueAddress: booking.venueAddress || 'Not Provided',
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
-        discountAmount: bookingDiscount,
-        totalAmount: bookingFinal,
+        discountAmount: discount,
+        totalAmount: finalAmount,
         status: 'pending',
         createdAt: serverTimestamp()
       });
+
+      setIsBookingDone(true);
     } catch (err) {
-      console.warn("Booking saved locally; Firestore log:", err);
+      alert("Error submitting booking: " + err.message);
     } finally {
       setIsSubmitting(false);
     }
-
-    // 💬 Clean WhatsApp / Instagram Routing (Removed Slip Text)
-    setTimeout(() => {
-      const cleanMessage = 
-        `✨ *New Booking Request - ${config.studioName || "HUSNA FAROOQUI"}* ✨\n\n` +
-        `👤 *Client Name:* ${booking.name}\n` +
-        `📞 *Phone Number:* ${booking.phone}\n` +
-        `📅 *Event Date:* ${booking.eventDate}\n` +
-        `💎 *Vanity Kit:* ${kitName}\n` +
-        `💄 *Package:* ${pkg.num}. ${pkg.name}\n` +
-        `📍 *Zone / Location:* ${zone?.name}\n` +
-        `🏠 *Exact Address:* ${booking.venueAddress || 'Not Provided'}\n` +
-        (appliedCoupon ? `🏷️ *Coupon:* ${appliedCoupon.code} (-₹${bookingDiscount})\n` : '') +
-        `💰 *Estimated Total:* ₹${bookingFinal.toLocaleString('en-IN')}\n\n` +
-        `_Studio Base: ${config.baseLocation}_`;
-
-      if (targetChannel === 'whatsapp') {
-        window.open(`https://api.whatsapp.com/send?phone=${config.whatsappNumber}&text=${encodeURIComponent(cleanMessage)}`, '_blank');
-      } else {
-        window.open(instagramProfileUrl, '_blank');
-      }
-    }, 600);
   };
 
+  const { finalAmount } = calculateBookingTotal();
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
 
-  const activeColorThemeKey = config.theme?.colorTheme || 'liquid_glass';
-  const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.liquid_glass;
-  const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
-
-  const isLiquidGlass = activeColorThemeKey === 'liquid_glass';
-  const bgClass = isDarkMode ? (isLiquidGlass ? "bg-[#030712] text-[#f8fafc]" : "bg-[#0b0c0e] text-[#f2f4f8]") : "bg-[#f8fafc] text-[#0f172a]";
-  
-  const headerBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-[#080d1e]/50 backdrop-blur-3xl border-b border-white/10" : "bg-[#0b0c0e]/85 backdrop-blur-xl border-b border-[#232730]") 
-    : "bg-white/85 backdrop-blur-2xl border-b border-slate-200/80 shadow-sm";
-  
-  const cardBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20" : "bg-[#14171f]/90 border border-[#232730] hover:border-amber-500/40 shadow-lg shadow-black/20") 
-    : "bg-white/90 backdrop-blur-xl border border-slate-200 hover:border-blue-400 shadow-md shadow-slate-200/50";
-    
-  const subCardBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08]" : "bg-[#0f1117] border border-[#232730]") 
-    : "bg-slate-100/90 border border-slate-200";
-    
-  const inputBgClass = isDarkMode 
-    ? (isLiquidGlass ? "bg-white/[0.06] border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" : "bg-[#0f1117] border border-[#282d38] text-[#f2f4f8] focus:border-amber-500") 
-    : "bg-white border border-slate-300 text-slate-900";
-    
-  const navTextClass = isDarkMode 
-    ? "text-slate-400 hover:text-white hover:bg-white/10" 
-    : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/80 font-semibold";
-  const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
-
-  const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
-
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} selection:bg-cyan-500 selection:text-black transition-colors duration-300 relative overflow-x-hidden`}>
+    <div className={`min-h-screen ${isDarkMode ? 'bg-[#030712] text-white' : 'bg-slate-50 text-slate-900'} font-sans pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
       
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      {/* 🌈 Ambient Fluid Gradient Background Orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
 
       {/* Top Banner */}
-      {config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs sm:text-sm text-center font-bold tracking-wide flex items-center justify-center gap-2 shadow-sm`}>
-          <Volume2 className="w-3.5 h-3.5 shrink-0 animate-pulse" />
-          <span className="truncate max-w-4xl">
-            {config.announcements[announcementIdx] || config.announcements[0]}
-          </span>
-        </div>
-      )}
+      <div className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 text-neutral-950 py-2 px-4 text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm">
+        <Volume2 className="w-3.5 h-3.5 shrink-0 animate-bounce" />
+        <span className="truncate max-w-4xl transition-all duration-300">
+          {config.announcements?.[announcementIdx] || config.announcements?.[0]}
+        </span>
+      </div>
 
-      {/* Header */}
-      <header className={`sticky top-0 z-40 ${headerBgClass} transition-colors duration-300`}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-          
-          <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-200 cursor-pointer">
-            <div className={`w-12 h-12 rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg ${currentTheme.glow} overflow-hidden`}>
-              <img 
-                src={resolvedAvatar} 
-                alt={config.studioName || "Artist"} 
-                onError={() => setImgLoadFailed(true)}
-                className="w-full h-full object-cover rounded-[16px]"
-              />
-            </div>
-            <div>
-              <h1 className={`text-lg font-bold tracking-tight bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent`}>
-                {config.studioName || "HUSNA FAROOQUI"}
-              </h1>
-              <p className={`text-[11px] font-semibold tracking-wide flex items-center gap-1 ${currentTheme.accentText}`}>
-                <span>{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
-                <Sparkles className="w-2.5 h-2.5" />
-              </p>
-            </div>
+      {/* Fluid Header with Dynamic Blur */}
+      <header className={`sticky top-0 z-40 backdrop-blur-3xl border-b px-4 sm:px-8 py-3.5 flex items-center justify-between transition-all duration-300 ${isDarkMode ? 'bg-[#080d1e]/70 border-white/10 shadow-2xl shadow-cyan-950/20' : 'bg-white/80 border-slate-200/80 shadow-sm'}`}>
+        <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-300 cursor-pointer">
+          <div className="w-11 h-11 rounded-[16px] bg-gradient-to-tr from-cyan-400 to-indigo-400 p-0.5 shadow-lg shadow-cyan-500/20 overflow-hidden group">
+            <img 
+              src={config.profileImage || DEFAULT_PROFILE_IMG} 
+              alt={config.studioName || "Artist"} 
+              className="w-full h-full object-cover rounded-[14px] group-hover:scale-110 transition-transform duration-500"
+            />
           </div>
-
-          <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-slate-100/80 border-slate-200/80 shadow-sm'}`}>
-            {[
-              { id: 'menu', label: 'Packages', icon: Crown },
-              { id: 'gallery', label: 'Transformations', icon: Camera },
-              { id: 'brands', label: 'Vanity', icon: Star },
-              { id: 'calculator', label: 'Estimator', icon: Calculator },
-              { id: 'booking', label: 'Book', icon: Calendar }
-            ].map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 active:scale-95 ${
-                    isActive
-                      ? `${currentTheme.activeNav}`
-                      : `${navTextClass}`
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5 shrink-0" />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2.5">
-            <button
-              onClick={toggleTheme}
-              title="Switch Theme"
-              className={`p-2.5 rounded-2xl border transition-all active:scale-90 flex items-center justify-center ${
-                isDarkMode 
-                  ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
-                  : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-100 shadow-sm'
-              }`}
-            >
-              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-            </button>
-
-            <a
-              href={instagramProfileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-2xl transition-all shadow-md shadow-pink-500/20"
-            >
-              <InstagramIcon className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">@{instagramHandleClean}</span>
-            </a>
+          <div>
+            <h1 className="font-bold text-base bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent tracking-tight">
+              {config.studioName || "HUSNA FAROOQUI"}
+            </h1>
+            <p className="text-[11px] font-semibold text-cyan-400 flex items-center gap-1">
+              <span>{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
+              <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300" style={{ animationDuration: '4s' }} />
+            </p>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className={`md:hidden flex justify-around border-t p-2 backdrop-blur-2xl ${isDarkMode ? 'border-white/10 bg-[#080d1e]/80' : 'border-slate-200 bg-white/95'}`}>
+        <nav className="flex space-x-1 p-1.5 rounded-full bg-white/[0.04] backdrop-blur-2xl border border-white/10 text-xs font-bold shadow-inner">
           {[
             { id: 'menu', label: 'Packages', icon: Crown },
-            { id: 'gallery', label: 'Looks', icon: Camera },
-            { id: 'calculator', label: 'Estimate', icon: Calculator },
-            { id: 'booking', label: 'Book', icon: Calendar }
-          ].map((tab) => {
+            { id: 'gallery', label: 'Transformations', icon: Camera },
+            { id: 'booking', label: 'Book Online', icon: Calendar }
+          ].map(tab => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 ${
-                  isActive
-                    ? `${currentTheme.activeNav}`
-                    : `${navTextClass}`
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 active:scale-90 ${
+                  isActive 
+                    ? 'bg-white/25 text-white border border-white/40 shadow-lg shadow-cyan-500/20 scale-[1.02]' 
+                    : 'text-slate-400 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -641,7 +200,7 @@ export default function App() {
               </button>
             );
           })}
-        </div>
+        </nav>
       </header>
 
       {/* Main Container */}
@@ -649,69 +208,56 @@ export default function App() {
 
         {/* TAB 1: MENU */}
         {activeTab === 'menu' && (
-          <div className="space-y-10">
+          <div className="space-y-10 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
-                Professional Vanity Packages
+              <span className="px-3.5 py-1 rounded-full border border-cyan-400/40 text-cyan-400 text-xs font-bold tracking-wide backdrop-blur-md shadow-sm">
+                Luxury Vanity Lineup
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Curated Makeup Menu
-              </h2>
-              <p className={`text-xs sm:text-sm leading-relaxed ${mutedTextClass}`}>
-                Select your preferred cosmetic kit tier below to view exact package rates:
-              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
+              <p className="text-xs sm:text-sm text-slate-400">Select kit tier below to view exact rates:</p>
 
-              <div className={`inline-flex p-1.5 rounded-2xl border mt-2 gap-1.5 backdrop-blur-2xl ${isDarkMode ? 'bg-white/[0.04] border-white/10' : 'bg-slate-100 border-slate-200 shadow-sm'}`}>
+              <div className="inline-flex p-1.5 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-2xl mt-2 gap-1.5 shadow-lg">
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
-                    selectedKit === 'international'
-                      ? `${currentTheme.btnPrimary}`
-                      : `${navTextClass}`
-                  }`}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-1.5 ${selectedKit === 'international' ? 'bg-white/25 text-white border border-white/40 shadow-md' : 'text-slate-400 hover:text-white'}`}
                 >
-                  <Crown className="w-3.5 h-3.5" />
+                  <Crown className="w-3.5 h-3.5 text-amber-400" />
                   <span>International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
-                    selectedKit === 'drugstore'
-                      ? `${currentTheme.btnPrimary}`
-                      : `${navTextClass}`
-                  }`}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-1.5 ${selectedKit === 'drugstore' ? 'bg-white/25 text-white border border-white/40 shadow-md' : 'text-slate-400 hover:text-white'}`}
                 >
-                  <PackageCheck className="w-3.5 h-3.5" />
+                  <PackageCheck className="w-3.5 h-3.5 text-cyan-400" />
                   <span>Premium HD Kit</span>
                 </button>
               </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {partyPackages.map((key) => {
+              {partyPackages.concat(bridalPackages).map((key) => {
                 const item = config.packageDetails[key] || STUDIO_CONFIG.packageDetails[key];
-                const price = getPackagePrice(key);
+                const price = config.pricingByKit[selectedKit][key];
                 const imgSrc = item.image || DEFAULT_PACKAGE_IMAGES[key];
 
                 return (
-                  <div key={key} className={`${cardBgClass} rounded-3xl p-4 flex flex-col sm:flex-row gap-4 items-center`}>
-                    <div className="w-full sm:w-28 h-28 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 shadow-inner">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
+                  <div key={key} className="p-4 rounded-3xl bg-white/[0.04] backdrop-blur-3xl border border-white/10 hover:border-cyan-400/40 shadow-xl shadow-cyan-950/20 hover:scale-[1.01] transition-all duration-300 flex flex-col sm:flex-row gap-4 items-center group">
+                    <div className="w-full sm:w-28 h-28 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 shadow-inner relative">
+                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div className="flex justify-between items-baseline">
-                        <h4 className="font-bold text-base">{item.num}. {item.name}</h4>
-                        <span className={`font-bold text-base ${currentTheme.accentText}`}>₹{price.toLocaleString('en-IN')}</span>
+                        <h4 className="font-bold text-base group-hover:text-cyan-300 transition-colors">{item.num}. {item.name}</h4>
+                        <span className="font-bold text-base text-cyan-400 font-mono">₹{price.toLocaleString('en-IN')}</span>
                       </div>
-                      <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
+                      <p className="text-xs leading-relaxed text-slate-400">{item.desc}</p>
                       <button
                         onClick={() => {
-                          setCalcPackage(key);
-                          setCalcKit(selectedKit);
                           setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
                           setActiveTab('booking');
                         }}
-                        className={`self-end text-xs ${currentTheme.accentText} font-bold flex items-center gap-1 hover:underline pt-1 active:scale-95 transition-transform`}
+                        className="self-end px-3.5 py-1.5 bg-white/10 hover:bg-white/20 active:scale-95 text-xs text-cyan-300 font-bold rounded-xl border border-white/10 transition-all flex items-center gap-1"
                       >
                         <span>Book Look</span>
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -720,37 +266,60 @@ export default function App() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        )}
 
-              {bridalPackages.map((key) => {
-                const item = config.packageDetails[key] || STUDIO_CONFIG.packageDetails[key];
-                const price = getPackagePrice(key);
-                const imgSrc = item.image || DEFAULT_PACKAGE_IMAGES[key];
+        {/* TAB 2: TRANSFORMATIONS & AUTO-PLAYING VIDEOS */}
+        {activeTab === 'gallery' && (
+          <div className="space-y-8 animate-fade-in">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <span className="px-3.5 py-1 rounded-full border border-cyan-400/40 text-cyan-400 text-xs font-bold tracking-wide backdrop-blur-md">
+                Client Transformations & Reels
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Signature Video & Look Gallery</h2>
+              <p className="text-xs sm:text-sm text-slate-400">
+                Videos auto-play in high definition. Tap to interact or expand.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
+                const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={key} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center ${item.badge ? 'ring-1 ring-cyan-400/40' : ''}`}>
-                    <div className="w-full sm:w-32 h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 shadow-inner">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex-1 w-full flex flex-col justify-between space-y-2">
-                      <div>
-                        <div className="flex justify-between items-baseline">
-                          <h4 className="font-bold text-base">{item.num}. {item.name}</h4>
-                          <span className={`font-bold text-lg ${currentTheme.accentText}`}>₹{price.toLocaleString('en-IN')}</span>
-                        </div>
-                        <p className={`text-xs mt-1.5 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
+                  <div key={idx} className="rounded-3xl overflow-hidden bg-white/[0.04] backdrop-blur-3xl border border-white/10 hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/20 hover:scale-[1.02] transition-all duration-500 group flex flex-col justify-between">
+                    <div className="h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
+                      
+                      {isVideo ? (
+                        /* 🎬 Native Mobile-Compatible Auto-Playing Video Engine */
+                        <video
+                          src={item.url}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          preload="auto"
+                          controls
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      ) : (
+                        /* 🖼️ High-Res Image with Smooth Zoom */
+                        <img 
+                          src={item.url} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      )}
+
+                      {/* Glass Info Badge Overlay */}
+                      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-black/20 flex flex-col justify-end p-4 text-white">
+                        <span className="text-[10px] uppercase font-mono font-bold text-cyan-400">{item.sub || 'Client Look'}</span>
+                        <h4 className="font-bold text-base mt-0.5 flex items-center gap-1.5">
+                          {isVideo && <Film className="w-3.5 h-3.5 text-pink-400 shrink-0" />}
+                          <span>{item.title}</span>
+                        </h4>
                       </div>
-                      <button
-                        onClick={() => {
-                          setCalcPackage(key);
-                          setCalcKit(selectedKit);
-                          setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
-                          setActiveTab('booking');
-                        }}
-                        className={`self-end px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 transition-all flex items-center gap-1`}
-                      >
-                        <span>Reserve Bridal</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
                     </div>
                   </div>
                 );
@@ -759,219 +328,58 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS */}
-        {activeTab === 'gallery' && (
-          <div className="space-y-8">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>
-                Client Transformations & Reels
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold">Signature Makeover Portfolio</h2>
-              <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
-                Explore real bridal looks, dewy skin finishes, and client makeover reels by {config.studioName || "HUSNA FAROOQUI"}.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => (
-                <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group flex flex-col justify-between`}>
-                  <div className="h-80 overflow-hidden relative bg-neutral-900">
-                    {item.type === 'video' ? (
-                      <video src={item.url} controls muted loop playsInline className="w-full h-full object-cover" />
-                    ) : item.type === 'instagram_reel' ? (
-                      <div className="w-full h-full relative group">
-                        <img src={item.thumbnail || item.url || DEFAULT_PROFILE_IMG} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        <a href={getCleanInstagramUrl(item.url)} target="_blank" rel="noopener noreferrer" className="absolute inset-0 bg-black/40 hover:bg-black/20 flex flex-col items-center justify-center text-white transition-colors">
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
-                            <Play className="w-6 h-6 text-white ml-0.5" />
-                          </div>
-                          <span className="text-[11px] font-bold mt-2 bg-black/60 px-3 py-1 rounded-full flex items-center gap-1">
-                            Watch Instagram Reel <ExternalLink className="w-3 h-3" />
-                          </span>
-                        </a>
-                      </div>
-                    ) : (
-                      <img src={item.url} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    )}
-
-                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                      <span className={`text-[10px] uppercase font-mono font-bold ${currentTheme.accentText}`}>{item.sub}</span>
-                      <h4 className="font-bold text-base mt-0.5">{item.title}</h4>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 3: BRANDS */}
-        {activeTab === 'brands' && (
-          <div className="space-y-8">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>Authentic Vanity</span>
-              <h2 className="text-3xl sm:text-4xl font-bold">Products In Our Kit</h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {config.internationalBrands.map((brand, idx) => (
-                <div key={idx} className={`${cardBgClass} rounded-2xl p-4`}>
-                  <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
-                  <h4 className="font-bold text-sm mt-2">{brand.name}</h4>
-                  <p className={`text-xs mt-1 ${mutedTextClass}`}>{brand.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* TAB 4: ESTIMATOR */}
-        {activeTab === 'calculator' && (
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8`}>
-              <div className="md:col-span-7 space-y-5">
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-2">1. Select Vanity Kit</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
-                    <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-2">2. Select Package</label>
-                  <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
-                    <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
-                    <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
-                    <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
-                    <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
-                    <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
-                    <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-2">3. Venue Zone</label>
-                  <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-medium`}>
-                    {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                      <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-bold uppercase tracking-wider">4. Extra Family Party Makeups</label>
-                    <span className={`${currentTheme.accentText} text-xs font-bold font-mono`}>{extraPartyCount} Person(s)</span>
-                  </div>
-                  <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-cyan-400 h-2 rounded-lg cursor-pointer" />
-                  
-                  {(() => {
-                    const { rawPrice, discountedPrice, discountPercent, isDiscountActive } = getGuestRateDetails(calcKit, calcPackage);
-                    return (
-                      <div className="flex items-center justify-between text-[11px] mt-1.5">
-                        <span className={mutedTextClass}>
-                          Guest Rate: <strong className={`${currentTheme.accentText} font-mono`}>₹{discountedPrice.toLocaleString('en-IN')}</strong> / person
-                          {isDiscountActive && (
-                            <span className="line-through text-slate-500 ml-1.5 font-mono">₹{rawPrice.toLocaleString('en-IN')}</span>
-                          )}
-                        </span>
-                        {isDiscountActive && (
-                          <span className="text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded-full text-[10px] border border-emerald-500/30">
-                            {discountPercent}% Extra Guest Discount Applied
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-                </div>
-
-                <div className="pt-2 border-t border-white/10 space-y-2">
-                  <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
-                    <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
-                  </label>
-                  {appliedCoupon ? (
-                    <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between">
-                      <div>
-                        <div className="text-xs font-bold text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</div>
-                        <p className="text-[11px] text-emerald-300 font-semibold mt-0.5">
-                          🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF Applied (-₹${discountAmount.toLocaleString('en-IN')})` : `Flat ₹${appliedCoupon.value.toLocaleString('en-IN')} OFF Applied`} • {appliedCoupon.label}
-                        </p>
-                      </div>
-                      <button type="button" onClick={handleRemoveCoupon} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline">Remove</button>
-                    </div>
-                  ) : (
-                    <div className="flex gap-2">
-                      <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
-                      <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95`}>Apply</button>
-                    </div>
-                  )}
-                  {couponError && <p className="text-[11px] text-rose-400 font-medium">{couponError}</p>}
-                </div>
-              </div>
-
-              <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
-                <div>
-                  <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Investment</span>
-                  <div className="mt-2 text-3xl font-bold flex items-baseline gap-1">
-                    <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
-                    <span>{finalEstimate.toLocaleString('en-IN')}</span>
-                  </div>
-                </div>
-                <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Base Package:</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee:</span><span className={`${currentTheme.accentText} font-medium`}>₹{config.convenienceZones[calcZone]?.fee}</span></div>
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Guests ({extraPartyCount}):</span><span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedPrice).toLocaleString('en-IN')}</span></div>
-                  {appliedCoupon && (
-                    <div className="flex justify-between text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
-                  )}
-                </div>
-                <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition-all`}>Book Package</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 5: BOOKING */}
+        {/* TAB 3: BOOKING FORM */}
         {activeTab === 'booking' && (
-          <div className="max-w-2xl mx-auto space-y-8">
-            <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 space-y-5`}>
-              <div className="border-b border-white/10 pb-3">
-                <h3 className="font-bold text-base flex items-center gap-2">
-                  <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
-                  <span>VIP Appointment</span>
-                </h3>
-                <p className={`text-xs ${mutedTextClass} mt-1`}>
-                  Enter details below to confirm and send your official appointment slip.
+          <div className="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-3xl shadow-2xl animate-fade-in space-y-5">
+            {isBookingDone ? (
+              <div className="text-center py-8 space-y-4 animate-scale-up">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
+                  <CheckCircle2 className="w-8 h-8" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">Booking Recorded!</h3>
+                <p className="text-xs text-slate-300 max-w-sm mx-auto">
+                  Thank you <strong>{booking.name}</strong>! Your appointment has been safely recorded in our system. You will receive an official WhatsApp confirmation once reviewed.
                 </p>
+                <button onClick={() => setIsBookingDone(false)} className="px-6 py-2.5 bg-cyan-500 text-neutral-950 font-bold text-xs rounded-xl shadow-lg active:scale-95 transition-all">
+                  Book Another Appointment
+                </button>
               </div>
+            ) : (
+              <form onSubmit={handleBookingSubmit} className="space-y-4">
+                <div className="border-b border-white/10 pb-2">
+                  <h3 className="font-bold text-base flex items-center gap-2 text-cyan-400">
+                    <Calendar className="w-5 h-5" /> Instant Appointment Reservation
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">Fill details below to lock your date directly in our studio calendar.</p>
+                </div>
 
-              <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-1">Full Name *</label>
-                  <input type="text" required placeholder="e.g. Aliza Khan" value={booking.name} onChange={(e) => setBooking({ ...booking, name: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-sm`} />
+                  <label className="block text-xs font-bold text-slate-400 mb-1">Full Name *</label>
+                  <input type="text" required placeholder="e.g. Aliza Khan" value={booking.name} onChange={(e) => setBooking({ ...booking, name: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-white focus:border-cyan-400 focus:outline-none" />
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-1">Phone Number *</label>
-                    <input type="tel" required placeholder="e.g. 9876543210" value={booking.phone} onChange={(e) => setBooking({ ...booking, phone: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-sm`} />
+                    <label className="block text-xs font-bold text-slate-400 mb-1">Phone Number (WhatsApp) *</label>
+                    <input type="tel" required placeholder="e.g. 9876543210" value={booking.phone} onChange={(e) => setBooking({ ...booking, phone: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-white focus:border-cyan-400 focus:outline-none" />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-1">Event Date *</label>
-                    <input type="date" required value={booking.eventDate} onChange={(e) => setBooking({ ...booking, eventDate: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-sm`} />
+                    <label className="block text-xs font-bold text-slate-400 mb-1">Event Date *</label>
+                    <input type="date" required value={booking.eventDate} onChange={(e) => setBooking({ ...booking, eventDate: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-white focus:border-cyan-400 focus:outline-none" />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-1">Vanity Kit</label>
-                    <select value={booking.kitType} onChange={(e) => setBooking({ ...booking, kitType: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
-                      <option value="international">👑 Luxury Kit</option>
+                    <label className="block text-xs font-bold text-slate-400 mb-1">Vanity Kit</label>
+                    <select value={booking.kitType} onChange={(e) => setBooking({ ...booking, kitType: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-cyan-400 font-bold">
+                      <option value="international">👑 International Luxury Kit</option>
                       <option value="drugstore">✨ Premium HD Kit</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-1">Package</label>
-                    <select value={booking.packageKey} onChange={(e) => setBooking({ ...booking, packageKey: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-bold`}>
+                    <label className="block text-xs font-bold text-slate-400 mb-1">Package</label>
+                    <select value={booking.packageKey} onChange={(e) => setBooking({ ...booking, packageKey: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-white font-bold">
                       <option value="royal_bridal">6. Royal Bridal</option>
                       <option value="engagement_bride">5. Engagement Bride</option>
                       <option value="cocktail_glam">4. Cocktail Glam</option>
@@ -983,98 +391,38 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-1">Venue Zone</label>
-                  <select value={booking.zoneKey} onChange={(e) => setBooking({ ...booking, zoneKey: e.target.value })} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs`}>
-                    {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                      <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
+                  <label className="block text-xs font-bold text-slate-400 mb-1">Venue Zone</label>
+                  <select value={booking.zoneKey} onChange={(e) => setBooking({ ...booking, zoneKey: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-white">
+                    {Object.entries(config.convenienceZones || {}).map(([k, z]) => (
+                      <option key={k} value={k}>{z.name} (+₹{z.fee})</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-1">Exact Address / Landmark</label>
-                  <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full ${inputBgClass} border rounded-2xl px-4 py-3 text-sm`} />
+                  <label className="block text-xs font-bold text-slate-400 mb-1">Exact Address / Landmark</label>
+                  <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia Nagar" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className="w-full p-3 rounded-2xl bg-black/40 border border-white/20 text-xs text-white focus:border-cyan-400 focus:outline-none" />
                 </div>
 
-                <div className="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={() => handleGenerateAndShareJpg('whatsapp')}
-                    className="py-3.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 transition-all disabled:opacity-50"
-                  >
-                    <WhatsAppIcon className="w-4 h-4" />
-                    <span>{isSubmitting ? 'Syncing...' : 'Send Booking (WhatsApp)'}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={() => handleGenerateAndShareJpg('instagram')}
-                    className="py-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white font-bold text-xs rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20 transition-all disabled:opacity-50"
-                  >
-                    <InstagramIcon className="w-4 h-4" />
-                    <span>{isSubmitting ? 'Syncing...' : 'Send Booking (Instagram)'}</span>
-                  </button>
+                <div className="p-4 rounded-2xl bg-black/40 border border-white/10 flex justify-between items-center text-sm font-bold">
+                  <span>Estimated Total:</span>
+                  <span className="text-cyan-400 font-mono text-base">₹{finalAmount.toLocaleString('en-IN')}</span>
                 </div>
 
-                {generatedJpgUrl && (
-                  <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2">
-                    <p className="text-xs text-emerald-400 font-bold">🎉 Official Booking Confirmation (.JPG) Generated & Saved!</p>
-                    <a href={generatedJpgUrl} download="Booking_Confirmation.jpg" className="text-xs text-slate-300 underline inline-flex items-center gap-1 font-semibold">
-                      <Download className="w-3.5 h-3.5" /> Re-download JPG
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 text-neutral-950 font-bold text-xs rounded-2xl shadow-xl active:scale-95 hover:opacity-95 transition-all flex items-center justify-center gap-2"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Reserve Appointment'}</span>
+                </button>
+              </form>
+            )}
           </div>
         )}
 
       </main>
-
-      {/* Floating Banner */}
-      {config.floatingBanner?.enabled !== false && showFloatingBanner && (
-        <aside 
-          aria-label="Promotional offer"
-          className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl ${
-            isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900 shadow-xl'
-          }`}
-        >
-          <div className="flex items-start justify-between gap-3">
-            <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0`} />
-            <div className="flex-1">
-              <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
-              <h4 className="font-bold text-xs mt-1">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className={`${currentTheme.accentText} font-mono font-bold`}>{config.floatingBanner?.code || "BRIDE2026"}</span></p>
-            </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1"><X className="w-4 h-4" /></button>
-          </div>
-          <button 
-            onClick={() => { 
-              handleApplyCoupon(null, config.floatingBanner?.code); 
-              setActiveTab('calculator'); 
-            }} 
-            className={`mt-3 w-full py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95`}
-          >
-            {config.floatingBanner?.actionText || "Apply"}
-          </button>
-        </aside>
-      )}
-
-      {/* Footer */}
-      <footer className={`border-t py-8 mt-16 text-xs backdrop-blur-xl ${isDarkMode ? 'border-white/10 bg-[#080d1e]/80 text-slate-400' : 'border-slate-200 bg-white/80 text-slate-600'}`}>
-        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="flex items-center space-x-2">
-            <Crown className={`w-4 h-4 ${currentTheme.accentText}`} />
-            <span className="font-bold">{config.studioName || "HUSNA FAROOQUI"}</span>
-            <span>• Delhi NCR & Amroha</span>
-          </div>
-          <a href={instagramProfileUrl} target="_blank" rel="noopener noreferrer" className={`hover:${currentTheme.accentText} font-bold transition underline`}>
-            Instagram: @{instagramHandleClean}
-          </a>
-        </div>
-      </footer>
     </div>
   );
 }
