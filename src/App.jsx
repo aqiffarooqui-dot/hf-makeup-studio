@@ -3,7 +3,8 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle
+  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
+  Receipt, FileText
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -205,20 +206,16 @@ export default function App() {
   const [viewingPackage, setViewingPackage] = useState(null);
   const [nowTick, setNowTick] = useState(Date.now());
 
+  // Estimate & Direct Booking States
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
   const [calcZone, setCalcZone] = useState('delhi_near');
   const [extraPartyCount, setExtraPartyCount] = useState(0);
 
-  const [booking, setBooking] = useState({
-    name: '',
-    phone: '',
-    eventDate: '',
-    kitType: 'international',
-    packageKey: 'royal_bridal',
-    zoneKey: 'delhi_near',
-    venueAddress: ''
-  });
+  const [clientName, setClientName] = useState('');
+  const [clientPhone, setClientPhone] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [venueAddress, setVenueAddress] = useState('');
 
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponInput, setCouponInput] = useState('');
@@ -392,74 +389,74 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  const generateSlipJpg = () => {
+  // 📄 High-Res White Luxury "BOOKING SENT RECEIPT" (.JPG)
+  const generateBookingSentSlipJpg = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1080;
-    canvas.height = 1560;
+    canvas.height = 1620;
 
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1560);
+    ctx.fillRect(0, 0, 1080, 1620);
 
     const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
     bgGrad.addColorStop(0, '#ffffff');
     bgGrad.addColorStop(1, '#f8fafc');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1520);
+    ctx.fillRect(20, 20, 1040, 1580);
 
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 7;
-    ctx.strokeRect(36, 36, 1008, 1488);
+    ctx.strokeRect(36, 36, 1008, 1548);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 984, 1464);
+    ctx.strokeRect(48, 48, 984, 1524);
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#996515';
     ctx.font = 'bold 50px serif';
-    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 130);
+    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 125);
 
     ctx.fillStyle = '#be123c';
     ctx.font = '600 26px sans-serif';
-    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 175);
+    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 170);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(140, 210);
-    ctx.lineTo(940, 210);
+    ctx.moveTo(140, 205);
+    ctx.lineTo(940, 205);
     ctx.stroke();
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 30px sans-serif';
-    ctx.fillText('✨ OFFICIAL BOOKING CONFIRMATION ✨', 540, 265);
+    ctx.fillText('✨ OFFICIAL BOOKING SENT RECEIPT ✨', 540, 255);
 
-    const pkgText = config.kitText?.[booking.kitType]?.[booking.packageKey] || DEFAULT_KIT_TEXT[booking.kitType][booking.packageKey];
-    const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
-    const kitName = config.pricingByKit[booking.kitType].name;
-    const zone = config.convenienceZones[booking.zoneKey];
-    const bookingGross = basePrice + (zone ? zone.fee : 350);
-    const bookingDiscount = getDiscountAmount(bookingGross);
-    const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
+    const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
+    const basePrice = config.pricingByKit[calcKit][calcPackage];
+    const kitName = config.pricingByKit[calcKit].name;
+    const zone = config.convenienceZones[calcZone];
+    const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
 
     const rows = [
-      { label: 'CLIENT NAME', val: booking.name || 'Not Provided' },
-      { label: 'PHONE NUMBER', val: booking.phone || 'Not Provided' },
-      { label: 'EVENT DATE', val: booking.eventDate || 'Not Provided' },
+      { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
+      { label: 'PHONE NUMBER', val: clientPhone || 'Not Provided' },
+      { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
       { label: 'VANITY KIT', val: kitName },
-      { label: 'PACKAGE', val: `${pkgText.num}. ${pkgText.name}` },
+      { label: 'MAIN PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${basePrice})` },
+      { label: 'EXTRA GUESTS', val: `${extraPartyCount} Person(s) (+₹${extraPartyCount * discountedPrice})` },
       { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
-      { label: 'EXACT ADDRESS', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
-      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Applied' }
+      { label: 'EXACT ADDRESS', val: venueAddress || 'Studio Visit / To be confirmed' },
+      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${discountAmount} OFF)` : 'No Promo Applied' }
     ];
 
-    let startY = 350;
+    let startY = 340;
     rows.forEach((row, idx) => {
       ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff';
-      ctx.fillRect(80, startY - 34, 920, 68);
+      ctx.fillRect(80, startY - 32, 920, 64);
 
       ctx.textAlign = 'left';
       ctx.fillStyle = '#64748b';
@@ -467,80 +464,91 @@ export default function App() {
       ctx.fillText(row.label, 100, startY + 8);
 
       ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 24px sans-serif';
+      ctx.font = 'bold 23px sans-serif';
 
       let displayVal = row.val;
       while (ctx.measureText(displayVal).width > 580 && displayVal.length > 4) {
         displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
       }
       ctx.fillText(displayVal, 390, startY + 8);
-      startY += 82;
+      startY += 78;
     });
 
     ctx.fillStyle = '#fefce8';
-    ctx.fillRect(80, 1060, 920, 180);
+    ctx.fillRect(80, 1070, 920, 180);
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 3;
-    ctx.strokeRect(80, 1060, 920, 180);
+    ctx.strokeRect(80, 1070, 920, 180);
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#854d0e';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1110);
+    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1120);
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
+    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1200);
 
     ctx.fillStyle = '#475569';
     ctx.font = '22px sans-serif';
-    ctx.fillText(`📍 Base Location: ${config.baseLocation} • Studio Contact: +${config.whatsappNumber}`, 540, 1310);
+    ctx.fillText(`📍 Base Location: ${config.baseLocation} • Studio WhatsApp: +${config.whatsappNumber}`, 540, 1340);
 
     ctx.fillStyle = '#e11d48';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1355);
+    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1385);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'italic 18px sans-serif';
+    ctx.fillText('Status: Booking Request Sent. Official Final Confirmation Slip will be sent by Studio.', 540, 1440);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
 
     const downloadLink = document.createElement('a');
-    downloadLink.download = `Booking_Confirmation_${booking.name.replace(/\s+/g, '_')}.jpg`;
+    downloadLink.download = `Booking_Sent_Receipt_${clientName.replace(/\s+/g, '_')}.jpg`;
     downloadLink.href = jpgUrl;
     downloadLink.click();
   };
 
-  const handleBookingSubmit = async (e) => {
+  // Direct Booking Handler from Estimator
+  const handleDirectEstimateBooking = async (e) => {
     e.preventDefault();
-    if (!booking.name.trim() || !booking.phone.trim()) return;
+    if (!clientName.trim() || !clientPhone.trim() || !eventDate) {
+      alert("Please fill your Name, WhatsApp Phone, and Event Date.");
+      return;
+    }
 
     setIsSubmitting(true);
-    const pkgText = config.kitText?.[booking.kitType]?.[booking.packageKey] || DEFAULT_KIT_TEXT[booking.kitType][booking.packageKey];
-    const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
-    const zone = config.convenienceZones[booking.zoneKey];
-    const bookingGross = basePrice + (zone ? zone.fee : 350);
-    const bookingDiscount = getDiscountAmount(bookingGross);
-    const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
+    const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
+    const basePrice = config.pricingByKit[calcKit][calcPackage];
+    const zone = config.convenienceZones[calcZone];
+    const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
 
     try {
       await addDoc(collection(db, "bookings"), {
-        clientName: booking.name.trim(),
-        clientPhone: booking.phone.trim(),
-        eventDate: booking.eventDate,
-        kitType: config.pricingByKit[booking.kitType].name,
+        clientName: clientName.trim(),
+        clientPhone: clientPhone.trim(),
+        eventDate: eventDate,
+        kitType: config.pricingByKit[calcKit].name,
+        packageKey: calcPackage,
         packageName: `${pkgText.num}. ${pkgText.name}`,
+        basePackagePrice: basePrice,
+        extraGuestsCount: extraPartyCount,
+        extraGuestsCost: extraPartyCount * discountedPrice,
         zoneName: zone?.name || 'Delhi NCR',
-        venueAddress: booking.venueAddress || 'Not Provided',
+        zoneFee: zone?.fee || 350,
+        venueAddress: venueAddress || 'Not Provided',
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
-        discountAmount: bookingDiscount,
-        totalAmount: bookingFinal,
+        discountAmount: discountAmount,
+        totalAmount: finalEstimate,
         status: 'pending',
         createdAt: serverTimestamp()
       });
 
-      generateSlipJpg();
+      generateBookingSentSlipJpg();
       setIsBookingDone(true);
     } catch (err) {
-      alert("Error booking: " + err.message);
+      alert("Error submitting booking: " + err.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -646,13 +654,12 @@ export default function App() {
               onClick={() => {
                 setCalcPackage(viewingPackage.key);
                 setCalcKit(selectedKit);
-                setBooking(prev => ({ ...prev, packageKey: viewingPackage.key, kitType: selectedKit }));
                 setViewingPackage(null);
-                setActiveTab('booking');
+                setActiveTab('calculator');
               }}
               className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5 transition-transform duration-200`}
             >
-              <span>Proceed to Book This Look</span>
+              <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -727,15 +734,14 @@ export default function App() {
             </div>
           </div>
 
-          {/* 🚀 Universal Responsive Top Tabs Bar (Smooth Horizontal Scroll on Mobile/Tablet) */}
+          {/* 🚀 Universal Responsive Top Tabs Bar */}
           <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
             <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
                 { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-                { id: 'calculator', label: 'Estimator', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-                { id: 'booking', label: 'Book Online', icon: Calendar, show: true }
+                { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false }
               ].filter(t => t.show).map(tab => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -743,7 +749,7 @@ export default function App() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
+                    className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
                       isActive ? currentTheme.activeNav : navTextClass
                     }`}
                   >
@@ -822,12 +828,11 @@ export default function App() {
                           onClick={() => {
                             setCalcPackage(key);
                             setCalcKit(selectedKit);
-                            setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
-                            setActiveTab('booking');
+                            setActiveTab('calculator');
                           }}
                           className={`px-4 py-1.5 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 transition-all duration-200 flex items-center gap-1`}
                         >
-                          <span>Book</span>
+                          <span>Estimate & Book</span>
                           <ChevronRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -839,16 +844,16 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK VIDEOS */}
+        {/* TAB 2: TRANSFORMATIONS (CLEANED HEADING) */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Client Transformations & Reels
               </span>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Live Signature Video Gallery</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Live Signature Gallery</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
-                All client makeover videos & animated transformations auto-play in high definition without manual clicks.
+                All client makeover transformations and artistry reels auto-play in high definition.
               </p>
             </div>
 
@@ -912,210 +917,187 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATOR & CALCULATOR */}
+        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (DIRECT BOOKING + EXTRA GUESTS + SENT RECEIPT) */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
-            <div className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8`}>
-              <div className="md:col-span-7 space-y-4 sm:space-y-5">
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-2">1. Select Vanity Kit</label>
-                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                    <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
-                    <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-2">2. Select Package</label>
-                  <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
-                    <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
-                    <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
-                    <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
-                    <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
-                    <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
-                    <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider mb-2">3. Venue Zone</label>
-                  <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-medium`}>
-                    {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                      <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="text-xs font-bold uppercase tracking-wider">4. Extra Family Party Makeups</label>
-                    <span className={`${currentTheme.accentText} text-xs font-bold font-mono`}>{extraPartyCount} Person(s)</span>
-                  </div>
-                  <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-cyan-400 h-2 rounded-lg cursor-pointer" />
-                  {(() => {
-                    const { rawPrice, discountedPrice, discountPercent, isDiscountActive } = getGuestRateDetails(calcKit, calcPackage);
-                    return (
-                      <div className="flex items-center justify-between text-[11px] mt-1.5">
-                        <span className={mutedTextClass}>
-                          Guest Rate: <strong className={`${currentTheme.accentText} font-mono`}>₹{discountedPrice.toLocaleString('en-IN')}</strong> / person
-                        </span>
-                        {isDiscountActive && (
-                          <span className="text-emerald-500 dark:text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded-full text-[10px] border border-emerald-500/30">
-                            {discountPercent}% Guest Discount Applied
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })()}
-                </div>
-
-                {/* Promo Code Box */}
-                {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                  <div className="pt-2 border-t border-white/10 space-y-2">
-                    <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
-                      <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
-                    </label>
-                    {appliedCoupon ? (
-                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
-                            {appliedCoupon.expiryDate && (() => {
-                              const tr = getTimeRemaining(appliedCoupon.expiryDate);
-                              return tr && !tr.expired ? (
-                                <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                  <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
-                                </span>
-                              ) : null;
-                            })()}
-                          </div>
-                          <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
-                            🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
-                          </p>
-                        </div>
-                        <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
-                      </div>
-                    ) : (
-                      <div className="flex gap-2">
-                        <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
-                        <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>Apply</button>
-                      </div>
-                    )}
-                    {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
-                  </div>
-                )}
-              </div>
-
-              <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
-                <div>
-                  <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Investment</span>
-                  <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
-                    <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
-                    <span>{finalEstimate.toLocaleString('en-IN')}</span>
-                  </div>
-                </div>
-                <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Base Package:</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee:</span><span className={`${currentTheme.accentText} font-medium`}>₹{config.convenienceZones[calcZone]?.fee}</span></div>
-                  <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Guests:</span><span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedPrice).toLocaleString('en-IN')}</span></div>
-                  {appliedCoupon && (
-                    <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
-                  )}
-                </div>
-                <button onClick={() => { setBooking(prev => ({ ...prev, packageKey: calcPackage, kitType: calcKit, zoneKey: calcZone })); setActiveTab('booking'); }} className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition-all duration-200`}>Book Package</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* TAB 5: BOOKING FORM */}
-        {activeTab === 'booking' && (
-          <div className="max-w-xl mx-auto p-5 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-3xl shadow-2xl animate-fade-in space-y-5 transition-opacity duration-300">
+            
             {isBookingDone ? (
-              <div className="text-center py-8 space-y-4 animate-scale-up">
+              <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold">Booking Recorded!</h3>
-                <p className={`text-xs ${mutedTextClass} max-w-sm mx-auto`}>
-                  Thank you <strong>{booking.name}</strong>! Your appointment has been safely recorded in our system. Your official JPG slip has downloaded automatically.
+                <h3 className="text-xl sm:text-2xl font-bold">Booking Request Sent!</h3>
+                <p className={`text-xs ${mutedTextClass} max-w-sm mx-auto leading-relaxed`}>
+                  Thank you <strong>{clientName}</strong>! Your booking details including extra family makeups have been sent to our studio schedule. Your official <strong>Booking Sent Receipt (.JPG)</strong> has downloaded.
                 </p>
                 {generatedJpgUrl && (
-                  <a href={generatedJpgUrl} download="Booking_Confirmation.jpg" className={`text-xs ${currentTheme.accentText} underline inline-flex items-center gap-1 font-bold`}>
-                    <Download className="w-3.5 h-3.5" /> Re-download JPG Slip
-                  </a>
+                  <div className="pt-2">
+                    <a href={generatedJpgUrl} download="Booking_Sent_Receipt.jpg" className={`text-xs ${currentTheme.accentText} underline inline-flex items-center gap-1 font-bold`}>
+                      <Download className="w-3.5 h-3.5" /> Re-download Booking Sent Receipt
+                    </a>
+                  </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 mt-4 transition-transform duration-200`}>
-                  Book Another Appointment
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 mt-4 transition-transform duration-200`}>
+                  Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleBookingSubmit} className="space-y-4">
-                <div className="border-b border-white/10 pb-2">
-                  <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
-                    <Calendar className="w-5 h-5" /> Instant Appointment Reservation
-                  </h3>
-                </div>
-
-                <div>
-                  <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Full Name *</label>
-                  <input type="text" required placeholder="e.g. Aliza Khan" value={booking.name} onChange={(e) => setBooking({ ...booking, name: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>WhatsApp Number *</label>
-                    <input type="tel" required placeholder="e.g. 9876543210" value={booking.phone} onChange={(e) => setBooking({ ...booking, phone: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+              <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8`}>
+                
+                {/* Left Form: Plan & Customize Makeup */}
+                <div className="md:col-span-7 space-y-4 sm:space-y-5">
+                  <div className="border-b border-white/10 pb-2">
+                    <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
+                      <Calculator className="w-5 h-5" /> 1. Calculate & Choose Looks
+                    </h3>
                   </div>
-                  <div>
-                    <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Event Date *</label>
-                    <input type="date" required value={booking.eventDate} onChange={(e) => setBooking({ ...booking, eventDate: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Vanity Kit</label>
-                    <select value={booking.kitType} onChange={(e) => setBooking({ ...booking, kitType: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${currentTheme.accentText} font-bold`}>
-                      <option value="international">👑 Luxury Kit</option>
-                      <option value="drugstore">✨ Premium HD Kit</option>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Select Vanity Kit Tier</label>
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Select Main Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
+                      <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
+                      <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
+                      <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
+                      <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
+                      <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
+                      <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
                     </select>
                   </div>
+
                   <div>
-                    <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Package</label>
-                    <select value={booking.packageKey} onChange={(e) => setBooking({ ...booking, packageKey: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-bold`}>
-                      <option value="royal_bridal">6. Royal Bridal</option>
-                      <option value="engagement_bride">5. Engagement Bride</option>
-                      <option value="cocktail_glam">4. Cocktail Glam</option>
-                      <option value="super_hd_party">3. Super HD Party</option>
-                      <option value="hd_party">2. HD Party</option>
-                      <option value="simple_party">1. Simple Party</option>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-medium`}>
+                      {Object.entries(config.convenienceZones).map(([key, zone]) => (
+                        <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
+                      ))}
                     </select>
+                  </div>
+
+                  {/* Extra Family Makeups Slider */}
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <label className="text-xs font-bold uppercase tracking-wider">Extra Family Party Makeups</label>
+                      <span className={`${currentTheme.accentText} text-xs font-bold font-mono`}>{extraPartyCount} Person(s)</span>
+                    </div>
+                    <input type="range" min="0" max="10" value={extraPartyCount} onChange={(e) => setExtraPartyCount(parseInt(e.target.value))} className="w-full accent-cyan-400 h-2 rounded-lg cursor-pointer" />
+                    {(() => {
+                      const { rawPrice, discountedPrice, discountPercent, isDiscountActive } = getGuestRateDetails(calcKit, calcPackage);
+                      return (
+                        <div className="flex items-center justify-between text-[11px] mt-1.5">
+                          <span className={mutedTextClass}>
+                            Guest Rate: <strong className={`${currentTheme.accentText} font-mono`}>₹{discountedPrice.toLocaleString('en-IN')}</strong> / person
+                          </span>
+                          {isDiscountActive && (
+                            <span className="text-emerald-500 dark:text-emerald-400 font-bold bg-emerald-500/15 px-2 py-0.5 rounded-full text-[10px] border border-emerald-500/30">
+                              {discountPercent}% Guest Discount Applied
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Promo Code Box */}
+                  {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
+                    <div className="pt-2 border-t border-white/10 space-y-2">
+                      <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
+                        <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
+                      </label>
+                      {appliedCoupon ? (
+                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                              {appliedCoupon.expiryDate && (() => {
+                                const tr = getTimeRemaining(appliedCoupon.expiryDate);
+                                return tr && !tr.expired ? (
+                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
+                                  </span>
+                                ) : null;
+                              })()}
+                            </div>
+                            <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                            </p>
+                          </div>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2">
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
+                          <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>Apply</button>
+                        </div>
+                      )}
+                      {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
+                    </div>
+                  )}
+
+                  {/* Client Booking Information Directly in Estimator */}
+                  <div className="pt-3 border-t border-white/10 space-y-3">
+                    <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
+                      <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
+                    </h4>
+
+                    <div>
+                      <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>WhatsApp Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                      </div>
+                      <div>
+                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Exact Venue Address / Landmark</label>
+                      <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={venueAddress} onChange={(e) => setVenueAddress(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Venue Zone</label>
-                  <select value={booking.zoneKey} onChange={(e) => setBooking({ ...booking, zoneKey: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`}>
-                    {Object.entries(config.convenienceZones || {}).map(([k, z]) => (
-                      <option key={k} value={k}>{z.name} (+₹{z.fee})</option>
-                    ))}
-                  </select>
-                </div>
+                {/* Right Summary Box & Direct Submit */}
+                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
+                  <div>
+                    <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Investment Summary</span>
+                    <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
+                      <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
+                      <span>{finalEstimate.toLocaleString('en-IN')}</span>
+                    </div>
+                  </div>
 
-                <div>
-                  <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Venue Address / Landmark</label>
-                  <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={booking.venueAddress} onChange={(e) => setBooking({ ...booking, venueAddress: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
-                </div>
+                  <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look ({config.packageDetails[calcPackage]?.name}):</span><span>₹{config.pricingByKit[calcKit][calcPackage].toLocaleString('en-IN')}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{config.convenienceZones[calcZone]?.fee}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Family Guests ({extraPartyCount}):</span><span>₹{(extraPartyCount * getGuestRateDetails(calcKit, calcPackage).discountedPrice).toLocaleString('en-IN')}</span></div>
+                    {appliedCoupon && (
+                      <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
+                    )}
+                  </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full py-3.5 sm:py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
-                >
-                  <Check className="w-4 h-4" />
-                  <span>{isSubmitting ? 'Recording...' : 'Confirm & Reserve Appointment'}</span>
-                </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
+                  </button>
+                </div>
               </form>
             )}
           </div>
@@ -1123,11 +1105,11 @@ export default function App() {
 
       </main>
 
-      {/* 🎈 Floating Offer Widget */}
+      {/* Floating Offer Widget */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={`fixed bottom-4 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+          className={`fixed bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
             isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
           }`}
         >
