@@ -4,7 +4,7 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText
+  Receipt, FileText, Hash
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -216,6 +216,7 @@ export default function App() {
   const [clientPhone, setClientPhone] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [venueAddress, setVenueAddress] = useState('');
+  const [currentBookingNumber, setCurrentBookingNumber] = useState('');
 
   const [appliedCoupon, setAppliedCoupon] = useState(null);
   const [couponInput, setCouponInput] = useState('');
@@ -389,31 +390,31 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 High-Res White Luxury "BOOKING SENT RECEIPT" (.JPG)
-  const generateBookingSentSlipJpg = () => {
+  // 📄 High-Res White Luxury "BOOKING SENT RECEIPT" (.JPG) with Booking Number
+  const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1080;
-    canvas.height = 1620;
+    canvas.height = 1680;
 
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1620);
+    ctx.fillRect(0, 0, 1080, 1680);
 
     const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
     bgGrad.addColorStop(0, '#ffffff');
     bgGrad.addColorStop(1, '#f8fafc');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1580);
+    ctx.fillRect(20, 20, 1040, 1640);
 
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 7;
-    ctx.strokeRect(36, 36, 1008, 1548);
+    ctx.strokeRect(36, 36, 1008, 1608);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 984, 1524);
+    ctx.strokeRect(48, 48, 984, 1584);
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#996515';
@@ -442,6 +443,7 @@ export default function App() {
     const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
 
     const rows = [
+      { label: 'BOOKING NUMBER', val: bNumber || '#HF-PENDING' },
       { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
       { label: 'PHONE NUMBER', val: clientPhone || 'Not Provided' },
       { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
@@ -453,61 +455,56 @@ export default function App() {
       { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${discountAmount} OFF)` : 'No Promo Applied' }
     ];
 
-    let startY = 340;
+    let startY = 330;
     rows.forEach((row, idx) => {
-      ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff';
-      ctx.fillRect(80, startY - 32, 920, 64);
+      ctx.fillStyle = idx === 0 ? 'rgba(6, 182, 212, 0.12)' : (idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff');
+      ctx.fillRect(80, startY - 30, 920, 62);
 
       ctx.textAlign = 'left';
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 22px sans-serif';
+      ctx.fillStyle = idx === 0 ? '#0284c7' : '#64748b';
+      ctx.font = idx === 0 ? 'bold 23px monospace' : 'bold 22px sans-serif';
       ctx.fillText(row.label, 100, startY + 8);
 
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 23px sans-serif';
+      ctx.fillStyle = idx === 0 ? '#0369a1' : '#0f172a';
+      ctx.font = idx === 0 ? 'bold 25px monospace' : 'bold 23px sans-serif';
 
       let displayVal = row.val;
       while (ctx.measureText(displayVal).width > 580 && displayVal.length > 4) {
         displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
       }
       ctx.fillText(displayVal, 390, startY + 8);
-      startY += 78;
+      startY += 76;
     });
 
     ctx.fillStyle = '#fefce8';
-    ctx.fillRect(80, 1070, 920, 180);
+    ctx.fillRect(80, 1100, 920, 180);
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 3;
-    ctx.strokeRect(80, 1070, 920, 180);
+    ctx.strokeRect(80, 1100, 920, 180);
 
     ctx.textAlign = 'center';
     ctx.fillStyle = '#854d0e';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1120);
+    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1150);
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1200);
+    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1230);
 
     ctx.fillStyle = '#475569';
     ctx.font = '22px sans-serif';
-    ctx.fillText(`📍 Base Location: ${config.baseLocation} • Studio WhatsApp: +${config.whatsappNumber}`, 540, 1340);
+    ctx.fillText(`📍 Base Location: ${config.baseLocation} • Studio WhatsApp: +${config.whatsappNumber}`, 540, 1370);
 
     ctx.fillStyle = '#e11d48';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1385);
+    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1415);
 
     ctx.fillStyle = '#64748b';
     ctx.font = 'italic 18px sans-serif';
-    ctx.fillText('Status: Booking Request Sent. Official Final Confirmation Slip will be sent by Studio.', 540, 1440);
+    ctx.fillText('Status: Booking Request Sent. Studio will verify schedule and send Confirmed Slip.', 540, 1475);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
-
-    const downloadLink = document.createElement('a');
-    downloadLink.download = `Booking_Sent_Receipt_${clientName.replace(/\s+/g, '_')}.jpg`;
-    downloadLink.href = jpgUrl;
-    downloadLink.click();
   };
 
   // Direct Booking Handler from Estimator
@@ -524,8 +521,13 @@ export default function App() {
     const zone = config.convenienceZones[calcZone];
     const { discountedPrice } = getGuestRateDetails(calcKit, calcPackage);
 
+    // 🔢 Generate Dynamic Unique Booking Number
+    const generatedBookingNo = `#HF-${Math.floor(100000 + Math.random() * 900000)}`;
+    setCurrentBookingNumber(generatedBookingNo);
+
     try {
       await addDoc(collection(db, "bookings"), {
+        bookingNumber: generatedBookingNo,
         clientName: clientName.trim(),
         clientPhone: clientPhone.trim(),
         eventDate: eventDate,
@@ -545,7 +547,7 @@ export default function App() {
         createdAt: serverTimestamp()
       });
 
-      generateBookingSentSlipJpg();
+      generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
     } catch (err) {
       alert("Error submitting booking: " + err.message);
@@ -682,11 +684,10 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar (Mobile, Tablet, Desktop) */}
+      {/* 💎 Universal Header & Top Navigation Bar */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           
-          {/* Top Brand Bar */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
               <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
@@ -708,7 +709,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Top Action Buttons */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 onClick={toggleTheme}
@@ -844,7 +844,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS (CLEANED HEADING) */}
+        {/* TAB 2: TRANSFORMATIONS (LIVE SIGNATURE GALLERY) */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -917,7 +917,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (DIRECT BOOKING + EXTRA GUESTS + SENT RECEIPT) */}
+        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (WITH BOOKING NUMBER ON SENT RECEIPT) */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             
@@ -926,25 +926,32 @@ export default function App() {
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
+                
+                <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
+                  BOOKING NUMBER: {currentBookingNumber}
+                </div>
+
                 <h3 className="text-xl sm:text-2xl font-bold">Booking Request Sent!</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-sm mx-auto leading-relaxed`}>
-                  Thank you <strong>{clientName}</strong>! Your booking details including extra family makeups have been sent to our studio schedule. Your official <strong>Booking Sent Receipt (.JPG)</strong> has downloaded.
+                  Thank you <strong>{clientName}</strong>! Your appointment has been recorded in our database under <strong>{currentBookingNumber}</strong>. Click below to download your official <strong>Booking Sent Receipt</strong>.
                 </p>
+
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download="Booking_Sent_Receipt.jpg" className={`text-xs ${currentTheme.accentText} underline inline-flex items-center gap-1 font-bold`}>
-                      <Download className="w-3.5 h-3.5" /> Re-download Booking Sent Receipt
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-2.5 rounded-2xl ${currentTheme.btnPrimary} inline-flex items-center gap-2 text-xs shadow-lg active:scale-95 transition`}>
+                      <Download className="w-4 h-4" />
+                      <span>Download Booking Sent Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 mt-4 transition-transform duration-200`}>
+
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-white/10 hover:bg-white/15 text-xs text-slate-300 font-bold rounded-2xl active:scale-95 mt-4 transition`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8`}>
                 
-                {/* Left Form: Plan & Customize Makeup */}
                 <div className="md:col-span-7 space-y-4 sm:space-y-5">
                   <div className="border-b border-white/10 pb-2">
                     <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
@@ -1041,7 +1048,7 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Client Booking Information Directly in Estimator */}
+                  {/* Client Booking Information */}
                   <div className="pt-3 border-t border-white/10 space-y-3">
                     <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
                       <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
@@ -1070,7 +1077,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right Summary Box & Direct Submit */}
+                {/* Right Summary Box */}
                 <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
                   <div>
                     <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Investment Summary</span>
