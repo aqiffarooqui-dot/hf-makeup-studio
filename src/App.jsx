@@ -316,7 +316,6 @@ export default function App() {
     }
   }, [config.announcements]);
 
-  // Add a new custom family guest with chosen kit & package
   const handleAddFamilyGuest = () => {
     setFamilyGuests([...familyGuests, {
       id: Date.now(),
@@ -334,15 +333,15 @@ export default function App() {
     setFamilyGuests(familyGuests.map(g => g.id === id ? { ...g, [field]: value } : g));
   };
 
-  // Calculate Family Guests Total Amount with Active Guest Savings
-  const calculateFamilyGuestsTotal = () => {
-    const isDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
-    const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
+  // Guest Discount Helper
+  const isGuestDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
+  const guestDiscountPercent = isGuestDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
 
+  const calculateFamilyGuestsTotal = () => {
     let subtotal = 0;
     familyGuests.forEach(g => {
       const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-      const finalPrice = isDiscountActive ? Math.round(raw * (1 - discountPercent / 100)) : raw;
+      const finalPrice = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
       subtotal += finalPrice;
     });
     return subtotal;
@@ -363,7 +362,7 @@ export default function App() {
       return;
     }
     if (couponData.enabled === false) {
-      setCouponError('⚠️ This promo coupon code is currently disabled.');
+      setCouponError('⚠️ This promo coupon code is currently unavailable.');
       return;
     }
     if (couponData.expiryDate) {
@@ -477,7 +476,6 @@ export default function App() {
       startY += 74;
     });
 
-    // Total Amount Box
     ctx.fillStyle = '#fefce8';
     ctx.fillRect(80, 1100, 920, 175);
     ctx.strokeStyle = '#b48a3c';
@@ -493,7 +491,6 @@ export default function App() {
     ctx.font = 'bold 64px serif';
     ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1220);
 
-    // Official Verification Seal
     ctx.fillStyle = '#f8fafc';
     ctx.fillRect(80, 1310, 920, 130);
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
@@ -769,6 +766,7 @@ export default function App() {
             </div>
           </div>
 
+          {/* 🚀 Universal Responsive Top Tabs Bar */}
           <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
             <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
               {[
@@ -951,7 +949,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (WITH DETAILED PER-PERSON EXTRA FAMILY OPTIONS) */}
+        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (WITH LIVE GUEST SAVINGS & PER-GUEST LOOKS) */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             
@@ -1022,7 +1020,7 @@ export default function App() {
                     </select>
                   </div>
 
-                  {/* 👥 Per-Person Extra Family Makeup Builder */}
+                  {/* 👥 Per-Person Extra Family Makeup Builder with Live Discount Offer Tag */}
                   <div className="pt-2 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
@@ -1041,44 +1039,67 @@ export default function App() {
                       </button>
                     </div>
 
+                    {/* Active Guest Discount Offer Tag Banner */}
+                    {isGuestDiscountActive && guestDiscountPercent > 0 && (
+                      <div className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
+                        <span className="text-emerald-400 font-bold flex items-center gap-1">
+                          <Sparkles className="w-3.5 h-3.5" /> Flat {guestDiscountPercent}% Extra Family Makeup Discount Applied
+                        </span>
+                        <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">ACTIVE OFFER</span>
+                      </div>
+                    )}
+
                     {familyGuests.length > 0 && (
                       <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-                        {familyGuests.map((guest, idx) => (
-                          <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
-                            <div className="flex items-center justify-between">
-                              <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
-                              <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
-                            </div>
+                        {familyGuests.map((guest, idx) => {
+                          const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
+                          const discountedGuestPrice = isGuestDiscountActive ? Math.round(rawGuestPrice * (1 - guestDiscountPercent / 100)) : rawGuestPrice;
 
-                            <div className="grid grid-cols-2 gap-2">
-                              <div>
-                                <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
-                                <select
-                                  value={guest.kit}
-                                  onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                  className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
-                                >
-                                  <option value="international">👑 Luxury Kit</option>
-                                  <option value="drugstore">✨ HD Kit</option>
-                                </select>
+                          return (
+                            <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
+                                  <span className="text-xs font-bold font-mono text-white">
+                                    ₹{discountedGuestPrice.toLocaleString('en-IN')}
+                                    {isGuestDiscountActive && guestDiscountPercent > 0 && (
+                                      <span className="line-through text-slate-500 ml-1.5 text-[10px]">₹{rawGuestPrice.toLocaleString('en-IN')}</span>
+                                    )}
+                                  </span>
+                                </div>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
-                              <div>
-                                <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Package Look</label>
-                                <select
-                                  value={guest.packageKey}
-                                  onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                  className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
-                                >
-                                  <option value="simple_party">Simple Party (₹{config.pricingByKit[guest.kit].simple_party})</option>
-                                  <option value="hd_party">HD Party (₹{config.pricingByKit[guest.kit].hd_party})</option>
-                                  <option value="super_hd_party">Super HD Glam (₹{config.pricingByKit[guest.kit].super_hd_party})</option>
-                                  <option value="cocktail_glam">Cocktail Glam (₹{config.pricingByKit[guest.kit].cocktail_glam})</option>
-                                </select>
+                              <div className="grid grid-cols-2 gap-2">
+                                <div>
+                                  <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
+                                  <select
+                                    value={guest.kit}
+                                    onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
+                                    className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                  >
+                                    <option value="international">👑 Luxury Kit</option>
+                                    <option value="drugstore">✨ HD Kit</option>
+                                  </select>
+                                </div>
+
+                                <div>
+                                  <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Package Look</label>
+                                  <select
+                                    value={guest.packageKey}
+                                    onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
+                                    className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                  >
+                                    <option value="simple_party">Simple Party</option>
+                                    <option value="hd_party">HD Party</option>
+                                    <option value="super_hd_party">Super HD Glam</option>
+                                    <option value="cocktail_glam">Cocktail Glam</option>
+                                  </select>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </div>
