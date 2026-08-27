@@ -3,7 +3,7 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info
+  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -11,7 +11,6 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 
-// ✨ Separate High-Res Distinct Images for International vs HD Kit
 const DEFAULT_KIT_IMAGES = {
   international: {
     simple_party: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80",
@@ -101,24 +100,6 @@ const THEME_STYLES = {
     glow: "shadow-purple-500/20",
     activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow",
     badgeBg: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30"
-  },
-  sunset_rose: {
-    accentGradient: "from-orange-400 via-rose-400 to-pink-500",
-    btnPrimary: "bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold shadow-lg shadow-rose-500/25",
-    accentText: "text-rose-600 dark:text-rose-400",
-    accentBorder: "border-rose-400/30",
-    glow: "shadow-rose-500/20",
-    activeNav: "bg-gradient-to-r from-orange-500 to-pink-500 text-white font-bold shadow",
-    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30"
-  },
-  nordic_pearl: {
-    accentGradient: "from-slate-200 via-teal-200 to-cyan-300",
-    btnPrimary: "bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold shadow-lg",
-    accentText: "text-teal-600 dark:text-teal-300",
-    accentBorder: "border-teal-400/30",
-    glow: "shadow-teal-500/20",
-    activeNav: "bg-teal-500 text-white font-bold shadow",
-    badgeBg: "bg-teal-500/15 text-teal-700 dark:text-teal-300 border-teal-500/30"
   }
 };
 
@@ -146,284 +127,7 @@ const getCleanInstagramUrl = (handleOrUrl) => {
   let clean = String(handleOrUrl).trim();
   if (clean.startsWith('http://') || clean.startsWith('https://')) return clean;
   clean = clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
-  return `https://www.instagram.com/${clean}/`;
-};
-
-const getCleanInstagramHandle = (handleOrUrl) => {
-  if (!handleOrUrl) return "husna_farooqui_makeup";
-  let clean = String(handleOrUrl).trim();
-  if (clean.includes('instagram.com/')) {
-    clean = clean.split('instagram.com/')[1].split('/')[0].split('?')[0];
-  }
-  return clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
-};
-
-const resolveProfileImageUrl = (configData) => {
-  if (configData.profilePhotoType === 'instagram') {
-    const handle = getCleanInstagramHandle(configData.instagramHandle);
-    if (handle) {
-      return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
-    }
-  }
-  if (configData.profileImage && configData.profileImage.trim().length > 0) {
-    return configData.profileImage;
-  }
-  return DEFAULT_PROFILE_IMG;
-};
-
-export default function App() {
-  const [config, setConfig] = useState(STUDIO_CONFIG);
-  const [activeTab, setActiveTab] = useState('menu');
-  const [selectedKit, setSelectedKit] = useState('international');
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [announcementIdx, setAnnouncementIdx] = useState(0);
-  const [showFloatingBanner, setShowFloatingBanner] = useState(true);
-
-  // 🎬 Cinematic Intro Splash Screen State
-  const [showSplash, setShowSplash] = useState(true);
-  const [splashFade, setSplashFade] = useState(false);
-
-  // 🔍 Package Details Modal State
-  const [viewingPackage, setViewingPackage] = useState(null);
-
-  // Estimator States
-  const [calcPackage, setCalcPackage] = useState('royal_bridal');
-  const [calcKit, setCalcKit] = useState('international');
-  const [calcZone, setCalcZone] = useState('delhi_near');
-  const [extraPartyCount, setExtraPartyCount] = useState(0);
-
-  // Booking States
-  const [booking, setBooking] = useState({
-    name: '',
-    phone: '',
-    eventDate: '',
-    kitType: 'international',
-    packageKey: 'royal_bridal',
-    zoneKey: 'delhi_near',
-    venueAddress: ''
-  });
-
-  const [appliedCoupon, setAppliedCoupon] = useState(null);
-  const [couponInput, setCouponInput] = useState('');
-  const [couponError, setCouponError] = useState('');
-  const [isBookingDone, setIsBookingDone] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [imgLoadFailed, setImgLoadFailed] = useState(false);
-  
-  const canvasRef = useRef(null);
-  const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
-
-  useEffect(() => {
-    const splashTimer = setTimeout(() => {
-      setSplashFade(true);
-      setTimeout(() => setShowSplash(false), 600);
-    }, 2200);
-    return () => clearTimeout(splashTimer);
-  }, []);
-
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
-    document.head.appendChild(link);
-    return () => {
-      if (document.head && document.head.contains(link)) document.head.removeChild(link);
-    };
-  }, []);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('hf_theme_preference');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    } else if (config.theme?.defaultMode) {
-      setIsDarkMode(config.theme.defaultMode === 'dark');
-    }
-  }, [config.theme?.defaultMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(prev => {
-      const next = !prev;
-      localStorage.setItem('hf_theme_preference', next ? 'dark' : 'light');
-      return next;
-    });
-  };
-
-  useEffect(() => {
-    const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
-      const mergedKitImages = {
-        international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
-        drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
-      };
-
-      setConfig({
-        ...STUDIO_CONFIG,
-        ...live,
-        kitImages: mergedKitImages,
-        galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
-      });
-      setImgLoadFailed(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (config.announcements && config.announcements.length > 1) {
-      const timer = setInterval(() => {
-        setAnnouncementIdx((prev) => (prev + 1) % config.announcements.length);
-      }, 4500);
-      return () => clearInterval(timer);
-    }
-  }, [config.announcements]);
-
-  const getGuestRateDetails = (kit, pkgKey) => {
-    const rawPrice = config.pricingByKit[kit][pkgKey] || 2500;
-    const isDiscountActive = config.guestDiscount?.enabled !== false;
-    const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
-    const discountedPrice = Math.round(rawPrice * (1 - discountPercent / 100));
-
-    return {
-      rawPrice,
-      discountedPrice,
-      discountPercent,
-      isDiscountActive: isDiscountActive && discountPercent > 0
-    };
-  };
-
-  const handleApplyCoupon = (e, customCode) => {
-    if (e) e.preventDefault();
-    setCouponError('');
-    const code = (customCode || couponInput).trim().toUpperCase();
-    if (!code) return;
-
-    const couponData = config.validCoupons?.[code];
-    if (!couponData) {
-      setCouponError('❌ Invalid promo coupon code.');
-      return;
-    }
-    setAppliedCoupon({ code, ...couponData });
-    setCouponInput(code);
-    setCouponError('');
-  };
-
-  const calculateGross = (kit, pkgKey, zoneKey, partyCount) => {
-    const base = config.pricingByKit[kit][pkgKey];
-    const zone = config.convenienceZones[zoneKey];
-    const convenienceFee = zone ? zone.fee : 350;
-    const { discountedPrice } = getGuestRateDetails(kit, pkgKey);
-    return base + convenienceFee + (partyCount * discountedPrice);
-  };
-
-  const getDiscountAmount = (gross) => {
-    if (!appliedCoupon) return 0;
-    if (appliedCoupon.type === 'percent') return Math.round((gross * appliedCoupon.value) / 100);
-    if (appliedCoupon.type === 'flat') return Math.min(gross, appliedCoupon.value);
-    return 0;
-  };
-
-  const grossEstimate = calculateGross(calcKit, calcPackage, calcZone, extraPartyCount);
-  const discountAmount = getDiscountAmount(grossEstimate);
-  const finalEstimate = Math.max(0, grossEstimate - discountAmount);
-
-  // 📄 High-Res White Luxury JPG Slip Generator
-  const generateSlipJpg = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = 1080;
-    canvas.height = 1560;
-
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1560);
-
-    const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
-    bgGrad.addColorStop(0, '#ffffff');
-    bgGrad.addColorStop(1, '#f8fafc');
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1520);
-
-    ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 7;
-    ctx.strokeRect(36, 36, 1008, 1488);
-
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 984, 1464);
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#996515';
-    ctx.font = 'bold 50px serif';
-    ctx.fillText(config.studioName || 'HUSNA FAROOQUI', 540, 130);
-
-    ctx.fillStyle = '#be123c';
-    ctx.font = '600 26px sans-serif';
-    ctx.fillText(config.artistTagline || 'Celebrity & Bridal Makeup Artist', 540, 175);
-
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(140, 210);
-    ctx.lineTo(940, 210);
-    ctx.stroke();
-
-    ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 30px sans-serif';
-    ctx.fillText('✨ OFFICIAL BOOKING CONFIRMATION ✨', 540, 265);
-
-    const pkg = config.packageDetails[booking.packageKey];
-    const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];
-    const kitName = config.pricingByKit[booking.kitType].name;
-    const zone = config.convenienceZones[booking.zoneKey];
-    const bookingGross = basePrice + (zone ? zone.fee : 350);
-    const bookingDiscount = getDiscountAmount(bookingGross);
-    const bookingFinal = Math.max(0, bookingGross - bookingDiscount);
-
-    const rows = [
-      { label: 'CLIENT NAME', val: booking.name || 'Not Provided' },
-      { label: 'PHONE NUMBER', val: booking.phone || 'Not Provided' },
-      { label: 'EVENT DATE', val: booking.eventDate || 'Not Provided' },
-      { label: 'VANITY KIT', val: kitName },
-      { label: 'PACKAGE', val: `${pkg.num}. ${pkg.name}` },
-      { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
-      { label: 'EXACT ADDRESS', val: booking.venueAddress || 'Studio Visit / To be confirmed' },
-      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Applied' }
-    ];
-
-    let startY = 350;
-    rows.forEach((row, idx) => {
-      ctx.fillStyle = idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff';
-      ctx.fillRect(80, startY - 34, 920, 68);
-
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 22px sans-serif';
-      ctx.fillText(row.label, 100, startY + 8);
-
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 24px sans-serif';
-
-      let displayVal = row.val;
-      while (ctx.measureText(displayVal).width > 580 && displayVal.length > 4) {
-        displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
-      }
-      ctx.fillText(displayVal, 390, startY + 8);
-      startY += 82;
-    });
-
-    ctx.fillStyle = '#fefce8';
-    ctx.fillRect(80, 1060, 920, 180);
-    ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(80, 1060, 920, 180);
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#854d0e';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1110);
-
-    ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
+  return `https://www.instagram.com/${clean}/`; };  const getCleanInstagramHandle = (handleOrUrl) => {   if (!handleOrUrl) return "husna_farooqui_makeup";   let clean = String(handleOrUrl).trim();   if (clean.includes('instagram.com/')) {     clean = clean.split('instagram.com/')[1].split('/')[0].split('?')[0];   }   return clean.replace(/^@+/, '').replace(/^\/+\vert{}\/+$/g, ''); };  const resolveProfileImageUrl = (configData) => {   if (configData.profilePhotoType === 'instagram') {     const handle = getCleanInstagramHandle(configData.instagramHandle);     if (handle) {       return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;     }   }   if (configData.profileImage && configData.profileImage.trim().length > 0) {     return configData.profileImage;   }   return DEFAULT_PROFILE_IMG; };  export default function App() {   const [config, setConfig] = useState(STUDIO_CONFIG);   const [activeTab, setActiveTab] = useState('menu');   const [selectedKit, setSelectedKit] = useState('international');   const [isDarkMode, setIsDarkMode] = useState(true);   const [announcementIdx, setAnnouncementIdx] = useState(0);   const [showFloatingBanner, setShowFloatingBanner] = useState(true);    // 🎬 Cinematic Intro Splash Screen State   const [showSplash, setShowSplash] = useState(true);   const [splashFade, setSplashFade] = useState(false);    // 🔍 Package Details Modal State   const [viewingPackage, setViewingPackage] = useState(null);    // Estimator States   const [calcPackage, setCalcPackage] = useState('royal_bridal');   const [calcKit, setCalcKit] = useState('international');   const [calcZone, setCalcZone] = useState('delhi_near');   const [extraPartyCount, setExtraPartyCount] = useState(0);    // Booking States   const [booking, setBooking] = useState({     name: '',     phone: '',     eventDate: '',     kitType: 'international',     packageKey: 'royal_bridal',     zoneKey: 'delhi_near',     venueAddress: ''   });    const [appliedCoupon, setAppliedCoupon] = useState(null);   const [couponInput, setCouponInput] = useState('');   const [couponError, setCouponError] = useState('');   const [isBookingDone, setIsBookingDone] = useState(false);   const [isSubmitting, setIsSubmitting] = useState(false);   const [imgLoadFailed, setImgLoadFailed] = useState(false);      const canvasRef = useRef(null);   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);    // 📊 Real-Time Visitor & Instagram Traffic Logger   useEffect(() => {     async function logVisitorTraffic() {       try {         const urlParams = new URLSearchParams(window.location.search);         const igRef = urlParams.get('ig') \vert{}\vert{} urlParams.get('ref') \vert{}\vert{} urlParams.get('utm_source') \vert{}\vert{} 'Direct Visit';                  await addDoc(collection(db, "visitor_logs"), {           instagramIdOrSource: igRef,           userAgent: navigator.userAgent \vert{}\vert{} 'Unknown Device',           referrer: document.referrer \vert{}\vert{} 'Direct / Browser',           language: navigator.language \vert{}\vert{} 'en',           visitedAt: serverTimestamp()         });       } catch (err) {         console.warn("Traffic log error:", err);       }     }     logVisitorTraffic();   }, []);    // 🎬 Splash Timer   useEffect(() => {     const splashTimer = setTimeout(() => {       setSplashFade(true);       setTimeout(() => setShowSplash(false), 600);     }, 2200);     return () => clearTimeout(splashTimer);   }, []);    useEffect(() => {     const link = document.createElement('link');     link.rel = 'stylesheet';     link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';     document.head.appendChild(link);     return () => {       if (document.head && document.head.contains(link)) document.head.removeChild(link);     };   }, []);    useEffect(() => {     const savedTheme = localStorage.getItem('hf_theme_preference');     if (savedTheme) {       setIsDarkMode(savedTheme === 'dark');     } else if (config.theme?.defaultMode) {       setIsDarkMode(config.theme.defaultMode === 'dark');     }   }, [config.theme?.defaultMode]);    const toggleTheme = () => {     setIsDarkMode(prev => {       const next = !prev;       localStorage.setItem('hf_theme_preference', next ? 'dark' : 'light');       return next;     });   };    useEffect(() => {     const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {       const mergedKitImages = {         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international \vert{}\vert{} {}) },         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore \vert{}\vert{} {}) }       };        const mergedPackageDetails = { ...STUDIO_CONFIG.packageDetails, ...(live.packageDetails \vert{}\vert{} {}) };        setConfig({         ...STUDIO_CONFIG,         ...live,         packageDetails: mergedPackageDetails,         kitImages: mergedKitImages,         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY       });       setImgLoadFailed(false);     });     return () => unsubscribe();   }, []);    useEffect(() => {     if (config.announcements && config.announcements.length > 1) {       const timer = setInterval(() => {         setAnnouncementIdx((prev) => (prev + 1) \% config.announcements.length);       }, 4500);       return () => clearInterval(timer);     }   }, [config.announcements]);    const getGuestRateDetails = (kit, pkgKey) => {     const rawPrice = config.pricingByKit[kit][pkgKey] \vert{}\vert{} 2500;     const isDiscountActive = config.guestDiscount?.enabled !== false;     const discountPercent = isDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;     const discountedPrice = Math.round(rawPrice * (1 - discountPercent / 100));      return {       rawPrice,       discountedPrice,       discountPercent,       isDiscountActive: isDiscountActive && discountPercent > 0     };   };    const handleApplyCoupon = (e, customCode) => {     if (e) e.preventDefault();     setCouponError('');     const code = (customCode \vert{}\vert{} couponInput).trim().toUpperCase();     if (!code) return;      const couponData = config.validCoupons?.[code];     if (!couponData) {       setCouponError('❌ Invalid promo coupon code.');       return;     }     setAppliedCoupon({ code, ...couponData });     setCouponInput(code);     setCouponError('');   };    const calculateGross = (kit, pkgKey, zoneKey, partyCount) => {     const base = config.pricingByKit[kit][pkgKey];     const zone = config.convenienceZones[zoneKey];     const convenienceFee = zone ? zone.fee : 350;     const { discountedPrice } = getGuestRateDetails(kit, pkgKey);     return base + convenienceFee + (partyCount * discountedPrice);   };    const getDiscountAmount = (gross) => {     if (!appliedCoupon) return 0;     if (appliedCoupon.type === 'percent') return Math.round((gross * appliedCoupon.value) / 100);     if (appliedCoupon.type === 'flat') return Math.min(gross, appliedCoupon.value);     return 0;   };    const grossEstimate = calculateGross(calcKit, calcPackage, calcZone, extraPartyCount);   const discountAmount = getDiscountAmount(grossEstimate);   const finalEstimate = Math.max(0, grossEstimate - discountAmount);    // 📄 High-Res White Luxury JPG Slip Generator   const generateSlipJpg = () => {     const canvas = canvasRef.current;     if (!canvas) return;     const ctx = canvas.getContext('2d');      canvas.width = 1080;     canvas.height = 1560;      ctx.fillStyle = '#ffffff';     ctx.fillRect(0, 0, 1080, 1560);      const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);     bgGrad.addColorStop(0, '#ffffff');     bgGrad.addColorStop(1, '#f8fafc');     ctx.fillStyle = bgGrad;     ctx.fillRect(20, 20, 1040, 1520);      ctx.strokeStyle = '#b48a3c';     ctx.lineWidth = 7;     ctx.strokeRect(36, 36, 1008, 1488);      ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';     ctx.lineWidth = 2;     ctx.strokeRect(48, 48, 984, 1464);      ctx.textAlign = 'center';     ctx.fillStyle = '#996515';     ctx.font = 'bold 50px serif';     ctx.fillText(config.studioName \vert{}\vert{} 'HUSNA FAROOQUI', 540, 130);      ctx.fillStyle = '#be123c';     ctx.font = '600 26px sans-serif';     ctx.fillText(config.artistTagline \vert{}\vert{} 'Celebrity & Bridal Makeup Artist', 540, 175);      ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';     ctx.lineWidth = 1.5;     ctx.beginPath();     ctx.moveTo(140, 210);     ctx.lineTo(940, 210);     ctx.stroke();      ctx.fillStyle = '#0f172a';     ctx.font = 'bold 30px sans-serif';     ctx.fillText('✨ OFFICIAL BOOKING CONFIRMATION ✨', 540, 265);      const pkg = config.packageDetails[booking.packageKey];     const basePrice = config.pricingByKit[booking.kitType][booking.packageKey];     const kitName = config.pricingByKit[booking.kitType].name;     const zone = config.convenienceZones[booking.zoneKey];     const bookingGross = basePrice + (zone ? zone.fee : 350);     const bookingDiscount = getDiscountAmount(bookingGross);     const bookingFinal = Math.max(0, bookingGross - bookingDiscount);      const rows = [       { label: 'CLIENT NAME', val: booking.name \vert{}\vert{} 'Not Provided' },       { label: 'PHONE NUMBER', val: booking.phone \vert{}\vert{} 'Not Provided' },       { label: 'EVENT DATE', val: booking.eventDate \vert{}\vert{} 'Not Provided' },       { label: 'VANITY KIT', val: kitName },       { label: 'PACKAGE', val: `${pkg.num}. ${pkg.name}` },       { label: 'VENUE ZONE', val: `${zone?.name} (Fee: ₹${zone?.fee})` },       { label: 'EXACT ADDRESS', val: booking.venueAddress \vert{}\vert{} 'Studio Visit / To be confirmed' },       { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${bookingDiscount} OFF)` : 'No Promo Applied' }     ];      let startY = 350;     rows.forEach((row, idx) => {       ctx.fillStyle = idx \% 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff';       ctx.fillRect(80, startY - 34, 920, 68);        ctx.textAlign = 'left';       ctx.fillStyle = '#64748b';       ctx.font = 'bold 22px sans-serif';       ctx.fillText(row.label, 100, startY + 8);        ctx.fillStyle = '#0f172a';       ctx.font = 'bold 24px sans-serif';        let displayVal = row.val;       while (ctx.measureText(displayVal).width > 580 && displayVal.length > 4) {         displayVal = displayVal.substring(0, displayVal.length - 4) + '...';       }       ctx.fillText(displayVal, 390, startY + 8);       startY += 82;     });      ctx.fillStyle = '#fefce8';     ctx.fillRect(80, 1060, 920, 180);     ctx.strokeStyle = '#b48a3c';     ctx.lineWidth = 3;     ctx.strokeRect(80, 1060, 920, 180);      ctx.textAlign = 'center';     ctx.fillStyle = '#854d0e';     ctx.font = 'bold 24px sans-serif';     ctx.fillText('TOTAL ESTIMATED INVESTMENT', 540, 1110);      ctx.fillStyle = '#0f172a';     ctx.font = 'bold 64px serif';     ctx.fillText(`₹${bookingFinal.toLocaleString('en-IN')}`, 540, 1190);
 
     ctx.fillStyle = '#475569';
     ctx.font = '22px sans-serif';
@@ -431,13 +135,7 @@ export default function App() {
 
     ctx.fillStyle = '#e11d48';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1355);
-
-    const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
-    setGeneratedJpgUrl(jpgUrl);
-
-    const downloadLink = document.createElement('a');
-    downloadLink.download = `Booking_Confirmation_${booking.name.replace(/\s+/g, '_')}.jpg`;
+    ctx.fillText(`Official Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1355);      const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);     setGeneratedJpgUrl(jpgUrl);      const downloadLink = document.createElement('a');     downloadLink.download = `Booking_Confirmation_${booking.name.replace(/\s+/g, '_')}.jpg`;
     downloadLink.href = jpgUrl;
     downloadLink.click();
   };
@@ -460,7 +158,7 @@ export default function App() {
         clientPhone: booking.phone.trim(),
         eventDate: booking.eventDate,
         kitType: config.pricingByKit[booking.kitType].name,
-        packageName: `${pkg.num}. ${pkg.name}`,
+        packageName: `${pkg.num}.${pkg.name}`,
         zoneName: zone?.name || 'Delhi NCR',
         venueAddress: booking.venueAddress || 'Not Provided',
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
@@ -510,11 +208,7 @@ export default function App() {
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-24 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
-      
-      {/* 🎬 1. INTRO SPLASH SCREEN ANIMATION */}
-      {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-24 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>              {/* 🎬 1. INTRO SPLASH SCREEN ANIMATION */}       {showSplash && (         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6">
             <div className="w-24 h-24 rounded-[32px] bg-gradient-to-tr from-cyan-400 via-sky-300 to-indigo-400 p-1 shadow-2xl shadow-cyan-500/40 animate-pulse">
               <div className="w-full h-full bg-[#030712] rounded-[28px] flex items-center justify-center">
@@ -544,10 +238,7 @@ export default function App() {
       {/* 🔍 PACKAGE VIEW DETAILS MODAL */}
       {viewingPackage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in">
-          <div className={`max-w-md w-full rounded-3xl p-6 border shadow-2xl space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
+          <div className={`max-w-md w-full rounded-3xl p-6 border shadow-2xl space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>             <div className="flex items-start justify-between">               <div className="flex items-center gap-2">                 <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
                 <h3 className="font-bold text-lg">{viewingPackage.name}</h3>
               </div>
               <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
@@ -557,15 +248,7 @@ export default function App() {
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
-            <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>
-
-            <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-              <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit} Luxury Kit</strong></div>
-              <div className="flex justify-between"><span>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>
-              <div className="flex justify-between"><span>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
-              <div className="flex justify-between font-bold text-sm pt-1">
-                <span>Rate:</span>
-                <span className={`${currentTheme.accentText} font-mono`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
+            <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>              <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">               <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit} Luxury Kit</strong></div>               <div className="flex justify-between"><span>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>               <div className="flex justify-between"><span>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>               <div className="flex justify-between font-bold text-sm pt-1">                 <span>Rate:</span>                 <span className={`${currentTheme.accentText} font-mono`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
               </div>
             </div>
 
@@ -577,24 +260,7 @@ export default function App() {
                 setViewingPackage(null);
                 setActiveTab('booking');
               }}
-              className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5`}
-            >
-              <span>Proceed to Book This Look</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 🌈 Ambient Glass Glow Spheres */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
-
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
-
-      {/* Top Banner Ticker */}
-      {config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm`}>
+              className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5`}             >               <span>Proceed to Book This Look</span>               <ChevronRight className="w-4 h-4" />             </button>           </div>         </div>       )}        {/* 🌈 Ambient Glass Glow Spheres */}       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />       <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />        <canvas ref={canvasRef} style={{ display: 'none' }} />        {/* Top Banner Ticker */}       {config.showOfferSection !== false && (         <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm`}>
           <Volume2 className="w-3.5 h-3.5 shrink-0 animate-bounce" />
           <span className="truncate max-w-4xl font-semibold">
             {config.announcements[announcementIdx] || config.announcements[0]}
@@ -603,9 +269,7 @@ export default function App() {
       )}
 
       {/* 💎 Header */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 flex items-center justify-between ${headerBgClass}`}>
-        <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-300 cursor-pointer">
-          <div className={`w-12 h-12 rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group`}>
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 flex items-center justify-between ${headerBgClass}`}>         <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-300 cursor-pointer">           <div className={`w-12 h-12 rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group`}>
             <img 
               src={resolvedAvatar} 
               alt={config.studioName || "Artist"} 
@@ -614,10 +278,7 @@ export default function App() {
             />
           </div>
           <div>
-            <h1 className={`font-bold text-base sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent`}>
-              {config.studioName || "HUSNA FAROOQUI"}
-            </h1>
-            <p className={`text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1`}>
+            <h1 className={`font-bold text-base sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent`}>               {config.studioName \vert{}\vert{} "HUSNA FAROOQUI"}             </h1>             <p className={`text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1`}>
               <span>{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
               <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300" style={{ animationDuration: '4s' }} />
             </p>
@@ -625,21 +286,7 @@ export default function App() {
         </div>
 
         {/* Dynamic Nav Pills */}
-        <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/70 border-slate-300/80'}`}>
-          {[
-            { id: 'menu', label: 'Packages', icon: Crown },
-            { id: 'gallery', label: 'Transformations', icon: Camera },
-            { id: 'brands', label: 'Vanity', icon: Star },
-            { id: 'calculator', label: 'Estimator', icon: Calculator },
-            { id: 'booking', label: 'Book Online', icon: Calendar }
-          ].map(tab => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 active:scale-90 ${
+        <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/70 border-slate-300/80'}`}>           {[             { id: 'menu', label: 'Packages', icon: Crown },             { id: 'gallery', label: 'Transformations', icon: Camera },             { id: 'brands', label: 'Vanity', icon: Star },             { id: 'calculator', label: 'Estimator', icon: Calculator },             { id: 'booking', label: 'Book Online', icon: Calendar }           ].map(tab => {             const Icon = tab.icon;             const isActive = activeTab === tab.id;             return (               <button                 key={tab.id}                 onClick={() => setActiveTab(tab.id)}                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 active:scale-90 ${
                   isActive ? currentTheme.activeNav : navTextClass
                 }`}
               >
@@ -708,7 +355,7 @@ export default function App() {
         {activeTab === 'menu' && (
           <div className="space-y-10 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
+              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder}${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Professional Vanity Packages
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
@@ -737,7 +384,6 @@ export default function App() {
               {partyPackages.concat(bridalPackages).map((key) => {
                 const item = config.packageDetails[key] || STUDIO_CONFIG.packageDetails[key];
                 const price = config.pricingByKit[selectedKit][key];
-                // 🖼️ Kit-Specific Distinct Image
                 const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
 
                 return (
@@ -785,16 +431,16 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK LIVE AUTO-PLAYING VIDEOS */}
+        {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK LIVE AUTO-PLAYING VIDEOS & GIFS */}
         {activeTab === 'gallery' && (
           <div className="space-y-8 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
+              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder}${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Client Transformations & Reels
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Live Signature Video Gallery</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
-                All client makeover videos auto-play in high definition without manual clicks.
+                All client makeover videos & animated transformations auto-play in high definition without manual clicks.
               </p>
             </div>
 
@@ -842,7 +488,7 @@ export default function App() {
         {activeTab === 'brands' && (
           <div className="space-y-8 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>Authentic Vanity</span>
+              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder}${currentTheme.accentText} text-xs font-bold`}>Authentic Vanity</span>
               <h2 className="text-3xl sm:text-4xl font-bold">Products In Our Kit</h2>
               <p className={`text-xs ${mutedTextClass}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
@@ -873,7 +519,7 @@ export default function App() {
 
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider mb-2">2. Select Package</label>
-                  <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
+                  <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs${currentTheme.accentText} font-bold`}>
                     <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
                     <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
                     <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
@@ -1010,7 +656,7 @@ export default function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Vanity Kit</label>
-                    <select value={booking.kitType} onChange={(e) => setBooking({ ...booking, kitType: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${currentTheme.accentText} font-bold`}>
+                    <select value={booking.kitType} onChange={(e) => setBooking({ ...booking, kitType: e.target.value })} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs${currentTheme.accentText} font-bold`}>
                       <option value="international">👑 Luxury Kit</option>
                       <option value="drugstore">✨ Premium HD Kit</option>
                     </select>
@@ -1059,7 +705,7 @@ export default function App() {
 
       {/* Floating Offer Widget */}
       {config.floatingBanner?.enabled !== false && showFloatingBanner && (
-        <aside aria-label="Promotional offer" className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl ${isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'}`}>
+        <aside aria-label="Promotional offer" className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl${isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'}`}>
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0`} />
             <div className="flex-1">
