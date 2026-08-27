@@ -4,7 +4,7 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2
+  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -222,6 +222,18 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imgLoadFailed, setImgLoadFailed] = useState(false);
   
+  // Feedback & Suggestion States
+  const [feedbackName, setFeedbackName] = useState('');
+  const [feedbackPhone, setFeedbackPhone] = useState('');
+  const [feedbackRating, setFeedbackRating] = useState(5);
+  const [feedbackMessage, setFeedbackMessage] = useState('');
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+
+  // Share & QR Modal State
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
@@ -400,7 +412,6 @@ export default function App() {
     canvas.width = 1080;
     canvas.height = 1680;
 
-    // Pure White Luxury Canvas
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, 1080, 1680);
 
@@ -410,12 +421,10 @@ export default function App() {
     ctx.fillStyle = bgGrad;
     ctx.fillRect(20, 20, 1040, 1640);
 
-    // Minimal Gold Outer Border
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 4;
     ctx.strokeRect(40, 40, 1000, 1600);
 
-    // Clean Studio Name Header
     ctx.textAlign = 'center';
     ctx.fillStyle = '#1e293b';
     ctx.font = 'bold 46px serif';
@@ -472,7 +481,6 @@ export default function App() {
       startY += 64;
     });
 
-    // Detailed Extra Family Guests Breakdown
     if (familyGuests.length > 0) {
       startY += 10;
       ctx.fillStyle = '#fdf4ff';
@@ -509,7 +517,6 @@ export default function App() {
       });
     }
 
-    // Applied Promo & Discount Line
     if (appliedCoupon) {
       startY += 6;
       ctx.fillStyle = '#ecfdf5';
@@ -526,7 +533,6 @@ export default function App() {
       startY += 58;
     }
 
-    // Total Amount Box
     startY += 10;
     ctx.fillStyle = '#f8fafc';
     ctx.fillRect(80, startY, 920, 140);
@@ -543,7 +549,6 @@ export default function App() {
     ctx.font = 'bold 56px serif';
     ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, startY + 110);
 
-    // Minimal Signature Footer
     ctx.fillStyle = '#64748b';
     ctx.font = '17px sans-serif';
     ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1580);
@@ -601,6 +606,35 @@ export default function App() {
     }
   };
 
+  // Submit Feedback to Firebase
+  const handleSubmitFeedback = async (e) => {
+    e.preventDefault();
+    if (!feedbackMessage.trim()) return;
+
+    setIsSubmittingFeedback(true);
+    try {
+      await addDoc(collection(db, "feedbacks"), {
+        clientName: feedbackName.trim() || 'Valued Client',
+        clientPhone: feedbackPhone.trim() || 'Not Provided',
+        rating: feedbackRating,
+        message: feedbackMessage.trim(),
+        submittedAt: serverTimestamp()
+      });
+      setFeedbackSubmitted(true);
+      setFeedbackMessage('');
+    } catch (err) {
+      alert("Error submitting suggestion: " + err.message);
+    } finally {
+      setIsSubmittingFeedback(false);
+    }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2500);
+  };
+
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
   const activeColorThemeKey = config.theme?.colorTheme || 'liquid_glass';
@@ -636,6 +670,8 @@ export default function App() {
   const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
   const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
   const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
+
+  const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
@@ -674,7 +710,7 @@ export default function App() {
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
-            {config.studioLogo ? (
+            {config.toggles?.showLogoOnApp !== false && config.studioLogo ? (
               <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
                 <img src={config.studioLogo} alt="Studio Logo" className="w-full h-full object-contain rounded-[24px]" />
               </div>
@@ -701,6 +737,46 @@ export default function App() {
             <span className="text-[10px] sm:text-[11px] text-slate-400 font-mono tracking-wide">
               Curating Luxury Vanity Experience...
             </span>
+          </div>
+        </div>
+      )}
+
+      {/* 📲 SHARE & QR CODE MODAL */}
+      {showShareModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className={`max-w-sm w-full rounded-3xl p-6 border shadow-2xl text-center space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-sm flex items-center gap-1.5">
+                <Share2 className="w-4 h-4 text-cyan-400" /> Share Studio Lookbook
+              </span>
+              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+            </div>
+
+            <div className="w-48 h-48 mx-auto bg-white p-3 rounded-2xl border border-slate-200 shadow-inner flex items-center justify-center">
+              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
+            </div>
+            <p className={`text-xs ${mutedTextClass}`}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
+
+            <div className="flex gap-2">
+              <button
+                onClick={handleCopyLink}
+                className="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10 transition"
+              >
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-cyan-400" />}
+                <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
+              </button>
+
+              <a
+                href={qrCodeApiUrl}
+                download="Husna_Farooqui_Lookbook_QR.png"
+                target="_blank"
+                rel="noreferrer"
+                className={`px-4 py-2.5 rounded-xl ${currentTheme.btnPrimary} text-xs flex items-center justify-center gap-1 active:scale-95 shadow`}
+              >
+                <Download className="w-4 h-4" />
+                <span>Save QR</span>
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -771,7 +847,7 @@ export default function App() {
           
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              {config.studioLogo ? (
+              {config.toggles?.showLogoOnApp !== false && config.studioLogo ? (
                 <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
                   <img src={config.studioLogo} alt="Logo" className="w-full h-full object-contain" />
                 </div>
@@ -798,6 +874,18 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <button
+                onClick={() => setShowShareModal(true)}
+                title="Share & QR Code"
+                className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
+                  isDarkMode 
+                    ? 'bg-white/[0.06] border-white/15 text-cyan-400 hover:bg-white/10' 
+                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
+                }`}
+              >
+                <QrCode className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-cyan-400" />
+              </button>
+
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
@@ -1004,7 +1092,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" */}
+        {/* TAB 4: ESTIMATE & BOOK */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             
@@ -1094,7 +1182,6 @@ export default function App() {
                       </button>
                     </div>
 
-                    {/* Active Guest Discount Offer Tag Banner */}
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
                       <div className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
                         <span className="text-emerald-400 font-bold flex items-center gap-1">
@@ -1256,6 +1343,73 @@ export default function App() {
             )}
           </div>
         )}
+
+        {/* 💬 CLIENT FEEDBACK & SUGGESTIONS SECTION */}
+        <section className={`mt-12 p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-4xl mx-auto space-y-4`}>
+          <div className="text-center space-y-1">
+            <span className={`text-[10px] font-bold uppercase tracking-wider ${currentTheme.accentText}`}>Client Experience</span>
+            <h3 className="text-xl sm:text-2xl font-bold">Feedback & Suggestions</h3>
+            <p className={`text-xs ${mutedTextClass}`}>Help us enhance your vanity experience by sharing your thoughts.</p>
+          </div>
+
+          {feedbackSubmitted ? (
+            <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2 animate-fade-in">
+              <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+              <h4 className="font-bold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
+              <p className="text-xs text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmitFeedback} className="space-y-4 max-w-xl mx-auto">
+              <div className="flex justify-center gap-1.5 py-1">
+                {[1, 2, 3, 4, 5].map(star => (
+                  <button
+                    key={star}
+                    type="button"
+                    onClick={() => setFeedbackRating(star)}
+                    className="p-1 active:scale-125 transition"
+                  >
+                    <Star className={`w-6 h-6 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-600'}`} />
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input
+                  type="text"
+                  placeholder="Your Name (Optional)"
+                  value={feedbackName}
+                  onChange={e => setFeedbackName(e.target.value)}
+                  className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone Number (Optional)"
+                  value={feedbackPhone}
+                  onChange={e => setFeedbackPhone(e.target.value)}
+                  className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
+                />
+              </div>
+
+              <textarea
+                rows={3}
+                required
+                placeholder="Share your suggestion, experience or styling ideas..."
+                value={feedbackMessage}
+                onChange={e => setFeedbackMessage(e.target.value)}
+                className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
+              />
+
+              <button
+                type="submit"
+                disabled={isSubmittingFeedback}
+                className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-1.5`}
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
+              </button>
+            </form>
+          )}
+        </section>
 
       </main>
 
