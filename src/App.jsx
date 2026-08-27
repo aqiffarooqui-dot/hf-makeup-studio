@@ -3,7 +3,7 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity
+  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -132,6 +132,27 @@ const FONT_MAP = {
   montserrat: "'Montserrat', sans-serif"
 };
 
+// ⏱️ Helper to Calculate Real-Time Remaining Countdown
+const getTimeRemaining = (expiryDateStr) => {
+  if (!expiryDateStr) return null;
+  const total = Date.parse(expiryDateStr) - Date.now();
+  if (total <= 0) return { expired: true, text: "Expired" };
+
+  const seconds = Math.floor((total / 1000) % 60);
+  const minutes = Math.floor((total / 1000 / 60) % 60);
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+  return {
+    expired: false,
+    days,
+    hours,
+    minutes,
+    seconds,
+    text: `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`
+  };
+};
+
 const isVideoMedia = (item) => {
   if (item?.type === 'video') return true;
   if (typeof item?.url === 'string') {
@@ -179,12 +200,15 @@ export default function App() {
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  // 🎬 Cinematic Splash Screen State
+  // 🎬 Cinematic Intro Splash Screen State
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
 
   // 🔍 Package Details Modal State
   const [viewingPackage, setViewingPackage] = useState(null);
+
+  // ⏱️ Live Ticking State for Countdown Timers
+  const [nowTick, setNowTick] = useState(Date.now());
 
   // Estimator States
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
@@ -212,6 +236,12 @@ export default function App() {
   
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
+
+  // ⏱️ Global 1-second Interval for Real-time Coupon Countdowns
+  useEffect(() => {
+    const timer = setInterval(() => setNowTick(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // 📊 Real-Time Visitor & Instagram Traffic Logger
   useEffect(() => {
@@ -317,7 +347,7 @@ export default function App() {
     };
   };
 
-  // 🏷️ Granular Promo Code Checker (Checks global toggle + individual code active status)
+  // 🏷️ Granular Promo Code Checker (With Expiry Timer Check)
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
@@ -337,8 +367,17 @@ export default function App() {
     }
 
     if (couponData.enabled === false) {
-      setCouponError('⚠️ This promo coupon code is currently inactive or expired.');
+      setCouponError('⚠️ This promo coupon code is currently disabled.');
       return;
+    }
+
+    // ⏱️ Check Expiry Date
+    if (couponData.expiryDate) {
+      const timeRemaining = getTimeRemaining(couponData.expiryDate);
+      if (timeRemaining && timeRemaining.expired) {
+        setCouponError(`⚠️ Coupon code ${code} expired on ${new Date(couponData.expiryDate).toLocaleDateString()}.`);
+        return;
+      }
     }
 
     setAppliedCoupon({ code, ...couponData });
@@ -742,10 +781,10 @@ export default function App() {
         })}
       </div>
 
-      {/* Main Content Area with Smooth Dynamic Transitions */}
+      {/* Main Content Area */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 transition-all duration-500">
 
-        {/* TAB 1: PACKAGES MENU WITH KIT-SPECIFIC TITLES & DESCRIPTIONS */}
+        {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
           <div className="space-y-10 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-3">
@@ -755,7 +794,6 @@ export default function App() {
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>Select kit tier below to view package pricing & details:</p>
 
-              {/* Tier Toggle Switch with Smooth Animation */}
               <div className={`inline-flex p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1.5 shadow-lg ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
@@ -776,7 +814,6 @@ export default function App() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 transition-all duration-300">
               {partyPackages.concat(bridalPackages).map((key) => {
-                // 📝 Kit-Specific Text (Titles & Descriptions)
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit[selectedKit][key];
                 const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
@@ -795,7 +832,6 @@ export default function App() {
                         <p className={`text-xs mt-1 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
                       </div>
 
-                      {/* View Details + Book Look Action Bar */}
                       <div className="flex items-center justify-end gap-2 pt-1">
                         <button
                           onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
@@ -899,7 +935,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATOR & CALCULATOR */}
+        {/* TAB 4: ESTIMATOR & CALCULATOR (WITH LIVE PROMO TIMER BADGES) */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-8 animate-fade-in transition-opacity duration-300">
             <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8`}>
@@ -956,7 +992,7 @@ export default function App() {
                   })()}
                 </div>
 
-                {/* Promo Code Box with Global & Individual Active Check */}
+                {/* Promo Code Box with Real-time Countdown Timer Badge */}
                 {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                   <div className="pt-2 border-t border-white/10 space-y-2">
                     <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
@@ -964,9 +1000,19 @@ export default function App() {
                     </label>
                     {appliedCoupon ? (
                       <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between">
-                        <div>
-                          <div className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</div>
-                          <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold mt-0.5">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                            {appliedCoupon.expiryDate && (() => {
+                              const tr = getTimeRemaining(appliedCoupon.expiryDate);
+                              return tr && !tr.expired ? (
+                                <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                  <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
+                                </span>
+                              ) : null;
+                            })()}
+                          </div>
+                          <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
                             🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                           </p>
                         </div>
@@ -1100,13 +1146,23 @@ export default function App() {
 
       </main>
 
-      {/* Floating Offer Widget */}
+      {/* Floating Offer Widget (With Live Expiry Timer) */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && (
         <aside aria-label="Promotional offer" className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl transition-all duration-300 ${isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'}`}>
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0`} />
             <div className="flex-1">
-              <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+              <div className="flex items-center gap-2">
+                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+                {config.validCoupons?.[config.floatingBanner?.code]?.expiryDate && (() => {
+                  const tr = getTimeRemaining(config.validCoupons[config.floatingBanner.code].expiryDate);
+                  return tr && !tr.expired ? (
+                    <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded-full flex items-center gap-1">
+                      <Clock className="w-2.5 h-2.5" /> {tr.text}
+                    </span>
+                  ) : null;
+                })()}
+              </div>
               <h4 className="font-bold text-xs mt-1">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
               <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className={`${currentTheme.accentText} font-mono font-bold`}>{config.floatingBanner?.code || "BRIDE2026"}</span></p>
             </div>
