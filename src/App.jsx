@@ -3,7 +3,7 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock
+  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -132,7 +132,6 @@ const FONT_MAP = {
   montserrat: "'Montserrat', sans-serif"
 };
 
-// ⏱️ Helper to Calculate Real-Time Remaining Countdown
 const getTimeRemaining = (expiryDateStr) => {
   if (!expiryDateStr) return null;
   const total = Date.parse(expiryDateStr) - Date.now();
@@ -200,23 +199,17 @@ export default function App() {
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  // 🎬 Cinematic Intro Splash Screen State
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
 
-  // 🔍 Package Details Modal State
   const [viewingPackage, setViewingPackage] = useState(null);
-
-  // ⏱️ Live Ticking State for Countdown Timers
   const [nowTick, setNowTick] = useState(Date.now());
 
-  // Estimator States
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
   const [calcZone, setCalcZone] = useState('delhi_near');
   const [extraPartyCount, setExtraPartyCount] = useState(0);
 
-  // Booking States
   const [booking, setBooking] = useState({
     name: '',
     phone: '',
@@ -237,13 +230,11 @@ export default function App() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // ⏱️ Global 1-second Interval for Real-time Coupon Countdowns
   useEffect(() => {
     const timer = setInterval(() => setNowTick(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // 📊 Real-Time Visitor & Instagram Traffic Logger
   useEffect(() => {
     async function logVisitorTraffic() {
       try {
@@ -264,7 +255,6 @@ export default function App() {
     logVisitorTraffic();
   }, []);
 
-  // 🎬 Splash Timer
   useEffect(() => {
     const splashTimer = setTimeout(() => {
       setSplashFade(true);
@@ -347,7 +337,6 @@ export default function App() {
     };
   };
 
-  // 🏷️ Granular Promo Code Checker (With Expiry Timer Check)
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
@@ -371,7 +360,6 @@ export default function App() {
       return;
     }
 
-    // ⏱️ Check Expiry Date
     if (couponData.expiryDate) {
       const timeRemaining = getTimeRemaining(couponData.expiryDate);
       if (timeRemaining && timeRemaining.expired) {
@@ -404,7 +392,6 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 High-Res White Luxury JPG Slip Generator
   const generateSlipJpg = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -589,32 +576,39 @@ export default function App() {
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
 
+  // 🎈 Floating Banner Expiry Logic
+  const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
+  const floatingCouponData = config.validCoupons?.[floatingPromoCode];
+  const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
+  const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
+  const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
+
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-24 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
+    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-28 md:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
       
-      {/* 🎬 1. INTRO SPLASH SCREEN ANIMATION */}
+      {/* 🎬 INTRO SPLASH SCREEN */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="relative flex flex-col items-center space-y-6">
-            <div className="w-24 h-24 rounded-[32px] bg-gradient-to-tr from-cyan-400 via-sky-300 to-indigo-400 p-1 shadow-2xl shadow-cyan-500/40 animate-pulse">
+          <div className="relative flex flex-col items-center space-y-6 px-4">
+            <div className="w-20 sm:w-24 h-20 sm:h-24 rounded-[32px] bg-gradient-to-tr from-cyan-400 via-sky-300 to-indigo-400 p-1 shadow-2xl shadow-cyan-500/40 animate-pulse">
               <div className="w-full h-full bg-[#030712] rounded-[28px] flex items-center justify-center">
-                <Crown className="w-12 h-12 text-cyan-400 animate-bounce" />
+                <Crown className="w-10 sm:w-12 h-10 sm:h-12 text-cyan-400 animate-bounce" />
               </div>
             </div>
             
             <div className="text-center space-y-1.5">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+              <h1 className="text-xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
                 {config.studioName || "HUSNA FAROOQUI"}
               </h1>
-              <p className="text-xs font-semibold text-cyan-400 tracking-widest uppercase">
+              <p className="text-[11px] sm:text-xs font-semibold text-cyan-400 tracking-widest uppercase">
                 {config.artistTagline || "Celebrity & Bridal Makeup Artist"}
               </p>
             </div>
 
-            <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+            <div className="w-40 sm:w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full animate-pulse w-full" />
             </div>
-            <span className="text-[11px] text-slate-400 font-mono tracking-wide">
+            <span className="text-[10px] sm:text-[11px] text-slate-400 font-mono tracking-wide">
               Curating Luxury Vanity Experience...
             </span>
           </div>
@@ -624,16 +618,16 @@ export default function App() {
       {/* 🔍 PACKAGE VIEW DETAILS MODAL */}
       {viewingPackage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300 animate-fade-in">
-          <div className={`max-w-md w-full rounded-3xl p-6 border shadow-2xl space-y-4 transform transition-all duration-300 scale-100 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
+          <div className={`max-w-md w-full rounded-3xl p-5 sm:p-6 border shadow-2xl space-y-4 transform transition-all duration-300 scale-100 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
-                <h3 className="font-bold text-lg">{viewingPackage.name}</h3>
+                <h3 className="font-bold text-base sm:text-lg">{viewingPackage.name}</h3>
               </div>
               <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-full h-44 rounded-2xl overflow-hidden bg-neutral-800">
+            <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden bg-neutral-800">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
@@ -666,15 +660,15 @@ export default function App() {
         </div>
       )}
 
-      {/* 🌈 Ambient Glass Glow Spheres */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
+      {/* Ambient Glass Glow Spheres */}
+      <div className="absolute top-0 left-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute top-1/3 right-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {/* Top Banner Ticker */}
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-4 text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm transition-all duration-300`}>
+        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-3 sm:px-4 text-[11px] sm:text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm transition-all duration-300`}>
           <Volume2 className="w-3.5 h-3.5 shrink-0 animate-bounce" />
           <span className="truncate max-w-4xl font-semibold">
             {config.announcements[announcementIdx] || config.announcements[0]}
@@ -682,29 +676,29 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Header */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 flex items-center justify-between ${headerBgClass}`}>
-        <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-300 cursor-pointer">
-          <div className={`w-12 h-12 rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group`}>
+      {/* 💎 Header (Desktop & Mobile Optimized) */}
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 sm:py-3.5 flex items-center justify-between ${headerBgClass}`}>
+        <div className="flex items-center space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer">
+          <div className={`w-10 sm:w-12 h-10 sm:h-12 rounded-[16px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
             <img 
               src={resolvedAvatar} 
               alt={config.studioName || "Artist"} 
               onError={() => setImgLoadFailed(true)}
-              className="w-full h-full object-cover rounded-[16px] group-hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-cover rounded-[14px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
             />
           </div>
-          <div>
-            <h1 className={`font-bold text-base sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent`}>
+          <div className="truncate">
+            <h1 className={`font-bold text-sm sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
               {config.studioName || "HUSNA FAROOQUI"}
             </h1>
-            <p className={`text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1`}>
-              <span>{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
-              <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300" style={{ animationDuration: '4s' }} />
+            <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
+              <span className="truncate">{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
+              <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
             </p>
           </div>
         </div>
 
-        {/* Dynamic Nav Pills with Smooth State Transitions */}
+        {/* Desktop Nav Pills */}
         <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/70 border-slate-300/80'}`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
@@ -730,12 +724,12 @@ export default function App() {
           })}
         </nav>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2.5">
+        {/* Header Action Controls */}
+        <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
             title="Toggle Day/Night Mode"
-            className={`p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
+            className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
               isDarkMode 
                 ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
                 : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
@@ -748,16 +742,16 @@ export default function App() {
             href={getCleanInstagramUrl(config.instagramHandle)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-xs font-bold px-4 py-2.5 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
+            className="flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
           >
-            <Camera className="w-3.5 h-3.5" />
+            <Camera className="w-3.5 h-3.5 shrink-0" />
             <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
           </a>
         </div>
       </header>
 
-      {/* Mobile Nav */}
-      <div className={`md:hidden flex justify-around border-t p-2 backdrop-blur-3xl sticky bottom-0 z-40 ${isDarkMode ? 'border-white/10 bg-[#080d1e]/90 text-slate-300' : 'border-slate-200 bg-white/95 text-slate-800'}`}>
+      {/* 📱 Mobile Fixed Navigation Bar */}
+      <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 flex justify-around border-t p-2 backdrop-blur-3xl shadow-2xl ${isDarkMode ? 'border-white/10 bg-[#080d1e]/95 text-slate-300' : 'border-slate-200 bg-white/95 text-slate-800'}`}>
         {[
           { id: 'menu', label: 'Packages', icon: Crown, show: true },
           { id: 'gallery', label: 'Looks', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -770,49 +764,49 @@ export default function App() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 active:scale-95 ${
-                isActive ? currentTheme.activeNav : navTextClass
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[10px] font-bold transition-all duration-300 active:scale-95 ${
+                isActive ? currentTheme.accentText : navTextClass
               }`}
             >
-              <Icon className="w-3.5 h-3.5" />
+              <Icon className="w-4 h-4 mb-0.5" />
               <span>{tab.label}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 transition-all duration-500">
+      {/* Main Container */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
 
         {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
-          <div className="space-y-10 animate-fade-in transition-opacity duration-300">
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
+          <div className="space-y-8 sm:space-y-10 animate-fade-in transition-opacity duration-300">
+            <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
+              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-[11px] sm:text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Professional Vanity Packages
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>Select kit tier below to view package pricing & details:</p>
 
-              <div className={`inline-flex p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1.5 shadow-lg ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300'}`}>
+              <div className={`inline-flex p-1 sm:p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1 shadow-lg ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : navTextClass}`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : navTextClass}`}
                 >
-                  <Crown className="w-3.5 h-3.5 text-amber-400" />
+                  <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span>International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : navTextClass}`}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : navTextClass}`}
                 >
-                  <PackageCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  <PackageCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                   <span>Premium HD Kit</span>
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 transition-all duration-300">
               {partyPackages.concat(bridalPackages).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit[selectedKit][key];
@@ -820,14 +814,14 @@ export default function App() {
 
                 return (
                   <div key={`${selectedKit}_${key}`} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in`}>
-                    <div className="w-full sm:w-32 h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 relative">
+                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 relative">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div>
-                        <div className="flex justify-between items-baseline">
-                          <h4 className="font-bold text-base">{item.num}. {item.name}</h4>
-                          <span className={`font-bold text-base ${currentTheme.accentText} font-mono`}>₹{price.toLocaleString('en-IN')}</span>
+                        <div className="flex justify-between items-baseline gap-2">
+                          <h4 className="font-bold text-sm sm:text-base leading-snug">{item.num}. {item.name}</h4>
+                          <span className={`font-bold text-sm sm:text-base ${currentTheme.accentText} font-mono shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
                         <p className={`text-xs mt-1 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
                       </div>
@@ -862,26 +856,26 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK LIVE AUTO-PLAYING VIDEOS & GIFS */}
+        {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK VIDEOS */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
-          <div className="space-y-8 animate-fade-in transition-opacity duration-300">
+          <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold tracking-wide backdrop-blur-md`}>
                 Client Transformations & Reels
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Live Signature Video Gallery</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Live Signature Video Gallery</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
                 All client makeover videos & animated transformations auto-play in high definition without manual clicks.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
 
                 return (
                   <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in`}>
-                    <div className="h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
+                    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
                       {isVideo ? (
                         <video
                           src={item.url}
@@ -902,7 +896,7 @@ export default function App() {
                       )}
                       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
                         <span className={`text-[10px] uppercase font-mono font-bold ${currentTheme.accentText}`}>{item.sub || 'Client Look'}</span>
-                        <h4 className="font-bold text-base mt-0.5 flex items-center gap-1.5">
+                        <h4 className="font-bold text-sm sm:text-base mt-0.5 flex items-center gap-1.5">
                           {isVideo && <Film className="w-3.5 h-3.5 text-pink-400 shrink-0 animate-pulse" />}
                           <span>{item.title}</span>
                         </h4>
@@ -917,13 +911,13 @@ export default function App() {
 
         {/* TAB 3: VANITY BRANDS */}
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
-          <div className="space-y-8 animate-fade-in transition-opacity duration-300">
+          <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-bold`}>Authentic Vanity</span>
-              <h2 className="text-3xl sm:text-4xl font-bold">Products In Our Kit</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold">Products In Our Kit</h2>
               <p className={`text-xs ${mutedTextClass}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {config.internationalBrands?.map((brand, idx) => (
                 <div key={idx} className={`${cardBgClass} rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] animate-fade-in`}>
                   <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
@@ -935,14 +929,14 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATOR & CALCULATOR (WITH LIVE PROMO TIMER BADGES) */}
+        {/* TAB 4: ESTIMATOR & CALCULATOR */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
-          <div className="max-w-4xl mx-auto space-y-8 animate-fade-in transition-opacity duration-300">
-            <div className={`${cardBgClass} rounded-3xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-8`}>
-              <div className="md:col-span-7 space-y-5">
+          <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
+            <div className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8`}>
+              <div className="md:col-span-7 space-y-4 sm:space-y-5">
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider mb-2">1. Select Vanity Kit</label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
                     <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
                   </div>
@@ -992,16 +986,16 @@ export default function App() {
                   })()}
                 </div>
 
-                {/* Promo Code Box with Real-time Countdown Timer Badge */}
+                {/* Promo Code Box */}
                 {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                   <div className="pt-2 border-t border-white/10 space-y-2">
                     <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
                       <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
                     </label>
                     {appliedCoupon ? (
-                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between">
+                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
                         <div className="space-y-1">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
                             {appliedCoupon.expiryDate && (() => {
                               const tr = getTimeRemaining(appliedCoupon.expiryDate);
@@ -1016,7 +1010,7 @@ export default function App() {
                             🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                           </p>
                         </div>
-                        <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline">Remove</button>
+                        <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
                       </div>
                     ) : (
                       <div className="flex gap-2">
@@ -1029,10 +1023,10 @@ export default function App() {
                 )}
               </div>
 
-              <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
+              <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
                 <div>
                   <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Investment</span>
-                  <div className="mt-2 text-3xl font-bold flex items-baseline gap-1">
+                  <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
                     <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
                     <span>{finalEstimate.toLocaleString('en-IN')}</span>
                   </div>
@@ -1053,13 +1047,13 @@ export default function App() {
 
         {/* TAB 5: BOOKING FORM */}
         {activeTab === 'booking' && (
-          <div className="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-3xl shadow-2xl animate-fade-in space-y-5 transition-opacity duration-300">
+          <div className="max-w-xl mx-auto p-5 sm:p-8 rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-3xl shadow-2xl animate-fade-in space-y-5 transition-opacity duration-300">
             {isBookingDone ? (
               <div className="text-center py-8 space-y-4 animate-scale-up">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-bold">Booking Recorded!</h3>
+                <h3 className="text-xl sm:text-2xl font-bold">Booking Recorded!</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-sm mx-auto`}>
                   Thank you <strong>{booking.name}</strong>! Your appointment has been safely recorded in our system. Your official JPG slip has downloaded automatically.
                 </p>
@@ -1075,7 +1069,7 @@ export default function App() {
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4">
                 <div className="border-b border-white/10 pb-2">
-                  <h3 className={`font-bold text-base flex items-center gap-2 ${currentTheme.accentText}`}>
+                  <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
                     <Calendar className="w-5 h-5" /> Instant Appointment Reservation
                   </h3>
                 </div>
@@ -1134,7 +1128,7 @@ export default function App() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
+                  className={`w-full py-3.5 sm:py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
                 >
                   <Check className="w-4 h-4" />
                   <span>{isSubmitting ? 'Recording...' : 'Confirm & Reserve Appointment'}</span>
@@ -1146,30 +1140,61 @@ export default function App() {
 
       </main>
 
-      {/* Floating Offer Widget (With Live Expiry Timer) */}
-      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && (
-        <aside aria-label="Promotional offer" className={`fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-4 rounded-3xl shadow-2xl transition-all duration-300 ${isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'}`}>
+      {/* 🎈 Floating Offer Widget (With Auto-Hide On Expire / "Code Expired" Label Logic) */}
+      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
+        <aside 
+          aria-label="Promotional offer" 
+          className={`fixed bottom-20 md:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+            isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
+          }`}
+        >
           <div className="flex items-start justify-between gap-3">
-            <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0`} />
-            <div className="flex-1">
-              <div className="flex items-center gap-2">
-                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
-                {config.validCoupons?.[config.floatingBanner?.code]?.expiryDate && (() => {
-                  const tr = getTimeRemaining(config.validCoupons[config.floatingBanner.code].expiryDate);
-                  return tr && !tr.expired ? (
-                    <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded-full flex items-center gap-1">
-                      <Clock className="w-2.5 h-2.5" /> {tr.text}
-                    </span>
-                  ) : null;
-                })()}
+            <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0 mt-0.5`} />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>
+                  {config.floatingBanner?.tag || "SPECIAL OFFER"}
+                </span>
+
+                {/* Status Badge: Active Timer or "Code Expired" */}
+                {isFloatingExpired ? (
+                  <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                    <AlertCircle className="w-2.5 h-2.5" /> Code Expired
+                  </span>
+                ) : floatingTimer ? (
+                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
+                  </span>
+                ) : null}
               </div>
-              <h4 className="font-bold text-xs mt-1">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>Use code <span className={`${currentTheme.accentText} font-mono font-bold`}>{config.floatingBanner?.code || "BRIDE2026"}</span></p>
+
+              <h4 className="font-bold text-xs mt-1.5 leading-snug">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>
+                {isFloatingExpired ? (
+                  <span className="text-rose-400 font-medium">This promotion code has ended.</span>
+                ) : (
+                  <>Use code <span className={`${currentTheme.accentText} font-mono font-bold`}>{floatingPromoCode}</span></>
+                )}
+              </p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
           </div>
-          <button onClick={() => { handleApplyCoupon(null, config.floatingBanner?.code); setActiveTab('calculator'); }} className={`mt-3 w-full py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>
-            {config.floatingBanner?.actionText || "Apply"}
+
+          <button 
+            disabled={isFloatingExpired}
+            onClick={() => { 
+              if (!isFloatingExpired) {
+                handleApplyCoupon(null, floatingPromoCode); 
+                setActiveTab('calculator'); 
+              }
+            }} 
+            className={`mt-3 w-full py-2 text-xs rounded-2xl shadow transition-transform duration-200 ${
+              isFloatingExpired 
+                ? 'bg-slate-700/60 text-slate-400 border border-white/10 cursor-not-allowed' 
+                : `${currentTheme.btnPrimary} active:scale-95`
+            }`}
+          >
+            {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
           </button>
         </aside>
       )}
