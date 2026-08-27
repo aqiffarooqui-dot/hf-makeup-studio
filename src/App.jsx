@@ -3,7 +3,7 @@ import {
   Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
-  Play, Film, ExternalLink, User, Flame, ArrowRight
+  Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -11,13 +11,24 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 
-const DEFAULT_PACKAGE_IMAGES = {
-  simple_party: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80",
-  hd_party: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80",
-  super_hd_party: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80",
-  cocktail_glam: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80",
-  engagement_bride: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80",
-  royal_bridal: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80"
+// ✨ Separate High-Res Distinct Images for International vs HD Kit
+const DEFAULT_KIT_IMAGES = {
+  international: {
+    simple_party: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80",
+    hd_party: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&auto=format&fit=crop&q=80",
+    super_hd_party: "https://images.unsplash.com/photo-1503236823255-94609f598e71?w=800&auto=format&fit=crop&q=80",
+    cocktail_glam: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+    engagement_bride: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80",
+    royal_bridal: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80"
+  },
+  drugstore: {
+    simple_party: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&auto=format&fit=crop&q=80",
+    hd_party: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&auto=format&fit=crop&q=80",
+    super_hd_party: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&auto=format&fit=crop&q=80",
+    cocktail_glam: "https://images.unsplash.com/photo-1526045612212-70caf35c14df?w=800&auto=format&fit=crop&q=80",
+    engagement_bride: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&auto=format&fit=crop&q=80",
+    royal_bridal: "https://images.unsplash.com/photo-1617083934555-563d41f021e0?w=800&auto=format&fit=crop&q=80"
+  }
 };
 
 const DEFAULT_GALLERY = [
@@ -168,9 +179,12 @@ export default function App() {
   const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
-  // 🎬 Cinematic Splash Screen State
+  // 🎬 Cinematic Intro Splash Screen State
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
+
+  // 🔍 Package Details Modal State
+  const [viewingPackage, setViewingPackage] = useState(null);
 
   // Estimator States
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
@@ -199,7 +213,6 @@ export default function App() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // 🎬 Trigger Smooth Splash Screen Timer on App Startup
   useEffect(() => {
     const splashTimer = setTimeout(() => {
       setSplashFade(true);
@@ -237,20 +250,15 @@ export default function App() {
 
   useEffect(() => {
     const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
-      const mergedPackageDetails = { ...STUDIO_CONFIG.packageDetails };
-      if (live.packageDetails) {
-        Object.keys(mergedPackageDetails).forEach(k => {
-          mergedPackageDetails[k] = {
-            ...mergedPackageDetails[k],
-            ...live.packageDetails[k],
-            image: live.packageDetails[k]?.image || DEFAULT_PACKAGE_IMAGES[k]
-          };
-        });
-      }
+      const mergedKitImages = {
+        international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
+        drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
+      };
+
       setConfig({
         ...STUDIO_CONFIG,
         ...live,
-        packageDetails: mergedPackageDetails,
+        kitImages: mergedKitImages,
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
       });
       setImgLoadFailed(false);
@@ -477,23 +485,22 @@ export default function App() {
   const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.liquid_glass;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
-  // 💎 Crystal Clear Glassmorphism & High Contrast Text Rules
   const bgClass = isDarkMode ? "bg-[#030712] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]";
   const headerBgClass = isDarkMode 
     ? "bg-[#080d1e]/60 backdrop-blur-3xl border-b border-white/[0.12] shadow-2xl shadow-cyan-950/20" 
     : "bg-white/75 backdrop-blur-3xl border-b border-slate-200/80 shadow-sm";
   
   const cardBgClass = isDarkMode 
-    ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 hover:shadow-cyan-500/10 text-[#f8fafc]" 
-    : "bg-white/80 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
+    ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 text-[#f8fafc]" 
+    : "bg-white/85 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
   
   const subCardBgClass = isDarkMode 
     ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-[#f8fafc]" 
     : "bg-slate-100/90 backdrop-blur-2xl border border-slate-200 text-[#0f172a]";
   
   const inputBgClass = isDarkMode 
-    ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30" 
-    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30";
+    ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" 
+    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500";
   
   const navTextClass = isDarkMode 
     ? "text-slate-300 hover:text-white hover:bg-white/10" 
@@ -524,18 +531,62 @@ export default function App() {
               </p>
             </div>
 
-            {/* Apple Style Fluid Loading Bar */}
             <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full animate-[shimmer_1.8s_infinite] w-full" />
+              <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full animate-pulse w-full" />
             </div>
-            <span className="text-[11px] text-slate-400 animate-pulse font-mono tracking-wide">
+            <span className="text-[11px] text-slate-400 font-mono tracking-wide">
               Curating Luxury Vanity Experience...
             </span>
           </div>
         </div>
       )}
 
-      {/* 🌈 Ambient iOS Liquid Glass Glow Spheres */}
+      {/* 🔍 PACKAGE VIEW DETAILS MODAL */}
+      {viewingPackage && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in">
+          <div className={`max-w-md w-full rounded-3xl p-6 border shadow-2xl space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
+                <h3 className="font-bold text-lg">{viewingPackage.name}</h3>
+              </div>
+              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+            </div>
+
+            <div className="w-full h-44 rounded-2xl overflow-hidden bg-neutral-800">
+              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
+            </div>
+
+            <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>
+
+            <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
+              <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit} Luxury Kit</strong></div>
+              <div className="flex justify-between"><span>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>
+              <div className="flex justify-between"><span>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
+              <div className="flex justify-between font-bold text-sm pt-1">
+                <span>Rate:</span>
+                <span className={`${currentTheme.accentText} font-mono`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => {
+                setCalcPackage(viewingPackage.key);
+                setCalcKit(selectedKit);
+                setBooking(prev => ({ ...prev, packageKey: viewingPackage.key, kitType: selectedKit }));
+                setViewingPackage(null);
+                setActiveTab('booking');
+              }}
+              className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5`}
+            >
+              <span>Proceed to Book This Look</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 🌈 Ambient Glass Glow Spheres */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
       <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
 
@@ -551,7 +602,7 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Ultra Frosted Fluid Header */}
+      {/* 💎 Header */}
       <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 flex items-center justify-between ${headerBgClass}`}>
         <div className="flex items-center space-x-3.5 select-none active:scale-95 transition-transform duration-300 cursor-pointer">
           <div className={`w-12 h-12 rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group`}>
@@ -573,7 +624,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Dynamic Nav Pills with Glass Backdrop */}
+        {/* Dynamic Nav Pills */}
         <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/70 border-slate-300/80'}`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown },
@@ -625,7 +676,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Mobile Navigation Bar */}
+      {/* Mobile Nav */}
       <div className={`md:hidden flex justify-around border-t p-2 backdrop-blur-3xl sticky bottom-0 z-40 ${isDarkMode ? 'border-white/10 bg-[#080d1e]/90 text-slate-300' : 'border-slate-200 bg-white/95 text-slate-800'}`}>
         {[
           { id: 'menu', label: 'Packages', icon: Crown },
@@ -653,7 +704,7 @@ export default function App() {
       {/* Main Content Area */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
 
-        {/* TAB 1: PACKAGES MENU */}
+        {/* TAB 1: PACKAGES MENU WITH VIEW + BOOK ACTIONS */}
         {activeTab === 'menu' && (
           <div className="space-y-10 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-3">
@@ -661,8 +712,9 @@ export default function App() {
                 Professional Vanity Packages
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
-              <p className={`text-xs sm:text-sm ${mutedTextClass}`}>Select cosmetic tier below to view package pricing:</p>
+              <p className={`text-xs sm:text-sm ${mutedTextClass}`}>Select kit tier below to view package pricing:</p>
 
+              {/* Tier Toggle Switch */}
               <div className={`inline-flex p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1.5 shadow-lg ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
@@ -685,7 +737,8 @@ export default function App() {
               {partyPackages.concat(bridalPackages).map((key) => {
                 const item = config.packageDetails[key] || STUDIO_CONFIG.packageDetails[key];
                 const price = config.pricingByKit[selectedKit][key];
-                const imgSrc = item.image || DEFAULT_PACKAGE_IMAGES[key];
+                // 🖼️ Kit-Specific Distinct Image
+                const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
 
                 return (
                   <div key={key} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01]`}>
@@ -700,18 +753,30 @@ export default function App() {
                         </div>
                         <p className={`text-xs mt-1 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
                       </div>
-                      <button
-                        onClick={() => {
-                          setCalcPackage(key);
-                          setCalcKit(selectedKit);
-                          setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
-                          setActiveTab('booking');
-                        }}
-                        className={`self-end px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 transition-all flex items-center gap-1`}
-                      >
-                        <span>Book Look</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </button>
+
+                      {/* View Details + Book Look Action Bar */}
+                      <div className="flex items-center justify-end gap-2 pt-1">
+                        <button
+                          onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
+                          className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition active:scale-95 ${isDarkMode ? 'border-white/10 hover:bg-white/10 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700'}`}
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Details</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setCalcPackage(key);
+                            setCalcKit(selectedKit);
+                            setBooking(prev => ({ ...prev, packageKey: key, kitType: selectedKit }));
+                            setActiveTab('booking');
+                          }}
+                          className={`px-4 py-1.5 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-95 transition-all flex items-center gap-1`}
+                        >
+                          <span>Book</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -720,7 +785,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS & LIVE AUTO-PLAYING VIDEOS */}
+        {/* TAB 2: TRANSFORMATIONS & ZERO-CLICK LIVE AUTO-PLAYING VIDEOS */}
         {activeTab === 'gallery' && (
           <div className="space-y-8 animate-fade-in">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -729,7 +794,7 @@ export default function App() {
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Live Signature Video Gallery</h2>
               <p className={`text-xs sm:text-sm ${mutedTextClass}`}>
-                All client transformations, HD finishes & reels auto-play smoothly in high definition.
+                All client makeover videos auto-play in high definition without manual clicks.
               </p>
             </div>
 
@@ -741,7 +806,6 @@ export default function App() {
                   <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between`}>
                     <div className="h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
                       {isVideo ? (
-                        /* 🎬 Zero-Click Live Running Video Engine */
                         <video
                           src={item.url}
                           autoPlay
