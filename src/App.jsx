@@ -554,8 +554,8 @@ export default function App() {
 
   const bgClass = isDarkMode ? "bg-[#030712] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]";
   const headerBgClass = isDarkMode 
-    ? "bg-[#080d1e]/60 backdrop-blur-3xl border-b border-white/[0.12] shadow-2xl shadow-cyan-950/20" 
-    : "bg-white/75 backdrop-blur-3xl border-b border-slate-200/80 shadow-sm";
+    ? "bg-[#080d1e]/80 backdrop-blur-3xl border-b border-white/[0.12] shadow-2xl shadow-cyan-950/20" 
+    : "bg-white/90 backdrop-blur-3xl border-b border-slate-200/80 shadow-sm";
   
   const cardBgClass = isDarkMode 
     ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 text-[#f8fafc]" 
@@ -576,7 +576,6 @@ export default function App() {
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
 
-  // 🎈 Floating Banner Expiry Logic
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
   const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
@@ -584,7 +583,7 @@ export default function App() {
   const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-28 md:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
+    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
       
       {/* 🎬 INTRO SPLASH SCREEN */}
       {showSplash && (
@@ -676,104 +675,88 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Header (Desktop & Mobile Optimized) */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 sm:py-3.5 flex items-center justify-between ${headerBgClass}`}>
-        <div className="flex items-center space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer">
-          <div className={`w-10 sm:w-12 h-10 sm:h-12 rounded-[16px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
-            <img 
-              src={resolvedAvatar} 
-              alt={config.studioName || "Artist"} 
-              onError={() => setImgLoadFailed(true)}
-              className="w-full h-full object-cover rounded-[14px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
-            />
-          </div>
-          <div className="truncate">
-            <h1 className={`font-bold text-sm sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
-              {config.studioName || "HUSNA FAROOQUI"}
-            </h1>
-            <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
-              <span className="truncate">{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
-              <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
-            </p>
-          </div>
-        </div>
+      {/* 💎 Universal Header & Top Navigation Bar (Mobile, Tablet, Desktop) */}
+      <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
+        <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
+          
+          {/* Top Brand Bar */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
+              <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
+                <img 
+                  src={resolvedAvatar} 
+                  alt={config.studioName || "Artist"} 
+                  onError={() => setImgLoadFailed(true)}
+                  className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <div className="truncate">
+                <h1 className={`font-bold text-sm sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
+                  {config.studioName || "HUSNA FAROOQUI"}
+                </h1>
+                <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
+                  <span className="truncate">{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
+                  <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
+                </p>
+              </div>
+            </div>
 
-        {/* Desktop Nav Pills */}
-        <nav className={`hidden md:flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/70 border-slate-300/80'}`}>
-          {[
-            { id: 'menu', label: 'Packages', icon: Crown, show: true },
-            { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
-            { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-            { id: 'calculator', label: 'Estimator', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-            { id: 'booking', label: 'Book Online', icon: Calendar, show: true }
-          ].filter(t => t.show).map(tab => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
+            {/* Top Action Buttons */}
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 ease-out active:scale-90 ${
-                  isActive ? currentTheme.activeNav : navTextClass
+                onClick={toggleTheme}
+                title="Toggle Day/Night Mode"
+                className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
+                  isDarkMode 
+                    ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
+                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
+                {isDarkMode ? <Sun className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-400" /> : <Moon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-indigo-600" />}
               </button>
-            );
-          })}
-        </nav>
 
-        {/* Header Action Controls */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggleTheme}
-            title="Toggle Day/Night Mode"
-            className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
-              isDarkMode 
-                ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
-                : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
-            }`}
-          >
-            {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-          </button>
+              <a
+                href={getCleanInstagramUrl(config.instagramHandle)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
+              >
+                <Camera className="w-3.5 h-3.5 shrink-0" />
+                <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
+              </a>
+            </div>
+          </div>
 
-          <a
-            href={getCleanInstagramUrl(config.instagramHandle)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
-          >
-            <Camera className="w-3.5 h-3.5 shrink-0" />
-            <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
-          </a>
+          {/* 🚀 Universal Responsive Top Tabs Bar (Smooth Horizontal Scroll on Mobile/Tablet) */}
+          <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
+            <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
+              {[
+                { id: 'menu', label: 'Packages', icon: Crown, show: true },
+                { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
+                { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+                { id: 'calculator', label: 'Estimator', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+                { id: 'booking', label: 'Book Online', icon: Calendar, show: true }
+              ].filter(t => t.show).map(tab => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
+                      isActive ? currentTheme.activeNav : navTextClass
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+
         </div>
       </header>
-
-      {/* 📱 Mobile Fixed Navigation Bar */}
-      <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 flex justify-around border-t p-2 backdrop-blur-3xl shadow-2xl ${isDarkMode ? 'border-white/10 bg-[#080d1e]/95 text-slate-300' : 'border-slate-200 bg-white/95 text-slate-800'}`}>
-        {[
-          { id: 'menu', label: 'Packages', icon: Crown, show: true },
-          { id: 'gallery', label: 'Looks', icon: Camera, show: config.toggles?.enableGallery !== false },
-          { id: 'calculator', label: 'Estimate', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-          { id: 'booking', label: 'Book', icon: Calendar, show: true }
-        ].filter(t => t.show).map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[10px] font-bold transition-all duration-300 active:scale-95 ${
-                isActive ? currentTheme.accentText : navTextClass
-              }`}
-            >
-              <Icon className="w-4 h-4 mb-0.5" />
-              <span>{tab.label}</span>
-            </button>
-          );
-        })}
-      </div>
 
       {/* Main Container */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
@@ -1140,11 +1123,11 @@ export default function App() {
 
       </main>
 
-      {/* 🎈 Floating Offer Widget (With Auto-Hide On Expire / "Code Expired" Label Logic) */}
+      {/* 🎈 Floating Offer Widget */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={`fixed bottom-20 md:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+          className={`fixed bottom-4 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
             isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
           }`}
         >
@@ -1156,7 +1139,6 @@ export default function App() {
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
-                {/* Status Badge: Active Timer or "Code Expired" */}
                 {isFloatingExpired ? (
                   <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
