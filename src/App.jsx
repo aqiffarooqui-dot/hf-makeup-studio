@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Sparkles, Calendar, MapPin, Check, Calculator, Crown, ChevronRight, 
+  Sparkles, Calendar as CalendarIcon, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
@@ -176,13 +176,13 @@ const getCleanInstagramHandle = (handleOrUrl) => {
 };
 
 const resolveProfileImageUrl = (configData) => {
-  if (configData.profilePhotoType === 'instagram') {
+  if (configData?.profilePhotoType === 'instagram') {
     const handle = getCleanInstagramHandle(configData.instagramHandle);
     if (handle) {
       return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
     }
   }
-  if (configData.profileImage && configData.profileImage.trim().length > 0) {
+  if (configData?.profileImage && configData.profileImage.trim().length > 0) {
     return configData.profileImage;
   }
   return DEFAULT_PROFILE_IMG;
@@ -333,7 +333,6 @@ export default function App() {
     setFamilyGuests(familyGuests.map(g => g.id === id ? { ...g, [field]: value } : g));
   };
 
-  // Guest Discount Helper
   const isGuestDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
   const guestDiscountPercent = isGuestDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
 
@@ -392,51 +391,50 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 📄 Official White Luxury "BOOKING SENT RECEIPT" (.JPG)
+  // 📄 Minimalist Luxury "BOOKING SENT RECEIPT" (.JPG)
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1080;
-    canvas.height = 1720;
+    canvas.height = 1680;
 
+    // Pure White Luxury Canvas
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1720);
+    ctx.fillRect(0, 0, 1080, 1680);
 
-    const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
+    const bgGrad = ctx.createRadialGradient(540, 200, 50, 540, 800, 850);
     bgGrad.addColorStop(0, '#ffffff');
-    bgGrad.addColorStop(1, '#f8fafc');
+    bgGrad.addColorStop(1, '#fafafa');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1680);
+    ctx.fillRect(20, 20, 1040, 1640);
 
+    // Minimal Gold Outer Border
     ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 6;
-    ctx.strokeRect(36, 36, 1008, 1648);
+    ctx.lineWidth = 4;
+    ctx.strokeRect(40, 40, 1000, 1600);
+
+    // Clean Studio Name Header
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 46px serif';
+    ctx.fillText((config.studioName || 'HUSNA FAROOQUI').toUpperCase(), 540, 130);
+
+    ctx.fillStyle = '#b48a3c';
+    ctx.font = '600 20px sans-serif';
+    ctx.fillText('Your Beauty, Our Expertise', 540, 170);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(48, 48, 984, 1624);
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#996515';
-    ctx.font = 'bold 52px serif';
-    ctx.fillText('HUSNA FAROOQUI', 540, 120);
-
-    ctx.fillStyle = '#be123c';
-    ctx.font = '600 24px sans-serif';
-    ctx.fillText('Celebrity & Bridal Makeup Artist', 540, 165);
-
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(140, 200);
-    ctx.lineTo(940, 200);
+    ctx.moveTo(180, 205);
+    ctx.lineTo(900, 205);
     ctx.stroke();
 
     ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 28px sans-serif';
-    ctx.fillText('✨ OFFICIAL BOOKING SENT RECEIPT ✨', 540, 250);
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText('BOOKING SENT RECEIPT', 540, 250);
 
     const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
     const kitName = config.pricingByKit[calcKit].name;
@@ -447,67 +445,112 @@ export default function App() {
       { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
       { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
       { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
-      { label: 'VANITY TIER', val: kitName },
-      { label: 'MAIN PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${mainPackagePrice})` },
-      { label: 'EXTRA GUESTS', val: `${familyGuests.length} Custom Guest(s) (+₹${familyGuestsTotal})` },
-      { label: 'VENUE LOCATION', val: `${zone?.name} (Fee: ₹${zone?.fee})` },
-      { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' },
-      { label: 'APPLIED PROMO', val: appliedCoupon ? `${appliedCoupon.code} (-₹${discountAmount} OFF)` : 'No Promo Applied' }
+      { label: 'MAIN LOOK TIER', val: kitName },
+      { label: 'MAIN LOOK PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${mainPackagePrice.toLocaleString('en-IN')})` },
+      { label: 'LOCATION ZONE', val: `${zone?.name} (+₹${zoneFee})` },
+      { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' }
     ];
 
     let startY = 320;
     rows.forEach((row, idx) => {
-      ctx.fillStyle = idx === 0 ? 'rgba(6, 182, 212, 0.12)' : (idx % 2 === 0 ? 'rgba(241, 245, 249, 0.8)' : '#ffffff');
-      ctx.fillRect(80, startY - 30, 920, 60);
+      ctx.fillStyle = idx === 0 ? '#f0f9ff' : (idx % 2 === 0 ? '#f8fafc' : '#ffffff');
+      ctx.fillRect(80, startY - 26, 920, 56);
 
       ctx.textAlign = 'left';
       ctx.fillStyle = idx === 0 ? '#0284c7' : '#64748b';
-      ctx.font = idx === 0 ? 'bold 22px monospace' : 'bold 21px sans-serif';
-      ctx.fillText(row.label, 100, startY + 8);
+      ctx.font = idx === 0 ? 'bold 19px monospace' : 'bold 18px sans-serif';
+      ctx.fillText(row.label, 100, startY + 9);
 
       ctx.fillStyle = idx === 0 ? '#0369a1' : '#0f172a';
-      ctx.font = idx === 0 ? 'bold 24px monospace' : 'bold 22px sans-serif';
+      ctx.font = idx === 0 ? 'bold 21px monospace' : 'bold 20px sans-serif';
 
       let displayVal = row.val;
-      while (ctx.measureText(displayVal).width > 580 && displayVal.length > 4) {
+      while (ctx.measureText(displayVal).width > 560 && displayVal.length > 4) {
         displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
       }
-      ctx.fillText(displayVal, 390, startY + 8);
-      startY += 74;
+      ctx.fillText(displayVal, 380, startY + 9);
+      startY += 64;
     });
 
-    ctx.fillStyle = '#fefce8';
-    ctx.fillRect(80, 1100, 920, 175);
-    ctx.strokeStyle = '#b48a3c';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(80, 1100, 920, 175);
+    // Detailed Extra Family Guests Breakdown
+    if (familyGuests.length > 0) {
+      startY += 10;
+      ctx.fillStyle = '#fdf4ff';
+      ctx.fillRect(80, startY - 26, 920, 48);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#9333ea';
+      ctx.font = 'bold 18px sans-serif';
+      ctx.fillText(`EXTRA FAMILY GUESTS (${familyGuests.length} PERSONS)`, 100, startY + 6);
+
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText(`+₹${familyGuestsTotal.toLocaleString('en-IN')}`, 980, startY + 6);
+      startY += 54;
+
+      familyGuests.slice(0, 4).forEach((g, gIdx) => {
+        const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+        const finalP = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
+        const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
+        const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(80, startY - 20, 920, 40);
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#475569';
+        ctx.font = '16px sans-serif';
+        ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}): ${pkgName}`, 120, startY + 6);
+
+        ctx.textAlign = 'right';
+        ctx.font = '17px monospace';
+        ctx.fillText(`₹${finalP.toLocaleString('en-IN')}`, 980, startY + 6);
+        startY += 44;
+      });
+    }
+
+    // Applied Promo & Discount Line
+    if (appliedCoupon) {
+      startY += 6;
+      ctx.fillStyle = '#ecfdf5';
+      ctx.fillRect(80, startY - 24, 920, 48);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#059669';
+      ctx.font = 'bold 18px sans-serif';
+      ctx.fillText(`APPLIED PROMO: ${appliedCoupon.code} (${appliedCoupon.label})`, 100, startY + 7);
+
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText(`-₹${discountAmount.toLocaleString('en-IN')}`, 980, startY + 7);
+      startY += 58;
+    }
+
+    // Total Amount Box
+    startY += 10;
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(80, startY, 920, 140);
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(80, startY, 920, 140);
 
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#854d0e';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, 1145);
+    ctx.fillStyle = '#64748b';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, startY + 45);
 
     ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 64px serif';
-    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, 1220);
+    ctx.font = 'bold 56px serif';
+    ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, startY + 110);
 
-    ctx.fillStyle = '#f8fafc';
-    ctx.fillRect(80, 1310, 920, 130);
-    ctx.strokeStyle = 'rgba(180, 138, 60, 0.4)';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(80, 1310, 920, 130);
+    // Minimal Signature Footer
+    ctx.fillStyle = '#64748b';
+    ctx.font = '17px sans-serif';
+    ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1580);
 
-    ctx.fillStyle = '#047857';
-    ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('✔ OFFICIAL DIGITAL VERIFICATION SEAL • AUTHENTIC RECORD', 540, 1355);
-
-    ctx.fillStyle = '#475569';
-    ctx.font = '20px sans-serif';
-    ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1400);
-
-    ctx.fillStyle = '#94a3b8';
+    ctx.fillStyle = '#b48a3c';
     ctx.font = 'italic 16px sans-serif';
-    ctx.fillText('Booking Request Transmitted. Status will update once verified in master schedule.', 540, 1490);
+    ctx.fillText('Your Beauty, Our Expertise', 540, 1615);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
@@ -631,11 +674,17 @@ export default function App() {
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
-            <div className="w-20 sm:w-24 h-20 sm:h-24 rounded-[32px] bg-gradient-to-tr from-cyan-400 via-sky-300 to-indigo-400 p-1 shadow-2xl shadow-cyan-500/40 animate-pulse">
-              <div className="w-full h-full bg-[#030712] rounded-[28px] flex items-center justify-center">
-                <Crown className="w-10 sm:w-12 h-10 sm:h-12 text-cyan-400 animate-bounce" />
+            {config.studioLogo ? (
+              <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
+                <img src={config.studioLogo} alt="Studio Logo" className="w-full h-full object-contain rounded-[24px]" />
               </div>
-            </div>
+            ) : (
+              <div className="w-20 sm:w-24 h-20 sm:h-24 rounded-[32px] bg-gradient-to-tr from-cyan-400 via-sky-300 to-indigo-400 p-1 shadow-2xl shadow-cyan-500/40 animate-pulse">
+                <div className="w-full h-full bg-[#030712] rounded-[28px] flex items-center justify-center">
+                  <Crown className="w-10 sm:w-12 h-10 sm:h-12 text-cyan-400 animate-bounce" />
+                </div>
+              </div>
+            )}
             
             <div className="text-center space-y-1.5">
               <h1 className="text-xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
@@ -716,20 +765,27 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar */}
+      {/* 💎 Universal Header & Top Navigation Bar (With Studio Logo) */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
-                <img 
-                  src={resolvedAvatar} 
-                  alt={config.studioName || "Artist"} 
-                  onError={() => setImgLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
+              {config.studioLogo ? (
+                <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
+                  <img src={config.studioLogo} alt="Logo" className="w-full h-full object-contain" />
+                </div>
+              ) : (
+                <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
+                  <img 
+                    src={resolvedAvatar} 
+                    alt={config.studioName || "Artist"} 
+                    onError={() => setImgLoadFailed(true)}
+                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+              )}
+              
               <div className="truncate">
                 <h1 className={`font-bold text-sm sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
                   {config.studioName || "HUSNA FAROOQUI"}
@@ -766,7 +822,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* 🚀 Universal Responsive Top Tabs Bar */}
           <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
             <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
               {[
@@ -949,7 +1004,7 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" (WITH LIVE GUEST SAVINGS & PER-GUEST LOOKS) */}
+        {/* TAB 4: UNIFIED "ESTIMATE & BOOK" */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             
@@ -1020,7 +1075,7 @@ export default function App() {
                     </select>
                   </div>
 
-                  {/* 👥 Per-Person Extra Family Makeup Builder with Live Discount Offer Tag */}
+                  {/* 👥 Per-Person Extra Family Makeup Builder */}
                   <div className="pt-2 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
