@@ -134,6 +134,8 @@ const FONT_MAP = {
   montserrat: "'Montserrat', sans-serif"
 };
 
+const WA_SERVER_URL = "https://simple-holidays-enable-ranger.trycloudflare.com";
+
 const getTimeRemaining = (expiryDateStr) => {
   if (!expiryDateStr) return null;
   const total = Date.parse(expiryDateStr) - Date.now();
@@ -431,7 +433,6 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // 🖼️ Bulletproof Synchronous Canvas Slip Generator (Ensures URL is always set)
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -454,7 +455,6 @@ export default function App() {
       ctx.lineWidth = 4;
       ctx.strokeRect(40, 40, 1000, 1680);
 
-      // 💧 Embedded Subtle Watermark in Center
       ctx.save();
       ctx.translate(540, 880);
       ctx.rotate(-Math.PI / 6);
@@ -677,6 +677,29 @@ export default function App() {
         createdAt: serverTimestamp()
       });
 
+      // 🚀 Instant WhatsApp Notification to Admin (You) via Termux Background Gateway
+      const newBookingAlert = 
+        `🚨 *NEW CUSTOMER BOOKING REQUEST!* 🚨\n\n` +
+        `👤 *Client Name:* ${clientName.trim()}\n` +
+        `📞 *Phone:* ${clientPhone.trim()}\n` +
+        `🔢 *Booking No:* ${generatedBookingNo}\n` +
+        `📅 *Event Date:* ${eventDate}\n` +
+        `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
+        `👥 *Extra Guests:* ${familyGuests.length} Person(s)\n` +
+        `📍 *Zone:* ${zone?.name}\n` +
+        `🏠 *Address:* ${venueAddress || 'Not Provided'}\n` +
+        `💰 *Total Amount:* ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
+        `_Please open your Admin Panel to Accept or Reject this booking._`;
+
+      // Send to Admin WhatsApp Number (Using studio whatsapp number from config)
+      const adminWhatsApp = config.whatsappNumber || "919997210876";
+
+      fetch(`${WA_SERVER_URL}/api/send-message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: adminWhatsApp, message: newBookingAlert })
+      }).catch(err => console.warn("WhatsApp alert notice:", err));
+
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
     } catch (err) {
@@ -786,8 +809,6 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
-       
-      {/* 🎬 INTRO SPLASH SCREEN */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
@@ -819,7 +840,6 @@ export default function App() {
         </div>
       )}
 
-      {/* 📲 SHARE & QR CODE MODAL */}
       {showShareModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
           <div className={`max-w-sm w-full rounded-3xl p-6 border shadow-2xl text-center space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
@@ -859,7 +879,6 @@ export default function App() {
         </div>
       )}
 
-      {/* 🔍 PACKAGE VIEW DETAILS MODAL */}
       {viewingPackage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300 animate-fade-in">
           <div className={`max-w-md w-full rounded-3xl p-5 sm:p-6 border shadow-2xl space-y-4 transform transition-all duration-300 scale-100 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
@@ -903,13 +922,11 @@ export default function App() {
         </div>
       )}
 
-      {/* Ambient Glass Glow Spheres */}
       <div className="absolute top-0 left-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
       <div className="absolute top-1/3 right-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      {/* 🌊 Fluid Smooth Marquee Ticker Announcement */}
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
         <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center`}>
           <div className="flex items-center gap-2 shrink-0 z-10 bg-inherit pr-3">
@@ -943,12 +960,9 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
-           
           <div className="flex items-center justify-between">
-            {/* Left side: Embedded Logo & Brand Text */}
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
               <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-amber-400/50 p-0.5 bg-white/10 flex items-center justify-center">
                 <img 
@@ -970,7 +984,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right side: QR Share, Theme Toggle, Instagram Button, and Protected Profile Photo */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 onClick={() => setShowShareModal(true)}
@@ -1052,14 +1065,10 @@ export default function App() {
               })}
             </nav>
           </div>
-
         </div>
       </header>
 
-      {/* Main Container */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
-
-        {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
           <div className="space-y-8 sm:space-y-10 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
@@ -1136,7 +1145,6 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 2: TRANSFORMATIONS */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -1179,7 +1187,6 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 3: VANITY BRANDS */}
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -1199,7 +1206,6 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATE & BOOK */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
             {isBookingDone ? (
@@ -1214,7 +1220,7 @@ export default function App() {
 
                 <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
-                  Your booking has been successfully submitted. We’ll notify you shortly once the status is updated.
+                  Your booking has been successfully submitted and notification has been dispatched to WhatsApp. We’ll notify you shortly once confirmed.
                 </p>
 
                 {generatedJpgUrl && (
@@ -1232,7 +1238,6 @@ export default function App() {
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
-                 
                 <div className="md:col-span-7 space-y-4 sm:space-y-5">
                   <div className="border-b border-white/10 pb-2">
                     <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
@@ -1269,7 +1274,6 @@ export default function App() {
                     </select>
                   </div>
 
-                  {/* Extra Family Makeup Customizer */}
                   <div className="pt-2 border-t border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
@@ -1352,7 +1356,6 @@ export default function App() {
                     )}
                   </div>
 
-                  {/* Promo Code Box */}
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                     <div className="pt-2 border-t border-white/10 space-y-2">
                       <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
@@ -1388,7 +1391,6 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Client Details */}
                   <div className="pt-3 border-t border-white/10 space-y-3">
                     <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
                       <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
@@ -1417,7 +1419,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Right Summary Box */}
                 <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
                   <div>
                     <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
@@ -1428,7 +1429,7 @@ export default function App() {
                   </div>
 
                   <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look ({config.packageDetails[calcPackage]?.name}):</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look:</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
                     <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{zoneFee}</span></div>
                     <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
                     {appliedCoupon && (
@@ -1450,7 +1451,6 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 5: FEEDBACK & SUGGESTIONS */}
         {activeTab === 'feedback' && (
           <div className={`p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-2xl mx-auto space-y-5 animate-fade-in`}>
             <div className="text-center space-y-1">
@@ -1524,10 +1524,8 @@ export default function App() {
             )}
           </div>
         )}
-
       </main>
 
-      {/* Floating Offer Widget */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
