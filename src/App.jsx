@@ -59,68 +59,61 @@ const DEFAULT_GALLERY = [
 ];
 
 const THEME_STYLES = {
+  real_ios_glass: {
+    accentGradient: "from-sky-400 via-blue-500 to-indigo-500",
+    btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-[16px]",
+    accentText: "text-blue-500 dark:text-blue-400",
+    accentBorder: "border-blue-500/40 dark:border-blue-400/30",
+    activeNav: "bg-white/32 border border-white/45 rounded-[22px] px-3.5 py-2 shadow-sm text-[#007AFF] font-bold"
+  },
   liquid_glass: {
     accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
-    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-neutral-950 font-bold shadow-xl shadow-cyan-500/25 border border-white/40",
+    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold shadow-xl",
     accentText: "text-cyan-500 dark:text-cyan-400",
-    accentBorder: "border-cyan-500/40 dark:border-cyan-400/30",
-    glow: "shadow-cyan-500/30",
-    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg shadow-cyan-500/30",
-    badgeBg: "bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30"
+    accentBorder: "border-cyan-500/40",
+    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg"
   },
   one_ui_9: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md shadow-amber-500/25 border border-amber-300/40",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-500/30",
-    glow: "shadow-amber-500/20",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
-    badgeBg: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md"
   },
   gold_rose: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
     btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
     accentText: "text-rose-600 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
-    glow: "shadow-rose-500/20",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow",
-    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow"
   },
   google_minimal: {
     accentGradient: "from-blue-500 via-teal-400 to-emerald-400",
-    btnPrimary: "bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md",
+    btnPrimary: "bg-blue-600 text-white font-semibold shadow-md",
     accentText: "text-blue-600 dark:text-blue-400",
     accentBorder: "border-blue-500/30",
-    glow: "shadow-blue-500/20",
-    activeNav: "bg-blue-600 text-white font-bold shadow-md",
-    badgeBg: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30"
+    activeNav: "bg-blue-600 text-white font-bold shadow-md"
   },
   champagne: {
     accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
-    btnPrimary: "bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold shadow-lg shadow-amber-400/20",
+    btnPrimary: "bg-amber-400 text-neutral-950 font-bold shadow-lg",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-400/30",
-    glow: "shadow-amber-400/20",
-    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow",
-    badgeBg: "bg-amber-400/15 text-amber-700 dark:text-amber-300 border-amber-400/30"
+    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow"
   },
   emerald: {
     accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
-    btnPrimary: "bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold shadow-lg shadow-emerald-500/20",
+    btnPrimary: "bg-emerald-500 text-neutral-950 font-bold shadow-lg",
     accentText: "text-emerald-600 dark:text-emerald-400",
     accentBorder: "border-emerald-500/30",
-    glow: "shadow-emerald-500/20",
-    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow",
-    badgeBg: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow"
   },
   violet: {
     accentGradient: "from-purple-400 via-pink-400 to-rose-400",
-    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-purple-500/25",
+    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg",
     accentText: "text-purple-600 dark:text-purple-400",
     accentBorder: "border-purple-500/30",
-    glow: "shadow-purple-500/20",
-    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow",
-    badgeBg: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30"
+    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow"
   }
 };
 
@@ -191,7 +184,7 @@ const resolveProfileImageUrl = (configData) => {
   return DEFAULT_PROFILE_IMG;
 };
 
-const AutoPlayVideoCard = ({ item, currentTheme }) => {
+const AutoPlayVideoCard = ({ item }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -207,7 +200,7 @@ const AutoPlayVideoCard = ({ item, currentTheme }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center rounded-[20px] shadow-md">
       <video
         ref={videoRef}
         src={item.url}
@@ -218,10 +211,10 @@ const AutoPlayVideoCard = ({ item, currentTheme }) => {
         preload="auto"
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
       />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-        <span className={"text-[10px] uppercase font-mono font-bold " + currentTheme.accentText}>{item.sub || 'Client Look'}</span>
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+        <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item.sub || 'Client Look'}</span>
         <h4 className="font-bold text-sm sm:text-base mt-0.5 flex items-center gap-1.5">
-          <Film className="w-3.5 h-3.5 text-pink-400 shrink-0 animate-pulse" />
+          <Film className="w-3.5 h-3.5 text-pink-400 shrink-0" />
           <span>{item.title}</span>
         </h4>
       </div>
@@ -233,7 +226,7 @@ export default function App() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
@@ -304,16 +297,6 @@ export default function App() {
       setTimeout(() => setShowSplash(false), 600);
     }, 2200);
     return () => clearTimeout(splashTimer);
-  }, []);
-
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
-    document.head.appendChild(link);
-    return () => {
-      if (document.head && document.head.contains(link)) document.head.removeChild(link);
-    };
   }, []);
 
   useEffect(() => {
@@ -437,73 +420,21 @@ export default function App() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-
     canvas.width = 1080;
     canvas.height = 1760;
 
     const drawContent = (logoImageObj) => {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, 1080, 1760);
-
       const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
       bgGrad.addColorStop(0, '#ffffff');
       bgGrad.addColorStop(1, '#fafafa');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(20, 20, 1040, 1720);
 
-      ctx.strokeStyle = '#b48a3c';
+      ctx.strokeStyle = '#007AFF';
       ctx.lineWidth = 4;
       ctx.strokeRect(40, 40, 1000, 1680);
-
-      ctx.save();
-      ctx.translate(540, 880);
-      ctx.rotate(-Math.PI / 6);
-      ctx.textAlign = 'center';
-      ctx.fillStyle = 'rgba(180, 138, 60, 0.05)';
-      ctx.font = 'bold 84px serif';
-      ctx.fillText('H&F MAKEUP ARTIST', 0, 0);
-      ctx.restore();
-
-      if (logoImageObj) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(logoImageObj, 95, 105, 90, 90);
-        ctx.restore();
-
-        ctx.strokeStyle = '#b48a3c';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
-        ctx.stroke();
-
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#1e293b';
-        ctx.font = 'bold 36px serif';
-        ctx.fillText('H&F MAKEUP ARTIST', 210, 140);
-
-        ctx.fillStyle = '#b48a3c';
-        ctx.font = '600 18px sans-serif';
-        ctx.fillText('Beauty, Styled Your Way', 210, 170);
-      } else {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#1e293b';
-        ctx.font = 'bold 42px serif';
-        ctx.fillText('H&F MAKEUP ARTIST', 540, 140);
-
-        ctx.fillStyle = '#b48a3c';
-        ctx.font = '600 20px sans-serif';
-        ctx.fillText('Beauty, Styled Your Way', 540, 175);
-      }
-
-      ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(80, 220);
-      ctx.lineTo(1000, 220);
-      ctx.stroke();
 
       ctx.textAlign = 'center';
       ctx.fillStyle = '#0f172a';
@@ -529,116 +460,26 @@ export default function App() {
       rows.forEach((row, idx) => {
         ctx.fillStyle = idx === 0 ? '#f0f9ff' : (idx % 2 === 0 ? '#f8fafc' : '#ffffff');
         ctx.fillRect(80, startY - 26, 920, 56);
-
         ctx.textAlign = 'left';
         ctx.fillStyle = idx === 0 ? '#0284c7' : '#64748b';
         ctx.font = idx === 0 ? 'bold 19px monospace' : 'bold 18px sans-serif';
         ctx.fillText(row.label, 100, startY + 9);
-
         ctx.fillStyle = idx === 0 ? '#0369a1' : '#0f172a';
         ctx.font = idx === 0 ? 'bold 21px monospace' : 'bold 20px sans-serif';
-
-        let displayVal = row.val;
-        while (ctx.measureText(displayVal).width > 560 && displayVal.length > 4) {
-          displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
-        }
-        ctx.fillText(displayVal, 380, startY + 9);
+        ctx.fillText(row.val, 380, startY + 9);
         startY += 64;
       });
-
-      if (familyGuests.length > 0) {
-        startY += 10;
-        ctx.fillStyle = '#fdf4ff';
-        ctx.fillRect(80, startY - 26, 920, 48);
-
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#9333ea';
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText("EXTRA FAMILY GUESTS (" + familyGuests.length + " PERSONS)", 100, startY + 6);
-
-        ctx.textAlign = 'right';
-        ctx.font = 'bold 20px monospace';
-        ctx.fillText("+₹" + familyGuestsTotal.toLocaleString('en-IN'), 980, startY + 6);
-        startY += 54;
-
-        familyGuests.slice(0, 4).forEach((g, gIdx) => {
-          const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-          const finalP = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
-          const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
-          const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
-
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(80, startY - 20, 920, 40);
-
-          ctx.textAlign = 'left';
-          ctx.fillStyle = '#475569';
-          ctx.font = '16px sans-serif';
-          ctx.fillText("• Guest #" + (gIdx + 1) + " (" + kitLabel + "): " + pkgName, 120, startY + 6);
-
-          ctx.textAlign = 'right';
-          ctx.font = '17px monospace';
-          ctx.fillText("₹" + finalP.toLocaleString('en-IN'), 980, startY + 6);
-          startY += 44;
-        });
-      }
-
-      if (appliedCoupon) {
-        startY += 6;
-        ctx.fillStyle = '#ecfdf5';
-        ctx.fillRect(80, startY - 24, 920, 48);
-
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#059669';
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText("APPLIED PROMO: " + appliedCoupon.code + " (" + appliedCoupon.label + ")", 100, startY + 7);
-
-        ctx.textAlign = 'right';
-        ctx.font = 'bold 20px monospace';
-        ctx.fillText("-₹" + discountAmount.toLocaleString('en-IN'), 980, startY + 7);
-        startY += 58;
-      }
-
-      startY += 10;
-      ctx.fillStyle = '#f8fafc';
-      ctx.fillRect(80, startY, 920, 140);
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(80, startY, 920, 140);
-
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, startY + 45);
-
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 56px serif';
-      ctx.fillText("₹" + finalEstimate.toLocaleString('en-IN'), 540, startY + 110);
-
-      ctx.fillStyle = '#64748b';
-      ctx.font = '17px sans-serif';
-      ctx.fillText("Base Location: " + config.baseLocation + " • Instagram: @" + getCleanInstagramHandle(config.instagramHandle), 540, 1670);
-
-      ctx.fillStyle = '#b48a3c';
-      ctx.font = 'italic 16px sans-serif';
-      ctx.fillText('Beauty, Styled Your Way', 540, 1700);
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
     };
 
     const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
-    if (logoUrlToLoad.startsWith('data:image')) {
-      const logoImg = new Image();
-      logoImg.src = logoUrlToLoad;
-      logoImg.onload = () => drawContent(logoImg);
-      logoImg.onerror = () => drawContent(null);
-    } else {
-      const logoImg = new Image();
-      logoImg.crossOrigin = "anonymous";
-      logoImg.src = logoUrlToLoad;
-      logoImg.onload = () => drawContent(logoImg);
-      logoImg.onerror = () => drawContent(null);
-    }
+    const logoImg = new Image();
+    logoImg.crossOrigin = "anonymous";
+    logoImg.src = logoUrlToLoad;
+    logoImg.onload = () => drawContent(logoImg);
+    logoImg.onerror = () => drawContent(null);
   };
 
   const handleDirectEstimateBooking = async (e) => {
@@ -737,32 +578,28 @@ export default function App() {
 
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
-  const activeColorThemeKey = config.theme?.colorTheme || 'liquid_glass';
-  const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.liquid_glass;
+  const activeColorThemeKey = config.theme?.colorTheme || 'real_ios_glass';
+  const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.real_ios_glass;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
-  const bgClass = isDarkMode ? "bg-[#030712] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]";
+  const appBgClass = isDarkMode ? "bg-black text-[#F2F2F7]" : "bg-[#F2F2F7] text-[#1C1C1E]";
   const headerBgClass = isDarkMode 
-    ? "bg-[#080d1e]/80 backdrop-blur-3xl border-b border-white/[0.12] shadow-2xl shadow-cyan-950/20" 
-    : "bg-white/90 backdrop-blur-3xl border-b border-slate-200/80 shadow-sm";
+    ? "bg-[#1C1C1E]/80 backdrop-blur-[28px] saturate-[180%] border-b border-white/10 shadow-sm text-white" 
+    : "bg-white/85 backdrop-blur-[28px] saturate-[180%] border-b border-black/10 shadow-sm text-[#1C1C1E]";
    
   const cardBgClass = isDarkMode 
-    ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 text-[#f8fafc]" 
-    : "bg-white/85 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
+    ? "bg-[#1C1C1E] border border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.35)] rounded-[24px] text-[#F2F2F7]" 
+    : "bg-white border border-black/5 shadow-[0_4px_25px_rgba(0,0,0,0.06)] rounded-[24px] text-[#1C1C1E]";
    
   const subCardBgClass = isDarkMode 
-    ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-[#f8fafc]" 
-    : "bg-slate-100/90 backdrop-blur-2xl border border-slate-200 text-[#0f172a]";
+    ? "bg-[#2C2C2E] border border-white/10 text-[#F2F2F7] rounded-[18px]" 
+    : "bg-[#F2F2F7] border border-black/5 text-[#1C1C1E] rounded-[18px]";
    
   const inputBgClass = isDarkMode 
-    ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" 
-    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500";
+    ? "bg-[#2C2C2E] text-white border-none rounded-[14px]" 
+    : "bg-[#F2F2F7] text-[#1C1C1E] border-none rounded-[14px]";
    
-  const navTextClass = isDarkMode 
-    ? "text-slate-300 hover:text-white hover:bg-white/10" 
-    : "text-slate-700 hover:text-slate-950 hover:bg-slate-200/70 font-bold";
-   
-  const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
+  const mutedTextClass = isDarkMode ? "text-[#8E8E93]" : "text-[#8E8E93]";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
 
@@ -777,28 +614,26 @@ export default function App() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + bgClass + " flex items-center justify-center p-4 relative overflow-hidden"}>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="max-w-md w-full rounded-3xl p-8 border border-white/20 bg-white/[0.05] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
-          <div className="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-lg">
+      <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + appBgClass + " flex items-center justify-center p-4 relative overflow-hidden"}>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className={"max-w-md w-full rounded-[28px] p-8 border shadow-2xl text-center space-y-5 " + cardBgClass}>
+          <div className="w-16 h-16 rounded-[22px] bg-blue-500/15 text-blue-500 flex items-center justify-center mx-auto shadow-lg">
             <Wrench className="w-8 h-8 animate-bounce" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+            <span className="text-[10px] uppercase font-mono font-bold tracking-widest text-blue-500 bg-blue-500/15 px-3 py-1 rounded-full">
               Scheduled System Upgrade
             </span>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500 bg-clip-text text-transparent">
-              We'll Be Back Shortly
-            </h2>
-            <p className="text-xs leading-relaxed text-slate-300">
+            <h2 className="text-2xl font-bold tracking-tight">We'll Be Back Shortly</h2>
+            <p className={"text-xs leading-relaxed " + mutedTextClass}>
               We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience and look forward to welcoming you soon.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left text-xs space-y-1">
-            <div className="flex justify-between"><span className="text-slate-400">Artist:</span><span className="font-bold text-white">H&F Makeup Artist</span></div>
-            <div className="flex justify-between"><span className="text-slate-400">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-pink-400 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
+          <div className={"p-4 rounded-[18px] border text-left text-xs space-y-1 " + subCardBgClass}>
+            <div className="flex justify-between"><span className={mutedTextClass}>Artist:</span><span className="font-bold">H&F Makeup Artist</span></div>
+            <div className="flex justify-between"><span className={mutedTextClass}>Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-blue-500 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
         </div>
       </div>
@@ -806,9 +641,9 @@ export default function App() {
   }
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + bgClass + " pb-32 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500"}>
+    <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + appBgClass + " pb-32 relative overflow-x-hidden font-sans transition-colors duration-500"}>
       {showSplash && (
-        <div className={"fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 " + (splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100')}>
+        <div className={"fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 " + (splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100')}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
             <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
               <img 
@@ -820,46 +655,46 @@ export default function App() {
             </div>
              
             <div className="text-center space-y-1.5">
-              <h1 className="text-xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+              <h1 className="text-xl sm:text-3xl font-bold tracking-wider text-[#007AFF]">
                 H&F Makeup Artist
               </h1>
-              <p className="text-[11px] sm:text-xs font-semibold text-cyan-400 tracking-widest uppercase">
+              <p className="text-[11px] sm:text-xs font-semibold text-slate-400 tracking-widest uppercase">
                 Beauty, Styled Your Way
               </p>
             </div>
 
-            <div className="w-40 sm:w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-cyan-400 to-indigo-400 rounded-full animate-pulse w-full" />
+            <div className="w-40 sm:w-48 h-1.5 bg-white/15 rounded-full overflow-hidden shadow-inner">
+              <div className="h-full bg-[#007AFF] rounded-full animate-pulse w-full" />
             </div>
-            <span className="text-[10px] sm:text-[11px] text-slate-400 font-mono tracking-wide">
-              Curating Luxury Vanity Experience...
+            <span className="text-[10px] sm:text-[11px] text-[#8E8E93] font-mono tracking-wide">
+              Curating Apple iOS 19 Experience...
             </span>
           </div>
         </div>
       )}
 
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className={"max-w-sm w-full rounded-3xl p-6 border shadow-2xl text-center space-y-4 " + (isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900')}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-[24px] animate-fade-in">
+          <div className={"max-w-sm w-full rounded-[28px] p-6 shadow-2xl text-center space-y-4 " + cardBgClass}>
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm flex items-center gap-1.5">
-                <Share2 className="w-4 h-4 text-cyan-400" /> Share Studio Lookbook
+              <span className="font-bold text-sm flex items-center gap-1.5 text-[#007AFF]">
+                <Share2 className="w-4 h-4" /> Share Studio Lookbook
               </span>
-              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setShowShareModal(false)} className={"p-1 rounded-full " + mutedTextClass}><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-48 h-48 mx-auto bg-white p-3 rounded-2xl border border-slate-200 shadow-inner flex items-center justify-center">
+            <div className="w-48 h-48 mx-auto bg-white p-3 rounded-[20px] border border-slate-200 shadow-inner flex items-center justify-center">
               <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
             </div>
             <p className={"text-xs " + mutedTextClass}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2.5">
               <button
                 type="button"
                 onClick={handleCopyLink}
-                className="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10 transition"
+                className={"flex-1 py-3 rounded-[14px] text-xs font-bold flex items-center justify-center gap-1.5 " + (isDarkMode ? 'bg-white/10 text-white' : 'bg-slate-100 text-slate-900')}
               >
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-cyan-400" />}
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-[#007AFF]" />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
 
@@ -868,7 +703,7 @@ export default function App() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className={"px-4 py-2.5 rounded-xl " + currentTheme.btnPrimary + " text-xs flex items-center justify-center gap-1 active:scale-95 shadow"}
+                className="px-5 py-3 bg-[#007AFF] text-white font-bold text-xs rounded-[14px] flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition"
               >
                 <Download className="w-4 h-4" />
                 <span>Save QR</span>
@@ -879,29 +714,29 @@ export default function App() {
       )}
 
       {viewingPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md transition-all duration-300 animate-fade-in">
-          <div className={"max-w-md w-full rounded-3xl p-5 sm:p-6 border shadow-2xl space-y-4 transform transition-all duration-300 scale-100 " + (isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900')}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-[24px] transition-all duration-300 animate-fade-in">
+          <div className={"max-w-md w-full rounded-[28px] p-5 sm:p-6 shadow-2xl space-y-4 " + cardBgClass}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <Crown className={"w-5 h-5 " + currentTheme.accentText} />
+                <Crown className="w-5 h-5 text-[#007AFF]" />
                 <h3 className="font-bold text-base sm:text-lg">{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setViewingPackage(null)} className={"p-1 rounded-full " + mutedTextClass}><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden bg-neutral-800">
+            <div className="w-full h-40 sm:h-48 rounded-[20px] overflow-hidden bg-neutral-200 shadow-md">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
             <p className={"text-xs leading-relaxed " + mutedTextClass}>{viewingPackage.desc}</p>
 
-            <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-              <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit'}</strong></div>
-              <div className="flex justify-between"><span>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>
-              <div className="flex justify-between"><span>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
+            <div className={"space-y-2 text-xs border-t border-b py-3 " + (isDarkMode ? 'border-white/10' : 'border-slate-200')}>
+              <div className="flex justify-between"><span className={mutedTextClass}>Vanity Tier:</span><strong className="capitalize">{selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit'}</strong></div>
+              <div className="flex justify-between"><span className={mutedTextClass}>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>
+              <div className="flex justify-between"><span className={mutedTextClass}>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
               <div className="flex justify-between font-bold text-sm pt-1">
-                <span>Rate:</span>
-                <span className={currentTheme.accentText + " font-mono"}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
+                <span className={mutedTextClass}>Rate:</span>
+                <span className="text-[#007AFF] font-mono">₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
               </div>
             </div>
 
@@ -913,7 +748,7 @@ export default function App() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className={"w-full py-3 " + currentTheme.btnPrimary + " text-xs rounded-2xl shadow-lg active:scale-95 flex items-center justify-center gap-1.5 transition-transform duration-200"}
+              className="w-full py-3.5 bg-[#007AFF] text-white text-xs font-bold rounded-[16px] shadow-lg flex items-center justify-center gap-1.5 active:scale-95 transition"
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -922,13 +757,12 @@ export default function App() {
         </div>
       )}
 
-      <div className="absolute top-0 left-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-      <div className="absolute top-1/3 right-1/4 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none animate-pulse delay-1000" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className={"bg-gradient-to-r " + currentTheme.accentGradient + " text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center"}>
+        <div className="bg-[#007AFF] text-white py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center">
           <div className="flex items-center gap-2 shrink-0 z-10 bg-inherit pr-3">
             <Volume2 className="w-4 h-4 animate-bounce" />
             <span className="uppercase tracking-widest text-[10px] font-mono">Announcements:</span>
@@ -937,7 +771,7 @@ export default function App() {
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   {ann}
                 </span>
               ))}
@@ -945,7 +779,7 @@ export default function App() {
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium" aria-hidden="true">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={"dup_" + idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   {ann}
                 </span>
               ))}
@@ -960,70 +794,62 @@ export default function App() {
         </div>
       )}
 
-      <header className={"sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 " + headerBgClass}>
-        <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
+      <header className={"sticky top-0 z-40 px-5 sm:px-8 py-4 transition-all duration-300 " + headerBgClass}>
+        <div className="max-w-6xl mx-auto flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-amber-400/50 p-0.5 bg-white/10 flex items-center justify-center">
+            <div className="flex items-center space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
+              <div className="w-11 sm:w-13 h-11 sm:h-13 rounded-[16px] overflow-hidden shrink-0 shadow-sm border border-black/10 p-0.5 bg-white/40 flex items-center justify-center">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Logo" 
                   onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-full" 
+                  className="w-full h-full object-cover rounded-[14px]" 
                 />
               </div>
                
               <div className="truncate">
-                <h1 className={"font-bold text-xs sm:text-base bg-gradient-to-r " + currentTheme.accentGradient + " bg-clip-text text-transparent truncate"}>
+                <h1 className="font-bold text-[16px] sm:text-[18px] text-[#007AFF] tracking-tight truncate">
                   H&F Makeup Artist
                 </h1>
-                <p className={"text-[10px] sm:text-[11px] font-semibold " + currentTheme.accentText + " flex items-center gap-1 truncate"}>
+                <p className={"text-[11px] sm:text-[12px] font-semibold flex items-center gap-1 truncate " + mutedTextClass}>
                   <span className="truncate">Beauty, Styled Your Way</span>
-                  <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
+                  <Sparkles className="w-3 h-3 text-[#007AFF] shrink-0" />
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-2.5 shrink-0">
               <button
                 type="button"
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className={"p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center " + (
-                  isDarkMode 
-                    ? 'bg-white/[0.06] border-white/15 text-cyan-400 hover:bg-white/10' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
-                )}
+                className={"p-2.5 rounded-[14px] transition-all duration-300 active:scale-90 flex items-center justify-center " + (isDarkMode ? 'bg-white/10 text-blue-400' : 'bg-slate-200/80 text-blue-600 shadow-sm')}
               >
-                <QrCode className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-cyan-400" />
+                <QrCode className="w-4 h-4" />
               </button>
 
               <button
                 type="button"
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className={"p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center " + (
-                  isDarkMode 
-                    ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
-                )}
+                className={"p-2.5 rounded-[14px] transition-all duration-300 active:scale-90 flex items-center justify-center " + (isDarkMode ? 'bg-white/10 text-amber-400' : 'bg-slate-200/80 text-slate-800 shadow-sm')}
               >
-                {isDarkMode ? <Sun className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-400" /> : <Moon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-indigo-600" />}
+                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-600" />}
               </button>
 
               <a
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[12px] sm:text-xs font-bold px-3.5 py-2.5 rounded-[16px] transition-all duration-300 shadow-md"
               >
-                <Camera className="w-3.5 h-3.5 shrink-0" />
+                <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
               </a>
 
               {shouldShowProfileInHeader && (
                 <div 
-                  className={"w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr " + currentTheme.accentGradient + " p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none"}
+                  className="w-10 sm:w-12 h-10 sm:h-12 rounded-[16px] sm:rounded-[20px] bg-gradient-to-tr from-blue-500 to-indigo-500 p-0.5 shadow-md overflow-hidden group shrink-0 ml-0.5 select-none"
                   onContextMenu={(e) => e.preventDefault()}
                   style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                 >
@@ -1033,99 +859,100 @@ export default function App() {
                     onError={() => setImgLoadFailed(true)}
                     onContextMenu={(e) => e.preventDefault()}
                     draggable="false"
-                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
+                    className="w-full h-full object-cover rounded-[14px] sm:rounded-[18px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
                     style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                   />
                 </div>
               )}
             </div>
           </div>
-
-          <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
-            <nav className={"inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner " + (isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80')}>
-              {[
-                { id: 'menu', label: 'Packages', icon: Crown, show: true },
-                { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
-                { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-                { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-                { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
-              ].filter(t => t.show).map(tab => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() => setActiveTab(tab.id)}
-                    className={"flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 " + (
-                      isActive ? currentTheme.activeNav : navTextClass
-                    )}
-                  >
-                    <Icon className="w-3.5 h-3.5 shrink-0" />
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
+      {/* Floating Capsule Bottom Navigation Bar inspired by Apple iOS / VisionOS */}
+      <nav aria-label="Main Navigation" className={"fixed bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-md w-[calc(100%-2rem)] h-16 px-2 rounded-[32px] backdrop-blur-[28px] saturate-[180%] border shadow-[0_10px_35px_rgba(0,0,0,0.15)] flex items-center justify-around " + (isDarkMode ? 'bg-[#1C1C1E]/80 border-white/15 text-white' : 'bg-white/80 border-black/10 text-[#1C1C1E]')}>
+        {[
+          { id: 'menu', label: 'Packages', icon: Crown, show: true },
+          { id: 'gallery', label: 'Portfolio', icon: Camera, show: config.toggles?.enableGallery !== false },
+          { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+          { id: 'calculator', label: 'Bookings', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+          { id: 'feedback', label: 'Profile', icon: User, show: true }
+        ].filter(t => t.show).map(tab => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={"flex items-center gap-1.5 transition-all duration-300 ease-out active:scale-90 " + (
+                isActive 
+                  ? 'bg-[#007AFF] text-white rounded-[22px] px-4 py-2 shadow-md font-bold' 
+                  : 'px-3 py-2 rounded-[22px] text-[#8E8E93] hover:text-[#1C1C1E]'
+              )}
+            >
+              <Icon className={"w-5 h-5 shrink-0 " + (isActive ? 'text-white' : 'text-[#8E8E93]')} />
+              <span className="hidden sm:inline text-xs">{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      <main className="max-w-[1200px] mx-auto px-5 sm:px-8 py-8 transition-all duration-500">
         {activeTab === 'menu' && (
           <div className="space-y-8 sm:space-y-10 animate-fade-in transition-opacity duration-300">
-            <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
-              <span className={"px-3.5 py-1 rounded-full border " + currentTheme.accentBorder + " " + currentTheme.accentText + " text-[11px] sm:text-xs font-bold tracking-wide backdrop-blur-md"}>
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <span className="px-4 py-1.5 rounded-full border border-blue-500/30 text-[#007AFF] text-[12px] font-bold tracking-wide backdrop-blur-md bg-white/40">
                 Professional Vanity Packages
               </span>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Curated Makeup Menu</h2>
               <p className={"text-xs sm:text-sm " + mutedTextClass}>Select kit tier below to view package pricing & details:</p>
 
-              <div className={"inline-flex p-1 sm:p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1 shadow-lg " + (isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300')}>
+              <div className={"inline-flex p-1.5 rounded-[20px] border backdrop-blur-3xl mt-2 gap-1.5 shadow-sm " + (isDarkMode ? 'bg-[#2C2C2E] border-white/15' : 'bg-slate-200 border-slate-300')}>
                 <button
                   type="button"
                   onClick={() => setSelectedKit('international')}
-                  className={"px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 " + (selectedKit === 'international' ? currentTheme.btnPrimary : navTextClass)}
+                  className={"px-4 py-2 rounded-[14px] text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 " + (selectedKit === 'international' ? 'bg-[#007AFF] text-white shadow' : navTextClass)}
                 >
-                  <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <Crown className="w-4 h-4 text-amber-400 shrink-0" />
                   <span>International Luxury Kit</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setSelectedKit('drugstore')}
-                  className={"px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 " + (selectedKit === 'drugstore' ? currentTheme.btnPrimary : navTextClass)}
+                  className={"px-4 py-2 rounded-[14px] text-xs font-bold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 " + (selectedKit === 'drugstore' ? 'bg-[#007AFF] text-white shadow' : navTextClass)}
                 >
-                  <PackageCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                  <PackageCheck className="w-4 h-4 text-cyan-400 shrink-0" />
                   <span>Premium HD Kit</span>
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 transition-all duration-300">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 transition-all duration-300">
               {partyPackages.concat(bridalPackages).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit[selectedKit][key];
                 const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
 
                 return (
-                  <div key={selectedKit + "_" + key} className={cardBgClass + " rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in"}>
-                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 relative">
+                  <div key={selectedKit + "_" + key} className={cardBgClass + " p-5 sm:p-6 flex flex-col sm:flex-row gap-5 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in"}>
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] overflow-hidden bg-neutral-200 relative shadow-md">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     </div>
-                    <div className="flex-1 w-full flex flex-col justify-between space-y-2">
+                    <div className="flex-1 w-full flex flex-col justify-between space-y-3">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-bold text-sm sm:text-base leading-snug">{item.num}. {item.name}</h4>
-                          <span className={"font-bold text-sm sm:text-base " + currentTheme.accentText + " font-mono shrink-0"}>₹{price.toLocaleString('en-IN')}</span>
+                          <h4 className="font-bold text-base sm:text-lg leading-snug">{item.num}. {item.name}</h4>
+                          <span className="font-bold text-base sm:text-lg text-[#007AFF] font-mono shrink-0">₹{price.toLocaleString('en-IN')}</span>
                         </div>
-                        <p className={"text-xs mt-1 leading-relaxed " + mutedTextClass}>{item.desc}</p>
+                        <p className={"text-xs mt-1.5 leading-relaxed " + mutedTextClass}>{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-end gap-2 pt-1">
+                      <div className="flex items-center justify-end gap-2.5 pt-2">
                         <button
                           type="button"
                           onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                          className={"px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition-all duration-200 active:scale-95 " + (isDarkMode ? 'border-white/10 hover:bg-white/10 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700')}
+                          className={"px-3.5 py-2 rounded-[14px] text-xs font-bold flex items-center gap-1.5 transition-all duration-200 active:scale-95 border " + (isDarkMode ? 'border-white/10 hover:bg-white/10 text-slate-300' : 'border-slate-300 hover:bg-slate-100 text-slate-700')}
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Details</span>
@@ -1138,7 +965,7 @@ export default function App() {
                             setCalcKit(selectedKit);
                             setActiveTab('calculator');
                           }}
-                          className={"px-4 py-1.5 " + currentTheme.btnPrimary + " text-xs rounded-xl shadow-lg active:scale-95 transition-all duration-200 flex items-center gap-1"}
+                          className="px-4 py-2 bg-[#007AFF] text-white text-xs font-bold rounded-[14px] shadow-md flex items-center gap-1 active:scale-95 transition"
                         >
                           <span>Estimate & Book</span>
                           <ChevronRight className="w-3.5 h-3.5" />
@@ -1155,10 +982,10 @@ export default function App() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={"px-3.5 py-1 rounded-full border " + currentTheme.accentBorder + " " + currentTheme.accentText + " text-xs font-bold tracking-wide backdrop-blur-md"}>
+              <span className="px-4 py-1.5 rounded-full border border-blue-500/30 text-[#007AFF] text-[12px] font-bold tracking-wide backdrop-blur-md bg-white/40">
                 Discover Beautiful Makeup Transformations
               </span>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">Featured Beauty Gallery</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Featured Beauty Gallery</h2>
               <p className={"text-xs sm:text-sm " + mutedTextClass}>
                 Explore our finest client transformations and artistry, crafted with precision, creativity, and elegance.
               </p>
@@ -1169,18 +996,18 @@ export default function App() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className={cardBgClass + " rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in"}>
+                  <div key={idx} className={cardBgClass + " overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in"}>
                     {isVideo ? (
-                      <AutoPlayVideoCard item={item} currentTheme={currentTheme} />
+                      <AutoPlayVideoCard item={item} />
                     ) : (
-                      <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
+                      <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-200 flex items-center justify-center rounded-[20px] shadow-md">
                         <img 
                           src={item.url} 
                           alt={item.title} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                          <span className={"text-[10px] uppercase font-mono font-bold " + currentTheme.accentText}>{item.sub || 'Client Look'}</span>
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                          <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item.sub || 'Client Look'}</span>
                           <h4 className="font-bold text-sm sm:text-base mt-0.5">
                             <span>{item.title}</span>
                           </h4>
@@ -1197,16 +1024,16 @@ export default function App() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={"px-3.5 py-1 rounded-full border " + currentTheme.accentBorder + " " + currentTheme.accentText + " text-xs font-bold"}>Authentic Vanity</span>
-              <h2 className="text-2xl sm:text-4xl font-bold">Products In Our Kit</h2>
-              <p className={"text-xs " + mutedTextClass}>100% Genuine, skin-safe international luxury cosmetics.</p>
+              <span className="px-4 py-1.5 rounded-full border border-blue-500/30 text-[#007AFF] text-[12px] font-bold">Authentic Vanity</span>
+              <h2 className="text-3xl sm:text-4xl font-bold">Products In Our Kit</h2>
+              <p className={"text-xs sm:text-sm " + mutedTextClass}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {config.internationalBrands?.map((brand, idx) => (
-                <div key={idx} className={cardBgClass + " rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] animate-fade-in"}>
-                  <span className={"text-[10px] font-bold " + currentTheme.accentText + " uppercase bg-white/10 px-2 py-0.5 rounded-lg"}>{brand.category}</span>
-                  <h4 className="font-bold text-sm mt-2">{brand.name}</h4>
-                  <p className={"text-xs mt-1 " + mutedTextClass}>{brand.desc}</p>
+                <div key={idx} className={cardBgClass + " p-5 transition-all duration-300 hover:scale-[1.02] animate-fade-in space-y-1.5"}>
+                  <span className="text-[10px] font-bold text-[#007AFF] uppercase bg-blue-500/15 px-2.5 py-0.5 rounded-full">{brand.category}</span>
+                  <h4 className="font-bold text-base mt-1">{brand.name}</h4>
+                  <p className={"text-xs " + mutedTextClass}>{brand.desc}</p>
                 </div>
               ))}
             </div>
@@ -1216,53 +1043,53 @@ export default function App() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
             {isBookingDone ? (
-              <div className={cardBgClass + " rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto"}>
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
-                  <CheckCircle2 className="w-8 h-8" />
+              <div className={cardBgClass + " p-8 sm:p-12 text-center space-y-5 animate-scale-up max-w-xl mx-auto"}>
+                <div className="w-18 h-18 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20">
+                  <CheckCircle2 className="w-9 h-9" />
                 </div>
                  
-                <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
+                <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-500/40 text-[#007AFF] font-mono font-bold text-xs">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
-                <p className={"text-xs " + mutedTextClass + " max-w-md mx-auto leading-relaxed"}>
+                <h3 className="text-2xl font-bold">Booking Submitted</h3>
+                <p className={"text-xs sm:text-sm " + mutedTextClass + " max-w-md mx-auto leading-relaxed"}>
                   Your booking has been successfully submitted and notification has been dispatched to WhatsApp. We’ll notify you shortly once confirmed.
                 </p>
 
                 {generatedJpgUrl && (
-                  <div className="pt-2">
-                    <a href={generatedJpgUrl} download={"Booking_Sent_Receipt_" + currentBookingNumber + ".jpg"} className={"px-5 py-2.5 rounded-2xl " + currentTheme.btnPrimary + " inline-flex items-center gap-2 text-xs shadow-lg active:scale-95 transition"}>
+                  <div className="pt-3">
+                    <a href={generatedJpgUrl} download={"Booking_Sent_Receipt_" + currentBookingNumber + ".jpg"} className="px-6 py-3 bg-[#007AFF] text-white inline-flex items-center gap-2 text-xs rounded-[16px] shadow-lg active:scale-95 transition font-bold">
                       <Download className="w-4 h-4" />
                       <span>Download Booking Sent Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
 
-                <button type="button" onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-white/10 hover:bg-white/15 text-xs text-slate-300 font-bold rounded-2xl active:scale-95 mt-4 transition">
+                <button type="button" onClick={() => setIsBookingDone(false)} className={"block w-full py-3.5 text-xs font-bold rounded-[16px] active:scale-95 mt-4 transition border " + (isDarkMode ? 'bg-white/10 text-white border-white/10' : 'bg-slate-100 text-slate-900 border-slate-200')}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className={cardBgClass + " rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6"}>
-                <div className="md:col-span-7 space-y-4 sm:space-y-5">
-                  <div className="border-b border-white/10 pb-2">
-                    <h3 className={"font-bold text-sm sm:text-base flex items-center gap-2 " + currentTheme.accentText}>
+              <form onSubmit={handleDirectEstimateBooking} className={cardBgClass + " p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8"}>
+                <div className="md:col-span-7 space-y-5">
+                  <div className="border-b pb-3 border-slate-200/60">
+                    <h3 className="font-bold text-base sm:text-lg flex items-center gap-2 text-[#007AFF]">
                       <Calculator className="w-5 h-5" /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Vanity Tier</label>
-                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={"p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 " + (calcKit === 'international' ? "bg-white/10 " + currentTheme.accentBorder + " " + currentTheme.accentText : subCardBgClass + " " + mutedTextClass)}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={"p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 " + (calcKit === 'drugstore' ? "bg-white/10 " + currentTheme.accentBorder + " " + currentTheme.accentText : subCardBgClass + " " + mutedTextClass)}>✨ HD Kit</button>
+                    <label className={"block text-[11px] font-bold uppercase tracking-wider mb-2 " + mutedTextClass}>Main Look: Vanity Tier</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button type="button" onClick={() => setCalcKit('international')} className={"p-3.5 rounded-[16px] text-xs font-bold border text-left transition-all active:scale-95 " + (calcKit === 'international' ? 'bg-[#007AFF]/20 border-[#007AFF] text-[#007AFF]' : subCardBgClass + ' ' + mutedTextClass)}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={"p-3.5 rounded-[16px] text-xs font-bold border text-left transition-all active:scale-95 " + (calcKit === 'drugstore' ? 'bg-[#007AFF]/20 border-[#007AFF] text-[#007AFF]' : subCardBgClass + ' ' + mutedTextClass)}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={"w-full " + inputBgClass + " rounded-2xl px-4 py-3 text-xs " + currentTheme.accentText + " font-bold"}>
+                    <label className={"block text-[11px] font-bold uppercase tracking-wider mb-2 " + mutedTextClass}>Main Look: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={"w-full " + inputBgClass + " rounded-[16px] px-4 py-3 text-xs text-[#007AFF] font-bold"}>
                       <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
                       <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
                       <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
@@ -1273,19 +1100,19 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={"w-full " + inputBgClass + " rounded-2xl px-4 py-3 text-xs font-medium"}>
+                    <label className={"block text-[11px] font-bold uppercase tracking-wider mb-2 " + mutedTextClass}>Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={"w-full " + inputBgClass + " rounded-[16px] px-4 py-3 text-xs font-medium"}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-2 border-t border-white/10 space-y-3">
+                  <div className="pt-3 border-t border-slate-200/60 space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-bold text-xs uppercase tracking-wider text-white flex items-center gap-1.5">
-                          <Users className="w-4 h-4 text-cyan-400" /> Extra Family Makeup Customizer
+                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-[#007AFF]" /> Extra Family Makeup Customizer
                         </h4>
                         <p className={"text-[11px] " + mutedTextClass}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
@@ -1293,49 +1120,49 @@ export default function App() {
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
+                        className="px-3.5 py-2 rounded-[14px] bg-[#007AFF]/15 text-[#007AFF] border border-[#007AFF]/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow-sm"
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
-                        <span className="text-emerald-400 font-bold flex items-center gap-1">
+                      <div className="p-3 rounded-[16px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs">
+                        <span className="text-emerald-700 font-bold flex items-center gap-1.5">
                           <Sparkles className="w-3.5 h-3.5" /> Flat {guestDiscountPercent}% Extra Family Makeup Discount Applied
                         </span>
-                        <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">ACTIVE OFFER</span>
+                        <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-800 px-2.5 py-0.5 rounded-full">ACTIVE OFFER</span>
                       </div>
                     )}
 
                     {familyGuests.length > 0 && (
-                      <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                      <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
                           const discountedGuestPrice = isGuestDiscountActive ? Math.round(rawGuestPrice * (1 - guestDiscountPercent / 100)) : rawGuestPrice;
 
                           return (
-                            <div key={guest.id} className={"p-3 rounded-2xl border space-y-2 " + subCardBgClass}>
+                            <div key={guest.id} className={"p-3.5 rounded-[18px] border space-y-2.5 " + subCardBgClass}>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
-                                  <span className="text-xs font-bold font-mono text-white">
+                                  <span className="text-[11px] font-bold text-[#007AFF] font-mono">Guest #{idx + 1}</span>
+                                  <span className="text-xs font-bold font-mono">
                                     ₹{discountedGuestPrice.toLocaleString('en-IN')}
                                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                                      <span className="line-through text-slate-500 ml-1.5 text-[10px]">₹{rawGuestPrice.toLocaleString('en-IN')}</span>
+                                      <span className="line-through text-slate-400 ml-1.5 text-[10px]">₹{rawGuestPrice.toLocaleString('en-IN')}</span>
                                     )}
                                   </span>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-[10px]"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
-                              <div className="grid grid-cols-2 gap-2">
+                              <div className="grid grid-cols-2 gap-2.5">
                                 <div>
                                   <label className={"block text-[10px] mb-1 " + mutedTextClass}>Vanity Tier</label>
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={"w-full p-2 rounded-xl text-xs font-bold border " + inputBgClass}
+                                    className={"w-full p-2.5 rounded-[12px] text-xs font-bold " + inputBgClass}
                                   >
                                     <option value="international">👑 Luxury Kit</option>
                                     <option value="drugstore">✨ HD Kit</option>
@@ -1347,7 +1174,7 @@ export default function App() {
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={"w-full p-2 rounded-xl text-xs font-bold border " + inputBgClass}
+                                    className={"w-full p-2.5 rounded-[12px] text-xs font-bold " + inputBgClass}
                                   >
                                     <option value="simple_party">Simple Party</option>
                                     <option value="hd_party">HD Party</option>
@@ -1364,90 +1191,90 @@ export default function App() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-2 border-t border-white/10 space-y-2">
-                      <label className={"block text-xs font-bold " + currentTheme.accentText + " uppercase tracking-wider flex items-center gap-1.5"}>
+                    <div className="pt-3 border-t border-slate-200/60 space-y-2">
+                      <label className="block text-xs font-bold text-[#007AFF] uppercase tracking-wider flex items-center gap-1.5">
                         <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
+                        <div className="bg-emerald-500/15 border border-emerald-500/40 rounded-[18px] p-3.5 flex items-center justify-between gap-2">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                              <span className="text-xs font-bold text-emerald-800 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
                               {appliedCoupon.expiryDate && (() => {
                                 const tr = getTimeRemaining(appliedCoupon.expiryDate);
                                 return tr && !tr.expired ? (
-                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-900 border border-amber-500/30 px-2.5 py-0.5 rounded-full flex items-center gap-1">
                                     <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
                                   </span>
                                 ) : null;
                               })()}
                             </div>
-                            <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
+                            <p className="text-[11px] text-emerald-950 font-semibold">
                               🎉 {appliedCoupon.type === 'percent' ? appliedCoupon.value + '% OFF' : 'Flat ₹' + appliedCoupon.value + ' OFF'} • {appliedCoupon.label}
                             </p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-[#6E6864] hover:text-rose-600 text-xs font-bold underline shrink-0">Remove</button>
                         </div>
                       ) : (
-                        <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={"flex-1 " + inputBgClass + " rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold"} />
-                          <button type="button" onClick={handleApplyCoupon} className={"px-4 py-2 " + currentTheme.btnPrimary + " text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200"}>Apply</button>
+                        <div className="flex gap-2.5">
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={"flex-1 " + inputBgClass + " rounded-[16px] px-4 py-3 text-xs uppercase font-mono font-bold"} />
+                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-3 bg-[#007AFF] text-white font-bold text-xs rounded-[16px] shadow">Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-600 font-medium">{couponError}</p>}
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-white/10 space-y-3">
-                    <h4 className={"font-bold text-xs uppercase tracking-wider " + currentTheme.accentText + " flex items-center gap-1.5"}>
+                  <div className="pt-3 border-t border-slate-200/60 space-y-3.5">
+                    <h4 className="font-bold text-xs uppercase tracking-wider text-[#007AFF] flex items-center gap-1.5">
                       <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
                     </h4>
 
                     <div>
-                      <label className={"block text-xs font-bold " + mutedTextClass + " mb-1"}>Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={"w-full p-3 rounded-2xl " + inputBgClass + " text-xs"} />
+                      <label className={"block text-xs font-bold mb-1 " + mutedTextClass}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={"w-full p-3.5 rounded-[16px] " + inputBgClass + " text-xs"} />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className={"block text-xs font-bold " + mutedTextClass + " mb-1"}>Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={"w-full p-3 rounded-2xl " + inputBgClass + " text-xs"} />
+                        <label className={"block text-xs font-bold mb-1 " + mutedTextClass}>Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={"w-full p-3.5 rounded-[16px] " + inputBgClass + " text-xs"} />
                       </div>
                       <div>
-                        <label className={"block text-xs font-bold " + mutedTextClass + " mb-1"}>Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={"w-full p-3 rounded-2xl " + inputBgClass + " text-xs"} />
+                        <label className={"block text-xs font-bold mb-1 " + mutedTextClass}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={"w-full p-3.5 rounded-[16px] " + inputBgClass + " text-xs"} />
                       </div>
                     </div>
 
                     <div>
-                      <label className={"block text-xs font-bold " + mutedTextClass + " mb-1"}>Exact Venue Address / Landmark</label>
-                      <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={venueAddress} onChange={(e) => setVenueAddress(e.target.value)} className={"w-full p-3 rounded-2xl " + inputBgClass + " text-xs"} />
+                      <label className={"block text-xs font-bold mb-1 " + mutedTextClass}>Exact Venue Address / Landmark</label>
+                      <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={venueAddress} onChange={(e) => setVenueAddress(e.target.value)} className={"w-full p-3.5 rounded-[16px] " + inputBgClass + " text-xs"} />
                     </div>
                   </div>
                 </div>
 
-                <div className={"md:col-span-5 " + subCardBgClass + " rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm"}>
+                <div className={"md:col-span-5 " + subCardBgClass + " p-6 rounded-[24px] flex flex-col justify-between space-y-6 shadow-md"}>
                   <div>
-                    <span className={"text-[10px] font-bold uppercase tracking-widest " + currentTheme.accentText}>Total Amount Summary</span>
-                    <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
-                      <span className={currentTheme.accentText + " text-2xl"}>₹</span>
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#007AFF]">Total Amount Summary</span>
+                    <div className="mt-2 text-3xl font-bold flex items-baseline gap-1">
+                      <span className="text-[#007AFF] text-2xl">₹</span>
                       <span>{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
+                  <div className={"space-y-2.5 text-xs border-t border-b py-3.5 " + (isDarkMode ? 'border-white/10' : 'border-slate-200')}>
                     <div className={"flex justify-between " + mutedTextClass}><span>Main Look:</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
-                    <div className={"flex justify-between " + mutedTextClass}><span>Convenience Fee ({(config.convenienceZones[calcZone]?.name)}):</span><span className={currentTheme.accentText + " font-medium"}>₹{zoneFee}</span></div>
+                    <div className={"flex justify-between " + mutedTextClass}><span>Convenience Fee ({(config.convenienceZones[calcZone]?.name)}):</span><span className="text-[#007AFF] font-medium">₹{zoneFee}</span></div>
                     <div className={"flex justify-between " + mutedTextClass}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
                     {appliedCoupon && (
-                      <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
+                      <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
                     )}
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={"w-full py-4 " + currentTheme.btnPrimary + " text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2"}
+                    className="w-full py-4 bg-[#007AFF] text-white font-bold text-[14px] rounded-[16px] shadow-lg active:scale-95 transition flex items-center justify-center gap-2"
                   >
                     <Check className="w-4 h-4" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
@@ -1459,22 +1286,22 @@ export default function App() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className={"p-6 sm:p-8 rounded-3xl border " + cardBgClass + " max-w-2xl mx-auto space-y-5 animate-fade-in"}>
+          <div className={"p-7 sm:p-10 rounded-[28px] border " + cardBgClass + " max-w-2xl mx-auto space-y-5 animate-fade-in"}>
             <div className="text-center space-y-1">
-              <span className={"text-[10px] font-bold uppercase tracking-wider " + currentTheme.accentText}>Client Experience</span>
-              <h3 className="text-xl sm:text-2xl font-bold">Feedback & Suggestions</h3>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#007AFF]">Client Experience</span>
+              <h3 className="text-2xl font-bold">Feedback & Suggestions</h3>
               <p className={"text-xs " + mutedTextClass}>Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2 animate-fade-in">
-                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-                <h4 className="font-bold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
-                <p className="text-xs text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
+              <div className="p-6 rounded-[20px] bg-emerald-500/15 border border-emerald-500/40 text-center space-y-2.5 animate-fade-in">
+                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+                <h4 className="font-bold text-sm text-emerald-900">Thank you for your valuable feedback!</h4>
+                <p className={"text-xs " + mutedTextClass}>Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   type="button"
                   onClick={() => setFeedbackSubmitted(false)}
-                  className="mt-3 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition"
+                  className="mt-3 px-4 py-2 rounded-[14px] bg-slate-200 text-xs font-bold text-slate-800 transition"
                 >
                   Submit Another Feedback
                 </button>
@@ -1489,25 +1316,25 @@ export default function App() {
                       onClick={() => setFeedbackRating(star)}
                       className="p-1 active:scale-125 transition"
                     >
-                      <Star className={"w-7 h-7 " + (star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-600')} />
+                      <Star className={"w-7 h-7 " + (star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-300')} />
                     </button>
                   ))}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <input
                     type="text"
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={"w-full p-3 rounded-2xl text-xs " + inputBgClass}
+                    className={"w-full p-3.5 rounded-[16px] text-xs " + inputBgClass}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={"w-full p-3 rounded-2xl text-xs " + inputBgClass}
+                    className={"w-full p-3.5 rounded-[16px] text-xs " + inputBgClass}
                   />
                 </div>
 
@@ -1517,15 +1344,15 @@ export default function App() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={"w-full p-3 rounded-2xl text-xs " + inputBgClass}
+                  className={"w-full p-3.5 rounded-[16px] text-xs " + inputBgClass}
                 />
 
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className={"w-full py-3.5 " + currentTheme.btnPrimary + " text-xs rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-1.5"}
+                  className="w-full py-4 bg-[#007AFF] text-white font-bold text-[14px] rounded-[16px] shadow-lg active:scale-95 transition flex items-center justify-center gap-1.5"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-4 h-4" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
                 </button>
               </form>
@@ -1537,39 +1364,37 @@ export default function App() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={"fixed bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border " + currentTheme.accentBorder + " p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 " + (
-            isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
-          )}
+          className="fixed bottom-24 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-[28px] saturate-[180%] bg-white/90 border border-black/10 p-4 rounded-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.15)] transition-all duration-300 text-[#1C1C1E]"
         >
           <div className="flex items-start justify-between gap-3">
-            <Gift className={"w-5 h-5 " + currentTheme.accentText + " shrink-0 mt-0.5"} />
+            <Gift className="w-5 h-5 text-[#007AFF] shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={"text-[10px] font-bold " + currentTheme.accentText + " uppercase bg-white/10 px-2 py-0.5 rounded-full"}>
+                <span className="text-[10px] font-bold text-[#007AFF] uppercase bg-blue-500/15 px-2.5 py-0.5 rounded-full">
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                  <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-600 border border-rose-500/30 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-800 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                     <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
               </div>
 
               <h4 className="font-bold text-xs mt-1.5 leading-snug">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className={"text-[11px] mt-0.5 " + mutedTextClass}>
+              <p className="text-[11px] mt-0.5 text-[#6E6864]">
                 {isFloatingExpired ? (
-                  <span className="text-rose-400 font-medium">This promotion code has ended.</span>
+                  <span className="text-rose-600 font-medium">This promotion code has ended.</span>
                 ) : (
-                  <span>Use code <strong className={currentTheme.accentText + " font-mono font-bold"}>{floatingPromoCode}</strong></span>
+                  <span>Use code <strong className="text-[#007AFF] font-mono">{floatingPromoCode}</strong></span>
                 )}
               </p>
             </div>
-            <button type="button" onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
+            <button type="button" onClick={() => setShowFloatingBanner(false)} className="text-slate-500 hover:text-black p-1 shrink-0"><X className="w-4 h-4" /></button>
           </div>
 
           <button 
@@ -1581,11 +1406,7 @@ export default function App() {
                 setActiveTab('calculator'); 
               }
             }} 
-            className={"mt-3 w-full py-2 text-xs rounded-2xl shadow transition-transform duration-200 " + (
-              isFloatingExpired 
-                ? 'bg-slate-700/60 text-slate-400 border border-white/10 cursor-not-allowed' 
-                : currentTheme.btnPrimary + ' active:scale-95'
-            )}
+            className={"mt-3 w-full py-2.5 text-xs transition-transform duration-200 " + (isFloatingExpired ? 'bg-slate-300 text-slate-500 rounded-[14px] cursor-not-allowed' : 'bg-[#007AFF] text-white font-bold rounded-[14px] shadow-md active:scale-95')}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
           </button>
