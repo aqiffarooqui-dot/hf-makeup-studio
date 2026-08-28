@@ -428,11 +428,11 @@ export default function App() {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#1e293b';
     ctx.font = 'bold 46px serif';
-    ctx.fillText((config.studioName || 'HUSNA FAROOQUI').toUpperCase(), 540, 130);
+    ctx.fillText('H&F MAKEUP ARTIST', 540, 130);
 
     ctx.fillStyle = '#b48a3c';
     ctx.font = '600 20px sans-serif';
-    ctx.fillText('Your Beauty, Our Expertise', 540, 170);
+    ctx.fillText('Beauty, Styled Your Way', 540, 170);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 1;
@@ -555,7 +555,7 @@ export default function App() {
 
     ctx.fillStyle = '#b48a3c';
     ctx.font = 'italic 16px sans-serif';
-    ctx.fillText('Your Beauty, Our Expertise', 540, 1615);
+    ctx.fillText('Beauty, Styled Your Way', 540, 1615);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
@@ -672,7 +672,6 @@ export default function App() {
   const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
 
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
-  const shouldShowLogoInHeader = config.toggles?.showLogoOnApp !== false && config.studioLogo;
   const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
 
   if (config.isAppDown || config.maintenanceMode) {
@@ -697,7 +696,7 @@ export default function App() {
           </div>
 
           <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left text-xs space-y-1">
-            <div className="flex justify-between"><span className="text-slate-400">Artist:</span><span className="font-bold text-white">{config.studioName || "Husna Farooqui"}</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Artist:</span><span className="font-bold text-white">H&F Makeup Artist</span></div>
             <div className="flex justify-between"><span className="text-slate-400">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-pink-400 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
         </div>
@@ -847,7 +846,7 @@ export default function App() {
           <div className="flex items-center justify-between">
             {/* Left side: Logo on Left Side with H&F Makeup Artist — Beauty, Styled Your Way */}
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Logo" 
