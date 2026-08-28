@@ -189,12 +189,50 @@ const resolveProfileImageUrl = (configData) => {
   return DEFAULT_PROFILE_IMG;
 };
 
+// 🎬 Video Player Component with Robust Autoplay & Inline Playback
+const AutoPlayVideoCard = ({ item }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => {
+        console.warn("Autoplay prevented by browser policy, muted autoplay retry:", err);
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play().catch(() => {});
+        }
+      });
+    }
+  }, [item.url]);
+
+  return (
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
+      <video
+        ref={videoRef}
+        src={item.url}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
+      />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+        <span className="text-[10px] uppercase font-mono font-bold text-cyan-400">{item.sub || 'Client Look'}</span>
+        <h4 className="font-bold text-sm sm:text-base mt-0.5 flex items-center gap-1.5">
+          <Film className="w-3.5 h-3.5 text-pink-400 shrink-0 animate-pulse" />
+          <span>{item.title}</span>
+        </h4>
+      </div>
+    </div>
+  );
+};
+
 export default function App() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [announcementIdx, setAnnouncementIdx] = useState(0);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
@@ -319,15 +357,6 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (config.announcements && config.announcements.length > 1) {
-      const timer = setInterval(() => {
-        setAnnouncementIdx((prev) => (prev + 1) % config.announcements.length);
-      }, 4500);
-      return () => clearInterval(timer);
-    }
-  }, [config.announcements]);
-
   const handleAddFamilyGuest = () => {
     setFamilyGuests([...familyGuests, {
       id: Date.now(),
@@ -403,47 +432,60 @@ export default function App() {
   const discountAmount = getDiscountAmount(grossEstimate);
   const finalEstimate = Math.max(0, grossEstimate - discountAmount);
 
-  // Minimalist Luxury "BOOKING SENT RECEIPT" (.JPG)
+  // Minimalist Luxury "BOOKING SENT RECEIPT" (.JPG with Logo)
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1080;
-    canvas.height = 1680;
+    canvas.height = 1760;
 
     ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, 1080, 1680);
+    ctx.fillRect(0, 0, 1080, 1760);
 
-    const bgGrad = ctx.createRadialGradient(540, 200, 50, 540, 800, 850);
+    const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
     bgGrad.addColorStop(0, '#ffffff');
     bgGrad.addColorStop(1, '#fafafa');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(20, 20, 1040, 1640);
+    ctx.fillRect(20, 20, 1040, 1720);
 
     ctx.strokeStyle = '#b48a3c';
     ctx.lineWidth = 4;
-    ctx.strokeRect(40, 40, 1000, 1600);
+    ctx.strokeRect(40, 40, 1000, 1680);
 
+    const logoImg = new Image();
+    logoImg.crossOrigin = "anonymous";
+    logoImg.src = config.studioLogo || DEFAULT_STUDIO_LOGO;
+    logoImg.onload = () => {
+      ctx.drawImage(logoImg, 490, 60, 100, 100);
+      drawSlipContent(ctx, bNumber);
+    };
+    logoImg.onerror = () => {
+      drawSlipContent(ctx, bNumber);
+    };
+  };
+
+  const drawSlipContent = (ctx, bNumber) => {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#1e293b';
-    ctx.font = 'bold 46px serif';
-    ctx.fillText('H&F MAKEUP ARTIST', 540, 130);
+    ctx.font = 'bold 42px serif';
+    ctx.fillText('H&F MAKEUP ARTIST', 540, 195);
 
     ctx.fillStyle = '#b48a3c';
     ctx.font = '600 20px sans-serif';
-    ctx.fillText('Beauty, Styled Your Way', 540, 170);
+    ctx.fillText('Beauty, Styled Your Way', 540, 230);
 
     ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(180, 205);
-    ctx.lineTo(900, 205);
+    ctx.moveTo(180, 255);
+    ctx.lineTo(900, 255);
     ctx.stroke();
 
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 24px sans-serif';
-    ctx.fillText('BOOKING SENT RECEIPT', 540, 250);
+    ctx.fillText('BOOKING SENT RECEIPT', 540, 300);
 
     const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
     const kitName = config.pricingByKit[calcKit].name;
@@ -460,7 +502,7 @@ export default function App() {
       { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' }
     ];
 
-    let startY = 320;
+    let startY = 370;
     rows.forEach((row, idx) => {
       ctx.fillStyle = idx === 0 ? '#f0f9ff' : (idx % 2 === 0 ? '#f8fafc' : '#ffffff');
       ctx.fillRect(80, startY - 26, 920, 56);
@@ -551,11 +593,11 @@ export default function App() {
 
     ctx.fillStyle = '#64748b';
     ctx.font = '17px sans-serif';
-    ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1580);
+    ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1670);
 
     ctx.fillStyle = '#b48a3c';
     ctx.font = 'italic 16px sans-serif';
-    ctx.fillText('Beauty, Styled Your Way', 540, 1615);
+    ctx.fillText('Beauty, Styled Your Way', 540, 1700);
 
     const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
     setGeneratedJpgUrl(jpgUrl);
@@ -829,13 +871,37 @@ export default function App() {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      {/* Top Banner Ticker */}
+      {/* 🌊 Fluid Smooth Marquee Ticker Announcement */}
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2 px-3 sm:px-4 text-[11px] sm:text-xs font-bold text-center tracking-wide flex items-center justify-center gap-2 shadow-sm transition-all duration-300`}>
-          <Volume2 className="w-3.5 h-3.5 shrink-0 animate-bounce" />
-          <span className="truncate max-w-4xl font-semibold">
-            {config.announcements[announcementIdx] || config.announcements[0]}
-          </span>
+        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center`}>
+          <div className="flex items-center gap-2 shrink-0 z-10 bg-inherit pr-3">
+            <Volume2 className="w-4 h-4 animate-bounce" />
+            <span className="uppercase tracking-widest text-[10px] font-mono">Announcements:</span>
+          </div>
+          <div className="flex overflow-hidden whitespace-nowrap w-full">
+            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium">
+              {(config.announcements || []).map((ann, idx) => (
+                <span key={idx} className="mx-6 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  {ann}
+                </span>
+              ))}
+            </div>
+            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium" aria-hidden="true">
+              {(config.announcements || []).map((ann, idx) => (
+                <span key={`dup_${idx}`} className="mx-6 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  {ann}
+                </span>
+              ))}
+            </div>
+          </div>
+          <style>{`
+            @keyframes marquee {
+              0% { transform: translateX(0%); }
+              100% { transform: translateX(-100%); }
+            }
+          `}</style>
         </div>
       )}
 
@@ -844,7 +910,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
            
           <div className="flex items-center justify-between">
-            {/* Left side: Logo on Left Side with H&F Makeup Artist — Beauty, Styled Your Way */}
+            {/* Left side: Logo & Brand Text */}
             <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
               <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
                 <img 
@@ -866,7 +932,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right side: QR Share, Theme Toggle, Instagram Button, and Profile Photo */}
+            {/* Right side: QR Share, Theme Toggle, Instagram Button, and Protected Profile Photo */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 onClick={() => setShowShareModal(true)}
@@ -903,12 +969,19 @@ export default function App() {
               </a>
 
               {shouldShowProfileInHeader && (
-                <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5`}>
+                <div 
+                  className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none`}
+                  onContextMenu={(e) => e.preventDefault()}
+                  style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
+                >
                   <img 
                     src={resolvedAvatar} 
                     alt="Artist Profile" 
                     onError={() => setImgLoadFailed(true)}
-                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
+                    onContextMenu={(e) => e.preventDefault()}
+                    draggable="false"
+                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
+                    style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                   />
                 </div>
               )}
@@ -921,7 +994,8 @@ export default function App() {
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
                 { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-                { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false }
+                { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+                { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
               ].filter(t => t.show).map(tab => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
@@ -1043,33 +1117,23 @@ export default function App() {
 
                 return (
                   <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in`}>
-                    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
-                      {isVideo ? (
-                        <video
-                          src={item.url}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          preload="auto"
-                          controls
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      ) : (
+                    {isVideo ? (
+                      <AutoPlayVideoCard item={item} />
+                    ) : (
+                      <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
                         <img 
                           src={item.url} 
                           alt={item.title} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                      )}
-                      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                        <span className={`text-[10px] uppercase font-mono font-bold ${currentTheme.accentText}`}>{item.sub || 'Client Look'}</span>
-                        <h4 className="font-bold text-sm sm:text-base mt-0.5 flex items-center gap-1.5">
-                          {isVideo && <Film className="w-3.5 h-3.5 text-pink-400 shrink-0 animate-pulse" />}
-                          <span>{item.title}</span>
-                        </h4>
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                          <span className={`text-[10px] uppercase font-mono font-bold ${currentTheme.accentText}`}>{item.sub || 'Client Look'}</span>
+                          <h4 className="font-bold text-sm sm:text-base mt-0.5">
+                            <span>{item.title}</span>
+                          </h4>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 );
               })}
@@ -1100,7 +1164,6 @@ export default function App() {
         {/* TAB 4: ESTIMATE & BOOK */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
-            {/* Estimator & Booking Form */}
             {isBookingDone ? (
               <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
@@ -1349,72 +1412,80 @@ export default function App() {
           </div>
         )}
 
-        {/* 💬 CLIENT FEEDBACK & SUGGESTIONS */}
-        <section className={`mt-12 p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-4xl mx-auto space-y-4`}>
-          <div className="text-center space-y-1">
-            <span className={`text-[10px] font-bold uppercase tracking-wider ${currentTheme.accentText}`}>Client Experience</span>
-            <h3 className="text-xl sm:text-2xl font-bold">Feedback & Suggestions</h3>
-            <p className={`text-xs ${mutedTextClass}`}>Help us enhance your vanity experience by sharing your thoughts.</p>
-          </div>
-
-          {feedbackSubmitted ? (
-            <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2 animate-fade-in">
-              <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-              <h4 className="font-bold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
-              <p className="text-xs text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
+        {/* TAB 5: FEEDBACK & SUGGESTIONS */}
+        {activeTab === 'feedback' && (
+          <div className={`p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-2xl mx-auto space-y-5 animate-fade-in`}>
+            <div className="text-center space-y-1">
+              <span className={`text-[10px] font-bold uppercase tracking-wider ${currentTheme.accentText}`}>Client Experience</span>
+              <h3 className="text-xl sm:text-2xl font-bold">Feedback & Suggestions</h3>
+              <p className={`text-xs ${mutedTextClass}`}>Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
-          ) : (
-            <form onSubmit={handleSubmitFeedback} className="space-y-4 max-w-xl mx-auto">
-              <div className="flex justify-center gap-1.5 py-1">
-                {[1, 2, 3, 4, 5].map(star => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => setFeedbackRating(star)}
-                    className="p-1 active:scale-125 transition"
-                  >
-                    <Star className={`w-6 h-6 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-600'}`} />
-                  </button>
-                ))}
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <input
-                  type="text"
-                  placeholder="Your Name (Optional)"
-                  value={feedbackName}
-                  onChange={e => setFeedbackName(e.target.value)}
+            {feedbackSubmitted ? (
+              <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2 animate-fade-in">
+                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
+                <h4 className="font-bold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
+                <p className="text-xs text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
+                <button
+                  onClick={() => setFeedbackSubmitted(false)}
+                  className="mt-3 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition"
+                >
+                  Submit Another Feedback
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitFeedback} className="space-y-4">
+                <div className="flex justify-center gap-1.5 py-1">
+                  {[1, 2, 3, 4, 5].map(star => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setFeedbackRating(star)}
+                      className="p-1 active:scale-125 transition"
+                    >
+                      <Star className={`w-7 h-7 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-600'}`} />
+                    </button>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    placeholder="Your Name (Optional)"
+                    value={feedbackName}
+                    onChange={e => setFeedbackName(e.target.value)}
+                    className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone Number (Optional)"
+                    value={feedbackPhone}
+                    onChange={e => setFeedbackPhone(e.target.value)}
+                    className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
+                  />
+                </div>
+
+                <textarea
+                  rows={4}
+                  required
+                  placeholder="Share your suggestion, experience or styling ideas..."
+                  value={feedbackMessage}
+                  onChange={e => setFeedbackMessage(e.target.value)}
                   className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
                 />
-                <input
-                  type="tel"
-                  placeholder="Phone Number (Optional)"
-                  value={feedbackPhone}
-                  onChange={e => setFeedbackPhone(e.target.value)}
-                  className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
-                />
-              </div>
 
-              <textarea
-                rows={3}
-                required
-                placeholder="Share your suggestion, experience or styling ideas..."
-                value={feedbackMessage}
-                onChange={e => setFeedbackMessage(e.target.value)}
-                className={`w-full p-3 rounded-2xl text-xs ${inputBgClass}`}
-              />
-
-              <button
-                type="submit"
-                disabled={isSubmittingFeedback}
-                className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-1.5`}
-              >
-                <Send className="w-3.5 h-3.5" />
-                <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
-              </button>
-            </form>
-          )}
-        </section>
+                <button
+                  type="submit"
+                  disabled={isSubmittingFeedback}
+                  className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-95 transition flex items-center justify-center gap-1.5`}
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
+                </button>
+              </form>
+            )}
+          </div>
+        )}
 
       </main>
 
