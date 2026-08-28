@@ -4,7 +4,7 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, Lightbulb
+  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, Lightbulb, Globe
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -13,7 +13,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
 
-const MAKEUP_FACTS = [
+const FALLBACK_MAKEUP_FACTS = [
   "💡 Fact: Hydrated skin is the secret to a flawless 16-hour dewy makeup finish.",
   "💡 Fact: Setting spray locks makeup molecules in place, preventing creasing during long events.",
   "💡 Fact: Airbrush and HD mineral bases scatter light, giving a poreless finish on camera.",
@@ -211,8 +211,10 @@ export default function App() {
   const [viewingPackage, setViewingPackage] = useState(null);
   const [nowTick, setNowTick] = useState(Date.now());
 
-  // Makeup Fact Ticker on Right Hand Side
+  // 🌐 Live Internet Makeup Facts Stream State
+  const [liveFacts, setLiveFacts] = useState(FALLBACK_MAKEUP_FACTS);
   const [factIdx, setFactIdx] = useState(0);
+  const [isFetchingInternetFacts, setIsFetchingInternetFacts] = useState(false);
 
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
@@ -232,6 +234,7 @@ export default function App() {
   const [isBookingDone, setIsBookingDone] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imgLoadFailed, setImgLoadFailed] = useState(false);
+  const [logoLoadFailed, setLogoLoadFailed] = useState(false);
   
   const [feedbackName, setFeedbackName] = useState('');
   const [feedbackPhone, setFeedbackPhone] = useState('');
@@ -251,13 +254,36 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  // 🌐 Fetch Live Internet Makeup Facts from Public API / RSS Stream
+  useEffect(() => {
+    async function fetchLiveInternetFacts() {
+      setIsFetchingInternetFacts(true);
+      try {
+        const response = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Cosmetics');
+        const data = await response.json();
+        if (data && data.extract) {
+          const sentences = data.extract.split('. ').filter(s => s.length > 25);
+          if (sentences.length > 0) {
+            const dynamicFacts = sentences.map(s => `🌐 Live Fact: ${s.trim()}${s.endsWith('.') ? '' : '.'}`);
+            setLiveFacts(prev => [...dynamicFacts, ...FALLBACK_MAKEUP_FACTS]);
+          }
+        }
+      } catch (err) {
+        console.warn("Live internet fetch fallback to default facts:", err);
+      } finally {
+        setIsFetchingInternetFacts(false);
+      }
+    }
+    fetchLiveInternetFacts();
+  }, []);
+
   // Live Makeup Facts Rotation Timer
   useEffect(() => {
     const factTimer = setInterval(() => {
-      setFactIdx(prev => (prev + 1) % MAKEUP_FACTS.length);
-    }, 6000);
+      setFactIdx(prev => (prev + 1) % liveFacts.length);
+    }, 5500);
     return () => clearInterval(factTimer);
-  }, []);
+  }, [liveFacts.length]);
 
   useEffect(() => {
     async function logVisitorTraffic() {
@@ -333,6 +359,7 @@ export default function App() {
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
       });
       setImgLoadFailed(false);
+      setLogoLoadFailed(false);
     });
     return () => unsubscribe();
   }, []);
@@ -662,25 +689,26 @@ export default function App() {
   const headerBgClass = isDarkMode 
     ? "bg-[#080d1e]/80 backdrop-blur-3xl border-b border-white/[0.12] shadow-2xl shadow-cyan-950/20" 
     : "bg-white/90 backdrop-blur-3xl border-b border-slate-200/80 shadow-sm";
-  
+   
   const cardBgClass = isDarkMode 
     ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 text-[#f8fafc]" 
     : "bg-white/85 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
-  
+   
   const subCardBgClass = isDarkMode 
     ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-[#f8fafc]" 
     : "bg-slate-100/90 backdrop-blur-2xl border border-slate-200 text-[#0f172a]";
-  
+   
   const inputBgClass = isDarkMode 
     ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" 
     : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500";
-  
+   
   const navTextClass = isDarkMode 
     ? "text-slate-300 hover:text-white hover:bg-white/10" 
     : "text-slate-700 hover:text-slate-950 hover:bg-slate-200/70 font-bold";
-  
+   
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
+  const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
@@ -724,23 +752,20 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
-      
+       
       {/* 🎬 INTRO SPLASH SCREEN */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
-            {shouldShowLogoInHeader ? (
-              <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
-                <img src={config.studioLogo} alt="Studio Logo" className="w-full h-full object-contain rounded-[24px]" />
-              </div>
-            ) : (
-              <div className="w-20 sm:w-24 h-20 sm:h-24 rounded-[32px] bg-gradient-to-tr from-cyan-400 via-sky-300 to-indigo-400 p-1 shadow-2xl shadow-cyan-500/40 animate-pulse">
-                <div className="w-full h-full bg-[#030712] rounded-[28px] flex items-center justify-center">
-                  <Crown className="w-10 sm:w-12 h-10 sm:h-12 text-cyan-400 animate-bounce" />
-                </div>
-              </div>
-            )}
-            
+            <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
+              <img 
+                src={resolvedLogoUrl} 
+                alt="Studio Logo" 
+                onError={() => setLogoLoadFailed(true)}
+                className="w-full h-full object-contain rounded-[24px]" 
+              />
+            </div>
+             
             <div className="text-center space-y-1.5">
               <h1 className="text-xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
                 {config.studioName || "HUSNA FAROOQUI"}
@@ -860,17 +885,14 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar */}
+      {/* 💎 Universal Header & Top Navigation Bar with Top-Centre Logo Integration */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
-          
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              {shouldShowLogoInHeader ? (
-                <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
-                  <img src={config.studioLogo} alt="Logo" className="w-full h-full object-contain" />
-                </div>
-              ) : shouldShowProfileInHeader ? (
+           
+          <div className="grid grid-cols-3 items-center">
+            {/* Left side: Profile / Artist info */}
+            <div className="flex items-center space-x-2.5 select-none cursor-pointer min-w-0">
+              {shouldShowProfileInHeader ? (
                 <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
                   <img 
                     src={resolvedAvatar} 
@@ -879,24 +901,30 @@ export default function App() {
                     className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
-              ) : (
-                <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                  <Crown className="w-5 h-5" />
-                </div>
-              )}
-              
-              <div className="truncate">
-                <h1 className={`font-bold text-sm sm:text-lg bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
-                  {config.studioName || "HUSNA FAROOQUI"}
-                </h1>
-                <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
-                  <span className="truncate">{config.artistTagline || "Celebrity & Bridal Makeup Artist"}</span>
-                  <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
-                </p>
+              ) : null}
+              <div className="hidden sm:block truncate">
+                <h2 className="text-xs font-bold text-slate-300 truncate">Studio Hub</h2>
+                <p className="text-[10px] text-cyan-400 font-semibold truncate">Verified Artistry</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Top-Centre: Properly Integrated Studio Logo & Title */}
+            <div className="flex flex-col items-center justify-center text-center select-none cursor-pointer group">
+              <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-[18px] sm:rounded-[22px] bg-white/10 p-1 border border-white/20 shadow-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                <img 
+                  src={resolvedLogoUrl} 
+                  alt="Studio Logo" 
+                  onError={() => setLogoLoadFailed(true)}
+                  className="w-full h-full object-contain rounded-[14px]" 
+                />
+              </div>
+              <h1 className={`font-bold text-xs sm:text-sm tracking-wide bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent mt-1 truncate max-w-[220px]`}>
+                {config.studioName || "HUSNA FAROOQUI"}
+              </h1>
+            </div>
+
+            {/* Right side: Action controls */}
+            <div className="flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
@@ -925,10 +953,10 @@ export default function App() {
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
+                className="hidden sm:flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
               >
                 <Camera className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
+                <span>@{getCleanInstagramHandle(config.instagramHandle)}</span>
               </a>
             </div>
           </div>
@@ -1115,10 +1143,10 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATE & BOOK (WITH RIGHT HAND SIDE LIVE MAKEUP FACTS WIDGET) */}
+        {/* TAB 4: ESTIMATE & BOOK (WITH RIGHT HAND SIDE LIVE INTERNET MAKEUP FACTS WIDGET) */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in transition-opacity duration-300">
-            
+             
             {/* Left/Main Column: Estimator & Booking Form */}
             <div className="lg:col-span-8">
               {isBookingDone ? (
@@ -1126,7 +1154,7 @@ export default function App() {
                   <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  
+                   
                   <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
                     BOOKING NUMBER: {currentBookingNumber}
                   </div>
@@ -1151,7 +1179,7 @@ export default function App() {
                 </div>
               ) : (
                 <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
-                  
+                   
                   <div className="md:col-span-7 space-y-4 sm:space-y-5">
                     <div className="border-b border-white/10 pb-2">
                       <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
@@ -1368,26 +1396,37 @@ export default function App() {
               )}
             </div>
 
-            {/* Right-Hand Side Live Makeup Facts Section */}
+            {/* Right-Hand Side Live Internet Makeup Facts Section */}
             <div className="lg:col-span-4 space-y-4">
-              <div className={`${cardBgClass} rounded-3xl p-5 sm:p-6 space-y-4 border ${currentTheme.accentBorder}`}>
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/30">
-                    <Lightbulb className="w-5 h-5 animate-pulse" />
+              <div className={`${cardBgClass} rounded-3xl p-5 sm:p-6 space-y-4 border ${currentTheme.accentBorder} relative overflow-hidden`}>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                      <Lightbulb className="w-5 h-5 animate-pulse" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm">Live Makeup Facts</h4>
+                      <p className={`text-[10px] ${mutedTextClass} flex items-center gap-1`}>
+                        <Globe className="w-3 h-3 text-cyan-400 animate-spin" style={{ animationDuration: '8s' }} /> Live Internet Stream
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-sm">Professional Makeup Facts</h4>
-                    <p className={`text-[11px] ${mutedTextClass}`}>Expert tips & beauty science insights</p>
-                  </div>
+                  <span className="text-[9px] font-mono font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full">
+                    LIVE FEED
+                  </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs leading-relaxed text-slate-200 min-h-[110px] flex items-center transition-all duration-500 animate-fade-in font-medium">
-                  {MAKEUP_FACTS[factIdx]}
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs leading-relaxed text-slate-200 min-h-[120px] flex items-center transition-all duration-700 animate-fade-in font-medium shadow-inner">
+                  {liveFacts[factIdx]}
                 </div>
 
-                <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono">
-                  <span>Rotating live insight</span>
-                  <span>{factIdx + 1} / {MAKEUP_FACTS.length}</span>
+                <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono pt-1 border-t border-white/10">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" /> Auto-streaming
+                  </span>
+                  <span>{factIdx + 1} / {liveFacts.length}</span>
                 </div>
               </div>
             </div>
