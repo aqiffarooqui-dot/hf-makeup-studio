@@ -4,7 +4,7 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, Lightbulb, Globe
+  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -12,15 +12,6 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
-
-const FALLBACK_MAKEUP_FACTS = [
-  "💡 Fact: Hydrated skin is the secret to a flawless 16-hour dewy makeup finish.",
-  "💡 Fact: Setting spray locks makeup molecules in place, preventing creasing during long events.",
-  "💡 Fact: Airbrush and HD mineral bases scatter light, giving a poreless finish on camera.",
-  "💡 Fact: Using a lip liner before lipstick prevents feathering and extends wear time.",
-  "💡 Fact: Asian bridal jewelry looks most striking when balanced with sculpted eye contouring.",
-  "💡 Fact: Waterproof gel liners prevent smudging even during emotional moments."
-];
 
 const DEFAULT_KIT_IMAGES = {
   international: {
@@ -211,11 +202,6 @@ export default function App() {
   const [viewingPackage, setViewingPackage] = useState(null);
   const [nowTick, setNowTick] = useState(Date.now());
 
-  // 🌐 Live Internet Makeup Facts Stream State
-  const [liveFacts, setLiveFacts] = useState(FALLBACK_MAKEUP_FACTS);
-  const [factIdx, setFactIdx] = useState(0);
-  const [isFetchingInternetFacts, setIsFetchingInternetFacts] = useState(false);
-
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
   const [calcZone, setCalcZone] = useState('delhi_near');
@@ -253,37 +239,6 @@ export default function App() {
     const timer = setInterval(() => setNowTick(Date.now()), 1000);
     return () => clearInterval(timer);
   }, []);
-
-  // 🌐 Fetch Live Internet Makeup Facts from Public API / RSS Stream
-  useEffect(() => {
-    async function fetchLiveInternetFacts() {
-      setIsFetchingInternetFacts(true);
-      try {
-        const response = await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/Cosmetics');
-        const data = await response.json();
-        if (data && data.extract) {
-          const sentences = data.extract.split('. ').filter(s => s.length > 25);
-          if (sentences.length > 0) {
-            const dynamicFacts = sentences.map(s => `🌐 Live Fact: ${s.trim()}${s.endsWith('.') ? '' : '.'}`);
-            setLiveFacts(prev => [...dynamicFacts, ...FALLBACK_MAKEUP_FACTS]);
-          }
-        }
-      } catch (err) {
-        console.warn("Live internet fetch fallback to default facts:", err);
-      } finally {
-        setIsFetchingInternetFacts(false);
-      }
-    }
-    fetchLiveInternetFacts();
-  }, []);
-
-  // Live Makeup Facts Rotation Timer
-  useEffect(() => {
-    const factTimer = setInterval(() => {
-      setFactIdx(prev => (prev + 1) % liveFacts.length);
-    }, 5500);
-    return () => clearInterval(factTimer);
-  }, [liveFacts.length]);
 
   useEffect(() => {
     async function logVisitorTraffic() {
@@ -768,10 +723,10 @@ export default function App() {
              
             <div className="text-center space-y-1.5">
               <h1 className="text-xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
-                {config.studioName || "HUSNA FAROOQUI"}
+                H&F Makeup Artist
               </h1>
               <p className="text-[11px] sm:text-xs font-semibold text-cyan-400 tracking-widest uppercase">
-                {config.artistTagline || "Celebrity & Bridal Makeup Artist"}
+                Beauty, Styled Your Way
               </p>
             </div>
 
@@ -812,7 +767,7 @@ export default function App() {
 
               <a
                 href={qrCodeApiUrl}
-                download="Husna_Farooqui_Lookbook_QR.png"
+                download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
                 className={`px-4 py-2.5 rounded-xl ${currentTheme.btnPrimary} text-xs flex items-center justify-center gap-1 active:scale-95 shadow`}
@@ -885,46 +840,35 @@ export default function App() {
         </div>
       )}
 
-      {/* 💎 Universal Header & Top Navigation Bar with Top-Centre Logo Integration */}
+      {/* 💎 Universal Header & Top Navigation Bar */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
            
-          <div className="grid grid-cols-3 items-center">
-            {/* Left side: Profile / Artist info */}
-            <div className="flex items-center space-x-2.5 select-none cursor-pointer min-w-0">
-              {shouldShowProfileInHeader ? (
-                <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0`}>
-                  <img 
-                    src={resolvedAvatar} 
-                    alt={config.studioName || "Artist"} 
-                    onError={() => setImgLoadFailed(true)}
-                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-              ) : null}
-              <div className="hidden sm:block truncate">
-                <h2 className="text-xs font-bold text-slate-300 truncate">Studio Hub</h2>
-                <p className="text-[10px] text-cyan-400 font-semibold truncate">Verified Artistry</p>
-              </div>
-            </div>
-
-            {/* Top-Centre: Properly Integrated Studio Logo & Title */}
-            <div className="flex flex-col items-center justify-center text-center select-none cursor-pointer group">
-              <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-[18px] sm:rounded-[22px] bg-white/10 p-1 border border-white/20 shadow-xl overflow-hidden group-hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center justify-between">
+            {/* Left side: Logo on Left Side with H&F Makeup Artist — Beauty, Styled Your Way */}
+            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
+              <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-white/10 p-1 border border-white/20 overflow-hidden shrink-0 shadow-md">
                 <img 
                   src={resolvedLogoUrl} 
-                  alt="Studio Logo" 
+                  alt="Logo" 
                   onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-contain rounded-[14px]" 
+                  className="w-full h-full object-contain" 
                 />
               </div>
-              <h1 className={`font-bold text-xs sm:text-sm tracking-wide bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent mt-1 truncate max-w-[220px]`}>
-                {config.studioName || "HUSNA FAROOQUI"}
-              </h1>
+              
+              <div className="truncate">
+                <h1 className={`font-bold text-xs sm:text-base bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
+                  H&F Makeup Artist
+                </h1>
+                <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
+                  <span className="truncate">Beauty, Styled Your Way</span>
+                  <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
+                </p>
+              </div>
             </div>
 
-            {/* Right side: Action controls */}
-            <div className="flex items-center justify-end gap-1.5 sm:gap-2 shrink-0">
+            {/* Right side: QR Share, Theme Toggle, Instagram Button, and Profile Photo */}
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
@@ -953,11 +897,22 @@ export default function App() {
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
               >
                 <Camera className="w-3.5 h-3.5 shrink-0" />
-                <span>@{getCleanInstagramHandle(config.instagramHandle)}</span>
+                <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
               </a>
+
+              {shouldShowProfileInHeader && (
+                <div className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5`}>
+                  <img 
+                    src={resolvedAvatar} 
+                    alt="Artist Profile" 
+                    onError={() => setImgLoadFailed(true)}
+                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -1143,294 +1098,255 @@ export default function App() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATE & BOOK (WITH RIGHT HAND SIDE LIVE INTERNET MAKEUP FACTS WIDGET) */}
+        {/* TAB 4: ESTIMATE & BOOK */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
-          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in transition-opacity duration-300">
-             
-            {/* Left/Main Column: Estimator & Booking Form */}
-            <div className="lg:col-span-8">
-              {isBookingDone ? (
-                <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                   
-                  <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
-                    BOOKING NUMBER: {currentBookingNumber}
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
-                  <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
-                    Your booking has been successfully submitted. We’ll notify you shortly once the status is updated.
-                  </p>
-
-                  {generatedJpgUrl && (
-                    <div className="pt-2">
-                      <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-2.5 rounded-2xl ${currentTheme.btnPrimary} inline-flex items-center gap-2 text-xs shadow-lg active:scale-95 transition`}>
-                        <Download className="w-4 h-4" />
-                        <span>Download Booking Sent Receipt (.JPG)</span>
-                      </a>
-                    </div>
-                  )}
-
-                  <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-white/10 hover:bg-white/15 text-xs text-slate-300 font-bold rounded-2xl active:scale-95 mt-4 transition`}>
-                    Make Another Calculation / Booking
-                  </button>
+          <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
+            {/* Estimator & Booking Form */}
+            {isBookingDone ? (
+              <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
-              ) : (
-                <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
-                   
-                  <div className="md:col-span-7 space-y-4 sm:space-y-5">
-                    <div className="border-b border-white/10 pb-2">
-                      <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
-                        <Calculator className="w-5 h-5" /> 1. Calculate & Choose Looks
-                      </h3>
-                    </div>
+                 
+                <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
+                  BOOKING NUMBER: {currentBookingNumber}
+                </div>
 
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Vanity Tier</label>
-                      <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                        <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
-                        <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
+                <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
+                <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
+                  Your booking has been successfully submitted. We’ll notify you shortly once the status is updated.
+                </p>
+
+                {generatedJpgUrl && (
+                  <div className="pt-2">
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-2.5 rounded-2xl ${currentTheme.btnPrimary} inline-flex items-center gap-2 text-xs shadow-lg active:scale-95 transition`}>
+                      <Download className="w-4 h-4" />
+                      <span>Download Booking Sent Receipt (.JPG)</span>
+                    </a>
+                  </div>
+                )}
+
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-white/10 hover:bg-white/15 text-xs text-slate-300 font-bold rounded-2xl active:scale-95 mt-4 transition`}>
+                  Make Another Calculation / Booking
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
+                 
+                <div className="md:col-span-7 space-y-4 sm:space-y-5">
+                  <div className="border-b border-white/10 pb-2">
+                    <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
+                      <Calculator className="w-5 h-5" /> 1. Calculate & Choose Looks
+                    </h3>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Vanity Tier</label>
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
+                      <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
+                      <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
+                      <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
+                      <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
+                      <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
+                      <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-medium`}>
+                      {Object.entries(config.convenienceZones).map(([key, zone]) => (
+                        <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Extra Family Makeup Customizer */}
+                  <div className="pt-2 border-t border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-xs uppercase tracking-wider text-white flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-cyan-400" /> Extra Family Makeup Customizer
+                        </h4>
+                        <p className={`text-[11px] ${mutedTextClass}`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
+
+                      <button
+                        type="button"
+                        onClick={handleAddFamilyGuest}
+                        className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
+                      >
+                        <Plus className="w-3.5 h-3.5" /> Add Guest
+                      </button>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Package</label>
-                      <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
-                        <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
-                        <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
-                        <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
-                        <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
-                        <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
-                        <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider mb-2">Venue Location Zone</label>
-                      <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-medium`}>
-                        {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                          <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Extra Family Makeup Customizer */}
-                    <div className="pt-2 border-t border-white/10 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="font-bold text-xs uppercase tracking-wider text-white flex items-center gap-1.5">
-                            <Users className="w-4 h-4 text-cyan-400" /> Extra Family Makeup Customizer
-                          </h4>
-                          <p className={`text-[11px] ${mutedTextClass}`}>Choose individual vanity tier & look for each family guest.</p>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={handleAddFamilyGuest}
-                          className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
-                        >
-                          <Plus className="w-3.5 h-3.5" /> Add Guest
-                        </button>
-                      </div>
-
-                      {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                        <div className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
-                          <span className="text-emerald-400 font-bold flex items-center gap-1">
-                            <Sparkles className="w-3.5 h-3.5" /> Flat {guestDiscountPercent}% Extra Family Makeup Discount Applied
-                          </span>
-                          <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">ACTIVE OFFER</span>
-                        </div>
-                      )}
-
-                      {familyGuests.length > 0 && (
-                        <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
-                          {familyGuests.map((guest, idx) => {
-                            const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
-                            const discountedGuestPrice = isGuestDiscountActive ? Math.round(rawGuestPrice * (1 - guestDiscountPercent / 100)) : rawGuestPrice;
-
-                            return (
-                              <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
-                                <div className="flex items-center justify-between">
-                                  <div className="flex items-center gap-2">
-                                    <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
-                                    <span className="text-xs font-bold font-mono text-white">
-                                      ₹{discountedGuestPrice.toLocaleString('en-IN')}
-                                      {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                                        <span className="line-through text-slate-500 ml-1.5 text-[10px]">₹{rawGuestPrice.toLocaleString('en-IN')}</span>
-                                      )}
-                                    </span>
-                                  </div>
-                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-2">
-                                  <div>
-                                    <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
-                                    <select
-                                      value={guest.kit}
-                                      onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                      className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
-                                    >
-                                      <option value="international">👑 Luxury Kit</option>
-                                      <option value="drugstore">✨ HD Kit</option>
-                                    </select>
-                                  </div>
-
-                                  <div>
-                                    <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Package Look</label>
-                                    <select
-                                      value={guest.packageKey}
-                                      onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                      className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
-                                    >
-                                      <option value="simple_party">Simple Party</option>
-                                      <option value="hd_party">HD Party</option>
-                                      <option value="super_hd_party">Super HD Glam</option>
-                                      <option value="cocktail_glam">Cocktail Glam</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Promo Code Box */}
-                    {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                      <div className="pt-2 border-t border-white/10 space-y-2">
-                        <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
-                          <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
-                        </label>
-                        {appliedCoupon ? (
-                          <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
-                            <div className="space-y-1">
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
-                                {appliedCoupon.expiryDate && (() => {
-                                  const tr = getTimeRemaining(appliedCoupon.expiryDate);
-                                  return tr && !tr.expired ? (
-                                    <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                                      <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
-                                    </span>
-                                  ) : null;
-                                })()}
-                              </div>
-                              <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
-                                🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
-                              </p>
-                            </div>
-                            <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
-                          </div>
-                        ) : (
-                          <div className="flex gap-2">
-                            <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
-                            <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>Apply</button>
-                          </div>
-                        )}
-                        {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
+                    {isGuestDiscountActive && guestDiscountPercent > 0 && (
+                      <div className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between text-xs">
+                        <span className="text-emerald-400 font-bold flex items-center gap-1">
+                          <Sparkles className="w-3.5 h-3.5" /> Flat {guestDiscountPercent}% Extra Family Makeup Discount Applied
+                        </span>
+                        <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">ACTIVE OFFER</span>
                       </div>
                     )}
 
-                    {/* Client Details */}
-                    <div className="pt-3 border-t border-white/10 space-y-3">
-                      <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
-                        <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
-                      </h4>
+                    {familyGuests.length > 0 && (
+                      <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                        {familyGuests.map((guest, idx) => {
+                          const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
+                          const discountedGuestPrice = isGuestDiscountActive ? Math.round(rawGuestPrice * (1 - guestDiscountPercent / 100)) : rawGuestPrice;
 
-                      <div>
-                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Full Name *</label>
-                        <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
-                      </div>
+                          return (
+                            <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
+                                  <span className="text-xs font-bold font-mono text-white">
+                                    ₹{discountedGuestPrice.toLocaleString('en-IN')}
+                                    {isGuestDiscountActive && guestDiscountPercent > 0 && (
+                                      <span className="line-through text-slate-500 ml-1.5 text-[10px]">₹{rawGuestPrice.toLocaleString('en-IN')}</span>
+                                    )}
+                                  </span>
+                                </div>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                              </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                          <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Contact Phone *</label>
-                          <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
-                        </div>
-                        <div>
-                          <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Event Date *</label>
-                          <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
-                        </div>
-                      </div>
+                              <div className="grid grid-cols-2 gap-2">
+                                <div>
+                                  <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
+                                  <select
+                                    value={guest.kit}
+                                    onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
+                                    className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                  >
+                                    <option value="international">👑 Luxury Kit</option>
+                                    <option value="drugstore">✨ HD Kit</option>
+                                  </select>
+                                </div>
 
-                      <div>
-                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Exact Venue Address / Landmark</label>
-                        <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={venueAddress} onChange={(e) => setVenueAddress(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                                <div>
+                                  <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Package Look</label>
+                                  <select
+                                    value={guest.packageKey}
+                                    onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
+                                    className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                  >
+                                    <option value="simple_party">Simple Party</option>
+                                    <option value="hd_party">HD Party</option>
+                                    <option value="super_hd_party">Super HD Glam</option>
+                                    <option value="cocktail_glam">Cocktail Glam</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
-                    </div>
+                    )}
                   </div>
 
-                  {/* Right Summary Box */}
-                  <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
-                    <div>
-                      <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
-                      <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
-                        <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
-                        <span>{finalEstimate.toLocaleString('en-IN')}</span>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                      <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look ({config.packageDetails[calcPackage]?.name}):</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
-                      <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{zoneFee}</span></div>
-                      <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
-                      {appliedCoupon && (
-                        <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
+                  {/* Promo Code Box */}
+                  {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
+                    <div className="pt-2 border-t border-white/10 space-y-2">
+                      <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
+                        <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
+                      </label>
+                      {appliedCoupon ? (
+                        <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                              {appliedCoupon.expiryDate && (() => {
+                                const tr = getTimeRemaining(appliedCoupon.expiryDate);
+                                return tr && !tr.expired ? (
+                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
+                                  </span>
+                                ) : null;
+                              })()}
+                            </div>
+                            <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                            </p>
+                          </div>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2">
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold`} />
+                          <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>Apply</button>
+                        </div>
                       )}
+                      {couponError && <p className="text-[11px] text-rose-500 font-medium">{couponError}</p>}
                     </div>
+                  )}
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
-                    >
-                      <Check className="w-4 h-4" />
-                      <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
+                  {/* Client Details */}
+                  <div className="pt-3 border-t border-white/10 space-y-3">
+                    <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
+                      <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
+                    </h4>
 
-            {/* Right-Hand Side Live Internet Makeup Facts Section */}
-            <div className="lg:col-span-4 space-y-4">
-              <div className={`${cardBgClass} rounded-3xl p-5 sm:p-6 space-y-4 border ${currentTheme.accentBorder} relative overflow-hidden`}>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/30">
-                      <Lightbulb className="w-5 h-5 animate-pulse" />
-                    </div>
                     <div>
-                      <h4 className="font-bold text-sm">Live Makeup Facts</h4>
-                      <p className={`text-[10px] ${mutedTextClass} flex items-center gap-1`}>
-                        <Globe className="w-3 h-3 text-cyan-400 animate-spin" style={{ animationDuration: '8s' }} /> Live Internet Stream
-                      </p>
+                      <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                      </div>
+                      <div>
+                        <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Exact Venue Address / Landmark</label>
+                      <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={venueAddress} onChange={(e) => setVenueAddress(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
                     </div>
                   </div>
-                  <span className="text-[9px] font-mono font-bold bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full">
-                    LIVE FEED
-                  </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs leading-relaxed text-slate-200 min-h-[120px] flex items-center transition-all duration-700 animate-fade-in font-medium shadow-inner">
-                  {liveFacts[factIdx]}
-                </div>
+                {/* Right Summary Box */}
+                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
+                  <div>
+                    <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
+                    <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
+                      <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
+                      <span>{finalEstimate.toLocaleString('en-IN')}</span>
+                    </div>
+                  </div>
 
-                <div className="flex justify-between items-center text-[10px] text-slate-400 font-mono pt-1 border-t border-white/10">
-                  <span className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" /> Auto-streaming
-                  </span>
-                  <span>{factIdx + 1} / {liveFacts.length}</span>
-                </div>
-              </div>
-            </div>
+                  <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look ({config.packageDetails[calcPackage]?.name}):</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{zoneFee}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
+                    {appliedCoupon && (
+                      <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
+                    )}
+                  </div>
 
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-2`}
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         )}
 
