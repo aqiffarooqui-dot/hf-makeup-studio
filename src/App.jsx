@@ -64,56 +64,56 @@ const THEME_STYLES = {
     btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-[16px]",
     accentText: "text-blue-500 dark:text-blue-400",
     accentBorder: "border-blue-500/40 dark:border-blue-400/30",
-    activeNav: "bg-white/32 border border-white/45 rounded-[22px] px-3.5 py-2 shadow-sm text-[#007AFF] font-bold"
+    activeNav: "bg-[#007AFF] text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   liquid_glass: {
     accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
-    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold shadow-xl",
+    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold shadow-xl rounded-[16px]",
     accentText: "text-cyan-500 dark:text-cyan-400",
     accentBorder: "border-cyan-500/40",
-    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg"
+    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg rounded-[22px] px-4 py-2"
   },
   one_ui_9: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-500/30",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   gold_rose: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-rose-600 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   google_minimal: {
     accentGradient: "from-blue-500 via-teal-400 to-emerald-400",
-    btnPrimary: "bg-blue-600 text-white font-semibold shadow-md",
+    btnPrimary: "bg-blue-600 text-white font-semibold shadow-md rounded-[16px]",
     accentText: "text-blue-600 dark:text-blue-400",
     accentBorder: "border-blue-500/30",
-    activeNav: "bg-blue-600 text-white font-bold shadow-md"
+    activeNav: "bg-blue-600 text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   champagne: {
     accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
-    btnPrimary: "bg-amber-400 text-neutral-950 font-bold shadow-lg",
+    btnPrimary: "bg-amber-400 text-neutral-950 font-bold shadow-lg rounded-[16px]",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-400/30",
-    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow"
+    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   emerald: {
     accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
-    btnPrimary: "bg-emerald-500 text-neutral-950 font-bold shadow-lg",
+    btnPrimary: "bg-emerald-500 text-neutral-950 font-bold shadow-lg rounded-[16px]",
     accentText: "text-emerald-600 dark:text-emerald-400",
     accentBorder: "border-emerald-500/30",
-    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow"
+    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   violet: {
     accentGradient: "from-purple-400 via-pink-400 to-rose-400",
-    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg",
+    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-purple-600 dark:text-purple-400",
     accentBorder: "border-purple-500/30",
-    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow"
+    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow rounded-[22px] px-4 py-2"
   }
 };
 
@@ -200,7 +200,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center rounded-[20px] shadow-md">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center rounded-[20px] shadow-md select-none" style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
       <video
         ref={videoRef}
         src={item.url}
@@ -266,6 +266,29 @@ export default function App() {
 
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
+
+  // Handle Browser Popstate for Back Button Support inside Main App tabs/modals
+  useEffect(() => {
+    const handlePopState = (e) => {
+      if (viewingPackage) {
+        e.preventDefault();
+        setViewingPackage(null);
+        window.history.pushState(null, '', window.location.href);
+      } else if (showShareModal) {
+        e.preventDefault();
+        setShowShareModal(false);
+        window.history.pushState(null, '', window.location.href);
+      } else if (activeTab !== 'menu') {
+        e.preventDefault();
+        setActiveTab('menu');
+        window.history.pushState(null, '', window.location.href);
+      }
+    };
+
+    window.history.pushState({ tab: activeTab }, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [activeTab, viewingPackage, showShareModal]);
 
   useEffect(() => {
     const timer = setInterval(() => setNowTick(Date.now()), 1000);
@@ -436,10 +459,59 @@ export default function App() {
       ctx.lineWidth = 4;
       ctx.strokeRect(40, 40, 1000, 1680);
 
+      // Subtle Watermark Logo in background
+      if (logoImageObj) {
+        ctx.save();
+        ctx.globalAlpha = 0.06;
+        ctx.drawImage(logoImageObj, 240, 580, 600, 600);
+        ctx.restore();
+      }
+
+      if (logoImageObj) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(logoImageObj, 95, 105, 90, 90);
+        ctx.restore();
+
+        ctx.strokeStyle = '#007AFF';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
+        ctx.stroke();
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 36px serif';
+        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 210, 140);
+
+        ctx.fillStyle = '#007AFF';
+        ctx.font = '600 18px sans-serif';
+        ctx.fillText('Beauty, Styled Your Way', 210, 170);
+      } else {
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 42px serif';
+        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 540, 140);
+
+        ctx.fillStyle = '#007AFF';
+        ctx.font = '600 20px sans-serif';
+        ctx.fillText('Beauty, Styled Your Way', 540, 175);
+      }
+
+      ctx.strokeStyle = 'rgba(0, 122, 255, 0.3)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(80, 220);
+      ctx.lineTo(1000, 220);
+      ctx.stroke();
+
       ctx.textAlign = 'center';
       ctx.fillStyle = '#0f172a';
       ctx.font = 'bold 24px sans-serif';
-      ctx.fillText('BOOKING SENT RECEIPT', 540, 275);
+      ctx.fillText('OFFICIAL BOOKING SUBMISSION SLIP', 540, 275);
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
@@ -453,7 +525,7 @@ export default function App() {
         { label: 'MAIN LOOK TIER', val: kitName },
         { label: 'MAIN LOOK PACKAGE', val: pkgText.num + ". " + pkgText.name + " (₹" + mainPackagePrice.toLocaleString('en-IN') + ")" },
         { label: 'LOCATION ZONE', val: (zone?.name || 'Delhi NCR') + " (+₹" + zoneFee + ")" },
-        { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' }
+        { label: 'EXACT ADDRESS', val: venueAddress || 'Not Provided' }
       ];
 
       let startY = 340;
@@ -469,6 +541,79 @@ export default function App() {
         ctx.fillText(row.val, 380, startY + 9);
         startY += 64;
       });
+
+      if (familyGuests.length > 0) {
+        startY += 10;
+        ctx.fillStyle = '#fdf4ff';
+        ctx.fillRect(80, startY - 26, 920, 48);
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#9333ea';
+        ctx.font = 'bold 18px sans-serif';
+        ctx.fillText("EXTRA FAMILY GUESTS (" + familyGuests.length + " PERSONS)", 100, startY + 6);
+
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 20px monospace';
+        ctx.fillText("+₹" + familyGuestsTotal.toLocaleString('en-IN'), 980, startY + 6);
+        startY += 54;
+
+        familyGuests.forEach((g, gIdx) => {
+          const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+          const finalP = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
+          const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
+          const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(80, startY - 20, 920, 40);
+          ctx.textAlign = 'left';
+          ctx.fillStyle = '#475569';
+          ctx.font = '16px sans-serif';
+          ctx.fillText("• Guest #" + (gIdx + 1) + " (" + kitLabel + "): " + pkgName, 120, startY + 6);
+          ctx.textAlign = 'right';
+          ctx.font = '17px monospace';
+          ctx.fillText("₹" + finalP.toLocaleString('en-IN'), 980, startY + 6);
+          startY += 44;
+        });
+      }
+
+      if (appliedCoupon) {
+        startY += 6;
+        ctx.fillStyle = '#ecfdf5';
+        ctx.fillRect(80, startY - 24, 920, 48);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#059669';
+        ctx.font = 'bold 18px sans-serif';
+        ctx.fillText("APPLIED PROMO: " + appliedCoupon.code, 100, startY + 7);
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 20px monospace';
+        ctx.fillText("-₹" + discountAmount.toLocaleString('en-IN'), 980, startY + 7);
+        startY += 58;
+      }
+
+      startY += 10;
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(80, startY, 920, 140);
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(80, startY, 920, 140);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#64748b';
+      ctx.font = 'bold 20px sans-serif';
+      ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, startY + 45);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 56px serif';
+      ctx.fillText("₹" + finalEstimate.toLocaleString('en-IN'), 540, startY + 110);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#64748b';
+      ctx.font = '17px sans-serif';
+      ctx.fillText("Base Location: " + config.baseLocation + " • Instagram: @" + getCleanInstagramHandle(config.instagramHandle), 540, 1670);
+
+      ctx.fillStyle = '#007AFF';
+      ctx.font = 'italic 16px sans-serif';
+      ctx.fillText('Beauty, Styled Your Way', 540, 1700);
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
@@ -614,7 +759,7 @@ export default function App() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + appBgClass + " flex items-center justify-center p-4 relative overflow-hidden"}>
+      <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + appBgClass + " flex items-center justify-center p-4 relative overflow-hidden select-none"} style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
         <div className={"max-w-md w-full rounded-[28px] p-8 border shadow-2xl text-center space-y-5 " + cardBgClass}>
           <div className="w-16 h-16 rounded-[22px] bg-blue-500/15 text-blue-500 flex items-center justify-center mx-auto shadow-lg">
@@ -641,24 +786,30 @@ export default function App() {
   }
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + appBgClass + " pb-32 relative overflow-x-hidden font-sans transition-colors duration-500"}>
+    <div 
+      style={{ fontFamily: currentFontFamily }} 
+      className={"min-h-screen " + appBgClass + " pb-32 relative overflow-x-hidden font-sans transition-colors duration-500 select-none"}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
+    >
       {showSplash && (
-        <div className={"fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 " + (splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100')}>
+        <div className={"fixed inset-0 z-50 flex flex-col items-center justify-center bg-black text-white transition-opacity duration-700 select-none " + (splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100')}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
-            <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
+            <div className="w-32 h-32 rounded-[36px] overflow-hidden border border-white/20 shadow-2xl p-2 bg-white/10 flex items-center justify-center">
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
                 onError={() => setLogoLoadFailed(true)}
-                className="w-full h-full object-contain rounded-[24px]" 
+                className="w-full h-full object-contain rounded-[28px] pointer-events-none" 
+                draggable="false"
               />
             </div>
              
             <div className="text-center space-y-1.5">
-              <h1 className="text-xl sm:text-3xl font-bold tracking-wider text-[#007AFF]">
+              <h1 className="text-2xl sm:text-4xl font-bold tracking-wider text-[#007AFF]">
                 H&F Makeup Artist
               </h1>
-              <p className="text-[11px] sm:text-xs font-semibold text-slate-400 tracking-widest uppercase">
+              <p className="text-xs sm:text-sm font-semibold text-slate-400 tracking-widest uppercase">
                 Beauty, Styled Your Way
               </p>
             </div>
@@ -666,9 +817,6 @@ export default function App() {
             <div className="w-40 sm:w-48 h-1.5 bg-white/15 rounded-full overflow-hidden shadow-inner">
               <div className="h-full bg-[#007AFF] rounded-full animate-pulse w-full" />
             </div>
-            <span className="text-[10px] sm:text-[11px] text-[#8E8E93] font-mono tracking-wide">
-              Curating Apple iOS 19 Experience...
-            </span>
           </div>
         </div>
       )}
@@ -680,11 +828,11 @@ export default function App() {
               <span className="font-bold text-sm flex items-center gap-1.5 text-[#007AFF]">
                 <Share2 className="w-4 h-4" /> Share Studio Lookbook
               </span>
-              <button onClick={() => setShowShareModal(false)} className={"p-1 rounded-full " + mutedTextClass}><X className="w-5 h-5" /></button>
+              <button type="button" onClick={() => setShowShareModal(false)} className={"p-1 rounded-full " + mutedTextClass}><X className="w-5 h-5" /></button>
             </div>
 
             <div className="w-48 h-48 mx-auto bg-white p-3 rounded-[20px] border border-slate-200 shadow-inner flex items-center justify-center">
-              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
+              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain pointer-events-none" draggable="false" />
             </div>
             <p className={"text-xs " + mutedTextClass}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
 
@@ -721,11 +869,11 @@ export default function App() {
                 <Crown className="w-5 h-5 text-[#007AFF]" />
                 <h3 className="font-bold text-base sm:text-lg">{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className={"p-1 rounded-full " + mutedTextClass}><X className="w-5 h-5" /></button>
+              <button type="button" onClick={() => setViewingPackage(null)} className={"p-1 rounded-full " + mutedTextClass}><X className="w-5 h-5" /></button>
             </div>
 
             <div className="w-full h-40 sm:h-48 rounded-[20px] overflow-hidden bg-neutral-200 shadow-md">
-              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
+              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover pointer-events-none" draggable="false" />
             </div>
 
             <p className={"text-xs leading-relaxed " + mutedTextClass}>{viewingPackage.desc}</p>
@@ -762,7 +910,7 @@ export default function App() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-[#007AFF] text-white py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center">
+        <div className="bg-[#007AFF] text-white py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center select-none">
           <div className="flex items-center gap-2 shrink-0 z-10 bg-inherit pr-3">
             <Volume2 className="w-4 h-4 animate-bounce" />
             <span className="uppercase tracking-widest text-[10px] font-mono">Announcements:</span>
@@ -803,7 +951,8 @@ export default function App() {
                   src={resolvedLogoUrl} 
                   alt="Logo" 
                   onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-[14px]" 
+                  className="w-full h-full object-cover rounded-[14px] pointer-events-none" 
+                  draggable="false"
                 />
               </div>
                
@@ -937,7 +1086,7 @@ export default function App() {
                 return (
                   <div key={selectedKit + "_" + key} className={cardBgClass + " p-5 sm:p-6 flex flex-col sm:flex-row gap-5 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in"}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] overflow-hidden bg-neutral-200 relative shadow-md">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none" draggable="false" />
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-3">
                       <div>
@@ -1004,7 +1153,8 @@ export default function App() {
                         <img 
                           src={item.url} 
                           alt={item.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
+                          draggable="false"
                         />
                         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
                           <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item.sub || 'Client Look'}</span>
@@ -1127,11 +1277,11 @@ export default function App() {
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3 rounded-[16px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs">
-                        <span className="text-emerald-700 font-bold flex items-center gap-1.5">
+                      <div className="p-3 rounded-[16px] bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-between text-xs">
+                        <span className="text-emerald-800 font-bold flex items-center gap-1.5">
                           <Sparkles className="w-3.5 h-3.5" /> Flat {guestDiscountPercent}% Extra Family Makeup Discount Applied
                         </span>
-                        <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-800 px-2.5 py-0.5 rounded-full">ACTIVE OFFER</span>
+                        <span className="text-[10px] font-bold bg-emerald-500/20 text-emerald-900 px-2.5 py-0.5 rounded-full">ACTIVE OFFER</span>
                       </div>
                     )}
 
