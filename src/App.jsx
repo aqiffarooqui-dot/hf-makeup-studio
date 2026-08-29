@@ -307,6 +307,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
+    document.head.appendChild(link);
+    return () => {
+      if (document.head && document.head.contains(link)) document.head.removeChild(link);
+    };
+  }, []);
+
+  useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
@@ -748,10 +758,6 @@ export default function App() {
     ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" 
     : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500";
    
-  const navTextClass = isDarkMode 
-    ? "text-slate-300 hover:text-white hover:bg-white/10" 
-    : "text-slate-700 hover:text-slate-950 hover:bg-slate-200/70 font-bold";
-   
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -796,7 +802,7 @@ export default function App() {
   }
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
+    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
@@ -948,113 +954,141 @@ export default function App() {
         </div>
       )}
 
+      {/* Desktop Header & Mobile Compact Header */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
-        <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
-              <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-amber-400/50 p-0.5 bg-white/10 flex items-center justify-center">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0">
+            <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-amber-400/50 p-0.5 bg-white/10 flex items-center justify-center">
+              <img 
+                src={resolvedLogoUrl} 
+                alt="Logo" 
+                onError={() => setLogoLoadFailed(true)}
+                className="w-full h-full object-cover rounded-full" 
+              />
+            </div>
+             
+            <div className="truncate">
+              <h1 className={`font-bold text-xs sm:text-base bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
+                H&F Makeup Artist
+              </h1>
+              <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
+                <span className="truncate">Beauty, Styled Your Way</span>
+                <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <button
+              onClick={() => setShowShareModal(true)}
+              title="Share & QR Code"
+              className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
+                isDarkMode 
+                  ? 'bg-white/[0.06] border-white/15 text-cyan-400 hover:bg-white/10' 
+                  : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
+              }`}
+            >
+              <QrCode className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-cyan-400" />
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              title="Toggle Day/Night Mode"
+              className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
+                isDarkMode 
+                  ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
+                  : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
+              }`}
+            >
+              {isDarkMode ? <Sun className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-400" /> : <Moon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-indigo-600" />}
+            </button>
+
+            <a
+              href={getCleanInstagramUrl(config.instagramHandle)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
+            >
+              <Camera className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
+            </a>
+
+            {shouldShowProfileInHeader && (
+              <div 
+                className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none`}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
+              >
                 <img 
-                  src={resolvedLogoUrl} 
-                  alt="Logo" 
-                  onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-full" 
+                  src={resolvedAvatar} 
+                  alt="Artist Profile" 
+                  onError={() => setImgLoadFailed(true)}
+                  onContextMenu={(e) => e.preventDefault()}
+                  draggable="false"
+                  className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
+                  style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                 />
               </div>
-               
-              <div className="truncate">
-                <h1 className={`font-bold text-xs sm:text-base bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
-                  H&F Makeup Artist
-                </h1>
-                <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
-                  <span className="truncate">Beauty, Styled Your Way</span>
-                  <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <button
-                onClick={() => setShowShareModal(true)}
-                title="Share & QR Code"
-                className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
-                  isDarkMode 
-                    ? 'bg-white/[0.06] border-white/15 text-cyan-400 hover:bg-white/10' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
-                }`}
-              >
-                <QrCode className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-cyan-400" />
-              </button>
-
-              <button
-                onClick={toggleTheme}
-                title="Toggle Day/Night Mode"
-                className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
-                  isDarkMode 
-                    ? 'bg-white/[0.06] border-white/15 text-amber-400 hover:bg-white/10' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
-                }`}
-              >
-                {isDarkMode ? <Sun className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-amber-400" /> : <Moon className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-indigo-600" />}
-              </button>
-
-              <a
-                href={getCleanInstagramUrl(config.instagramHandle)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[11px] sm:text-xs font-bold px-3 py-2 rounded-2xl transition-all duration-300 shadow-md shadow-pink-500/20"
-              >
-                <Camera className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
-              </a>
-
-              {shouldShowProfileInHeader && (
-                <div 
-                  className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none`}
-                  onContextMenu={(e) => e.preventDefault()}
-                  style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
-                >
-                  <img 
-                    src={resolvedAvatar} 
-                    alt="Artist Profile" 
-                    onError={() => setImgLoadFailed(true)}
-                    onContextMenu={(e) => e.preventDefault()}
-                    draggable="false"
-                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
-                    style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
-            <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
-              {[
-                { id: 'menu', label: 'Packages', icon: Crown, show: true },
-                { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
-                { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-                { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-                { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
-              ].filter(t => t.show).map(tab => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
-                      isActive ? currentTheme.activeNav : navTextClass
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5 shrink-0" />
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
+            )}
           </div>
         </div>
+
+        {/* Desktop Navigation Tabs (Hidden on Mobile) */}
+        <div className="hidden sm:flex max-w-6xl mx-auto justify-center pt-2">
+          <nav className={`inline-flex space-x-1 p-1 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
+            {[
+              { id: 'menu', label: 'Packages', icon: Crown, show: true },
+              { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
+              { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+              { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+              { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
+            ].filter(t => t.show).map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
+                    isActive ? currentTheme.activeNav : navTextClass
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
       </header>
+
+      {/* Mobile iOS Style Floating Pill Dock (Visible only on Mobile) */}
+      <nav className={`sm:hidden fixed bottom-4 left-4 right-4 z-50 p-2 rounded-[28px] border backdrop-blur-3xl shadow-2xl flex items-center justify-around ${
+        isDarkMode ? 'bg-[#080d1e]/90 border-white/20' : 'bg-white/95 border-slate-300/90 shadow-slate-300/50'
+      }`}>
+        {[
+          { id: 'menu', label: 'Packages', icon: Crown, show: true },
+          { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
+          { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+          { id: 'calculator', label: 'Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+          { id: 'feedback', label: 'Review', icon: MessageSquare, show: true }
+        ].filter(t => t.show).map(tab => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-[20px] transition-all duration-300 active:scale-90 ${
+                isActive ? `${currentTheme.btnPrimary} scale-105` : `${mutedTextClass} hover:opacity-100`
+              }`}
+            >
+              <Icon className="w-4 h-4 shrink-0" />
+              <span className="text-[10px] font-bold mt-0.5 tracking-tight">{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
         {activeTab === 'menu' && (
@@ -1517,7 +1551,7 @@ export default function App() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={`fixed bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+          className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
             isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
           }`}
         >
