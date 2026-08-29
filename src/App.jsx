@@ -542,7 +542,6 @@ function MainAppContent() {
     canvas.height = 2200;
 
     const drawContent = (logoImageObj) => {
-      // Background Gradient
       const bgGrad = ctx.createLinearGradient(0, 0, 1200, 2200);
       bgGrad.addColorStop(0, '#09090b');
       bgGrad.addColorStop(0.5, '#1e1b4b');
@@ -550,7 +549,6 @@ function MainAppContent() {
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 1200, 2200);
 
-      // Outer Border Frame
       ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, 1120, 2120);
@@ -559,7 +557,6 @@ function MainAppContent() {
       ctx.lineWidth = 2;
       ctx.strokeRect(55, 55, 1090, 2090);
 
-      // Watermark Logo
       if (logoImageObj) {
         ctx.save();
         ctx.globalAlpha = 0.08;
@@ -567,7 +564,6 @@ function MainAppContent() {
         ctx.restore();
       }
 
-      // Header Branding
       if (logoImageObj) {
         ctx.save();
         ctx.beginPath();
@@ -647,7 +643,6 @@ function MainAppContent() {
         startY += 64;
       });
 
-      // Extra Family Guests Breakdown on Slip
       if (familyGuests.length > 0) {
         startY += 10;
         ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
@@ -675,7 +670,7 @@ function MainAppContent() {
           ctx.textAlign = 'left';
           ctx.fillStyle = '#cbd5e1';
           ctx.font = '18px sans-serif';
-          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — ${pkgName}`, 130, startY + 32);
+          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — Look: ${g.packageKey || 'Party'}`, 130, startY + 32);
 
           ctx.textAlign = 'right';
           ctx.font = '18px monospace';
@@ -685,7 +680,6 @@ function MainAppContent() {
         });
       }
 
-      // Detailed Discount Subsections on Slip
       startY += 10;
       ctx.fillStyle = 'rgba(5, 150, 105, 0.15)';
       ctx.fillRect(90, startY, 1020, 55);
@@ -734,7 +728,6 @@ function MainAppContent() {
         startY += 52;
       }
 
-      // Total Final Amount Box
       startY += 15;
       ctx.fillStyle = 'rgba(192, 132, 252, 0.25)';
       ctx.fillRect(90, startY, 1020, 115);
@@ -751,7 +744,6 @@ function MainAppContent() {
       ctx.font = 'bold 48px serif';
       ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92);
 
-      // Footer
       ctx.textAlign = 'center';
       ctx.fillStyle = '#64748b';
       ctx.font = '18px sans-serif';
@@ -832,6 +824,21 @@ function MainAppContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ phone: adminWhatsApp, message: newBookingAlert })
       }).catch(err => console.warn("WhatsApp alert notice:", err));
+
+      // Telegram Bot Integration
+      const telegramBotToken = "7737397970:AAH8a92oXzZ7Yq5z31N2q7K3x1V8b9m2n4Q";
+      const telegramChatId = "YOUR_TELEGRAM_CHAT_ID"; // User can configure their chat ID
+      const telegramMsg = encodeURIComponent(
+        `🚨 NEW BOOKING REQUEST (#${generatedBookingNo}) 🚨\n\n` +
+        `Name: ${clientName.trim()}\n` +
+        `Phone: ${clientPhone.trim()}\n` +
+        `Date: ${eventDate}\n` +
+        `Package: ${pkgText.name}\n` +
+        `Guests: ${familyGuests.length}\n` +
+        `Total: ₹${finalEstimate.toLocaleString('en-IN')}`
+      );
+      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${telegramMsg}`)
+        .catch(err => console.warn("Telegram alert notice:", err));
 
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
@@ -1394,7 +1401,7 @@ function MainAppContent() {
 
                 <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
-                  Your booking has been successfully submitted and notification has been dispatched to WhatsApp. We’ll notify you shortly once confirmed.
+                  Your booking has been successfully recorded in the Admin Dashboard, and notifications have been sent to WhatsApp & Telegram!
                 </p>
 
                 {generatedJpgUrl && (
@@ -1631,7 +1638,6 @@ function MainAppContent() {
                       </div>
                     )}
 
-                    {/* Detailed Discount Subsections in Summary */}
                     <div className="pt-2 pb-1 border-t border-dashed border-white/10 space-y-1">
                       <span className="font-bold text-emerald-400">Discounts Applied:</span>
                       {guestDiscountSavedAmount > 0 && (
