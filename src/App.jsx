@@ -1,14 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Component } from 'react';
 import { 
   Sparkles, Calendar as CalendarIcon, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck
+  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+class AppErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("Critical Runtime Crash Caught by Safe Boundary:", error, errorInfo);
+    try {
+      addDoc(collection(db, "crash_logs"), {
+        error: error.toString(),
+        stack: errorInfo.componentStack || '',
+        timestamp: serverTimestamp()
+      });
+    } catch (e) {}
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white/[0.05] border border-white/20 p-8 rounded-3xl backdrop-blur-2xl space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto">
+              <ShieldAlert className="w-8 h-8 animate-bounce" />
+            </div>
+            <h2 className="text-xl font-bold text-amber-300">System Safe Mode Active</h2>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              We encountered a minor display update glitch. Our automated system has protected your session.
+            </p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold text-xs shadow-lg active:scale-95 transition"
+            >
+              Refresh to Safe Version
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
@@ -246,7 +293,7 @@ const AutoPlayVideoCard = ({ item }) => {
   );
 };
 
-export default function App() {
+function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
@@ -291,7 +338,6 @@ export default function App() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Handle Browser Popstate for Back Button Support inside Main App tabs/modals
   useEffect(() => {
     const handlePopState = (e) => {
       if (viewingPackage) {
@@ -1116,7 +1162,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Mobile iOS Style Floating Pill Dock (Shown after splash animation) */}
+      {/* Mobile Floating Pill Dock */}
       {!showSplash && (
         <nav aria-label="Mobile Navigation" className={`sm:hidden fixed bottom-4 left-3 right-4 z-50 p-2 rounded-[28px] border backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in ${
           isDarkMode ? 'bg-[#080d1e]/90 border-white/20' : 'bg-white/95 border-slate-300/90 shadow-slate-300/50'
@@ -1671,5 +1717,13 @@ export default function App() {
         </aside>
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AppErrorBoundary>
+      <MainAppContent />
+    </AppErrorBoundary>
   );
 }
