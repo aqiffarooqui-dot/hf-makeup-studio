@@ -340,16 +340,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap';
-    document.head.appendChild(link);
-    return () => {
-      if (document.head && document.head.contains(link)) document.head.removeChild(link);
-    };
-  }, []);
-
-  useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
@@ -484,18 +474,16 @@ export default function App() {
       ctx.fillStyle = bgGrad;
       ctx.fillRect(20, 20, 1040, 1720);
 
-      ctx.strokeStyle = '#b48a3c';
+      ctx.strokeStyle = '#007AFF';
       ctx.lineWidth = 4;
       ctx.strokeRect(40, 40, 1000, 1680);
 
-      ctx.save();
-      ctx.translate(540, 880);
-      ctx.rotate(-Math.PI / 6);
-      ctx.textAlign = 'center';
-      ctx.fillStyle = 'rgba(180, 138, 60, 0.05)';
-      ctx.font = 'bold 84px serif';
-      ctx.fillText('H&F MAKEUP ARTIST', 0, 0);
-      ctx.restore();
+      if (logoImageObj) {
+        ctx.save();
+        ctx.globalAlpha = 0.06;
+        ctx.drawImage(logoImageObj, 240, 580, 600, 600);
+        ctx.restore();
+      }
 
       if (logoImageObj) {
         ctx.save();
@@ -506,7 +494,7 @@ export default function App() {
         ctx.drawImage(logoImageObj, 95, 105, 90, 90);
         ctx.restore();
 
-        ctx.strokeStyle = '#b48a3c';
+        ctx.strokeStyle = '#007AFF';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
@@ -515,23 +503,23 @@ export default function App() {
         ctx.textAlign = 'left';
         ctx.fillStyle = '#1e293b';
         ctx.font = 'bold 36px serif';
-        ctx.fillText('H&F MAKEUP ARTIST', 210, 140);
+        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 210, 140);
 
-        ctx.fillStyle = '#b48a3c';
+        ctx.fillStyle = '#007AFF';
         ctx.font = '600 18px sans-serif';
         ctx.fillText('Beauty, Styled Your Way', 210, 170);
       } else {
         ctx.textAlign = 'center';
         ctx.fillStyle = '#1e293b';
         ctx.font = 'bold 42px serif';
-        ctx.fillText('H&F MAKEUP ARTIST', 540, 140);
+        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 540, 140);
 
-        ctx.fillStyle = '#b48a3c';
+        ctx.fillStyle = '#007AFF';
         ctx.font = '600 20px sans-serif';
         ctx.fillText('Beauty, Styled Your Way', 540, 175);
       }
 
-      ctx.strokeStyle = 'rgba(180, 138, 60, 0.3)';
+      ctx.strokeStyle = 'rgba(0, 122, 255, 0.3)';
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(80, 220);
@@ -651,7 +639,7 @@ export default function App() {
       ctx.font = '17px sans-serif';
       ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1670);
 
-      ctx.fillStyle = '#b48a3c';
+      ctx.fillStyle = '#007AFF';
       ctx.font = 'italic 16px sans-serif';
       ctx.fillText('Beauty, Styled Your Way', 540, 1700);
 
@@ -770,8 +758,8 @@ export default function App() {
 
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
-  const activeColorThemeKey = config.theme?.colorTheme || 'liquid_glass';
-  const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.liquid_glass;
+  const activeColorThemeKey = config.theme?.colorTheme || 'real_glass_lens';
+  const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.real_glass_lens;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
   const bgClass = isDarkMode ? "bg-[#030712] text-[#f8fafc]" : "bg-[#f8fafc] text-[#0f172a]";
@@ -1001,7 +989,8 @@ export default function App() {
                   src={resolvedLogoUrl} 
                   alt="Logo" 
                   onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-full" 
+                  className="w-full h-full object-cover rounded-full pointer-events-none" 
+                  draggable="false"
                 />
               </div>
                
