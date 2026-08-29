@@ -803,43 +803,23 @@ function MainAppContent() {
         createdAt: serverTimestamp()
       });
 
-      const newBookingAlert = 
-        `🚨 *NEW CUSTOMER BOOKING REQUEST!* 🚨\n\n` +
-        `👤 *Client Name:* ${clientName.trim()}\n` +
+      // Telegram Bot API Integration (Token & Chat ID updated as requested)
+      const telegramBotToken = "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
+      const telegramChatId = "8891500480";
+      
+      const tgMsg = encodeURIComponent(
+        `🚨 *NEW BOOKING REQUEST (${generatedBookingNo})* 🚨\n\n` +
+        `👤 *Name:* ${clientName.trim()}\n` +
         `📞 *Phone:* ${clientPhone.trim()}\n` +
-        `🔢 *Booking No:* ${generatedBookingNo}\n` +
-        `📅 *Event Date:* ${eventDate}\n` +
+        `📅 *Date:* ${eventDate}\n` +
         `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
-        `👥 *Extra Guests:* ${familyGuests.length} Person(s)\n` +
+        `👥 *Extra Guests:* ${familyGuests.length}\n` +
         `🎁 *Discounts:* Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
-        `📍 *Zone:* ${zone?.name}\n` +
-        `🏠 *Address:* ${venueAddress || 'Not Provided'}\n` +
-        `💰 *Total Amount:* ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
-        `_Please open your Admin Panel to Accept or Reject this booking._`;
-
-      const adminWhatsApp = config.whatsappNumber || "919997210876";
-
-      fetch(`${WA_SERVER_URL}/api/send-message`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: adminWhatsApp, message: newBookingAlert })
-      }).catch(err => console.warn("WhatsApp alert notice:", err));
-
-      const telegramBotToken = "7737397970:AAH8a92oXzZ7Yq5z31N2q7K3x1V8b9m2n4Q";
-      const telegramChatId = "YOUR_TELEGRAM_CHAT_ID";
-      if (telegramBotToken !== "YOUR_TELEGRAM_BOT_TOKEN") {
-        const tgMsg = encodeURIComponent(
-          `🚨 NEW BOOKING REQUEST (#${generatedBookingNo}) 🚨\n\n` +
-          `Name: ${clientName.trim()}\n` +
-          `Phone: ${clientPhone.trim()}\n` +
-          `Date: ${eventDate}\n` +
-          `Package: ${pkgText.name}\n` +
-          `Guests: ${familyGuests.length}\n` +
-          `Total: ₹${finalEstimate.toLocaleString('en-IN')}`
-        );
-        fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${tgMsg}`)
-          .catch(err => console.warn("Telegram alert error:", err));
-      }
+        `💰 *Total:* ₹${finalEstimate.toLocaleString('en-IN')}`
+      );
+      
+      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${tgMsg}&parse_mode=Markdown`)
+        .catch(err => console.warn("Telegram alert notice:", err));
 
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
@@ -1402,7 +1382,7 @@ function MainAppContent() {
 
                 <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
-                  Your booking has been successfully recorded in the Admin Dashboard, and notifications have been dispatched to WhatsApp & Telegram!
+                  Your booking has been successfully recorded in the Admin Dashboard, and notifications have been dispatched to Telegram!
                 </p>
 
                 {generatedJpgUrl && (
@@ -1811,10 +1791,4 @@ function MainAppContent() {
   );
 }
 
-export default function App() {
-  return (
-    <AppErrorBoundary>
-      <MainAppContent />
-    </AppErrorBoundary>
-  );
-}
+export default function App.jsx`
