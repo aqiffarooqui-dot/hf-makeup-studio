@@ -291,7 +291,7 @@ const AutoPlayVideoCard = ({ item }) => {
   );
 };
 
-export default function App() {
+function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
@@ -1379,16 +1379,16 @@ export default function App() {
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
+                <h3 className="text-xl sm:text-2xl font-bold">Booking Request Submitted Successfully</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
-                  Your booking has been successfully recorded in the Admin Dashboard, and notifications have been dispatched to Telegram!
+                  Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
                     <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-2.5 rounded-2xl ${currentTheme.btnPrimary} inline-flex items-center gap-2 text-xs shadow-lg active:scale-95 transition`}>
                       <Download className="w-4 h-4" />
-                      <span>Download Booking Sent Receipt (.JPG)</span>
+                      <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
@@ -1618,8 +1618,9 @@ export default function App() {
                       </div>
                     )}
 
+                    {/* Clean Discount Subsections in Summary (No pre-discount price shown on calculation items) */}
                     <div className="pt-2 pb-1 border-t border-dashed border-white/10 space-y-1">
-                      <span className="font-bold text-emerald-400">Discounts Applied:</span>
+                      <span className="font-bold text-emerald-400">Discounts & Offers:</span>
                       {guestDiscountSavedAmount > 0 && (
                         <div className={`flex justify-between text-emerald-400 pl-2 text-[11px]`}>
                           <span>• Extra Guest Discount ({guestDiscountPercent}%):</span>
@@ -1787,5 +1788,13 @@ export default function App() {
         </aside>
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AppErrorBoundary>
+      <MainAppContent />
+    </AppErrorBoundary>
   );
 }
