@@ -896,7 +896,7 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`} style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
         <div className="max-w-md w-full rounded-3xl p-8 border border-white/20 bg-white/[0.05] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
           <div className="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-lg">
@@ -929,7 +929,6 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily }} 
       className={`min-h-screen ${bgClass} pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none`}
       onContextMenu={(e) => e.preventDefault()}
-      style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
     >
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
@@ -1151,7 +1150,6 @@ function MainAppContent() {
                 <div 
                   className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none`}
                   onContextMenu={(e) => e.preventDefault()}
-                  style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                 >
                   <img 
                     src={resolvedAvatar} 
@@ -1160,7 +1158,6 @@ function MainAppContent() {
                     onContextMenu={(e) => e.preventDefault()}
                     draggable="false"
                     className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
-                    style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                   />
                 </div>
               )}
