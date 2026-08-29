@@ -806,7 +806,7 @@ export default function App() {
   }
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
+    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
@@ -958,6 +958,7 @@ export default function App() {
         </div>
       )}
 
+      {/* Desktop Header & Mobile Header */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
@@ -1037,8 +1038,9 @@ export default function App() {
             </div>
           </div>
 
-          <div className="w-full flex items-center justify-start sm:justify-center overflow-x-auto scrollbar-none py-1">
-            <nav className={`inline-flex space-x-1 p-1 rounded-2xl sm:rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
+          {/* Desktop Navigation Tabs (Hidden on Mobile) */}
+          <div className="hidden sm:flex w-full items-center justify-center py-1">
+            <nav className={`inline-flex space-x-1 p-1 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1052,7 +1054,7 @@ export default function App() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
+                    className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-300 ease-out active:scale-90 ${
                       isActive ? currentTheme.activeNav : navTextClass
                     }`}
                   >
@@ -1065,6 +1067,34 @@ export default function App() {
           </div>
         </div>
       </header>
+
+      {/* Mobile iOS Style Floating Pill Dock (Visible only on Mobile) */}
+      <nav className={`sm:hidden fixed bottom-4 left-3 right-4 z-50 p-2 rounded-[28px] border backdrop-blur-3xl shadow-2xl flex items-center justify-around ${
+        isDarkMode ? 'bg-[#080d1e]/90 border-white/20' : 'bg-white/95 border-slate-300/90 shadow-slate-300/50'
+      }`}>
+        {[
+          { id: 'menu', label: 'Packages', icon: Crown, show: true },
+          { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
+          { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+          { id: 'calculator', label: 'Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+          { id: 'feedback', label: 'Review', icon: MessageSquare, show: true }
+        ].filter(t => t.show).map(tab => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-[20px] transition-all duration-300 active:scale-90 ${
+                isActive ? `${currentTheme.btnPrimary} scale-105` : `${mutedTextClass} hover:opacity-100`
+              }`}
+            >
+              <Icon className="w-4 h-4 shrink-0" />
+              <span className="text-[10px] font-bold mt-0.5 tracking-tight">{tab.label}</span>
+            </button>
+          );
+        })}
+      </nav>
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
         {activeTab === 'menu' && (
@@ -1527,7 +1557,7 @@ export default function App() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={`fixed bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+          className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
             isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
           }`}
         >
