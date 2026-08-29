@@ -1790,5 +1790,3 @@ function MainAppContent() {
     </div>
   );
 }
-
-export default function App.jsx`
