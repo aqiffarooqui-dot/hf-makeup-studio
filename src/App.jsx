@@ -291,7 +291,7 @@ const AutoPlayVideoCard = ({ item }) => {
   );
 };
 
-function MainAppContent() {
+export default function App() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
@@ -803,7 +803,6 @@ function MainAppContent() {
         createdAt: serverTimestamp()
       });
 
-      // Telegram Bot API Integration (Token & Chat ID updated as requested)
       const telegramBotToken = "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
       const telegramChatId = "8891500480";
       
