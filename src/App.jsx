@@ -670,7 +670,7 @@ function MainAppContent() {
           ctx.textAlign = 'left';
           ctx.fillStyle = '#cbd5e1';
           ctx.font = '18px sans-serif';
-          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — Look: ${g.packageKey || 'Party'}`, 130, startY + 32);
+          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — Look: ${pkgName}`, 130, startY + 32);
 
           ctx.textAlign = 'right';
           ctx.font = '18px monospace';
@@ -757,12 +757,12 @@ function MainAppContent() {
       setGeneratedJpgUrl(jpgUrl);
     };
 
-    const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
+    const logoUrlToLoad = currentDraftSafe.studioLogo || DEFAULT_CONFIG.studioLogo;
     const logoImg = new Image();
     logoImg.crossOrigin = "anonymous";
     logoImg.src = logoUrlToLoad;
-    logoImg.onload = () => drawContent(logoImg);
-    logoImg.onerror = () => drawContent(null);
+    logoImg.onload = () => drawAdminSlip(logoImg);
+    logoImg.onerror = () => drawAdminSlip(null);
   };
 
   const handleDirectEstimateBooking = async (e) => {
@@ -803,42 +803,22 @@ function MainAppContent() {
         createdAt: serverTimestamp()
       });
 
-      const newBookingAlert = 
-        `🚨 *NEW CUSTOMER BOOKING REQUEST!* 🚨\n\n` +
-        `👤 *Client Name:* ${clientName.trim()}\n` +
-        `📞 *Phone:* ${clientPhone.trim()}\n` +
-        `🔢 *Booking No:* ${generatedBookingNo}\n` +
-        `📅 *Event Date:* ${eventDate}\n` +
-        `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
-        `👥 *Extra Guests:* ${familyGuests.length} Person(s)\n` +
-        `🎁 *Discounts:* Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
-        `📍 *Zone:* ${zone?.name}\n` +
-        `🏠 *Address:* ${venueAddress || 'Not Provided'}\n` +
-        `💰 *Total Amount:* ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
-        `_Please open your Admin Panel to Accept or Reject this booking._`;
-
-      const adminWhatsApp = config.whatsappNumber || "919997210876";
-
-      fetch(`${WA_SERVER_URL}/api/send-message`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: adminWhatsApp, message: newBookingAlert })
-      }).catch(err => console.warn("WhatsApp alert notice:", err));
-
-      // Telegram Bot Integration
-      const telegramBotToken = "7737397970:AAH8a92oXzZ7Yq5z31N2q7K3x1V8b9m2n4Q";
-      const telegramChatId = "YOUR_TELEGRAM_CHAT_ID"; // User can configure their chat ID
-      const telegramMsg = encodeURIComponent(
-        `🚨 NEW BOOKING REQUEST (#${generatedBookingNo}) 🚨\n\n` +
-        `Name: ${clientName.trim()}\n` +
-        `Phone: ${clientPhone.trim()}\n` +
-        `Date: ${eventDate}\n` +
-        `Package: ${pkgText.name}\n` +
-        `Guests: ${familyGuests.length}\n` +
-        `Total: ₹${finalEstimate.toLocaleString('en-IN')}`
-      );
-      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${telegramMsg}`)
-        .catch(err => console.warn("Telegram alert notice:", err));
+      // Telegram Bot Notification Integration
+      const telegramBotToken = "YOUR_TELEGRAM_BOT_TOKEN";
+      const telegramChatId = "YOUR_TELEGRAM_CHAT_ID";
+      if (telegramBotToken !== "YOUR_TELEGRAM_BOT_TOKEN" && telegramChatId !== "YOUR_TELEGRAM_CHAT_ID") {
+        const tgMsg = encodeURIComponent(
+          `🚨 NEW BOOKING REQUEST (#${generatedBookingNo}) 🚨\n\n` +
+          `Name: ${clientName.trim()}\n` +
+          `Phone: ${clientPhone.trim()}\n` +
+          `Date: ${eventDate}\n` +
+          `Package: ${pkgText.name}\n` +
+          `Guests: ${familyGuests.length}\n` +
+          `Total: ₹${finalEstimate.toLocaleString('en-IN')}`
+        );
+        fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${tgMsg}`)
+          .catch(err => console.warn("Telegram alert error:", err));
+      }
 
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
