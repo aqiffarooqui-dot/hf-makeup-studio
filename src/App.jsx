@@ -307,16 +307,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
-    document.head.appendChild(link);
-    return () => {
-      if (document.head && document.head.contains(link)) document.head.removeChild(link);
-    };
-  }, []);
-
-  useEffect(() => {
     const savedTheme = localStorage.getItem('hf_theme_preference');
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
@@ -1374,7 +1364,7 @@ export default function App() {
                               })()}
                             </div>
                             <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
-                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹{appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
                           <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
