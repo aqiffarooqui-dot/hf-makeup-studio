@@ -660,7 +660,6 @@ function MainAppContent() {
 
         familyGuests.forEach((g, gIdx) => {
           const rawGuestP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-          const discountedGuestP = isGuestDiscountActive ? Math.round(rawGuestP * (1 - guestDiscountPercent / 100)) : rawGuestP;
           const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
           const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
 
@@ -675,7 +674,7 @@ function MainAppContent() {
           ctx.textAlign = 'right';
           ctx.font = '18px monospace';
           ctx.fillStyle = '#34d399';
-          ctx.fillText(`₹${discountedGuestP.toLocaleString('en-IN')}`, 1070, startY + 32);
+          ctx.fillText(`₹${rawGuestP.toLocaleString('en-IN')}`, 1070, startY + 32);
           startY += 56;
         });
       }
@@ -803,8 +802,8 @@ function MainAppContent() {
         createdAt: serverTimestamp()
       });
 
-      const telegramBotToken = "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
-      const telegramChatId = "8891500480";
+      const telegramBotToken = config.telegramBotToken || "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
+      const telegramChatId = config.telegramChatId || "8891500480";
       
       const tgMsg = encodeURIComponent(
         `🚨 *NEW BOOKING REQUEST (${generatedBookingNo})* 🚨\n\n` +
@@ -1469,18 +1468,13 @@ function MainAppContent() {
                       <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
-                          const discountedGuestPrice = isGuestDiscountActive ? Math.round(rawGuestPrice * (1 - guestDiscountPercent / 100)) : rawGuestPrice;
-
                           return (
                             <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
                                   <span className="text-xs font-bold font-mono text-white">
-                                    ₹{discountedGuestPrice.toLocaleString('en-IN')}
-                                    {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                                      <span className="line-through text-slate-500 ml-1.5 text-[10px]">₹{rawGuestPrice.toLocaleString('en-IN')}</span>
-                                    )}
+                                    ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
                                 </div>
                                 <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -1606,19 +1600,17 @@ function MainAppContent() {
                         <span className="font-bold text-cyan-400">Extra Family Guests ({familyGuests.length}):</span>
                         {familyGuests.map((g, i) => {
                           const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-                          const discGp = isGuestDiscountActive ? Math.round(gp * (1 - guestDiscountPercent / 100)) : gp;
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                           return (
                             <div key={i} className={`flex justify-between ${mutedTextClass} pl-2 text-[11px]`}>
                               <span>• G#{i+1} ({pkgN}):</span>
-                              <span>₹{discGp.toLocaleString('en-IN')}</span>
+                              <span>₹{gp.toLocaleString('en-IN')}</span>
                             </div>
                           );
                         })}
                       </div>
                     )}
 
-                    {/* Clean Discount Subsections in Summary (No pre-discount price shown on calculation items) */}
                     <div className="pt-2 pb-1 border-t border-dashed border-white/10 space-y-1">
                       <span className="font-bold text-emerald-400">Discounts & Offers:</span>
                       {guestDiscountSavedAmount > 0 && (
@@ -1788,13 +1780,5 @@ function MainAppContent() {
         </aside>
       )}
     </div>
-  );
-}
-
-export default function App() {
-  return (
-    <AppErrorBoundary>
-      <MainAppContent />
-    </AppErrorBoundary>
   );
 }
