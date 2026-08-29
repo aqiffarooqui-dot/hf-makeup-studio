@@ -757,12 +757,12 @@ function MainAppContent() {
       setGeneratedJpgUrl(jpgUrl);
     };
 
-    const logoUrlToLoad = currentDraftSafe.studioLogo || DEFAULT_CONFIG.studioLogo;
+    const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
     const logoImg = new Image();
     logoImg.crossOrigin = "anonymous";
     logoImg.src = logoUrlToLoad;
-    logoImg.onload = () => drawAdminSlip(logoImg);
-    logoImg.onerror = () => drawAdminSlip(null);
+    logoImg.onload = () => drawContent(logoImg);
+    logoImg.onerror = () => drawContent(null);
   };
 
   const handleDirectEstimateBooking = async (e) => {
@@ -803,10 +803,31 @@ function MainAppContent() {
         createdAt: serverTimestamp()
       });
 
-      // Telegram Bot Notification Integration
-      const telegramBotToken = "YOUR_TELEGRAM_BOT_TOKEN";
+      const newBookingAlert = 
+        `🚨 *NEW CUSTOMER BOOKING REQUEST!* 🚨\n\n` +
+        `👤 *Client Name:* ${clientName.trim()}\n` +
+        `📞 *Phone:* ${clientPhone.trim()}\n` +
+        `🔢 *Booking No:* ${generatedBookingNo}\n` +
+        `📅 *Event Date:* ${eventDate}\n` +
+        `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
+        `👥 *Extra Guests:* ${familyGuests.length} Person(s)\n` +
+        `🎁 *Discounts:* Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
+        `📍 *Zone:* ${zone?.name}\n` +
+        `🏠 *Address:* ${venueAddress || 'Not Provided'}\n` +
+        `💰 *Total Amount:* ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
+        `_Please open your Admin Panel to Accept or Reject this booking._`;
+
+      const adminWhatsApp = config.whatsappNumber || "919997210876";
+
+      fetch(`${WA_SERVER_URL}/api/send-message`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: adminWhatsApp, message: newBookingAlert })
+      }).catch(err => console.warn("WhatsApp alert notice:", err));
+
+      const telegramBotToken = "7737397970:AAH8a92oXzZ7Yq5z31N2q7K3x1V8b9m2n4Q";
       const telegramChatId = "YOUR_TELEGRAM_CHAT_ID";
-      if (telegramBotToken !== "YOUR_TELEGRAM_BOT_TOKEN" && telegramChatId !== "YOUR_TELEGRAM_CHAT_ID") {
+      if (telegramBotToken !== "YOUR_TELEGRAM_BOT_TOKEN") {
         const tgMsg = encodeURIComponent(
           `🚨 NEW BOOKING REQUEST (#${generatedBookingNo}) 🚨\n\n` +
           `Name: ${clientName.trim()}\n` +
@@ -1381,7 +1402,7 @@ function MainAppContent() {
 
                 <h3 className="text-xl sm:text-2xl font-bold">Booking Submitted</h3>
                 <p className={`text-xs ${mutedTextClass} max-w-md mx-auto leading-relaxed`}>
-                  Your booking has been successfully recorded in the Admin Dashboard, and notifications have been sent to WhatsApp & Telegram!
+                  Your booking has been successfully recorded in the Admin Dashboard, and notifications have been dispatched to WhatsApp & Telegram!
                 </p>
 
                 {generatedJpgUrl && (
