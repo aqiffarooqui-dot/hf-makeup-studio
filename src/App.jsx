@@ -58,75 +58,6 @@ const DEFAULT_GALLERY = [
   { type: "video", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-makeup-41418-large.mp4" }
 ];
 
-const THEME_STYLES = {
-  real_ios_glass: {
-    accentGradient: "from-sky-400 via-blue-500 to-indigo-500",
-    btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-[16px]",
-    accentText: "text-blue-500 dark:text-blue-400",
-    accentBorder: "border-blue-500/40 dark:border-blue-400/30",
-    activeNav: "bg-white/32 border border-white/45 rounded-[22px] px-3.5 py-2 shadow-sm text-[#007AFF] font-bold"
-  },
-  liquid_glass: {
-    accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
-    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold shadow-xl rounded-[16px]",
-    accentText: "text-cyan-500 dark:text-cyan-400",
-    accentBorder: "border-cyan-500/40",
-    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg rounded-[22px] px-4 py-2"
-  },
-  one_ui_9: {
-    accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
-    accentText: "text-amber-600 dark:text-amber-400",
-    accentBorder: "border-amber-500/30",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
-  },
-  gold_rose: {
-    accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
-    accentText: "text-rose-600 dark:text-rose-400",
-    accentBorder: "border-rose-500/30",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
-  },
-  google_minimal: {
-    accentGradient: "from-blue-500 via-teal-400 to-emerald-400",
-    btnPrimary: "bg-blue-600 text-white font-semibold shadow-md rounded-[16px]",
-    accentText: "text-blue-600 dark:text-blue-400",
-    accentBorder: "border-blue-500/30",
-    activeNav: "bg-blue-600 text-white font-bold shadow-md rounded-[22px] px-4 py-2"
-  },
-  champagne: {
-    accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
-    btnPrimary: "bg-amber-400 text-neutral-950 font-bold shadow-lg rounded-[16px]",
-    accentText: "text-amber-600 dark:text-amber-400",
-    accentBorder: "border-amber-400/30",
-    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
-  },
-  emerald: {
-    accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
-    btnPrimary: "bg-emerald-500 text-neutral-950 font-bold shadow-lg rounded-[16px]",
-    accentText: "text-emerald-600 dark:text-emerald-400",
-    accentBorder: "border-emerald-500/30",
-    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
-  },
-  violet: {
-    accentGradient: "from-purple-400 via-pink-400 to-rose-400",
-    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-purple-600 dark:text-purple-400",
-    accentBorder: "border-purple-500/30",
-    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow rounded-[22px] px-4 py-2"
-  }
-};
-
-const FONT_MAP = {
-  sans: "'Plus Jakarta Sans', sans-serif",
-  outfit: "'Outfit', sans-serif",
-  comic: "'Comic Neue', 'Comic Sans MS', cursive, sans-serif",
-  serif: "'Playfair Display', serif",
-  cormorant: "'Cormorant Garamond', serif",
-  cinzel: "'Cinzel', serif",
-  montserrat: "'Montserrat', sans-serif"
-};
-
 const WA_SERVER_URL = "https://simple-holidays-enable-ranger.trycloudflare.com";
 
 const getTimeRemaining = (expiryDateStr) => {
@@ -173,7 +104,7 @@ const getCleanInstagramHandle = (handleOrUrl) => {
 
 const resolveProfileImageUrl = (configData) => {
   if (configData?.profilePhotoType === 'instagram') {
-    const handle = getCleanInstagramHandle(configData.instagramHandle);
+    const handle = getCleanInstagramHandle(configData?.instagramHandle);
     if (handle) {
       return "https://wsrv.nl/?url=https://unavatar.io/instagram/" + handle + "&w=300&h=300&fit=cover&default=" + encodeURIComponent(DEFAULT_PROFILE_IMG);
     }
@@ -197,13 +128,13 @@ const AutoPlayVideoCard = ({ item }) => {
         }
       });
     }
-  }, [item.url]);
+  }, [item?.url]);
 
   return (
     <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center rounded-[20px] shadow-md select-none" style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
       <video
         ref={videoRef}
-        src={item.url}
+        src={item?.url}
         autoPlay
         muted
         loop
@@ -212,10 +143,10 @@ const AutoPlayVideoCard = ({ item }) => {
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-        <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item.sub || 'Client Look'}</span>
+        <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item?.sub || 'Client Look'}</span>
         <h4 className="font-bold text-sm sm:text-base mt-0.5 flex items-center gap-1.5">
           <Film className="w-3.5 h-3.5 text-pink-400 shrink-0" />
-          <span>{item.title}</span>
+          <span>{item?.title || 'Transformation'}</span>
         </h4>
       </div>
     </div>
@@ -223,7 +154,7 @@ const AutoPlayVideoCard = ({ item }) => {
 };
 
 export default function App() {
-  const [config, setConfig] = useState(STUDIO_CONFIG);
+  const [config, setConfig] = useState(STUDIO_CONFIG || {});
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -232,7 +163,6 @@ export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
   const [viewingPackage, setViewingPackage] = useState(null);
-  const [nowTick, setNowTick] = useState(Date.now());
 
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
@@ -291,11 +221,6 @@ export default function App() {
   }, [activeTab, viewingPackage, showShareModal]);
 
   useEffect(() => {
-    const timer = setInterval(() => setNowTick(Date.now()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
     async function logVisitorTraffic() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -326,10 +251,10 @@ export default function App() {
     const savedTheme = localStorage.getItem('hf_main_theme');
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
-    } else if (config.theme?.defaultMode) {
+    } else if (config?.theme?.defaultMode) {
       setIsDarkMode(config.theme.defaultMode === 'dark');
     }
-  }, [config.theme?.defaultMode]);
+  }, [config?.theme?.defaultMode]);
 
   const toggleTheme = () => {
     setIsDarkMode(prev => {
@@ -341,6 +266,7 @@ export default function App() {
 
   useEffect(() => {
     const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
+      if (!live) return;
       const mergedKitImages = {
         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
@@ -381,13 +307,13 @@ export default function App() {
     setFamilyGuests(familyGuests.map(g => g.id === id ? { ...g, [field]: value } : g));
   };
 
-  const isGuestDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
-  const guestDiscountPercent = isGuestDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
+  const isGuestDiscountActive = config?.toggles?.enableGuestDiscount !== false && config?.guestDiscount?.enabled !== false;
+  const guestDiscountPercent = isGuestDiscountActive ? (config?.guestDiscount?.discountPercent ?? 15) : 0;
 
   const calculateFamilyGuestsTotal = () => {
     let subtotal = 0;
     familyGuests.forEach(g => {
-      const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+      const raw = config?.pricingByKit?.[g.kit]?.[g.packageKey] || 2500;
       const finalPrice = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
       subtotal += finalPrice;
     });
@@ -397,13 +323,13 @@ export default function App() {
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
     setCouponError('');
-    if (config.toggles?.enableCoupons === false || config.enableDiscountsAndCoupons === false) {
+    if (config?.toggles?.enableCoupons === false || config?.enableDiscountsAndCoupons === false) {
       setCouponError('❌ Coupon system is currently disabled.');
       return;
     }
     const code = (customCode || couponInput).trim().toUpperCase();
     if (!code) return;
-    const couponData = config.validCoupons?.[code];
+    const couponData = config?.validCoupons?.[code];
     if (!couponData) {
       setCouponError('❌ Invalid promo coupon code.');
       return;
@@ -424,8 +350,8 @@ export default function App() {
     setCouponError('');
   };
 
-  const mainPackagePrice = config.pricingByKit[calcKit]?.[calcPackage] || 15000;
-  const zoneFee = config.convenienceZones[calcZone]?.fee || 350;
+  const mainPackagePrice = config?.pricingByKit?.[calcKit]?.[calcPackage] || 15000;
+  const zoneFee = config?.convenienceZones?.[calcZone]?.fee || 350;
   const familyGuestsTotal = calculateFamilyGuestsTotal();
   const grossEstimate = mainPackagePrice + zoneFee + familyGuestsTotal;
 
@@ -484,7 +410,7 @@ export default function App() {
         ctx.textAlign = 'left';
         ctx.fillStyle = '#1e293b';
         ctx.font = 'bold 36px serif';
-        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 210, 140);
+        ctx.fillText(config?.studioName || 'H&F MAKEUP ARTIST', 210, 140);
 
         ctx.fillStyle = '#007AFF';
         ctx.font = '600 18px sans-serif';
@@ -493,7 +419,7 @@ export default function App() {
         ctx.textAlign = 'center';
         ctx.fillStyle = '#1e293b';
         ctx.font = 'bold 42px serif';
-        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 540, 140);
+        ctx.fillText(config?.studioName || 'H&F MAKEUP ARTIST', 540, 140);
 
         ctx.fillStyle = '#007AFF';
         ctx.font = '600 20px sans-serif';
@@ -512,9 +438,9 @@ export default function App() {
       ctx.font = 'bold 24px sans-serif';
       ctx.fillText('OFFICIAL BOOKING SUBMISSION SLIP', 540, 275);
 
-      const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
-      const kitName = config.pricingByKit[calcKit].name;
-      const zone = config.convenienceZones[calcZone];
+      const pkgText = config?.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
+      const kitName = config?.pricingByKit?.[calcKit]?.name || 'Vanity Kit';
+      const zone = config?.convenienceZones?.[calcZone];
 
       const rows = [
         { label: 'BOOKING NUMBER', val: bNumber || '#HF-PENDING' },
@@ -557,10 +483,10 @@ export default function App() {
         startY += 54;
 
         familyGuests.forEach((g, gIdx) => {
-          const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+          const raw = config?.pricingByKit?.[g.kit]?.[g.packageKey] || 2500;
           const finalP = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
           const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
-          const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+          const pkgName = config?.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
 
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(80, startY - 20, 920, 40);
@@ -608,7 +534,7 @@ export default function App() {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#64748b';
       ctx.font = '17px sans-serif';
-      ctx.fillText("Base Location: " + config.baseLocation + " • Instagram: @" + getCleanInstagramHandle(config.instagramHandle), 540, 1670);
+      ctx.fillText("Base Location: " + (config?.baseLocation || 'Delhi') + " • Instagram: @" + getCleanInstagramHandle(config?.instagramHandle), 540, 1670);
 
       ctx.fillStyle = '#007AFF';
       ctx.font = 'italic 16px sans-serif';
@@ -618,7 +544,7 @@ export default function App() {
       setGeneratedJpgUrl(jpgUrl);
     };
 
-    const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
+    const logoUrlToLoad = config?.studioLogo || DEFAULT_STUDIO_LOGO;
     const logoImg = new Image();
     logoImg.crossOrigin = "anonymous";
     logoImg.src = logoUrlToLoad;
@@ -634,8 +560,8 @@ export default function App() {
     }
 
     setIsSubmitting(true);
-    const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
-    const zone = config.convenienceZones[calcZone];
+    const pkgText = config?.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
+    const zone = config?.convenienceZones?.[calcZone];
     const generatedBookingNo = "#HF-" + Math.floor(100000 + Math.random() * 900000);
     setCurrentBookingNumber(generatedBookingNo);
 
@@ -645,7 +571,7 @@ export default function App() {
         clientName: clientName.trim(),
         clientPhone: clientPhone.trim(),
         eventDate: eventDate,
-        kitType: config.pricingByKit[calcKit].name,
+        kitType: config?.pricingByKit?.[calcKit]?.name || 'Vanity Kit',
         packageKey: calcPackage,
         packageName: pkgText.num + ". " + pkgText.name,
         basePackagePrice: mainPackagePrice,
@@ -668,14 +594,14 @@ export default function App() {
         "📞 *Phone:* " + clientPhone.trim() + "\n" +
         "🔢 *Booking No:* " + generatedBookingNo + "\n" +
         "📅 *Event Date:* " + eventDate + "\n" +
-        "💄 *Package:* " + pkgText.name + " (" + config.pricingByKit[calcKit].name + ")\n" +
+        "💄 *Package:* " + pkgText.name + " (" + (config?.pricingByKit?.[calcKit]?.name || '') + ")\n" +
         "👥 *Extra Guests:* " + familyGuests.length + " Person(s)\n" +
         "📍 *Zone:* " + (zone?.name || '') + "\n" +
         "🏠 *Address:* " + (venueAddress || 'Not Provided') + "\n" +
         "💰 *Total Amount:* ₹" + finalEstimate.toLocaleString('en-IN') + "\n\n" +
         "_Please open your Admin Panel to Accept or Reject this booking._";
 
-      const adminWhatsApp = config.whatsappNumber || "919997210876";
+      const adminWhatsApp = config?.whatsappNumber || "919997210876";
 
       fetch(WA_SERVER_URL + "/api/send-message", {
         method: 'POST',
@@ -722,14 +648,14 @@ export default function App() {
 
   const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
   const bridalPackages = ['engagement_bride', 'royal_bridal'];
-  const activeColorThemeKey = config.theme?.colorTheme || 'real_ios_glass';
+  const activeColorThemeKey = config?.theme?.colorTheme || 'real_ios_glass';
   const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.real_ios_glass;
-  const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
+  const currentFontFamily = FONT_MAP[config?.theme?.fontFamily] || FONT_MAP.sans;
 
   const appBgClass = isDarkMode ? "bg-black text-[#F2F2F7]" : "bg-[#F2F2F7] text-[#1C1C1E]";
   const headerBgClass = isDarkMode 
-    ? "bg-[#1C1C1E]/80 backdrop-blur-[28px] saturate-[180%] border-b border-white/10 shadow-sm text-white" 
-    : "bg-white/85 backdrop-blur-[28px] saturate-[180%] border-b border-black/10 shadow-sm text-[#1C1C1E]";
+    ? "bg-[#1C1C1E]/85 backdrop-blur-[28px] saturate-[180%] border-b border-white/10 shadow-sm text-white" 
+    : "bg-white/90 backdrop-blur-[28px] saturate-[180%] border-b border-black/10 shadow-sm text-[#1C1C1E]";
    
   const cardBgClass = isDarkMode 
     ? "bg-[#1C1C1E] border border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.35)] rounded-[24px] text-[#F2F2F7]" 
@@ -745,18 +671,18 @@ export default function App() {
    
   const mutedTextClass = isDarkMode ? "text-[#8E8E93]" : "text-[#8E8E93]";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
-  const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
+  const resolvedLogoUrl = logoLoadFailed || !config?.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
 
-  const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
-  const floatingCouponData = config.validCoupons?.[floatingPromoCode];
+  const floatingPromoCode = config?.floatingBanner?.code || "BRIDE2026";
+  const floatingCouponData = config?.validCoupons?.[floatingPromoCode];
   const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
   const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
-  const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
+  const shouldHideFloatingDueToExpiry = isFloatingExpired && (config?.floatingBanner?.autoHideOnExpire !== false);
 
   const qrCodeApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(window.location.href);
-  const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
+  const shouldShowProfileInHeader = config?.toggles?.showProfileOnApp !== false;
 
-  if (config.isAppDown || config.maintenanceMode) {
+  if (config?.isAppDown || config?.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={"min-h-screen " + appBgClass + " flex items-center justify-center p-4 relative overflow-hidden select-none"} style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
@@ -777,7 +703,7 @@ export default function App() {
 
           <div className={"p-4 rounded-[18px] border text-left text-xs space-y-1 " + subCardBgClass}>
             <div className="flex justify-between"><span className={mutedTextClass}>Artist:</span><span className="font-bold">H&F Makeup Artist</span></div>
-            <div className="flex justify-between"><span className={mutedTextClass}>Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-blue-500 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
+            <div className="flex justify-between"><span className={mutedTextClass}>Instagram:</span><a href={getCleanInstagramUrl(config?.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-blue-500 underline">@{getCleanInstagramHandle(config?.instagramHandle)}</a></div>
           </div>
         </div>
       </div>
@@ -883,7 +809,7 @@ export default function App() {
               <div className="flex justify-between"><span className={mutedTextClass}>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
               <div className="flex justify-between font-bold text-sm pt-1">
                 <span className={mutedTextClass}>Rate:</span>
-                <span className="text-[#007AFF] font-mono">₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
+                <span className="text-[#007AFF] font-mono">₹{(config?.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
 
@@ -908,7 +834,7 @@ export default function App() {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
+      {config?.toggles?.enableAnnouncements !== false && config?.showOfferSection !== false && (
         <div className="bg-[#007AFF] text-white py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center select-none">
           <div className="flex items-center gap-2 shrink-0 z-10 bg-inherit pr-3">
             <Volume2 className="w-4 h-4 animate-bounce" />
@@ -916,7 +842,7 @@ export default function App() {
           </div>
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium">
-              {(config.announcements || []).map((ann, idx) => (
+              {(config?.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   {ann}
@@ -924,7 +850,7 @@ export default function App() {
               ))}
             </div>
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium" aria-hidden="true">
-              {(config.announcements || []).map((ann, idx) => (
+              {(config?.announcements || []).map((ann, idx) => (
                 <span key={"dup_" + idx} className="mx-6 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   {ann}
@@ -957,10 +883,10 @@ export default function App() {
                
               <div className="truncate">
                 <h1 className="font-bold text-[16px] sm:text-[18px] text-[#007AFF] tracking-tight truncate">
-                  H&F Makeup Artist
+                  {config?.studioName || 'H&F Makeup Artist'}
                 </h1>
                 <p className={"text-[11px] sm:text-[12px] font-semibold flex items-center gap-1 truncate " + mutedTextClass}>
-                  <span className="truncate">Beauty, Styled Your Way</span>
+                  <span className="truncate">{config?.artistTagline || 'Beauty, Styled Your Way'}</span>
                   <Sparkles className="w-3 h-3 text-[#007AFF] shrink-0" />
                 </p>
               </div>
@@ -986,13 +912,13 @@ export default function App() {
               </button>
 
               <a
-                href={getCleanInstagramUrl(config.instagramHandle)}
+                href={getCleanInstagramUrl(config?.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-90 active:scale-95 text-white text-[12px] sm:text-xs font-bold px-3.5 py-2.5 rounded-[16px] transition-all duration-300 shadow-md"
               >
                 <Camera className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
+                <span className="hidden sm:inline">@{getCleanInstagramHandle(config?.instagramHandle)}</span>
               </a>
 
               {shouldShowProfileInHeader && (
@@ -1021,9 +947,9 @@ export default function App() {
       <nav aria-label="Main Navigation" className={"fixed bottom-6 left-1/2 -translate-x-1/2 z-50 max-w-md w-[calc(100%-2rem)] h-16 px-2 rounded-[32px] backdrop-blur-[28px] saturate-[180%] border shadow-[0_10px_35px_rgba(0,0,0,0.15)] flex items-center justify-around " + (isDarkMode ? 'bg-[#1C1C1E]/80 border-white/15 text-white' : 'bg-white/80 border-black/10 text-[#1C1C1E]')}>
         {[
           { id: 'menu', label: 'Packages', icon: Crown, show: true },
-          { id: 'gallery', label: 'Portfolio', icon: Camera, show: config.toggles?.enableGallery !== false },
-          { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-          { id: 'calculator', label: 'Bookings', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+          { id: 'gallery', label: 'Portfolio', icon: Camera, show: config?.toggles?.enableGallery !== false },
+          { id: 'brands', label: 'Vanity', icon: Star, show: config?.toggles?.enableBrands !== false },
+          { id: 'calculator', label: 'Bookings', icon: Calculator, show: config?.toggles?.enableEstimator !== false },
           { id: 'feedback', label: 'Profile', icon: User, show: true }
         ].filter(t => t.show).map(tab => {
           const Icon = tab.icon;
@@ -1078,22 +1004,22 @@ export default function App() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 transition-all duration-300">
               {partyPackages.concat(bridalPackages).map((key) => {
-                const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
-                const price = config.pricingByKit[selectedKit][key];
-                const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
+                const item = config?.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
+                const price = config?.pricingByKit?.[selectedKit]?.[key] || 2500;
+                const imgSrc = config?.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
 
                 return (
                   <div key={selectedKit + "_" + key} className={cardBgClass + " p-5 sm:p-6 flex flex-col sm:flex-row gap-5 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in"}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] overflow-hidden bg-neutral-200 relative shadow-md">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none" draggable="false" />
+                      <img src={imgSrc} alt={item?.name || 'Look'} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none" draggable="false" />
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-3">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-bold text-base sm:text-lg leading-snug">{item.num}. {item.name}</h4>
+                          <h4 className="font-bold text-base sm:text-lg leading-snug">{item?.num}. {item?.name}</h4>
                           <span className="font-bold text-base sm:text-lg text-[#007AFF] font-mono shrink-0">₹{price.toLocaleString('en-IN')}</span>
                         </div>
-                        <p className={"text-xs mt-1.5 leading-relaxed " + mutedTextClass}>{item.desc}</p>
+                        <p className={"text-xs mt-1.5 leading-relaxed " + mutedTextClass}>{item?.desc}</p>
                       </div>
 
                       <div className="flex items-center justify-end gap-2.5 pt-2">
@@ -1127,7 +1053,7 @@ export default function App() {
           </div>
         )}
 
-        {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
+        {activeTab === 'gallery' && config?.toggles?.enableGallery !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="px-4 py-1.5 rounded-full border border-blue-500/30 text-[#007AFF] text-[12px] font-bold tracking-wide backdrop-blur-md bg-white/40">
@@ -1140,7 +1066,7 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
+              {(config?.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
 
                 return (
@@ -1150,15 +1076,15 @@ export default function App() {
                     ) : (
                       <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-200 flex items-center justify-center rounded-[20px] shadow-md">
                         <img 
-                          src={item.url} 
-                          alt={item.title} 
+                          src={item?.url} 
+                          alt={item?.title || 'Gallery'} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
                           draggable="false"
                         />
                         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                          <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item.sub || 'Client Look'}</span>
+                          <span className="text-[10px] uppercase font-mono font-bold text-[#007AFF]">{item?.sub || 'Client Look'}</span>
                           <h4 className="font-bold text-sm sm:text-base mt-0.5">
-                            <span>{item.title}</span>
+                            <span>{item?.title || ''}</span>
                           </h4>
                         </div>
                       </div>
@@ -1170,7 +1096,7 @@ export default function App() {
           </div>
         )}
 
-        {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
+        {activeTab === 'brands' && config?.toggles?.enableBrands !== false && (
           <div className="space-y-6 sm:space-y-8 animate-fade-in transition-opacity duration-300">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="px-4 py-1.5 rounded-full border border-blue-500/30 text-[#007AFF] text-[12px] font-bold">Authentic Vanity</span>
@@ -1178,7 +1104,7 @@ export default function App() {
               <p className={"text-xs sm:text-sm " + mutedTextClass}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {config.internationalBrands?.map((brand, idx) => (
+              {(config?.internationalBrands || []).map((brand, idx) => (
                 <div key={idx} className={cardBgClass + " p-5 transition-all duration-300 hover:scale-[1.02] animate-fade-in space-y-1.5"}>
                   <span className="text-[10px] font-bold text-[#007AFF] uppercase bg-blue-500/15 px-2.5 py-0.5 rounded-full">{brand.category}</span>
                   <h4 className="font-bold text-base mt-1">{brand.name}</h4>
@@ -1189,7 +1115,7 @@ export default function App() {
           </div>
         )}
 
-        {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
+        {activeTab === 'calculator' && config?.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
             {isBookingDone ? (
               <div className={cardBgClass + " p-8 sm:p-12 text-center space-y-5 animate-scale-up max-w-xl mx-auto"}>
@@ -1239,19 +1165,19 @@ export default function App() {
                   <div>
                     <label className={"block text-[11px] font-bold uppercase tracking-wider mb-2 " + mutedTextClass}>Main Look: Package</label>
                     <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={"w-full " + inputBgClass + " rounded-[16px] px-4 py-3 text-xs text-[#007AFF] font-bold"}>
-                      <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
-                      <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
-                      <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
-                      <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
-                      <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
-                      <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
+                      <option value="royal_bridal">6. Royal Bridal (₹{(config?.pricingByKit?.[calcKit]?.royal_bridal || 0).toLocaleString('en-IN')})</option>
+                      <option value="engagement_bride">5. Engagement Bride (₹{(config?.pricingByKit?.[calcKit]?.engagement_bride || 0).toLocaleString('en-IN')})</option>
+                      <option value="cocktail_glam">4. Cocktail Glam (₹{(config?.pricingByKit?.[calcKit]?.cocktail_glam || 0).toLocaleString('en-IN')})</option>
+                      <option value="super_hd_party">3. Super HD Party (₹{(config?.pricingByKit?.[calcKit]?.super_hd_party || 0).toLocaleString('en-IN')})</option>
+                      <option value="hd_party">2. HD Party (₹{(config?.pricingByKit?.[calcKit]?.hd_party || 0).toLocaleString('en-IN')})</option>
+                      <option value="simple_party">1. Simple Party (₹{(config?.pricingByKit?.[calcKit]?.simple_party || 0).toLocaleString('en-IN')})</option>
                     </select>
                   </div>
 
                   <div>
                     <label className={"block text-[11px] font-bold uppercase tracking-wider mb-2 " + mutedTextClass}>Venue Location Zone</label>
                     <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={"w-full " + inputBgClass + " rounded-[16px] px-4 py-3 text-xs font-medium"}>
-                      {Object.entries(config.convenienceZones).map(([key, zone]) => (
+                      {Object.entries(config?.convenienceZones || {}).map(([key, zone]) => (
                         <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
@@ -1287,7 +1213,7 @@ export default function App() {
                     {familyGuests.length > 0 && (
                       <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
-                          const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
+                          const rawGuestPrice = config?.pricingByKit?.[guest.kit]?.[guest.packageKey] || 2500;
                           const discountedGuestPrice = isGuestDiscountActive ? Math.round(rawGuestPrice * (1 - guestDiscountPercent / 100)) : rawGuestPrice;
 
                           return (
@@ -1339,7 +1265,7 @@ export default function App() {
                     )}
                   </div>
 
-                  {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
+                  {config?.toggles?.enableCoupons !== false && config?.enableDiscountsAndCoupons !== false && (
                     <div className="pt-3 border-t border-slate-200/60 space-y-2">
                       <label className="block text-xs font-bold text-[#007AFF] uppercase tracking-wider flex items-center gap-1.5">
                         <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
@@ -1413,7 +1339,7 @@ export default function App() {
 
                   <div className={"space-y-2.5 text-xs border-t border-b py-3.5 " + (isDarkMode ? 'border-white/10' : 'border-slate-200')}>
                     <div className={"flex justify-between " + mutedTextClass}><span>Main Look:</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
-                    <div className={"flex justify-between " + mutedTextClass}><span>Convenience Fee ({(config.convenienceZones[calcZone]?.name)}):</span><span className="text-[#007AFF] font-medium">₹{zoneFee}</span></div>
+                    <div className={"flex justify-between " + mutedTextClass}><span>Convenience Fee ({(config?.convenienceZones?.[calcZone]?.name)}):</span><span className="text-[#007AFF] font-medium">₹{zoneFee}</span></div>
                     <div className={"flex justify-between " + mutedTextClass}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
                     {appliedCoupon && (
                       <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
@@ -1510,7 +1436,7 @@ export default function App() {
         )}
       </main>
 
-      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
+      {config?.toggles?.enableFloatingBanner !== false && config?.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
           className="fixed bottom-24 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-[28px] saturate-[180%] bg-white/90 border border-black/10 p-4 rounded-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.15)] transition-all duration-300 text-[#1C1C1E]"
@@ -1520,7 +1446,7 @@ export default function App() {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-[10px] font-bold text-[#007AFF] uppercase bg-blue-500/15 px-2.5 py-0.5 rounded-full">
-                  {config.floatingBanner?.tag || "SPECIAL OFFER"}
+                  {config?.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
@@ -1534,7 +1460,7 @@ export default function App() {
                 ) : null}
               </div>
 
-              <h4 className="font-bold text-xs mt-1.5 leading-snug">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <h4 className="font-bold text-xs mt-1.5 leading-snug">{config?.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
               <p className="text-[11px] mt-0.5 text-[#6E6864]">
                 {isFloatingExpired ? (
                   <span className="text-rose-600 font-medium">This promotion code has ended.</span>
@@ -1557,7 +1483,7 @@ export default function App() {
             }} 
             className={"mt-3 w-full py-2.5 text-xs transition-transform duration-200 " + (isFloatingExpired ? 'bg-slate-300 text-slate-500 rounded-[14px] cursor-not-allowed' : 'bg-[#007AFF] text-white font-bold rounded-[14px] shadow-md active:scale-95')}
           >
-            {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
+            {isFloatingExpired ? "Offer Expired" : (config?.floatingBanner?.actionText || "Apply")}
           </button>
         </aside>
       )}
