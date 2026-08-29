@@ -59,68 +59,75 @@ const DEFAULT_GALLERY = [
 ];
 
 const THEME_STYLES = {
+  real_glass_lens: {
+    accentGradient: "from-sky-300 via-blue-400 to-indigo-400",
+    btnPrimary: "bg-white/40 backdrop-blur-[24px] border border-white/60 hover:bg-white/60 text-black font-bold shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-[16px]",
+    accentText: "text-blue-600 dark:text-blue-300",
+    accentBorder: "border-white/50",
+    activeNav: "bg-white/50 backdrop-blur-[24px] border border-white/70 text-blue-700 font-bold shadow-md rounded-[22px] px-4 py-2"
+  },
+  real_ios_glass: {
+    accentGradient: "from-sky-400 via-blue-500 to-indigo-500",
+    btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg rounded-[16px]",
+    accentText: "text-blue-500 dark:text-blue-400",
+    accentBorder: "border-blue-500/40",
+    activeNav: "bg-[#007AFF] text-white font-bold shadow-md rounded-[22px] px-4 py-2"
+  },
   liquid_glass: {
     accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
-    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-neutral-950 font-bold shadow-xl shadow-cyan-500/25 border border-white/40",
+    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold shadow-xl rounded-[16px]",
     accentText: "text-cyan-500 dark:text-cyan-400",
-    accentBorder: "border-cyan-500/40 dark:border-cyan-400/30",
-    glow: "shadow-cyan-500/30",
-    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg shadow-cyan-500/30",
-    badgeBg: "bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-500/30"
+    accentBorder: "border-cyan-500/40",
+    activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg rounded-[22px] px-4 py-2"
   },
   one_ui_9: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md shadow-amber-500/25 border border-amber-300/40",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-500/30",
-    glow: "shadow-amber-500/20",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
-    badgeBg: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   gold_rose: {
     accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-rose-600 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
-    glow: "shadow-rose-500/20",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow",
-    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-500/30"
-  },
-  google_minimal: {
-    accentGradient: "from-blue-500 via-teal-400 to-emerald-400",
-    btnPrimary: "bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md",
-    accentText: "text-blue-600 dark:text-blue-400",
-    accentBorder: "border-blue-500/30",
-    glow: "shadow-blue-500/20",
-    activeNav: "bg-blue-600 text-white font-bold shadow-md",
-    badgeBg: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border-blue-500/30"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   champagne: {
     accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
-    btnPrimary: "bg-amber-400 hover:bg-amber-300 text-neutral-950 font-bold shadow-lg shadow-amber-400/20",
+    btnPrimary: "bg-amber-400 text-neutral-950 font-bold shadow-lg rounded-[16px]",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-400/30",
-    glow: "shadow-amber-400/20",
-    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow",
-    badgeBg: "bg-amber-400/15 text-amber-700 dark:text-amber-300 border-amber-400/30"
+    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   emerald: {
     accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
-    btnPrimary: "bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold shadow-lg shadow-emerald-500/20",
+    btnPrimary: "bg-emerald-500 text-neutral-950 font-bold shadow-lg rounded-[16px]",
     accentText: "text-emerald-600 dark:text-emerald-400",
     accentBorder: "border-emerald-500/30",
-    glow: "shadow-emerald-500/20",
-    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow",
-    badgeBg: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30"
+    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   violet: {
     accentGradient: "from-purple-400 via-pink-400 to-rose-400",
-    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg shadow-purple-500/25",
+    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-purple-600 dark:text-purple-400",
     accentBorder: "border-purple-500/30",
-    glow: "shadow-purple-500/20",
-    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow",
-    badgeBg: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30"
+    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow rounded-[22px] px-4 py-2"
+  },
+  ruby: {
+    accentGradient: "from-rose-500 via-red-600 to-pink-600",
+    btnPrimary: "bg-rose-600 text-white font-bold shadow-lg rounded-[16px]",
+    accentText: "text-rose-500 dark:text-rose-400",
+    accentBorder: "border-rose-500/30",
+    activeNav: "bg-rose-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
+  },
+  sapphire: {
+    accentGradient: "from-blue-600 via-indigo-600 to-cyan-500",
+    btnPrimary: "bg-indigo-600 text-white font-bold shadow-lg rounded-[16px]",
+    accentText: "text-indigo-500 dark:text-indigo-400",
+    accentBorder: "border-indigo-500/30",
+    activeNav: "bg-indigo-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   }
 };
 
@@ -131,7 +138,10 @@ const FONT_MAP = {
   serif: "'Playfair Display', serif",
   cormorant: "'Cormorant Garamond', serif",
   cinzel: "'Cinzel', serif",
-  montserrat: "'Montserrat', sans-serif"
+  montserrat: "'Montserrat', sans-serif",
+  inter: "'Inter', sans-serif",
+  poppins: "'Poppins', sans-serif",
+  roboto: "'Roboto', sans-serif"
 };
 
 const WA_SERVER_URL = "https://simple-holidays-enable-ranger.trycloudflare.com";
@@ -274,6 +284,29 @@ export default function App() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
+  // Handle Browser Popstate for Back Button Support inside Main App tabs/modals
+  useEffect(() => {
+    const handlePopState = (e) => {
+      if (viewingPackage) {
+        e.preventDefault();
+        setViewingPackage(null);
+        window.history.pushState(null, '', window.location.href);
+      } else if (showShareModal) {
+        e.preventDefault();
+        setShowShareModal(false);
+        window.history.pushState(null, '', window.location.href);
+      } else if (activeTab !== 'menu') {
+        e.preventDefault();
+        setActiveTab('menu');
+        window.history.pushState(null, '', window.location.href);
+      }
+    };
+
+    window.history.pushState({ tab: activeTab }, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [activeTab, viewingPackage, showShareModal]);
+
   useEffect(() => {
     const timer = setInterval(() => setNowTick(Date.now()), 1000);
     return () => clearInterval(timer);
@@ -309,7 +342,7 @@ export default function App() {
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Comic+Neue:wght@400;700&family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap';
     document.head.appendChild(link);
     return () => {
       if (document.head && document.head.contains(link)) document.head.removeChild(link);
@@ -777,7 +810,7 @@ export default function App() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden`}>
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`} style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
         <div className="max-w-md w-full rounded-3xl p-8 border border-white/20 bg-white/[0.05] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
           <div className="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-lg">
@@ -806,9 +839,14 @@ export default function App() {
   }
 
   return (
-    <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500`}>
+    <div 
+      style={{ fontFamily: currentFontFamily }} 
+      className={`min-h-screen ${bgClass} pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none`}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
+    >
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4">
             <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-white/20 shadow-2xl p-1 bg-white/10">
               <img 
@@ -926,11 +964,7 @@ export default function App() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center`}>
-          <div className="flex items-center gap-2 shrink-0 z-10 bg-inherit pr-3">
-            <Volume2 className="w-4 h-4 animate-bounce" />
-            <span className="uppercase tracking-widest text-[10px] font-mono">Announcements:</span>
-          </div>
+        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center select-none`}>
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium">
               {(config.announcements || []).map((ann, idx) => (
@@ -958,7 +992,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Desktop Header & Mobile Header */}
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
@@ -1038,7 +1071,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Desktop Navigation Tabs (Hidden on Mobile) */}
           <div className="hidden sm:flex w-full items-center justify-center py-1">
             <nav className={`inline-flex space-x-1 p-1 rounded-full border backdrop-blur-3xl text-xs font-bold shadow-inner ${isDarkMode ? 'bg-white/[0.04] border-white/15' : 'bg-slate-200/80 border-slate-300/80'}`}>
               {[
@@ -1068,33 +1100,35 @@ export default function App() {
         </div>
       </header>
 
-      {/* Mobile iOS Style Floating Pill Dock (Visible only on Mobile) */}
-      <nav className={`sm:hidden fixed bottom-4 left-3 right-4 z-50 p-2 rounded-[28px] border backdrop-blur-3xl shadow-2xl flex items-center justify-around ${
-        isDarkMode ? 'bg-[#080d1e]/90 border-white/20' : 'bg-white/95 border-slate-300/90 shadow-slate-300/50'
-      }`}>
-        {[
-          { id: 'menu', label: 'Packages', icon: Crown, show: true },
-          { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
-          { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-          { id: 'calculator', label: 'Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-          { id: 'feedback', label: 'Review', icon: MessageSquare, show: true }
-        ].filter(t => t.show).map(tab => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-[20px] transition-all duration-300 active:scale-90 ${
-                isActive ? `${currentTheme.btnPrimary} scale-105` : `${mutedTextClass} hover:opacity-100`
-              }`}
-            >
-              <Icon className="w-4 h-4 shrink-0" />
-              <span className="text-[10px] font-bold mt-0.5 tracking-tight">{tab.label}</span>
-            </button>
-          );
-        })}
-      </nav>
+      {/* Mobile iOS Style Floating Pill Dock (Shown after splash animation) */}
+      {!showSplash && (
+        <nav aria-label="Mobile Navigation" className={`sm:hidden fixed bottom-4 left-3 right-4 z-50 p-2 rounded-[28px] border backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in ${
+          isDarkMode ? 'bg-[#080d1e]/90 border-white/20' : 'bg-white/95 border-slate-300/90 shadow-slate-300/50'
+        }`}>
+          {[
+            { id: 'menu', label: 'Packages', icon: Crown, show: true },
+            { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
+            { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+            { id: 'calculator', label: 'Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+            { id: 'feedback', label: 'Review', icon: MessageSquare, show: true }
+          ].filter(t => t.show).map(tab => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-[20px] transition-all duration-300 active:scale-90 ${
+                  isActive ? `${currentTheme.btnPrimary} scale-105` : `${mutedTextClass} hover:opacity-100`
+                }`}
+              >
+                <Icon className="w-4 h-4 shrink-0" />
+                <span className="text-[10px] font-bold mt-0.5 tracking-tight">{tab.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      )}
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
         {activeTab === 'menu' && (
