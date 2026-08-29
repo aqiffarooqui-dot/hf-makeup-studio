@@ -64,7 +64,7 @@ const THEME_STYLES = {
     btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-[16px]",
     accentText: "text-blue-500 dark:text-blue-400",
     accentBorder: "border-blue-500/40 dark:border-blue-400/30",
-    activeNav: "bg-[#007AFF] text-white font-bold shadow-md rounded-[22px] px-4 py-2"
+    activeNav: "bg-white/32 border border-white/45 rounded-[22px] px-3.5 py-2 shadow-sm text-[#007AFF] font-bold"
   },
   liquid_glass: {
     accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
@@ -459,7 +459,6 @@ export default function App() {
       ctx.lineWidth = 4;
       ctx.strokeRect(40, 40, 1000, 1680);
 
-      // Subtle Watermark Logo in background
       if (logoImageObj) {
         ctx.save();
         ctx.globalAlpha = 0.06;
