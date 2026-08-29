@@ -1374,7 +1374,7 @@ export default function App() {
                               })()}
                             </div>
                             <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
-                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹{appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
                           <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
@@ -1523,6 +1523,63 @@ export default function App() {
           </div>
         )}
       </main>
+
+      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
+        <aside 
+          aria-label="Promotional offer" 
+          className={`fixed bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+            isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
+          }`}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0 mt-0.5`} />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>
+                  {config.floatingBanner?.tag || "SPECIAL OFFER"}
+                </span>
+
+                {isFloatingExpired ? (
+                  <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                    <AlertCircle className="w-2.5 h-2.5" /> Code Expired
+                  </span>
+                ) : floatingTimer ? (
+                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
+                  </span>
+                ) : null}
+              </div>
+
+              <h4 className="font-bold text-xs mt-1.5 leading-snug">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>
+                {isFloatingExpired ? (
+                  <span className="text-rose-400 font-medium">This promotion code has ended.</span>
+                ) : (
+                  <>Use code <span className={`${currentTheme.accentText} font-mono font-bold`}>{floatingPromoCode}</span></>
+                )}
+              </p>
+            </div>
+            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
+          </div>
+
+          <button 
+            disabled={isFloatingExpired}
+            onClick={() => { 
+              if (!isFloatingExpired) {
+                handleApplyCoupon(null, floatingPromoCode); 
+                setActiveTab('calculator'); 
+              }
+            }} 
+            className={`mt-3 w-full py-2 text-xs rounded-2xl shadow transition-transform duration-200 ${
+              isFloatingExpired 
+                ? 'bg-slate-700/60 text-slate-400 border border-white/10 cursor-not-allowed' 
+                : `${currentTheme.btnPrimary} active:scale-95`
+            }`}
+          >
+            {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
+          </button>
+        </aside>
+      )}
     </div>
   );
 }
