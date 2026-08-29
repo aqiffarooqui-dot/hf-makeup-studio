@@ -474,15 +474,18 @@ function MainAppContent() {
     return subtotal;
   };
 
-  const calculateFamilyGuestsTotal = () => {
-    let subtotal = 0;
-    familyGuests.forEach(g => {
-      const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-      const finalPrice = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
-      subtotal += finalPrice;
-    });
-    return subtotal;
-  };
+  const mainPackagePrice = config.pricingByKit[calcKit]?.[calcPackage] || 15000;
+  const zoneFee = config.convenienceZones[calcZone]?.fee || 350;
+  
+  const mainBookingSubtotal = mainPackagePrice + zoneFee;
+  const familyGuestsGross = calculateFamilyGuestsGross();
+  
+  const guestDiscountSavedAmount = isGuestDiscountActive && familyGuests.length > 0
+    ? Math.round((familyGuestsGross * guestDiscountPercent) / 100)
+    : 0;
+    
+  const familyGuestsFinalTotal = familyGuestsGross - guestDiscountSavedAmount;
+  const subtotalBeforePromo = mainBookingSubtotal + familyGuestsFinalTotal;
 
   const handleApplyCoupon = (e, customCode) => {
     if (e) e.preventDefault();
@@ -514,15 +517,6 @@ function MainAppContent() {
     setCouponError('');
   };
 
-  const mainPackagePrice = config.pricingByKit[calcKit]?.[calcPackage] || 15000;
-  const zoneFee = config.convenienceZones[calcZone]?.fee || 350;
-  
-  const familyGuestsGross = calculateFamilyGuestsGross();
-  const familyGuestsTotal = calculateFamilyGuestsTotal();
-  const guestDiscountSavedAmount = familyGuestsGross - familyGuestsTotal;
-
-  const grossEstimate = mainPackagePrice + zoneFee + familyGuestsTotal;
-
   const getDiscountAmount = (gross) => {
     if (!appliedCoupon) return 0;
     if (appliedCoupon.type === 'percent') return Math.round((gross * appliedCoupon.value) / 100);
@@ -530,8 +524,8 @@ function MainAppContent() {
     return 0;
   };
 
-  const couponDiscountAmount = getDiscountAmount(mainPackagePrice + zoneFee + familyGuestsTotal);
-  const finalEstimate = Math.max(0, grossEstimate - couponDiscountAmount);
+  const couponDiscountAmount = getDiscountAmount(subtotalBeforePromo);
+  const finalEstimate = Math.max(0, subtotalBeforePromo - couponDiscountAmount);
 
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
@@ -539,28 +533,28 @@ function MainAppContent() {
     const ctx = canvas.getContext('2d');
 
     canvas.width = 1200;
-    canvas.height = 2200;
+    canvas.height = 2400;
 
     const drawContent = (logoImageObj) => {
-      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 2200);
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 2400);
       bgGrad.addColorStop(0, '#09090b');
       bgGrad.addColorStop(0.5, '#1e1b4b');
       bgGrad.addColorStop(1, '#0f172a');
       ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1200, 2200);
+      ctx.fillRect(0, 0, 1200, 2400);
 
       ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 6;
-      ctx.strokeRect(40, 40, 1120, 2120);
+      ctx.strokeRect(40, 40, 1120, 2320);
 
       ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
       ctx.lineWidth = 2;
-      ctx.strokeRect(55, 55, 1090, 2090);
+      ctx.strokeRect(55, 55, 1090, 2290);
 
       if (logoImageObj) {
         ctx.save();
         ctx.globalAlpha = 0.08;
-        ctx.drawImage(logoImageObj, 300, 800, 600, 600);
+        ctx.drawImage(logoImageObj, 300, 900, 600, 600);
         ctx.restore();
       }
 
@@ -608,123 +602,170 @@ function MainAppContent() {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#fbbf24';
       ctx.font = 'bold 26px sans-serif';
-      ctx.fillText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 305);
+      ctx.fillText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290);
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
       const zone = config.convenienceZones[calcZone];
 
-      const rows = [
+      const clientInfoRows = [
         { label: 'BOOKING NUMBER', val: bNumber || '#HF-PENDING' },
         { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
         { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
         { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
-        { label: 'MAIN VANITY TIER', val: kitName },
-        { label: 'SELECTED PACKAGE', val: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}` },
-        { label: 'MAIN PACKAGE PRICE', val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
         { label: 'LOCATION ZONE', val: `${zone?.name} (+₹${zoneFee})` },
         { label: 'EXACT ADDRESS', val: venueAddress || 'Not Provided' }
       ];
 
-      let startY = 370;
-      rows.forEach((row, idx) => {
+      let startY = 340;
+      clientInfoRows.forEach((row, idx) => {
         ctx.fillStyle = idx % 2 === 0 ? 'rgba(255, 255, 255, 0.04)' : 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 60);
+        ctx.fillRect(90, startY, 1020, 50);
 
         ctx.textAlign = 'left';
         ctx.fillStyle = '#94a3b8';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(row.label, 120, startY + 37);
+        ctx.font = 'bold 18px sans-serif';
+        ctx.fillText(row.label, 120, startY + 32);
 
         ctx.textAlign = 'right';
         ctx.fillStyle = idx === 0 ? '#c084fc' : '#ffffff';
-        ctx.font = 'bold 22px monospace';
-        ctx.fillText(row.val, 1080, startY + 37);
-        startY += 64;
+        ctx.font = 'bold 19px monospace';
+        ctx.fillText(row.val, 1080, startY + 32);
+        startY += 54;
       });
 
-      if (familyGuests.length > 0) {
-        startY += 10;
-        ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
-        ctx.fillRect(90, startY, 1020, 55);
+      startY += 10;
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.2)';
+      ctx.fillRect(90, startY, 1020, 48);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 20px sans-serif';
+      ctx.fillText('SECTION 1: MAIN LOOK BOOKING', 120, startY + 31);
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText(`₹${mainBookingSubtotal.toLocaleString('en-IN')}`, 1080, startY + 31);
+      startY += 54;
 
+      const mainDetails = [
+        { label: `• Main Look (${kitName}) — ${pkgText.name}`, val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
+        { label: `• Travel & Convenience Fee (${zone?.name})`, val: `₹${zoneFee.toLocaleString('en-IN')}` }
+      ];
+      mainDetails.forEach(d => {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+        ctx.fillRect(90, startY, 1020, 44);
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#d8b4fe';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText(`EXTRA FAMILY GUESTS (${familyGuests.length} PERSONS)`, 120, startY + 34);
-
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '16px sans-serif';
+        ctx.fillText(d.label, 130, startY + 28);
         ctx.textAlign = 'right';
-        ctx.font = 'bold 22px monospace';
-        ctx.fillText(`+₹${familyGuestsGross.toLocaleString('en-IN')}`, 1080, startY + 34);
-        startY += 62;
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '16px monospace';
+        ctx.fillText(d.val, 1070, startY + 28);
+        startY += 48;
+      });
 
+      startY += 10;
+      ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
+      ctx.fillRect(90, startY, 1020, 48);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#d8b4fe';
+      ctx.font = 'bold 20px sans-serif';
+      ctx.fillText(`SECTION 2: EXTRA FAMILY GUESTS (${familyGuests.length} PERSONS)`, 120, startY + 31);
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText(`Gross: ₹${familyGuestsGross.toLocaleString('en-IN')}`, 1080, startY + 31);
+      startY += 54;
+
+      if (familyGuests.length > 0) {
         familyGuests.forEach((g, gIdx) => {
-          const rawGuestP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+          const rawP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
           const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
           const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
 
           ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-          ctx.fillRect(90, startY, 1020, 50);
-
+          ctx.fillRect(90, startY, 1020, 44);
           ctx.textAlign = 'left';
           ctx.fillStyle = '#cbd5e1';
-          ctx.font = '18px sans-serif';
-          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — Look: ${pkgName}`, 130, startY + 32);
-
+          ctx.font = '16px sans-serif';
+          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — Look: ${pkgName}`, 130, startY + 28);
           ctx.textAlign = 'right';
-          ctx.font = '18px monospace';
+          ctx.font = '16px monospace';
           ctx.fillStyle = '#ffffff';
-          ctx.fillText(`₹${rawGuestP.toLocaleString('en-IN')}`, 1070, startY + 32);
-          startY += 56;
+          ctx.fillText(`₹${rawP.toLocaleString('en-IN')}`, 1070, startY + 28);
+          startY += 48;
         });
+      } else {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+        ctx.fillRect(90, startY, 1020, 44);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '16px sans-serif';
+        ctx.fillText('• No extra family guests selected', 130, startY + 28);
+        ctx.textAlign = 'right';
+        ctx.font = '16px monospace';
+        ctx.fillText('₹0', 1070, startY + 28);
+        startY += 48;
       }
 
       startY += 10;
       ctx.fillStyle = 'rgba(5, 150, 105, 0.15)';
-      ctx.fillRect(90, startY, 1020, 55);
-
+      ctx.fillRect(90, startY, 1020, 48);
       ctx.textAlign = 'left';
       ctx.fillStyle = '#34d399';
       ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('DISCOUNTS APPLIED', 120, startY + 34);
-      startY += 62;
+      ctx.fillText('SECTION 3: DISCOUNTS & PROMOTIONAL OFFERS', 120, startY + 31);
+      startY += 54;
 
       if (guestDiscountSavedAmount > 0) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 48);
+        ctx.fillRect(90, startY, 1020, 44);
         ctx.textAlign = 'left';
         ctx.fillStyle = '#cbd5e1';
-        ctx.font = '18px sans-serif';
-        ctx.fillText(`• Extra Guest Group Discount (${guestDiscountPercent}%)`, 130, startY + 31);
+        ctx.font = '16px sans-serif';
+        ctx.fillText(`• Extra Guest Group Discount (${guestDiscountPercent}%)`, 130, startY + 28);
         ctx.textAlign = 'right';
-        ctx.font = '18px monospace';
+        ctx.font = '16px monospace';
         ctx.fillStyle = '#34d399';
-        ctx.fillText(`-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, 1070, startY + 31);
-        startY += 52;
+        ctx.fillText(`-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, 1070, startY + 28);
+        startY += 48;
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+        ctx.fillRect(90, startY, 1020, 44);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#a7f3d0';
+        ctx.font = 'bold 16px sans-serif';
+        ctx.fillText(`  ↳ Net Guest Total (After Guest Discount)`, 130, startY + 28);
+        ctx.textAlign = 'right';
+        ctx.font = 'bold 16px monospace';
+        ctx.fillText(`₹${familyGuestsFinalTotal.toLocaleString('en-IN')}`, 1070, startY + 28);
+        startY += 48;
       }
 
       if (appliedCoupon && couponDiscountAmount > 0) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 48);
+        ctx.fillRect(90, startY, 1020, 44);
         ctx.textAlign = 'left';
         ctx.fillStyle = '#cbd5e1';
-        ctx.font = '18px sans-serif';
-        ctx.fillText(`• Promo Coupon Code (${appliedCoupon.code})`, 130, startY + 31);
+        ctx.font = '16px sans-serif';
+        ctx.fillText(`• Promo Coupon Code (${appliedCoupon.code})`, 130, startY + 28);
         ctx.textAlign = 'right';
-        ctx.font = '18px monospace';
+        ctx.font = '16px monospace';
         ctx.fillStyle = '#34d399';
-        ctx.fillText(`-₹${couponDiscountAmount.toLocaleString('en-IN')}`, 1070, startY + 31);
-        startY += 52;
+        ctx.fillText(`-₹${couponDiscountAmount.toLocaleString('en-IN')}`, 1070, startY + 28);
+        startY += 48;
       }
 
       if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 48);
+        ctx.fillRect(90, startY, 1020, 44);
         ctx.textAlign = 'left';
         ctx.fillStyle = '#94a3b8';
-        ctx.font = '18px sans-serif';
-        ctx.fillText('• None Applied', 130, startY + 31);
-        startY += 52;
+        ctx.font = '16px sans-serif';
+        ctx.fillText('• No discounts applied', 130, startY + 28);
+        ctx.textAlign = 'right';
+        ctx.font = '16px monospace';
+        ctx.fillText('₹0', 1070, startY + 28);
+        startY += 48;
       }
 
       startY += 15;
@@ -746,11 +787,11 @@ function MainAppContent() {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#64748b';
       ctx.font = '18px sans-serif';
-      ctx.fillText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, 2110);
+      ctx.fillText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, 2310);
 
       ctx.fillStyle = '#c084fc';
       ctx.font = 'italic 18px sans-serif';
-      ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 600, 2145);
+      ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 600, 2345);
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
@@ -789,7 +830,8 @@ function MainAppContent() {
         basePackagePrice: mainPackagePrice,
         extraGuestsCount: familyGuests.length,
         extraGuestsList: familyGuests,
-        extraGuestsCost: familyGuestsTotal,
+        extraGuestsCost: familyGuestsGross,
+        extraGuestsFinalCost: familyGuestsFinalTotal,
         guestDiscountSaved: guestDiscountSavedAmount,
         zoneName: zone?.name || 'Delhi NCR',
         zoneFee: zone?.fee || 350,
@@ -896,7 +938,7 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`} style={{ WebkitUserSelect: 'none', userSelect: 'none' }}>
+      <div style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
         <div className="max-w-md w-full rounded-3xl p-8 border border-white/20 bg-white/[0.05] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
           <div className="w-16 h-16 rounded-3xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto shadow-lg">
@@ -1150,16 +1192,13 @@ function MainAppContent() {
                 <div 
                   className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none`}
                   onContextMenu={(e) => e.preventDefault()}
-                  style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                 >
                   <img 
                     src={resolvedAvatar} 
                     alt="Artist Profile" 
                     onError={() => setImgLoadFailed(true)}
-                    onContextMenu={(e) => e.preventDefault()}
                     draggable="false"
                     className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
-                    style={{ WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }}
                   />
                 </div>
               )}
@@ -1454,6 +1493,28 @@ function MainAppContent() {
                       </button>
                     </div>
 
+                    {/* Active Guest Discount Alert Bar */}
+                    {isGuestDiscountActive && guestDiscountPercent > 0 && (
+                      <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/15 to-teal-500/15 border border-emerald-500/40 flex items-center justify-between text-xs animate-fade-in">
+                        <div className="flex items-center gap-2">
+                          <div className="p-1 rounded-lg bg-emerald-500/20 text-emerald-400">
+                            <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
+                          </div>
+                          <div>
+                            <p className="text-emerald-400 font-bold text-xs">
+                              Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
+                            </p>
+                            <p className={`text-[10px] ${mutedTextClass}`}>
+                              Discount will be calculated and applied inside the Total Amount Summary below.
+                            </p>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full shrink-0">
+                          {guestDiscountPercent}% OFF
+                        </span>
+                      </div>
+                    )}
+
                     {familyGuests.length > 0 && (
                       <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
@@ -1530,7 +1591,7 @@ function MainAppContent() {
                               })()}
                             </div>
                             <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
-                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹{appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
                           <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
@@ -1573,7 +1634,7 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-6 shadow-sm`}>
+                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-sm`}>
                   <div>
                     <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
                     <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
@@ -1582,44 +1643,81 @@ function MainAppContent() {
                     </div>
                   </div>
 
-                  <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look Package:</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{zoneFee}</span></div>
-                    
-                    {familyGuests.length > 0 && (
-                      <div className="pt-1 pb-1 border-t border-dashed border-white/10 space-y-1">
-                        <span className="font-bold text-cyan-400">Extra Family Guests ({familyGuests.length}):</span>
-                        {familyGuests.map((g, i) => {
+                  <div className="space-y-3 text-xs border-t border-b border-white/10 py-3.5">
+                    {/* SECTION 1: MAIN LOOK BOOKING */}
+                    <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-1.5">
+                      <div className="flex justify-between items-center font-bold text-sky-400">
+                        <span>1. Main Look Booking:</span>
+                        <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                        <span>• Main Package Price:</span>
+                        <span>₹{mainPackagePrice.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                        <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
+                        <span className="font-mono">₹{zoneFee}</span>
+                      </div>
+                    </div>
+
+                    {/* SECTION 2: GUEST BOOKINGS */}
+                    <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 space-y-1.5">
+                      <div className="flex justify-between items-center font-bold text-purple-400">
+                        <span>2. Guest Bookings ({familyGuests.length} Persons):</span>
+                        <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                      </div>
+                      {familyGuests.length > 0 ? (
+                        familyGuests.map((g, i) => {
                           const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+                          const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD';
                           return (
-                            <div key={i} className={`flex justify-between ${mutedTextClass} pl-2 text-[11px]`}>
-                              <span>• G#{i+1} ({pkgN}):</span>
-                              <span>₹{gp.toLocaleString('en-IN')}</span>
+                            <div key={i} className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                              <span>• G#{i+1} ({kitLabel} - {pkgN}):</span>
+                              <span className="font-mono text-white">₹{gp.toLocaleString('en-IN')}</span>
                             </div>
                           );
-                        })}
-                      </div>
-                    )}
+                        })
+                      ) : (
+                        <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                          <span>• No extra guests selected</span>
+                          <span>₹0</span>
+                        </div>
+                      )}
+                    </div>
 
-                    {/* Consolidated Discounts Section in Summary */}
-                    <div className="pt-2 pb-1 border-t border-dashed border-white/10 space-y-1">
-                      <span className="font-bold text-emerald-400">Discounts & Offers:</span>
+                    {/* SECTION 3: DISCOUNTS & PROMOTIONAL OFFERS */}
+                    <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-1.5">
+                      <div className="flex justify-between items-center font-bold text-emerald-400">
+                        <span>3. Discounts & Offers:</span>
+                        <span className="font-mono">
+                          -₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}
+                        </span>
+                      </div>
+
                       {guestDiscountSavedAmount > 0 && (
-                        <div className={`flex justify-between text-emerald-400 pl-2 text-[11px]`}>
-                          <span>• Extra Guest Discount ({guestDiscountPercent}%):</span>
-                          <span>-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
-                        </div>
+                        <>
+                          <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
+                            <span>• Extra Guest Discount ({guestDiscountPercent}%):</span>
+                            <span className="font-mono font-bold">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
+                          </div>
+                          <div className="flex justify-between text-emerald-300/80 pl-2 text-[10px] font-mono">
+                            <span>↳ Guest Total After Discount:</span>
+                            <span>₹{familyGuestsFinalTotal.toLocaleString('en-IN')}</span>
+                          </div>
+                        </>
                       )}
+
                       {appliedCoupon && couponDiscountAmount > 0 && (
-                        <div className={`flex justify-between text-emerald-400 pl-2 text-[11px]`}>
+                        <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
                           <span>• Promo Code ({appliedCoupon.code}):</span>
-                          <span>-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
+                          <span className="font-mono font-bold">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
+
                       {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
-                        <div className={`flex justify-between ${mutedTextClass} pl-2 text-[11px]`}>
-                          <span>• None</span>
+                        <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                          <span>• No discount applied</span>
                           <span>₹0</span>
                         </div>
                       )}
