@@ -13,6 +13,13 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
 const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
 
+const DEFAULT_BRANDS = [
+  { category: "Base & Foundation", name: "Dior / Charlotte Tilbury / NARS", desc: "For flawless, long-lasting luxury base." },
+  { category: "Eyes & Pigments", name: "Huda Beauty / Anastasia Beverly Hills", desc: "Highly pigmented luxury palettes." },
+  { category: "Setting & Finish", name: "Urban Decay / MAC Cosmetics", desc: "16-HR waterproof makeup locking." },
+  { category: "Skin Prep", name: "Estée Lauder / Smashbox", desc: "Premium hydration and primer layer." }
+];
+
 const DEFAULT_KIT_IMAGES = {
   international: {
     simple_party: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop&q=80",
@@ -34,20 +41,20 @@ const DEFAULT_KIT_IMAGES = {
 
 const DEFAULT_KIT_TEXT = {
   international: {
-    simple_party: { num: 1, name: "Simple Party Makeup (Luxury)", desc: "Natural dewy skin glow with Dior & NARS, soft contour & luxury hair styling." },
-    hd_party: { num: 2, name: "HD Party Makeup (Luxury)", desc: "High-definition camera ready base with Charlotte Tilbury & Huda, designer hair styling." },
-    super_hd_party: { num: 3, name: "Super HD Glam Party (Luxury)", desc: "Flawless poreless glass skin, 3D luxury lashes, statement eye look & hair artistry." },
-    cocktail_glam: { num: 4, name: "Cocktail / Reception Glam (Luxury)", desc: "Red-carpet celebrity glam, smokey or shimmer eye art, luxury extensions & styling." },
-    engagement_bride: { num: 5, name: "Engagement / Sagan Bride (Luxury)", desc: "Radiant luxury bridal base, sculpted features, premium lash drama, draping & hair styling." },
-    royal_bridal: { num: 6, name: "Royal Asian Bridal (Luxury)", desc: "Signature bridal artistry, 16HR waterproof HD finish with Estee Lauder & MAC, master draping & styling." }
+    simple_party: { num: 1, name: "Simple Party Makeup (Luxury)", desc: "Natural dewy skin glow with Dior & NARS, soft contour & luxury hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    hd_party: { num: 2, name: "HD Party Makeup (Luxury)", desc: "High-definition camera ready base with Charlotte Tilbury & Huda, designer hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    super_hd_party: { num: 3, name: "Super HD Glam Party (Luxury)", desc: "Flawless poreless glass skin, 3D luxury lashes, statement eye look & hair artistry.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    cocktail_glam: { num: 4, name: "Cocktail / Reception Glam (Luxury)", desc: "Red-carpet celebrity glam, smokey or shimmer eye art, luxury extensions & styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    engagement_bride: { num: 5, name: "Engagement / Sagan Bride (Luxury)", desc: "Radiant luxury bridal base, sculpted features, premium lash drama, draping & hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    royal_bridal: { num: 6, name: "Royal Asian Bridal (Luxury)", desc: "Signature bridal artistry, 16HR waterproof HD finish with Estee Lauder & MAC, master draping & styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" }
   },
   drugstore: {
-    simple_party: { num: 1, name: "Simple Party Makeup (HD Classic)", desc: "Clean everyday fresh look, light foundation base & classic hair styling." },
-    hd_party: { num: 2, name: "HD Party Makeup (HD Classic)", desc: "High-definition camera ready base with PAC/Milani, customized eye look & hair styling." },
-    super_hd_party: { num: 3, name: "Super HD Glam Party (HD Classic)", desc: "Long-wear HD base, dramatic eye shimmer, 3D lashes & elegant hair styling." },
-    cocktail_glam: { num: 4, name: "Cocktail / Reception Glam (HD Classic)", desc: "Even toned radiant glam, bold lip contour, full party hair styling." },
-    engagement_bride: { num: 5, name: "Engagement / Sagan Bride (HD Classic)", desc: "HD bridal glow, durable base, customized lash placement, dupatta draping." },
-    royal_bridal: { num: 6, name: "Royal Asian Bridal (HD Classic)", desc: "Complete Asian bridal makeover, smudge-proof HD base, jewelry setting & bridal draping." }
+    simple_party: { num: 1, name: "Simple Party Makeup (HD Classic)", desc: "Clean everyday fresh look, light foundation base & classic hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    hd_party: { num: 2, name: "HD Party Makeup (HD Classic)", desc: "High-definition camera ready base with PAC/Milani, customized eye look & hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    super_hd_party: { num: 3, name: "Super HD Glam Party (HD Classic)", desc: "Long-wear HD base, dramatic eye shimmer, 3D lashes & elegant hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    cocktail_glam: { num: 4, name: "Cocktail / Reception Glam (HD Classic)", desc: "Even toned radiant glam, bold lip contour, full party hair styling.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    engagement_bride: { num: 5, name: "Engagement / Sagan Bride (HD Classic)", desc: "HD bridal glow, durable base, customized lash placement, dupatta draping.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" },
+    royal_bridal: { num: 6, name: "Royal Asian Bridal (HD Classic)", desc: "Complete Asian bridal makeover, smudge-proof HD base, jewelry setting & bridal draping.", skinFinish: "16-Hour Water Resistant HD Glass", includes: "Full Makeup + Hair Styling + Draping" }
   }
 };
 
@@ -362,9 +369,21 @@ export default function App() {
         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
       };
+      
+      const applyDefaults = (liveObj, defObj) => {
+        let result = {};
+        for(const k in defObj) {
+          result[k] = { ...defObj[k], ...(liveObj?.[k] || {}) };
+        }
+        for(const k in liveObj) {
+          if(!result[k]) result[k] = liveObj[k];
+        }
+        return result;
+      };
+
       const mergedKitText = {
-        international: { ...DEFAULT_KIT_TEXT.international, ...(live.kitText?.international || {}) },
-        drugstore: { ...DEFAULT_KIT_TEXT.drugstore, ...(live.kitText?.drugstore || {}) }
+        international: applyDefaults(live.kitText?.international, DEFAULT_KIT_TEXT.international),
+        drugstore: applyDefaults(live.kitText?.drugstore, DEFAULT_KIT_TEXT.drugstore)
       };
 
       setConfig({
@@ -373,6 +392,7 @@ export default function App() {
         studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
         kitText: mergedKitText,
         kitImages: mergedKitImages,
+        internationalBrands: (live.internationalBrands && live.internationalBrands.length > 0) ? live.internationalBrands : DEFAULT_BRANDS,
         galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
       });
       setImgLoadFailed(false);
@@ -541,7 +561,7 @@ export default function App() {
         { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
         { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
         { label: 'MAIN LOOK TIER', val: kitName },
-        { label: 'MAIN LOOK PACKAGE', val: `${pkgText.num}. ${pkgText.name} (₹${mainPackagePrice.toLocaleString('en-IN')})` },
+        { label: 'MAIN LOOK PACKAGE', val: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name} (₹${mainPackagePrice.toLocaleString('en-IN')})` },
         { label: 'LOCATION ZONE', val: `${zone?.name} (+₹${zoneFee})` },
         { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' }
       ];
@@ -683,7 +703,7 @@ export default function App() {
         eventDate: eventDate,
         kitType: config.pricingByKit[calcKit].name,
         packageKey: calcPackage,
-        packageName: `${pkgText.num}. ${pkgText.name}`,
+        packageName: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}`,
         basePackagePrice: mainPackagePrice,
         extraGuestsCount: familyGuests.length,
         extraGuestsList: familyGuests,
@@ -756,8 +776,6 @@ export default function App() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  const partyPackages = ['simple_party', 'hd_party', 'super_hd_party', 'cocktail_glam'];
-  const bridalPackages = ['engagement_bride', 'royal_bridal'];
   const activeColorThemeKey = config.theme?.colorTheme || 'real_glass_lens';
   const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.real_glass_lens;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
@@ -766,23 +784,23 @@ export default function App() {
   const headerBgClass = isDarkMode 
     ? "bg-[#080d1e]/80 backdrop-blur-3xl border-b border-white/[0.12] shadow-2xl shadow-cyan-950/20" 
     : "bg-white/90 backdrop-blur-3xl border-b border-slate-200/80 shadow-sm";
-   
+    
   const cardBgClass = isDarkMode 
     ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 text-[#f8fafc]" 
     : "bg-white/85 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
-   
+    
   const subCardBgClass = isDarkMode 
     ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-[#f8fafc]" 
     : "bg-slate-100/90 backdrop-blur-2xl border border-slate-200 text-[#0f172a]";
-   
+    
   const inputBgClass = isDarkMode 
     ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" 
     : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500";
-   
+    
   const navTextClass = isDarkMode 
     ? "text-slate-300 hover:text-white hover:bg-white/10" 
     : "text-slate-700 hover:text-slate-950 hover:bg-slate-200/70 font-bold";
-   
+    
   const mutedTextClass = isDarkMode ? "text-slate-400" : "text-slate-600";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -818,7 +836,7 @@ export default function App() {
           </div>
 
           <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left text-xs space-y-1">
-            <div className="flex justify-between"><span className="text-slate-400">Artist:</span><span className="font-bold text-white">H&F Makeup Artist</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Artist:</span><span className="font-bold text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
             <div className="flex justify-between"><span className="text-slate-400">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-pink-400 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
         </div>
@@ -844,13 +862,13 @@ export default function App() {
                 className="w-full h-full object-contain rounded-[24px]" 
               />
             </div>
-             
+              
             <div className="text-center space-y-1.5">
               <h1 className="text-xl sm:text-3xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
-                H&F Makeup Artist
+                {config.studioName || 'H&F Makeup Artist'}
               </h1>
               <p className="text-[11px] sm:text-xs font-semibold text-cyan-400 tracking-widest uppercase">
-                Beauty, Styled Your Way
+                {config.artistTagline || 'Beauty, Styled Your Way'}
               </p>
             </div>
 
@@ -921,10 +939,19 @@ export default function App() {
             <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>
 
             <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-              <div className="flex justify-between"><span>Vanity Tier:</span><strong className="capitalize">{selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit'}</strong></div>
-              <div className="flex justify-between"><span>Skin Finish:</span><span>16-Hour Water Resistant HD Glass</span></div>
-              <div className="flex justify-between"><span>Includes:</span><span>Full Makeup + Hair Styling + Draping</span></div>
-              <div className="flex justify-between font-bold text-sm pt-1">
+              <div className="flex justify-between items-start gap-2">
+                <span className="shrink-0">Vanity Tier:</span>
+                <strong className="capitalize text-right">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
+              </div>
+              <div className="flex justify-between items-start gap-2">
+                <span className="shrink-0">Skin Finish:</span>
+                <span className="text-right">{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
+              </div>
+              <div className="flex justify-between items-start gap-2">
+                <span className="shrink-0">Includes:</span>
+                <span className="text-right">{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
+              </div>
+              <div className="flex justify-between items-center font-bold text-sm pt-1">
                 <span>Rate:</span>
                 <span className={`${currentTheme.accentText} font-mono`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
               </div>
@@ -993,13 +1020,13 @@ export default function App() {
                   draggable="false"
                 />
               </div>
-               
+                
               <div className="truncate">
                 <h1 className={`font-bold text-xs sm:text-base bg-gradient-to-r ${currentTheme.accentGradient} bg-clip-text text-transparent truncate`}>
-                  H&F Makeup Artist
+                  {config.studioName || 'H&F Makeup Artist'}
                 </h1>
                 <p className={`text-[10px] sm:text-[11px] font-semibold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
-                  <span className="truncate">Beauty, Styled Your Way</span>
+                  <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
                   <Sparkles className="w-2.5 h-2.5 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
                 </p>
               </div>
@@ -1148,10 +1175,12 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 transition-all duration-300">
-              {partyPackages.concat(bridalPackages).map((key) => {
+              {Object.keys(config.kitText?.[selectedKit] || {}).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
-                const price = config.pricingByKit[selectedKit][key];
+                const price = config.pricingByKit?.[selectedKit]?.[key] || 0;
                 const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
+
+                if (!item.name) return null;
 
                 return (
                   <div key={`${selectedKit}_${key}`} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in`}>
@@ -1161,7 +1190,7 @@ export default function App() {
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-bold text-sm sm:text-base leading-snug">{item.num}. {item.name}</h4>
+                          <h4 className="font-bold text-sm sm:text-base leading-snug">{item.num ? `${item.num}. ` : ''}{item.name}</h4>
                           <span className={`font-bold text-sm sm:text-base ${currentTheme.accentText} font-mono shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
                         <p className={`text-xs mt-1 leading-relaxed ${mutedTextClass}`}>{item.desc}</p>
@@ -1246,7 +1275,7 @@ export default function App() {
               <p className={`text-xs ${mutedTextClass}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              {config.internationalBrands?.map((brand, idx) => (
+              {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
                 <div key={idx} className={`${cardBgClass} rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] animate-fade-in`}>
                   <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
                   <h4 className="font-bold text-sm mt-2">{brand.name}</h4>
@@ -1264,7 +1293,7 @@ export default function App() {
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                 
+                  
                 <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
@@ -1307,12 +1336,15 @@ export default function App() {
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Package</label>
                     <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
-                      <option value="royal_bridal">6. Royal Bridal (₹{config.pricingByKit[calcKit].royal_bridal.toLocaleString('en-IN')})</option>
-                      <option value="engagement_bride">5. Engagement Bride (₹{config.pricingByKit[calcKit].engagement_bride.toLocaleString('en-IN')})</option>
-                      <option value="cocktail_glam">4. Cocktail Glam (₹{config.pricingByKit[calcKit].cocktail_glam.toLocaleString('en-IN')})</option>
-                      <option value="super_hd_party">3. Super HD Party (₹{config.pricingByKit[calcKit].super_hd_party.toLocaleString('en-IN')})</option>
-                      <option value="hd_party">2. HD Party (₹{config.pricingByKit[calcKit].hd_party.toLocaleString('en-IN')})</option>
-                      <option value="simple_party">1. Simple Party (₹{config.pricingByKit[calcKit].simple_party.toLocaleString('en-IN')})</option>
+                      {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
+                        const pData = config.kitText[calcKit][k];
+                        const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
+                        return (
+                          <option key={k} value={k}>
+                            {pData.num ? `${pData.num}. ` : ''}{pData.name} (₹{pPrice.toLocaleString('en-IN')})
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
 
@@ -1378,7 +1410,13 @@ export default function App() {
                                   <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
                                   <select
                                     value={guest.kit}
-                                    onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
+                                    onChange={(e) => {
+                                      handleUpdateFamilyGuest(guest.id, 'kit', e.target.value);
+                                      const keys = Object.keys(config.kitText?.[e.target.value] || {});
+                                      if (keys.length > 0) {
+                                        handleUpdateFamilyGuest(guest.id, 'packageKey', keys[0]);
+                                      }
+                                    }}
                                     className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
                                   >
                                     <option value="international">👑 Luxury Kit</option>
@@ -1393,10 +1431,9 @@ export default function App() {
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
                                     className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
                                   >
-                                    <option value="simple_party">Simple Party</option>
-                                    <option value="hd_party">HD Party</option>
-                                    <option value="super_hd_party">Super HD Glam</option>
-                                    <option value="cocktail_glam">Cocktail Glam</option>
+                                    {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
+                                      <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k}</option>
+                                    ))}
                                   </select>
                                 </div>
                               </div>
