@@ -198,8 +198,6 @@ const FONT_MAP = {
   roboto: "'Roboto', sans-serif"
 };
 
-const WA_SERVER_URL = "https://simple-holidays-enable-ranger.trycloudflare.com";
-
 const getTimeRemaining = (expiryDateStr) => {
   if (!expiryDateStr) return null;
   const total = Date.parse(expiryDateStr) - Date.now();
@@ -467,6 +465,15 @@ function MainAppContent() {
   const isGuestDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
   const guestDiscountPercent = isGuestDiscountActive ? (config.guestDiscount?.discountPercent ?? 15) : 0;
 
+  const calculateFamilyGuestsGross = () => {
+    let subtotal = 0;
+    familyGuests.forEach(g => {
+      const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+      subtotal += raw;
+    });
+    return subtotal;
+  };
+
   const calculateFamilyGuestsTotal = () => {
     let subtotal = 0;
     familyGuests.forEach(g => {
@@ -509,7 +516,11 @@ function MainAppContent() {
 
   const mainPackagePrice = config.pricingByKit[calcKit]?.[calcPackage] || 15000;
   const zoneFee = config.convenienceZones[calcZone]?.fee || 350;
+  
+  const familyGuestsGross = calculateFamilyGuestsGross();
   const familyGuestsTotal = calculateFamilyGuestsTotal();
+  const guestDiscountSavedAmount = familyGuestsGross - familyGuestsTotal;
+
   const grossEstimate = mainPackagePrice + zoneFee + familyGuestsTotal;
 
   const getDiscountAmount = (gross) => {
@@ -519,83 +530,89 @@ function MainAppContent() {
     return 0;
   };
 
-  const discountAmount = getDiscountAmount(grossEstimate);
-  const finalEstimate = Math.max(0, grossEstimate - discountAmount);
+  const couponDiscountAmount = getDiscountAmount(mainPackagePrice + zoneFee + familyGuestsTotal);
+  const finalEstimate = Math.max(0, grossEstimate - couponDiscountAmount);
 
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    canvas.width = 1080;
-    canvas.height = 1760;
+    canvas.width = 1200;
+    canvas.height = 2200;
 
     const drawContent = (logoImageObj) => {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, 1080, 1760);
-
-      const bgGrad = ctx.createRadialGradient(540, 250, 40, 540, 780, 800);
-      bgGrad.addColorStop(0, '#ffffff');
-      bgGrad.addColorStop(1, '#fafafa');
+      // Background Gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 2200);
+      bgGrad.addColorStop(0, '#09090b');
+      bgGrad.addColorStop(0.5, '#1e1b4b');
+      bgGrad.addColorStop(1, '#0f172a');
       ctx.fillStyle = bgGrad;
-      ctx.fillRect(20, 20, 1040, 1720);
+      ctx.fillRect(0, 0, 1200, 2200);
 
-      ctx.strokeStyle = '#007AFF';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(40, 40, 1000, 1680);
+      // Outer Border Frame
+      ctx.strokeStyle = '#c084fc';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(40, 40, 1120, 2120);
 
+      ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(55, 55, 1090, 2090);
+
+      // Watermark Logo
       if (logoImageObj) {
         ctx.save();
-        ctx.globalAlpha = 0.06;
-        ctx.drawImage(logoImageObj, 240, 580, 600, 600);
+        ctx.globalAlpha = 0.08;
+        ctx.drawImage(logoImageObj, 300, 800, 600, 600);
         ctx.restore();
       }
 
+      // Header Branding
       if (logoImageObj) {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
+        ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.clip();
-        ctx.drawImage(logoImageObj, 95, 105, 90, 90);
+        ctx.drawImage(logoImageObj, 80, 80, 120, 120);
         ctx.restore();
 
-        ctx.strokeStyle = '#007AFF';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#c084fc';
+        ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.arc(140, 150, 45, 0, Math.PI * 2, true);
+        ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
         ctx.stroke();
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#1e293b';
-        ctx.font = 'bold 36px serif';
-        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 210, 140);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 44px sans-serif';
+        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130);
 
-        ctx.fillStyle = '#007AFF';
-        ctx.font = '600 18px sans-serif';
-        ctx.fillText('Beauty, Styled Your Way', 210, 170);
+        ctx.fillStyle = '#c084fc';
+        ctx.font = 'bold 22px sans-serif';
+        ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175);
       } else {
         ctx.textAlign = 'center';
-        ctx.fillStyle = '#1e293b';
-        ctx.font = 'bold 42px serif';
-        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 540, 140);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 50px sans-serif';
+        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135);
 
-        ctx.fillStyle = '#007AFF';
-        ctx.font = '600 20px sans-serif';
-        ctx.fillText('Beauty, Styled Your Way', 540, 175);
+        ctx.fillStyle = '#c084fc';
+        ctx.font = 'bold 22px sans-serif';
+        ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175);
       }
 
-      ctx.strokeStyle = 'rgba(0, 122, 255, 0.3)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(80, 220);
-      ctx.lineTo(1000, 220);
+      ctx.moveTo(90, 230);
+      ctx.lineTo(1110, 230);
       ctx.stroke();
 
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 24px sans-serif';
-      ctx.fillText('BOOKING SENT RECEIPT', 540, 275);
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = 'bold 26px sans-serif';
+      ctx.fillText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 305);
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
@@ -606,126 +623,154 @@ function MainAppContent() {
         { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
         { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
         { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
-        { label: 'MAIN LOOK TIER', val: kitName },
-        { label: 'MAIN LOOK PACKAGE', val: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name} (₹${mainPackagePrice.toLocaleString('en-IN')})` },
+        { label: 'MAIN VANITY TIER', val: kitName },
+        { label: 'SELECTED PACKAGE', val: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}` },
+        { label: 'MAIN PACKAGE PRICE', val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
         { label: 'LOCATION ZONE', val: `${zone?.name} (+₹${zoneFee})` },
-        { label: 'EXACT ADDRESS', val: venueAddress || 'To be confirmed' }
+        { label: 'EXACT ADDRESS', val: venueAddress || 'Not Provided' }
       ];
 
-      let startY = 340;
+      let startY = 370;
       rows.forEach((row, idx) => {
-        ctx.fillStyle = idx === 0 ? '#f0f9ff' : (idx % 2 === 0 ? '#f8fafc' : '#ffffff');
-        ctx.fillRect(80, startY - 26, 920, 56);
+        ctx.fillStyle = idx % 2 === 0 ? 'rgba(255, 255, 255, 0.04)' : 'rgba(255, 255, 255, 0.02)';
+        ctx.fillRect(90, startY, 1020, 60);
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = idx === 0 ? '#0284c7' : '#64748b';
-        ctx.font = idx === 0 ? 'bold 19px monospace' : 'bold 18px sans-serif';
-        ctx.fillText(row.label, 100, startY + 9);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(row.label, 120, startY + 37);
 
-        ctx.fillStyle = idx === 0 ? '#0369a1' : '#0f172a';
-        ctx.font = idx === 0 ? 'bold 21px monospace' : 'bold 20px sans-serif';
-
-        let displayVal = row.val;
-        while (ctx.measureText(displayVal).width > 560 && displayVal.length > 4) {
-          displayVal = displayVal.substring(0, displayVal.length - 4) + '...';
-        }
-        ctx.fillText(displayVal, 380, startY + 9);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = idx === 0 ? '#c084fc' : '#ffffff';
+        ctx.font = 'bold 22px monospace';
+        ctx.fillText(row.val, 1080, startY + 37);
         startY += 64;
       });
 
+      // Extra Family Guests Breakdown on Slip
       if (familyGuests.length > 0) {
         startY += 10;
-        ctx.fillStyle = '#fdf4ff';
-        ctx.fillRect(80, startY - 26, 920, 48);
+        ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
+        ctx.fillRect(90, startY, 1020, 55);
 
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#9333ea';
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(`EXTRA FAMILY GUESTS (${familyGuests.length} PERSONS)`, 100, startY + 6);
+        ctx.fillStyle = '#d8b4fe';
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(`EXTRA FAMILY GUESTS (${familyGuests.length} PERSONS)`, 120, startY + 34);
 
         ctx.textAlign = 'right';
-        ctx.font = 'bold 20px monospace';
-        ctx.fillText(`+₹${familyGuestsTotal.toLocaleString('en-IN')}`, 980, startY + 6);
-        startY += 54;
+        ctx.font = 'bold 22px monospace';
+        ctx.fillText(`+₹${familyGuestsTotal.toLocaleString('en-IN')}`, 1080, startY + 34);
+        startY += 62;
 
-        familyGuests.slice(0, 4).forEach((g, gIdx) => {
-          const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-          const finalP = isGuestDiscountActive ? Math.round(raw * (1 - guestDiscountPercent / 100)) : raw;
+        familyGuests.forEach((g, gIdx) => {
+          const rawGuestP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+          const discountedGuestP = isGuestDiscountActive ? Math.round(rawGuestP * (1 - guestDiscountPercent / 100)) : rawGuestP;
           const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
           const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
 
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(80, startY - 20, 920, 40);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+          ctx.fillRect(90, startY, 1020, 50);
 
           ctx.textAlign = 'left';
-          ctx.fillStyle = '#475569';
-          ctx.font = '16px sans-serif';
-          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}): ${pkgName}`, 120, startY + 6);
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '18px sans-serif';
+          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — ${pkgName}`, 130, startY + 32);
 
           ctx.textAlign = 'right';
-          ctx.font = '17px monospace';
-          ctx.fillText(`₹${finalP.toLocaleString('en-IN')}`, 980, startY + 6);
-          startY += 44;
+          ctx.font = '18px monospace';
+          ctx.fillStyle = '#34d399';
+          ctx.fillText(`₹${discountedGuestP.toLocaleString('en-IN')}`, 1070, startY + 32);
+          startY += 56;
         });
       }
 
-      if (appliedCoupon) {
-        startY += 6;
-        ctx.fillStyle = '#ecfdf5';
-        ctx.fillRect(80, startY - 24, 920, 48);
+      // Detailed Discount Subsections on Slip
+      startY += 10;
+      ctx.fillStyle = 'rgba(5, 150, 105, 0.15)';
+      ctx.fillRect(90, startY, 1020, 55);
 
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#34d399';
+      ctx.font = 'bold 20px sans-serif';
+      ctx.fillText('DISCOUNTS APPLIED', 120, startY + 34);
+      startY += 62;
+
+      if (guestDiscountSavedAmount > 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+        ctx.fillRect(90, startY, 1020, 48);
         ctx.textAlign = 'left';
-        ctx.fillStyle = '#059669';
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(`APPLIED PROMO: ${appliedCoupon.code} (${appliedCoupon.label})`, 100, startY + 7);
-
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '18px sans-serif';
+        ctx.fillText(`• Extra Guest Group Discount (${guestDiscountPercent}%)`, 130, startY + 31);
         ctx.textAlign = 'right';
-        ctx.font = 'bold 20px monospace';
-        ctx.fillText(`-₹${discountAmount.toLocaleString('en-IN')}`, 980, startY + 7);
-        startY += 58;
+        ctx.font = '18px monospace';
+        ctx.fillStyle = '#34d399';
+        ctx.fillText(`-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, 1070, startY + 31);
+        startY += 52;
       }
 
-      startY += 10;
-      ctx.fillStyle = '#f8fafc';
-      ctx.fillRect(80, startY, 920, 140);
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(80, startY, 920, 140);
+      if (appliedCoupon && couponDiscountAmount > 0) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+        ctx.fillRect(90, startY, 1020, 48);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '18px sans-serif';
+        ctx.fillText(`• Promo Coupon Code (${appliedCoupon.code})`, 130, startY + 31);
+        ctx.textAlign = 'right';
+        ctx.font = '18px monospace';
+        ctx.fillStyle = '#34d399';
+        ctx.fillText(`-₹${couponDiscountAmount.toLocaleString('en-IN')}`, 1070, startY + 31);
+        startY += 52;
+      }
+
+      if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
+        ctx.fillRect(90, startY, 1020, 48);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '18px sans-serif';
+        ctx.fillText('• None Applied', 130, startY + 31);
+        startY += 52;
+      }
+
+      // Total Final Amount Box
+      startY += 15;
+      ctx.fillStyle = 'rgba(192, 132, 252, 0.25)';
+      ctx.fillRect(90, startY, 1020, 115);
+      ctx.strokeStyle = '#c084fc';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(90, startY, 1020, 115);
 
       ctx.textAlign = 'center';
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = 'bold 22px sans-serif';
+      ctx.fillText('FINAL LOCKED TOTAL PAYABLE AMOUNT', 600, startY + 38);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 48px serif';
+      ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92);
+
+      // Footer
+      ctx.textAlign = 'center';
       ctx.fillStyle = '#64748b';
-      ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('TOTAL ESTIMATED AMOUNT', 540, startY + 45);
+      ctx.font = '18px sans-serif';
+      ctx.fillText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, 2110);
 
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 56px serif';
-      ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 540, startY + 110);
-
-      ctx.fillStyle = '#64748b';
-      ctx.font = '17px sans-serif';
-      ctx.fillText(`Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 540, 1670);
-
-      ctx.fillStyle = '#007AFF';
-      ctx.font = 'italic 16px sans-serif';
-      ctx.fillText('Beauty, Styled Your Way', 540, 1700);
+      ctx.fillStyle = '#c084fc';
+      ctx.font = 'italic 18px sans-serif';
+      ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 600, 2145);
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
     };
 
     const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
-    if (logoUrlToLoad.startsWith('data:image')) {
-      const logoImg = new Image();
-      logoImg.src = logoUrlToLoad;
-      logoImg.onload = () => drawContent(logoImg);
-      logoImg.onerror = () => drawContent(null);
-    } else {
-      const logoImg = new Image();
-      logoImg.crossOrigin = "anonymous";
-      logoImg.src = logoUrlToLoad;
-      logoImg.onload = () => drawContent(logoImg);
-      logoImg.onerror = () => drawContent(null);
-    }
+    const logoImg = new Image();
+    logoImg.crossOrigin = "anonymous";
+    logoImg.src = logoUrlToLoad;
+    logoImg.onload = () => drawContent(logoImg);
+    logoImg.onerror = () => drawContent(null);
   };
 
   const handleDirectEstimateBooking = async (e) => {
@@ -754,11 +799,13 @@ function MainAppContent() {
         extraGuestsCount: familyGuests.length,
         extraGuestsList: familyGuests,
         extraGuestsCost: familyGuestsTotal,
+        guestDiscountSaved: guestDiscountSavedAmount,
         zoneName: zone?.name || 'Delhi NCR',
         zoneFee: zone?.fee || 350,
         venueAddress: venueAddress || 'Not Provided',
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
-        discountAmount: discountAmount,
+        couponDiscountAmount: couponDiscountAmount,
+        discountAmount: guestDiscountSavedAmount + couponDiscountAmount,
         totalAmount: finalEstimate,
         status: 'pending',
         createdAt: serverTimestamp()
@@ -772,6 +819,7 @@ function MainAppContent() {
         `📅 *Event Date:* ${eventDate}\n` +
         `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
         `👥 *Extra Guests:* ${familyGuests.length} Person(s)\n` +
+        `🎁 *Discounts:* Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
         `📍 *Zone:* ${zone?.name}\n` +
         `🏠 *Address:* ${venueAddress || 'Not Provided'}\n` +
         `💰 *Total Amount:* ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
@@ -1478,7 +1526,7 @@ function MainAppContent() {
                                     className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
-                                      <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k}</option>
+                                      <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
                                     ))}
                                   </select>
                                 </div>
@@ -1563,12 +1611,48 @@ function MainAppContent() {
                   </div>
 
                   <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look:</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
+                    <div className={`flex justify-between ${mutedTextClass}`}><span>Main Look Package:</span><span>₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
                     <div className={`flex justify-between ${mutedTextClass}`}><span>Convenience Fee ({config.convenienceZones[calcZone]?.name}):</span><span className={`${currentTheme.accentText} font-medium`}>₹{zoneFee}</span></div>
-                    <div className={`flex justify-between ${mutedTextClass}`}><span>Extra Custom Guests ({familyGuests.length}):</span><span>₹{familyGuestsTotal.toLocaleString('en-IN')}</span></div>
-                    {appliedCoupon && (
-                      <div className="flex justify-between text-emerald-500 dark:text-emerald-400 font-semibold"><span>Applied Discount:</span><span>-₹{discountAmount.toLocaleString('en-IN')}</span></div>
+                    
+                    {familyGuests.length > 0 && (
+                      <div className="pt-1 pb-1 border-t border-dashed border-white/10 space-y-1">
+                        <span className="font-bold text-cyan-400">Extra Family Guests ({familyGuests.length}):</span>
+                        {familyGuests.map((g, i) => {
+                          const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+                          const discGp = isGuestDiscountActive ? Math.round(gp * (1 - guestDiscountPercent / 100)) : gp;
+                          const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+                          return (
+                            <div key={i} className={`flex justify-between ${mutedTextClass} pl-2 text-[11px]`}>
+                              <span>• G#{i+1} ({pkgN}):</span>
+                              <span>₹{discGp.toLocaleString('en-IN')}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     )}
+
+                    {/* Detailed Discount Subsections in Summary */}
+                    <div className="pt-2 pb-1 border-t border-dashed border-white/10 space-y-1">
+                      <span className="font-bold text-emerald-400">Discounts Applied:</span>
+                      {guestDiscountSavedAmount > 0 && (
+                        <div className={`flex justify-between text-emerald-400 pl-2 text-[11px]`}>
+                          <span>• Extra Guest Discount ({guestDiscountPercent}%):</span>
+                          <span>-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
+                        </div>
+                      )}
+                      {appliedCoupon && couponDiscountAmount > 0 && (
+                        <div className={`flex justify-between text-emerald-400 pl-2 text-[11px]`}>
+                          <span>• Promo Code ({appliedCoupon.code}):</span>
+                          <span>-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
+                        </div>
+                      )}
+                      {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
+                        <div className={`flex justify-between ${mutedTextClass} pl-2 text-[11px]`}>
+                          <span>• None</span>
+                          <span>₹0</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <button
