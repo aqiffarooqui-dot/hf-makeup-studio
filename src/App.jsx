@@ -209,14 +209,17 @@ function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
+  
+  // Robust initial state check for Theme
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('hf_theme_preference');
       if (saved) return saved === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return document.documentElement.classList.contains('dark') || window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     return false;
   });
+
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
@@ -265,7 +268,7 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Robust Dark/Light Mode Sync with DOM and LocalStorage
+  // Synchronize <html> root class for Tailwind Dark Mode and persist preference
   useEffect(() => {
     const root = document.documentElement;
     if (isDarkMode) {
