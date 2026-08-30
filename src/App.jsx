@@ -640,15 +640,17 @@ function MainAppContent() {
       ctx.textAlign = 'left';
       ctx.fillStyle = '#38bdf8';
       ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('SECTION 1: MAIN MAKEOVER PACKAGE', 120, startY + 31);
+      ctx.fillText('1. MAIN MAKEOVER PACKAGE', 120, startY + 31);
       ctx.textAlign = 'right';
       ctx.font = 'bold 20px monospace';
       ctx.fillText(`₹${mainBookingSubtotal.toLocaleString('en-IN')}`, 1080, startY + 31);
       startY += 54;
 
       const mainDetails = [
-        { label: `• Main Makeover Package (${kitName}) — ${pkgText.name}`, val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
-        { label: `• Travel & Convenience Fee (${zone?.name})`, val: `₹${zoneFee.toLocaleString('en-IN')}` }
+        { label: '• Vanity:', val: kitName },
+        { label: '• Package:', val: pkgText.name },
+        { label: '• Package Price:', val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
+        { label: `• Travel Fee (${zone?.name}):`, val: `₹${zoneFee.toLocaleString('en-IN')}` }
       ];
       mainDetails.forEach(d => {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
@@ -670,29 +672,34 @@ function MainAppContent() {
       ctx.textAlign = 'left';
       ctx.fillStyle = '#d8b4fe';
       ctx.font = 'bold 20px sans-serif';
-      ctx.fillText(`SECTION 2: EXTRA FAMILY GUESTS (${familyGuests.length} PERSONS)`, 120, startY + 31);
+      ctx.fillText(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, 120, startY + 31);
       ctx.textAlign = 'right';
       ctx.font = 'bold 20px monospace';
-      ctx.fillText(`Gross: ₹${familyGuestsGross.toLocaleString('en-IN')}`, 1080, startY + 31);
+      ctx.fillText(`₹${familyGuestsGross.toLocaleString('en-IN')}`, 1080, startY + 31);
       startY += 54;
 
       if (familyGuests.length > 0) {
         familyGuests.forEach((g, gIdx) => {
           const rawP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-          const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD Kit';
+          const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit');
           const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
 
           ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-          ctx.fillRect(90, startY, 1020, 44);
+          ctx.fillRect(90, startY, 1020, 88);
           ctx.textAlign = 'left';
           ctx.fillStyle = '#cbd5e1';
-          ctx.font = '16px sans-serif';
-          ctx.fillText(`• Guest #${gIdx + 1} (${kitLabel}) — Look: ${pkgName}`, 130, startY + 28);
+          ctx.font = '15px sans-serif';
+          ctx.fillText(`• Makeover #${gIdx + 1} — Vanity:`, 130, startY + 23);
+          ctx.fillText('• Package:', 130, startY + 47);
+          ctx.fillText('• Price:', 130, startY + 71);
           ctx.textAlign = 'right';
-          ctx.font = '16px monospace';
           ctx.fillStyle = '#ffffff';
-          ctx.fillText(`₹${rawP.toLocaleString('en-IN')}`, 1070, startY + 28);
-          startY += 48;
+          ctx.font = '15px sans-serif';
+          ctx.fillText(vanityName, 1070, startY + 23);
+          ctx.fillText(pkgName, 1070, startY + 47);
+          ctx.font = 'bold 15px monospace';
+          ctx.fillText(`₹${rawP.toLocaleString('en-IN')}`, 1070, startY + 71);
+          startY += 94;
         });
       } else {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
@@ -713,7 +720,7 @@ function MainAppContent() {
       ctx.textAlign = 'left';
       ctx.fillStyle = '#34d399';
       ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('SECTION 3: DISCOUNTS & PROMOTIONAL OFFERS', 120, startY + 31);
+      ctx.fillText('3. DISCOUNTS & OFFERS', 120, startY + 31);
       startY += 54;
 
       if (guestDiscountSavedAmount > 0) {
@@ -722,7 +729,7 @@ function MainAppContent() {
         ctx.textAlign = 'left';
         ctx.fillStyle = '#cbd5e1';
         ctx.font = '16px sans-serif';
-        ctx.fillText(`• Extra Guest Group Discount (${guestDiscountPercent}%)`, 130, startY + 28);
+        ctx.fillText(`• Additional Family & Guest Makeovers Discount (${guestDiscountPercent}%):`, 130, startY + 28);
         ctx.textAlign = 'right';
         ctx.font = '16px monospace';
         ctx.fillStyle = '#34d399';
@@ -734,7 +741,7 @@ function MainAppContent() {
         ctx.textAlign = 'left';
         ctx.fillStyle = '#a7f3d0';
         ctx.font = 'bold 16px sans-serif';
-        ctx.fillText(`  ↳ Net Guest Total (After Guest Discount)`, 130, startY + 28);
+        ctx.fillText(`  ↳ Net Additional Family & Guest Makeovers Total (After Discount)`, 130, startY + 28);
         ctx.textAlign = 'right';
         ctx.font = 'bold 16px monospace';
         ctx.fillText(`₹${familyGuestsFinalTotal.toLocaleString('en-IN')}`, 1070, startY + 28);
@@ -747,7 +754,7 @@ function MainAppContent() {
         ctx.textAlign = 'left';
         ctx.fillStyle = '#cbd5e1';
         ctx.font = '16px sans-serif';
-        ctx.fillText(`• Promo Coupon Code (${appliedCoupon.code})`, 130, startY + 28);
+        ctx.fillText(`• Coupon Code (${appliedCoupon.code}):`, 130, startY + 28);
         ctx.textAlign = 'right';
         ctx.font = '16px monospace';
         ctx.fillStyle = '#34d399';
@@ -778,7 +785,7 @@ function MainAppContent() {
       ctx.textAlign = 'center';
       ctx.fillStyle = '#e2e8f0';
       ctx.font = 'bold 22px sans-serif';
-      ctx.fillText('FINAL LOCKED TOTAL PAYABLE AMOUNT', 600, startY + 38);
+      ctx.fillText('FINAL AMOUNT PAYABLE', 600, startY + 38);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 48px serif';
