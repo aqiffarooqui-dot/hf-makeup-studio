@@ -262,9 +262,11 @@ function MainAppContent() {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       document.body.classList.add('dark');
+      localStorage.setItem('hf_theme_preference', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
       document.body.classList.remove('dark');
+      localStorage.setItem('hf_theme_preference', 'light');
     }
   }, [isDarkMode]);
 
@@ -330,11 +332,7 @@ function MainAppContent() {
   }, [config.theme?.defaultMode]);
 
   const toggleTheme = () => {
-    setIsDarkMode(prev => {
-      const next = !prev;
-      localStorage.setItem('hf_theme_preference', next ? 'dark' : 'light');
-      return next;
-    });
+    setIsDarkMode(prev => !prev);
   };
 
   useEffect(() => {
@@ -1246,7 +1244,7 @@ function MainAppContent() {
           <div className="max-w-4xl mx-auto">
             {isBookingDone ? (
               <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 text-center space-y-4 shadow-sm max-w-lg mx-auto">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-200 dark:border-emerald-800">
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-200 dark:border-emerald-800">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                   
