@@ -116,15 +116,21 @@ const DEFAULT_GALLERY = [
 const THEME_STYLES = {
   real_glass_lens: {
     accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-300 dark:via-blue-400 dark:to-indigo-400",
-    btnPrimary: "bg-blue-600 hover:bg-blue-700 dark:bg-white/40 dark:hover:bg-white/60 text-white dark:text-black font-bold shadow-[0_8px_30px_rgba(0,122,255,0.25)] rounded-[16px]",
+    btnPrimary: "bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/25 rounded-[16px]",
     accentText: "text-blue-600 dark:text-blue-400",
-    accentBorder: "border-blue-500/30 dark:border-white/50",
-    activeNav: "bg-blue-600 text-white dark:bg-white/50 dark:text-blue-950 font-bold shadow-md rounded-[22px] px-4 py-2"
+    accentLightText: "text-blue-700 dark:text-blue-300",
+    badgeBg: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30",
+    sectionAccent: "bg-blue-500/10 border-blue-500/25 text-blue-700 dark:text-blue-400",
+    accentBorder: "border-blue-500/30 dark:border-blue-400/40",
+    activeNav: "bg-blue-600 text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   real_ios_glass: {
     accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-400 dark:via-blue-500 dark:to-indigo-500",
-    btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg rounded-[16px]",
+    btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-[16px]",
     accentText: "text-blue-600 dark:text-blue-400",
+    accentLightText: "text-blue-700 dark:text-blue-300",
+    badgeBg: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30",
+    sectionAccent: "bg-blue-500/10 border-blue-500/25 text-blue-700 dark:text-blue-400",
     accentBorder: "border-blue-500/40",
     activeNav: "bg-[#007AFF] text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
@@ -132,6 +138,9 @@ const THEME_STYLES = {
     accentGradient: "from-cyan-500 via-sky-600 to-blue-600 dark:from-cyan-400 dark:via-sky-300 dark:to-indigo-400",
     btnPrimary: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white dark:text-neutral-950 font-bold shadow-xl rounded-[16px]",
     accentText: "text-cyan-600 dark:text-cyan-400",
+    accentLightText: "text-cyan-700 dark:text-cyan-300",
+    badgeBg: "bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30",
+    sectionAccent: "bg-cyan-500/10 border-cyan-500/25 text-cyan-700 dark:text-cyan-400",
     accentBorder: "border-cyan-500/40",
     activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg rounded-[22px] px-4 py-2"
   },
@@ -139,48 +148,69 @@ const THEME_STYLES = {
     accentGradient: "from-amber-500 via-rose-500 to-amber-600 dark:from-amber-400 dark:via-rose-400 dark:to-amber-500",
     btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-amber-600 dark:text-amber-400",
+    accentLightText: "text-amber-700 dark:text-amber-300",
+    badgeBg: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30",
+    sectionAccent: "bg-amber-500/10 border-amber-500/25 text-amber-700 dark:text-amber-400",
     accentBorder: "border-amber-500/30",
     activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   gold_rose: {
     accentGradient: "from-rose-500 via-pink-600 to-amber-500 dark:from-amber-400 dark:via-rose-400 dark:to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-rose-500 to-amber-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[16px]",
+    btnPrimary: "bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold shadow-md rounded-[16px]",
     accentText: "text-rose-600 dark:text-rose-400",
+    accentLightText: "text-rose-700 dark:text-rose-300",
+    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30",
+    sectionAccent: "bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
-    activeNav: "bg-gradient-to-r from-rose-500 to-amber-500 text-white dark:text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
+    activeNav: "bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   champagne: {
     accentGradient: "from-amber-500 via-yellow-500 to-amber-600 dark:from-amber-200 dark:via-yellow-400 dark:to-amber-500",
-    btnPrimary: "bg-amber-500 text-neutral-950 font-bold shadow-lg rounded-[16px]",
+    btnPrimary: "bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold shadow-lg rounded-[16px]",
     accentText: "text-amber-700 dark:text-amber-400",
+    accentLightText: "text-amber-800 dark:text-amber-300",
+    badgeBg: "bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30",
+    sectionAccent: "bg-amber-500/10 border-amber-500/25 text-amber-800 dark:text-amber-400",
     accentBorder: "border-amber-500/30",
     activeNav: "bg-amber-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   emerald: {
     accentGradient: "from-emerald-600 via-teal-600 to-emerald-700 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-500",
-    btnPrimary: "bg-emerald-600 text-white dark:text-neutral-950 font-bold shadow-lg rounded-[16px]",
+    btnPrimary: "bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-emerald-700 dark:text-emerald-400",
+    accentLightText: "text-emerald-800 dark:text-emerald-300",
+    badgeBg: "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30",
+    sectionAccent: "bg-emerald-500/10 border-emerald-500/25 text-emerald-800 dark:text-emerald-400",
     accentBorder: "border-emerald-500/30",
-    activeNav: "bg-emerald-600 text-white dark:text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
+    activeNav: "bg-emerald-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   violet: {
     accentGradient: "from-purple-600 via-pink-600 to-rose-600 dark:from-purple-400 dark:via-pink-400 dark:to-rose-400",
     btnPrimary: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-purple-600 dark:text-purple-400",
+    accentLightText: "text-purple-700 dark:text-purple-300",
+    badgeBg: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/30",
+    sectionAccent: "bg-purple-500/10 border-purple-500/25 text-purple-700 dark:text-purple-400",
     accentBorder: "border-purple-500/30",
     activeNav: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   ruby: {
     accentGradient: "from-rose-600 via-red-600 to-pink-700 dark:from-rose-500 dark:via-red-600 dark:to-pink-600",
-    btnPrimary: "bg-rose-600 text-white font-bold shadow-lg rounded-[16px]",
+    btnPrimary: "bg-rose-600 hover:bg-rose-700 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-rose-600 dark:text-rose-400",
+    accentLightText: "text-rose-700 dark:text-rose-300",
+    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30",
+    sectionAccent: "bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
     activeNav: "bg-rose-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   sapphire: {
     accentGradient: "from-blue-600 via-indigo-600 to-cyan-600 dark:from-blue-600 dark:via-indigo-600 dark:to-cyan-500",
-    btnPrimary: "bg-indigo-600 text-white font-bold shadow-lg rounded-[16px]",
+    btnPrimary: "bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-indigo-600 dark:text-indigo-400",
+    accentLightText: "text-indigo-700 dark:text-indigo-300",
+    badgeBg: "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30",
+    sectionAccent: "bg-indigo-500/10 border-indigo-500/25 text-indigo-700 dark:text-indigo-400",
     accentBorder: "border-indigo-500/30",
     activeNav: "bg-indigo-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   }
@@ -444,6 +474,8 @@ function MainAppContent() {
         ...STUDIO_CONFIG,
         ...live,
         studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
+        telegramBotToken: live.telegramBotToken || STUDIO_CONFIG.telegramBotToken || "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg",
+        telegramChatId: live.telegramChatId || STUDIO_CONFIG.telegramChatId || "8891500480",
         kitText: mergedKitText,
         kitImages: mergedKitImages,
         internationalBrands: (live.internationalBrands && live.internationalBrands.length > 0) ? live.internationalBrands : DEFAULT_BRANDS,
@@ -618,7 +650,7 @@ function MainAppContent() {
       bgGrad.addColorStop(0.5, '#1e1b4b');
       bgGrad.addColorStop(1, '#0f172a');
       ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, 1200, canvas.height);
 
       ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 6;
@@ -802,25 +834,35 @@ function MainAppContent() {
         createdAt: serverTimestamp()
       });
 
-      const telegramBotToken = "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
-      const telegramChatId = "8891500480";
+      // Robust Telegram Dispatcher (Uses dynamic live tokens or verified fallback with HTML formatting)
+      const telegramBotToken = config.telegramBotToken || STUDIO_CONFIG.telegramBotToken || "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
+      const telegramChatId = config.telegramChatId || STUDIO_CONFIG.telegramChatId || "8891500480";
       
-      const tgMsg = encodeURIComponent(
-        `🚨 *NEW BOOKING REQUEST (${generatedBookingNo})* 🚨\n\n` +
-        `👤 *Name:* ${clientName.trim()}\n` +
-        `📞 *Phone:* ${clientPhone.trim()}\n` +
-        `📅 *Date:* ${eventDate}\n` +
-        `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
-        `👥 *Extra Guests:* ${familyGuests.length}\n` +
-        `📍 *Address Type:* ${addressType}\n` +
-        `🏠 *Full Venue:* ${compiledAddress}\n` +
-        `📮 *PIN Code:* ${pincode.trim()}\n` +
-        `🎁 *Discounts:* Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
-        `💰 *Total:* ₹${finalEstimate.toLocaleString('en-IN')}`
-      );
-      
-      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${telegramChatId}&text=${tgMsg}&parse_mode=Markdown`)
-        .catch(err => console.warn("Telegram alert notice:", err));
+      const tgMsgText = 
+        `🚨 <b>NEW APPOINTMENT BOOKING REQUEST</b> 🚨\n\n` +
+        `🔢 <b>Booking No:</b> ${generatedBookingNo}\n` +
+        `👤 <b>Client Name:</b> ${clientName.trim()}\n` +
+        `📞 <b>Contact Phone:</b> ${clientPhone.trim()}\n` +
+        `📅 <b>Event Date:</b> ${eventDate}\n` +
+        `💄 <b>Main Look:</b> ${pkgText.name}\n` +
+        `💎 <b>Vanity Tier:</b> ${config.pricingByKit[calcKit].name}\n` +
+        `👥 <b>Extra Guests:</b> ${familyGuests.length} person(s)\n` +
+        `🏷️ <b>Address Type:</b> ${addressType}\n` +
+        `🏠 <b>Venue Address:</b> ${compiledAddress}\n` +
+        `📮 <b>Postal PIN:</b> ${pincode.trim()}\n` +
+        `🎁 <b>Discounts:</b> Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
+        `💰 <b>Final Amount:</b> ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
+        `<i>Status: Pending Confirmation in Admin Console</i>`;
+
+      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: telegramChatId,
+          text: tgMsgText,
+          parse_mode: 'HTML'
+        })
+      }).catch(err => console.warn("Telegram dispatch warning:", err));
 
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
@@ -969,7 +1011,7 @@ function MainAppContent() {
           <div className={`max-w-sm w-full rounded-3xl p-6 border shadow-2xl text-center space-y-4 ${isDarkMode ? 'bg-[#0f1424] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             <div className="flex items-center justify-between">
               <span className="font-bold text-sm flex items-center gap-1.5">
-                <Share2 className="w-4 h-4 text-cyan-400" /> Share Studio Lookbook
+                <Share2 className={`w-4 h-4 ${currentTheme.accentText}`} /> Share Studio Lookbook
               </span>
               <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-400 hover:text-white"><X className="w-5 h-5" /></button>
             </div>
@@ -982,9 +1024,9 @@ function MainAppContent() {
             <div className="flex gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-xs font-bold flex items-center justify-center gap-1.5 border border-white/10 transition"
+                className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 active:scale-95 text-xs font-bold flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/10 transition"
               >
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-cyan-400" />}
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-500" /> : <Copy className={`w-4 h-4 ${currentTheme.accentText}`} />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
 
@@ -1020,7 +1062,7 @@ function MainAppContent() {
 
             <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>
 
-            <div className="space-y-2 text-xs border-t border-b border-white/10 dark:border-white/10 border-slate-200 py-3">
+            <div className="space-y-2 text-xs border-t border-b border-slate-200 dark:border-white/10 py-3">
               <div className="flex justify-between items-start gap-2">
                 <span className="shrink-0 font-medium">Vanity Tier:</span>
                 <strong className="capitalize text-right">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
@@ -1356,7 +1398,7 @@ function MainAppContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
                 <div key={idx} className={`${cardBgClass} rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] animate-fade-in`}>
-                  <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 dark:bg-white/10 bg-slate-200 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
+                  <span className={`text-[10px] font-bold ${currentTheme.badgeBg} uppercase px-2 py-0.5 rounded-lg`}>{brand.category}</span>
                   <h4 className="font-bold text-sm mt-2">{brand.name}</h4>
                   <p className={`text-xs mt-1 ${mutedTextClass}`}>{brand.desc}</p>
                 </div>
@@ -1369,11 +1411,11 @@ function MainAppContent() {
           <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
             {isBookingDone ? (
               <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                   
-                <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 dark:text-cyan-400 font-mono font-bold text-xs">
+                <div className={`inline-block px-3 py-1 rounded-full ${currentTheme.badgeBg} font-mono font-bold text-xs`}>
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
@@ -1407,8 +1449,8 @@ function MainAppContent() {
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 dark:bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 dark:bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `${currentTheme.badgeBg} ${currentTheme.accentBorder}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `${currentTheme.badgeBg} ${currentTheme.accentBorder}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
@@ -1439,8 +1481,8 @@ function MainAppContent() {
                   <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-                          <Users className="w-4 h-4 text-cyan-500 dark:text-cyan-400" /> Extra Family Makeup Customizer
+                        <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
+                          <Users className="w-4 h-4" /> Extra Family Makeup Customizer
                         </h4>
                         <p className={`text-[11px] ${mutedTextClass}`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
@@ -1448,7 +1490,7 @@ function MainAppContent() {
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
+                        className={`px-3 py-1.5 rounded-xl ${currentTheme.badgeBg} text-xs font-bold flex items-center gap-1 active:scale-95 transition`}
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
@@ -1457,11 +1499,11 @@ function MainAppContent() {
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
                       <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/15 to-teal-500/15 border border-emerald-500/40 flex items-center justify-between text-xs animate-fade-in">
                         <div className="flex items-center gap-2">
-                          <div className="p-1 rounded-lg bg-emerald-500/20 text-emerald-400">
+                          <div className="p-1 rounded-lg bg-emerald-500/20 text-emerald-500">
                             <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
                           </div>
                           <div>
-                            <p className="text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                            <p className="text-emerald-700 dark:text-emerald-400 font-bold text-xs">
                               Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
                             </p>
                             <p className={`text-[10px] ${mutedTextClass}`}>
@@ -1469,7 +1511,7 @@ function MainAppContent() {
                             </p>
                           </div>
                         </div>
-                        <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full shrink-0">
+                        <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full shrink-0">
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
@@ -1484,7 +1526,7 @@ function MainAppContent() {
                             <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 font-mono">Guest #{idx + 1}</span>
+                                  <span className={`text-[11px] font-bold ${currentTheme.accentText} font-mono`}>Guest #{idx + 1}</span>
                                   <span className="text-xs font-bold font-mono text-slate-900 dark:text-white">
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
@@ -1540,7 +1582,7 @@ function MainAppContent() {
                               {appliedCoupon.expiryDate && (() => {
                                 const tr = getTimeRemaining(appliedCoupon.expiryDate);
                                 return tr && !tr.expired ? (
-                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-500 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                                     <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
                                   </span>
                                 ) : null;
@@ -1698,8 +1740,8 @@ function MainAppContent() {
 
                   <div className="space-y-3 text-xs border-t border-b border-slate-200 dark:border-white/10 py-3.5">
                     {/* SECTION 1: MAIN MAKEOVER PACKAGE */}
-                    <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-2">
-                      <div className="flex justify-between items-center font-bold text-sky-600 dark:text-sky-400">
+                    <div className={`p-3 rounded-2xl ${currentTheme.sectionAccent} space-y-2`}>
+                      <div className="flex justify-between items-center font-bold">
                         <span>1. Main Makeover Package:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
@@ -1719,7 +1761,7 @@ function MainAppContent() {
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
                         <span className="font-mono text-slate-900 dark:text-white">₹{zoneFee.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between items-center border-t border-slate-200 dark:border-white/10 pt-2 mt-1 font-bold text-sky-700 dark:text-sky-300 text-[11px]">
+                      <div className="flex justify-between items-center border-t border-slate-200 dark:border-white/10 pt-2 mt-1 font-bold text-[11px]">
                         <span>Main Makeover Package Total:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
@@ -1727,7 +1769,7 @@ function MainAppContent() {
 
                     {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS */}
                     <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 space-y-2">
-                      <div className="flex justify-between items-center font-bold text-purple-600 dark:text-purple-400">
+                      <div className="flex justify-between items-center font-bold text-purple-700 dark:text-purple-400">
                         <span>2. Additional Family & Guest Makeovers ({familyGuests.length}):</span>
                         <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
@@ -1773,20 +1815,20 @@ function MainAppContent() {
 
                     {/* SECTION 3: DISCOUNTS & OFFERS */}
                     <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-2">
-                      <div className="flex justify-between items-center font-bold text-emerald-600 dark:text-emerald-400">
+                      <div className="flex justify-between items-center font-bold text-emerald-700 dark:text-emerald-400">
                         <span>3. Discounts & Offers:</span>
                         <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
 
                       {guestDiscountSavedAmount > 0 && (
-                        <div className="flex justify-between text-emerald-600 dark:text-emerald-400 pl-1 text-[11px]">
+                        <div className="flex justify-between text-emerald-700 dark:text-emerald-400 pl-1 text-[11px]">
                           <span>• Additional Family & Guest Makeovers Discount ({guestDiscountPercent}%):</span>
                           <span className="font-mono font-bold">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
                       {appliedCoupon && couponDiscountAmount > 0 && (
-                        <div className="flex justify-between text-emerald-600 dark:text-emerald-400 pl-1 text-[11px]">
+                        <div className="flex justify-between text-emerald-700 dark:text-emerald-400 pl-1 text-[11px]">
                           <span>• Coupon Code ({appliedCoupon.code}):</span>
                           <span className="font-mono font-bold">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
                         </div>
@@ -1851,8 +1893,8 @@ function MainAppContent() {
 
             {feedbackSubmitted ? (
               <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2 animate-fade-in">
-                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-                <h4 className="font-bold text-sm text-emerald-600 dark:text-emerald-400">Thank you for your valuable feedback!</h4>
+                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+                <h4 className="font-bold text-sm text-emerald-700 dark:text-emerald-400">Thank you for your valuable feedback!</h4>
                 <p className="text-xs text-slate-700 dark:text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
@@ -1920,14 +1962,14 @@ function MainAppContent() {
         <aside 
           aria-label="Promotional offer" 
           className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border ${currentTheme.accentBorder} p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
-            isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900'
+            isDarkMode ? 'bg-[#0b1021]/90 text-white' : 'bg-white/95 text-slate-900 shadow-slate-300/60'
           }`}
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0 mt-0.5`} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 dark:bg-white/10 bg-slate-200 px-2 py-0.5 rounded-full`}>
+                <span className={`text-[10px] font-bold ${currentTheme.badgeBg} uppercase px-2 py-0.5 rounded-full`}>
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
@@ -1936,7 +1978,7 @@ function MainAppContent() {
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-500 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                     <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
