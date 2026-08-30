@@ -210,12 +210,12 @@ function MainAppContent() {
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
   
-  // Initialize and synchronize theme state instantly from localStorage
+  // Force clean initialization from localStorage or DOM
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('hf_theme_preference');
       if (saved) return saved === 'dark';
-      return document.documentElement.classList.contains('dark') || window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return document.documentElement.classList.contains('dark');
     }
     return false;
   });
@@ -268,14 +268,13 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Synchronize <html> root class and save preference securely
+  // Directly mutate DOM root element for absolute 100% reliable dark mode class toggling
   useEffect(() => {
-    const root = document.documentElement;
     if (isDarkMode) {
-      root.classList.add('dark');
+      document.documentElement.classList.add('dark');
       localStorage.setItem('hf_theme_preference', 'dark');
     } else {
-      root.classList.remove('dark');
+      document.documentElement.classList.remove('dark');
       localStorage.setItem('hf_theme_preference', 'light');
     }
   }, [isDarkMode]);
