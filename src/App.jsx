@@ -5,7 +5,7 @@ import {
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
   Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw,
-  Home, Building2, Navigation, Compass, Zap, Smartphone
+  Home, Building2, Navigation, Compass, Zap, Droplet
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#F4F5F8] dark:bg-[#0B0E14] text-slate-900 dark:text-white flex items-center justify-center p-6 text-center animate-fade-in">
-          <div className="max-w-md w-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 p-8 rounded-[36px] space-y-4 shadow-xl">
-            <div className="w-16 h-16 rounded-[24px] bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto border border-amber-500/30">
+        <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center p-6 text-center animate-fade-in">
+          <div className="max-w-md w-full ios-water-drop p-8 space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto border border-amber-400/40 animate-bounce">
               <ShieldAlert className="w-8 h-8" />
             </div>
-            <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">System Safe Mode Active</h2>
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+            <h2 className="text-xl font-black text-amber-300 tracking-tight hd-glass-text-night">System Safe Mode Active</h2>
+            <p className="text-xs text-slate-200 leading-relaxed font-semibold">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3.5 rounded-full bg-[#0381FE] hover:bg-[#006EE6] text-white font-extrabold text-xs shadow-md active:scale-[0.97] transition-all"
+              className="w-full py-3.5 ios-liquid-action-btn text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
             >
               Refresh to Safe Version
             </button>
@@ -183,7 +183,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-[#151922] flex items-center justify-center group rounded-[28px]">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px]">
       <video
         ref={videoRef}
         src={item.url}
@@ -192,12 +192,12 @@ const AutoPlayVideoCard = ({ item }) => {
         loop
         playsInline
         preload="auto"
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none"
       />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-5 text-white">
-        <span className="text-[11px] uppercase font-mono font-extrabold text-[#2C75FF] tracking-wider">{item.sub || 'Client Transformation'}</span>
-        <h4 className="font-extrabold text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-white">
-          <Film className="w-4 h-4 text-pink-400 shrink-0" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
+        <span className="text-[11px] uppercase font-mono font-black text-[#38BDF8] tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
+        <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
+          <Film className="w-4 h-4 text-pink-400 shrink-0 animate-pulse" />
           <span>{item.title}</span>
         </h4>
       </div>
@@ -528,8 +528,8 @@ function MainAppContent() {
       return y + rowHeight + (options.gap ?? 6);
     };
 
-    const drawSectionTitle = (title, y, accent = '#0381FE') => {
-      ctx.fillStyle = 'rgba(3, 129, 254, 0.12)';
+    const drawSectionTitle = (title, y, accent = '#007AFF') => {
+      ctx.fillStyle = 'rgba(0, 122, 255, 0.12)';
       ctx.fillRect(90, y, 1020, 56);
       drawText(title, 120, y + 36, 20, 'bold', accent);
       return y + 64;
@@ -537,13 +537,13 @@ function MainAppContent() {
 
     const drawContent = (logoImageObj) => {
       const bgGrad = ctx.createLinearGradient(0, 0, 1200, canvas.height);
-      bgGrad.addColorStop(0, '#0B0E14');
-      bgGrad.addColorStop(0.5, '#151922');
-      bgGrad.addColorStop(1, '#080A0F');
+      bgGrad.addColorStop(0, '#030712');
+      bgGrad.addColorStop(0.5, '#0B132B');
+      bgGrad.addColorStop(1, '#020617');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 1200, canvas.height);
 
-      ctx.strokeStyle = '#0381FE';
+      ctx.strokeStyle = '#007AFF';
       ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, 1120, canvas.height - 80);
 
@@ -556,41 +556,41 @@ function MainAppContent() {
         ctx.drawImage(logoImageObj, 80, 80, 120, 120);
         ctx.restore();
 
-        ctx.strokeStyle = '#0381FE';
+        ctx.strokeStyle = '#007AFF';
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
         ctx.stroke();
 
         drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold');
-        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#2C75FF');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#38BDF8');
       } else {
         drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 50, 'bold', '#ffffff', 'center');
-        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#2C75FF', 'center');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#38BDF8', 'center');
       }
 
-      ctx.strokeStyle = 'rgba(3, 129, 254, 0.4)';
+      ctx.strokeStyle = 'rgba(0, 122, 255, 0.4)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(90, 230);
       ctx.lineTo(1110, 230);
       ctx.stroke();
 
-      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#F59E0B', 'center');
+      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#FCD34D', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
       const zone = config.convenienceZones[calcZone];
 
       let startY = 340;
-      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#2C75FF', mono: true });
+      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#38BDF8', mono: true });
       startY = drawRow('CLIENT NAME', clientName || 'Not Provided', startY);
       startY = drawRow('CONTACT NUMBER', clientPhone || 'Not Provided', startY);
       startY = drawRow('EVENT DATE', eventDate || 'Not Provided', startY);
 
       startY += 10;
-      startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#0381FE');
-      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#0381FE' });
+      startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#38BDF8');
+      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#38BDF8' });
       if (flatHouseNo.trim()) {
         startY = drawDynamicRow('Flat / House No., Building:', flatHouseNo.trim(), startY);
       }
@@ -599,10 +599,10 @@ function MainAppContent() {
         startY = drawDynamicRow('Landmark:', landmark.trim(), startY);
       }
       startY = drawRow('Town / City & State:', `${city || 'New Delhi'}, ${state || 'Delhi'}`, startY);
-      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#2C75FF', mono: true });
+      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#38BDF8', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#0381FE');
+      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#38BDF8');
       startY = drawRow('• Vanity:', kitName, startY);
       startY = drawRow('• Package:', pkgText.name, startY);
       startY = drawRow('• Package Price:', `₹${mainPackagePrice.toLocaleString('en-IN')}`, startY, { mono: true });
@@ -610,7 +610,7 @@ function MainAppContent() {
       startY = drawRow('Main Makeover Package Total:', `₹${mainBookingSubtotal.toLocaleString('en-IN')}`, startY, { labelColor: '#7dd3fc', valueColor: '#7dd3fc', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#A855F7');
+      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#C084FC');
       if (familyGuests.length > 0) {
         familyGuests.forEach((g, gIdx) => {
           const rawP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
@@ -626,12 +626,12 @@ function MainAppContent() {
       startY = drawRow('Additional Family & Guest Total:', `₹${familyGuestsGross.toLocaleString('en-IN')}`, startY, { labelColor: '#d8b4fe', valueColor: '#d8b4fe', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#10B981');
+      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#34D399');
       if (guestDiscountSavedAmount > 0) {
-        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#10B981', mono: true });
+        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34D399', mono: true });
       }
       if (appliedCoupon && couponDiscountAmount > 0) {
-        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#10B981', mono: true });
+        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34D399', mono: true });
       }
       if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
         startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#94a3b8', mono: true });
@@ -639,9 +639,9 @@ function MainAppContent() {
       startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#86efac', valueColor: '#86efac', mono: true });
 
       startY += 18;
-      ctx.fillStyle = 'rgba(3, 129, 254, 0.18)';
+      ctx.fillStyle = 'rgba(0, 122, 255, 0.25)';
       ctx.fillRect(90, startY, 1020, 115);
-      ctx.strokeStyle = '#0381FE';
+      ctx.strokeStyle = '#007AFF';
       ctx.lineWidth = 3;
       ctx.strokeRect(90, startY, 1020, 115);
 
@@ -650,7 +650,7 @@ function MainAppContent() {
 
       const footerY = canvas.height - 75;
       drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#64748b', 'center');
-      drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#0381FE', 'center');
+      drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#007AFF', 'center');
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
@@ -780,28 +780,17 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // Samsung One UI 8.5 Font & Typography Stack
-  const currentFontFamily = "'SamsungOne', 'Samsung Sharp Sans', -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', 'Segoe UI', Roboto, sans-serif";
+  // Official Apple System Typography Stack
+  const currentFontFamily = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif";
 
-  // Samsung One UI 8.5 High-Contrast Palette
-  const bgClass = isDarkMode ? "bg-[#0B0E14] text-[#F1F5F9]" : "bg-[#F4F5F8] text-[#111827]";
-  const headerBgClass = isDarkMode 
-    ? "bg-[#151922]/90 backdrop-blur-2xl border-b border-slate-800 shadow-md" 
-    : "bg-white/90 backdrop-blur-2xl border-b border-slate-200/80 shadow-sm";
-    
-  const cardBgClass = isDarkMode 
-    ? "bg-[#151922] border border-slate-800/80 hover:border-slate-700 shadow-xl text-white rounded-[32px]" 
-    : "bg-white border border-slate-200/80 hover:border-slate-300 shadow-sm text-slate-900 rounded-[32px]";
-    
-  const subCardBgClass = isDarkMode 
-    ? "bg-[#1E2330] border border-slate-800 text-white rounded-[24px]" 
-    : "bg-[#EBF0F7] border border-slate-200 text-slate-900 rounded-[24px]";
-    
-  const inputBgClass = isDarkMode 
-    ? "bg-[#10141D] border border-slate-700 text-white placeholder-slate-500 focus:border-[#2C75FF] focus:ring-2 focus:ring-[#2C75FF]/30 rounded-[20px]" 
-    : "bg-[#F4F5F8] border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#0381FE] focus:ring-2 focus:ring-[#0381FE]/20 shadow-sm font-semibold rounded-[20px]";
-    
-  const primaryBtnClass = "bg-[#0381FE] hover:bg-[#006EE6] active:scale-[0.97] text-white font-extrabold shadow-md rounded-full transition-all duration-200";
+  // Optical Dynamic Text Colors with Hardware Subpixel Antialiasing
+  const titleText = isDarkMode ? "text-white font-black hd-glass-text-night" : "text-slate-950 font-black hd-glass-text-day";
+  const bodyText = isDarkMode ? "text-slate-100 font-semibold" : "text-slate-800 font-semibold";
+  const labelText = isDarkMode ? "text-slate-300 font-bold" : "text-slate-600 font-bold";
+  const cyanAccent = isDarkMode ? "text-[#38BDF8] font-black hd-text-cyan-glow" : "text-[#007AFF] font-black";
+  const amberAccent = isDarkMode ? "text-[#FCD34D] font-black hd-text-amber-glow" : "text-amber-700 font-black";
+  const purpleAccent = isDarkMode ? "text-[#C084FC] font-black hd-text-purple-glow" : "text-purple-700 font-black";
+  const emeraldAccent = isDarkMode ? "text-[#34D399] font-black hd-text-emerald-glow" : "text-emerald-700 font-black";
 
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -817,27 +806,28 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 select-none`}>
-        <div className="max-w-md w-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 p-8 rounded-[36px] text-center space-y-4 shadow-xl">
-          <div className="w-16 h-16 rounded-[24px] bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto border border-amber-500/30">
+      <div style={{ fontFamily: currentFontFamily }} className="min-h-screen bg-[#F0F4FD] dark:bg-[#030712] flex items-center justify-center p-4 relative overflow-hidden select-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className="max-w-md w-full ios-water-drop p-8 text-center space-y-5 animate-fade-in">
+          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-500 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
             <Wrench className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] uppercase font-mono font-extrabold tracking-widest text-amber-700 dark:text-amber-300 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-500/30 inline-block">
+            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-300 dark:border-amber-400/40 inline-block">
               Scheduled System Upgrade
             </span>
-            <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+            <h2 className="text-2xl font-black bg-gradient-to-r from-amber-500 via-rose-500 to-cyan-400 bg-clip-text text-transparent hd-glass-text-night">
               We'll Be Back Shortly
             </h2>
-            <p className="text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
-              We are currently updating our systems. We appreciate your patience and look forward to welcoming you soon.
+            <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-200 font-semibold">
+              We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience and look forward to welcoming you soon.
             </p>
           </div>
 
-          <div className="p-4 rounded-[20px] bg-slate-50 dark:bg-[#1E2330] border border-slate-200 dark:border-slate-800 text-left text-xs space-y-1.5">
-            <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-400 font-semibold">Artist:</span><span className="font-extrabold text-slate-900 dark:text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
-            <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-400 font-semibold">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-extrabold text-[#0381FE] dark:text-[#2C75FF] hover:underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
+          <div className="p-4 rounded-[24px] bg-slate-100/80 dark:bg-black/60 border border-slate-200 dark:border-white/20 text-left text-xs space-y-1.5">
+            <div className="flex justify-between"><span className="text-slate-600 dark:text-slate-200 font-bold">Artist:</span><span className="font-black text-slate-900 dark:text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
+            <div className="flex justify-between"><span className="text-slate-600 dark:text-slate-200 font-bold">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-black text-pink-600 dark:text-pink-300 hover:underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
         </div>
       </div>
@@ -846,70 +836,268 @@ function MainAppContent() {
 
   return (
     <div 
-      style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
-      className={`min-h-screen ${bgClass} pb-28 sm:pb-24 relative transition-colors duration-300`}
+      style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }} 
+      className="min-h-screen ios-materials-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none subpixel-antialiased"
       onContextMenu={(e) => e.preventDefault()}
     >
+      {/* Apple Official iOS Materials & Depth Physics CSS */}
       <style>{`
+        /* Dynamic iOS Refractive Multi-Layer Backdrop */
+        .ios-materials-bg {
+          background-color: #F0F4FD;
+          background-image: 
+            radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.28) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.22) 0px, transparent 50%),
+            radial-gradient(at 50% 50%, rgba(45, 212, 191, 0.22) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.25) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(96, 165, 250, 0.28) 0px, transparent 50%);
+        }
+        .dark .ios-materials-bg {
+          background-color: #030712;
+          background-image: 
+            radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.35) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.32) 0px, transparent 50%),
+            radial-gradient(at 50% 50%, rgba(20, 184, 166, 0.25) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.30) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.35) 0px, transparent 50%);
+        }
+
+        /* 1. iOS Materials Liquid Glass Main Card (Curvature & Caustic Reflection) */
+        .ios-water-drop {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.20) 75%);
+          backdrop-filter: blur(35px) saturate(210%);
+          -webkit-backdrop-filter: blur(35px) saturate(210%);
+          border: 1.5px solid rgba(255, 255, 255, 0.55);
+          box-shadow: 
+            inset 0 1.5px 2.5px rgba(255, 255, 255, 0.85),
+            inset 0 -3px 6px rgba(0, 0, 0, 0.08),
+            0 20px 50px rgba(0, 0, 0, 0.12);
+          border-radius: 36px;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .dark .ios-water-drop {
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.15) 0%, rgba(15, 23, 42, 0.40) 80%);
+          border: 1px solid rgba(255, 255, 255, 0.20);
+          box-shadow: 
+            inset 0 1.5px 2.5px rgba(255, 255, 255, 0.50),
+            inset 0 -3px 6px rgba(0, 0, 0, 0.55),
+            0 25px 60px rgba(0, 0, 0, 0.75);
+        }
+        /* Arched Specular Glint Reflection */
+        .ios-water-drop::before {
+          content: "";
+          position: absolute;
+          top: 2px;
+          left: 10%;
+          right: 10%;
+          height: 35%;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.0) 100%);
+          border-radius: 9999px 9999px 45px 45px;
+          pointer-events: none;
+        }
+        .dark .ios-water-drop::before {
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.0) 100%);
+        }
+
+        /* 2. iOS Materials Sub-Capsule */
+        .ios-water-drop-sub {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 85%);
+          backdrop-filter: blur(24px) saturate(200%);
+          -webkit-backdrop-filter: blur(24px) saturate(200%);
+          border: 1px solid rgba(255, 255, 255, 0.55);
+          box-shadow: 
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.06),
+            0 12px 30px rgba(15, 23, 42, 0.06);
+          border-radius: 28px;
+        }
+        .dark .ios-water-drop-sub {
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgba(3, 7, 18, 0.45) 85%);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          box-shadow: 
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
+            inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+            0 14px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 3. Transparent Liquid Active Tab / Pill */
+        .ios-liquid-active-tab {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(0, 122, 255, 0.60) 0%, rgba(2, 132, 199, 0.40) 100%) !important;
+          backdrop-filter: blur(28px) saturate(220%) !important;
+          -webkit-backdrop-filter: blur(28px) saturate(220%) !important;
+          border: 1.5px solid rgba(255, 255, 255, 0.75) !important;
+          box-shadow: 
+            inset 0 2px 3px rgba(255, 255, 255, 0.9),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+            0 12px 30px rgba(0, 122, 255, 0.45) !important;
+          border-radius: 9999px;
+          color: #FFFFFF !important;
+        }
+
+        /* 4. iOS Primary Action Pill */
+        .ios-liquid-action-btn {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(0, 122, 255, 0.85) 0%, rgba(79, 70, 229, 0.70) 100%);
+          backdrop-filter: blur(28px) saturate(220%);
+          -webkit-backdrop-filter: blur(28px) saturate(220%);
+          border: 1.5px solid rgba(255, 255, 255, 0.75);
+          box-shadow: 
+            inset 0 2px 3.5px rgba(255, 255, 255, 0.9),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+            0 14px 35px rgba(0, 122, 255, 0.5);
+          border-radius: 9999px;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ios-liquid-action-btn:hover {
+          transform: translateY(-1.5px) scale(1.02);
+          box-shadow: 
+            inset 0 2.5px 4px rgba(255, 255, 255, 1),
+            0 16px 45px rgba(0, 122, 255, 0.65);
+        }
+        .ios-liquid-action-btn:active {
+          transform: scale(0.95);
+        }
+
+        /* 5. iOS Translucent Form Input */
+        .ios-liquid-input {
+          background: rgba(255, 255, 255, 0.65);
+          border: 1.5px solid rgba(255, 255, 255, 0.75);
+          box-shadow: 
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.8),
+            inset 0 -1.5px 3px rgba(0, 0, 0, 0.05),
+            0 6px 18px rgba(15, 23, 42, 0.05);
+          border-radius: 9999px;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          transition: all 0.3s ease;
+        }
+        .dark .ios-liquid-input {
+          background: rgba(6, 12, 28, 0.7);
+          border: 1.5px solid rgba(56, 189, 248, 0.45);
+          box-shadow: 
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+            0 6px 24px rgba(0, 0, 0, 0.5);
+          color: #FFFFFF !important;
+        }
+        .dark .ios-liquid-input:focus {
+          border-color: #38BDF8 !important;
+          box-shadow: 0 0 22px rgba(56, 189, 248, 0.5) !important;
+        }
+
+        /* HD Laser-Etched Text Glows & Depth */
+        .hd-glass-text-day {
+          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
+        }
+        .hd-glass-text-night {
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+        }
+        .hd-text-cyan-glow {
+          text-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
+        }
+        .hd-text-amber-glow {
+          text-shadow: 0 0 14px rgba(252, 211, 77, 0.6);
+        }
+        .hd-text-purple-glow {
+          text-shadow: 0 0 14px rgba(192, 132, 252, 0.6);
+        }
+        .hd-text-emerald-glow {
+          text-shadow: 0 0 14px rgba(52, 211, 153, 0.6);
+        }
+
         select option {
           background-color: #FFFFFF;
-          color: #111827;
+          color: #0f172a;
         }
         .dark select option {
-          background-color: #151922 !important;
-          color: #F1F5F9 !important;
+          background-color: #030712 !important;
+          color: #FFFFFF !important;
+        }
+
+        /* Floating Light Droplet Mesh Animations */
+        @keyframes floatDrop1 {
+          0%, 100% { transform: translate(0px, 0px) scale(1); }
+          50% { transform: translate(30px, -40px) scale(1.15); }
+        }
+        @keyframes floatDrop2 {
+          0%, 100% { transform: translate(0px, 0px) scale(1); }
+          50% { transform: translate(-35px, 35px) scale(1.18); }
+        }
+        .animate-drop-1 {
+          animation: floatDrop1 12s ease-in-out infinite;
+        }
+        .animate-drop-2 {
+          animation: floatDrop2 15s ease-in-out infinite;
+        }
+        @keyframes iosSpringTab {
+          0% { opacity: 0; transform: scale(0.97) translateY(8px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .ios-tab-spring {
+          animation: iosSpringTab 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
 
+      {/* Floating Animated Liquid Mesh Light Droplets */}
+      <div className="absolute top-10 left-10 w-96 h-96 bg-cyan-400/25 dark:bg-cyan-400/20 rounded-full blur-3xl pointer-events-none animate-drop-1" />
+      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-400/25 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none animate-drop-2" />
+      <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-teal-400/20 dark:bg-sky-500/15 rounded-full blur-3xl pointer-events-none animate-drop-1" />
+
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0B0E14] text-white transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="flex flex-col items-center space-y-4 px-4 text-center">
-            <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-slate-800 p-1.5 bg-[#151922] shadow-2xl">
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="relative flex flex-col items-center space-y-6 px-4 ios-tab-spring">
+            <div className="w-24 h-24 rounded-full overflow-hidden border border-cyan-400/60 shadow-2xl p-1 bg-white/10 shadow-cyan-500/40 transition-transform duration-500 hover:scale-110">
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
                 onError={() => setLogoLoadFailed(true)}
-                className="w-full h-full object-contain rounded-[22px]" 
+                className="w-full h-full object-contain rounded-full" 
               />
             </div>
               
-            <div className="space-y-1">
-              <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+            <div className="text-center space-y-1.5">
+              <h1 className="text-xl sm:text-3xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent hd-glass-text-night">
                 {config.studioName || 'H&F Makeup Artist'}
               </h1>
-              <p className="text-xs text-[#2C75FF] font-bold tracking-widest uppercase">
+              <p className="text-[11px] sm:text-xs font-black text-cyan-300 tracking-widest uppercase animate-pulse hd-text-cyan-glow">
                 {config.artistTagline || 'Beauty, Styled Your Way'}
               </p>
             </div>
 
-            <div className="w-44 h-2 bg-slate-800 rounded-full overflow-hidden">
-              <div className="h-full bg-[#0381FE] rounded-full animate-pulse w-full" />
+            <div className="w-48 h-2.5 bg-white/20 rounded-full overflow-hidden shadow-inner">
+              <div className="h-full bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 rounded-full animate-pulse w-full" />
             </div>
+            <span className="text-[11px] text-cyan-200 font-mono tracking-wide font-black hd-text-cyan-glow">
+              Curating Luxury Vanity Experience...
+            </span>
           </div>
         </div>
       )}
 
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
-          <div className="max-w-sm w-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 rounded-[32px] p-6 text-center space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
+          <div className="max-w-sm w-full ios-water-drop p-6 text-center space-y-4 ios-tab-spring">
             <div className="flex items-center justify-between">
-              <span className="font-extrabold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
-                <Share2 className="w-4 h-4 text-[#0381FE] dark:text-[#2C75FF]" /> Share Studio Lookbook
+              <span className={`font-black text-sm flex items-center gap-1.5 ${cyanAccent}`}>
+                <Share2 className="w-4 h-4 text-blue-600 dark:text-cyan-400 animate-pulse" /> Share Studio Lookbook
               </span>
-              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-200 hover:rotate-90"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-48 h-48 mx-auto bg-white p-3 rounded-[24px] border border-slate-200 shadow-inner flex items-center justify-center">
-              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
+            <div className="w-48 h-48 mx-auto bg-white p-3.5 rounded-[28px] border border-slate-200 shadow-inner flex items-center justify-center group">
+              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">Scan this QR code with any camera to explore portfolio & book instantly.</p>
+            <p className={`text-xs ${bodyText}`}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
 
             <div className="flex gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex-1 py-3 rounded-full bg-slate-100 dark:bg-[#1E2330] hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-extrabold flex items-center justify-center gap-1.5 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white transition active:scale-[0.97]"
+                className="flex-1 py-3 rounded-full bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 active:scale-[0.95] text-xs font-black flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/15 transition-all duration-200 text-slate-900 dark:text-white"
               >
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-4 h-4 text-slate-600 dark:text-slate-400" />}
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400" /> : <Copy className="w-4 h-4 text-blue-600 dark:text-cyan-300" />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
 
@@ -918,7 +1106,7 @@ function MainAppContent() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className={`px-5 py-3 ${primaryBtnClass} text-xs flex items-center justify-center gap-1`}
+                className="px-5 py-3 rounded-full ios-liquid-action-btn text-white text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow"
               >
                 <Download className="w-4 h-4" />
                 <span>Save QR</span>
@@ -929,38 +1117,38 @@ function MainAppContent() {
       )}
 
       {viewingPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
-          <div className="max-w-md w-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 rounded-[32px] p-6 space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
+          <div className="max-w-md w-full ios-water-drop p-6 space-y-4 ios-tab-spring">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-amber-500" />
-                <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white">{viewingPackage.name}</h3>
+                <Crown className={`w-5 h-5 ${cyanAccent} animate-bounce`} />
+                <h3 className={`font-black text-base sm:text-lg ${titleText}`}>{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-200 hover:rotate-90"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-full h-44 sm:h-52 rounded-[24px] overflow-hidden bg-slate-100 dark:bg-[#1E2330] border border-slate-200 dark:border-slate-800">
-              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
+            <div className="w-full h-44 sm:h-52 rounded-[28px] overflow-hidden bg-neutral-900 border border-slate-200 dark:border-white/20 group">
+              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
             </div>
 
-            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300 font-medium">{viewingPackage.desc}</p>
+            <p className={`text-xs leading-relaxed ${bodyText}`}>{viewingPackage.desc}</p>
 
-            <div className="space-y-2 text-xs border-t border-b border-slate-200 dark:border-slate-800 py-3">
+            <div className="space-y-2.5 text-xs border-t border-b border-slate-200 dark:border-white/15 py-3.5">
               <div className="flex justify-between items-start gap-2">
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Vanity Tier:</span>
-                <strong className="text-slate-900 dark:text-white font-extrabold">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
+                <span className={`shrink-0 ${labelText}`}>Vanity Tier:</span>
+                <strong className={`capitalize text-right ${amberAccent} font-black`}>{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Skin Finish:</span>
-                <span className="text-slate-900 dark:text-white font-semibold">{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
+                <span className={`shrink-0 ${labelText}`}>Skin Finish:</span>
+                <span className={`text-right ${cyanAccent} font-extrabold`}>{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="text-slate-500 dark:text-slate-400 font-medium">Includes:</span>
-                <span className="text-slate-900 dark:text-white font-semibold">{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
+                <span className={`shrink-0 ${labelText}`}>Includes:</span>
+                <span className={`text-right ${purpleAccent} font-extrabold`}>{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
               </div>
-              <div className="flex justify-between items-center font-extrabold text-sm pt-1">
-                <span className="text-slate-900 dark:text-white">Rate:</span>
-                <span className="text-[#0381FE] dark:text-[#2C75FF] font-mono text-base">₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
+              <div className="flex justify-between items-center font-black text-sm pt-1">
+                <span className={titleText}>Rate:</span>
+                <span className={`${cyanAccent} font-mono text-base font-black`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
               </div>
             </div>
 
@@ -971,7 +1159,7 @@ function MainAppContent() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className={`w-full py-3.5 ${primaryBtnClass} text-xs flex items-center justify-center gap-1.5`}
+              className="w-full py-3.5 ios-liquid-action-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300"
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -982,13 +1170,22 @@ function MainAppContent() {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
+      {/* Marquee Announcement Liquid Pill Header */}
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-[#0381FE] text-white py-2 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center select-none">
+        <div className="bg-gradient-to-r from-cyan-500 via-sky-600 to-indigo-600 text-white py-2.5 px-3 overflow-hidden text-xs font-black shadow-sm relative flex items-center select-none border-b border-white/20">
           <div className="flex overflow-hidden whitespace-nowrap w-full">
-            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
+            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                  <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                  {ann}
+                </span>
+              ))}
+            </div>
+            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black" aria-hidden="true">
+              {(config.announcements || []).map((ann, idx) => (
+                <span key={`dup_${idx}`} className="mx-6 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                   {ann}
                 </span>
               ))}
@@ -1003,28 +1200,28 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* Samsung One UI 8.5 Header */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3.5 ${headerBgClass} transition-colors duration-300`}>
-        <div className="max-w-6xl mx-auto flex flex-col gap-3">
+      {/* Ultra-Clear Translucent Apple Lens Header */}
+      <header className="sticky top-0 z-40 px-3 sm:px-8 py-3 transition-all duration-300 bg-white/40 dark:bg-[#030712]/45 backdrop-blur-[40px] saturate-[220%] border-b border-white/60 dark:border-white/15 shadow-sm">
+        <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
-              <div className="w-11 h-11 rounded-[16px] overflow-hidden shrink-0 border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1E2330] flex items-center justify-center p-0.5">
+            <div className="flex items-center space-x-3 select-none active:scale-[0.95] transition-transform duration-300 cursor-pointer min-w-0 group">
+              <div className="w-11 sm:w-12 h-11 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-cyan-400/80 p-0.5 bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Logo" 
                   onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-[14px]" 
+                  className="w-full h-full object-cover rounded-full pointer-events-none" 
                   draggable="false"
                 />
               </div>
                 
               <div className="truncate">
-                <h1 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white truncate">
+                <h1 className="font-black text-sm sm:text-base bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 dark:from-cyan-300 dark:via-sky-200 dark:to-indigo-300 bg-clip-text text-transparent truncate tracking-tight hd-glass-text-night">
                   {config.studioName || 'H&F Makeup Artist'}
                 </h1>
-                <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 truncate font-medium">
+                <p className={`text-[10px] sm:text-[11px] font-black ${cyanAccent} flex items-center gap-1 truncate`}>
                   <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
-                  <Sparkles className="w-3 h-3 text-amber-500 shrink-0" />
+                  <Sparkles className="w-3 h-3 animate-spin text-amber-500 dark:text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
                 </p>
               </div>
             </div>
@@ -1033,7 +1230,7 @@ function MainAppContent() {
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className="p-2.5 rounded-full bg-slate-100 dark:bg-[#1E2330] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-[0.97] flex items-center justify-center"
+                className="p-2.5 rounded-full ios-water-drop-sub text-blue-700 dark:text-cyan-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
               >
                 <QrCode className="w-4 h-4" />
               </button>
@@ -1041,36 +1238,40 @@ function MainAppContent() {
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className="p-2.5 rounded-full bg-slate-100 dark:bg-[#1E2330] text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition active:scale-[0.97] flex items-center justify-center"
+                className="p-2.5 rounded-full ios-water-drop-sub text-amber-600 dark:text-amber-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
               >
-                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
+                {isDarkMode ? <Sun className="w-4 h-4 animate-spin text-amber-300" style={{ animationDuration: '8s' }} /> : <Moon className="w-4 h-4 text-indigo-700" />}
               </button>
 
               <a
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-extrabold px-3.5 py-2.5 rounded-full shadow-sm hover:opacity-95 active:scale-[0.97] transition"
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-[11px] sm:text-xs font-black px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 active:scale-[0.95] shadow-lg shadow-pink-500/25 border border-white/40"
               >
                 <Camera className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
               </a>
 
               {shouldShowProfileInHeader && (
-                <div className="w-10 h-10 rounded-[14px] border border-slate-200 dark:border-slate-800 overflow-hidden shrink-0">
+                <div 
+                  className="w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none transition-transform duration-300 hover:scale-105"
+                  onContextMenu={(e) => e.preventDefault()}
+                >
                   <img 
                     src={resolvedAvatar} 
                     alt="Artist Profile" 
                     onError={() => setImgLoadFailed(true)}
-                    className="w-full h-full object-cover rounded-[12px]"
+                    draggable="false"
+                    className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500 pointer-events-none"
                   />
                 </div>
               )}
             </div>
           </div>
 
-          <div className="hidden sm:flex w-full items-center justify-center pt-1">
-            <nav className="inline-flex space-x-1 p-1.5 rounded-full bg-slate-100 dark:bg-[#151922] border border-slate-200 dark:border-slate-800 text-xs font-extrabold">
+          <div className="hidden sm:flex w-full items-center justify-center py-1">
+            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full ios-water-drop-sub text-xs font-black shadow-inner">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1084,10 +1285,10 @@ function MainAppContent() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full transition-all duration-200 active:scale-[0.97] ${
+                    className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.95] ${
                       isActive 
-                        ? 'bg-[#0381FE] text-white shadow-md' 
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                        ? 'ios-liquid-active-tab scale-105 shadow-xl' 
+                        : 'text-slate-800 dark:text-slate-200 hover:bg-white/20'
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -1100,9 +1301,9 @@ function MainAppContent() {
         </div>
       </header>
 
-      {/* Samsung One UI 8.5 Floating Bottom Pill Dock */}
+      {/* Mobile Floating iOS Liquid Pill Dock */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full bg-white/95 dark:bg-[#151922]/95 backdrop-blur-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-2xl flex items-center justify-around">
+        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full ios-water-drop backdrop-blur-[35px] shadow-2xl flex items-center justify-around animate-fade-in border border-white/40">
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1116,50 +1317,52 @@ function MainAppContent() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-all active:scale-[0.95] ${
-                  isActive ? 'bg-[#0381FE] text-white shadow-md' : 'text-slate-500 dark:text-slate-400'
+                className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-full transition-all duration-300 active:scale-[0.95] ${
+                  isActive ? 'ios-liquid-active-tab scale-105 shadow-md' : titleText
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
-                <span className="text-[10px] font-bold mt-0.5 tracking-tight">{tab.label}</span>
+                <span className="text-[10px] font-black mt-0.5 tracking-tight">{tab.label}</span>
               </button>
             );
           })}
         </nav>
       )}
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
         {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
-          <div className="space-y-6">
-            <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-4 py-1.5 rounded-full bg-blue-50 dark:bg-[#0381FE]/15 border border-blue-200 dark:border-[#0381FE]/30 text-[#0381FE] dark:text-[#2C75FF] text-xs font-extrabold inline-block">
-                Professional Vanity Packages
+          <div key="tab-menu" className="space-y-8 sm:space-y-10 ios-tab-spring">
+            <div className="text-center max-w-2xl mx-auto space-y-2.5">
+              <span className={`px-4 py-1.5 rounded-full ios-water-drop-sub ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5`}>
+                <Droplet className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> Professional Vanity Packages
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Curated Makeup Menu</h2>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">Select kit tier below to view package pricing & details:</p>
+              <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Curated Makeup Menu</h2>
+              <p className={`text-xs sm:text-sm ${bodyText}`}>Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-full bg-slate-200/80 dark:bg-[#151922] border border-slate-300 dark:border-slate-800 mt-2 gap-1.5">
+              <div className="inline-flex p-1.5 rounded-full ios-water-drop-sub mt-2 gap-1.5 shadow-lg">
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-4 py-2 rounded-full text-xs font-extrabold transition active:scale-[0.97] ${
-                    selectedKit === 'international' ? 'bg-[#0381FE] text-white shadow-md' : 'text-slate-700 dark:text-slate-300'
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
+                    selectedKit === 'international' ? 'ios-liquid-active-tab scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
-                  👑 International Luxury Kit
+                  <Crown className="w-4 h-4 text-amber-300 shrink-0" />
+                  <span>👑 International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-4 py-2 rounded-full text-xs font-extrabold transition active:scale-[0.97] ${
-                    selectedKit === 'drugstore' ? 'bg-[#0381FE] text-white shadow-md' : 'text-slate-700 dark:text-slate-300'
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
+                    selectedKit === 'drugstore' ? 'ios-liquid-active-tab scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
-                  ✨ Premium HD Kit
+                  <PackageCheck className="w-4 h-4 text-cyan-300 shrink-0" />
+                  <span>✨ Premium HD Kit</span>
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 transition-all duration-300">
               {Object.keys(config.kitText?.[selectedKit] || {}).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit?.[selectedKit]?.[key] || 0;
@@ -1168,38 +1371,39 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${cardBgClass} p-5 flex flex-col sm:flex-row gap-4 items-center`}>
-                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[24px] overflow-hidden bg-slate-100 dark:bg-[#1E2330] relative border border-slate-200 dark:border-slate-800">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                      <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/75 text-[10px] font-mono font-bold text-amber-300">
+                  <div key={`${selectedKit}_${key}`} className="ios-water-drop p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[28px] overflow-hidden bg-neutral-900 relative border border-slate-200 dark:border-white/20">
+                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+                      <div className="absolute top-2 left-2 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-black text-amber-300 border border-amber-400/50">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2.5">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">
+                          <h4 className={`font-black text-sm sm:text-base leading-snug ${titleText} group-hover:text-cyan-400 transition-colors`}>
                             {item.num ? `${item.num}. ` : ''}{item.name}
                           </h4>
-                          <span className="font-mono font-black text-base text-[#0381FE] dark:text-[#2C75FF] shrink-0">
+                          <span className={`font-mono font-black text-base ${selectedKit === 'international' ? amberAccent : cyanAccent} shrink-0`}>
                             ₹{price.toLocaleString('en-IN')}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-600 dark:text-slate-300 font-medium mt-1 leading-relaxed">{item.desc}</p>
+                        <p className={`text-xs mt-1.5 leading-relaxed ${bodyText}`}>{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2.5 border-t border-slate-100 dark:border-slate-800">
-                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-bold truncate flex items-center gap-1">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-                          16HR HD Finish
+                      <div className="flex items-center justify-between pt-2.5 border-t border-slate-200 dark:border-white/15">
+                        <span className={`text-[11px] ${cyanAccent} font-black truncate flex items-center gap-1`}>
+                          <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                          16HR HD Glass Finish
                         </span>
 
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                            className="px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 text-xs font-extrabold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#1E2330] transition active:scale-[0.97]"
+                            className="px-3.5 py-1.5 rounded-full ios-water-drop-sub text-xs font-black flex items-center gap-1 active:scale-[0.95] text-slate-900 dark:text-cyan-200"
                           >
-                            Details
+                            <Eye className={`w-3.5 h-3.5 ${cyanAccent}`} />
+                            <span>Details</span>
                           </button>
 
                           <button
@@ -1208,7 +1412,7 @@ function MainAppContent() {
                               setCalcKit(selectedKit);
                               setActiveTab('calculator');
                             }}
-                            className={`px-4 py-1.5 ${primaryBtnClass} text-xs flex items-center gap-1`}
+                            className="px-4 py-1.5 ios-liquid-action-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center gap-1"
                           >
                             <span>Book</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -1225,14 +1429,14 @@ function MainAppContent() {
 
         {/* TAB 2: BEAUTY GALLERY & TRANSFORMATIONS */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
-          <div className="space-y-6">
-            <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-4 py-1.5 rounded-full bg-blue-50 dark:bg-[#0381FE]/15 border border-blue-200 dark:border-[#0381FE]/30 text-[#0381FE] dark:text-[#2C75FF] text-xs font-extrabold inline-block">
-                Discover Looks
+          <div key="tab-gallery" className="space-y-6 sm:space-y-8 ios-tab-spring">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <span className={`px-4 py-1.5 rounded-full ios-water-drop-sub ${cyanAccent} text-xs font-black tracking-wide`}>
+                Discover Beautiful Makeup Transformations
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Featured Transformations</h2>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
-                Explore signature makeup transformations crafted with perfection.
+              <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Featured Transformations</h2>
+              <p className={`text-xs sm:text-sm ${bodyText}`}>
+                Explore our signature looks and bride artistry, crafted with precision, creativity, and elegance.
               </p>
             </div>
 
@@ -1241,19 +1445,19 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className={`${cardBgClass} overflow-hidden shadow-sm flex flex-col justify-between`}>
+                  <div key={idx} className="ios-water-drop overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} />
                     ) : (
-                      <div className="h-72 sm:h-84 overflow-hidden relative bg-slate-100 dark:bg-[#1E2330] rounded-[28px]">
+                      <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center rounded-[28px]">
                         <img 
                           src={item.url} 
                           alt={item.title} 
-                          className="w-full h-full object-cover hover:scale-105 transition-transform"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-5 text-white">
-                          <span className="text-[11px] uppercase font-mono font-extrabold text-[#2C75FF]">{item.sub || 'Client Transformation'}</span>
-                          <h4 className="font-extrabold text-sm mt-0.5 text-white">
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
+                          <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-md">{item.sub || 'Client Transformation'}</span>
+                          <h4 className="font-black text-sm sm:text-base mt-0.5 text-pink-300 drop-shadow">
                             <span>{item.title}</span>
                           </h4>
                         </div>
@@ -1268,22 +1472,20 @@ function MainAppContent() {
 
         {/* TAB 3: AUTHENTIC VANITY BRANDS */}
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
-          <div className="space-y-6">
-            <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-4 py-1.5 rounded-full bg-blue-50 dark:bg-[#0381FE]/15 border border-blue-200 dark:border-[#0381FE]/30 text-[#0381FE] dark:text-[#2C75FF] text-xs font-extrabold inline-block">
-                Authentic Vanity
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Products In Our Kit</h2>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">100% Genuine, skin-safe international luxury cosmetics.</p>
+          <div key="tab-brands" className="space-y-6 sm:space-y-8 ios-tab-spring">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <span className={`px-4 py-1.5 rounded-full ios-water-drop-sub ${cyanAccent} text-xs font-black`}>Authentic Vanity</span>
+              <h2 className={`text-2xl sm:text-4xl font-black ${titleText}`}>Products In Our Kit</h2>
+              <p className={`text-xs sm:text-sm ${bodyText}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${cardBgClass} p-5 space-y-2.5`}>
-                  <span className="text-[10px] font-extrabold text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 uppercase px-3 py-1 rounded-full font-mono inline-block">
+                <div key={idx} className="ios-water-drop p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
+                  <span className={`text-[10px] font-black ${amberAccent} bg-amber-100 dark:bg-amber-500/25 border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-1 rounded-full inline-block font-mono`}>
                     {brand.category}
                   </span>
-                  <h4 className="font-extrabold text-sm text-slate-900 dark:text-white">{brand.name}</h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">{brand.desc}</p>
+                  <h4 className={`font-black text-sm ${cyanAccent}`}>{brand.name}</h4>
+                  <p className={`text-xs ${bodyText} leading-relaxed`}>{brand.desc}</p>
                 </div>
               ))}
             </div>
@@ -1292,60 +1494,60 @@ function MainAppContent() {
 
         {/* TAB 4: ESTIMATOR & INSTANT BOOKING */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
-          <div className="max-w-4xl mx-auto">
+          <div key="tab-calculator" className="max-w-4xl mx-auto ios-tab-spring">
             {isBookingDone ? (
-              <div className={`${cardBgClass} p-8 sm:p-10 text-center space-y-4 shadow-xl max-w-lg mx-auto`}>
-                <div className="w-16 h-16 rounded-[24px] bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30">
+              <div className="ios-water-drop p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20 animate-bounce">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                   
-                <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-[#0381FE]/15 text-[#0381FE] dark:text-[#2C75FF] border border-blue-200 dark:border-[#0381FE]/30 font-mono font-extrabold text-xs">
+                <div className={`inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-cyan-500/20 ${cyanAccent} border border-blue-300 dark:border-cyan-400/40 font-mono font-black text-xs`}>
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
-                <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">Booking Request Submitted Successfully</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Booking Request Submitted Successfully</h3>
+                <p className={`text-xs ${bodyText} max-w-md mx-auto leading-relaxed`}>
                   Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 ${primaryBtnClass} inline-flex items-center gap-2 text-xs`}>
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full ios-liquid-action-btn text-white inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105">
                       <Download className="w-4 h-4" />
                       <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3.5 bg-slate-100 dark:bg-[#1E2330] hover:bg-slate-200 dark:hover:bg-slate-700 text-xs text-slate-800 dark:text-slate-200 font-extrabold rounded-full transition active:scale-[0.97]">
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ios-water-drop-sub text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
-                <div className="md:col-span-7 space-y-4">
-                  <div className="border-b border-slate-200 dark:border-slate-800 pb-2">
-                    <h3 className="font-extrabold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-                      <Calculator className="w-4 h-4 text-[#0381FE] dark:text-[#2C75FF]" /> 1. Calculate & Choose Looks
+              <form onSubmit={handleDirectEstimateBooking} className="ios-water-drop p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
+                <div className="md:col-span-7 space-y-5">
+                  <div className="border-b border-slate-200 dark:border-cyan-400/30 pb-2">
+                    <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${cyanAccent}`}>
+                      <Calculator className="w-5 h-5 text-blue-600 dark:text-cyan-400" /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-700 dark:text-slate-300">Main Makeover Package: Vanity Tier</label>
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-[20px] text-xs font-extrabold border text-center transition active:scale-[0.97] ${calcKit === 'international' ? 'bg-[#0381FE] border-[#0381FE] text-white shadow-md' : `${subCardBgClass} text-slate-700 dark:text-slate-300`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-[20px] text-xs font-extrabold border text-center transition active:scale-[0.97] ${calcKit === 'drugstore' ? 'bg-[#0381FE] border-[#0381FE] text-white shadow-md' : `${subCardBgClass} text-slate-700 dark:text-slate-300`}`}>✨ HD Kit</button>
+                    <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${titleText}`}>Main Makeover Package: Vanity Tier</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? 'ios-liquid-active-tab scale-105' : `ios-water-drop-sub ${bodyText}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? 'ios-liquid-active-tab scale-105' : `ios-water-drop-sub ${bodyText}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-extrabold uppercase tracking-wider mb-1.5 text-slate-700 dark:text-slate-300">Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} px-4 py-3 text-xs font-bold cursor-pointer`}>
+                    <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Main Makeover Package: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ios-liquid-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
                         return (
-                          <option key={k} value={k}>
+                          <option key={k} value={k} className="py-2 font-semibold">
                             {pData.num ? `${pData.num}. ` : ''}{pData.name} (₹{pPrice.toLocaleString('en-IN')})
                           </option>
                         );
@@ -1354,85 +1556,92 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-extrabold uppercase tracking-wider mb-1.5 text-slate-700 dark:text-slate-300">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} px-4 py-3 text-xs font-bold cursor-pointer`}>
+                    <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ios-liquid-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                        <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
+                        <option key={key} value={key} className="py-2 font-semibold">{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                  <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-                          <Users className="w-4 h-4 text-purple-500" /> Extra Family Makeup Customizer
+                        <h4 className={`font-black text-xs uppercase tracking-wider ${purpleAccent} flex items-center gap-1.5`}>
+                          <Users className="w-4 h-4 text-purple-500 dark:text-purple-400" /> Extra Family Makeup Customizer
                         </h4>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Choose individual vanity tier & look for each family guest.</p>
+                        <p className={`text-[11px] ${bodyText}`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
 
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className="px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-[#1E2330] hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 text-xs font-extrabold flex items-center gap-1 transition active:scale-[0.97]"
+                        className={`px-4 py-2 rounded-full bg-purple-100/90 dark:bg-purple-500/25 ${purpleAccent} border border-purple-300 dark:border-purple-400/50 text-xs font-black flex items-center gap-1 active:scale-[0.95] transition-all duration-300 hover:scale-105`}
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3.5 rounded-[20px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-2">
-                          <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                          <p className="text-emerald-800 dark:text-emerald-300 font-extrabold">
-                            Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
-                          </p>
+                      <div className="p-3.5 rounded-[28px] bg-emerald-100/90 dark:bg-emerald-500/20 border border-emerald-400 dark:border-emerald-400/50 flex items-center justify-between text-xs animate-fade-in shadow-sm">
+                        <div className="flex items-center gap-2.5">
+                          <div className="p-1.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300">
+                            <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
+                          </div>
+                          <div>
+                            <p className={`${emeraldAccent} font-black text-xs`}>
+                              Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
+                            </p>
+                            <p className={`text-[11px] ${bodyText}`}>
+                              Discount is automatically deducted in the Total Summary.
+                            </p>
+                          </div>
                         </div>
-                        <span className="font-mono font-extrabold text-emerald-700 dark:text-emerald-300 bg-emerald-500/20 px-2.5 py-0.5 rounded-full">
+                        <span className={`text-[11px] font-mono font-black bg-emerald-500/20 dark:bg-emerald-500/40 ${emeraldAccent} border border-emerald-500/40 px-3 py-1 rounded-full shrink-0`}>
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
                     )}
 
                     {familyGuests.length > 0 && (
-                      <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
+                      <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className={`p-4 ${subCardBgClass} space-y-2.5`}>
+                            <div key={guest.id} className="p-4 rounded-[28px] ios-water-drop-sub border-purple-300 dark:border-purple-500/40 space-y-2.5 transition-all duration-300">
                               <div className="flex items-center justify-between">
-                                <span className="text-xs font-extrabold text-slate-900 dark:text-white">Guest #{idx + 1}</span>
                                 <div className="flex items-center gap-2">
-                                  <span className="text-xs font-extrabold font-mono text-[#0381FE] dark:text-[#2C75FF]">
+                                  <span className={`text-[11px] font-black ${purpleAccent} font-mono`}>Guest #{idx + 1}</span>
+                                  <span className={`text-xs font-black font-mono ${emeraldAccent}`}>
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
-                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-full"><Trash2 className="w-3.5 h-3.5" /></button>
                                 </div>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-full transition-transform duration-200 hover:scale-110"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
-                              <div className="grid grid-cols-2 gap-2">
+                              <div className="grid grid-cols-2 gap-2.5">
                                 <div>
-                                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">Vanity Tier</label>
+                                  <label className={`block text-[10px] font-bold mb-1 ${labelText}`}>Vanity Tier</label>
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={`w-full p-2.5 rounded-[16px] text-xs font-bold ${inputBgClass}`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black ios-liquid-input ${amberAccent} cursor-pointer px-3.5`}
                                   >
-                                    <option value="international">👑 Luxury Kit</option>
-                                    <option value="drugstore">✨ HD Kit</option>
+                                    <option value="international" className="py-1">👑 Luxury Kit</option>
+                                    <option value="drugstore" className="py-1">✨ HD Kit</option>
                                   </select>
                                 </div>
 
                                 <div>
-                                  <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-1">Package Look</label>
+                                  <label className={`block text-[10px] font-bold mb-1 ${labelText}`}>Package Look</label>
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2.5 rounded-[16px] text-xs font-bold ${inputBgClass}`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black ios-liquid-input ${cyanAccent} cursor-pointer px-3.5`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
-                                      <option key={k} value={k}>
+                                      <option key={k} value={k} className="py-1">
                                         {config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})
                                       </option>
                                     ))}
@@ -1447,68 +1656,78 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                      <label className="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                        <Tag className="w-3.5 h-3.5 text-[#0381FE] dark:text-[#2C75FF]" /> Promo Coupon Code
+                    <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-2.5">
+                      <label className={`block text-xs font-black ${cyanAccent} uppercase tracking-wider flex items-center gap-1.5`}>
+                        <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-emerald-500/15 border border-emerald-500/30 rounded-[20px] p-3.5 flex items-center justify-between gap-2">
-                          <div>
-                            <span className="text-xs font-extrabold text-emerald-800 dark:text-emerald-300 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
-                            <p className="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold">
-                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}
+                        <div className="bg-emerald-50/90 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/50 rounded-[24px] p-3.5 flex items-center justify-between gap-2 animate-fade-in">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className={`text-xs font-black ${emeraldAccent} font-mono`}>CODE: {appliedCoupon.code} APPLIED</span>
+                              {appliedCoupon.expiryDate && (() => {
+                                const tr = getTimeRemaining(appliedCoupon.expiryDate);
+                                return tr && !tr.expired ? (
+                                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
+                                    <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
+                                  </span>
+                                ) : null;
+                              })()}
+                            </div>
+                            <p className={`text-[11px] ${bodyText}`}>
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-600 dark:text-rose-400 text-xs font-extrabold underline">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 text-xs font-black underline shrink-0">Remove</button>
                         </div>
                       ) : (
-                        <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} px-4 py-3 text-xs uppercase font-mono font-bold`} />
-                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-3 ${primaryBtnClass} text-xs font-extrabold`}>Apply</button>
+                        <div className="flex gap-2.5">
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ios-liquid-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
+                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 ios-liquid-action-btn text-white text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300">Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-bold">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-black">{couponError}</p>}
                     </div>
                   )}
 
-                  {/* CLIENT CONTACT DETAILS */}
-                  <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
-                    <h4 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-                      <User className="w-4 h-4 text-[#0381FE] dark:text-[#2C75FF]" /> 2. Enter Client Details
+                  {/* 2. CLIENT CONTACT DETAILS */}
+                  <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-3.5">
+                    <h4 className={`font-black text-xs uppercase tracking-wider ${cyanAccent} flex items-center gap-1.5`}>
+                      <User className="w-4 h-4 text-blue-600 dark:text-cyan-400" /> 2. Enter Client Details to Lock Date
                     </h4>
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-4 py-3 ${inputBgClass} text-xs`} />
+                      <label className={`block text-xs ${labelText} mb-1.5`}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${titleText}`} />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-4 py-3 ${inputBgClass} text-xs font-mono font-bold`} />
+                        <label className={`block text-xs ${labelText} mb-1.5`}>Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs font-mono ${cyanAccent} font-black`} />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-4 py-3 ${inputBgClass} text-xs font-mono font-bold`} />
+                        <label className={`block text-xs ${labelText} mb-1.5`}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs font-mono ${amberAccent} font-black`} />
                       </div>
                     </div>
 
-                    {/* VENUE DELIVERY ADDRESS SECTION */}
-                    <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-3">
+                    {/* 3. VENUE DELIVERY ADDRESS SECTION */}
+                    <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-3.5">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-                          <MapPin className="w-4 h-4 text-[#0381FE] dark:text-[#2C75FF]" /> 3. Destination Venue & Address
+                        <h4 className={`font-black text-xs uppercase tracking-wider ${cyanAccent} flex items-center gap-1.5`}>
+                          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400 animate-bounce" /> 3. Destination Venue & Address
                         </h4>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-2">
                           {['Home', 'Work'].map((type) => (
                             <button
                               key={type}
                               type="button"
                               onClick={() => setAddressType(type)}
-                              className={`px-3.5 py-1.5 rounded-full text-[10px] font-extrabold border transition ${
+                              className={`px-3.5 py-1.5 rounded-full text-[10px] font-black border transition-all duration-300 active:scale-[0.95] ${
                                 addressType === type 
-                                  ? 'bg-[#0381FE] border-[#0381FE] text-white shadow-sm' 
-                                  : `${subCardBgClass} text-slate-600 dark:text-slate-300`
+                                  ? 'ios-liquid-active-tab scale-105' 
+                                  : `ios-water-drop-sub ${bodyText}`
                               }`}
                             >
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
@@ -1517,9 +1736,9 @@ function MainAppContent() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Postal PIN Code *</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>Postal PIN Code *</label>
                           <input 
                             type="text" 
                             required 
@@ -1527,67 +1746,67 @@ function MainAppContent() {
                             placeholder="e.g. 110025" 
                             value={pincode} 
                             onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
-                            className={`w-full px-4 py-3 ${inputBgClass} text-xs font-mono font-bold`} 
+                            className={`w-full px-5 py-3 rounded-full ios-liquid-input font-mono font-black text-xs ${purpleAccent}`} 
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Flat, House No., Building</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>Flat, House No., Building Name</label>
                           <input 
                             type="text" 
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
-                            className={`w-full px-4 py-3 ${inputBgClass} text-xs`} 
+                            className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${titleText}`} 
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Street, Sector, Area, Locality *</label>
+                        <label className={`block text-[11px] ${labelText} mb-1`}>Street, Sector, Area, Locality *</label>
                         <input 
                           type="text" 
                           required 
-                          placeholder="e.g. Jamia Nagar, Okhla" 
+                          placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
-                          className={`w-full px-4 py-3 ${inputBgClass} text-xs`} 
+                          className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${titleText}`} 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Landmark (Optional)</label>
+                        <label className={`block text-[11px] ${labelText} mb-1`}>Landmark (Optional)</label>
                         <input 
                           type="text" 
-                          placeholder="e.g. Near Metro Gate No. 2" 
+                          placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
-                          className={`w-full px-4 py-3 ${inputBgClass} text-xs`} 
+                          className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${bodyText}`} 
                         />
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Town / City *</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>Town / City *</label>
                           <input 
                             type="text" 
                             required 
                             placeholder="e.g. New Delhi" 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className={`w-full px-4 py-3 ${inputBgClass} text-xs font-bold`} 
+                            className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">State / Region *</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>State / Region *</label>
                           <input 
                             type="text" 
                             required 
                             placeholder="e.g. Delhi" 
                             value={state} 
                             onChange={(e) => setState(e.target.value)} 
-                            className={`w-full px-4 py-3 ${inputBgClass} text-xs font-bold`} 
+                            className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
                       </div>
@@ -1595,109 +1814,147 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: HIGH-CONTRAST ONE UI SUMMARY */}
-                <div className={`md:col-span-5 ${subCardBgClass} p-5 sm:p-6 flex flex-col justify-between space-y-4`}>
+                {/* RIGHT COLUMN: HIGH-CONTRAST COLORFUL SUMMARY WITH WATER DROP GLASS TIERS */}
+                <div className="md:col-span-5 ios-water-drop-sub p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-white/40 dark:border-cyan-400/40 rounded-[32px]">
                   <div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Amount Summary</span>
-                    <div className="mt-1 text-3xl font-black flex items-baseline gap-1 text-slate-900 dark:text-white">
-                      <span className="text-[#0381FE] dark:text-[#2C75FF]">₹</span>
-                      <span className="font-mono">{finalEstimate.toLocaleString('en-IN')}</span>
+                    <span className={`text-[11px] font-black uppercase tracking-widest ${cyanAccent} flex items-center gap-1.5`}>
+                      <Zap className="w-4 h-4 text-amber-400 animate-bounce" /> Total Amount Summary
+                    </span>
+                    <div className={`mt-2 text-3xl sm:text-4xl font-black flex items-baseline gap-1.5 ${titleText}`}>
+                      <span className="text-cyan-500 dark:text-cyan-300 text-2xl sm:text-3xl">₹</span>
+                      <span className={`tracking-tight ${titleText} font-mono`}>{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-xs border-t border-b border-slate-200 dark:border-slate-800 py-3.5">
-                    {/* SECTION 1: MAIN MAKEOVER PACKAGE */}
-                    <div className="p-3.5 rounded-[20px] bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
-                      <div className="flex justify-between items-center font-extrabold text-slate-900 dark:text-white">
+                  <div className="space-y-3.5 text-xs border-t border-b border-slate-200 dark:border-white/20 py-3.5">
+                    {/* SECTION 1: MAIN MAKEOVER PACKAGE (SKY BLUE) */}
+                    <div className="p-4 rounded-[24px] bg-blue-500/10 dark:bg-sky-500/20 border border-blue-300 dark:border-sky-400/40 space-y-2 text-blue-900 dark:text-sky-100 transition-all duration-300">
+                      <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${cyanAccent}`}>
                         <span>1. Main Makeover Package:</span>
-                        <span className="font-mono text-[#0381FE] dark:text-[#2C75FF]">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
+                        <span className={`font-mono ${titleText}`}>₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]">
+                      <div className={`flex justify-between ${bodyText} pl-1 text-[11px]`}>
                         <span>• Vanity:</span>
-                        <span className="font-bold text-amber-700 dark:text-amber-300">{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'Luxury Kit' : 'HD Kit')}</span>
+                        <span className={`font-extrabold text-right ${amberAccent}`}>{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</span>
                       </div>
-                      <div className="flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]">
+                      <div className={`flex justify-between ${bodyText} pl-1 text-[11px]`}>
                         <span>• Package:</span>
-                        <span className="font-bold text-slate-900 dark:text-white">{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
+                        <span className={`font-extrabold text-right ${titleText}`}>{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
                       </div>
-                      <div className="flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]">
+                      <div className={`flex justify-between ${bodyText} pl-1 text-[11px]`}>
                         <span>• Package Price:</span>
-                        <span className="font-mono font-extrabold text-slate-900 dark:text-white">₹{mainPackagePrice.toLocaleString('en-IN')}</span>
+                        <span className={`font-mono font-black ${amberAccent}`}>₹{mainPackagePrice.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]">
+                      <div className={`flex justify-between ${bodyText} pl-1 text-[11px]`}>
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
-                        <span className="font-mono font-extrabold text-[#0381FE] dark:text-[#2C75FF]">₹{zoneFee.toLocaleString('en-IN')}</span>
+                        <span className={`font-mono font-black ${cyanAccent}`}>₹{zoneFee.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className={`flex justify-between items-center border-t border-blue-200 dark:border-sky-400/40 pt-2 mt-1 font-black text-[11px] ${cyanAccent}`}>
+                        <span>Main Makeover Total:</span>
+                        <span className={`font-mono ${titleText}`}>₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
-                    {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS */}
-                    <div className="p-3.5 rounded-[20px] bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
-                      <div className="flex justify-between items-center font-extrabold text-purple-700 dark:text-purple-300">
-                        <span>2. Extra Guests ({familyGuests.length}):</span>
-                        <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                    {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS (PURPLE) */}
+                    <div className="p-4 rounded-[24px] bg-purple-500/10 dark:bg-purple-500/20 border border-purple-300 dark:border-purple-400/40 space-y-2 text-purple-950 dark:text-purple-100 transition-all duration-300">
+                      <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${purpleAccent}`}>
+                        <span>2. Extra Family Makeovers ({familyGuests.length}):</span>
+                        <span className={`font-mono ${titleText}`}>₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
                       {familyGuests.length > 0 ? (
                         familyGuests.map((g, i) => {
                           const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
-                          const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury' : 'HD');
+                          const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
                           return (
-                            <div key={i} className="flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]">
-                              <span>• Guest #{i + 1} ({vanityName} - {pkgN}):</span>
-                              <span className="font-mono font-extrabold text-slate-900 dark:text-white">₹{gp.toLocaleString('en-IN')}</span>
+                            <div key={i} className="rounded-[18px] bg-white/80 dark:bg-black/60 border border-purple-200 dark:border-purple-400/40 p-2.5 space-y-1 text-[11px]">
+                              <div className={`flex justify-between gap-3 ${bodyText}`}>
+                                <span>• Makeover #{i + 1} ({vanityName}):</span>
+                                <span className={`font-black text-right ${cyanAccent}`}>{pkgN}</span>
+                              </div>
+                              <div className="flex justify-between gap-3">
+                                <span className={bodyText}>• Price:</span>
+                                <span className={`font-mono font-black ${purpleAccent}`}>₹{gp.toLocaleString('en-IN')}</span>
+                              </div>
                             </div>
                           );
                         })
                       ) : (
-                        <div className="flex justify-between text-slate-400 pl-1 text-[11px]">
-                          <span>• No extra guests selected</span>
-                          <span className="font-mono">₹0</span>
+                        <div className={`flex justify-between ${labelText} pl-1 text-[11px]`}>
+                          <span>• No additional family guests selected</span>
+                          <span className="font-mono text-slate-400">₹0</span>
                         </div>
                       )}
+                      <div className={`flex justify-between items-center border-t border-purple-200 dark:border-purple-400/40 pt-2 mt-1 font-black text-[11px] ${purpleAccent}`}>
+                        <span>Additional Family Total:</span>
+                        <span className={`font-mono ${titleText}`}>₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                      </div>
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className="flex justify-between items-center px-4 py-2.5 text-xs font-extrabold text-slate-900 dark:text-white rounded-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800">
-                      <span>Total Before Discounts:</span>
-                      <span className="font-mono text-[#0381FE] dark:text-[#2C75FF]">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full ios-water-drop border border-white/40 shadow-sm`}>
+                      <span>Booking Total Before Discounts:</span>
+                      <span className={`font-mono ${amberAccent} text-sm font-black`}>₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
-                    {/* SECTION 3: DISCOUNTS & OFFERS */}
-                    <div className="p-3.5 rounded-[20px] bg-white dark:bg-[#151922] border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
-                      <div className="flex justify-between items-center font-extrabold text-emerald-600 dark:text-emerald-400">
+                    {/* SECTION 3: DISCOUNTS & OFFERS (EMERALD GREEN) */}
+                    <div className="p-4 rounded-[24px] bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-400/40 space-y-2 text-emerald-950 dark:text-emerald-100 transition-all duration-300">
+                      <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${emeraldAccent}`}>
                         <span>3. Discounts & Offers:</span>
-                        <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
+                        <span className={`font-mono ${emeraldAccent} font-black`}>-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
 
                       {guestDiscountSavedAmount > 0 && (
-                        <div className="flex justify-between pl-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                          <span>• Family Discount ({guestDiscountPercent}%):</span>
-                          <span className="font-mono font-extrabold">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
+                        <div className={`flex justify-between pl-1 text-[11px] font-bold ${emeraldAccent}`}>
+                          <span>• Extra Family Discount ({guestDiscountPercent}%):</span>
+                          <span className={`font-mono font-black ${emeraldAccent}`}>-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
                       {appliedCoupon && couponDiscountAmount > 0 && (
-                        <div className="flex justify-between pl-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                        <div className={`flex justify-between pl-1 text-[11px] font-bold ${emeraldAccent}`}>
                           <span>• Promo Code ({appliedCoupon.code}):</span>
-                          <span className="font-mono font-extrabold">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
+                          <span className={`font-mono font-black ${emeraldAccent}`}>-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
                       {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
-                        <div className="flex justify-between text-slate-400 pl-1 text-[11px]">
-                          <span>• No discounts applied</span>
-                          <span className="font-mono">₹0</span>
+                        <div className={`flex justify-between ${labelText} pl-1 text-[11px]`}>
+                          <span>• No discount applied</span>
+                          <span className="font-mono text-slate-400">₹0</span>
                         </div>
                       )}
+
+                      <div className={`border-t border-emerald-200 dark:border-emerald-400/40 pt-2 mt-1 flex justify-between items-center font-black text-xs ${emeraldAccent}`}>
+                        <span>Total Discounts Saved:</span>
+                        <span className="font-mono font-black">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
+                      </div>
+                    </div>
+
+                    {/* FINAL AMOUNT CARD (WATER DROP HERO) */}
+                    <div className="p-5 rounded-[24px] ios-water-drop border border-cyan-400 dark:border-cyan-400/60 shadow-2xl transition-all duration-300">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className={`text-[11px] uppercase tracking-wider font-black ${cyanAccent} flex items-center gap-1.5`}>
+                            <Droplet className="w-3.5 h-3.5 text-cyan-400 animate-bounce" /> Final Payable
+                          </p>
+                          <p className={`text-[10px] mt-0.5 ${labelText}`}>Net all-inclusive rate</p>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-2xl sm:text-3xl font-black ${titleText} font-mono tracking-tight`}>
+                            ₹{finalEstimate.toLocaleString('en-IN')}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-4 ${primaryBtnClass} text-xs flex items-center justify-center gap-2`}
+                    className="w-full py-4 ios-liquid-action-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2"
                   >
-                    <Check className="w-4 h-4" />
+                    <Check className="w-4 h-4 animate-bounce" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
                   </button>
                 </div>
@@ -1708,21 +1965,21 @@ function MainAppContent() {
 
         {/* TAB 5: FEEDBACK */}
         {activeTab === 'feedback' && (
-          <div className={`p-6 sm:p-8 ${cardBgClass} max-w-xl mx-auto space-y-5 shadow-sm`}>
-            <div className="text-center space-y-1">
-              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#0381FE] dark:text-[#2C75FF]">Client Experience</span>
-              <h3 className="text-xl font-extrabold text-slate-900 dark:text-white">Feedback & Suggestions</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">Help us enhance your vanity experience by sharing your thoughts.</p>
+          <div key="tab-feedback" className="p-6 sm:p-9 ios-water-drop max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
+            <div className="text-center space-y-1.5">
+              <span className={`text-[10px] font-black uppercase tracking-wider ${cyanAccent}`}>Client Experience</span>
+              <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Feedback & Suggestions</h3>
+              <p className={`text-xs ${bodyText}`}>Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-[24px] bg-emerald-500/15 border border-emerald-500/30 text-center space-y-2">
-                <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
-                <h4 className="font-extrabold text-sm text-emerald-800 dark:text-emerald-300">Thank you for your valuable feedback!</h4>
-                <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">Your suggestion has been securely submitted to our studio team.</p>
+              <div className="p-6 rounded-[28px] bg-emerald-50/90 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/50 text-center space-y-2 animate-fade-in">
+                <CheckCircle2 className="w-10 h-10 text-emerald-500 dark:text-emerald-400 mx-auto animate-bounce" />
+                <h4 className={`font-black text-sm ${emeraldAccent}`}>Thank you for your valuable feedback!</h4>
+                <p className={`text-xs ${bodyText}`}>Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
-                  className="mt-3 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-[#1E2330] hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-extrabold text-slate-800 dark:text-slate-200 transition active:scale-[0.97]"
+                  className={`mt-3 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-xs font-black ${titleText} transition-all duration-300 active:scale-[0.95] border border-slate-200 dark:border-white/20`}
                 >
                   Submit Another Feedback
                 </button>
@@ -1735,27 +1992,27 @@ function MainAppContent() {
                       key={star}
                       type="button"
                       onClick={() => setFeedbackRating(star)}
-                      className="p-1 text-slate-300 dark:text-slate-700 hover:text-amber-400 transition"
+                      className="p-1.5 active:scale-[0.9] transition-transform duration-200 hover:scale-125"
                     >
-                      <Star className={`w-7 h-7 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : ''}`} />
+                      <Star className={`w-8 h-8 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400 drop-shadow-md' : 'text-slate-300 dark:text-slate-600'}`} />
                     </button>
                   ))}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <input
                     type="text"
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={`w-full px-4 py-3 ${inputBgClass} text-xs`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} ios-liquid-input`}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={`w-full px-4 py-3 ${inputBgClass} text-xs font-mono font-bold`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black ios-liquid-input`}
                   />
                 </div>
 
@@ -1765,13 +2022,13 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={`w-full p-4 rounded-[20px] text-xs ${inputBgClass}`}
+                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} ios-liquid-input`}
                 />
 
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className={`w-full py-4 ${primaryBtnClass} text-xs flex items-center justify-center gap-1.5`}
+                  className="w-full py-3.5 ios-liquid-action-btn text-white text-xs font-black rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
@@ -1786,37 +2043,37 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="fixed bottom-24 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 bg-white dark:bg-[#151922] border border-amber-300 dark:border-amber-700/60 p-4 rounded-[28px] shadow-2xl transition-all"
+          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 ios-water-drop p-4 shadow-2xl transition-all duration-500 ios-tab-spring border border-amber-400/60"
         >
           <div className="flex items-start justify-between gap-3">
-            <Gift className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+            <Gift className={`w-5 h-5 ${amberAccent} shrink-0 mt-0.5 animate-bounce`} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[10px] font-extrabold bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30 uppercase px-2.5 py-0.5 rounded-full font-mono">
+                <span className={`text-[10px] font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-0.5 rounded-full font-mono`}>
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-bold bg-rose-500/15 text-rose-700 dark:text-rose-300 px-2 py-0.5 rounded-full">
-                    Code Expired
+                  <span className="text-[10px] font-mono font-black bg-rose-100 dark:bg-rose-500/30 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                    <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className="text-[10px] font-mono font-bold bg-slate-100 dark:bg-[#1E2330] text-slate-700 dark:text-slate-300 px-2.5 py-0.5 rounded-full">
-                    {floatingTimer.text}
+                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
+                    <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
               </div>
 
-              <h4 className="font-extrabold text-xs mt-1.5 text-slate-900 dark:text-white">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className="text-[11px] mt-0.5 text-slate-600 dark:text-slate-300 font-medium">
+              <h4 className={`font-black text-xs mt-1.5 leading-snug ${titleText}`}>{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className={`text-[11px] mt-0.5 ${bodyText}`}>
                 {isFloatingExpired ? (
-                  <span className="text-rose-500">This promotion code has ended.</span>
+                  <span className="text-rose-500 dark:text-rose-400 font-semibold">This promotion code has ended.</span>
                 ) : (
-                  <>Use code <span className="font-mono font-extrabold text-[#0381FE] dark:text-[#2C75FF]">{floatingPromoCode}</span></>
+                  <>Use code <span className={`font-mono font-black ${amberAccent}`}>{floatingPromoCode}</span></>
                 )}
               </p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 shrink-0 transition-transform duration-200 hover:rotate-90"><X className="w-4 h-4" /></button>
           </div>
 
           <button 
@@ -1827,10 +2084,10 @@ function MainAppContent() {
                 setActiveTab('calculator'); 
               }
             }} 
-            className={`mt-3 w-full py-2.5 text-xs font-extrabold rounded-full transition ${
+            className={`mt-3 w-full py-2.5 text-xs font-black rounded-full shadow transition-all duration-300 ${
               isFloatingExpired 
-                ? 'bg-slate-100 dark:bg-[#1E2330] text-slate-400 cursor-not-allowed' 
-                : 'bg-[#0381FE] hover:bg-[#006EE6] text-white active:scale-[0.97] shadow-sm'
+                ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
+                : 'ios-liquid-action-btn text-white active:scale-[0.95]'
             }`}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
