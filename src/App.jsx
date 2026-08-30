@@ -781,7 +781,7 @@ function MainAppContent() {
 
   const currentFontFamily = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif";
 
-  // 8K Ultra-Clarity Dynamic Laser-Etched Text Styles
+  // Dynamic Theme Colors
   const titleText = isDarkMode ? "text-white font-black oled-hdr-white" : "text-slate-950 font-black";
   const bodyText = isDarkMode ? "text-[#E8F0FE] font-bold" : "text-slate-900 font-bold";
   const labelText = isDarkMode ? "text-[#94A3B8] font-black uppercase tracking-wider" : "text-slate-700 font-black uppercase tracking-wider";
@@ -837,9 +837,7 @@ function MainAppContent() {
       className="min-h-screen lens-8k-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden transition-colors duration-700 select-none subpixel-antialiased"
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* 8K Ultra-Definition Refraction Lens & Fluid Physics Engine */}
       <style>{`
-        /* 8K Refractive Lens Mesh Background */
         .lens-8k-bg {
           background-color: #F8FAFD;
         }
@@ -852,21 +850,19 @@ function MainAppContent() {
             radial-gradient(at 0% 100%, rgba(0, 150, 255, 0.22) 0px, transparent 45%);
         }
 
-        /* 1. 8K Translucent Glass Lens Header */
         .lens-header-8k {
           background: rgba(255, 255, 255, 0.70) !important;
           backdrop-filter: blur(40px) saturate(220%) !important;
           -webkit-backdrop-filter: blur(40px) saturate(220%) !important;
-          border-bottom: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+          border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
           box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
         }
         .dark .lens-header-8k {
           background: rgba(2, 5, 14, 0.55) !important;
-          border-bottom: 1.5px solid rgba(0, 240, 255, 0.35) !important;
+          border: 1.5px solid rgba(0, 240, 255, 0.35) !important;
           box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15);
         }
 
-        /* 2. 8K Water-Drop Convex Lens Cards */
         .lens-glass-8k {
           position: relative;
           background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.22) 80%);
@@ -904,7 +900,6 @@ function MainAppContent() {
           background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.0) 100%);
         }
 
-        /* 3. 8K Sub-Capsules Refraction */
         .lens-subcard-8k {
           position: relative;
           background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.15) 85%);
@@ -927,7 +922,6 @@ function MainAppContent() {
             0 14px 35px rgba(0, 0, 0, 0.7) !important;
         }
 
-        /* 4. Translucent 8K Active Tab (Water-Drop Lens) */
         .lens-active-pill {
           position: relative;
           background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.6) 0%, rgba(0, 114, 255, 0.4) 100%) !important;
@@ -942,7 +936,6 @@ function MainAppContent() {
           color: #FFFFFF !important;
         }
 
-        /* 5. 8K Liquid Action Primary Button */
         .lens-action-btn {
           position: relative;
           background: linear-gradient(135deg, #00F0FF 0%, #0072FF 50%, #7000FF 100%);
@@ -961,7 +954,6 @@ function MainAppContent() {
           transform: scale(0.96);
         }
 
-        /* 6. Form Controls */
         .lens-input-8k {
           background: rgba(255, 255, 255, 0.75);
           border: 1.5px solid rgba(255, 255, 255, 0.85);
@@ -987,7 +979,6 @@ function MainAppContent() {
           box-shadow: 0 0 24px rgba(0, 240, 255, 0.6) !important;
         }
 
-        /* 8K HDR Laser-Etched Text Glows */
         .oled-hdr-white {
           color: #FFFFFF !important;
           text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
@@ -1018,7 +1009,6 @@ function MainAppContent() {
           color: #FFFFFF !important;
         }
 
-        /* Slow, Fluid, High-End Ambient Mesh Orbs */
         @keyframes floatMesh8K1 {
           0%, 100% { transform: translate(0px, 0px) scale(1); }
           50% { transform: translate(45px, -50px) scale(1.18); }
@@ -1042,160 +1032,43 @@ function MainAppContent() {
         }
       `}</style>
 
-      {/* Floating Fluid Ambient 8K Droplet Mesh */}
+      {/* Background Liquid Light Orbs */}
       <div className="absolute top-10 left-10 w-[480px] h-[480px] bg-cyan-400/25 dark:bg-cyan-400/20 rounded-full blur-3xl pointer-events-none animate-mesh-1" />
       <div className="absolute top-1/3 right-10 w-[550px] h-[550px] bg-purple-400/25 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none animate-mesh-2" />
       <div className="absolute bottom-10 left-1/3 w-[600px] h-[600px] bg-teal-400/20 dark:bg-sky-500/15 rounded-full blur-3xl pointer-events-none animate-mesh-1" />
 
-      {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#02050E] transition-opacity duration-1000 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="relative flex flex-col items-center space-y-6 px-4 ios-tab-spring">
-            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#00F0FF] shadow-2xl p-1 bg-[#02050E] shadow-[#00F0FF]/40">
-              <img 
-                src={resolvedLogoUrl} 
-                alt="Studio Logo" 
-                onError={() => setLogoLoadFailed(true)}
-                className="w-full h-full object-contain rounded-full" 
-              />
-            </div>
-              
-            <div className="text-center space-y-1.5">
-              <h1 className="text-xl sm:text-3xl font-black tracking-wider text-white oled-hdr-white">
-                {config.studioName || 'H&F Makeup Artist'}
-              </h1>
-              <p className="text-[11px] sm:text-xs font-black text-[#00F0FF] tracking-widest uppercase oled-hdr-cyan">
-                {config.artistTagline || 'Beauty, Styled Your Way'}
-              </p>
-            </div>
-
-            <div className="w-48 h-2 bg-slate-900 rounded-full overflow-hidden border border-[#00F0FF]/30">
-              <div className="h-full bg-gradient-to-r from-[#00F0FF] to-[#7000FF] rounded-full animate-pulse w-full" />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-500 animate-fade-in">
-          <div className="max-w-sm w-full lens-glass-8k p-6 text-center space-y-4 ios-tab-spring">
-            <div className="flex items-center justify-between">
-              <span className={`font-black text-sm flex items-center gap-1.5 ${cyanAccent}`}>
-                <Share2 className="w-4 h-4 text-cyan-400 animate-pulse" /> Share Studio Lookbook
-              </span>
-              <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full text-slate-400 hover:text-white transition-transform duration-300 hover:rotate-90"><X className="w-5 h-5" /></button>
-            </div>
-
-            <div className="w-48 h-48 mx-auto bg-white p-3.5 rounded-[28px] border-2 border-slate-200 shadow-inner flex items-center justify-center group">
-              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
-            </div>
-            <p className={`text-xs ${bodyText}`}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
-
-            <div className="flex gap-2">
-              <button
-                onClick={handleCopyLink}
-                className="flex-1 py-3 rounded-full bg-slate-200 dark:bg-[#081024] hover:bg-slate-300 dark:hover:bg-[#121D38] active:scale-95 text-xs font-black flex items-center justify-center gap-1.5 border border-slate-300 dark:border-cyan-400/40 text-slate-900 dark:text-white transition-all duration-300"
-              >
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-cyan-400" />}
-                <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
-              </button>
-
-              <a
-                href={qrCodeApiUrl}
-                download="H_F_Makeup_Artist_Lookbook_QR.png"
-                target="_blank"
-                rel="noreferrer"
-                className="px-5 py-3 rounded-full lens-action-btn text-white text-xs font-black flex items-center justify-center gap-1 active:scale-95"
-              >
-                <Download className="w-4 h-4" />
-                <span>Save QR</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {viewingPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-500 animate-fade-in">
-          <div className="max-w-md w-full lens-glass-8k p-6 space-y-4 ios-tab-spring">
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <Crown className={`w-5 h-5 ${cyanAccent} animate-bounce`} />
-                <h3 className={`font-black text-base sm:text-lg ${titleText}`}>{viewingPackage.name}</h3>
-              </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full text-slate-400 hover:text-white transition-transform duration-300 hover:rotate-90"><X className="w-5 h-5" /></button>
-            </div>
-
-            <div className="w-full h-44 sm:h-52 rounded-[28px] overflow-hidden bg-neutral-900 border-2 border-slate-200 dark:border-cyan-400/30">
-              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
-            </div>
-
-            <p className={`text-xs leading-relaxed ${bodyText}`}>{viewingPackage.desc}</p>
-
-            <div className="space-y-2.5 text-xs border-t border-b border-slate-200 dark:border-cyan-400/20 py-3.5">
-              <div className="flex justify-between items-start gap-2">
-                <span className={`shrink-0 ${labelText}`}>Vanity Tier:</span>
-                <strong className={`capitalize text-right ${amberAccent} font-black`}>{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
-              </div>
-              <div className="flex justify-between items-start gap-2">
-                <span className={`shrink-0 ${labelText}`}>Skin Finish:</span>
-                <span className={`text-right ${cyanAccent} font-extrabold`}>{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
-              </div>
-              <div className="flex justify-between items-start gap-2">
-                <span className={`shrink-0 ${labelText}`}>Includes:</span>
-                <span className={`text-right ${purpleAccent} font-extrabold`}>{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
-              </div>
-              <div className="flex justify-between items-center font-black text-sm pt-1">
-                <span className={titleText}>Rate:</span>
-                <span className={`${cyanAccent} font-mono text-base font-black`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
-              </div>
-            </div>
-
-            <button
-              onClick={() => {
-                setCalcPackage(viewingPackage.key);
-                setCalcKit(selectedKit);
-                setViewingPackage(null);
-                setActiveTab('calculator');
-              }}
-              className="w-full py-3.5 lens-action-btn text-white text-xs font-black rounded-full shadow-lg active:scale-95 flex items-center justify-center gap-1.5"
-            >
-              <span>Estimate & Book This Look</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
-
-      {/* Marquee Announcement Liquid Pill Header */}
+      {/* Floating Pill Banner Section */}
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white py-2.5 px-3 overflow-hidden text-xs font-black relative flex items-center select-none border-b border-cyan-400/30">
-          <div className="flex overflow-hidden whitespace-nowrap w-full">
-            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black">
-              {(config.announcements || []).map((ann, idx) => (
-                <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-                  {ann}
-                </span>
-              ))}
+        <div className="sticky top-2 z-50 px-3 sm:px-8 max-w-6xl mx-auto my-2">
+          <div className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white py-2.5 px-4 overflow-hidden text-xs font-black rounded-full shadow-lg border border-white/40 dark:border-cyan-400/50 flex items-center select-none backdrop-blur-md">
+            <div className="flex overflow-hidden whitespace-nowrap w-full">
+              <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black">
+                {(config.announcements || []).map((ann, idx) => (
+                  <span key={idx} className="mx-6 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                    {ann}
+                  </span>
+                ))}
+              </div>
+              <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black" aria-hidden="true">
+                {(config.announcements || []).map((ann, idx) => (
+                  <span key={`dup_${idx}`} className="mx-6 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                    {ann}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-          <style>{`
-            @keyframes marquee {
-              0% { transform: translateX(0%); }
-              100% { transform: translateX(-100%); }
-            }
-          `}</style>
         </div>
       )}
 
-      {/* Ultra-Clear Translucent 8K Refractive Glass Header */}
-      <header className="sticky top-0 z-40 px-3 sm:px-8 py-3.5 lens-header-8k transition-all duration-700">
-        <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
-          <div className="flex items-center justify-between">
+      {/* Header with Pill Navigation */}
+      <header className="px-3 sm:px-8 py-3 my-2 max-w-6xl mx-auto">
+        <div className="lens-header-8k rounded-full p-2.5 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
+          <div className="flex items-center justify-between w-full sm:w-auto">
             <div className="flex items-center space-x-3 select-none active:scale-95 transition-transform duration-300 cursor-pointer min-w-0 group">
-              <div className="w-11 sm:w-12 h-11 sm:h-12 rounded-full overflow-hidden shrink-0 border-2 border-[#00F0FF] p-0.5 bg-black flex items-center justify-center shadow-lg shadow-[#00F0FF]/30 transition-transform duration-700 group-hover:scale-110">
+              <div className="w-10 sm:w-11 h-10 sm:h-11 rounded-full overflow-hidden shrink-0 border-2 border-[#00F0FF] p-0.5 bg-black flex items-center justify-center shadow-lg shadow-[#00F0FF]/30 transition-transform duration-700 group-hover:scale-110">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Logo" 
@@ -1216,52 +1089,20 @@ function MainAppContent() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => setShowShareModal(true)}
-                title="Share & QR Code"
-                className="p-2.5 rounded-full bg-slate-200 dark:bg-[#070E1E] text-blue-700 dark:text-[#00F0FF] border border-slate-300 dark:border-[#00F0FF]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center"
-              >
-                <QrCode className="w-4 h-4" />
-              </button>
-
+            <div className="flex sm:hidden items-center gap-2">
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className="p-2.5 rounded-full bg-slate-200 dark:bg-[#070E1E] text-amber-600 dark:text-[#FFD700] border border-slate-300 dark:border-[#FFD700]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center"
+                className="p-2 rounded-full bg-slate-200 dark:bg-[#070E1E] text-amber-600 dark:text-[#FFD700] border border-slate-300 dark:border-[#FFD700]/40 flex items-center justify-center"
               >
-                {isDarkMode ? <Sun className="w-4 h-4 animate-spin text-amber-300" style={{ animationDuration: '10s' }} /> : <Moon className="w-4 h-4" />}
+                {isDarkMode ? <Sun className="w-4 h-4 text-amber-300 animate-spin" style={{ animationDuration: '10s' }} /> : <Moon className="w-4 h-4 text-slate-700" />}
               </button>
-
-              <a
-                href={getCleanInstagramUrl(config.instagramHandle)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-[11px] sm:text-xs font-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/30 border border-white/40 transition-all duration-300"
-              >
-                <Camera className="w-3.5 h-3.5 shrink-0" />
-                <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
-              </a>
-
-              {shouldShowProfileInHeader && (
-                <div 
-                  className="w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-gradient-to-tr from-[#00F0FF] to-[#7000FF] p-0.5 shadow-lg overflow-hidden shrink-0 ml-0.5 select-none transition-transform duration-500 hover:scale-110"
-                  onContextMenu={(e) => e.preventDefault()}
-                >
-                  <img 
-                    src={resolvedAvatar} 
-                    alt="Artist Profile" 
-                    onError={() => setImgLoadFailed(true)}
-                    draggable="false"
-                    className="w-full h-full object-cover rounded-full pointer-events-none"
-                  />
-                </div>
-              )}
             </div>
           </div>
 
-          <div className="hidden sm:flex w-full items-center justify-center py-1">
-            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full bg-slate-200 dark:bg-[#050A18] border border-slate-300 dark:border-cyan-400/30 text-xs font-black shadow-inner">
+          {/* Desktop Pill Tab Section */}
+          <div className="hidden sm:flex items-center justify-center">
+            <nav className="inline-flex space-x-1.5 p-1 rounded-full bg-slate-200/90 dark:bg-[#050A18]/90 border border-slate-300 dark:border-cyan-400/30 text-xs font-black shadow-inner">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1275,7 +1116,7 @@ function MainAppContent() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all duration-500 active:scale-95 ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-black whitespace-nowrap transition-all duration-500 active:scale-95 ${
                       isActive 
                         ? 'lens-active-pill scale-105 shadow-xl' 
                         : 'text-slate-800 dark:text-slate-200 hover:text-white'
@@ -1288,10 +1129,53 @@ function MainAppContent() {
               })}
             </nav>
           </div>
+
+          <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setShowShareModal(true)}
+              title="Share & QR Code"
+              className="p-2.5 rounded-full bg-slate-200 dark:bg-[#070E1E] text-blue-700 dark:text-[#00F0FF] border border-slate-300 dark:border-[#00F0FF]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center"
+            >
+              <QrCode className="w-4 h-4" />
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              title="Toggle Day/Night Mode"
+              className="p-2.5 rounded-full bg-slate-200 dark:bg-[#070E1E] text-amber-600 dark:text-[#FFD700] border border-slate-300 dark:border-[#FFD700]/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center"
+            >
+              {isDarkMode ? <Sun className="w-4 h-4 animate-spin text-amber-300" style={{ animationDuration: '10s' }} /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            <a
+              href={getCleanInstagramUrl(config.instagramHandle)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-[11px] sm:text-xs font-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/30 border border-white/40 transition-all duration-300"
+            >
+              <Camera className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
+            </a>
+
+            {shouldShowProfileInHeader && (
+              <div 
+                className="w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-gradient-to-tr from-[#00F0FF] to-[#7000FF] p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none transition-transform duration-500 hover:scale-110"
+                onContextMenu={(e) => e.preventDefault()}
+              >
+                <img 
+                  src={resolvedAvatar} 
+                  alt="Artist Profile" 
+                  onError={() => setImgLoadFailed(true)}
+                  draggable="false"
+                  className="w-full h-full object-cover rounded-full pointer-events-none"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
-      {/* Mobile Floating 8K Dock */}
+      {/* Mobile Floating 8K Pill Dock */}
       {!showSplash && (
         <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full bg-white/95 dark:bg-black/95 backdrop-blur-2xl shadow-2xl flex items-center justify-around animate-fade-in border-2 border-slate-200 dark:border-[#00F0FF]/40">
           {[
