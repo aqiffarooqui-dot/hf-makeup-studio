@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#070913] text-white flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/[0.08] border border-white/20 p-8 rounded-3xl backdrop-blur-2xl space-y-4 shadow-2xl">
-            <div className="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/40">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#070913] text-slate-900 dark:text-white flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white dark:bg-white/[0.08] border border-slate-200 dark:border-white/20 p-8 rounded-3xl backdrop-blur-2xl space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto border border-amber-500/40">
               <ShieldAlert className="w-8 h-8 animate-bounce" />
             </div>
-            <h2 className="text-xl font-bold text-amber-300">System Safe Mode Active</h2>
-            <p className="text-xs text-slate-200 leading-relaxed">
+            <h2 className="text-xl font-bold text-amber-700 dark:text-amber-300">System Safe Mode Active</h2>
+            <p className="text-xs text-slate-600 dark:text-slate-200 leading-relaxed">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-extrabold text-xs shadow-lg active:scale-95 transition"
+              className="w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-extrabold text-xs shadow-lg active:scale-95 transition"
             >
               Refresh to Safe Version
             </button>
@@ -115,103 +115,103 @@ const DEFAULT_GALLERY = [
 
 const THEME_STYLES = {
   real_glass_lens: {
-    accentGradient: "from-sky-400 via-cyan-300 to-indigo-400",
-    btnPrimary: "bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold shadow-lg shadow-cyan-500/25 rounded-[18px]",
-    accentText: "text-cyan-400 dark:text-cyan-300 font-bold",
-    accentLightText: "text-sky-300 dark:text-sky-200",
-    badgeBg: "bg-cyan-500/20 text-cyan-300 dark:bg-cyan-400/25 dark:text-cyan-200 border border-cyan-400/40",
-    sectionAccent: "bg-blue-500/15 dark:bg-sky-500/20 border-blue-500/30 dark:border-sky-400/40 text-blue-300 dark:text-sky-200",
-    accentBorder: "border-cyan-400/40",
-    activeNav: "bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-extrabold shadow-lg shadow-cyan-500/30 rounded-[22px] px-4 py-2"
+    accentGradient: "from-sky-600 via-blue-600 to-indigo-600 dark:from-sky-400 dark:via-cyan-300 dark:to-indigo-400",
+    btnPrimary: "bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold shadow-lg shadow-cyan-500/25 rounded-[18px]",
+    accentText: "text-blue-600 dark:text-cyan-300 font-bold",
+    accentLightText: "text-blue-700 dark:text-sky-200",
+    badgeBg: "bg-blue-500/15 text-blue-700 dark:bg-cyan-400/25 dark:text-cyan-200 border border-blue-500/30 dark:border-cyan-400/40",
+    sectionAccent: "bg-blue-500/10 dark:bg-sky-500/20 border-blue-500/30 dark:border-sky-400/40 text-blue-800 dark:text-sky-200",
+    accentBorder: "border-blue-500/30 dark:border-cyan-400/40",
+    activeNav: "bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-extrabold shadow-lg shadow-cyan-500/30 rounded-[22px] px-4 py-2"
   },
   real_ios_glass: {
-    accentGradient: "from-sky-400 via-blue-400 to-indigo-300",
-    btnPrimary: "bg-[#007AFF] hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/30 rounded-[18px]",
-    accentText: "text-blue-400 dark:text-blue-300 font-bold",
-    accentLightText: "text-blue-300 dark:text-blue-200",
-    badgeBg: "bg-blue-500/20 text-blue-300 dark:bg-blue-500/30 dark:text-blue-200 border border-blue-400/40",
-    sectionAccent: "bg-blue-500/15 dark:bg-blue-500/20 border-blue-400/30 text-blue-300 dark:text-blue-200",
-    accentBorder: "border-blue-400/40",
+    accentGradient: "from-sky-600 via-blue-600 to-indigo-600 dark:from-sky-400 dark:via-blue-400 dark:to-indigo-300",
+    btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/30 rounded-[18px]",
+    accentText: "text-blue-600 dark:text-blue-300 font-bold",
+    accentLightText: "text-blue-700 dark:text-blue-200",
+    badgeBg: "bg-blue-500/15 text-blue-700 dark:bg-blue-500/30 dark:text-blue-200 border border-blue-500/30 dark:border-blue-400/40",
+    sectionAccent: "bg-blue-500/10 dark:bg-blue-500/20 border-blue-500/30 dark:border-blue-400/30 text-blue-800 dark:text-blue-200",
+    accentBorder: "border-blue-500/40 dark:border-blue-400/40",
     activeNav: "bg-[#007AFF] text-white font-extrabold shadow-md rounded-[22px] px-4 py-2"
   },
   liquid_glass: {
-    accentGradient: "from-teal-300 via-cyan-300 to-sky-400",
-    btnPrimary: "bg-gradient-to-r from-teal-400 via-cyan-400 to-blue-500 text-neutral-950 font-extrabold shadow-xl rounded-[18px]",
-    accentText: "text-teal-400 dark:text-teal-300 font-bold",
-    accentLightText: "text-teal-300 dark:text-teal-200",
-    badgeBg: "bg-teal-500/20 text-teal-300 dark:bg-teal-400/25 dark:text-teal-200 border border-teal-400/40",
-    sectionAccent: "bg-teal-500/15 dark:bg-teal-500/20 border-teal-400/30 text-teal-300 dark:text-teal-200",
-    accentBorder: "border-teal-400/40",
-    activeNav: "bg-cyan-400 text-neutral-950 font-extrabold shadow-lg rounded-[22px] px-4 py-2"
+    accentGradient: "from-teal-600 via-cyan-600 to-blue-600 dark:from-teal-300 dark:via-cyan-300 dark:to-sky-400",
+    btnPrimary: "bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 text-white dark:text-neutral-950 font-extrabold shadow-xl rounded-[18px]",
+    accentText: "text-teal-700 dark:text-teal-300 font-bold",
+    accentLightText: "text-teal-800 dark:text-teal-200",
+    badgeBg: "bg-teal-500/15 text-teal-800 dark:bg-teal-400/25 dark:text-teal-200 border border-teal-500/30 dark:border-teal-400/40",
+    sectionAccent: "bg-teal-500/10 dark:bg-teal-500/20 border-teal-500/30 dark:border-teal-400/30 text-teal-800 dark:text-teal-200",
+    accentBorder: "border-teal-500/40 dark:border-teal-400/40",
+    activeNav: "bg-cyan-600 dark:bg-cyan-400 text-white dark:text-neutral-950 font-extrabold shadow-lg rounded-[22px] px-4 py-2"
   },
   one_ui_9: {
-    accentGradient: "from-amber-400 via-rose-400 to-orange-400",
-    btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-orange-500 text-neutral-950 font-extrabold shadow-md rounded-[18px]",
-    accentText: "text-amber-400 dark:text-amber-300 font-bold",
-    accentLightText: "text-amber-300 dark:text-amber-200",
-    badgeBg: "bg-amber-500/20 text-amber-300 dark:bg-amber-400/25 dark:text-amber-200 border border-amber-400/40",
-    sectionAccent: "bg-amber-500/15 dark:bg-amber-500/20 border-amber-400/30 text-amber-300 dark:text-amber-200",
-    accentBorder: "border-amber-400/40",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-extrabold shadow-md rounded-[22px] px-4 py-2"
+    accentGradient: "from-amber-600 via-rose-600 to-orange-600 dark:from-amber-400 dark:via-rose-400 dark:to-orange-400",
+    btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-orange-500 text-white dark:text-neutral-950 font-extrabold shadow-md rounded-[18px]",
+    accentText: "text-amber-700 dark:text-amber-300 font-bold",
+    accentLightText: "text-amber-800 dark:text-amber-200",
+    badgeBg: "bg-amber-500/15 text-amber-800 dark:bg-amber-400/25 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/40",
+    sectionAccent: "bg-amber-500/10 dark:bg-amber-500/20 border-amber-500/30 dark:border-amber-400/30 text-amber-800 dark:text-amber-200",
+    accentBorder: "border-amber-500/40 dark:border-amber-400/40",
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-extrabold shadow-md rounded-[22px] px-4 py-2"
   },
   gold_rose: {
-    accentGradient: "from-rose-400 via-pink-300 to-amber-300",
+    accentGradient: "from-rose-600 via-pink-600 to-amber-600 dark:from-rose-400 dark:via-pink-300 dark:to-amber-300",
     btnPrimary: "bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white font-extrabold shadow-md rounded-[18px]",
-    accentText: "text-rose-400 dark:text-pink-300 font-bold",
-    accentLightText: "text-rose-300 dark:text-pink-200",
-    badgeBg: "bg-rose-500/20 text-rose-300 dark:bg-pink-400/25 dark:text-pink-200 border border-pink-400/40",
-    sectionAccent: "bg-rose-500/15 dark:bg-pink-500/20 border-pink-400/30 text-rose-300 dark:text-pink-200",
-    accentBorder: "border-rose-400/40",
+    accentText: "text-rose-600 dark:text-pink-300 font-bold",
+    accentLightText: "text-rose-700 dark:text-pink-200",
+    badgeBg: "bg-rose-500/15 text-rose-700 dark:bg-pink-400/25 dark:text-pink-200 border border-rose-500/30 dark:border-pink-400/40",
+    sectionAccent: "bg-rose-500/10 dark:bg-pink-500/20 border-rose-500/30 dark:border-pink-400/30 text-rose-800 dark:text-pink-200",
+    accentBorder: "border-rose-500/40 dark:border-pink-400/40",
     activeNav: "bg-gradient-to-r from-rose-500 to-pink-600 text-white font-extrabold shadow rounded-[22px] px-4 py-2"
   },
   champagne: {
-    accentGradient: "from-yellow-300 via-amber-300 to-yellow-400",
-    btnPrimary: "bg-gradient-to-r from-amber-400 to-yellow-500 text-neutral-950 font-extrabold shadow-lg rounded-[18px]",
-    accentText: "text-yellow-400 dark:text-yellow-300 font-bold",
-    accentLightText: "text-yellow-300 dark:text-yellow-200",
-    badgeBg: "bg-yellow-500/20 text-yellow-300 dark:bg-yellow-400/25 dark:text-yellow-200 border border-yellow-400/40",
-    sectionAccent: "bg-yellow-500/15 dark:bg-yellow-500/20 border-yellow-400/30 text-yellow-300 dark:text-yellow-200",
-    accentBorder: "border-yellow-400/40",
-    activeNav: "bg-yellow-400 text-neutral-950 font-extrabold shadow rounded-[22px] px-4 py-2"
+    accentGradient: "from-amber-600 via-yellow-600 to-amber-700 dark:from-yellow-300 dark:via-amber-300 dark:to-yellow-400",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-yellow-500 text-white dark:text-neutral-950 font-extrabold shadow-lg rounded-[18px]",
+    accentText: "text-amber-700 dark:text-yellow-300 font-bold",
+    accentLightText: "text-amber-800 dark:text-yellow-200",
+    badgeBg: "bg-amber-500/15 text-amber-800 dark:bg-yellow-400/25 dark:text-yellow-200 border border-amber-500/30 dark:border-yellow-400/40",
+    sectionAccent: "bg-amber-500/10 dark:bg-yellow-500/20 border-amber-500/30 dark:border-yellow-400/30 text-amber-900 dark:text-yellow-200",
+    accentBorder: "border-amber-500/40 dark:border-yellow-400/40",
+    activeNav: "bg-amber-500 text-neutral-950 font-extrabold shadow rounded-[22px] px-4 py-2"
   },
   emerald: {
-    accentGradient: "from-emerald-300 via-teal-300 to-green-400",
-    btnPrimary: "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold shadow-lg rounded-[18px]",
-    accentText: "text-emerald-400 dark:text-emerald-300 font-bold",
-    accentLightText: "text-emerald-300 dark:text-emerald-200",
-    badgeBg: "bg-emerald-500/20 text-emerald-300 dark:bg-emerald-400/25 dark:text-emerald-200 border border-emerald-400/40",
-    sectionAccent: "bg-emerald-500/15 dark:bg-emerald-500/20 border-emerald-400/30 text-emerald-300 dark:text-emerald-200",
-    accentBorder: "border-emerald-400/40",
-    activeNav: "bg-emerald-500 text-neutral-950 font-extrabold shadow rounded-[22px] px-4 py-2"
+    accentGradient: "from-emerald-600 via-teal-600 to-green-700 dark:from-emerald-300 dark:via-teal-300 dark:to-green-400",
+    btnPrimary: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold shadow-lg rounded-[18px]",
+    accentText: "text-emerald-700 dark:text-emerald-300 font-bold",
+    accentLightText: "text-emerald-800 dark:text-emerald-200",
+    badgeBg: "bg-emerald-500/15 text-emerald-800 dark:bg-emerald-400/25 dark:text-emerald-200 border border-emerald-500/30 dark:border-emerald-400/40",
+    sectionAccent: "bg-emerald-500/10 dark:bg-emerald-500/20 border-emerald-500/30 dark:border-emerald-400/30 text-emerald-900 dark:text-emerald-200",
+    accentBorder: "border-emerald-500/40 dark:border-emerald-400/40",
+    activeNav: "bg-emerald-600 text-white font-extrabold shadow rounded-[22px] px-4 py-2"
   },
   violet: {
-    accentGradient: "from-purple-300 via-fuchsia-300 to-pink-300",
+    accentGradient: "from-purple-600 via-fuchsia-600 to-pink-600 dark:from-purple-300 dark:via-fuchsia-300 dark:to-pink-300",
     btnPrimary: "bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white font-extrabold shadow-lg rounded-[18px]",
-    accentText: "text-fuchsia-400 dark:text-fuchsia-300 font-bold",
-    accentLightText: "text-purple-300 dark:text-purple-200",
-    badgeBg: "bg-purple-500/20 text-purple-300 dark:bg-fuchsia-400/25 dark:text-fuchsia-200 border border-fuchsia-400/40",
-    sectionAccent: "bg-purple-500/15 dark:bg-fuchsia-500/20 border-fuchsia-400/30 text-purple-300 dark:text-fuchsia-200",
-    accentBorder: "border-fuchsia-400/40",
+    accentText: "text-purple-700 dark:text-fuchsia-300 font-bold",
+    accentLightText: "text-purple-800 dark:text-purple-200",
+    badgeBg: "bg-purple-500/15 text-purple-800 dark:bg-fuchsia-400/25 dark:text-fuchsia-200 border border-purple-500/30 dark:border-fuchsia-400/40",
+    sectionAccent: "bg-purple-500/10 dark:bg-fuchsia-500/20 border-purple-500/30 dark:border-fuchsia-400/30 text-purple-900 dark:text-fuchsia-200",
+    accentBorder: "border-purple-500/40 dark:border-fuchsia-400/40",
     activeNav: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-extrabold shadow rounded-[22px] px-4 py-2"
   },
   ruby: {
-    accentGradient: "from-rose-400 via-pink-400 to-red-400",
+    accentGradient: "from-rose-600 via-red-600 to-pink-700 dark:from-rose-400 dark:via-pink-400 dark:to-red-400",
     btnPrimary: "bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold shadow-lg rounded-[18px]",
-    accentText: "text-rose-400 dark:text-rose-300 font-bold",
-    accentLightText: "text-rose-300 dark:text-rose-200",
-    badgeBg: "bg-rose-500/20 text-rose-300 dark:bg-rose-400/25 dark:text-rose-200 border border-rose-400/40",
-    sectionAccent: "bg-rose-500/15 dark:bg-rose-500/20 border-rose-400/30 text-rose-300 dark:text-rose-200",
-    accentBorder: "border-rose-400/40",
+    accentText: "text-rose-700 dark:text-rose-300 font-bold",
+    accentLightText: "text-rose-800 dark:text-rose-200",
+    badgeBg: "bg-rose-500/15 text-rose-800 dark:bg-rose-400/25 dark:text-rose-200 border border-rose-500/30 dark:border-rose-400/40",
+    sectionAccent: "bg-rose-500/10 dark:bg-rose-500/20 border-rose-500/30 dark:border-rose-400/30 text-rose-900 dark:text-rose-200",
+    accentBorder: "border-rose-500/40 dark:border-rose-400/40",
     activeNav: "bg-rose-600 text-white font-extrabold shadow rounded-[22px] px-4 py-2"
   },
   sapphire: {
-    accentGradient: "from-cyan-300 via-sky-300 to-indigo-300",
+    accentGradient: "from-blue-600 via-indigo-600 to-cyan-700 dark:from-cyan-300 dark:via-sky-300 dark:to-indigo-300",
     btnPrimary: "bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 text-white font-extrabold shadow-lg rounded-[18px]",
-    accentText: "text-sky-400 dark:text-sky-300 font-bold",
-    accentLightText: "text-indigo-300 dark:text-indigo-200",
-    badgeBg: "bg-indigo-500/20 text-indigo-300 dark:bg-indigo-400/25 dark:text-indigo-200 border border-indigo-400/40",
-    sectionAccent: "bg-indigo-500/15 dark:bg-indigo-500/20 border-indigo-400/30 text-indigo-300 dark:text-indigo-200",
-    accentBorder: "border-indigo-400/40",
+    accentText: "text-blue-700 dark:text-sky-300 font-bold",
+    accentLightText: "text-indigo-800 dark:text-indigo-200",
+    badgeBg: "bg-indigo-500/15 text-indigo-800 dark:bg-indigo-400/25 dark:text-indigo-200 border border-indigo-500/30 dark:border-indigo-400/40",
+    sectionAccent: "bg-indigo-500/10 dark:bg-indigo-500/20 border-indigo-500/30 dark:border-indigo-400/30 text-indigo-900 dark:text-indigo-200",
+    accentBorder: "border-indigo-500/40 dark:border-indigo-400/40",
     activeNav: "bg-indigo-600 text-white font-extrabold shadow rounded-[22px] px-4 py-2"
   }
 };
@@ -902,19 +902,19 @@ function MainAppContent() {
   const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.real_glass_lens;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
-  // Refined high-contrast dark theme background & text classes
+  // Adaptive background & text classes that work flawlessly in both light and dark modes
   const bgClass = isDarkMode ? "bg-[#070913] text-[#F8FAFC]" : "bg-[#F8FAFC] text-[#0F172A]";
   const headerBgClass = isDarkMode 
     ? "bg-[#090D1C]/90 backdrop-blur-3xl border-b border-white/[0.14] shadow-2xl shadow-cyan-950/40" 
-    : "bg-white/90 backdrop-blur-3xl border-b border-slate-200/90 shadow-sm";
+    : "bg-white/90 backdrop-blur-3xl border-b border-slate-200 shadow-sm";
     
   const cardBgClass = isDarkMode 
     ? "bg-gradient-to-br from-white/[0.07] via-white/[0.04] to-transparent backdrop-blur-3xl border border-white/[0.14] hover:border-cyan-400/50 shadow-2xl text-[#F8FAFC]" 
-    : "bg-white/95 backdrop-blur-3xl border border-slate-200 hover:border-slate-300 shadow-xl shadow-slate-200/70 text-[#0F172A]";
+    : "bg-white backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0F172A]";
     
   const subCardBgClass = isDarkMode 
     ? "bg-white/[0.05] backdrop-blur-2xl border border-white/[0.10] text-[#F8FAFC]" 
-    : "bg-slate-100/95 backdrop-blur-2xl border border-slate-200 text-[#0F172A]";
+    : "bg-slate-50 backdrop-blur-2xl border border-slate-200 text-[#0F172A]";
     
   const inputBgClass = isDarkMode 
     ? "bg-black/50 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400" 
@@ -924,7 +924,6 @@ function MainAppContent() {
     ? "text-slate-200 hover:text-white hover:bg-white/10" 
     : "text-slate-700 hover:text-slate-950 hover:bg-slate-200/70 font-bold";
     
-  // High contrast legible muted text
   const mutedTextClass = isDarkMode ? "text-slate-200" : "text-slate-600";
   const primaryTextClass = isDarkMode ? "text-white" : "text-slate-900";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
@@ -943,26 +942,26 @@ function MainAppContent() {
     return (
       <div style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="max-w-md w-full rounded-3xl p-8 border border-white/20 bg-white/[0.06] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
-          <div className="w-16 h-16 rounded-3xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center mx-auto shadow-lg">
+        <div className="max-w-md w-full rounded-3xl p-8 border border-slate-200 dark:border-white/20 bg-white dark:bg-white/[0.06] backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
+          <div className="w-16 h-16 rounded-3xl bg-amber-500/20 border border-amber-500/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto shadow-lg">
             <Wrench className="w-8 h-8 animate-bounce" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] uppercase font-mono font-bold tracking-widest text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30">
+            <span className="text-[11px] uppercase font-mono font-bold tracking-widest text-amber-700 dark:text-amber-300 bg-amber-500/15 dark:bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30">
               Scheduled System Upgrade
             </span>
-            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-extrabold bg-gradient-to-r from-amber-600 via-rose-600 to-amber-700 dark:from-amber-300 dark:via-yellow-200 dark:to-amber-500 bg-clip-text text-transparent">
               We'll Be Back Shortly
             </h2>
-            <p className="text-xs leading-relaxed text-slate-200 font-medium">
+            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-200 font-medium">
               We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience and look forward to welcoming you soon.
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-black/50 border border-white/10 text-left text-xs space-y-1.5">
-            <div className="flex justify-between"><span className="text-slate-300 font-medium">Artist:</span><span className="font-bold text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
-            <div className="flex justify-between"><span className="text-slate-300 font-medium">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-pink-400 hover:text-pink-300 underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
+          <div className="p-4 rounded-2xl bg-slate-100 dark:bg-black/50 border border-slate-200 dark:border-white/10 text-left text-xs space-y-1.5">
+            <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-300 font-medium">Artist:</span><span className="font-bold text-slate-900 dark:text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
+            <div className="flex justify-between"><span className="text-slate-500 dark:text-slate-300 font-medium">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-bold text-pink-600 dark:text-pink-300 hover:underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
         </div>
       </div>
@@ -1007,13 +1006,13 @@ function MainAppContent() {
       )}
 
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
           <div className={`max-w-sm w-full rounded-3xl p-6 border shadow-2xl text-center space-y-4 ${isDarkMode ? 'bg-[#0E1326] border-white/20 text-white' : 'bg-white border-slate-200 text-slate-900'}`}>
             <div className="flex items-center justify-between">
-              <span className="font-extrabold text-sm flex items-center gap-1.5 text-cyan-300">
-                <Share2 className="w-4 h-4 text-cyan-400" /> Share Studio Lookbook
+              <span className="font-extrabold text-sm flex items-center gap-1.5 text-blue-600 dark:text-cyan-300">
+                <Share2 className="w-4 h-4 text-blue-600 dark:text-cyan-400" /> Share Studio Lookbook
               </span>
-              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-300 hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white"><X className="w-5 h-5" /></button>
             </div>
 
             <div className="w-48 h-48 mx-auto bg-white p-3 rounded-2xl border border-slate-200 shadow-inner flex items-center justify-center">
@@ -1024,9 +1023,9 @@ function MainAppContent() {
             <div className="flex gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 active:scale-95 text-xs font-bold flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/15 transition text-white"
+                className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 active:scale-95 text-xs font-bold flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/15 transition text-slate-900 dark:text-white"
               >
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className={`w-4 h-4 ${currentTheme.accentText}`} />}
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> : <Copy className={`w-4 h-4 ${currentTheme.accentText}`} />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
 
@@ -1051,12 +1050,12 @@ function MainAppContent() {
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${currentTheme.accentText}`} />
-                <h3 className="font-extrabold text-base sm:text-lg text-white">{viewingPackage.name}</h3>
+                <h3 className="font-extrabold text-base sm:text-lg text-slate-900 dark:text-white">{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-300 hover:text-white"><X className="w-5 h-5" /></button>
+              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden bg-neutral-800 border border-white/10">
+            <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden bg-neutral-800 border border-slate-200 dark:border-white/10">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
@@ -1064,19 +1063,19 @@ function MainAppContent() {
 
             <div className="space-y-2.5 text-xs border-t border-b border-slate-200 dark:border-white/15 py-3">
               <div className="flex justify-between items-start gap-2">
-                <span className="shrink-0 font-medium text-slate-300">Vanity Tier:</span>
-                <strong className="capitalize text-right text-amber-300">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
+                <span className="shrink-0 font-medium text-slate-500 dark:text-slate-300">Vanity Tier:</span>
+                <strong className="capitalize text-right text-amber-700 dark:text-amber-300">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="shrink-0 font-medium text-slate-300">Skin Finish:</span>
-                <span className="text-right text-cyan-300 font-semibold">{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
+                <span className="shrink-0 font-medium text-slate-500 dark:text-slate-300">Skin Finish:</span>
+                <span className="text-right text-blue-700 dark:text-cyan-300 font-semibold">{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="shrink-0 font-medium text-slate-300">Includes:</span>
-                <span className="text-right text-purple-300 font-semibold">{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
+                <span className="shrink-0 font-medium text-slate-500 dark:text-slate-300">Includes:</span>
+                <span className="text-right text-purple-700 dark:text-purple-300 font-semibold">{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
               </div>
               <div className="flex justify-between items-center font-bold text-sm pt-1">
-                <span className="text-slate-200">Rate:</span>
+                <span className="text-slate-700 dark:text-slate-200">Rate:</span>
                 <span className={`${currentTheme.accentText} font-mono text-base font-extrabold`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
               </div>
             </div>
@@ -1103,12 +1102,12 @@ function MainAppContent() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-extrabold shadow-sm relative flex items-center select-none`}>
+        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-white dark:text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-extrabold shadow-sm relative flex items-center select-none`}>
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-bold">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white dark:bg-neutral-950" />
                   {ann}
                 </span>
               ))}
@@ -1116,7 +1115,7 @@ function MainAppContent() {
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-bold" aria-hidden="true">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={`dup_${idx}`} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white dark:bg-neutral-950" />
                   {ann}
                 </span>
               ))}
@@ -1151,7 +1150,7 @@ function MainAppContent() {
                 </h1>
                 <p className={`text-[10px] sm:text-[11px] font-bold ${currentTheme.accentText} flex items-center gap-1 truncate`}>
                   <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
-                  <Sparkles className="w-3 h-3 animate-spin text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
+                  <Sparkles className="w-3 h-3 animate-spin text-amber-500 dark:text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
                 </p>
               </div>
             </div>
@@ -1163,10 +1162,10 @@ function MainAppContent() {
                 className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
                   isDarkMode 
                     ? 'bg-white/[0.08] border-white/20 text-cyan-300 hover:bg-white/15' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
+                    : 'bg-white border-slate-300 text-blue-600 hover:bg-slate-100 shadow-sm'
                 }`}
               >
-                <QrCode className="w-4 h-4 text-cyan-300" />
+                <QrCode className="w-4 h-4 text-blue-600 dark:text-cyan-300" />
               </button>
 
               <button
@@ -1175,7 +1174,7 @@ function MainAppContent() {
                 className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-90 flex items-center justify-center ${
                   isDarkMode 
                     ? 'bg-white/[0.08] border-white/20 text-amber-300 hover:bg-white/15' 
-                    : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-100 shadow-sm'
+                    : 'bg-white border-slate-300 text-amber-600 hover:bg-slate-100 shadow-sm'
                 }`}
               >
                 {isDarkMode ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-indigo-600" />}
@@ -1256,7 +1255,7 @@ function MainAppContent() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-[20px] transition-all duration-300 active:scale-90 ${
-                  isActive ? `${currentTheme.btnPrimary} scale-105` : `text-slate-300 hover:text-white`
+                  isActive ? `${currentTheme.btnPrimary} scale-105` : `text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white`
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -1283,14 +1282,14 @@ function MainAppContent() {
                   onClick={() => setSelectedKit('international')}
                   className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-extrabold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : `${navTextClass}`}`}
                 >
-                  <Crown className="w-4 h-4 text-amber-300 shrink-0" />
+                  <Crown className="w-4 h-4 text-amber-500 dark:text-amber-300 shrink-0" />
                   <span>👑 International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
                   className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-extrabold transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : `${navTextClass}`}`}
                 >
-                  <PackageCheck className="w-4 h-4 text-cyan-300 shrink-0" />
+                  <PackageCheck className="w-4 h-4 text-cyan-600 dark:text-cyan-300 shrink-0" />
                   <span>✨ Premium HD Kit</span>
                 </button>
               </div>
@@ -1306,7 +1305,7 @@ function MainAppContent() {
 
                 return (
                   <div key={`${selectedKit}_${key}`} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.01] animate-fade-in`}>
-                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 relative border border-white/10">
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-2xl overflow-hidden bg-neutral-800 relative border border-slate-200 dark:border-white/10">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded-lg bg-black/70 backdrop-blur-md text-[10px] font-mono font-bold text-amber-300 border border-amber-400/30">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
@@ -1315,19 +1314,19 @@ function MainAppContent() {
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2.5">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className={`font-extrabold text-sm sm:text-base leading-snug text-white`}>
+                          <h4 className={`font-extrabold text-sm sm:text-base leading-snug text-slate-900 dark:text-white`}>
                             {item.num ? `${item.num}. ` : ''}{item.name}
                           </h4>
-                          <span className={`font-mono font-extrabold text-base ${selectedKit === 'international' ? 'text-amber-300' : 'text-cyan-300'} shrink-0`}>
+                          <span className={`font-mono font-extrabold text-base ${selectedKit === 'international' ? 'text-amber-600 dark:text-amber-300' : 'text-blue-600 dark:text-cyan-300'} shrink-0`}>
                             ₹{price.toLocaleString('en-IN')}
                           </span>
                         </div>
-                        <p className={`text-xs mt-1.5 leading-relaxed text-slate-200 font-medium`}>{item.desc}</p>
+                        <p className={`text-xs mt-1.5 leading-relaxed text-slate-600 dark:text-slate-200 font-medium`}>{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                        <span className="text-[11px] text-cyan-300 font-semibold truncate flex items-center gap-1">
-                          <Sparkles className="w-3 h-3 text-amber-300 shrink-0" />
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-white/10">
+                        <span className="text-[11px] text-blue-600 dark:text-cyan-300 font-semibold truncate flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-amber-500 dark:text-amber-300 shrink-0" />
                           16HR HD Glass Finish
                         </span>
 
@@ -1336,7 +1335,7 @@ function MainAppContent() {
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
                             className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center gap-1 transition-all duration-200 active:scale-95 ${isDarkMode ? 'border-white/20 hover:bg-white/10 text-slate-200' : 'border-slate-300 hover:bg-slate-100 text-slate-700'}`}
                           >
-                            <Eye className="w-3.5 h-3.5 text-cyan-300" />
+                            <Eye className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-300" />
                             <span>Details</span>
                           </button>
 
@@ -1379,7 +1378,7 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in border border-white/15`}>
+                  <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-500 flex flex-col justify-between animate-fade-in border border-slate-200 dark:border-white/15`}>
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} currentTheme={currentTheme} />
                     ) : (
@@ -1414,11 +1413,11 @@ function MainAppContent() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${cardBgClass} rounded-2xl p-4.5 transition-all duration-300 hover:scale-[1.02] animate-fade-in space-y-2 border border-white/15`}>
-                  <span className={`text-[10px] font-extrabold text-amber-300 bg-amber-500/20 border border-amber-500/30 uppercase px-2.5 py-0.5 rounded-lg inline-block font-mono`}>
+                <div key={idx} className={`${cardBgClass} rounded-2xl p-4.5 transition-all duration-300 hover:scale-[1.02] animate-fade-in space-y-2 border border-slate-200 dark:border-white/15`}>
+                  <span className={`text-[10px] font-extrabold text-amber-700 dark:text-amber-300 bg-amber-500/15 dark:bg-amber-500/20 border border-amber-500/30 uppercase px-2.5 py-0.5 rounded-lg inline-block font-mono`}>
                     {brand.category}
                   </span>
-                  <h4 className={`font-extrabold text-sm text-cyan-300`}>{brand.name}</h4>
+                  <h4 className={`font-extrabold text-sm text-blue-700 dark:text-cyan-300`}>{brand.name}</h4>
                   <p className={`text-xs ${mutedTextClass} font-medium leading-relaxed`}>{brand.desc}</p>
                 </div>
               ))}
@@ -1431,16 +1430,16 @@ function MainAppContent() {
           <div className="max-w-4xl mx-auto animate-fade-in transition-opacity duration-300">
             {isBookingDone ? (
               <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                   
-                <div className={`inline-block px-3.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-mono font-bold text-xs`}>
+                <div className={`inline-block px-3.5 py-1 rounded-full bg-blue-500/15 dark:bg-cyan-500/20 text-blue-700 dark:text-cyan-300 border border-blue-500/30 dark:border-cyan-400/30 font-mono font-bold text-xs`}>
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
-                <h3 className={`text-xl sm:text-2xl font-extrabold text-white`}>Booking Request Submitted Successfully</h3>
-                <p className={`text-xs text-slate-200 max-w-md mx-auto leading-relaxed font-medium`}>
+                <h3 className={`text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white`}>Booking Request Submitted Successfully</h3>
+                <p className={`text-xs text-slate-600 dark:text-slate-200 max-w-md mx-auto leading-relaxed font-medium`}>
                   Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
 
@@ -1453,35 +1452,35 @@ function MainAppContent() {
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-white/10 hover:bg-white/15 text-xs text-white font-bold rounded-2xl active:scale-95 mt-4 transition border border-white/15`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-xs text-slate-900 dark:text-white font-bold rounded-2xl active:scale-95 mt-4 transition border border-slate-200 dark:border-white/15`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
                 <div className="md:col-span-7 space-y-4 sm:space-y-5">
-                  <div className="border-b border-white/15 pb-2">
-                    <h3 className={`font-extrabold text-sm sm:text-base flex items-center gap-2 text-cyan-300`}>
-                      <Calculator className="w-5 h-5 text-cyan-400" /> 1. Calculate & Choose Looks
+                  <div className="border-b border-slate-200 dark:border-white/15 pb-2">
+                    <h3 className={`font-extrabold text-sm sm:text-base flex items-center gap-2 text-blue-700 dark:text-cyan-300`}>
+                      <Calculator className="w-5 h-5 text-blue-600 dark:text-cyan-400" /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-200`}>Main Makeover Package: Vanity Tier</label>
+                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-700 dark:text-slate-200`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-extrabold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-amber-500/20 text-amber-300 border-amber-400/50 shadow-md` : `${subCardBgClass} text-slate-300`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-extrabold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-cyan-500/20 text-cyan-300 border-cyan-400/50 shadow-md` : `${subCardBgClass} text-slate-300`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-extrabold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-amber-500/15 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border-amber-500/40 dark:border-amber-400/50 shadow-md` : `${subCardBgClass} text-slate-600 dark:text-slate-300`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-extrabold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-blue-500/15 dark:bg-cyan-500/20 text-blue-800 dark:text-cyan-300 border-blue-500/40 dark:border-cyan-400/50 shadow-md` : `${subCardBgClass} text-slate-600 dark:text-slate-300`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-200`}>Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs text-amber-300 font-extrabold`}>
+                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-700 dark:text-slate-200`}>Main Makeover Package: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs text-amber-700 dark:text-amber-300 font-extrabold`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
                         return (
-                          <option key={k} value={k} className="bg-[#121829] text-white py-2 font-medium">
+                          <option key={k} value={k} className="bg-white text-slate-900 dark:bg-[#121829] dark:text-white py-2 font-medium">
                             {pData.num ? `${pData.num}. ` : ''}{pData.name} (₹{pPrice.toLocaleString('en-IN')})
                           </option>
                         );
@@ -1490,48 +1489,48 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-200`}>Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-semibold text-sky-300`}>
+                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 text-slate-700 dark:text-slate-200`}>Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-semibold text-blue-700 dark:text-sky-300`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                        <option key={key} value={key} className="bg-[#121829] text-white py-2 font-medium">{zone.name} (+₹{zone.fee})</option>
+                        <option key={key} value={key} className="bg-white text-slate-900 dark:bg-[#121829] dark:text-white py-2 font-medium">{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-3 border-t border-white/15 space-y-3">
+                  <div className="pt-3 border-t border-slate-200 dark:border-white/15 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className={`font-extrabold text-xs uppercase tracking-wider text-purple-300 flex items-center gap-1.5`}>
-                          <Users className="w-4 h-4 text-purple-400" /> Extra Family Makeup Customizer
+                        <h4 className={`font-extrabold text-xs uppercase tracking-wider text-purple-700 dark:text-purple-300 flex items-center gap-1.5`}>
+                          <Users className="w-4 h-4 text-purple-600 dark:text-purple-400" /> Extra Family Makeup Customizer
                         </h4>
-                        <p className={`text-[11px] text-slate-300 font-medium`}>Choose individual vanity tier & look for each family guest.</p>
+                        <p className={`text-[11px] text-slate-600 dark:text-slate-300 font-medium`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
 
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className={`px-3 py-1.5 rounded-xl bg-purple-500/25 text-purple-200 border border-purple-400/40 text-xs font-bold flex items-center gap-1 active:scale-95 transition hover:bg-purple-500/35`}
+                        className={`px-3 py-1.5 rounded-xl bg-purple-500/15 dark:bg-purple-500/25 text-purple-800 dark:text-purple-200 border border-purple-500/30 dark:border-purple-400/40 text-xs font-bold flex items-center gap-1 active:scale-95 transition hover:bg-purple-500/25`}
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/40 flex items-center justify-between text-xs animate-fade-in">
+                      <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/15 to-teal-500/15 dark:from-emerald-500/20 dark:to-teal-500/20 border border-emerald-500/40 flex items-center justify-between text-xs animate-fade-in">
                         <div className="flex items-center gap-2">
-                          <div className="p-1 rounded-lg bg-emerald-500/30 text-emerald-300">
+                          <div className="p-1 rounded-lg bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-700 dark:text-emerald-300">
                             <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
                           </div>
                           <div>
-                            <p className="text-emerald-300 font-extrabold text-xs">
+                            <p className="text-emerald-800 dark:text-emerald-300 font-extrabold text-xs">
                               Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
                             </p>
-                            <p className={`text-[11px] text-emerald-200/80 font-medium`}>
+                            <p className={`text-[11px] text-emerald-900/80 dark:text-emerald-200/80 font-medium`}>
                               Discount is automatically deducted in the Total Summary.
                             </p>
                           </div>
                         </div>
-                        <span className="text-[11px] font-mono font-extrabold bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 px-2.5 py-1 rounded-full shrink-0">
+                        <span className="text-[11px] font-mono font-extrabold bg-emerald-500/20 dark:bg-emerald-500/30 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 dark:border-emerald-400/40 px-2.5 py-1 rounded-full shrink-0">
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
@@ -1543,39 +1542,39 @@ function MainAppContent() {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className={`p-3.5 rounded-2xl border space-y-2.5 ${subCardBgClass} border-purple-500/30 bg-purple-950/20`}>
+                            <div key={guest.id} className={`p-3.5 rounded-2xl border space-y-2.5 ${subCardBgClass} border-purple-500/30 dark:border-purple-500/30 bg-purple-500/5 dark:bg-purple-950/20`}>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <span className={`text-[11px] font-bold text-purple-300 font-mono`}>Guest #{idx + 1}</span>
-                                  <span className={`text-xs font-extrabold font-mono text-emerald-300`}>
+                                  <span className={`text-[11px] font-bold text-purple-700 dark:text-purple-300 font-mono`}>Guest #{idx + 1}</span>
+                                  <span className={`text-xs font-extrabold font-mono text-emerald-700 dark:text-emerald-300`}>
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/20 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
                               <div className="grid grid-cols-2 gap-2">
                                 <div>
-                                  <label className={`block text-[10px] font-bold mb-1 text-slate-300`}>Vanity Tier</label>
+                                  <label className={`block text-[10px] font-bold mb-1 text-slate-600 dark:text-slate-300`}>Vanity Tier</label>
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={`w-full p-2.5 rounded-xl text-xs font-bold border ${inputBgClass} text-amber-300`}
+                                    className={`w-full p-2.5 rounded-xl text-xs font-bold border ${inputBgClass} text-amber-700 dark:text-amber-300`}
                                   >
-                                    <option value="international" className="bg-[#121829] text-white py-1">👑 Luxury Kit</option>
-                                    <option value="drugstore" className="bg-[#121829] text-white py-1">✨ HD Kit</option>
+                                    <option value="international" className="bg-white text-slate-900 dark:bg-[#121829] dark:text-white py-1">👑 Luxury Kit</option>
+                                    <option value="drugstore" className="bg-white text-slate-900 dark:bg-[#121829] dark:text-white py-1">✨ HD Kit</option>
                                   </select>
                                 </div>
 
                                 <div>
-                                  <label className={`block text-[10px] font-bold mb-1 text-slate-300`}>Package Look</label>
+                                  <label className={`block text-[10px] font-bold mb-1 text-slate-600 dark:text-slate-300`}>Package Look</label>
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2.5 rounded-xl text-xs font-bold border ${inputBgClass} text-cyan-300`}
+                                    className={`w-full p-2.5 rounded-xl text-xs font-bold border ${inputBgClass} text-blue-700 dark:text-cyan-300`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
-                                      <option key={k} value={k} className="bg-[#121829] text-white py-1">
+                                      <option key={k} value={k} className="bg-white text-slate-900 dark:bg-[#121829] dark:text-white py-1">
                                         {config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})
                                       </option>
                                     ))}
@@ -1590,67 +1589,67 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-3 border-t border-white/15 space-y-2">
-                      <label className={`block text-xs font-extrabold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5`}>
-                        <Tag className="w-3.5 h-3.5 text-cyan-400" /> Promo Coupon Code
+                    <div className="pt-3 border-t border-slate-200 dark:border-white/15 space-y-2">
+                      <label className={`block text-xs font-extrabold text-blue-700 dark:text-cyan-300 uppercase tracking-wider flex items-center gap-1.5`}>
+                        <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-emerald-500/15 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
+                        <div className="bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-xs font-extrabold text-emerald-300 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                              <span className="text-xs font-extrabold text-emerald-800 dark:text-emerald-300 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
                               {appliedCoupon.expiryDate && (() => {
                                 const tr = getTimeRemaining(appliedCoupon.expiryDate);
                                 return tr && !tr.expired ? (
-                                  <span className="text-[10px] font-mono font-bold bg-amber-500/25 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 dark:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 dark:border-amber-500/40 px-2 py-0.5 rounded-full flex items-center gap-1">
                                     <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
                                   </span>
                                 ) : null;
                               })()}
                             </div>
-                            <p className="text-[11px] text-emerald-200 font-medium">
+                            <p className="text-[11px] text-emerald-900 dark:text-emerald-200 font-medium">
                               🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-400 hover:text-rose-300 text-xs font-bold underline shrink-0">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-500 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300 text-xs font-bold underline shrink-0">Remove</button>
                         </div>
                       ) : (
                         <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold text-amber-300`} />
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-bold text-amber-700 dark:text-amber-300`} />
                           <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-95 transition-transform duration-200`}>Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-400 font-medium">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-500 dark:text-rose-400 font-medium">{couponError}</p>}
                     </div>
                   )}
 
                   {/* 2. CLIENT CONTACT DETAILS */}
-                  <div className="pt-3 border-t border-white/15 space-y-3">
-                    <h4 className={`font-extrabold text-xs uppercase tracking-wider text-cyan-300 flex items-center gap-1.5`}>
-                      <User className="w-4 h-4 text-cyan-400" /> 2. Enter Client Details to Lock Date
+                  <div className="pt-3 border-t border-slate-200 dark:border-white/15 space-y-3">
+                    <h4 className={`font-extrabold text-xs uppercase tracking-wider text-blue-700 dark:text-cyan-300 flex items-center gap-1.5`}>
+                      <User className="w-4 h-4 text-blue-600 dark:text-cyan-400" /> 2. Enter Client Details to Lock Date
                     </h4>
 
                     <div>
-                      <label className={`block text-xs font-bold text-slate-300 mb-1`}>Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-white font-medium`} />
+                      <label className={`block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1`}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-slate-900 dark:text-white font-medium`} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className={`block text-xs font-bold text-slate-300 mb-1`}>Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-mono text-cyan-300`} />
+                        <label className={`block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1`}>Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-mono text-blue-700 dark:text-cyan-300 font-semibold`} />
                       </div>
                       <div>
-                        <label className={`block text-xs font-bold text-slate-300 mb-1`}>Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-mono text-amber-300`} />
+                        <label className={`block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1`}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-mono text-amber-700 dark:text-amber-300 font-semibold`} />
                       </div>
                     </div>
 
                     {/* 3. VENUE DELIVERY ADDRESS SECTION */}
-                    <div className="pt-3 border-t border-white/15 space-y-3">
+                    <div className="pt-3 border-t border-slate-200 dark:border-white/15 space-y-3">
                       <div className="flex items-center justify-between">
-                        <h4 className={`font-extrabold text-xs uppercase tracking-wider text-sky-300 flex items-center gap-1.5`}>
-                          <MapPin className="w-4 h-4 text-sky-400" /> 3. Destination Venue & Address
+                        <h4 className={`font-extrabold text-xs uppercase tracking-wider text-blue-700 dark:text-sky-300 flex items-center gap-1.5`}>
+                          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400" /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
@@ -1661,7 +1660,7 @@ function MainAppContent() {
                               className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all ${
                                 addressType === type 
                                   ? `${currentTheme.btnPrimary}` 
-                                  : `${subCardBgClass} text-slate-300`
+                                  : `${subCardBgClass} text-slate-600 dark:text-slate-300`
                               }`}
                             >
                               {type === 'Work' ? '🏢 Work / Office' : '🏠 Home'}
@@ -1672,7 +1671,7 @@ function MainAppContent() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className={`block text-[11px] font-bold text-slate-300 mb-1`}>Postal PIN Code *</label>
+                          <label className={`block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1`}>Postal PIN Code *</label>
                           <input 
                             type="text" 
                             required 
@@ -1680,67 +1679,67 @@ function MainAppContent() {
                             placeholder="e.g. 110025" 
                             value={pincode} 
                             onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} font-mono font-bold text-xs text-purple-300`} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} font-mono font-bold text-xs text-purple-700 dark:text-purple-300`} 
                           />
                         </div>
 
                         <div>
-                          <label className={`block text-[11px] font-bold text-slate-300 mb-1`}>Flat, House No., Building Name</label>
+                          <label className={`block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1`}>Flat, House No., Building Name</label>
                           <input 
                             type="text" 
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-white`} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-slate-900 dark:text-white`} 
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className={`block text-[11px] font-bold text-slate-300 mb-1`}>Street, Sector, Area, Locality *</label>
+                        <label className={`block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1`}>Street, Sector, Area, Locality *</label>
                         <input 
                           type="text" 
                           required 
                           placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
-                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-white`} 
+                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-slate-900 dark:text-white`} 
                         />
                       </div>
 
                       <div>
-                        <label className={`block text-[11px] font-bold text-slate-300 mb-1`}>Landmark (Optional)</label>
+                        <label className={`block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1`}>Landmark (Optional)</label>
                         <input 
                           type="text" 
                           placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
-                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-slate-200`} 
+                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-slate-700 dark:text-slate-200`} 
                         />
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className={`block text-[11px] font-bold text-slate-300 mb-1`}>Town / City *</label>
+                          <label className={`block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1`}>Town / City *</label>
                           <input 
                             type="text" 
                             required 
                             placeholder="e.g. New Delhi" 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-sky-200 font-semibold`} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-blue-700 dark:text-sky-200 font-semibold`} 
                           />
                         </div>
 
                         <div>
-                          <label className={`block text-[11px] font-bold text-slate-300 mb-1`}>State / Region *</label>
+                          <label className={`block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1`}>State / Region *</label>
                           <input 
                             type="text" 
                             required 
                             placeholder="e.g. Delhi" 
                             value={state} 
                             onChange={(e) => setState(e.target.value)} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-sky-200 font-semibold`} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs text-blue-700 dark:text-sky-200 font-semibold`} 
                           />
                         </div>
                       </div>
@@ -1749,49 +1748,49 @@ function MainAppContent() {
                 </div>
 
                 {/* RIGHT COLUMN: HIGH-CONTRAST COLORFUL SUMMARY */}
-                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-lg border border-white/20`}>
+                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-lg border border-slate-200 dark:border-white/20`}>
                   <div>
-                    <span className={`text-[11px] font-extrabold uppercase tracking-widest text-cyan-300`}>Total Amount Summary</span>
-                    <div className={`mt-2 text-3xl sm:text-4xl font-extrabold flex items-baseline gap-1.5 text-white`}>
-                      <span className={`text-cyan-300 text-2xl sm:text-3xl`}>₹</span>
-                      <span className="tracking-tight text-white">{finalEstimate.toLocaleString('en-IN')}</span>
+                    <span className={`text-[11px] font-extrabold uppercase tracking-widest text-blue-700 dark:text-cyan-300`}>Total Amount Summary</span>
+                    <div className={`mt-2 text-3xl sm:text-4xl font-extrabold flex items-baseline gap-1.5 text-slate-900 dark:text-white`}>
+                      <span className={`text-blue-600 dark:text-cyan-300 text-2xl sm:text-3xl`}>₹</span>
+                      <span className="tracking-tight text-slate-900 dark:text-white">{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3.5 text-xs border-t border-b border-white/15 py-3.5">
+                  <div className="space-y-3.5 text-xs border-t border-b border-slate-200 dark:border-white/15 py-3.5">
                     {/* SECTION 1: MAIN MAKEOVER PACKAGE (SKY BLUE) */}
-                    <div className={`p-3.5 rounded-2xl bg-sky-500/15 border border-sky-400/30 space-y-2 text-sky-200`}>
-                      <div className="flex justify-between items-center font-extrabold text-xs sm:text-[13px] text-sky-300">
+                    <div className={`p-3.5 rounded-2xl bg-blue-500/10 dark:bg-sky-500/15 border border-blue-500/20 dark:border-sky-400/30 space-y-2 text-blue-900 dark:text-sky-200`}>
+                      <div className="flex justify-between items-center font-extrabold text-xs sm:text-[13px] text-blue-700 dark:text-sky-300">
                         <span>1. Main Makeover Package:</span>
-                        <span className="font-mono text-white">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
+                        <span className="font-mono text-slate-900 dark:text-white">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className={`flex justify-between text-slate-300 pl-1 text-[11px]`}>
+                      <div className={`flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]`}>
                         <span>• Vanity:</span>
-                        <span className={`font-semibold text-right text-amber-300`}>{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</span>
+                        <span className={`font-semibold text-right text-amber-700 dark:text-amber-300`}>{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</span>
                       </div>
-                      <div className={`flex justify-between text-slate-300 pl-1 text-[11px]`}>
+                      <div className={`flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]`}>
                         <span>• Package:</span>
-                        <span className={`font-semibold text-right text-white`}>{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
+                        <span className={`font-semibold text-right text-slate-900 dark:text-white`}>{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
                       </div>
-                      <div className={`flex justify-between text-slate-300 pl-1 text-[11px]`}>
+                      <div className={`flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]`}>
                         <span>• Package Price:</span>
-                        <span className={`font-mono font-bold text-amber-300`}>₹{mainPackagePrice.toLocaleString('en-IN')}</span>
+                        <span className={`font-mono font-bold text-amber-700 dark:text-amber-300`}>₹{mainPackagePrice.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className={`flex justify-between text-slate-300 pl-1 text-[11px]`}>
+                      <div className={`flex justify-between text-slate-600 dark:text-slate-300 pl-1 text-[11px]`}>
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
-                        <span className={`font-mono font-bold text-sky-300`}>₹{zoneFee.toLocaleString('en-IN')}</span>
+                        <span className={`font-mono font-bold text-blue-700 dark:text-sky-300`}>₹{zoneFee.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between items-center border-t border-sky-400/30 pt-2 mt-1 font-extrabold text-[11px] text-sky-300">
+                      <div className="flex justify-between items-center border-t border-blue-500/20 dark:border-sky-400/30 pt-2 mt-1 font-extrabold text-[11px] text-blue-700 dark:text-sky-300">
                         <span>Main Makeover Total:</span>
-                        <span className="font-mono text-white">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
+                        <span className="font-mono text-slate-900 dark:text-white">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
                     {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS (PURPLE) */}
-                    <div className="p-3.5 rounded-2xl bg-purple-500/15 border border-purple-400/30 space-y-2 text-purple-200">
-                      <div className="flex justify-between items-center font-extrabold text-xs sm:text-[13px] text-purple-300">
+                    <div className="p-3.5 rounded-2xl bg-purple-500/10 dark:bg-purple-500/15 border border-purple-500/20 dark:border-purple-400/30 space-y-2 text-purple-900 dark:text-purple-200">
+                      <div className="flex justify-between items-center font-extrabold text-xs sm:text-[13px] text-purple-700 dark:text-purple-300">
                         <span>2. Extra Family Makeovers ({familyGuests.length}):</span>
-                        <span className="font-mono text-white">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                        <span className="font-mono text-slate-900 dark:text-white">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
                       {familyGuests.length > 0 ? (
                         familyGuests.map((g, i) => {
@@ -1799,79 +1798,79 @@ function MainAppContent() {
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                           const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
                           return (
-                            <div key={i} className={`rounded-xl bg-black/40 border border-purple-400/25 p-2.5 space-y-1 text-[11px]`}>
-                              <div className={`flex justify-between gap-3 text-slate-300`}>
+                            <div key={i} className={`rounded-xl bg-white dark:bg-black/40 border border-purple-500/20 dark:border-purple-400/25 p-2.5 space-y-1 text-[11px]`}>
+                              <div className={`flex justify-between gap-3 text-slate-600 dark:text-slate-300`}>
                                 <span>• Makeover #{i + 1} ({vanityName}):</span>
-                                <span className={`font-semibold text-right text-cyan-300`}>{pkgN}</span>
+                                <span className={`font-semibold text-right text-blue-700 dark:text-cyan-300`}>{pkgN}</span>
                               </div>
                               <div className="flex justify-between gap-3">
-                                <span className="text-slate-300">• Price:</span>
-                                <span className={`font-mono font-bold text-purple-300`}>₹{gp.toLocaleString('en-IN')}</span>
+                                <span className="text-slate-600 dark:text-slate-300">• Price:</span>
+                                <span className={`font-mono font-bold text-purple-700 dark:text-purple-300`}>₹{gp.toLocaleString('en-IN')}</span>
                               </div>
                             </div>
                           );
                         })
                       ) : (
-                        <div className={`flex justify-between text-slate-300 pl-1 text-[11px]`}>
+                        <div className={`flex justify-between text-slate-500 dark:text-slate-300 pl-1 text-[11px]`}>
                           <span>• No additional family guests selected</span>
                           <span className={`font-mono text-slate-400`}>₹0</span>
                         </div>
                       )}
-                      <div className="flex justify-between items-center border-t border-purple-400/30 pt-2 mt-1 font-extrabold text-[11px] text-purple-300">
+                      <div className="flex justify-between items-center border-t border-purple-500/20 dark:border-purple-400/30 pt-2 mt-1 font-extrabold text-[11px] text-purple-700 dark:text-purple-300">
                         <span>Additional Family Total:</span>
-                        <span className="font-mono text-white">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                        <span className="font-mono text-slate-900 dark:text-white">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className={`flex justify-between items-center px-3 py-2 text-xs sm:text-[13px] font-extrabold text-white rounded-xl bg-white/10 border border-white/15`}>
+                    <div className={`flex justify-between items-center px-3 py-2 text-xs sm:text-[13px] font-extrabold text-slate-900 dark:text-white rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15`}>
                       <span>Booking Total Before Discounts:</span>
-                      <span className="font-mono text-amber-300 text-sm">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                      <span className="font-mono text-amber-700 dark:text-amber-300 text-sm">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
                     {/* SECTION 3: DISCOUNTS & OFFERS (EMERALD GREEN) */}
-                    <div className="p-3.5 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 space-y-2 text-emerald-200">
-                      <div className="flex justify-between items-center font-extrabold text-xs sm:text-[13px] text-emerald-300">
+                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/20 dark:border-emerald-400/30 space-y-2 text-emerald-900 dark:text-emerald-200">
+                      <div className="flex justify-between items-center font-extrabold text-xs sm:text-[13px] text-emerald-700 dark:text-emerald-300">
                         <span>3. Discounts & Offers:</span>
-                        <span className="font-mono text-emerald-300">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
+                        <span className="font-mono text-emerald-700 dark:text-emerald-300">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
 
                       {guestDiscountSavedAmount > 0 && (
-                        <div className="flex justify-between pl-1 text-[11px] font-semibold text-emerald-200">
+                        <div className="flex justify-between pl-1 text-[11px] font-semibold text-emerald-800 dark:text-emerald-200">
                           <span>• Extra Family Discount ({guestDiscountPercent}%):</span>
-                          <span className="font-mono font-bold text-emerald-300">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
+                          <span className="font-mono font-bold text-emerald-700 dark:text-emerald-300">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
                       {appliedCoupon && couponDiscountAmount > 0 && (
-                        <div className="flex justify-between pl-1 text-[11px] font-semibold text-emerald-200">
+                        <div className="flex justify-between pl-1 text-[11px] font-semibold text-emerald-800 dark:text-emerald-200">
                           <span>• Promo Code ({appliedCoupon.code}):</span>
-                          <span className="font-mono font-bold text-emerald-300">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
+                          <span className="font-mono font-bold text-emerald-700 dark:text-emerald-300">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
                       {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
-                        <div className={`flex justify-between text-slate-300 pl-1 text-[11px]`}>
+                        <div className={`flex justify-between text-slate-500 dark:text-slate-300 pl-1 text-[11px]`}>
                           <span>• No discount applied</span>
                           <span className={`font-mono text-slate-400`}>₹0</span>
                         </div>
                       )}
 
-                      <div className="border-t border-emerald-400/30 pt-2 mt-1 flex justify-between items-center font-extrabold text-xs text-emerald-300">
+                      <div className="border-t border-emerald-500/20 dark:border-emerald-400/30 pt-2 mt-1 flex justify-between items-center font-extrabold text-xs text-emerald-700 dark:text-emerald-300">
                         <span>Total Discounts Saved:</span>
                         <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
                     {/* FINAL AMOUNT CARD */}
-                    <div className="p-4 rounded-2xl bg-black/60 border border-cyan-400/40 shadow-xl shadow-cyan-950/40">
+                    <div className="p-4 rounded-2xl bg-white dark:bg-black/60 border border-blue-500/30 dark:border-cyan-400/40 shadow-xl shadow-cyan-950/20 dark:shadow-cyan-950/40">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className={`text-[11px] uppercase tracking-wider font-extrabold text-cyan-300`}>Final Payable</p>
-                          <p className={`text-[10px] mt-0.5 text-slate-300 font-medium`}>Net all-inclusive rate</p>
+                          <p className={`text-[11px] uppercase tracking-wider font-extrabold text-blue-700 dark:text-cyan-300`}>Final Payable</p>
+                          <p className={`text-[10px] mt-0.5 text-slate-500 dark:text-slate-300 font-medium`}>Net all-inclusive rate</p>
                         </div>
                         <div className="text-right">
-                          <div className={`text-2xl sm:text-3xl font-black text-white font-mono`}>
+                          <div className={`text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-mono`}>
                             ₹{finalEstimate.toLocaleString('en-IN')}
                           </div>
                         </div>
@@ -1897,19 +1896,19 @@ function MainAppContent() {
         {activeTab === 'feedback' && (
           <div className={`p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-2xl mx-auto space-y-5 animate-fade-in`}>
             <div className="text-center space-y-1">
-              <span className={`text-[10px] font-extrabold uppercase tracking-wider text-cyan-300`}>Client Experience</span>
+              <span className={`text-[10px] font-extrabold uppercase tracking-wider text-blue-700 dark:text-cyan-300`}>Client Experience</span>
               <h3 className={`text-xl sm:text-2xl font-extrabold ${primaryTextClass}`}>Feedback & Suggestions</h3>
               <p className={`text-xs ${mutedTextClass} font-medium`}>Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-center space-y-2 animate-fade-in">
-                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-                <h4 className="font-extrabold text-sm text-emerald-300">Thank you for your valuable feedback!</h4>
-                <p className="text-xs text-slate-200 font-medium">Your suggestion has been securely submitted to our studio team.</p>
+              <div className="p-6 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/30 dark:border-emerald-500/40 text-center space-y-2 animate-fade-in">
+                <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
+                <h4 className="font-extrabold text-sm text-emerald-800 dark:text-emerald-300">Thank you for your valuable feedback!</h4>
+                <p className="text-xs text-slate-600 dark:text-slate-200 font-medium">Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
-                  className="mt-3 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white transition border border-white/15"
+                  className="mt-3 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/15 text-xs font-bold text-slate-900 dark:text-white transition border border-slate-200 dark:border-white/15"
                 >
                   Submit Another Feedback
                 </button>
@@ -1924,7 +1923,7 @@ function MainAppContent() {
                       onClick={() => setFeedbackRating(star)}
                       className="p-1 active:scale-125 transition"
                     >
-                      <Star className={`w-7 h-7 ${star <= feedbackRating ? 'text-amber-300 fill-amber-300 drop-shadow' : 'text-slate-600'}`} />
+                      <Star className={`w-7 h-7 ${star <= feedbackRating ? 'text-amber-500 dark:text-amber-300 fill-amber-500 dark:fill-amber-300 drop-shadow' : 'text-slate-300 dark:text-slate-600'}`} />
                     </button>
                   ))}
                 </div>
@@ -1935,14 +1934,14 @@ function MainAppContent() {
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={`w-full p-3 rounded-2xl text-xs text-white ${inputBgClass}`}
+                    className={`w-full p-3 rounded-2xl text-xs text-slate-900 dark:text-white ${inputBgClass}`}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={`w-full p-3 rounded-2xl text-xs text-cyan-300 font-mono ${inputBgClass}`}
+                    className={`w-full p-3 rounded-2xl text-xs text-blue-700 dark:text-cyan-300 font-mono ${inputBgClass}`}
                   />
                 </div>
 
@@ -1952,7 +1951,7 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={`w-full p-3 rounded-2xl text-xs text-white ${inputBgClass}`}
+                  className={`w-full p-3 rounded-2xl text-xs text-slate-900 dark:text-white ${inputBgClass}`}
                 />
 
                 <button
@@ -1973,39 +1972,39 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border border-amber-400/40 p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
+          className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border border-amber-500/40 dark:border-amber-400/40 p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-300 ${
             isDarkMode ? 'bg-[#0A0E22]/95 text-white shadow-cyan-950/60' : 'bg-white/95 text-slate-900 shadow-slate-300/60'
           }`}
         >
           <div className="flex items-start justify-between gap-3">
-            <Gift className={`w-5 h-5 text-amber-300 shrink-0 mt-0.5`} />
+            <Gift className={`w-5 h-5 text-amber-600 dark:text-amber-300 shrink-0 mt-0.5`} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`text-[10px] font-extrabold bg-amber-500/25 text-amber-300 border border-amber-400/40 uppercase px-2 py-0.5 rounded-full font-mono`}>
+                <span className={`text-[10px] font-extrabold bg-amber-500/15 dark:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 dark:border-amber-400/40 uppercase px-2 py-0.5 rounded-full font-mono`}>
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-bold bg-rose-500/25 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                  <span className="text-[10px] font-mono font-bold bg-rose-500/15 dark:bg-rose-500/25 text-rose-700 dark:text-rose-300 border border-rose-500/30 dark:border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className="text-[10px] font-mono font-bold bg-amber-500/25 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold bg-amber-500/15 dark:bg-amber-500/25 text-amber-800 dark:text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                     <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
               </div>
 
-              <h4 className="font-extrabold text-xs mt-1.5 leading-snug text-white">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <h4 className="font-extrabold text-xs mt-1.5 leading-snug text-slate-900 dark:text-white">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
               <p className={`text-[11px] mt-0.5 ${mutedTextClass} font-medium`}>
                 {isFloatingExpired ? (
-                  <span className="text-rose-400 font-medium">This promotion code has ended.</span>
+                  <span className="text-rose-600 dark:text-rose-400 font-medium">This promotion code has ended.</span>
                 ) : (
-                  <>Use code <span className={`text-amber-300 font-mono font-extrabold`}>{floatingPromoCode}</span></>
+                  <>Use code <span className={`text-amber-700 dark:text-amber-300 font-mono font-extrabold`}>{floatingPromoCode}</span></>
                 )}
               </p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-300 hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
           </div>
 
           <button 
@@ -2018,7 +2017,7 @@ function MainAppContent() {
             }} 
             className={`mt-3 w-full py-2 text-xs rounded-2xl shadow transition-transform duration-200 ${
               isFloatingExpired 
-                ? 'bg-slate-700/60 text-slate-400 border border-white/10 cursor-not-allowed' 
+                ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
                 : `${currentTheme.btnPrimary} active:scale-95`
             }`}
           >
