@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-100 dark:bg-[#040714] text-slate-900 dark:text-white flex items-center justify-center p-6 text-center animate-fade-in">
-          <div className="max-w-md w-full liquid-drop-card p-8 space-y-4 shadow-2xl transition-all duration-500">
-            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-500 dark:text-amber-300 flex items-center justify-center mx-auto border border-amber-500/40 animate-bounce">
+        <div className="min-h-screen bg-[#070b19] text-white flex items-center justify-center p-6 text-center animate-fade-in">
+          <div className="max-w-md w-full real-water-drop p-8 space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto border border-amber-500/40 animate-bounce">
               <ShieldAlert className="w-8 h-8" />
             </div>
-            <h2 className="text-xl font-black text-amber-700 dark:text-amber-300 tracking-wide">System Safe Mode Active</h2>
-            <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-semibold">
+            <h2 className="text-xl font-black text-amber-300 tracking-wide">System Safe Mode Active</h2>
+            <p className="text-xs text-slate-200 leading-relaxed font-semibold">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3.5 liquid-drop-btn text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
+              className="w-full py-3.5 water-drop-btn text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
             >
               Refresh to Safe Version
             </button>
@@ -183,7 +183,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[28px]">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px]">
       <video
         ref={videoRef}
         src={item.url}
@@ -789,10 +789,10 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // Pure Apple SF Pro Native Typographic Stack
+  // Pure Apple SF Pro Typographic Stack
   const currentFontFamily = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif";
 
-  // Dynamic High-Contrast Contrast Variables
+  // Dynamic Contrast Colors
   const titleText = isDarkMode ? "text-white font-black" : "text-slate-950 font-black";
   const bodyText = isDarkMode ? "text-slate-100 font-semibold" : "text-slate-800 font-semibold";
   const labelText = isDarkMode ? "text-slate-300 font-bold" : "text-slate-600 font-bold";
@@ -817,7 +817,7 @@ function MainAppContent() {
     return (
       <div style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} className="min-h-screen bg-slate-100 dark:bg-[#030612] flex items-center justify-center p-4 relative overflow-hidden select-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="max-w-md w-full liquid-drop-card p-8 text-center space-y-5 animate-fade-in">
+        <div className="max-w-md w-full real-water-drop p-8 text-center space-y-5 animate-fade-in">
           <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-500 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
             <Wrench className="w-8 h-8" />
           </div>
@@ -849,115 +849,135 @@ function MainAppContent() {
       className="min-h-screen dynamic-liquid-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none"
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* Comprehensive iOS Liquid Glass & Water Drop Caustics CSS */}
+      {/* Real Water Drop Lens Physics & High-Contrast Scoped Styles */}
       <style>{`
-        /* Dynamic Multi-Layer Water Drop Background */
+        /* Dynamic Multi-Layer Animated Liquid Mesh Backdrop */
         .dynamic-liquid-bg {
-          background-color: #F3F6FD;
+          background-color: #F0F4FD;
           background-image: 
-            radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.2) 0px, transparent 50%),
-            radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
-            radial-gradient(at 50% 50%, rgba(45, 212, 191, 0.15) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.18) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, rgba(96, 165, 250, 0.2) 0px, transparent 50%);
+            radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.28) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.22) 0px, transparent 50%),
+            radial-gradient(at 50% 50%, rgba(45, 212, 191, 0.22) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.25) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(96, 165, 250, 0.28) 0px, transparent 50%);
         }
         .dark .dynamic-liquid-bg {
           background-color: #030612;
           background-image: 
-            radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.25) 0px, transparent 50%),
-            radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.25) 0px, transparent 50%),
-            radial-gradient(at 50% 50%, rgba(20, 184, 166, 0.18) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.22) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.25) 0px, transparent 50%);
+            radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.35) 0px, transparent 50%),
+            radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.32) 0px, transparent 50%),
+            radial-gradient(at 50% 50%, rgba(20, 184, 166, 0.25) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.30) 0px, transparent 50%),
+            radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.35) 0px, transparent 50%);
         }
 
-        /* 1. iOS Water Drop Main Glass Surfaces (Refraction + Top Specular Highlight) */
-        .liquid-drop-card {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(32px) saturate(200%);
-          -webkit-backdrop-filter: blur(32px) saturate(200%);
-          border: 1px solid rgba(255, 255, 255, 0.85);
+        /* 1. Real 3D Water Drop Glass Surface (12% Translucency + Arched Reflection + Bevel Shadows) */
+        .real-water-drop {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.12) 75%);
+          backdrop-filter: blur(28px) saturate(210%);
+          -webkit-backdrop-filter: blur(28px) saturate(210%);
+          border: 1.5px solid rgba(255, 255, 255, 0.65);
           box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.05),
-            0 16px 40px rgba(15, 23, 42, 0.08);
+            inset 0 2.5px 3.5px rgba(255, 255, 255, 0.95),
+            inset 0 -3px 6px rgba(0, 0, 0, 0.08),
+            0 18px 45px rgba(15, 23, 42, 0.1);
           border-radius: 36px;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .dark .liquid-drop-card {
-          background: rgba(11, 19, 43, 0.65);
-          border: 1px solid rgba(255, 255, 255, 0.18);
+        .dark .real-water-drop {
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16) 0%, rgba(10, 18, 42, 0.25) 80%);
+          border: 1.5px solid rgba(255, 255, 255, 0.28);
           box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
-            inset 0 -2px 6px rgba(0, 0, 0, 0.5),
-            0 24px 50px rgba(0, 0, 0, 0.7);
+            inset 0 2.5px 3.5px rgba(255, 255, 255, 0.6),
+            inset 0 -4px 8px rgba(0, 0, 0, 0.6),
+            0 24px 60px rgba(0, 0, 0, 0.85);
         }
 
-        /* 2. iOS Water Drop Sub-Cards & Micro Glass Capsules */
-        .liquid-drop-subcard {
-          background: rgba(255, 255, 255, 0.65);
-          backdrop-filter: blur(24px) saturate(190%);
-          -webkit-backdrop-filter: blur(24px) saturate(190%);
-          border: 1px solid rgba(255, 255, 255, 0.75);
+        /* Water Drop Gloss Specular Arch */
+        .real-water-drop::before {
+          content: "";
+          position: absolute;
+          top: 3px;
+          left: 12%;
+          right: 12%;
+          height: 38%;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.0) 100%);
+          border-radius: 9999px 9999px 40px 40px;
+          pointer-events: none;
+        }
+        .dark .real-water-drop::before {
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.0) 100%);
+        }
+
+        /* 2. Sub-Capsules Water Drop */
+        .water-drop-subcard {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 85%);
+          backdrop-filter: blur(20px) saturate(190%);
+          -webkit-backdrop-filter: blur(20px) saturate(190%);
+          border: 1.5px solid rgba(255, 255, 255, 0.6);
           box-shadow: 
-            inset 0 1px 1.5px rgba(255, 255, 255, 0.8),
-            inset 0 -1.5px 3px rgba(0, 0, 0, 0.04),
-            0 8px 25px rgba(15, 23, 42, 0.05);
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.06),
+            0 10px 30px rgba(15, 23, 42, 0.06);
           border-radius: 28px;
         }
-        .dark .liquid-drop-subcard {
-          background: rgba(255, 255, 255, 0.06);
-          border: 1px solid rgba(255, 255, 255, 0.14);
+        .dark .water-drop-subcard {
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 85%);
+          border: 1.5px solid rgba(255, 255, 255, 0.2);
           box-shadow: 
-            inset 0 1px 1.5px rgba(255, 255, 255, 0.3),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.4),
-            0 12px 30px rgba(0, 0, 0, 0.5);
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
+            inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+            0 14px 35px rgba(0, 0, 0, 0.6);
         }
 
-        /* 3. iOS Water Drop Action Buttons (High Vibrancy & Caustic Rim) */
-        .liquid-drop-btn {
+        /* 3. Water Drop Action Buttons (High Vibrancy & Caustic Shine) */
+        .water-drop-btn {
           background: linear-gradient(135deg, #06b6d4 0%, #0284c7 50%, #4f46e5 100%);
-          border: 1px solid rgba(255, 255, 255, 0.5);
+          border: 1.5px solid rgba(255, 255, 255, 0.65);
           box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.7),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.25),
-            0 10px 25px rgba(6, 182, 212, 0.35);
+            inset 0 2px 3px rgba(255, 255, 255, 0.8),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+            0 12px 30px rgba(6, 182, 212, 0.45);
           border-radius: 9999px;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .liquid-drop-btn:hover {
+        .water-drop-btn:hover {
           transform: translateY(-1.5px) scale(1.02);
           box-shadow: 
-            inset 0 2px 3px rgba(255, 255, 255, 0.9),
-            0 16px 35px rgba(6, 182, 212, 0.5);
+            inset 0 2px 4px rgba(255, 255, 255, 0.95),
+            0 16px 40px rgba(6, 182, 212, 0.6);
         }
-        .liquid-drop-btn:active {
+        .water-drop-btn:active {
           transform: scale(0.95);
         }
 
-        /* 4. iOS Liquid Input Capsule */
-        .liquid-drop-input {
-          background: rgba(255, 255, 255, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.9);
+        /* 4. Water Drop Inputs & Select Elements */
+        .water-drop-input {
+          background: rgba(255, 255, 255, 0.65);
+          border: 1.5px solid rgba(255, 255, 255, 0.75);
           box-shadow: 
-            inset 0 1px 2px rgba(0, 0, 0, 0.06),
-            0 4px 15px rgba(15, 23, 42, 0.04);
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.8),
+            inset 0 -1.5px 3px rgba(0, 0, 0, 0.05),
+            0 6px 18px rgba(15, 23, 42, 0.05);
           border-radius: 9999px;
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
           transition: all 0.3s ease;
         }
-        .dark .liquid-drop-input {
-          background: rgba(6, 12, 28, 0.85);
-          border: 1px solid rgba(6, 182, 212, 0.4);
+        .dark .water-drop-input {
+          background: rgba(6, 12, 28, 0.7);
+          border: 1.5px solid rgba(6, 182, 212, 0.45);
           box-shadow: 
-            inset 0 1px 3px rgba(0, 0, 0, 0.6),
-            0 4px 20px rgba(0, 0, 0, 0.4);
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.6),
+            0 6px 24px rgba(0, 0, 0, 0.5);
           color: #FFFFFF !important;
         }
-        .dark .liquid-drop-input:focus {
+        .dark .water-drop-input:focus {
           border-color: #67e8f9 !important;
-          box-shadow: 0 0 20px rgba(103, 232, 249, 0.4) !important;
+          box-shadow: 0 0 22px rgba(103, 232, 249, 0.5) !important;
         }
 
         /* Dropdown options rendering fix */
@@ -1032,7 +1052,7 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
-          <div className="max-w-sm w-full liquid-drop-card p-6 text-center space-y-4 ios-tab-spring">
+          <div className="max-w-sm w-full real-water-drop p-6 text-center space-y-4 ios-tab-spring">
             <div className="flex items-center justify-between">
               <span className={`font-black text-sm flex items-center gap-1.5 ${cyanAccent}`}>
                 <Share2 className="w-4 h-4 text-blue-600 dark:text-cyan-400 animate-pulse" /> Share Studio Lookbook
@@ -1059,7 +1079,7 @@ function MainAppContent() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className="px-5 py-3 rounded-full liquid-drop-btn text-white text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow"
+                className="px-5 py-3 rounded-full water-drop-btn text-white text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow"
               >
                 <Download className="w-4 h-4" />
                 <span>Save QR</span>
@@ -1071,7 +1091,7 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
-          <div className="max-w-md w-full liquid-drop-card p-6 space-y-4 ios-tab-spring">
+          <div className="max-w-md w-full real-water-drop p-6 space-y-4 ios-tab-spring">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${cyanAccent} animate-bounce`} />
@@ -1112,7 +1132,7 @@ function MainAppContent() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className="w-full py-3.5 liquid-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300"
+              className="w-full py-3.5 water-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300"
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -1183,7 +1203,7 @@ function MainAppContent() {
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className="p-2.5 rounded-full liquid-drop-subcard text-blue-700 dark:text-cyan-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
+                className="p-2.5 rounded-full water-drop-subcard text-blue-700 dark:text-cyan-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
               >
                 <QrCode className="w-4 h-4" />
               </button>
@@ -1191,7 +1211,7 @@ function MainAppContent() {
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className="p-2.5 rounded-full liquid-drop-subcard text-amber-600 dark:text-amber-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
+                className="p-2.5 rounded-full water-drop-subcard text-amber-600 dark:text-amber-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
               >
                 {isDarkMode ? <Sun className="w-4 h-4 animate-spin" style={{ animationDuration: '8s' }} /> : <Moon className="w-4 h-4 text-indigo-700" />}
               </button>
@@ -1224,7 +1244,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center py-1">
-            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full liquid-drop-subcard text-xs font-black shadow-inner">
+            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full water-drop-subcard text-xs font-black shadow-inner">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1240,7 +1260,7 @@ function MainAppContent() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.95] ${
                       isActive 
-                        ? 'liquid-drop-btn text-white scale-105 shadow-xl' 
+                        ? 'water-drop-btn text-white scale-105 shadow-xl' 
                         : 'text-slate-800 dark:text-slate-200 hover:bg-white/20'
                     }`}
                   >
@@ -1256,7 +1276,7 @@ function MainAppContent() {
 
       {/* Mobile Floating iOS Liquid Pill Dock */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full liquid-drop-card backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in border border-white/40">
+        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full real-water-drop backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in border border-white/40">
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1271,7 +1291,7 @@ function MainAppContent() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-full transition-all duration-300 active:scale-[0.95] ${
-                  isActive ? 'liquid-drop-btn text-white scale-105 shadow-md' : titleText
+                  isActive ? 'water-drop-btn text-white scale-105 shadow-md' : titleText
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -1287,17 +1307,17 @@ function MainAppContent() {
         {activeTab === 'menu' && (
           <div key="tab-menu" className="space-y-8 sm:space-y-10 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2.5">
-              <span className={`px-4 py-1.5 rounded-full liquid-drop-subcard ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5`}>
+              <span className={`px-4 py-1.5 rounded-full water-drop-subcard ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5`}>
                 <Droplet className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> Professional Vanity Packages
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-full liquid-drop-subcard mt-2 gap-1.5 shadow-lg">
+              <div className="inline-flex p-1.5 rounded-full water-drop-subcard mt-2 gap-1.5 shadow-lg">
                 <button
                   onClick={() => setSelectedKit('international')}
                   className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
-                    selectedKit === 'international' ? 'liquid-drop-btn text-white scale-105' : 'text-slate-800 dark:text-slate-200'
+                    selectedKit === 'international' ? 'water-drop-btn text-white scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
                   <Crown className="w-4 h-4 text-amber-300 shrink-0" />
@@ -1306,7 +1326,7 @@ function MainAppContent() {
                 <button
                   onClick={() => setSelectedKit('drugstore')}
                   className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
-                    selectedKit === 'drugstore' ? 'liquid-drop-btn text-white scale-105' : 'text-slate-800 dark:text-slate-200'
+                    selectedKit === 'drugstore' ? 'water-drop-btn text-white scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
                   <PackageCheck className="w-4 h-4 text-cyan-300 shrink-0" />
@@ -1324,7 +1344,7 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className="liquid-drop-card p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
+                  <div key={`${selectedKit}_${key}`} className="real-water-drop p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[28px] overflow-hidden bg-neutral-900 relative border border-slate-200 dark:border-white/20">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
                       <div className="absolute top-2 left-2 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-black text-amber-300 border border-amber-400/50">
@@ -1353,7 +1373,7 @@ function MainAppContent() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                            className="px-3.5 py-1.5 rounded-full liquid-drop-subcard text-xs font-black flex items-center gap-1 active:scale-[0.95] text-slate-900 dark:text-cyan-200"
+                            className="px-3.5 py-1.5 rounded-full water-drop-subcard text-xs font-black flex items-center gap-1 active:scale-[0.95] text-slate-900 dark:text-cyan-200"
                           >
                             <Eye className={`w-3.5 h-3.5 ${cyanAccent}`} />
                             <span>Details</span>
@@ -1365,7 +1385,7 @@ function MainAppContent() {
                               setCalcKit(selectedKit);
                               setActiveTab('calculator');
                             }}
-                            className="px-4 py-1.5 liquid-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center gap-1"
+                            className="px-4 py-1.5 water-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center gap-1"
                           >
                             <span>Book</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -1384,7 +1404,7 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div key="tab-gallery" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-full liquid-drop-subcard ${cyanAccent} text-xs font-black tracking-wide`}>
+              <span className={`px-4 py-1.5 rounded-full water-drop-subcard ${cyanAccent} text-xs font-black tracking-wide`}>
                 Discover Beautiful Makeup Transformations
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Featured Transformations</h2>
@@ -1398,7 +1418,7 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className="liquid-drop-card overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
+                  <div key={idx} className="real-water-drop overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} />
                     ) : (
@@ -1427,13 +1447,13 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div key="tab-brands" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-full liquid-drop-subcard ${cyanAccent} text-xs font-black`}>Authentic Vanity</span>
+              <span className={`px-4 py-1.5 rounded-full water-drop-subcard ${cyanAccent} text-xs font-black`}>Authentic Vanity</span>
               <h2 className={`text-2xl sm:text-4xl font-black ${titleText}`}>Products In Our Kit</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className="liquid-drop-card p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
+                <div key={idx} className="real-water-drop p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
                   <span className={`text-[10px] font-black ${amberAccent} bg-amber-100 dark:bg-amber-500/25 border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-1 rounded-full inline-block font-mono`}>
                     {brand.category}
                   </span>
@@ -1449,7 +1469,7 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div key="tab-calculator" className="max-w-4xl mx-auto ios-tab-spring">
             {isBookingDone ? (
-              <div className="liquid-drop-card p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
+              <div className="real-water-drop p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20 animate-bounce">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
@@ -1465,19 +1485,19 @@ function MainAppContent() {
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full liquid-drop-btn text-white inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105">
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full water-drop-btn text-white inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105">
                       <Download className="w-4 h-4" />
                       <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 liquid-drop-subcard text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 water-drop-subcard text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className="liquid-drop-card p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
+              <form onSubmit={handleDirectEstimateBooking} className="real-water-drop p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
                 <div className="md:col-span-7 space-y-5">
                   <div className="border-b border-slate-200 dark:border-cyan-400/30 pb-2">
                     <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${cyanAccent}`}>
@@ -1488,14 +1508,14 @@ function MainAppContent() {
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${titleText}`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? `bg-amber-100 dark:bg-amber-500/25 ${amberAccent} border-amber-400 dark:border-amber-400/60 shadow-md scale-105` : `liquid-drop-subcard ${bodyText}`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? `bg-blue-100 dark:bg-cyan-500/25 ${cyanAccent} border-blue-400 dark:border-cyan-400/60 shadow-md scale-105` : `liquid-drop-subcard ${bodyText}`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? `bg-amber-100 dark:bg-amber-500/25 ${amberAccent} border-amber-400 dark:border-amber-400/60 shadow-md scale-105` : `water-drop-subcard ${bodyText}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? `bg-blue-100 dark:bg-cyan-500/25 ${cyanAccent} border-blue-400 dark:border-cyan-400/60 shadow-md scale-105` : `water-drop-subcard ${bodyText}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full liquid-drop-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full water-drop-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1510,7 +1530,7 @@ function MainAppContent() {
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full liquid-drop-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full water-drop-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key} className="py-2 font-semibold">{zone.name} (+₹{zone.fee})</option>
                       ))}
@@ -1562,7 +1582,7 @@ function MainAppContent() {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className="p-4 rounded-[28px] liquid-drop-subcard border-purple-300 dark:border-purple-500/40 space-y-2.5 transition-all duration-300">
+                            <div key={guest.id} className="p-4 rounded-[28px] water-drop-subcard border-purple-300 dark:border-purple-500/40 space-y-2.5 transition-all duration-300">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className={`text-[11px] font-black ${purpleAccent} font-mono`}>Guest #{idx + 1}</span>
@@ -1579,7 +1599,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={`w-full p-2.5 rounded-full text-xs font-black liquid-drop-input ${amberAccent} cursor-pointer px-3.5`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black water-drop-input ${amberAccent} cursor-pointer px-3.5`}
                                   >
                                     <option value="international" className="py-1">👑 Luxury Kit</option>
                                     <option value="drugstore" className="py-1">✨ HD Kit</option>
@@ -1591,7 +1611,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2.5 rounded-full text-xs font-black liquid-drop-input ${cyanAccent} cursor-pointer px-3.5`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black water-drop-input ${cyanAccent} cursor-pointer px-3.5`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k} className="py-1">
@@ -1635,8 +1655,8 @@ function MainAppContent() {
                         </div>
                       ) : (
                         <div className="flex gap-2.5">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 liquid-drop-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
-                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 liquid-drop-btn text-white text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300">Apply</button>
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 water-drop-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
+                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 water-drop-btn text-white text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300">Apply</button>
                         </div>
                       )}
                       {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-black">{couponError}</p>}
@@ -1651,17 +1671,17 @@ function MainAppContent() {
 
                     <div>
                       <label className={`block text-xs ${labelText} mb-1.5`}>Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs ${titleText}`} />
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${titleText}`} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className={`block text-xs ${labelText} mb-1.5`}>Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs font-mono ${cyanAccent} font-black`} />
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full water-drop-input text-xs font-mono ${cyanAccent} font-black`} />
                       </div>
                       <div>
                         <label className={`block text-xs ${labelText} mb-1.5`}>Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs font-mono ${amberAccent} font-black`} />
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full water-drop-input text-xs font-mono ${amberAccent} font-black`} />
                       </div>
                     </div>
 
@@ -1679,8 +1699,8 @@ function MainAppContent() {
                               onClick={() => setAddressType(type)}
                               className={`px-3.5 py-1.5 rounded-full text-[10px] font-black border transition-all duration-300 active:scale-[0.95] ${
                                 addressType === type 
-                                  ? 'liquid-drop-btn text-white scale-105' 
-                                  : `liquid-drop-subcard ${bodyText}`
+                                  ? 'water-drop-btn text-white scale-105' 
+                                  : `water-drop-subcard ${bodyText}`
                               }`}
                             >
                               {type === 'Work' ? '🏢 Work / Office' : '🏠 Home'}
@@ -1699,7 +1719,7 @@ function MainAppContent() {
                             placeholder="e.g. 110025" 
                             value={pincode} 
                             onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
-                            className={`w-full px-5 py-3 rounded-full liquid-drop-input font-mono font-black text-xs ${purpleAccent}`} 
+                            className={`w-full px-5 py-3 rounded-full water-drop-input font-mono font-black text-xs ${purpleAccent}`} 
                           />
                         </div>
 
@@ -1710,7 +1730,7 @@ function MainAppContent() {
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs ${titleText}`} 
+                            className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${titleText}`} 
                           />
                         </div>
                       </div>
@@ -1723,7 +1743,7 @@ function MainAppContent() {
                           placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
-                          className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs ${titleText}`} 
+                          className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${titleText}`} 
                         />
                       </div>
 
@@ -1734,7 +1754,7 @@ function MainAppContent() {
                           placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
-                          className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs ${bodyText}`} 
+                          className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${bodyText}`} 
                         />
                       </div>
 
@@ -1747,7 +1767,7 @@ function MainAppContent() {
                             placeholder="e.g. New Delhi" 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
 
@@ -1759,7 +1779,7 @@ function MainAppContent() {
                             placeholder="e.g. Delhi" 
                             value={state} 
                             onChange={(e) => setState(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full liquid-drop-input text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
                       </div>
@@ -1768,7 +1788,7 @@ function MainAppContent() {
                 </div>
 
                 {/* RIGHT COLUMN: HIGH-CONTRAST COLORFUL SUMMARY WITH WATER DROP GLASS TIERS */}
-                <div className="md:col-span-5 liquid-drop-subcard p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-white/40 dark:border-cyan-400/40 rounded-[32px]">
+                <div className="md:col-span-5 water-drop-subcard p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-white/40 dark:border-cyan-400/40 rounded-[32px]">
                   <div>
                     <span className={`text-[11px] font-black uppercase tracking-widest ${cyanAccent} flex items-center gap-1.5`}>
                       <Zap className="w-4 h-4 text-amber-400 animate-bounce" /> Total Amount Summary
@@ -1845,7 +1865,7 @@ function MainAppContent() {
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full liquid-drop-card border border-white/40 shadow-sm`}>
+                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full real-water-drop border border-white/40 shadow-sm`}>
                       <span>Booking Total Before Discounts:</span>
                       <span className={`font-mono ${amberAccent} text-sm font-black`}>₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
@@ -1885,7 +1905,7 @@ function MainAppContent() {
                     </div>
 
                     {/* FINAL AMOUNT CARD (WATER DROP HERO) */}
-                    <div className="p-5 rounded-[24px] liquid-drop-card border border-cyan-400 dark:border-cyan-400/60 shadow-2xl transition-all duration-300">
+                    <div className="p-5 rounded-[24px] real-water-drop border border-cyan-400 dark:border-cyan-400/60 shadow-2xl transition-all duration-300">
                       <div className="flex justify-between items-center">
                         <div>
                           <p className={`text-[11px] uppercase tracking-wider font-black ${cyanAccent} flex items-center gap-1.5`}>
@@ -1905,7 +1925,7 @@ function MainAppContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 liquid-drop-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-4 water-drop-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <Check className="w-4 h-4 animate-bounce" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
@@ -1918,7 +1938,7 @@ function MainAppContent() {
 
         {/* TAB 5: FEEDBACK */}
         {activeTab === 'feedback' && (
-          <div key="tab-feedback" className="p-6 sm:p-9 liquid-drop-card max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
+          <div key="tab-feedback" className="p-6 sm:p-9 real-water-drop max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
             <div className="text-center space-y-1.5">
               <span className={`text-[10px] font-black uppercase tracking-wider ${cyanAccent}`}>Client Experience</span>
               <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Feedback & Suggestions</h3>
@@ -1958,14 +1978,14 @@ function MainAppContent() {
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} liquid-drop-input`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} water-drop-input`}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black liquid-drop-input`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black water-drop-input`}
                   />
                 </div>
 
@@ -1975,13 +1995,13 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} liquid-drop-input`}
+                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} water-drop-input`}
                 />
 
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className="w-full py-3.5 liquid-drop-btn text-white text-xs font-black rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5"
+                  className="w-full py-3.5 water-drop-btn text-white text-xs font-black rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
@@ -1996,7 +2016,7 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 liquid-drop-card p-4 shadow-2xl transition-all duration-500 ios-tab-spring border border-amber-400/60"
+          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 real-water-drop p-4 shadow-2xl transition-all duration-500 ios-tab-spring border border-amber-400/60"
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${amberAccent} shrink-0 mt-0.5 animate-bounce`} />
@@ -2040,7 +2060,7 @@ function MainAppContent() {
             className={`mt-3 w-full py-2.5 text-xs font-black rounded-full shadow transition-all duration-300 ${
               isFloatingExpired 
                 ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
-                : 'liquid-drop-btn text-white active:scale-[0.95]'
+                : 'water-drop-btn text-white active:scale-[0.95]'
             }`}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
