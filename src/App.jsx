@@ -36,7 +36,7 @@ class AppErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-100 dark:bg-[#030712] text-slate-900 dark:text-white flex items-center justify-center p-6 text-center animate-fade-in">
-          <div className="max-w-md w-full bg-white/95 dark:bg-[#0B132B]/90 border border-slate-300 dark:border-cyan-400/40 p-8 rounded-3xl backdrop-blur-2xl space-y-4 shadow-2xl transition-all duration-500">
+          <div className="max-w-md w-full bg-white/95 dark:bg-[#0B132B]/95 border border-slate-300 dark:border-cyan-400/40 p-8 rounded-3xl backdrop-blur-2xl space-y-4 shadow-2xl transition-all duration-500">
             <div className="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-300 flex items-center justify-center mx-auto border border-amber-500/40 animate-bounce">
               <ShieldAlert className="w-8 h-8" />
             </div>
@@ -292,6 +292,17 @@ function MainAppContent() {
 
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
+
+  // CRITICAL FIX: Direct Sync of DOM documentElement root class for Tailwind night mode
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   useEffect(() => {
     const handlePopState = (e) => {
