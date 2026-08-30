@@ -210,7 +210,7 @@ function MainAppContent() {
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
   
-  // Robust initial state check for Theme
+  // Initialize and synchronize theme state instantly from localStorage
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('hf_theme_preference');
@@ -268,7 +268,7 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Synchronize <html> root class for Tailwind Dark Mode and persist preference
+  // Synchronize <html> root class and save preference securely
   useEffect(() => {
     const root = document.documentElement;
     if (isDarkMode) {
