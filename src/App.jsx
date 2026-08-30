@@ -35,9 +35,9 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-100 dark:bg-[#030712] text-slate-900 dark:text-white flex items-center justify-center p-6 text-center animate-fade-in">
-          <div className="max-w-md w-full bg-white/95 dark:bg-[#0B132B]/95 border border-slate-300 dark:border-cyan-400/40 p-8 rounded-3xl backdrop-blur-2xl space-y-4 shadow-2xl transition-all duration-500">
-            <div className="w-16 h-16 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-300 flex items-center justify-center mx-auto border border-amber-500/40 animate-bounce">
+        <div className="min-h-screen bg-slate-100 dark:bg-[#050814] text-slate-900 dark:text-white flex items-center justify-center p-6 text-center animate-fade-in">
+          <div className="max-w-md w-full bg-white/90 dark:bg-[#0B132B]/90 border border-slate-300 dark:border-cyan-400/40 p-8 rounded-[36px] backdrop-blur-3xl space-y-4 shadow-2xl transition-all duration-500">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 flex items-center justify-center mx-auto border border-amber-500/40 animate-bounce">
               <ShieldAlert className="w-8 h-8" />
             </div>
             <h2 className="text-xl font-black text-amber-700 dark:text-amber-300 tracking-wide">System Safe Mode Active</h2>
@@ -46,7 +46,7 @@ class AppErrorBoundary extends Component {
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
+              className="w-full py-3.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300 hover:scale-105"
             >
               Refresh to Safe Version
             </button>
@@ -116,36 +116,36 @@ const DEFAULT_GALLERY = [
 const THEME_STYLES = {
   liquid_glass: {
     accentGradient: "from-cyan-500 via-teal-400 to-blue-500 dark:from-cyan-300 dark:via-teal-300 dark:to-sky-400",
-    btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black shadow-lg shadow-cyan-500/30 hover:shadow-teal-400/50 rounded-[20px] transition-all duration-300 active:scale-[0.96]",
+    btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black shadow-lg shadow-cyan-500/30 hover:shadow-teal-400/50 rounded-full transition-all duration-300 active:scale-[0.95]",
     accentText: "text-teal-700 dark:text-cyan-300 font-black",
-    badgeBg: "bg-teal-100 text-teal-900 dark:bg-cyan-950/80 dark:text-cyan-300 border border-teal-300 dark:border-cyan-400/50",
+    badgeBg: "bg-teal-100 text-teal-950 dark:bg-cyan-950/80 dark:text-cyan-300 border border-teal-300 dark:border-cyan-400/50",
     sectionAccent: "bg-teal-50 dark:bg-cyan-950/40 border-teal-200 dark:border-cyan-400/30 text-teal-950 dark:text-cyan-200",
     accentBorder: "border-teal-300 dark:border-cyan-400/50",
-    activeNav: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-xl shadow-cyan-500/40 rounded-[22px] px-4 py-2 scale-105"
+    activeNav: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-xl shadow-cyan-500/40 rounded-full px-5 py-2.5 scale-105"
   },
   real_glass_lens: {
     accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-cyan-300 dark:via-sky-300 dark:to-indigo-300",
-    btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-lg shadow-blue-500/30 hover:shadow-cyan-400/50 rounded-[20px] transition-all duration-300 active:scale-[0.96]",
+    btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-lg shadow-blue-500/30 hover:shadow-cyan-400/50 rounded-full transition-all duration-300 active:scale-[0.95]",
     accentText: "text-blue-700 dark:text-cyan-300 font-black",
-    badgeBg: "bg-blue-100 text-blue-900 dark:bg-cyan-950/80 dark:text-cyan-300 border border-blue-300 dark:border-cyan-400/50",
+    badgeBg: "bg-blue-100 text-blue-950 dark:bg-cyan-950/80 dark:text-cyan-300 border border-blue-300 dark:border-cyan-400/50",
     sectionAccent: "bg-blue-50 dark:bg-sky-950/40 border-blue-200 dark:border-sky-500/30 text-blue-900 dark:text-sky-200",
     accentBorder: "border-blue-300 dark:border-cyan-400/50",
-    activeNav: "bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 text-white font-black shadow-xl shadow-cyan-500/40 rounded-[22px] px-4 py-2 scale-105"
+    activeNav: "bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 text-white font-black shadow-xl shadow-cyan-500/40 rounded-full px-5 py-2.5 scale-105"
   },
   gold_rose: {
     accentGradient: "from-rose-500 via-pink-500 to-amber-500 dark:from-rose-300 dark:via-pink-300 dark:to-amber-300",
-    btnPrimary: "bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-black shadow-lg shadow-rose-500/30 hover:shadow-pink-400/50 rounded-[20px] transition-all duration-300 active:scale-[0.96]",
+    btnPrimary: "bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-black shadow-lg shadow-rose-500/30 hover:shadow-pink-400/50 rounded-full transition-all duration-300 active:scale-[0.95]",
     accentText: "text-rose-700 dark:text-pink-300 font-black",
-    badgeBg: "bg-rose-100 text-rose-900 dark:bg-pink-950/80 dark:text-pink-300 border border-rose-300 dark:border-pink-400/50",
+    badgeBg: "bg-rose-100 text-rose-950 dark:bg-pink-950/80 dark:text-pink-300 border border-rose-300 dark:border-pink-400/50",
     sectionAccent: "bg-rose-50 dark:bg-pink-950/40 border-rose-200 dark:border-pink-500/30 text-rose-950 dark:text-pink-200",
     accentBorder: "border-rose-300 dark:border-pink-400/50",
-    activeNav: "bg-gradient-to-r from-rose-600 to-pink-600 text-white font-black shadow-xl shadow-pink-500/40 rounded-[22px] px-4 py-2 scale-105"
+    activeNav: "bg-gradient-to-r from-rose-600 to-pink-600 text-white font-black shadow-xl shadow-pink-500/40 rounded-full px-5 py-2.5 scale-105"
   }
 };
 
 const FONT_MAP = {
-  sans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-  outfit: "'Outfit', sans-serif"
+  sans: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif",
+  outfit: "'Outfit', -apple-system, BlinkMacSystemFont, sans-serif"
 };
 
 const getTimeRemaining = (expiryDateStr) => {
@@ -208,7 +208,7 @@ const AutoPlayVideoCard = ({ item, currentTheme }) => {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(err => {
+      videoRef.current.play().catch(() => {
         if (videoRef.current) {
           videoRef.current.muted = true;
           videoRef.current.play().catch(() => {});
@@ -218,7 +218,7 @@ const AutoPlayVideoCard = ({ item, currentTheme }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[28px]">
       <video
         ref={videoRef}
         src={item.url}
@@ -229,7 +229,7 @@ const AutoPlayVideoCard = ({ item, currentTheme }) => {
         preload="auto"
         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none"
       />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-4 text-white">
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
         <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
         <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
           <Film className="w-4 h-4 text-pink-400 shrink-0" />
@@ -293,7 +293,7 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Synchronize HTML element dark class with state
+  // Synchronize DOM root class for Dark Mode
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -828,36 +828,39 @@ function MainAppContent() {
   const currentTheme = THEME_STYLES[activeColorThemeKey] || THEME_STYLES.liquid_glass;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
-  // Real Dynamic Color Classes depending directly on isDarkMode state
-  const bgClass = isDarkMode ? "bg-[#030712] text-white" : "bg-[#F4F7FC] text-slate-900";
+  // Real Dynamic Backgrounds with Layered Liquid Glass
+  const bgClass = isDarkMode 
+    ? "bg-gradient-to-b from-[#050814] via-[#090E24] to-[#04060F] text-white" 
+    : "bg-gradient-to-b from-[#F0F4FD] via-[#F8FAFF] to-[#E9EEF9] text-slate-900";
+    
   const headerBgClass = isDarkMode 
-    ? "bg-[#090D1F]/90 backdrop-blur-3xl border-b border-cyan-400/30 shadow-2xl shadow-cyan-950/80" 
-    : "bg-white/95 backdrop-blur-3xl border-b border-slate-200/90 shadow-md shadow-slate-200/50";
+    ? "bg-[#090E24]/80 backdrop-blur-3xl border-b border-cyan-400/25 shadow-2xl shadow-cyan-950/80" 
+    : "bg-white/80 backdrop-blur-3xl border-b border-slate-200/90 shadow-md shadow-slate-200/60";
     
   const cardBgClass = isDarkMode 
-    ? "bg-[#0C1222]/90 backdrop-blur-3xl border border-white/20 hover:border-cyan-400/70 shadow-2xl text-white" 
-    : "bg-white backdrop-blur-3xl border border-slate-200/90 hover:border-blue-400/60 shadow-xl shadow-slate-200/60 text-slate-900";
+    ? "bg-gradient-to-br from-white/[0.09] via-white/[0.04] to-transparent backdrop-blur-3xl border border-white/20 hover:border-cyan-400/70 shadow-2xl text-white rounded-[32px]" 
+    : "bg-white/90 backdrop-blur-3xl border border-slate-200/90 hover:border-blue-400/60 shadow-xl shadow-slate-200/70 text-slate-900 rounded-[32px]";
     
   const subCardBgClass = isDarkMode 
-    ? "bg-[#131C31]/90 backdrop-blur-2xl border border-white/20 text-white" 
-    : "bg-slate-100/95 backdrop-blur-2xl border border-slate-200/90 text-slate-900";
+    ? "bg-white/[0.06] backdrop-blur-2xl border border-white/15 text-white rounded-[24px]" 
+    : "bg-slate-100/95 backdrop-blur-2xl border border-slate-200/90 text-slate-900 rounded-[24px]";
     
   const inputBgClass = isDarkMode 
-    ? "bg-[#060A17] border border-cyan-400/50 text-white placeholder-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/50" 
-    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/30 shadow-sm font-semibold";
+    ? "bg-[#060A1A]/90 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-400/40 rounded-full" 
+    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/30 shadow-sm font-semibold rounded-full";
     
   const navTextClass = isDarkMode 
     ? "text-slate-100 hover:text-white hover:bg-white/15" 
     : "text-slate-800 hover:text-slate-950 hover:bg-slate-200/90 font-black";
     
-  // Dynamic Text Colors to avoid contrast loss
-  const titleText = isDarkMode ? "text-white" : "text-slate-900";
-  const bodyText = isDarkMode ? "text-slate-200" : "text-slate-700";
-  const labelText = isDarkMode ? "text-slate-300" : "text-slate-600";
-  const cyanAccent = isDarkMode ? "text-cyan-300" : "text-blue-700";
-  const amberAccent = isDarkMode ? "text-amber-300" : "text-amber-700";
-  const purpleAccent = isDarkMode ? "text-purple-300" : "text-purple-700";
-  const emeraldAccent = isDarkMode ? "text-emerald-300" : "text-emerald-700";
+  // Dynamic Contrast Colors
+  const titleText = isDarkMode ? "text-white font-black" : "text-slate-900 font-black";
+  const bodyText = isDarkMode ? "text-slate-200 font-semibold" : "text-slate-700 font-semibold";
+  const labelText = isDarkMode ? "text-slate-300 font-bold" : "text-slate-600 font-bold";
+  const cyanAccent = isDarkMode ? "text-cyan-300 font-black" : "text-blue-700 font-black";
+  const amberAccent = isDarkMode ? "text-amber-300 font-black" : "text-amber-700 font-black";
+  const purpleAccent = isDarkMode ? "text-purple-300 font-black" : "text-purple-700 font-black";
+  const emeraldAccent = isDarkMode ? "text-emerald-300 font-black" : "text-emerald-700 font-black";
 
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -875,13 +878,13 @@ function MainAppContent() {
     return (
       <div style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} className={`min-h-screen ${bgClass} flex items-center justify-center p-4 relative overflow-hidden select-none`}>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="max-w-md w-full rounded-3xl p-8 border border-slate-300 dark:border-cyan-400/40 bg-white/95 dark:bg-[#0B132B]/90 backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
-          <div className="w-16 h-16 rounded-3xl bg-amber-500/20 border border-amber-500/40 text-amber-600 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
+        <div className="max-w-md w-full rounded-[36px] p-8 border border-slate-300 dark:border-cyan-400/40 bg-white/95 dark:bg-[#0B132B]/90 backdrop-blur-3xl shadow-2xl text-center space-y-5 animate-fade-in">
+          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-600 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
             <Wrench className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-500/20 px-3 py-1 rounded-full border border-amber-300 dark:border-amber-500/40">
+            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-500/20 px-4 py-1 rounded-full border border-amber-300 dark:border-amber-500/40 inline-block">
               Scheduled System Upgrade
             </span>
             <h2 className="text-2xl font-black bg-gradient-to-r from-amber-600 via-rose-600 to-amber-700 dark:from-amber-300 dark:via-yellow-200 dark:to-amber-400 bg-clip-text text-transparent">
@@ -892,7 +895,7 @@ function MainAppContent() {
             </p>
           </div>
 
-          <div className="p-4 rounded-2xl bg-slate-100 dark:bg-black/60 border border-slate-200 dark:border-white/20 text-left text-xs space-y-1.5">
+          <div className="p-4 rounded-[24px] bg-slate-100 dark:bg-black/60 border border-slate-200 dark:border-white/20 text-left text-xs space-y-1.5">
             <div className="flex justify-between"><span className="text-slate-600 dark:text-slate-200 font-bold">Artist:</span><span className="font-black text-slate-900 dark:text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
             <div className="flex justify-between"><span className="text-slate-600 dark:text-slate-200 font-bold">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-black text-pink-600 dark:text-pink-300 hover:underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
@@ -907,24 +910,27 @@ function MainAppContent() {
       className={`min-h-screen ${bgClass} pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none`}
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* Global CSS for iOS Liquid Animations & Dark Fixes */}
+      {/* iOS Liquid Animation Springs & Option Fixes */}
       <style>{`
         @keyframes iosSpring {
           0% { opacity: 0; transform: scale(0.97) translateY(8px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        @keyframes floatGlass {
+        @keyframes floatGlassOrb {
           0%, 100% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(10px, -15px) scale(1.05); }
+          50% { transform: translate(25px, -30px) scale(1.12); }
         }
         .ios-tab-spring {
           animation: iosSpring 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .animate-glass-orb {
-          animation: floatGlass 9s ease-in-out infinite;
+        .animate-glass-orb-1 {
+          animation: floatGlassOrb 12s ease-in-out infinite;
+        }
+        .animate-glass-orb-2 {
+          animation: floatGlassOrb 15s ease-in-out infinite reverse;
         }
         .dark select option {
-          background-color: #060A17 !important;
+          background-color: #060A1A !important;
           color: #FFFFFF !important;
         }
       `}</style>
@@ -932,12 +938,12 @@ function MainAppContent() {
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4 ios-tab-spring">
-            <div className="w-24 h-24 rounded-[28px] overflow-hidden border border-cyan-400/60 shadow-2xl p-1 bg-white/10 shadow-cyan-500/40 transition-transform duration-500 hover:scale-110">
+            <div className="w-24 h-24 rounded-full overflow-hidden border border-cyan-400/60 shadow-2xl p-1 bg-white/10 shadow-cyan-500/40 transition-transform duration-500 hover:scale-110">
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
                 onError={() => setLogoLoadFailed(true)}
-                className="w-full h-full object-contain rounded-[24px]" 
+                className="w-full h-full object-contain rounded-full" 
               />
             </div>
               
@@ -950,7 +956,7 @@ function MainAppContent() {
               </p>
             </div>
 
-            <div className="w-40 sm:w-48 h-2 bg-white/20 rounded-full overflow-hidden shadow-inner">
+            <div className="w-44 sm:w-52 h-2.5 bg-white/20 rounded-full overflow-hidden shadow-inner">
               <div className="h-full bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 rounded-full animate-pulse w-full" />
             </div>
             <span className="text-[11px] text-cyan-200 font-mono tracking-wide font-black">
@@ -961,8 +967,8 @@ function MainAppContent() {
       )}
 
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl transition-all duration-300 animate-fade-in">
-          <div className={`max-w-sm w-full rounded-3xl p-6 border shadow-2xl text-center space-y-4 ios-tab-spring ${isDarkMode ? 'bg-[#0B132B]/95 border-cyan-400/40 text-white' : 'bg-white/95 border-slate-200 text-slate-900'}`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
+          <div className={`max-w-sm w-full rounded-[36px] p-6 border shadow-2xl text-center space-y-4 ios-tab-spring ${isDarkMode ? 'bg-[#0B132B]/95 border-cyan-400/40 text-white' : 'bg-white/95 border-slate-200 text-slate-900'}`}>
             <div className="flex items-center justify-between">
               <span className={`font-black text-sm flex items-center gap-1.5 ${cyanAccent}`}>
                 <Share2 className="w-4 h-4 text-blue-600 dark:text-cyan-400 animate-pulse" /> Share Studio Lookbook
@@ -970,15 +976,15 @@ function MainAppContent() {
               <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-200 hover:rotate-90"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-48 h-48 mx-auto bg-white p-3 rounded-2xl border border-slate-200 shadow-inner flex items-center justify-center group">
+            <div className="w-48 h-48 mx-auto bg-white p-3 rounded-[28px] border border-slate-200 shadow-inner flex items-center justify-center group">
               <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
             </div>
-            <p className={`text-xs ${bodyText} font-semibold`}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
+            <p className={`text-xs ${bodyText}`}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
 
             <div className="flex gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 active:scale-[0.96] text-xs font-black flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/15 transition-all duration-200 text-slate-900 dark:text-white"
+                className="flex-1 py-3 rounded-full bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/15 active:scale-[0.95] text-xs font-black flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/15 transition-all duration-200 text-slate-900 dark:text-white"
               >
                 {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> : <Copy className={`w-4 h-4 ${currentTheme.accentText}`} />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
@@ -989,7 +995,7 @@ function MainAppContent() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className={`px-4 py-2.5 rounded-xl ${currentTheme.btnPrimary} text-xs flex items-center justify-center gap-1 active:scale-[0.96] shadow`}
+                className={`px-5 py-3 rounded-full ${currentTheme.btnPrimary} text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow`}
               >
                 <Download className="w-4 h-4" />
                 <span>Save QR</span>
@@ -1000,8 +1006,8 @@ function MainAppContent() {
       )}
 
       {viewingPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl transition-all duration-300 animate-fade-in">
-          <div className={`max-w-md w-full rounded-3xl p-5 sm:p-6 border shadow-2xl space-y-4 ios-tab-spring ${isDarkMode ? 'bg-[#0B132B]/95 border-cyan-400/40 text-white' : 'bg-white/95 border-slate-200 text-slate-900'}`}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
+          <div className={`max-w-md w-full rounded-[36px] p-5 sm:p-6 border shadow-2xl space-y-4 ios-tab-spring ${isDarkMode ? 'bg-[#0B132B]/95 border-cyan-400/40 text-white' : 'bg-white/95 border-slate-200 text-slate-900'}`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${currentTheme.accentText} animate-bounce`} />
@@ -1010,7 +1016,7 @@ function MainAppContent() {
               <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-200 hover:rotate-90"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden bg-neutral-900 border border-slate-200 dark:border-white/20 group">
+            <div className="w-full h-44 sm:h-52 rounded-[28px] overflow-hidden bg-neutral-900 border border-slate-200 dark:border-white/20 group">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
             </div>
 
@@ -1018,15 +1024,15 @@ function MainAppContent() {
 
             <div className="space-y-2.5 text-xs border-t border-b border-slate-200 dark:border-white/15 py-3">
               <div className="flex justify-between items-start gap-2">
-                <span className={`shrink-0 font-bold ${labelText}`}>Vanity Tier:</span>
+                <span className={`shrink-0 ${labelText}`}>Vanity Tier:</span>
                 <strong className={`capitalize text-right ${amberAccent} font-black`}>{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className={`shrink-0 font-bold ${labelText}`}>Skin Finish:</span>
+                <span className={`shrink-0 ${labelText}`}>Skin Finish:</span>
                 <span className={`text-right ${cyanAccent} font-extrabold`}>{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className={`shrink-0 font-bold ${labelText}`}>Includes:</span>
+                <span className={`shrink-0 ${labelText}`}>Includes:</span>
                 <span className={`text-right ${purpleAccent} font-extrabold`}>{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
               </div>
               <div className="flex justify-between items-center font-black text-sm pt-1">
@@ -1042,7 +1048,7 @@ function MainAppContent() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className={`w-full py-3 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-[0.96] flex items-center justify-center gap-1.5 transition-all duration-300`}
+              className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300`}
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -1052,8 +1058,8 @@ function MainAppContent() {
       )}
 
       {/* Floating Fluid Ambient Liquid Orbs */}
-      <div className="absolute top-0 left-1/4 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-cyan-500/20 dark:bg-cyan-400/15 rounded-full blur-3xl pointer-events-none animate-glass-orb" />
-      <div className="absolute top-1/3 right-1/4 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-teal-500/20 dark:bg-sky-500/15 rounded-full blur-3xl pointer-events-none animate-glass-orb" style={{ animationDelay: '4.5s' }} />
+      <div className="absolute top-0 left-1/4 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-cyan-500/20 dark:bg-cyan-400/20 rounded-full blur-3xl pointer-events-none animate-glass-orb-1" />
+      <div className="absolute top-1/3 right-1/4 w-[350px] sm:w-[550px] h-[350px] sm:h-[550px] bg-teal-500/20 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none animate-glass-orb-2" />
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
@@ -1089,7 +1095,7 @@ function MainAppContent() {
       <header className={`sticky top-0 z-40 px-3 sm:px-8 py-2.5 sm:py-3.5 transition-all duration-300 ${headerBgClass}`}>
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-[0.96] transition-transform duration-300 cursor-pointer min-w-0 group">
+            <div className="flex items-center space-x-2.5 sm:space-x-3 select-none active:scale-[0.95] transition-transform duration-300 cursor-pointer min-w-0 group">
               <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-cyan-400/80 p-0.5 bg-white/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                 <img 
                   src={resolvedLogoUrl} 
@@ -1115,7 +1121,7 @@ function MainAppContent() {
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-[0.96] hover:scale-105 flex items-center justify-center ${
+                className={`p-2.5 rounded-full border transition-all duration-300 active:scale-[0.95] hover:scale-105 flex items-center justify-center ${
                   isDarkMode 
                     ? 'bg-[#101A33]/90 border-cyan-400/40 text-cyan-300 hover:bg-white/15 shadow-lg shadow-cyan-950/60' 
                     : 'bg-slate-100 border-slate-300 text-blue-700 hover:bg-slate-200 shadow-sm'
@@ -1127,7 +1133,7 @@ function MainAppContent() {
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className={`p-2 sm:p-2.5 rounded-2xl border transition-all duration-300 active:scale-[0.96] hover:scale-105 flex items-center justify-center ${
+                className={`p-2.5 rounded-full border transition-all duration-300 active:scale-[0.95] hover:scale-105 flex items-center justify-center ${
                   isDarkMode 
                     ? 'bg-[#101A33]/90 border-amber-400/40 text-amber-300 hover:bg-white/15 shadow-lg shadow-amber-950/60' 
                     : 'bg-slate-100 border-slate-300 text-amber-700 hover:bg-slate-200 shadow-sm'
@@ -1140,7 +1146,7 @@ function MainAppContent() {
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-95 active:scale-[0.96] text-white text-[11px] sm:text-xs font-black px-3 py-2 rounded-2xl transition-all duration-300 hover:scale-105 shadow-md shadow-pink-500/25"
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 hover:opacity-95 active:scale-[0.95] text-white text-[11px] sm:text-xs font-black px-3.5 py-2 rounded-full transition-all duration-300 hover:scale-105 shadow-md shadow-pink-500/25"
               >
                 <Camera className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
@@ -1148,7 +1154,7 @@ function MainAppContent() {
 
               {shouldShowProfileInHeader && (
                 <div 
-                  className={`w-9 sm:w-11 h-9 sm:h-11 rounded-[14px] sm:rounded-[18px] bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none transition-transform duration-300 hover:scale-105`}
+                  className={`w-9 sm:w-11 h-9 sm:h-11 rounded-full bg-gradient-to-tr ${currentTheme.accentGradient} p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none transition-transform duration-300 hover:scale-105`}
                   onContextMenu={(e) => e.preventDefault()}
                 >
                   <img 
@@ -1156,7 +1162,7 @@ function MainAppContent() {
                     alt="Artist Profile" 
                     onError={() => setImgLoadFailed(true)}
                     draggable="false"
-                    className="w-full h-full object-cover rounded-[12px] sm:rounded-[16px] group-hover:scale-110 transition-transform duration-500 pointer-events-none"
+                    className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500 pointer-events-none"
                   />
                 </div>
               )}
@@ -1164,7 +1170,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center py-1">
-            <nav className={`inline-flex space-x-1 p-1 rounded-full border backdrop-blur-3xl text-xs font-black shadow-inner ${isDarkMode ? 'bg-white/[0.08] border-white/20' : 'bg-slate-200/90 border-slate-300'}`}>
+            <nav className={`inline-flex space-x-1 p-1.5 rounded-full border backdrop-blur-3xl text-xs font-black shadow-inner ${isDarkMode ? 'bg-white/[0.08] border-white/20' : 'bg-slate-200/90 border-slate-300'}`}>
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1178,7 +1184,7 @@ function MainAppContent() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-black whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.96] ${
+                    className={`flex items-center gap-1.5 px-5 py-2 rounded-full text-xs font-black whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.95] ${
                       isActive ? currentTheme.activeNav : navTextClass
                     }`}
                   >
@@ -1192,10 +1198,10 @@ function MainAppContent() {
         </div>
       </header>
 
-      {/* Mobile Floating Pill Dock */}
+      {/* Mobile Floating Pill Navigation Dock */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`sm:hidden fixed bottom-4 left-3 right-4 z-50 p-2 rounded-[28px] border backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in ${
-          isDarkMode ? 'bg-[#0B132B]/95 border-cyan-400/40 shadow-cyan-950/70' : 'bg-white/95 border-slate-300/90 shadow-slate-300/60'
+        <nav aria-label="Mobile Navigation" className={`sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full border backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in ${
+          isDarkMode ? 'bg-[#0B132B]/95 border-cyan-400/40 shadow-cyan-950/80' : 'bg-white/95 border-slate-300/90 shadow-slate-300/70'
         }`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
@@ -1210,7 +1216,7 @@ function MainAppContent() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-[20px] transition-all duration-300 active:scale-[0.96] ${
+                className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-full transition-all duration-300 active:scale-[0.95] ${
                   isActive ? `${currentTheme.btnPrimary} scale-105` : `${titleText}`
                 }`}
               >
@@ -1223,27 +1229,27 @@ function MainAppContent() {
       )}
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
-        {/* TAB 1: PACKAGES MENU - (FULL VISIBILITY FIX) */}
+        {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
           <div key="tab-menu" className="space-y-8 sm:space-y-10 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-[11px] sm:text-xs font-black tracking-wide backdrop-blur-md inline-flex items-center gap-1.5`}>
+              <span className={`px-4 py-1.5 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-[11px] sm:text-xs font-black tracking-wide backdrop-blur-md inline-flex items-center gap-1.5 shadow-sm`}>
                 <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-spin" style={{ animationDuration: '4s' }} /> Professional Vanity Packages
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Curated Makeup Menu</h2>
-              <p className={`text-xs sm:text-sm ${bodyText} font-semibold`}>Select kit tier below to view package pricing & details:</p>
+              <p className={`text-xs sm:text-sm ${bodyText}`}>Select kit tier below to view package pricing & details:</p>
 
-              <div className={`inline-flex p-1 sm:p-1.5 rounded-2xl border backdrop-blur-3xl mt-2 gap-1.5 shadow-lg ${isDarkMode ? 'bg-[#0E1726]/90 border-white/20' : 'bg-slate-200/90 border-slate-300'}`}>
+              <div className={`inline-flex p-1.5 rounded-full border backdrop-blur-3xl mt-2 gap-1.5 shadow-lg ${isDarkMode ? 'bg-[#0E1726]/90 border-white/20' : 'bg-slate-200/90 border-slate-300'}`}>
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-black transition-all duration-300 ease-out active:scale-[0.96] flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : `${navTextClass}`}`}
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${selectedKit === 'international' ? currentTheme.btnPrimary : `${navTextClass}`}`}
                 >
                   <Crown className="w-4 h-4 text-amber-500 dark:text-amber-300 shrink-0" />
                   <span>👑 International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-black transition-all duration-300 ease-out active:scale-[0.96] flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : `${navTextClass}`}`}
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${selectedKit === 'drugstore' ? currentTheme.btnPrimary : `${navTextClass}`}`}
                 >
                   <PackageCheck className="w-4 h-4 text-cyan-600 dark:text-cyan-300 shrink-0" />
                   <span>✨ Premium HD Kit</span>
@@ -1260,10 +1266,10 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${cardBgClass} rounded-3xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.02] ios-tab-spring`}>
-                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-2xl overflow-hidden bg-neutral-900 relative border border-slate-200 dark:border-white/20">
+                  <div key={`${selectedKit}_${key}`} className={`${cardBgClass} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center group transition-all duration-300 hover:scale-[1.02] ios-tab-spring`}>
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[24px] overflow-hidden bg-neutral-900 relative border border-slate-200 dark:border-white/20">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded-lg bg-black/80 backdrop-blur-md text-[10px] font-mono font-black text-amber-300 border border-amber-400/50">
+                      <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-md text-[10px] font-mono font-black text-amber-300 border border-amber-400/50">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
@@ -1277,7 +1283,7 @@ function MainAppContent() {
                             ₹{price.toLocaleString('en-IN')}
                           </span>
                         </div>
-                        <p className={`text-xs mt-1.5 leading-relaxed ${bodyText} font-semibold`}>{item.desc}</p>
+                        <p className={`text-xs mt-1.5 leading-relaxed ${bodyText}`}>{item.desc}</p>
                       </div>
 
                       <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-white/15">
@@ -1289,7 +1295,7 @@ function MainAppContent() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                            className={`px-3 py-1.5 rounded-xl border text-xs font-black flex items-center gap-1 transition-all duration-200 active:scale-[0.96] ${isDarkMode ? 'border-cyan-400/40 hover:bg-white/15 text-cyan-200' : 'border-slate-300 hover:bg-slate-200/80 text-slate-800'}`}
+                            className={`px-3.5 py-1.5 rounded-full border text-xs font-black flex items-center gap-1 transition-all duration-200 active:scale-[0.95] ${isDarkMode ? 'border-cyan-400/40 hover:bg-white/15 text-cyan-200' : 'border-slate-300 hover:bg-slate-200/80 text-slate-800'}`}
                           >
                             <Eye className={`w-3.5 h-3.5 ${cyanAccent}`} />
                             <span>Details</span>
@@ -1301,7 +1307,7 @@ function MainAppContent() {
                               setCalcKit(selectedKit);
                               setActiveTab('calculator');
                             }}
-                            className={`px-3.5 py-1.5 ${currentTheme.btnPrimary} text-xs rounded-xl shadow-lg active:scale-[0.96] transition-all duration-200 flex items-center gap-1`}
+                            className={`px-4 py-1.5 ${currentTheme.btnPrimary} text-xs rounded-full shadow-lg active:scale-[0.95] transition-all duration-200 flex items-center gap-1`}
                           >
                             <span>Book</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -1320,7 +1326,7 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div key="tab-gallery" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-black tracking-wide backdrop-blur-md`}>
+              <span className={`px-4 py-1.5 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-black tracking-wide backdrop-blur-md`}>
                 Discover Beautiful Makeup Transformations
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Featured Transformations</h2>
@@ -1334,17 +1340,17 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className={`${cardBgClass} rounded-3xl overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring border border-slate-200 dark:border-cyan-400/30 shadow-xl`}>
+                  <div key={idx} className={`${cardBgClass} overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring border border-slate-200 dark:border-cyan-400/30 shadow-xl`}>
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} currentTheme={currentTheme} />
                     ) : (
-                      <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center">
+                      <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-900 flex items-center justify-center rounded-[28px]">
                         <img 
                           src={item.url} 
                           alt={item.title} 
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                         />
-                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-4 text-white">
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
                           <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-md">{item.sub || 'Client Transformation'}</span>
                           <h4 className="font-black text-sm sm:text-base mt-0.5 text-pink-300 drop-shadow">
                             <span>{item.title}</span>
@@ -1363,14 +1369,14 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div key="tab-brands" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-black`}>Authentic Vanity</span>
+              <span className={`px-4 py-1.5 rounded-full border ${currentTheme.accentBorder} ${currentTheme.accentText} text-xs font-black`}>Authentic Vanity</span>
               <h2 className={`text-2xl sm:text-4xl font-black ${titleText}`}>Products In Our Kit</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${cardBgClass} rounded-2xl p-4.5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2 border border-slate-200 dark:border-cyan-400/30 shadow-lg`}>
-                  <span className={`text-[10px] font-black ${amberAccent} bg-amber-100 dark:bg-amber-500/20 border border-amber-300 dark:border-amber-500/40 uppercase px-2.5 py-0.5 rounded-lg inline-block font-mono`}>
+                <div key={idx} className={`${cardBgClass} p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 border border-slate-200 dark:border-cyan-400/30 shadow-lg`}>
+                  <span className={`text-[10px] font-black ${amberAccent} bg-amber-100 dark:bg-amber-500/20 border border-amber-300 dark:border-amber-500/40 uppercase px-3 py-1 rounded-full inline-block font-mono`}>
                     {brand.category}
                   </span>
                   <h4 className={`font-black text-sm ${cyanAccent}`}>{brand.name}</h4>
@@ -1381,39 +1387,39 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATOR & INSTANT BOOKING - (FULL VISIBILITY FIX) */}
+        {/* TAB 4: ESTIMATOR & INSTANT BOOKING */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div key="tab-calculator" className="max-w-4xl mx-auto ios-tab-spring">
             {isBookingDone ? (
-              <div className={`${cardBgClass} rounded-3xl p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
+              <div className={`${cardBgClass} p-6 sm:p-10 text-center space-y-4 animate-scale-up max-w-xl mx-auto`}>
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20 animate-bounce">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                   
-                <div className={`inline-block px-3.5 py-1 rounded-full bg-blue-100 dark:bg-cyan-500/20 ${cyanAccent} border border-blue-300 dark:border-cyan-400/40 font-mono font-black text-xs`}>
+                <div className={`inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-cyan-500/20 ${cyanAccent} border border-blue-300 dark:border-cyan-400/40 font-mono font-black text-xs`}>
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
                 <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Booking Request Submitted Successfully</h3>
-                <p className={`text-xs ${bodyText} max-w-md mx-auto leading-relaxed font-semibold`}>
+                <p className={`text-xs ${bodyText} max-w-md mx-auto leading-relaxed`}>
                   Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-2.5 rounded-2xl ${currentTheme.btnPrimary} inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.96] transition hover:scale-105`}>
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3 rounded-full ${currentTheme.btnPrimary} inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105`}>
                       <Download className="w-4 h-4" />
                       <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-xs ${titleText} font-black rounded-2xl active:scale-[0.96] mt-4 transition-all duration-300 border border-slate-200 dark:border-white/20`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300 border border-slate-200 dark:border-white/20`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-2xl`}>
+              <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-2xl`}>
                 <div className="md:col-span-7 space-y-4 sm:space-y-5">
                   <div className="border-b border-slate-200 dark:border-cyan-400/30 pb-2">
                     <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${cyanAccent}`}>
@@ -1424,14 +1430,14 @@ function MainAppContent() {
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-black border text-left transition-all active:scale-[0.96] ${calcKit === 'international' ? `bg-amber-100 dark:bg-amber-500/25 ${amberAccent} border-amber-400 dark:border-amber-400/60 shadow-md` : `${subCardBgClass} ${bodyText}`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-black border text-left transition-all active:scale-[0.96] ${calcKit === 'drugstore' ? `bg-blue-100 dark:bg-cyan-500/25 ${cyanAccent} border-blue-400 dark:border-cyan-400/60 shadow-md` : `${subCardBgClass} ${bodyText}`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? `bg-amber-100 dark:bg-amber-500/25 ${amberAccent} border-amber-400 dark:border-amber-400/60 shadow-md` : `${subCardBgClass} ${bodyText}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? `bg-blue-100 dark:bg-cyan-500/25 ${cyanAccent} border-blue-400 dark:border-cyan-400/60 shadow-md` : `${subCardBgClass} ${bodyText}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1446,7 +1452,7 @@ function MainAppContent() {
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key} className="py-2 font-semibold">{zone.name} (+₹{zone.fee})</option>
                       ))}
@@ -1459,34 +1465,34 @@ function MainAppContent() {
                         <h4 className={`font-black text-xs uppercase tracking-wider ${purpleAccent} flex items-center gap-1.5`}>
                           <Users className="w-4 h-4 text-purple-600 dark:text-purple-400" /> Extra Family Makeup Customizer
                         </h4>
-                        <p className={`text-[11px] ${bodyText} font-semibold`}>Choose individual vanity tier & look for each family guest.</p>
+                        <p className={`text-[11px] ${bodyText}`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
 
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className={`px-3 py-1.5 rounded-xl bg-purple-100 dark:bg-purple-500/25 ${purpleAccent} border border-purple-300 dark:border-purple-400/50 text-xs font-black flex items-center gap-1 active:scale-[0.96] transition-all duration-300 hover:scale-105`}
+                        className={`px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-500/25 ${purpleAccent} border border-purple-300 dark:border-purple-400/50 text-xs font-black flex items-center gap-1 active:scale-[0.95] transition-all duration-300 hover:scale-105`}
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-400 dark:border-emerald-400/50 flex items-center justify-between text-xs animate-fade-in">
+                      <div className="p-3.5 rounded-[24px] bg-emerald-100/90 dark:bg-emerald-950/60 border border-emerald-400 dark:border-emerald-400/50 flex items-center justify-between text-xs animate-fade-in">
                         <div className="flex items-center gap-2">
-                          <div className="p-1 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
+                          <div className="p-1.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
                             <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
                           </div>
                           <div>
                             <p className={`${emeraldAccent} font-black text-xs`}>
                               Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
                             </p>
-                            <p className={`text-[11px] ${bodyText} font-semibold`}>
+                            <p className={`text-[11px] ${bodyText}`}>
                               Discount is automatically deducted in the Total Summary.
                             </p>
                           </div>
                         </div>
-                        <span className={`text-[11px] font-mono font-black bg-emerald-500/20 dark:bg-emerald-500/40 ${emeraldAccent} border border-emerald-500/40 px-2.5 py-1 rounded-full shrink-0`}>
+                        <span className={`text-[11px] font-mono font-black bg-emerald-500/20 dark:bg-emerald-500/40 ${emeraldAccent} border border-emerald-500/40 px-3 py-1 rounded-full shrink-0`}>
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
@@ -1498,7 +1504,7 @@ function MainAppContent() {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className={`p-3.5 rounded-2xl border space-y-2.5 ${subCardBgClass} border-purple-300 dark:border-purple-500/40 bg-purple-50/70 dark:bg-purple-950/40 transition-all duration-300`}>
+                            <div key={guest.id} className={`p-4 rounded-[24px] border space-y-2.5 ${subCardBgClass} border-purple-300 dark:border-purple-500/40 bg-purple-50/70 dark:bg-purple-950/40 transition-all duration-300`}>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className={`text-[11px] font-black ${purpleAccent} font-mono`}>Guest #{idx + 1}</span>
@@ -1506,7 +1512,7 @@ function MainAppContent() {
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-lg transition-transform duration-200 hover:scale-110"><Trash2 className="w-3.5 h-3.5" /></button>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-full transition-transform duration-200 hover:scale-110"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
                               <div className="grid grid-cols-2 gap-2">
@@ -1515,7 +1521,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={`w-full p-2.5 rounded-xl text-xs font-black border ${inputBgClass} ${amberAccent} cursor-pointer`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black border ${inputBgClass} ${amberAccent} cursor-pointer px-3`}
                                   >
                                     <option value="international" className="py-1">👑 Luxury Kit</option>
                                     <option value="drugstore" className="py-1">✨ HD Kit</option>
@@ -1527,7 +1533,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2.5 rounded-xl text-xs font-black border ${inputBgClass} ${cyanAccent} cursor-pointer`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black border ${inputBgClass} ${cyanAccent} cursor-pointer px-3`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k} className="py-1">
@@ -1550,20 +1556,20 @@ function MainAppContent() {
                         <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/50 rounded-2xl p-3.5 flex items-center justify-between gap-2 animate-fade-in">
+                        <div className="bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/50 rounded-[24px] p-3.5 flex items-center justify-between gap-2 animate-fade-in">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className={`text-xs font-black ${emeraldAccent} font-mono`}>CODE: {appliedCoupon.code} APPLIED</span>
                               {appliedCoupon.expiryDate && (() => {
                                 const tr = getTimeRemaining(appliedCoupon.expiryDate);
                                 return tr && !tr.expired ? (
-                                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-500/40 px-2 py-0.5 rounded-full flex items-center gap-1`}>
+                                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
                                     <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
                                   </span>
                                 ) : null;
                               })()}
                             </div>
-                            <p className={`text-[11px] ${bodyText} font-semibold`}>
+                            <p className={`text-[11px] ${bodyText}`}>
                               🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
@@ -1571,8 +1577,8 @@ function MainAppContent() {
                         </div>
                       ) : (
                         <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} rounded-2xl px-3.5 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
-                          <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow active:scale-[0.96] transition-all duration-300`}>Apply</button>
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ${inputBgClass} px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
+                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-2.5 ${currentTheme.btnPrimary} text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300`}>Apply</button>
                         </div>
                       )}
                       {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-black">{couponError}</p>}
@@ -1586,18 +1592,18 @@ function MainAppContent() {
                     </h4>
 
                     <div>
-                      <label className={`block text-xs font-bold ${labelText} mb-1`}>Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${titleText} font-semibold`} />
+                      <label className={`block text-xs ${labelText} mb-1`}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs ${titleText}`} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className={`block text-xs font-bold ${labelText} mb-1`}>Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-mono ${cyanAccent} font-black`} />
+                        <label className={`block text-xs ${labelText} mb-1`}>Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs font-mono ${cyanAccent} font-black`} />
                       </div>
                       <div>
-                        <label className={`block text-xs font-bold ${labelText} mb-1`}>Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs font-mono ${amberAccent} font-black`} />
+                        <label className={`block text-xs ${labelText} mb-1`}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs font-mono ${amberAccent} font-black`} />
                       </div>
                     </div>
 
@@ -1613,7 +1619,7 @@ function MainAppContent() {
                               key={type}
                               type="button"
                               onClick={() => setAddressType(type)}
-                              className={`px-2.5 py-1 rounded-lg text-[10px] font-black border transition-all duration-300 active:scale-[0.96] ${
+                              className={`px-3 py-1 rounded-full text-[10px] font-black border transition-all duration-300 active:scale-[0.95] ${
                                 addressType === type 
                                   ? `${currentTheme.btnPrimary}` 
                                   : `${subCardBgClass} ${bodyText}`
@@ -1627,7 +1633,7 @@ function MainAppContent() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className={`block text-[11px] font-bold ${labelText} mb-1`}>Postal PIN Code *</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>Postal PIN Code *</label>
                           <input 
                             type="text" 
                             required 
@@ -1635,67 +1641,67 @@ function MainAppContent() {
                             placeholder="e.g. 110025" 
                             value={pincode} 
                             onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} font-mono font-black text-xs ${purpleAccent}`} 
+                            className={`w-full px-4 py-3 rounded-full ${inputBgClass} font-mono font-black text-xs ${purpleAccent}`} 
                           />
                         </div>
 
                         <div>
-                          <label className={`block text-[11px] font-bold ${labelText} mb-1`}>Flat, House No., Building Name</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>Flat, House No., Building Name</label>
                           <input 
                             type="text" 
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${titleText} font-semibold`} 
+                            className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs ${titleText}`} 
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className={`block text-[11px] font-bold ${labelText} mb-1`}>Street, Sector, Area, Locality *</label>
+                        <label className={`block text-[11px] ${labelText} mb-1`}>Street, Sector, Area, Locality *</label>
                         <input 
                           type="text" 
                           required 
                           placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
-                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${titleText} font-semibold`} 
+                          className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs ${titleText}`} 
                         />
                       </div>
 
                       <div>
-                        <label className={`block text-[11px] font-bold ${labelText} mb-1`}>Landmark (Optional)</label>
+                        <label className={`block text-[11px] ${labelText} mb-1`}>Landmark (Optional)</label>
                         <input 
                           type="text" 
                           placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
-                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${bodyText} font-semibold`} 
+                          className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs ${bodyText}`} 
                         />
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className={`block text-[11px] font-bold ${labelText} mb-1`}>Town / City *</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>Town / City *</label>
                           <input 
                             type="text" 
                             required 
                             placeholder="e.g. New Delhi" 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
 
                         <div>
-                          <label className={`block text-[11px] font-bold ${labelText} mb-1`}>State / Region *</label>
+                          <label className={`block text-[11px] ${labelText} mb-1`}>State / Region *</label>
                           <input 
                             type="text" 
                             required 
                             placeholder="e.g. Delhi" 
                             value={state} 
                             onChange={(e) => setState(e.target.value)} 
-                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-4 py-3 rounded-full ${inputBgClass} text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
                       </div>
@@ -1704,7 +1710,7 @@ function MainAppContent() {
                 </div>
 
                 {/* RIGHT COLUMN: HIGH-CONTRAST COLORFUL SUMMARY */}
-                <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-slate-200 dark:border-cyan-400/40`}>
+                <div className={`md:col-span-5 ${subCardBgClass} p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-slate-200 dark:border-cyan-400/40 rounded-[30px]`}>
                   <div>
                     <span className={`text-[11px] font-black uppercase tracking-widest ${cyanAccent} flex items-center gap-1.5`}>
                       <Zap className="w-4 h-4 text-amber-500 dark:text-amber-300" /> Total Amount Summary
@@ -1717,7 +1723,7 @@ function MainAppContent() {
 
                   <div className="space-y-3.5 text-xs border-t border-b border-slate-200 dark:border-white/20 py-3.5">
                     {/* SECTION 1: MAIN MAKEOVER PACKAGE (SKY BLUE) */}
-                    <div className={`p-3.5 rounded-2xl bg-blue-50 dark:bg-sky-950/70 border border-blue-200 dark:border-sky-400/40 space-y-2 text-blue-900 dark:text-sky-100 transition-all duration-300`}>
+                    <div className={`p-4 rounded-[22px] bg-blue-50/90 dark:bg-sky-950/70 border border-blue-200 dark:border-sky-400/40 space-y-2 text-blue-900 dark:text-sky-100 transition-all duration-300`}>
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${cyanAccent}`}>
                         <span>1. Main Makeover Package:</span>
                         <span className={`font-mono ${titleText}`}>₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
@@ -1745,7 +1751,7 @@ function MainAppContent() {
                     </div>
 
                     {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS (PURPLE) */}
-                    <div className="p-3.5 rounded-2xl bg-purple-50 dark:bg-purple-950/70 border border-purple-200 dark:border-purple-400/40 space-y-2 text-purple-950 dark:text-purple-100 transition-all duration-300">
+                    <div className="p-4 rounded-[22px] bg-purple-50/90 dark:bg-purple-950/70 border border-purple-200 dark:border-purple-400/40 space-y-2 text-purple-950 dark:text-purple-100 transition-all duration-300">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${purpleAccent}`}>
                         <span>2. Extra Family Makeovers ({familyGuests.length}):</span>
                         <span className={`font-mono ${titleText}`}>₹{familyGuestsGross.toLocaleString('en-IN')}</span>
@@ -1756,20 +1762,20 @@ function MainAppContent() {
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                           const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
                           return (
-                            <div key={i} className={`rounded-xl bg-white dark:bg-black/60 border border-purple-200 dark:border-purple-400/40 p-2.5 space-y-1 text-[11px]`}>
-                              <div className={`flex justify-between gap-3 ${bodyText} font-semibold`}>
+                            <div key={i} className={`rounded-[18px] bg-white/90 dark:bg-black/60 border border-purple-200 dark:border-purple-400/40 p-2.5 space-y-1 text-[11px]`}>
+                              <div className={`flex justify-between gap-3 ${bodyText}`}>
                                 <span>• Makeover #{i + 1} ({vanityName}):</span>
                                 <span className={`font-black text-right ${cyanAccent}`}>{pkgN}</span>
                               </div>
                               <div className="flex justify-between gap-3">
-                                <span className={`${bodyText} font-semibold`}>• Price:</span>
+                                <span className={bodyText}>• Price:</span>
                                 <span className={`font-mono font-black ${purpleAccent}`}>₹{gp.toLocaleString('en-IN')}</span>
                               </div>
                             </div>
                           );
                         })
                       ) : (
-                        <div className={`flex justify-between ${labelText} pl-1 text-[11px] font-semibold`}>
+                        <div className={`flex justify-between ${labelText} pl-1 text-[11px]`}>
                           <span>• No additional family guests selected</span>
                           <span className="font-mono text-slate-400">₹0</span>
                         </div>
@@ -1781,13 +1787,13 @@ function MainAppContent() {
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className={`flex justify-between items-center px-3 py-2 text-xs sm:text-[13px] font-black ${titleText} rounded-xl bg-slate-200/80 dark:bg-white/10 border border-slate-300 dark:border-white/15`}>
+                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full bg-slate-200/80 dark:bg-white/10 border border-slate-300 dark:border-white/15`}>
                       <span>Booking Total Before Discounts:</span>
                       <span className={`font-mono ${amberAccent} text-sm font-black`}>₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
                     {/* SECTION 3: DISCOUNTS & OFFERS (EMERALD GREEN) */}
-                    <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-400/40 space-y-2 text-emerald-950 dark:text-emerald-100 transition-all duration-300">
+                    <div className="p-4 rounded-[22px] bg-emerald-50/90 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-400/40 space-y-2 text-emerald-950 dark:text-emerald-100 transition-all duration-300">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${emeraldAccent}`}>
                         <span>3. Discounts & Offers:</span>
                         <span className={`font-mono ${emeraldAccent} font-black`}>-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
@@ -1808,7 +1814,7 @@ function MainAppContent() {
                       )}
 
                       {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
-                        <div className={`flex justify-between ${labelText} pl-1 text-[11px] font-semibold`}>
+                        <div className={`flex justify-between ${labelText} pl-1 text-[11px]`}>
                           <span>• No discount applied</span>
                           <span className="font-mono text-slate-400">₹0</span>
                         </div>
@@ -1821,13 +1827,13 @@ function MainAppContent() {
                     </div>
 
                     {/* FINAL AMOUNT CARD */}
-                    <div className="p-4 rounded-2xl bg-white dark:bg-[#070D1E] border border-blue-400 dark:border-cyan-400 shadow-2xl shadow-blue-500/10 dark:shadow-cyan-950/60 transition-all duration-300">
+                    <div className="p-4.5 rounded-[22px] bg-white dark:bg-[#060A1A] border border-blue-400 dark:border-cyan-400 shadow-2xl shadow-blue-500/10 dark:shadow-cyan-950/60 transition-all duration-300">
                       <div className="flex justify-between items-center">
                         <div>
                           <p className={`text-[11px] uppercase tracking-wider font-black ${cyanAccent} flex items-center gap-1`}>
                             <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Final Payable
                           </p>
-                          <p className={`text-[10px] mt-0.5 ${labelText} font-semibold`}>Net all-inclusive rate</p>
+                          <p className={`text-[10px] mt-0.5 ${labelText}`}>Net all-inclusive rate</p>
                         </div>
                         <div className="text-right">
                           <div className={`text-2xl sm:text-3xl font-black ${titleText} font-mono tracking-tight`}>
@@ -1841,7 +1847,7 @@ function MainAppContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-xl active:scale-[0.96] transition-all duration-300 flex items-center justify-center gap-2`}
+                    className={`w-full py-4 ${currentTheme.btnPrimary} text-xs rounded-full shadow-xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2`}
                   >
                     <Check className="w-4 h-4" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
@@ -1854,7 +1860,7 @@ function MainAppContent() {
 
         {/* TAB 5: FEEDBACK */}
         {activeTab === 'feedback' && (
-          <div key="tab-feedback" className={`p-6 sm:p-8 rounded-3xl border ${cardBgClass} max-w-2xl mx-auto space-y-5 ios-tab-spring shadow-2xl`}>
+          <div key="tab-feedback" className={`p-6 sm:p-8 border ${cardBgClass} max-w-2xl mx-auto space-y-5 ios-tab-spring shadow-2xl`}>
             <div className="text-center space-y-1">
               <span className={`text-[10px] font-black uppercase tracking-wider ${cyanAccent}`}>Client Experience</span>
               <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Feedback & Suggestions</h3>
@@ -1862,13 +1868,13 @@ function MainAppContent() {
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/50 text-center space-y-2 animate-fade-in">
+              <div className="p-6 rounded-[28px] bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/50 text-center space-y-2 animate-fade-in">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto animate-bounce" />
                 <h4 className={`font-black text-sm ${emeraldAccent}`}>Thank you for your valuable feedback!</h4>
-                <p className={`text-xs ${bodyText} font-semibold`}>Your suggestion has been securely submitted to our studio team.</p>
+                <p className={`text-xs ${bodyText}`}>Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
-                  className={`mt-3 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-xs font-black ${titleText} transition-all duration-300 active:scale-[0.96] border border-slate-200 dark:border-white/20`}
+                  className={`mt-3 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-xs font-black ${titleText} transition-all duration-300 active:scale-[0.95] border border-slate-200 dark:border-white/20`}
                 >
                   Submit Another Feedback
                 </button>
@@ -1894,14 +1900,14 @@ function MainAppContent() {
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={`w-full p-3 rounded-2xl text-xs ${titleText} ${inputBgClass}`}
+                    className={`w-full px-4 py-3 rounded-full text-xs ${titleText} ${inputBgClass}`}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={`w-full p-3 rounded-2xl text-xs ${cyanAccent} font-mono font-black ${inputBgClass}`}
+                    className={`w-full px-4 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black ${inputBgClass}`}
                   />
                 </div>
 
@@ -1911,13 +1917,13 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={`w-full p-3 rounded-2xl text-xs ${titleText} ${inputBgClass}`}
+                  className={`w-full p-4 rounded-[24px] text-xs ${titleText} ${isDarkMode ? 'bg-[#060A1A] border border-cyan-400/40 text-white placeholder-slate-400' : 'bg-white border border-slate-300 text-slate-900 placeholder-slate-400 shadow-sm'}`}
                 />
 
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-2xl shadow-lg active:scale-[0.96] transition-all duration-300 flex items-center justify-center gap-1.5`}
+                  className={`w-full py-3.5 ${currentTheme.btnPrimary} text-xs rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5`}
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
@@ -1932,7 +1938,7 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border border-amber-400 dark:border-amber-400/60 p-3.5 sm:p-4 rounded-3xl shadow-2xl transition-all duration-500 ios-tab-spring ${
+          className={`fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 backdrop-blur-3xl border border-amber-400 dark:border-amber-400/60 p-4 rounded-[32px] shadow-2xl transition-all duration-500 ios-tab-spring ${
             isDarkMode ? 'bg-[#0B132B]/95 text-white shadow-cyan-950/80' : 'bg-white/95 text-slate-900 shadow-slate-300/80'
           }`}
         >
@@ -1940,16 +1946,16 @@ function MainAppContent() {
             <Gift className={`w-5 h-5 text-amber-600 dark:text-amber-300 shrink-0 mt-0.5 animate-bounce`} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`text-[10px] font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-400/50 uppercase px-2 py-0.5 rounded-full font-mono`}>
+                <span className={`text-[10px] font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-0.5 rounded-full font-mono`}>
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-black bg-rose-100 dark:bg-rose-500/30 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                  <span className="text-[10px] font-mono font-black bg-rose-100 dark:bg-rose-500/30 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 px-2 py-0.5 rounded-full flex items-center gap-1`}>
+                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
                     <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
@@ -1975,10 +1981,10 @@ function MainAppContent() {
                 setActiveTab('calculator'); 
               }
             }} 
-            className={`mt-3 w-full py-2 text-xs rounded-2xl shadow transition-all duration-300 ${
+            className={`mt-3 w-full py-2.5 text-xs rounded-full shadow transition-all duration-300 ${
               isFloatingExpired 
                 ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
-                : `${currentTheme.btnPrimary} active:scale-[0.96]`
+                : `${currentTheme.btnPrimary} active:scale-[0.95]`
             }`}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
