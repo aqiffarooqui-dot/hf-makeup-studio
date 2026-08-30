@@ -4,7 +4,8 @@ import {
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
-  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw
+  Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw,
+  Home, Building2, Navigation, Compass
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -114,72 +115,72 @@ const DEFAULT_GALLERY = [
 
 const THEME_STYLES = {
   real_glass_lens: {
-    accentGradient: "from-sky-300 via-blue-400 to-indigo-400",
-    btnPrimary: "bg-white/40 backdrop-blur-[24px] border border-white/60 hover:bg-white/60 text-black font-bold shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-[16px]",
-    accentText: "text-blue-600 dark:text-blue-300",
-    accentBorder: "border-white/50",
-    activeNav: "bg-white/50 backdrop-blur-[24px] border border-white/70 text-blue-700 font-bold shadow-md rounded-[22px] px-4 py-2"
+    accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-300 dark:via-blue-400 dark:to-indigo-400",
+    btnPrimary: "bg-blue-600 hover:bg-blue-700 dark:bg-white/40 dark:hover:bg-white/60 text-white dark:text-black font-bold shadow-[0_8px_30px_rgba(0,122,255,0.25)] rounded-[16px]",
+    accentText: "text-blue-600 dark:text-blue-400",
+    accentBorder: "border-blue-500/30 dark:border-white/50",
+    activeNav: "bg-blue-600 text-white dark:bg-white/50 dark:text-blue-950 font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   real_ios_glass: {
-    accentGradient: "from-sky-400 via-blue-500 to-indigo-500",
+    accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-400 dark:via-blue-500 dark:to-indigo-500",
     btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg rounded-[16px]",
-    accentText: "text-blue-500 dark:text-blue-400",
+    accentText: "text-blue-600 dark:text-blue-400",
     accentBorder: "border-blue-500/40",
     activeNav: "bg-[#007AFF] text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   liquid_glass: {
-    accentGradient: "from-cyan-400 via-sky-300 to-indigo-400",
-    btnPrimary: "bg-gradient-to-r from-cyan-400 to-blue-500 text-neutral-950 font-bold shadow-xl rounded-[16px]",
-    accentText: "text-cyan-500 dark:text-cyan-400",
+    accentGradient: "from-cyan-500 via-sky-600 to-blue-600 dark:from-cyan-400 dark:via-sky-300 dark:to-indigo-400",
+    btnPrimary: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white dark:text-neutral-950 font-bold shadow-xl rounded-[16px]",
+    accentText: "text-cyan-600 dark:text-cyan-400",
     accentBorder: "border-cyan-500/40",
     activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg rounded-[22px] px-4 py-2"
   },
   one_ui_9: {
-    accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
+    accentGradient: "from-amber-500 via-rose-500 to-amber-600 dark:from-amber-400 dark:via-rose-400 dark:to-amber-500",
+    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-amber-600 dark:text-amber-400",
     accentBorder: "border-amber-500/30",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
+    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   gold_rose: {
-    accentGradient: "from-amber-400 via-rose-400 to-amber-500",
-    btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow-md rounded-[16px]",
+    accentGradient: "from-rose-500 via-pink-600 to-amber-500 dark:from-amber-400 dark:via-rose-400 dark:to-amber-500",
+    btnPrimary: "bg-gradient-to-r from-rose-500 to-amber-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[16px]",
     accentText: "text-rose-600 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
-    activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
+    activeNav: "bg-gradient-to-r from-rose-500 to-amber-500 text-white dark:text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   champagne: {
-    accentGradient: "from-amber-200 via-yellow-400 to-amber-500",
-    btnPrimary: "bg-amber-400 text-neutral-950 font-bold shadow-lg rounded-[16px]",
-    accentText: "text-amber-600 dark:text-amber-400",
-    accentBorder: "border-amber-400/30",
-    activeNav: "bg-amber-400 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
+    accentGradient: "from-amber-500 via-yellow-500 to-amber-600 dark:from-amber-200 dark:via-yellow-400 dark:to-amber-500",
+    btnPrimary: "bg-amber-500 text-neutral-950 font-bold shadow-lg rounded-[16px]",
+    accentText: "text-amber-700 dark:text-amber-400",
+    accentBorder: "border-amber-500/30",
+    activeNav: "bg-amber-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   emerald: {
-    accentGradient: "from-emerald-400 via-teal-300 to-emerald-500",
-    btnPrimary: "bg-emerald-500 text-neutral-950 font-bold shadow-lg rounded-[16px]",
-    accentText: "text-emerald-600 dark:text-emerald-400",
+    accentGradient: "from-emerald-600 via-teal-600 to-emerald-700 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-500",
+    btnPrimary: "bg-emerald-600 text-white dark:text-neutral-950 font-bold shadow-lg rounded-[16px]",
+    accentText: "text-emerald-700 dark:text-emerald-400",
     accentBorder: "border-emerald-500/30",
-    activeNav: "bg-emerald-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
+    activeNav: "bg-emerald-600 text-white dark:text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   violet: {
-    accentGradient: "from-purple-400 via-pink-400 to-rose-400",
-    btnPrimary: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow-lg rounded-[16px]",
+    accentGradient: "from-purple-600 via-pink-600 to-rose-600 dark:from-purple-400 dark:via-pink-400 dark:to-rose-400",
+    btnPrimary: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-lg rounded-[16px]",
     accentText: "text-purple-600 dark:text-purple-400",
     accentBorder: "border-purple-500/30",
-    activeNav: "bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold shadow rounded-[22px] px-4 py-2"
+    activeNav: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   ruby: {
-    accentGradient: "from-rose-500 via-red-600 to-pink-600",
+    accentGradient: "from-rose-600 via-red-600 to-pink-700 dark:from-rose-500 dark:via-red-600 dark:to-pink-600",
     btnPrimary: "bg-rose-600 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-rose-500 dark:text-rose-400",
+    accentText: "text-rose-600 dark:text-rose-400",
     accentBorder: "border-rose-500/30",
     activeNav: "bg-rose-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   sapphire: {
-    accentGradient: "from-blue-600 via-indigo-600 to-cyan-500",
+    accentGradient: "from-blue-600 via-indigo-600 to-cyan-600 dark:from-blue-600 dark:via-indigo-600 dark:to-cyan-500",
     btnPrimary: "bg-indigo-600 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-indigo-500 dark:text-indigo-400",
+    accentText: "text-indigo-600 dark:text-indigo-400",
     accentBorder: "border-indigo-500/30",
     activeNav: "bg-indigo-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   }
@@ -312,7 +313,16 @@ function MainAppContent() {
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [venueAddress, setVenueAddress] = useState('');
+
+  // 6 Structured Address Fields
+  const [addressType, setAddressType] = useState('Home');
+  const [flatHouseNo, setFlatHouseNo] = useState('');
+  const [streetLocality, setStreetLocality] = useState('');
+  const [landmark, setLandmark] = useState('');
+  const [city, setCity] = useState('New Delhi');
+  const [state, setState] = useState('Delhi');
+  const [pincode, setPincode] = useState('');
+
   const [currentBookingNumber, setCurrentBookingNumber] = useState('');
 
   const [appliedCoupon, setAppliedCoupon] = useState(null);
@@ -446,11 +456,13 @@ function MainAppContent() {
   }, []);
 
   const handleAddFamilyGuest = () => {
+    const defaultKit = 'international';
+    const firstPkgKey = Object.keys(config.kitText?.[defaultKit] || {})[0] || 'hd_party';
     setFamilyGuests([...familyGuests, {
       id: Date.now(),
       name: `Guest #${familyGuests.length + 1}`,
-      kit: 'international',
-      packageKey: 'hd_party'
+      kit: defaultKit,
+      packageKey: firstPkgKey
     }]);
   };
 
@@ -459,7 +471,15 @@ function MainAppContent() {
   };
 
   const handleUpdateFamilyGuest = (id, field, value) => {
-    setFamilyGuests(familyGuests.map(g => g.id === id ? { ...g, [field]: value } : g));
+    setFamilyGuests(familyGuests.map(g => {
+      if (g.id !== id) return g;
+      if (field === 'kit') {
+        const availableKeys = Object.keys(config.kitText?.[value] || {});
+        const nextKey = availableKeys.includes(g.packageKey) ? g.packageKey : (availableKeys[0] || 'hd_party');
+        return { ...g, kit: value, packageKey: nextKey };
+      }
+      return { ...g, [field]: value };
+    }));
   };
 
   const isGuestDiscountActive = config.toggles?.enableGuestDiscount !== false && config.guestDiscount?.enabled !== false;
@@ -532,33 +552,88 @@ function MainAppContent() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
+    const guestRowsHeight = familyGuests.length * 84;
     canvas.width = 1200;
-    canvas.height = 2400;
+    canvas.height = Math.max(2600, 2150 + guestRowsHeight);
+
+    const drawText = (text, x, y, size, weight = 'normal', color = '#ffffff', align = 'left', family = 'sans-serif') => {
+      ctx.textAlign = align;
+      ctx.fillStyle = color;
+      ctx.font = `${weight} ${size}px ${family}`;
+      ctx.fillText(String(text ?? ''), x, y);
+    };
+
+    const drawRow = (label, value, y, options = {}) => {
+      const rowHeight = options.height || 54;
+      ctx.fillStyle = options.bg || 'rgba(255, 255, 255, 0.035)';
+      ctx.fillRect(90, y, 1020, rowHeight);
+      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
+      drawText(value, 1080, y + 34, options.valueSize || 19, 'bold', options.valueColor || '#ffffff', 'right', options.mono ? 'monospace' : 'sans-serif');
+      return y + rowHeight + (options.gap ?? 6);
+    };
+
+    const drawDynamicRow = (label, value, y, options = {}) => {
+      ctx.font = `bold ${options.valueSize || 18}px sans-serif`;
+      const maxWidth = options.maxWidth || 500;
+      const words = String(value || '').split(' ');
+      let lines = [];
+      let curLine = '';
+
+      for (let i = 0; i < words.length; i++) {
+        const testLine = curLine + words[i] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && i > 0) {
+          lines.push(curLine.trim());
+          curLine = words[i] + ' ';
+        } else {
+          curLine = testLine;
+        }
+      }
+      if (curLine.trim()) lines.push(curLine.trim());
+      if (lines.length === 0) lines = [String(value || '')];
+
+      const lineHeight = 24;
+      const rowHeight = Math.max(54, 24 + (lines.length * lineHeight));
+      ctx.fillStyle = options.bg || 'rgba(255, 255, 255, 0.035)';
+      ctx.fillRect(90, y, 1020, rowHeight);
+
+      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
+      lines.forEach((line, lIdx) => {
+        drawText(line, 1080, y + 34 + (lIdx * lineHeight), options.valueSize || 18, 'bold', options.valueColor || '#ffffff', 'right');
+      });
+
+      return y + rowHeight + (options.gap ?? 6);
+    };
+
+    const drawSectionTitle = (title, y, accent = '#c084fc') => {
+      ctx.fillStyle = accent === '#c084fc' ? 'rgba(192, 132, 252, 0.14)' : 'rgba(56, 189, 248, 0.14)';
+      ctx.fillRect(90, y, 1020, 56);
+      drawText(title, 120, y + 36, 20, 'bold', accent);
+      return y + 64;
+    };
 
     const drawContent = (logoImageObj) => {
-      const bgGrad = ctx.createLinearGradient(0, 0, 1200, 2400);
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, canvas.height);
       bgGrad.addColorStop(0, '#09090b');
       bgGrad.addColorStop(0.5, '#1e1b4b');
       bgGrad.addColorStop(1, '#0f172a');
       ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, 1200, 2400);
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 6;
-      ctx.strokeRect(40, 40, 1120, 2320);
+      ctx.strokeRect(40, 40, 1120, canvas.height - 80);
 
       ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
       ctx.lineWidth = 2;
-      ctx.strokeRect(55, 55, 1090, 2290);
+      ctx.strokeRect(55, 55, 1090, canvas.height - 110);
 
       if (logoImageObj) {
         ctx.save();
         ctx.globalAlpha = 0.08;
         ctx.drawImage(logoImageObj, 300, 900, 600, 600);
         ctx.restore();
-      }
 
-      if (logoImageObj) {
         ctx.save();
         ctx.beginPath();
         ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
@@ -573,23 +648,11 @@ function MainAppContent() {
         ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
         ctx.stroke();
 
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 44px sans-serif';
-        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130);
-
-        ctx.fillStyle = '#c084fc';
-        ctx.font = 'bold 22px sans-serif';
-        ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175);
+        drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#c084fc');
       } else {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 50px sans-serif';
-        ctx.fillText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135);
-
-        ctx.fillStyle = '#c084fc';
-        ctx.font = 'bold 22px sans-serif';
-        ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175);
+        drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 50, 'bold', '#ffffff', 'center');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#c084fc', 'center');
       }
 
       ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
@@ -599,206 +662,82 @@ function MainAppContent() {
       ctx.lineTo(1110, 230);
       ctx.stroke();
 
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#fbbf24';
-      ctx.font = 'bold 26px sans-serif';
-      ctx.fillText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290);
+      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#fbbf24', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
       const zone = config.convenienceZones[calcZone];
 
-      const clientInfoRows = [
-        { label: 'BOOKING NUMBER', val: bNumber || '#HF-PENDING' },
-        { label: 'CLIENT NAME', val: clientName || 'Not Provided' },
-        { label: 'CONTACT NUMBER', val: clientPhone || 'Not Provided' },
-        { label: 'EVENT DATE', val: eventDate || 'Not Provided' },
-        { label: 'LOCATION ZONE', val: `${zone?.name} (+₹${zoneFee})` },
-        { label: 'EXACT ADDRESS', val: venueAddress || 'Not Provided' }
-      ];
-
       let startY = 340;
-      clientInfoRows.forEach((row, idx) => {
-        ctx.fillStyle = idx % 2 === 0 ? 'rgba(255, 255, 255, 0.04)' : 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 50);
+      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#c084fc', mono: true });
+      startY = drawRow('CLIENT NAME', clientName || 'Not Provided', startY);
+      startY = drawRow('CONTACT NUMBER', clientPhone || 'Not Provided', startY);
+      startY = drawRow('EVENT DATE', eventDate || 'Not Provided', startY);
 
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = 'bold 18px sans-serif';
-        ctx.fillText(row.label, 120, startY + 32);
-
-        ctx.textAlign = 'right';
-        ctx.fillStyle = idx === 0 ? '#c084fc' : '#ffffff';
-        ctx.font = 'bold 19px monospace';
-        ctx.fillText(row.val, 1080, startY + 32);
-        startY += 54;
-      });
+      // Clean Structured Address Block without numbers
+      startY += 10;
+      startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#38bdf8');
+      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#38bdf8' });
+      if (flatHouseNo.trim()) {
+        startY = drawDynamicRow('Flat / House No., Building:', flatHouseNo.trim(), startY);
+      }
+      startY = drawDynamicRow('Street, Sector, Locality:', streetLocality.trim() || 'Not Provided', startY);
+      if (landmark.trim()) {
+        startY = drawDynamicRow('Landmark:', landmark.trim(), startY);
+      }
+      startY = drawRow('Town / City & State:', `${city || 'New Delhi'}, ${state || 'Delhi'}`, startY);
+      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#c084fc', mono: true });
 
       startY += 10;
-      ctx.fillStyle = 'rgba(56, 189, 248, 0.2)';
-      ctx.fillRect(90, startY, 1020, 48);
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('1. MAIN MAKEOVER PACKAGE', 120, startY + 31);
-      ctx.textAlign = 'right';
-      ctx.font = 'bold 20px monospace';
-      ctx.fillText(`₹${mainBookingSubtotal.toLocaleString('en-IN')}`, 1080, startY + 31);
-      startY += 54;
-
-      const mainDetails = [
-        { label: '• Vanity:', val: kitName },
-        { label: '• Package:', val: pkgText.name },
-        { label: '• Package Price:', val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
-        { label: `• Travel Fee (${zone?.name}):`, val: `₹${zoneFee.toLocaleString('en-IN')}` }
-      ];
-      mainDetails.forEach(d => {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 44);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.font = '16px sans-serif';
-        ctx.fillText(d.label, 130, startY + 28);
-        ctx.textAlign = 'right';
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '16px monospace';
-        ctx.fillText(d.val, 1070, startY + 28);
-        startY += 48;
-      });
+      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#38bdf8');
+      startY = drawRow('• Vanity:', kitName, startY);
+      startY = drawRow('• Package:', pkgText.name, startY);
+      startY = drawRow('• Package Price:', `₹${mainPackagePrice.toLocaleString('en-IN')}`, startY, { mono: true });
+      startY = drawRow(`• Travel Fee (${zone?.name}):`, `₹${zoneFee.toLocaleString('en-IN')}`, startY, { mono: true });
+      startY = drawRow('Main Makeover Package Total:', `₹${mainBookingSubtotal.toLocaleString('en-IN')}`, startY, { labelColor: '#7dd3fc', valueColor: '#7dd3fc', mono: true });
 
       startY += 10;
-      ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
-      ctx.fillRect(90, startY, 1020, 48);
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#d8b4fe';
-      ctx.font = 'bold 20px sans-serif';
-      ctx.fillText(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, 120, startY + 31);
-      ctx.textAlign = 'right';
-      ctx.font = 'bold 20px monospace';
-      ctx.fillText(`₹${familyGuestsGross.toLocaleString('en-IN')}`, 1080, startY + 31);
-      startY += 54;
-
+      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#c084fc');
       if (familyGuests.length > 0) {
         familyGuests.forEach((g, gIdx) => {
           const rawP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
           const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit');
-          const pkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
-
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-          ctx.fillRect(90, startY, 1020, 88);
-          ctx.textAlign = 'left';
-          ctx.fillStyle = '#cbd5e1';
-          ctx.font = '15px sans-serif';
-          ctx.fillText(`• Makeover #${gIdx + 1} — Vanity:`, 130, startY + 23);
-          ctx.fillText('• Package:', 130, startY + 47);
-          ctx.fillText('• Price:', 130, startY + 71);
-          ctx.textAlign = 'right';
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '15px sans-serif';
-          ctx.fillText(vanityName, 1070, startY + 23);
-          ctx.fillText(pkgName, 1070, startY + 47);
-          ctx.font = 'bold 15px monospace';
-          ctx.fillText(`₹${rawP.toLocaleString('en-IN')}`, 1070, startY + 71);
-          startY += 94;
+          const gPkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+          startY = drawRow(`Makeover #${gIdx + 1} • Vanity:`, vanityName, startY, { labelSize: 16, valueSize: 17 });
+          startY = drawRow('• Package:', gPkgName, startY, { labelSize: 16, valueSize: 17 });
+          startY = drawRow('• Price:', `₹${rawP.toLocaleString('en-IN')}`, startY, { labelSize: 16, mono: true });
         });
       } else {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 44);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '16px sans-serif';
-        ctx.fillText('• No extra family guests selected', 130, startY + 28);
-        ctx.textAlign = 'right';
-        ctx.font = '16px monospace';
-        ctx.fillText('₹0', 1070, startY + 28);
-        startY += 48;
+        startY = drawRow('• No extra family guests selected', '₹0', startY, { valueColor: '#94a3b8', mono: true });
       }
+      startY = drawRow('Additional Family & Guest Total:', `₹${familyGuestsGross.toLocaleString('en-IN')}`, startY, { labelColor: '#d8b4fe', valueColor: '#d8b4fe', mono: true });
 
       startY += 10;
-      ctx.fillStyle = 'rgba(5, 150, 105, 0.15)';
-      ctx.fillRect(90, startY, 1020, 48);
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#34d399';
-      ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('3. DISCOUNTS & OFFERS', 120, startY + 31);
-      startY += 54;
-
+      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#34d399');
       if (guestDiscountSavedAmount > 0) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 44);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.font = '16px sans-serif';
-        ctx.fillText(`• Additional Family & Guest Makeovers Discount (${guestDiscountPercent}%):`, 130, startY + 28);
-        ctx.textAlign = 'right';
-        ctx.font = '16px monospace';
-        ctx.fillStyle = '#34d399';
-        ctx.fillText(`-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, 1070, startY + 28);
-        startY += 48;
-
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-        ctx.fillRect(90, startY, 1020, 44);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#a7f3d0';
-        ctx.font = 'bold 16px sans-serif';
-        ctx.fillText(`  ↳ Net Additional Family & Guest Makeovers Total (After Discount)`, 130, startY + 28);
-        ctx.textAlign = 'right';
-        ctx.font = 'bold 16px monospace';
-        ctx.fillText(`₹${familyGuestsFinalTotal.toLocaleString('en-IN')}`, 1070, startY + 28);
-        startY += 48;
+        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34d399', mono: true });
       }
-
       if (appliedCoupon && couponDiscountAmount > 0) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 44);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#cbd5e1';
-        ctx.font = '16px sans-serif';
-        ctx.fillText(`• Coupon Code (${appliedCoupon.code}):`, 130, startY + 28);
-        ctx.textAlign = 'right';
-        ctx.font = '16px monospace';
-        ctx.fillStyle = '#34d399';
-        ctx.fillText(`-₹${couponDiscountAmount.toLocaleString('en-IN')}`, 1070, startY + 28);
-        startY += 48;
+        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34d399', mono: true });
       }
-
       if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
-        ctx.fillRect(90, startY, 1020, 44);
-        ctx.textAlign = 'left';
-        ctx.fillStyle = '#94a3b8';
-        ctx.font = '16px sans-serif';
-        ctx.fillText('• No discounts applied', 130, startY + 28);
-        ctx.textAlign = 'right';
-        ctx.font = '16px monospace';
-        ctx.fillText('₹0', 1070, startY + 28);
-        startY += 48;
+        startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#94a3b8', mono: true });
       }
+      startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#86efac', valueColor: '#86efac', mono: true });
 
-      startY += 15;
+      startY += 18;
       ctx.fillStyle = 'rgba(192, 132, 252, 0.25)';
       ctx.fillRect(90, startY, 1020, 115);
       ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 3;
       ctx.strokeRect(90, startY, 1020, 115);
 
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#e2e8f0';
-      ctx.font = 'bold 22px sans-serif';
-      ctx.fillText('FINAL AMOUNT PAYABLE', 600, startY + 38);
+      drawText('FINAL AMOUNT PAYABLE', 600, startY + 38, 22, 'bold', '#e2e8f0', 'center');
+      drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92, 48, 'bold', '#ffffff', 'center', 'serif');
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 48px serif';
-      ctx.fillText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92);
-
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#64748b';
-      ctx.font = '18px sans-serif';
-      ctx.fillText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, 2310);
-
-      ctx.fillStyle = '#c084fc';
-      ctx.font = 'italic 18px sans-serif';
-      ctx.fillText(config.artistTagline || 'Beauty, Styled Your Way', 600, 2345);
+      const footerY = canvas.height - 75;
+      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#64748b', 'center');
+      drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#c084fc', 'center');
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
@@ -814,8 +753,8 @@ function MainAppContent() {
 
   const handleDirectEstimateBooking = async (e) => {
     e.preventDefault();
-    if (!clientName.trim() || !clientPhone.trim() || !eventDate) {
-      alert("Please fill your Name, Contact Phone, and Event Date.");
+    if (!clientName.trim() || !clientPhone.trim() || !eventDate || !streetLocality.trim() || !pincode.trim()) {
+      alert("Please fill your Name, Contact Phone, Event Date, Street/Locality, and Postal PIN Code.");
       return;
     }
 
@@ -824,6 +763,8 @@ function MainAppContent() {
     const zone = config.convenienceZones[calcZone];
     const generatedBookingNo = `#HF-${Math.floor(100000 + Math.random() * 900000)}`;
     setCurrentBookingNumber(generatedBookingNo);
+
+    const compiledAddress = `${flatHouseNo.trim() ? `${flatHouseNo.trim()}, ` : ''}${streetLocality.trim()}${landmark.trim() ? `, Near ${landmark.trim()}` : ''}, ${city}, ${state} - ${pincode.trim()}`;
 
     try {
       await addDoc(collection(db, "bookings"), {
@@ -842,7 +783,17 @@ function MainAppContent() {
         guestDiscountSaved: guestDiscountSavedAmount,
         zoneName: zone?.name || 'Delhi NCR',
         zoneFee: zone?.fee || 350,
-        venueAddress: venueAddress || 'Not Provided',
+        
+        // 6 E-Commerce Structured Fields
+        addressType: addressType,
+        flatHouseNo: flatHouseNo.trim(),
+        streetLocality: streetLocality.trim(),
+        landmark: landmark.trim(),
+        city: city.trim(),
+        state: state.trim(),
+        pincode: pincode.trim(),
+        venueAddress: compiledAddress,
+
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
         couponDiscountAmount: couponDiscountAmount,
         discountAmount: guestDiscountSavedAmount + couponDiscountAmount,
@@ -861,6 +812,9 @@ function MainAppContent() {
         `📅 *Date:* ${eventDate}\n` +
         `💄 *Package:* ${pkgText.name} (${config.pricingByKit[calcKit].name})\n` +
         `👥 *Extra Guests:* ${familyGuests.length}\n` +
+        `📍 *Address Type:* ${addressType}\n` +
+        `🏠 *Full Venue:* ${compiledAddress}\n` +
+        `📮 *PIN Code:* ${pincode.trim()}\n` +
         `🎁 *Discounts:* Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
         `💰 *Total:* ₹${finalEstimate.toLocaleString('en-IN')}`
       );
@@ -916,15 +870,15 @@ function MainAppContent() {
     
   const cardBgClass = isDarkMode 
     ? "bg-white/[0.04] backdrop-blur-3xl border border-white/[0.12] hover:border-cyan-400/50 shadow-2xl shadow-cyan-950/30 text-[#f8fafc]" 
-    : "bg-white/85 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
+    : "bg-white/90 backdrop-blur-3xl border border-slate-200/90 hover:border-slate-300 shadow-xl shadow-slate-200/60 text-[#0f172a]";
     
   const subCardBgClass = isDarkMode 
     ? "bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] text-[#f8fafc]" 
-    : "bg-slate-100/90 backdrop-blur-2xl border border-slate-200 text-[#0f172a]";
+    : "bg-slate-100/95 backdrop-blur-2xl border border-slate-200/90 text-[#0f172a]";
     
   const inputBgClass = isDarkMode 
     ? "bg-black/40 border border-white/20 text-white placeholder-slate-400 focus:border-cyan-400" 
-    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-500 focus:border-blue-500";
+    : "bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:border-blue-500 shadow-sm";
     
   const navTextClass = isDarkMode 
     ? "text-slate-300 hover:text-white hover:bg-white/10" 
@@ -1066,17 +1020,17 @@ function MainAppContent() {
 
             <p className={`text-xs leading-relaxed ${mutedTextClass}`}>{viewingPackage.desc}</p>
 
-            <div className="space-y-2 text-xs border-t border-b border-white/10 py-3">
+            <div className="space-y-2 text-xs border-t border-b border-white/10 dark:border-white/10 border-slate-200 py-3">
               <div className="flex justify-between items-start gap-2">
-                <span className="shrink-0">Vanity Tier:</span>
+                <span className="shrink-0 font-medium">Vanity Tier:</span>
                 <strong className="capitalize text-right">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="shrink-0">Skin Finish:</span>
+                <span className="shrink-0 font-medium">Skin Finish:</span>
                 <span className="text-right">{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="shrink-0">Includes:</span>
+                <span className="shrink-0 font-medium">Includes:</span>
                 <span className="text-right">{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
               </div>
               <div className="flex justify-between items-center font-bold text-sm pt-1">
@@ -1107,12 +1061,12 @@ function MainAppContent() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center select-none`}>
+        <div className={`bg-gradient-to-r ${currentTheme.accentGradient} text-white dark:text-neutral-950 py-2.5 px-3 overflow-hidden text-xs font-bold shadow-sm relative flex items-center select-none`}>
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white dark:bg-neutral-950" />
                   {ann}
                 </span>
               ))}
@@ -1120,7 +1074,7 @@ function MainAppContent() {
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-medium" aria-hidden="true">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={`dup_${idx}`} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-950" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white dark:bg-neutral-950" />
                   {ann}
                 </span>
               ))}
@@ -1402,7 +1356,7 @@ function MainAppContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
                 <div key={idx} className={`${cardBgClass} rounded-2xl p-4 transition-all duration-300 hover:scale-[1.02] animate-fade-in`}>
-                  <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
+                  <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 dark:bg-white/10 bg-slate-200 px-2 py-0.5 rounded-lg`}>{brand.category}</span>
                   <h4 className="font-bold text-sm mt-2">{brand.name}</h4>
                   <p className={`text-xs mt-1 ${mutedTextClass}`}>{brand.desc}</p>
                 </div>
@@ -1419,7 +1373,7 @@ function MainAppContent() {
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                   
-                <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold text-xs">
+                <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 dark:text-cyan-400 font-mono font-bold text-xs">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
@@ -1437,14 +1391,14 @@ function MainAppContent() {
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-white/10 hover:bg-white/15 text-xs text-slate-300 font-bold rounded-2xl active:scale-95 mt-4 transition`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3 bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/15 text-xs text-slate-800 dark:text-slate-300 font-bold rounded-2xl active:scale-95 mt-4 transition`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className={`${cardBgClass} rounded-3xl p-5 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6`}>
                 <div className="md:col-span-7 space-y-4 sm:space-y-5">
-                  <div className="border-b border-white/10 pb-2">
+                  <div className="border-b border-slate-200 dark:border-white/10 pb-2">
                     <h3 className={`font-bold text-sm sm:text-base flex items-center gap-2 ${currentTheme.accentText}`}>
                       <Calculator className="w-5 h-5" /> 1. Calculate & Choose Looks
                     </h3>
@@ -1453,8 +1407,8 @@ function MainAppContent() {
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 dark:bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 dark:bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
@@ -1465,7 +1419,7 @@ function MainAppContent() {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
                         return (
-                          <option key={k} value={k}>
+                          <option key={k} value={k} className="bg-white text-slate-900 dark:bg-[#18181b] dark:text-white py-2">
                             {pData.num ? `${pData.num}. ` : ''}{pData.name} (₹{pPrice.toLocaleString('en-IN')})
                           </option>
                         );
@@ -1477,16 +1431,16 @@ function MainAppContent() {
                     <label className="block text-xs font-bold uppercase tracking-wider mb-2">Venue Location Zone</label>
                     <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs font-medium`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                        <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
+                        <option key={key} value={key} className="bg-white text-slate-900 dark:bg-[#18181b] dark:text-white py-2">{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-2 border-t border-white/10 space-y-3">
+                  <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-bold text-xs uppercase tracking-wider text-white flex items-center gap-1.5">
-                          <Users className="w-4 h-4 text-cyan-400" /> Extra Family Makeup Customizer
+                        <h4 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-cyan-500 dark:text-cyan-400" /> Extra Family Makeup Customizer
                         </h4>
                         <p className={`text-[11px] ${mutedTextClass}`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
@@ -1494,13 +1448,12 @@ function MainAppContent() {
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
+                        className="px-3 py-1.5 rounded-xl bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 text-xs font-bold flex items-center gap-1 active:scale-95 transition"
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
-                    {/* Active Guest Discount Alert Bar */}
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
                       <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-500/15 to-teal-500/15 border border-emerald-500/40 flex items-center justify-between text-xs animate-fade-in">
                         <div className="flex items-center gap-2">
@@ -1508,15 +1461,15 @@ function MainAppContent() {
                             <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
                           </div>
                           <div>
-                            <p className="text-emerald-400 font-bold text-xs">
+                            <p className="text-emerald-600 dark:text-emerald-400 font-bold text-xs">
                               Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
                             </p>
                             <p className={`text-[10px] ${mutedTextClass}`}>
-                              Discount will be calculated and applied inside the Total Amount Summary below.
+                              Discount is automatically applied in the Total Amount Summary below.
                             </p>
                           </div>
                         </div>
-                        <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full shrink-0">
+                        <span className="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full shrink-0">
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
@@ -1531,42 +1484,38 @@ function MainAppContent() {
                             <div key={guest.id} className={`p-3 rounded-2xl border space-y-2 ${subCardBgClass}`}>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[11px] font-bold text-cyan-400 font-mono">Guest #{idx + 1}</span>
-                                  <span className="text-xs font-bold font-mono text-white">
+                                  <span className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 font-mono">Guest #{idx + 1}</span>
+                                  <span className="text-xs font-bold font-mono text-slate-900 dark:text-white">
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
                               <div className="grid grid-cols-2 gap-2">
                                 <div>
-                                  <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Vanity Tier</label>
+                                  <label className={`block text-[10px] font-bold mb-1 ${mutedTextClass}`}>Vanity Tier</label>
                                   <select
                                     value={guest.kit}
-                                    onChange={(e) => {
-                                      handleUpdateFamilyGuest(guest.id, 'kit', e.target.value);
-                                      const keys = Object.keys(config.kitText?.[e.target.value] || {});
-                                      if (keys.length > 0) {
-                                        handleUpdateFamilyGuest(guest.id, 'packageKey', keys[0]);
-                                      }
-                                    }}
-                                    className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                    onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
+                                    className={`w-full p-2.5 rounded-xl text-xs font-bold border ${inputBgClass}`}
                                   >
-                                    <option value="international">👑 Luxury Kit</option>
-                                    <option value="drugstore">✨ HD Kit</option>
+                                    <option value="international" className="bg-white text-slate-900 dark:bg-[#18181b] dark:text-white py-1">👑 Luxury Kit</option>
+                                    <option value="drugstore" className="bg-white text-slate-900 dark:bg-[#18181b] dark:text-white py-1">✨ HD Kit</option>
                                   </select>
                                 </div>
 
                                 <div>
-                                  <label className={`block text-[10px] mb-1 ${mutedTextClass}`}>Package Look</label>
+                                  <label className={`block text-[10px] font-bold mb-1 ${mutedTextClass}`}>Package Look</label>
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2 rounded-xl text-xs font-bold border ${inputBgClass}`}
+                                    className={`w-full p-2.5 rounded-xl text-xs font-bold border ${inputBgClass}`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
-                                      <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
+                                      <option key={k} value={k} className="bg-white text-slate-900 dark:bg-[#18181b] dark:text-white py-1">
+                                        {config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})
+                                      </option>
                                     ))}
                                   </select>
                                 </div>
@@ -1579,7 +1528,7 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-2 border-t border-white/10 space-y-2">
+                    <div className="pt-2 border-t border-slate-200 dark:border-white/10 space-y-2">
                       <label className={`block text-xs font-bold ${currentTheme.accentText} uppercase tracking-wider flex items-center gap-1.5`}>
                         <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
                       </label>
@@ -1587,21 +1536,21 @@ function MainAppContent() {
                         <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-2xl p-3.5 flex items-center justify-between gap-2">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <span className="text-xs font-bold text-emerald-500 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
                               {appliedCoupon.expiryDate && (() => {
                                 const tr = getTimeRemaining(appliedCoupon.expiryDate);
                                 return tr && !tr.expired ? (
-                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-500 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                                     <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
                                   </span>
                                 ) : null;
                               })()}
                             </div>
-                            <p className="text-[11px] text-emerald-600 dark:text-emerald-300 font-semibold">
-                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹{appliedCoupon.value} OFF`} • {appliedCoupon.label}
+                            <p className="text-[11px] text-emerald-700 dark:text-emerald-300 font-semibold">
+                              🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-400 text-xs font-bold underline shrink-0">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-slate-400 hover:text-rose-500 text-xs font-bold underline shrink-0">Remove</button>
                         </div>
                       ) : (
                         <div className="flex gap-2">
@@ -1613,7 +1562,8 @@ function MainAppContent() {
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-white/10 space-y-3">
+                  {/* 2. CLIENT CONTACT DETAILS */}
+                  <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-3">
                     <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
                       <User className="w-4 h-4" /> 2. Enter Client Details to Lock Date
                     </h4>
@@ -1634,46 +1584,142 @@ function MainAppContent() {
                       </div>
                     </div>
 
-                    <div>
-                      <label className={`block text-xs font-bold ${mutedTextClass} mb-1`}>Exact Venue Address / Landmark</label>
-                      <input type="text" placeholder="e.g. Mayur Vihar Phase 1 / Jamia" value={venueAddress} onChange={(e) => setVenueAddress(e.target.value)} className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} />
+                    {/* 3. STRUCTURED VENUE DELIVERY ADDRESS SECTION */}
+                    <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h4 className={`font-bold text-xs uppercase tracking-wider ${currentTheme.accentText} flex items-center gap-1.5`}>
+                          <MapPin className="w-4 h-4" /> 3. Destination Venue & Address
+                        </h4>
+                        <div className="flex items-center gap-1.5">
+                          {['Home', 'Work'].map((type) => (
+                            <button
+                              key={type}
+                              type="button"
+                              onClick={() => setAddressType(type)}
+                              className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition-all ${
+                                addressType === type 
+                                  ? `${currentTheme.btnPrimary}` 
+                                  : `${subCardBgClass} ${mutedTextClass}`
+                              }`}
+                            >
+                              {type === 'Work' ? '🏢 Work / Office' : '🏠 Home'}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className={`block text-[11px] font-bold ${mutedTextClass} mb-1`}>Postal PIN Code *</label>
+                          <input 
+                            type="text" 
+                            required 
+                            maxLength={6} 
+                            placeholder="e.g. 110025" 
+                            value={pincode} 
+                            onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} font-mono font-bold text-xs`} 
+                          />
+                        </div>
+
+                        <div>
+                          <label className={`block text-[11px] font-bold ${mutedTextClass} mb-1`}>Flat, House No., Building Name</label>
+                          <input 
+                            type="text" 
+                            placeholder="e.g. Flat 402, Royal Residency" 
+                            value={flatHouseNo} 
+                            onChange={(e) => setFlatHouseNo(e.target.value)} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} 
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className={`block text-[11px] font-bold ${mutedTextClass} mb-1`}>Street, Sector, Area, Locality *</label>
+                        <input 
+                          type="text" 
+                          required 
+                          placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
+                          value={streetLocality} 
+                          onChange={(e) => setStreetLocality(e.target.value)} 
+                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} 
+                        />
+                      </div>
+
+                      <div>
+                        <label className={`block text-[11px] font-bold ${mutedTextClass} mb-1`}>Landmark (Optional)</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
+                          value={landmark} 
+                          onChange={(e) => setLandmark(e.target.value)} 
+                          className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} 
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className={`block text-[11px] font-bold ${mutedTextClass} mb-1`}>Town / City *</label>
+                          <input 
+                            type="text" 
+                            required 
+                            placeholder="e.g. New Delhi" 
+                            value={city} 
+                            onChange={(e) => setCity(e.target.value)} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} 
+                          />
+                        </div>
+
+                        <div>
+                          <label className={`block text-[11px] font-bold ${mutedTextClass} mb-1`}>State / Region *</label>
+                          <input 
+                            type="text" 
+                            required 
+                            placeholder="e.g. Delhi" 
+                            value={state} 
+                            onChange={(e) => setState(e.target.value)} 
+                            className={`w-full p-3 rounded-2xl ${inputBgClass} text-xs`} 
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
+                {/* RIGHT COLUMN: TOTAL AMOUNT SUMMARY */}
                 <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-sm`}>
                   <div>
                     <span className={`text-[10px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
-                    <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
+                    <div className="mt-2 text-2xl sm:text-3xl font-bold flex items-baseline gap-1 text-slate-900 dark:text-white">
                       <span className={`${currentTheme.accentText} text-2xl`}>₹</span>
                       <span>{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-xs border-t border-b border-white/10 py-3.5">
+                  <div className="space-y-3 text-xs border-t border-b border-slate-200 dark:border-white/10 py-3.5">
                     {/* SECTION 1: MAIN MAKEOVER PACKAGE */}
                     <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-2">
-                      <div className="flex justify-between items-center font-bold text-sky-400">
+                      <div className="flex justify-between items-center font-bold text-sky-600 dark:text-sky-400">
                         <span>1. Main Makeover Package:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
                       <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                         <span>• Vanity:</span>
-                        <span className="font-medium text-right">{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</span>
+                        <span className="font-medium text-right text-slate-900 dark:text-white">{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</span>
                       </div>
                       <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                         <span>• Package:</span>
-                        <span className="font-medium text-right">{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
+                        <span className="font-medium text-right text-slate-900 dark:text-white">{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
                       </div>
                       <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                         <span>• Package Price:</span>
-                        <span className="font-mono text-white">₹{mainPackagePrice.toLocaleString('en-IN')}</span>
+                        <span className="font-mono font-bold text-slate-900 dark:text-white">₹{mainPackagePrice.toLocaleString('en-IN')}</span>
                       </div>
                       <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
-                        <span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span>
+                        <span className="font-mono text-slate-900 dark:text-white">₹{zoneFee.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between items-center border-t border-white/10 pt-2 mt-1 font-bold text-sky-300 text-[11px]">
+                      <div className="flex justify-between items-center border-t border-slate-200 dark:border-white/10 pt-2 mt-1 font-bold text-sky-700 dark:text-sky-300 text-[11px]">
                         <span>Main Makeover Package Total:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
@@ -1681,7 +1727,7 @@ function MainAppContent() {
 
                     {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS */}
                     <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 space-y-2">
-                      <div className="flex justify-between items-center font-bold text-purple-400">
+                      <div className="flex justify-between items-center font-bold text-purple-600 dark:text-purple-400">
                         <span>2. Additional Family & Guest Makeovers ({familyGuests.length}):</span>
                         <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
@@ -1691,18 +1737,18 @@ function MainAppContent() {
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                           const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit');
                           return (
-                            <div key={i} className={`rounded-xl bg-white/[0.02] border border-white/5 p-2.5 space-y-1 text-[11px]`}>
+                            <div key={i} className={`rounded-xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-2.5 space-y-1 text-[11px]`}>
                               <div className={`flex justify-between gap-3 ${mutedTextClass}`}>
                                 <span>• Makeover #{i + 1} — Vanity:</span>
-                                <span className="font-medium text-right">{vanityName}</span>
+                                <span className="font-medium text-right text-slate-900 dark:text-white">{vanityName}</span>
                               </div>
                               <div className={`flex justify-between gap-3 ${mutedTextClass}`}>
                                 <span>• Package:</span>
-                                <span className="font-medium text-right">{pkgN}</span>
+                                <span className="font-medium text-right text-slate-900 dark:text-white">{pkgN}</span>
                               </div>
                               <div className="flex justify-between gap-3">
                                 <span className={mutedTextClass}>• Price:</span>
-                                <span className="font-mono font-bold text-white">₹{gp.toLocaleString('en-IN')}</span>
+                                <span className="font-mono font-bold text-slate-900 dark:text-white">₹{gp.toLocaleString('en-IN')}</span>
                               </div>
                             </div>
                           );
@@ -1710,37 +1756,37 @@ function MainAppContent() {
                       ) : (
                         <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                           <span>• No additional family or guest makeovers selected</span>
-                          <span className="font-mono">₹0</span>
+                          <span className="font-mono text-slate-900 dark:text-white">₹0</span>
                         </div>
                       )}
-                      <div className="flex justify-between items-center border-t border-white/10 pt-2 mt-1 font-bold text-purple-300 text-[11px]">
+                      <div className="flex justify-between items-center border-t border-slate-200 dark:border-white/10 pt-2 mt-1 font-bold text-purple-700 dark:text-purple-300 text-[11px]">
                         <span>Additional Family & Guest Makeovers Total:</span>
                         <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className="flex justify-between items-center px-1 py-1.5 text-xs font-bold">
+                    <div className="flex justify-between items-center px-1 py-1.5 text-xs font-bold text-slate-900 dark:text-white">
                       <span>Booking Total Before Discounts:</span>
-                      <span className="font-mono text-white">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                      <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
                     {/* SECTION 3: DISCOUNTS & OFFERS */}
                     <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-2">
-                      <div className="flex justify-between items-center font-bold text-emerald-400">
+                      <div className="flex justify-between items-center font-bold text-emerald-600 dark:text-emerald-400">
                         <span>3. Discounts & Offers:</span>
                         <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
 
                       {guestDiscountSavedAmount > 0 && (
-                        <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
+                        <div className="flex justify-between text-emerald-600 dark:text-emerald-400 pl-1 text-[11px]">
                           <span>• Additional Family & Guest Makeovers Discount ({guestDiscountPercent}%):</span>
                           <span className="font-mono font-bold">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
 
                       {appliedCoupon && couponDiscountAmount > 0 && (
-                        <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
+                        <div className="flex justify-between text-emerald-600 dark:text-emerald-400 pl-1 text-[11px]">
                           <span>• Coupon Code ({appliedCoupon.code}):</span>
                           <span className="font-mono font-bold">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
                         </div>
@@ -1749,16 +1795,16 @@ function MainAppContent() {
                       {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
                         <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                           <span>• No discount applied</span>
-                          <span>₹0</span>
+                          <span className="text-slate-900 dark:text-white font-mono">₹0</span>
                         </div>
                       )}
 
                       <div className="border-t border-emerald-500/20 pt-2 mt-1 space-y-1">
                         <div className={`flex justify-between ${mutedTextClass} text-[11px]`}>
                           <span>Total Before Discounts:</span>
-                          <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                          <span className="font-mono text-slate-900 dark:text-white font-bold">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                         </div>
-                        <div className="flex justify-between items-center text-emerald-300 font-bold text-xs">
+                        <div className="flex justify-between items-center text-emerald-700 dark:text-emerald-300 font-bold text-xs">
                           <span>Total Discounts:</span>
                           <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                         </div>
@@ -1766,7 +1812,7 @@ function MainAppContent() {
                     </div>
 
                     {/* FINAL AMOUNT */}
-                    <div className="p-4 rounded-2xl bg-white/[0.05] border border-white/15 shadow-lg">
+                    <div className="p-4 rounded-2xl bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/15 shadow-md">
                       <div className="flex justify-between items-center">
                         <div>
                           <p className={`text-[10px] uppercase tracking-wider font-bold ${mutedTextClass}`}>Final Amount Payable</p>
@@ -1806,11 +1852,11 @@ function MainAppContent() {
             {feedbackSubmitted ? (
               <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-2 animate-fade-in">
                 <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-                <h4 className="font-bold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
-                <p className="text-xs text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
+                <h4 className="font-bold text-sm text-emerald-600 dark:text-emerald-400">Thank you for your valuable feedback!</h4>
+                <p className="text-xs text-slate-700 dark:text-slate-300">Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
-                  className="mt-3 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition"
+                  className="mt-3 px-4 py-2 rounded-xl bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 text-xs font-bold text-slate-900 dark:text-white transition"
                 >
                   Submit Another Feedback
                 </button>
@@ -1825,7 +1871,7 @@ function MainAppContent() {
                       onClick={() => setFeedbackRating(star)}
                       className="p-1 active:scale-125 transition"
                     >
-                      <Star className={`w-7 h-7 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-600'}`} />
+                      <Star className={`w-7 h-7 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : 'text-slate-300 dark:text-slate-600'}`} />
                     </button>
                   ))}
                 </div>
@@ -1881,16 +1927,16 @@ function MainAppContent() {
             <Gift className={`w-5 h-5 ${currentTheme.accentText} shrink-0 mt-0.5`} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 px-2 py-0.5 rounded-full`}>
+                <span className={`text-[10px] font-bold ${currentTheme.accentText} uppercase bg-white/10 dark:bg-white/10 bg-slate-200 px-2 py-0.5 rounded-full`}>
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                  <span className="text-[10px] font-mono font-bold bg-rose-500/20 text-rose-500 dark:text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold bg-amber-500/20 text-amber-500 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
                     <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
@@ -1899,13 +1945,13 @@ function MainAppContent() {
               <h4 className="font-bold text-xs mt-1.5 leading-snug">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
               <p className={`text-[11px] mt-0.5 ${mutedTextClass}`}>
                 {isFloatingExpired ? (
-                  <span className="text-rose-400 font-medium">This promotion code has ended.</span>
+                  <span className="text-rose-500 dark:text-rose-400 font-medium">This promotion code has ended.</span>
                 ) : (
                   <>Use code <span className={`${currentTheme.accentText} font-mono font-bold`}>{floatingPromoCode}</span></>
                 )}
               </p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 shrink-0"><X className="w-4 h-4" /></button>
           </div>
 
           <button 
@@ -1918,7 +1964,7 @@ function MainAppContent() {
             }} 
             className={`mt-3 w-full py-2 text-xs rounded-2xl shadow transition-transform duration-200 ${
               isFloatingExpired 
-                ? 'bg-slate-700/60 text-slate-400 border border-white/10 cursor-not-allowed' 
+                ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
                 : `${currentTheme.btnPrimary} active:scale-95`
             }`}
           >
