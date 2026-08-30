@@ -640,14 +640,14 @@ function MainAppContent() {
       ctx.textAlign = 'left';
       ctx.fillStyle = '#38bdf8';
       ctx.font = 'bold 20px sans-serif';
-      ctx.fillText('SECTION 1: MAIN LOOK BOOKING', 120, startY + 31);
+      ctx.fillText('SECTION 1: MAIN MAKEOVER PACKAGE', 120, startY + 31);
       ctx.textAlign = 'right';
       ctx.font = 'bold 20px monospace';
       ctx.fillText(`₹${mainBookingSubtotal.toLocaleString('en-IN')}`, 1080, startY + 31);
       startY += 54;
 
       const mainDetails = [
-        { label: `• Main Look (${kitName}) — ${pkgText.name}`, val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
+        { label: `• Main Makeover Package (${kitName}) — ${pkgText.name}`, val: `₹${mainPackagePrice.toLocaleString('en-IN')}` },
         { label: `• Travel & Convenience Fee (${zone?.name})`, val: `₹${zoneFee.toLocaleString('en-IN')}` }
       ];
       mainDetails.forEach(d => {
@@ -1444,7 +1444,7 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Vanity Tier</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2 sm:gap-3">
                       <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'international' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>👑 Luxury Kit</button>
                       <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-2xl text-xs font-bold border text-left transition-all active:scale-95 ${calcKit === 'drugstore' ? `bg-white/10 ${currentTheme.accentBorder} ${currentTheme.accentText}` : `${subCardBgClass} ${mutedTextClass}`}`}>✨ HD Kit</button>
@@ -1452,7 +1452,7 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Look: Package</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2">Main Makeover Package: Package</label>
                     <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${inputBgClass} rounded-2xl px-4 py-3 text-xs ${currentTheme.accentText} font-bold`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
@@ -1644,73 +1644,97 @@ function MainAppContent() {
                   </div>
 
                   <div className="space-y-3 text-xs border-t border-b border-white/10 py-3.5">
-                    {/* SECTION 1: MAIN LOOK BOOKING */}
-                    <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-1.5">
+                    {/* SECTION 1: MAIN MAKEOVER PACKAGE */}
+                    <div className="p-3 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-2">
                       <div className="flex justify-between items-center font-bold text-sky-400">
-                        <span>1. Main Look Booking:</span>
+                        <span>1. Main Makeover Package:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
                       <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
-                        <span>• Main Package Price:</span>
-                        <span>₹{mainPackagePrice.toLocaleString('en-IN')}</span>
+                        <span>• Vanity:</span>
+                        <span className="font-medium text-right">{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</span>
+                      </div>
+                      <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                        <span>• Package:</span>
+                        <span className="font-medium text-right">{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
+                      </div>
+                      <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
+                        <span>• Package Price:</span>
+                        <span className="font-mono text-white">₹{mainPackagePrice.toLocaleString('en-IN')}</span>
                       </div>
                       <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
-                        <span className="font-mono">₹{zoneFee}</span>
+                        <span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between items-center border-t border-white/10 pt-2 mt-1 font-bold text-sky-300 text-[11px]">
+                        <span>Main Makeover Package Total:</span>
+                        <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
-                    {/* SECTION 2: GUEST BOOKINGS */}
-                    <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 space-y-1.5">
+                    {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS */}
+                    <div className="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 space-y-2">
                       <div className="flex justify-between items-center font-bold text-purple-400">
-                        <span>2. Guest Bookings ({familyGuests.length} Persons):</span>
+                        <span>2. Additional Family & Guest Makeovers ({familyGuests.length}):</span>
                         <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
                       {familyGuests.length > 0 ? (
                         familyGuests.map((g, i) => {
                           const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
-                          const kitLabel = g.kit === 'international' ? 'Luxury' : 'HD';
+                          const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit');
                           return (
-                            <div key={i} className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
-                              <span>• G#{i+1} ({kitLabel} - {pkgN}):</span>
-                              <span className="font-mono text-white">₹{gp.toLocaleString('en-IN')}</span>
+                            <div key={i} className={`rounded-xl bg-white/[0.02] border border-white/5 p-2.5 space-y-1 text-[11px]`}>
+                              <div className={`flex justify-between gap-3 ${mutedTextClass}`}>
+                                <span>• Makeover #{i + 1} — Vanity:</span>
+                                <span className="font-medium text-right">{vanityName}</span>
+                              </div>
+                              <div className={`flex justify-between gap-3 ${mutedTextClass}`}>
+                                <span>• Package:</span>
+                                <span className="font-medium text-right">{pkgN}</span>
+                              </div>
+                              <div className="flex justify-between gap-3">
+                                <span className={mutedTextClass}>• Price:</span>
+                                <span className="font-mono font-bold text-white">₹{gp.toLocaleString('en-IN')}</span>
+                              </div>
                             </div>
                           );
                         })
                       ) : (
                         <div className={`flex justify-between ${mutedTextClass} pl-1 text-[11px]`}>
-                          <span>• No extra guests selected</span>
-                          <span>₹0</span>
+                          <span>• No additional family or guest makeovers selected</span>
+                          <span className="font-mono">₹0</span>
                         </div>
                       )}
+                      <div className="flex justify-between items-center border-t border-white/10 pt-2 mt-1 font-bold text-purple-300 text-[11px]">
+                        <span>Additional Family & Guest Makeovers Total:</span>
+                        <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                      </div>
                     </div>
 
-                    {/* SECTION 3: DISCOUNTS & PROMOTIONAL OFFERS */}
-                    <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-1.5">
+                    {/* GROSS TOTAL BEFORE DISCOUNTS */}
+                    <div className="flex justify-between items-center px-1 py-1.5 text-xs font-bold">
+                      <span>Booking Total Before Discounts:</span>
+                      <span className="font-mono text-white">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                    </div>
+
+                    {/* SECTION 3: DISCOUNTS & OFFERS */}
+                    <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-2">
                       <div className="flex justify-between items-center font-bold text-emerald-400">
                         <span>3. Discounts & Offers:</span>
-                        <span className="font-mono">
-                          -₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}
-                        </span>
+                        <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
 
                       {guestDiscountSavedAmount > 0 && (
-                        <>
-                          <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
-                            <span>• Extra Guest Discount ({guestDiscountPercent}%):</span>
-                            <span className="font-mono font-bold">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
-                          </div>
-                          <div className="flex justify-between text-emerald-300/80 pl-2 text-[10px] font-mono">
-                            <span>↳ Guest Total After Discount:</span>
-                            <span>₹{familyGuestsFinalTotal.toLocaleString('en-IN')}</span>
-                          </div>
-                        </>
+                        <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
+                          <span>• Additional Family & Guest Makeovers Discount ({guestDiscountPercent}%):</span>
+                          <span className="font-mono font-bold">-₹{guestDiscountSavedAmount.toLocaleString('en-IN')}</span>
+                        </div>
                       )}
 
                       {appliedCoupon && couponDiscountAmount > 0 && (
                         <div className="flex justify-between text-emerald-400 pl-1 text-[11px]">
-                          <span>• Promo Code ({appliedCoupon.code}):</span>
+                          <span>• Coupon Code ({appliedCoupon.code}):</span>
                           <span className="font-mono font-bold">-₹{couponDiscountAmount.toLocaleString('en-IN')}</span>
                         </div>
                       )}
@@ -1721,6 +1745,32 @@ function MainAppContent() {
                           <span>₹0</span>
                         </div>
                       )}
+
+                      <div className="border-t border-emerald-500/20 pt-2 mt-1 space-y-1">
+                        <div className={`flex justify-between ${mutedTextClass} text-[11px]`}>
+                          <span>Total Before Discounts:</span>
+                          <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-emerald-300 font-bold text-xs">
+                          <span>Total Discounts:</span>
+                          <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* FINAL AMOUNT */}
+                    <div className="p-4 rounded-2xl bg-white/[0.05] border border-white/15 shadow-lg">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className={`text-[10px] uppercase tracking-wider font-bold ${mutedTextClass}`}>Final Amount Payable</p>
+                          <p className={`text-[10px] mt-0.5 ${mutedTextClass}`}>Total after all applicable discounts</p>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-2xl sm:text-3xl font-bold ${currentTheme.accentText}`}>
+                            ₹{finalEstimate.toLocaleString('en-IN')}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
