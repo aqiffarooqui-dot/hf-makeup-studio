@@ -115,102 +115,102 @@ const DEFAULT_GALLERY = [
 
 const THEME_STYLES = {
   real_glass_lens: {
-    accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-300 dark:via-blue-400 dark:to-indigo-400",
+    accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-300 dark:via-cyan-300 dark:to-blue-400",
     btnPrimary: "bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-lg shadow-blue-500/25 rounded-[16px]",
-    accentText: "text-blue-600 dark:text-blue-400",
-    accentLightText: "text-blue-700 dark:text-blue-300",
-    badgeBg: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30",
-    sectionAccent: "bg-blue-500/10 border-blue-500/25 text-blue-700 dark:text-blue-400",
-    accentBorder: "border-blue-500/30 dark:border-blue-400/40",
+    accentText: "text-blue-600 dark:text-cyan-300",
+    accentLightText: "text-blue-700 dark:text-sky-200",
+    badgeBg: "bg-blue-500/15 text-blue-700 dark:bg-cyan-400/20 dark:text-cyan-200 border border-blue-500/30 dark:border-cyan-400/40",
+    sectionAccent: "bg-blue-500/10 dark:bg-sky-500/15 border-blue-500/25 dark:border-sky-400/30 text-blue-700 dark:text-sky-300",
+    accentBorder: "border-blue-500/30 dark:border-cyan-400/40",
     activeNav: "bg-blue-600 text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   real_ios_glass: {
-    accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-400 dark:via-blue-500 dark:to-indigo-500",
+    accentGradient: "from-sky-500 via-blue-600 to-indigo-600 dark:from-sky-400 dark:via-blue-400 dark:to-cyan-300",
     btnPrimary: "bg-[#007AFF] hover:bg-blue-600 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-[16px]",
     accentText: "text-blue-600 dark:text-blue-400",
-    accentLightText: "text-blue-700 dark:text-blue-300",
-    badgeBg: "bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30",
-    sectionAccent: "bg-blue-500/10 border-blue-500/25 text-blue-700 dark:text-blue-400",
+    accentLightText: "text-blue-700 dark:text-blue-200",
+    badgeBg: "bg-blue-500/15 text-blue-700 dark:bg-blue-500/25 dark:text-blue-200 border border-blue-500/30 dark:border-blue-400/40",
+    sectionAccent: "bg-blue-500/10 dark:bg-blue-500/15 border-blue-500/25 dark:border-blue-400/30 text-blue-700 dark:text-blue-300",
     accentBorder: "border-blue-500/40",
     activeNav: "bg-[#007AFF] text-white font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   liquid_glass: {
-    accentGradient: "from-cyan-500 via-sky-600 to-blue-600 dark:from-cyan-400 dark:via-sky-300 dark:to-indigo-400",
+    accentGradient: "from-cyan-500 via-sky-600 to-blue-600 dark:from-cyan-300 dark:via-teal-300 dark:to-sky-400",
     btnPrimary: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white dark:text-neutral-950 font-bold shadow-xl rounded-[16px]",
-    accentText: "text-cyan-600 dark:text-cyan-400",
-    accentLightText: "text-cyan-700 dark:text-cyan-300",
-    badgeBg: "bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30",
-    sectionAccent: "bg-cyan-500/10 border-cyan-500/25 text-cyan-700 dark:text-cyan-400",
+    accentText: "text-cyan-600 dark:text-teal-300",
+    accentLightText: "text-cyan-700 dark:text-teal-200",
+    badgeBg: "bg-cyan-500/15 text-cyan-700 dark:bg-teal-400/20 dark:text-teal-200 border border-cyan-500/30 dark:border-teal-400/40",
+    sectionAccent: "bg-cyan-500/10 dark:bg-teal-500/15 border-cyan-500/25 dark:border-teal-400/30 text-cyan-700 dark:text-teal-300",
     accentBorder: "border-cyan-500/40",
     activeNav: "bg-cyan-500 text-neutral-950 font-bold shadow-lg rounded-[22px] px-4 py-2"
   },
   one_ui_9: {
-    accentGradient: "from-amber-500 via-rose-500 to-amber-600 dark:from-amber-400 dark:via-rose-400 dark:to-amber-500",
+    accentGradient: "from-amber-500 via-rose-500 to-amber-600 dark:from-amber-300 dark:via-rose-300 dark:to-orange-400",
     btnPrimary: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[16px]",
-    accentText: "text-amber-600 dark:text-amber-400",
-    accentLightText: "text-amber-700 dark:text-amber-300",
-    badgeBg: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30",
-    sectionAccent: "bg-amber-500/10 border-amber-500/25 text-amber-700 dark:text-amber-400",
+    accentText: "text-amber-600 dark:text-amber-300",
+    accentLightText: "text-amber-700 dark:text-amber-200",
+    badgeBg: "bg-amber-500/15 text-amber-700 dark:bg-amber-400/20 dark:text-amber-200 border border-amber-500/30 dark:border-amber-400/40",
+    sectionAccent: "bg-amber-500/10 dark:bg-amber-500/15 border-amber-500/25 dark:border-amber-400/30 text-amber-700 dark:text-amber-300",
     accentBorder: "border-amber-500/30",
     activeNav: "bg-gradient-to-r from-amber-500 to-rose-500 text-white dark:text-neutral-950 font-bold shadow-md rounded-[22px] px-4 py-2"
   },
   gold_rose: {
-    accentGradient: "from-rose-500 via-pink-600 to-amber-500 dark:from-amber-400 dark:via-rose-400 dark:to-amber-500",
+    accentGradient: "from-rose-500 via-pink-600 to-amber-500 dark:from-rose-300 dark:via-pink-300 dark:to-amber-300",
     btnPrimary: "bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold shadow-md rounded-[16px]",
-    accentText: "text-rose-600 dark:text-rose-400",
-    accentLightText: "text-rose-700 dark:text-rose-300",
-    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30",
-    sectionAccent: "bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-400",
+    accentText: "text-rose-600 dark:text-pink-300",
+    accentLightText: "text-rose-700 dark:text-pink-200",
+    badgeBg: "bg-rose-500/15 text-rose-700 dark:bg-pink-400/20 dark:text-pink-200 border border-rose-500/30 dark:border-pink-400/40",
+    sectionAccent: "bg-rose-500/10 dark:bg-pink-500/15 border-rose-500/25 dark:border-pink-400/30 text-rose-700 dark:text-pink-300",
     accentBorder: "border-rose-500/30",
     activeNav: "bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   champagne: {
-    accentGradient: "from-amber-500 via-yellow-500 to-amber-600 dark:from-amber-200 dark:via-yellow-400 dark:to-amber-500",
+    accentGradient: "from-amber-500 via-yellow-500 to-amber-600 dark:from-yellow-200 dark:via-amber-300 dark:to-yellow-400",
     btnPrimary: "bg-amber-500 hover:bg-amber-600 text-neutral-950 font-bold shadow-lg rounded-[16px]",
-    accentText: "text-amber-700 dark:text-amber-400",
-    accentLightText: "text-amber-800 dark:text-amber-300",
-    badgeBg: "bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30",
-    sectionAccent: "bg-amber-500/10 border-amber-500/25 text-amber-800 dark:text-amber-400",
+    accentText: "text-amber-700 dark:text-yellow-300",
+    accentLightText: "text-amber-800 dark:text-yellow-200",
+    badgeBg: "bg-amber-500/15 text-amber-800 dark:bg-yellow-400/20 dark:text-yellow-200 border border-amber-500/30 dark:border-yellow-400/40",
+    sectionAccent: "bg-amber-500/10 dark:bg-yellow-500/15 border-amber-500/25 dark:border-yellow-400/30 text-amber-800 dark:text-yellow-300",
     accentBorder: "border-amber-500/30",
     activeNav: "bg-amber-500 text-neutral-950 font-bold shadow rounded-[22px] px-4 py-2"
   },
   emerald: {
-    accentGradient: "from-emerald-600 via-teal-600 to-emerald-700 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-500",
+    accentGradient: "from-emerald-600 via-teal-600 to-emerald-700 dark:from-emerald-300 dark:via-teal-300 dark:to-green-400",
     btnPrimary: "bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-emerald-700 dark:text-emerald-400",
-    accentLightText: "text-emerald-800 dark:text-emerald-300",
-    badgeBg: "bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30",
-    sectionAccent: "bg-emerald-500/10 border-emerald-500/25 text-emerald-800 dark:text-emerald-400",
+    accentText: "text-emerald-700 dark:text-emerald-300",
+    accentLightText: "text-emerald-800 dark:text-emerald-200",
+    badgeBg: "bg-emerald-500/15 text-emerald-800 dark:bg-emerald-400/20 dark:text-emerald-200 border border-emerald-500/30 dark:border-emerald-400/40",
+    sectionAccent: "bg-emerald-500/10 dark:bg-emerald-500/15 border-emerald-500/25 dark:border-emerald-400/30 text-emerald-800 dark:text-emerald-300",
     accentBorder: "border-emerald-500/30",
     activeNav: "bg-emerald-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   violet: {
-    accentGradient: "from-purple-600 via-pink-600 to-rose-600 dark:from-purple-400 dark:via-pink-400 dark:to-rose-400",
+    accentGradient: "from-purple-600 via-pink-600 to-rose-600 dark:from-purple-300 dark:via-fuchsia-300 dark:to-pink-400",
     btnPrimary: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-purple-600 dark:text-purple-400",
-    accentLightText: "text-purple-700 dark:text-purple-300",
-    badgeBg: "bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/30",
-    sectionAccent: "bg-purple-500/10 border-purple-500/25 text-purple-700 dark:text-purple-400",
+    accentText: "text-purple-600 dark:text-fuchsia-300",
+    accentLightText: "text-purple-700 dark:text-fuchsia-200",
+    badgeBg: "bg-purple-500/15 text-purple-700 dark:bg-fuchsia-400/20 dark:text-fuchsia-200 border border-purple-500/30 dark:border-fuchsia-400/40",
+    sectionAccent: "bg-purple-500/10 dark:bg-fuchsia-500/15 border-purple-500/25 dark:border-fuchsia-400/30 text-purple-700 dark:text-fuchsia-300",
     accentBorder: "border-purple-500/30",
     activeNav: "bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   ruby: {
-    accentGradient: "from-rose-600 via-red-600 to-pink-700 dark:from-rose-500 dark:via-red-600 dark:to-pink-600",
+    accentGradient: "from-rose-600 via-red-600 to-pink-700 dark:from-rose-400 dark:via-pink-400 dark:to-red-400",
     btnPrimary: "bg-rose-600 hover:bg-rose-700 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-rose-600 dark:text-rose-400",
-    accentLightText: "text-rose-700 dark:text-rose-300",
-    badgeBg: "bg-rose-500/15 text-rose-700 dark:text-rose-300 border border-rose-500/30",
-    sectionAccent: "bg-rose-500/10 border-rose-500/25 text-rose-700 dark:text-rose-400",
+    accentText: "text-rose-600 dark:text-rose-300",
+    accentLightText: "text-rose-700 dark:text-rose-200",
+    badgeBg: "bg-rose-500/15 text-rose-700 dark:bg-rose-400/20 dark:text-rose-200 border border-rose-500/30 dark:border-rose-400/40",
+    sectionAccent: "bg-rose-500/10 dark:bg-rose-500/15 border-rose-500/25 dark:border-rose-400/30 text-rose-700 dark:text-rose-300",
     accentBorder: "border-rose-500/30",
     activeNav: "bg-rose-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   },
   sapphire: {
-    accentGradient: "from-blue-600 via-indigo-600 to-cyan-600 dark:from-blue-600 dark:via-indigo-600 dark:to-cyan-500",
+    accentGradient: "from-blue-600 via-indigo-600 to-cyan-600 dark:from-cyan-300 dark:via-blue-300 dark:to-indigo-300",
     btnPrimary: "bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-lg rounded-[16px]",
-    accentText: "text-indigo-600 dark:text-indigo-400",
-    accentLightText: "text-indigo-700 dark:text-indigo-300",
-    badgeBg: "bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30",
-    sectionAccent: "bg-indigo-500/10 border-indigo-500/25 text-indigo-700 dark:text-indigo-400",
+    accentText: "text-indigo-600 dark:text-indigo-300",
+    accentLightText: "text-indigo-700 dark:text-indigo-200",
+    badgeBg: "bg-indigo-500/15 text-indigo-700 dark:bg-indigo-400/20 dark:text-indigo-200 border border-indigo-500/30 dark:border-indigo-400/40",
+    sectionAccent: "bg-indigo-500/10 dark:bg-indigo-500/15 border-indigo-500/25 dark:border-indigo-400/30 text-indigo-700 dark:text-indigo-300",
     accentBorder: "border-indigo-500/30",
     activeNav: "bg-indigo-600 text-white font-bold shadow rounded-[22px] px-4 py-2"
   }
@@ -923,7 +923,7 @@ function MainAppContent() {
     ? "text-slate-300 hover:text-white hover:bg-white/10" 
     : "text-slate-700 hover:text-slate-950 hover:bg-slate-200/70 font-bold";
     
-  const mutedTextClass = isDarkMode ? "text-slate-300" : "text-slate-600";
+  const mutedTextClass = isDarkMode ? "text-slate-400 dark:text-slate-400" : "text-slate-600";
   const primaryTextClass = isDarkMode ? "text-white" : "text-slate-900";
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -1726,10 +1726,10 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: TOTAL AMOUNT SUMMARY (FIXED CONTRAST & VISIBILITY) */}
+                {/* RIGHT COLUMN: TOTAL AMOUNT SUMMARY (VIBRANT & HIGH CONTRAST) */}
                 <div className={`md:col-span-5 ${subCardBgClass} rounded-3xl p-5 sm:p-6 flex flex-col justify-between space-y-5 shadow-sm`}>
                   <div>
-                    <span className={`text-[11px] font-bold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
+                    <span className={`text-[11px] font-extrabold uppercase tracking-widest ${currentTheme.accentText}`}>Total Amount Summary</span>
                     <div className={`mt-2 text-3xl sm:text-4xl font-extrabold flex items-baseline gap-1.5 ${primaryTextClass}`}>
                       <span className={`${currentTheme.accentText} text-2xl sm:text-3xl`}>₹</span>
                       <span className="tracking-tight">{finalEstimate.toLocaleString('en-IN')}</span>
