@@ -5,7 +5,7 @@ import {
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
   Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw,
-  Home, Building2, Navigation, Compass, Zap
+  Home, Building2, Navigation, Compass, Zap, Droplet
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -113,6 +113,46 @@ const DEFAULT_GALLERY = [
   { type: "video", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-makeup-41418-large.mp4" }
 ];
 
+const FONT_MAP = {
+  sans: "'Plus Jakarta Sans', sans-serif",
+  outfit: "'Outfit', sans-serif",
+  comic: "'Comic Neue', 'Comic Sans MS', cursive, sans-serif",
+  serif: "'Playfair Display', serif",
+  cormorant: "'Cormorant Garamond', serif",
+  cinzel: "'Cinzel', serif",
+  montserrat: "'Montserrat', sans-serif",
+  inter: "'Inter', sans-serif",
+  poppins: "'Poppins', sans-serif",
+  roboto: "'Roboto', sans-serif"
+};
+
+const THEME_STYLES = {
+  real_glass_lens: {
+    bg: "bg-slate-50 dark:bg-[#030712]",
+    card: "bg-white/80 dark:bg-[#151922]/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg",
+    accent: "text-blue-600 dark:text-cyan-400",
+    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md"
+  },
+  gold_rose: {
+    bg: "bg-amber-50/40 dark:bg-[#0f090a]",
+    card: "bg-white/80 dark:bg-[#1a1113]/80 backdrop-blur-xl border border-amber-200 dark:border-amber-500/30 shadow-lg",
+    accent: "text-amber-600 dark:text-amber-400",
+    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md"
+  },
+  emerald: {
+    bg: "bg-emerald-50/30 dark:bg-[#060f0c]",
+    card: "bg-white/80 dark:bg-[#0f1c18]/80 backdrop-blur-xl border border-emerald-200 dark:border-emerald-500/30 shadow-lg",
+    accent: "text-emerald-600 dark:text-emerald-400",
+    btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md"
+  },
+  violet: {
+    bg: "bg-purple-50/30 dark:bg-[#0a0612]",
+    card: "bg-white/80 dark:bg-[#161024]/80 backdrop-blur-xl border border-purple-200 dark:border-purple-500/30 shadow-lg",
+    accent: "text-purple-600 dark:text-purple-400",
+    btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md"
+  }
+};
+
 const getTimeRemaining = (expiryDateStr) => {
   if (!expiryDateStr) return null;
   const total = Date.parse(expiryDateStr) - Date.now();
@@ -183,7 +223,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center rounded-xl border border-zinc-200 dark:border-zinc-800">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px]">
       <video
         ref={videoRef}
         src={item.url}
@@ -192,12 +232,12 @@ const AutoPlayVideoCard = ({ item }) => {
         loop
         playsInline
         preload="auto"
-        className="w-full h-full object-cover pointer-events-none"
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none"
       />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-        <span className="text-[11px] uppercase font-mono font-medium text-zinc-300 tracking-wider">{item.sub || 'Client Transformation'}</span>
-        <h4 className="font-semibold text-sm mt-0.5 flex items-center gap-1.5 text-white">
-          <Film className="w-4 h-4 text-zinc-400 shrink-0" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
+        <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
+        <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
+          <Film className="w-4 h-4 text-pink-400 shrink-0 animate-pulse" />
           <span>{item.title}</span>
         </h4>
       </div>
@@ -209,17 +249,7 @@ function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
-  
-  // Force clean initialization from localStorage or DOM
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('hf_theme_preference');
-      if (saved) return saved === 'dark';
-      return document.documentElement.classList.contains('dark');
-    }
-    return false;
-  });
-
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
@@ -268,20 +298,16 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Directly mutate DOM root element for absolute 100% reliable dark mode class toggling
+  // Synchronize Root HTML Element for Dark Mode and Admin Live Theme Settings
   useEffect(() => {
-    if (isDarkMode) {
+    if (config.theme?.defaultMode === 'dark' || isDarkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('hf_theme_preference', 'dark');
+      document.body.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('hf_theme_preference', 'light');
+      document.body.classList.remove('dark');
     }
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
-  };
+  }, [isDarkMode, config.theme?.defaultMode]);
 
   useEffect(() => {
     const handlePopState = (e) => {
@@ -330,10 +356,27 @@ function MainAppContent() {
   useEffect(() => {
     const splashTimer = setTimeout(() => {
       setSplashFade(true);
-      setTimeout(() => setShowSplash(false), 500);
-    }, 1500);
+      setTimeout(() => setShowSplash(false), 600);
+    }, 2000);
     return () => clearTimeout(splashTimer);
   }, []);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('hf_theme_preference');
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+    } else if (config.theme?.defaultMode) {
+      setIsDarkMode(config.theme.defaultMode === 'dark');
+    }
+  }, [config.theme?.defaultMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prev => {
+      const next = !prev;
+      localStorage.setItem('hf_theme_preference', next ? 'dark' : 'light');
+      return next;
+    });
+  };
 
   useEffect(() => {
     const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
@@ -487,7 +530,7 @@ function MainAppContent() {
       const rowHeight = options.height || 54;
       ctx.fillStyle = options.bg || 'rgba(255, 255, 255, 0.035)';
       ctx.fillRect(90, y, 1020, rowHeight);
-      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#71717a');
+      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
       drawText(value, 1080, y + 34, options.valueSize || 19, 'bold', options.valueColor || '#ffffff', 'right', options.mono ? 'monospace' : 'sans-serif');
       return y + rowHeight + (options.gap ?? 6);
     };
@@ -517,7 +560,7 @@ function MainAppContent() {
       ctx.fillStyle = options.bg || 'rgba(255, 255, 255, 0.035)';
       ctx.fillRect(90, y, 1020, rowHeight);
 
-      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#71717a');
+      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
       lines.forEach((line, lIdx) => {
         drawText(line, 1080, y + 34 + (lIdx * lineHeight), options.valueSize || 18, 'bold', options.valueColor || '#ffffff', 'right');
       });
@@ -525,22 +568,35 @@ function MainAppContent() {
       return y + rowHeight + (options.gap ?? 6);
     };
 
-    const drawSectionTitle = (title, y, accent = '#27272a') => {
-      ctx.fillStyle = 'rgba(113, 113, 122, 0.15)';
+    const drawSectionTitle = (title, y, accent = '#c084fc') => {
+      ctx.fillStyle = accent === '#c084fc' ? 'rgba(192, 132, 252, 0.14)' : 'rgba(56, 189, 248, 0.14)';
       ctx.fillRect(90, y, 1020, 56);
-      drawText(title, 120, y + 36, 18, 'bold', accent);
+      drawText(title, 120, y + 36, 20, 'bold', accent);
       return y + 64;
     };
 
     const drawContent = (logoImageObj) => {
-      ctx.fillStyle = '#09090b';
+      const bgGrad = ctx.createLinearGradient(0, 0, 1200, canvas.height);
+      bgGrad.addColorStop(0, '#09090b');
+      bgGrad.addColorStop(0.5, '#1e1b4b');
+      bgGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 1200, canvas.height);
 
-      ctx.strokeStyle = '#27272a';
-      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#c084fc';
+      ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, 1120, canvas.height - 80);
 
+      ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(55, 55, 1090, canvas.height - 110);
+
       if (logoImageObj) {
+        ctx.save();
+        ctx.globalAlpha = 0.08;
+        ctx.drawImage(logoImageObj, 300, 900, 600, 600);
+        ctx.restore();
+
         ctx.save();
         ctx.beginPath();
         ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
@@ -549,35 +605,41 @@ function MainAppContent() {
         ctx.drawImage(logoImageObj, 80, 80, 120, 120);
         ctx.restore();
 
-        drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 40, 'bold');
-        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 20, 'normal', '#a1a1aa');
+        ctx.strokeStyle = '#c084fc';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
+        ctx.stroke();
+
+        drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#c084fc');
       } else {
-        drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 45, 'bold', '#ffffff', 'center');
-        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 20, 'normal', '#a1a1aa', 'center');
+        drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 50, 'bold', '#ffffff', 'center');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#c084fc', 'center');
       }
 
-      ctx.strokeStyle = '#27272a';
+      ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(90, 230);
       ctx.lineTo(1110, 230);
       ctx.stroke();
 
-      drawText('OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 22, 'bold', '#e4e4e7', 'center');
+      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#fbbf24', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
       const zone = config.convenienceZones[calcZone];
 
       let startY = 340;
-      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#e4e4e7', mono: true });
+      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#c084fc', mono: true });
       startY = drawRow('CLIENT NAME', clientName || 'Not Provided', startY);
       startY = drawRow('CONTACT NUMBER', clientPhone || 'Not Provided', startY);
       startY = drawRow('EVENT DATE', eventDate || 'Not Provided', startY);
 
       startY += 10;
-      startY = drawSectionTitle('VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#a1a1aa');
-      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#e4e4e7' });
+      startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#38bdf8');
+      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#38bdf8' });
       if (flatHouseNo.trim()) {
         startY = drawDynamicRow('Flat / House No., Building:', flatHouseNo.trim(), startY);
       }
@@ -586,18 +648,18 @@ function MainAppContent() {
         startY = drawDynamicRow('Landmark:', landmark.trim(), startY);
       }
       startY = drawRow('Town / City & State:', `${city || 'New Delhi'}, ${state || 'Delhi'}`, startY);
-      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#e4e4e7', mono: true });
+      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#c084fc', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#a1a1aa');
+      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#38bdf8');
       startY = drawRow('• Vanity:', kitName, startY);
       startY = drawRow('• Package:', pkgText.name, startY);
       startY = drawRow('• Package Price:', `₹${mainPackagePrice.toLocaleString('en-IN')}`, startY, { mono: true });
       startY = drawRow(`• Travel Fee (${zone?.name}):`, `₹${zoneFee.toLocaleString('en-IN')}`, startY, { mono: true });
-      startY = drawRow('Main Makeover Package Total:', `₹${mainBookingSubtotal.toLocaleString('en-IN')}`, startY, { labelColor: '#d4d4d8', valueColor: '#ffffff', mono: true });
+      startY = drawRow('Main Makeover Package Total:', `₹${mainBookingSubtotal.toLocaleString('en-IN')}`, startY, { labelColor: '#7dd3fc', valueColor: '#7dd3fc', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#a1a1aa');
+      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#c084fc');
       if (familyGuests.length > 0) {
         familyGuests.forEach((g, gIdx) => {
           const rawP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
@@ -608,32 +670,36 @@ function MainAppContent() {
           startY = drawRow('• Price:', `₹${rawP.toLocaleString('en-IN')}`, startY, { labelSize: 16, mono: true });
         });
       } else {
-        startY = drawRow('• No extra family guests selected', '₹0', startY, { valueColor: '#71717a', mono: true });
+        startY = drawRow('• No extra family guests selected', '₹0', startY, { valueColor: '#94a3b8', mono: true });
       }
-      startY = drawRow('Additional Family & Guest Total:', `₹${familyGuestsGross.toLocaleString('en-IN')}`, startY, { labelColor: '#d4d4d8', valueColor: '#ffffff', mono: true });
+      startY = drawRow('Additional Family & Guest Total:', `₹${familyGuestsGross.toLocaleString('en-IN')}`, startY, { labelColor: '#d8b4fe', valueColor: '#d8b4fe', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#a1a1aa');
+      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#34d399');
       if (guestDiscountSavedAmount > 0) {
-        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#a1a1aa', mono: true });
+        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34d399', mono: true });
       }
       if (appliedCoupon && couponDiscountAmount > 0) {
-        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#a1a1aa', mono: true });
+        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34d399', mono: true });
       }
       if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
-        startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#71717a', mono: true });
+        startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#94a3b8', mono: true });
       }
-      startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#d4d4d8', valueColor: '#ffffff', mono: true });
+      startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#86efac', valueColor: '#86efac', mono: true });
 
       startY += 18;
-      ctx.fillStyle = '#27272a';
-      ctx.fillRect(90, startY, 1020, 100);
+      ctx.fillStyle = 'rgba(192, 132, 252, 0.25)';
+      ctx.fillRect(90, startY, 1020, 115);
+      ctx.strokeStyle = '#c084fc';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(90, startY, 1020, 115);
 
-      drawText('FINAL AMOUNT PAYABLE', 600, startY + 36, 18, 'bold', '#a1a1aa', 'center');
-      drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 82, 38, 'bold', '#ffffff', 'center', 'sans-serif');
+      drawText('FINAL AMOUNT PAYABLE', 600, startY + 38, 22, 'bold', '#e2e8f0', 'center');
+      drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92, 48, 'bold', '#ffffff', 'center', 'serif');
 
       const footerY = canvas.height - 75;
-      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 16, 'normal', '#71717a', 'center');
+      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#64748b', 'center');
+      drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#c084fc', 'center');
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
@@ -763,7 +829,9 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  const currentFontFamily = "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif";
+  const activeThemeKey = config.theme?.colorTheme || 'real_glass_lens';
+  const activeThemeStyle = THEME_STYLES[activeThemeKey] || THEME_STYLES.real_glass_lens;
+  const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -781,17 +849,17 @@ function MainAppContent() {
     return (
       <div style={{ fontFamily: currentFontFamily }} className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-2xl text-center space-y-4 shadow-sm">
-          <div className="w-12 h-12 rounded-xl bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 flex items-center justify-center mx-auto">
+          <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
             <Wrench className="w-6 h-6" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-zinc-500 bg-zinc-200 dark:bg-zinc-800 px-2.5 py-1 rounded-md inline-block font-medium">
-              Maintenance
+            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-md inline-block font-medium">
+              Scheduled System Upgrade
             </span>
             <h2 className="text-xl font-semibold">We'll Be Back Shortly</h2>
             <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              We are currently updating our systems. Thank you for your patience.
+              We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.
             </p>
           </div>
         </div>
@@ -802,7 +870,7 @@ function MainAppContent() {
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
-      className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-200"
+      className={`min-h-screen ${activeThemeStyle.bg} text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-300`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
@@ -817,9 +885,9 @@ function MainAppContent() {
       `}</style>
 
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-opacity duration-300 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-opacity duration-500 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="flex flex-col items-center space-y-4 px-4 text-center">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 p-1 bg-zinc-50 dark:bg-zinc-900">
+            <div className="w-20 h-20 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 p-1 bg-white dark:bg-zinc-900 shadow-lg">
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
@@ -829,10 +897,10 @@ function MainAppContent() {
             </div>
               
             <div className="space-y-1">
-              <h1 className="text-lg font-semibold tracking-tight">
+              <h1 className="text-xl font-bold tracking-tight">
                 {config.studioName || 'H&F Makeup Artist'}
               </h1>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
+              <p className={`text-xs ${activeThemeStyle.accentText} font-medium uppercase tracking-wider`}>
                 {config.artistTagline || 'Beauty, Styled Your Way'}
               </p>
             </div>
@@ -845,7 +913,7 @@ function MainAppContent() {
           <div className="max-w-sm w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 text-center space-y-4 shadow-lg">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-xs text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                <Share2 className="w-4 h-4 text-zinc-500" /> Share Studio Lookbook
+                <Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook
               </span>
               <button onClick={() => setShowShareModal(false)} className="p-1 rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><X className="w-4 h-4" /></button>
             </div>
@@ -869,7 +937,7 @@ function MainAppContent() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className="px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 text-xs font-medium flex items-center justify-center gap-1 transition"
+                className={`px-4 py-2 rounded-xl ${activeThemeStyle.btn} text-xs font-medium flex items-center justify-center gap-1 transition`}
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Save</span>
@@ -884,7 +952,7 @@ function MainAppContent() {
           <div className="max-w-md w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 space-y-4 shadow-lg">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <Crown className="w-4 h-4 text-amber-500" />
+                <Crown className={`w-4 h-4 ${activeThemeStyle.accentText}`} />
                 <h3 className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">{viewingPackage.name}</h3>
               </div>
               <button onClick={() => setViewingPackage(null)} className="p-1 rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><X className="w-4 h-4" /></button>
@@ -911,7 +979,7 @@ function MainAppContent() {
               </div>
               <div className="flex justify-between items-center font-semibold text-sm pt-1">
                 <span className="text-zinc-900 dark:text-zinc-100">Rate:</span>
-                <span className="text-zinc-900 dark:text-zinc-100 font-mono text-sm">₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
+                <span className={`${activeThemeStyle.accentText} font-mono text-sm font-bold`}>₹{config.pricingByKit[selectedKit][viewingPackage.key].toLocaleString('en-IN')}</span>
               </div>
             </div>
 
@@ -922,7 +990,7 @@ function MainAppContent() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className="w-full py-2.5 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 text-xs font-medium rounded-xl transition flex items-center justify-center gap-1.5"
+              className={`w-full py-2.5 ${activeThemeStyle.btn} text-xs font-medium rounded-xl transition flex items-center justify-center gap-1.5`}
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -934,7 +1002,7 @@ function MainAppContent() {
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-2 px-3 overflow-hidden text-xs font-medium relative flex items-center select-none">
+        <div className={`bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-2 px-3 overflow-hidden text-xs font-medium relative flex items-center select-none`}>
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
               {(config.announcements || []).map((ann, idx) => (
@@ -954,25 +1022,27 @@ function MainAppContent() {
         </div>
       )}
 
-      <header className="sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
-              <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
-                <img 
-                  src={resolvedLogoUrl} 
-                  alt="Logo" 
-                  onError={() => setLogoLoadFailed(true)}
-                  className="w-full h-full object-cover rounded-xl" 
-                  draggable="false"
-                />
-              </div>
+              {config.toggles?.showLogoOnApp !== false && (
+                <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
+                  <img 
+                    src={resolvedLogoUrl} 
+                    alt="Logo" 
+                    onError={() => setLogoLoadFailed(true)}
+                    className="w-full h-full object-cover rounded-xl" 
+                    draggable="false"
+                  />
+                </div>
+              )}
                 
               <div className="truncate">
                 <h1 className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100 truncate">
                   {config.studioName || 'H&F Makeup Artist'}
                 </h1>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-1 truncate font-normal">
+                <p className={`text-xs ${activeThemeStyle.accentText} flex items-center gap-1 truncate font-medium`}>
                   <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
                 </p>
               </div>
@@ -999,7 +1069,7 @@ function MainAppContent() {
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 text-xs font-medium px-3 py-2 rounded-xl transition hover:opacity-90"
+                className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3 py-2 rounded-xl transition hover:opacity-90`}
               >
                 <Camera className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
@@ -1035,7 +1105,7 @@ function MainAppContent() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg transition ${
                       isActive 
-                        ? 'bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold' 
+                        ? `${activeThemeStyle.btn} font-semibold shadow-xs` 
                         : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
                     }`}
                   >
@@ -1066,7 +1136,7 @@ function MainAppContent() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 flex flex-col items-center justify-center py-1 rounded-lg transition ${
-                  isActive ? 'text-zinc-900 dark:text-zinc-100 font-semibold' : 'text-zinc-400 dark:text-zinc-500 font-normal'
+                  isActive ? `${activeThemeStyle.accentText} font-semibold` : 'text-zinc-400 dark:text-zinc-500 font-normal'
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -1082,7 +1152,7 @@ function MainAppContent() {
         {activeTab === 'menu' && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium inline-block">
+              <span className={`px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 ${activeThemeStyle.accentText} text-xs font-medium inline-block`}>
                 Professional Vanity Packages
               </span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Curated Makeup Menu</h2>
@@ -1092,7 +1162,7 @@ function MainAppContent() {
                 <button
                   onClick={() => setSelectedKit('international')}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition ${
-                    selectedKit === 'international' ? 'bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold' : 'text-zinc-600 dark:text-zinc-400'
+                    selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-xs` : 'text-zinc-600 dark:text-zinc-400'
                   }`}
                 >
                   👑 International Luxury Kit
@@ -1100,7 +1170,7 @@ function MainAppContent() {
                 <button
                   onClick={() => setSelectedKit('drugstore')}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition ${
-                    selectedKit === 'drugstore' ? 'bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold' : 'text-zinc-600 dark:text-zinc-400'
+                    selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-xs` : 'text-zinc-600 dark:text-zinc-400'
                   }`}
                 >
                   ✨ Premium HD Kit
@@ -1117,7 +1187,7 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center shadow-xs">
+                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center`}>
                     <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 relative border border-zinc-200 dark:border-zinc-800">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
                       <div className="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono font-medium text-amber-300">
@@ -1130,7 +1200,7 @@ function MainAppContent() {
                           <h4 className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">
                             {item.num ? `${item.num}. ` : ''}{item.name}
                           </h4>
-                          <span className="font-mono font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100 shrink-0">
+                          <span className={`font-mono font-semibold text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>
                             ₹{price.toLocaleString('en-IN')}
                           </span>
                         </div>
@@ -1157,7 +1227,7 @@ function MainAppContent() {
                               setCalcKit(selectedKit);
                               setActiveTab('calculator');
                             }}
-                            className="px-3.5 py-1.5 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 text-xs font-medium rounded-xl transition flex items-center gap-1"
+                            className={`px-3.5 py-1.5 ${activeThemeStyle.btn} text-xs font-medium rounded-xl transition flex items-center gap-1`}
                           >
                             <span>Book</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -1176,7 +1246,7 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium inline-block">
+              <span className={`px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 ${activeThemeStyle.accentText} text-xs font-medium inline-block`}>
                 Discover Looks
               </span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Featured Transformations</h2>
@@ -1190,7 +1260,7 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between">
+                  <div key={idx} className={`${activeThemeStyle.card} rounded-2xl overflow-hidden shadow-xs flex flex-col justify-between`}>
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} />
                     ) : (
@@ -1219,7 +1289,7 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-medium inline-block">
+              <span className={`px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 ${activeThemeStyle.accentText} text-xs font-medium inline-block`}>
                 Authentic Vanity
               </span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Products In Our Kit</h2>
@@ -1227,8 +1297,8 @@ function MainAppContent() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 space-y-2 shadow-xs">
-                  <span className="text-[10px] font-medium text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 uppercase px-2 py-0.5 rounded font-mono inline-block">
+                <div key={idx} className={`${activeThemeStyle.card} rounded-2xl p-5 space-y-2`}>
+                  <span className={`text-[10px] font-medium ${activeThemeStyle.accentText} bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 uppercase px-2 py-0.5 rounded font-mono inline-block`}>
                     {brand.category}
                   </span>
                   <h4 className="font-semibold text-sm text-zinc-900 dark:text-zinc-100">{brand.name}</h4>
@@ -1243,7 +1313,7 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto">
             {isBookingDone ? (
-              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 text-center space-y-4 shadow-sm max-w-lg mx-auto">
+              <div className={`${activeThemeStyle.card} rounded-2xl p-8 text-center space-y-4 shadow-sm max-w-lg mx-auto`}>
                 <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-200 dark:border-emerald-800">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
@@ -1259,7 +1329,7 @@ function MainAppContent() {
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 font-medium inline-flex items-center gap-2 text-xs transition">
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-4 py-2.5 rounded-xl ${activeThemeStyle.btn} font-medium inline-flex items-center gap-2 text-xs transition`}>
                       <Download className="w-3.5 h-3.5" />
                       <span>Download Booking Receipt (.JPG)</span>
                     </a>
@@ -1271,19 +1341,19 @@ function MainAppContent() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-xs">
+              <form onSubmit={handleDirectEstimateBooking} className={`${activeThemeStyle.card} rounded-2xl p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6`}>
                 <div className="md:col-span-7 space-y-4">
                   <div className="border-b border-zinc-100 dark:border-zinc-800 pb-2">
                     <h3 className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                      <Calculator className="w-4 h-4 text-zinc-500" /> 1. Calculate & Choose Looks
+                      <Calculator className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider mb-2 text-zinc-700 dark:text-zinc-300">Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-2.5 rounded-xl text-xs font-medium border text-center transition ${calcKit === 'international' ? 'bg-zinc-900 dark:bg-zinc-100 border-zinc-900 dark:border-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold' : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-2.5 rounded-xl text-xs font-medium border text-center transition ${calcKit === 'drugstore' ? 'bg-zinc-900 dark:bg-zinc-100 border-zinc-900 dark:border-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold' : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-2.5 rounded-xl text-xs font-medium border text-center transition ${calcKit === 'international' ? `${activeThemeStyle.btn} font-semibold` : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-2.5 rounded-xl text-xs font-medium border text-center transition ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold` : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
@@ -1315,7 +1385,7 @@ function MainAppContent() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                          <Users className="w-3.5 h-3.5 text-zinc-500" /> Extra Family Makeup Customizer
+                          <Users className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Extra Family Makeup Customizer
                         </h4>
                         <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Choose individual vanity tier & look for each family guest.</p>
                       </div>
@@ -1353,7 +1423,7 @@ function MainAppContent() {
                               <div className="flex items-center justify-between">
                                 <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100">Guest #{idx + 1}</span>
                                 <div className="flex items-center gap-2">
-                                  <span className="text-xs font-semibold font-mono text-zinc-900 dark:text-zinc-100">
+                                  <span className={`text-xs font-semibold font-mono ${activeThemeStyle.accentText}`}>
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
                                   <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded"><Trash2 className="w-3.5 h-3.5" /></button>
@@ -1398,7 +1468,7 @@ function MainAppContent() {
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                     <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-2">
                       <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
-                        <Tag className="w-3.5 h-3.5 text-zinc-500" /> Promo Coupon Code
+                        <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
                         <div className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-3 flex items-center justify-between gap-2">
@@ -1413,7 +1483,7 @@ function MainAppContent() {
                       ) : (
                         <div className="flex gap-2">
                           <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className="flex-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs uppercase font-mono font-medium text-zinc-900 dark:text-zinc-100" />
-                          <button type="button" onClick={handleApplyCoupon} className="px-4 py-2 bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 text-xs font-medium rounded-xl transition">Apply</button>
+                          <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2 ${activeThemeStyle.btn} text-xs font-medium rounded-xl transition`}>Apply</button>
                         </div>
                       )}
                       {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-normal">{couponError}</p>}
@@ -1423,7 +1493,7 @@ function MainAppContent() {
                   {/* CLIENT CONTACT DETAILS */}
                   <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
                     <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-zinc-500" /> 2. Enter Client Details
+                      <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
 
                     <div>
@@ -1446,7 +1516,7 @@ function MainAppContent() {
                     <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
                       <div className="flex items-center justify-between">
                         <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-zinc-500" /> 3. Destination Venue & Address
+                          <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
@@ -1456,7 +1526,7 @@ function MainAppContent() {
                               onClick={() => setAddressType(type)}
                               className={`px-3 py-1 rounded-lg text-[10px] font-medium border transition ${
                                 addressType === type 
-                                  ? 'bg-zinc-900 dark:bg-zinc-100 border-zinc-900 dark:border-zinc-100 text-zinc-100 dark:text-zinc-900' 
+                                  ? `${activeThemeStyle.btn} font-semibold` 
                                   : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400'
                               }`}
                             >
@@ -1644,7 +1714,7 @@ function MainAppContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 font-medium text-xs rounded-xl shadow-xs active:scale-[0.98] transition flex items-center justify-center gap-1.5"
+                    className={`w-full py-3 ${activeThemeStyle.btn} font-medium text-xs rounded-xl shadow-xs active:scale-[0.98] transition flex items-center justify-center gap-1.5`}
                   >
                     <Check className="w-3.5 h-3.5" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
@@ -1720,7 +1790,7 @@ function MainAppContent() {
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className="w-full py-2.5 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 font-medium text-xs rounded-xl shadow-xs active:scale-[0.98] transition flex items-center justify-center gap-1.5"
+                  className={`w-full py-2.5 ${activeThemeStyle.btn} font-medium text-xs rounded-xl shadow-xs active:scale-[0.98] transition flex items-center justify-center gap-1.5`}
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
@@ -1779,7 +1849,7 @@ function MainAppContent() {
             className={`mt-3 w-full py-2 text-xs font-medium rounded-xl transition ${
               isFloatingExpired 
                 ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed' 
-                : 'bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-zinc-100 dark:text-zinc-900 active:scale-[0.98]'
+                : `${activeThemeStyle.btn} active:scale-[0.98]`
             }`}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
