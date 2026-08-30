@@ -36,17 +36,17 @@ class AppErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-[#070b19] text-white flex items-center justify-center p-6 text-center animate-fade-in">
-          <div className="max-w-md w-full real-water-drop p-8 space-y-4 shadow-2xl">
-            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto border border-amber-500/40 animate-bounce">
+          <div className="max-w-md w-full liquid-lens-card p-8 space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto border border-amber-400/40 animate-bounce">
               <ShieldAlert className="w-8 h-8" />
             </div>
-            <h2 className="text-xl font-black text-amber-300 tracking-wide">System Safe Mode Active</h2>
+            <h2 className="text-xl font-black text-amber-300 tracking-wide hd-text-glow">System Safe Mode Active</h2>
             <p className="text-xs text-slate-200 leading-relaxed font-semibold">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3.5 water-drop-btn text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
+              className="w-full py-3.5 liquid-drop-btn text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
             >
               Refresh to Safe Version
             </button>
@@ -789,17 +789,17 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // Pure Apple SF Pro Typographic Stack
+  // Pure Apple SF Pro Typographic Stack with Enhanced Kerning
   const currentFontFamily = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif";
 
-  // Dynamic Contrast Colors
-  const titleText = isDarkMode ? "text-white font-black" : "text-slate-950 font-black";
+  // Optical Dynamic Text Colors with Hardware Antialiasing
+  const titleText = isDarkMode ? "text-white font-black hd-text-glow" : "text-slate-950 font-black hd-text-depth";
   const bodyText = isDarkMode ? "text-slate-100 font-semibold" : "text-slate-800 font-semibold";
   const labelText = isDarkMode ? "text-slate-300 font-bold" : "text-slate-600 font-bold";
-  const cyanAccent = isDarkMode ? "text-cyan-300 font-black" : "text-blue-700 font-black";
-  const amberAccent = isDarkMode ? "text-amber-300 font-black" : "text-amber-700 font-black";
-  const purpleAccent = isDarkMode ? "text-purple-300 font-black" : "text-purple-700 font-black";
-  const emeraldAccent = isDarkMode ? "text-emerald-300 font-black" : "text-emerald-700 font-black";
+  const cyanAccent = isDarkMode ? "text-cyan-300 font-black hd-text-cyan-glow" : "text-blue-700 font-black";
+  const amberAccent = isDarkMode ? "text-amber-300 font-black hd-text-amber-glow" : "text-amber-700 font-black";
+  const purpleAccent = isDarkMode ? "text-purple-300 font-black hd-text-purple-glow" : "text-purple-700 font-black";
+  const emeraldAccent = isDarkMode ? "text-emerald-300 font-black hd-text-emerald-glow" : "text-emerald-700 font-black";
 
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -817,16 +817,16 @@ function MainAppContent() {
     return (
       <div style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} className="min-h-screen bg-slate-100 dark:bg-[#030612] flex items-center justify-center p-4 relative overflow-hidden select-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="max-w-md w-full real-water-drop p-8 text-center space-y-5 animate-fade-in">
-          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-500 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
+        <div className="max-w-md w-full liquid-lens-card p-8 text-center space-y-5 animate-fade-in">
+          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-500 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
             <Wrench className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-300 dark:border-amber-500/40 inline-block">
+            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-300 dark:border-amber-400/40 inline-block">
               Scheduled System Upgrade
             </span>
-            <h2 className="text-2xl font-black bg-gradient-to-r from-amber-500 via-rose-500 to-cyan-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-black bg-gradient-to-r from-amber-500 via-rose-500 to-cyan-400 bg-clip-text text-transparent hd-text-glow">
               We'll Be Back Shortly
             </h2>
             <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-200 font-semibold">
@@ -846,10 +846,10 @@ function MainAppContent() {
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }} 
-      className="min-h-screen dynamic-liquid-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none"
+      className="min-h-screen dynamic-liquid-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none subpixel-antialiased"
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* Real Water Drop Lens Physics & High-Contrast Scoped Styles */}
+      {/* Real Crystal Water-Drop & HD Glass Etching Styles */}
       <style>{`
         /* Dynamic Multi-Layer Animated Liquid Mesh Backdrop */
         .dynamic-liquid-bg {
@@ -871,8 +871,22 @@ function MainAppContent() {
             radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.35) 0px, transparent 50%);
         }
 
-        /* 1. Real 3D Water Drop Glass Surface (12% Translucency + Arched Reflection + Bevel Shadows) */
-        .real-water-drop {
+        /* 1. Ultra-Clear Translucent Header (40px Blur + 220% Saturation) */
+        .liquid-lens-header {
+          background: rgba(255, 255, 255, 0.35) !important;
+          backdrop-filter: blur(40px) saturate(220%) !important;
+          -webkit-backdrop-filter: blur(40px) saturate(220%) !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .dark .liquid-lens-header {
+          background: rgba(3, 6, 18, 0.45) !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+          box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 2. Real 3D Water Drop Card (12% Translucency + Arched Reflection + Bevel Shadows) */
+        .liquid-lens-card {
           position: relative;
           background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.12) 75%);
           backdrop-filter: blur(28px) saturate(210%);
@@ -885,7 +899,7 @@ function MainAppContent() {
           border-radius: 36px;
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .dark .real-water-drop {
+        .dark .liquid-lens-card {
           background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16) 0%, rgba(10, 18, 42, 0.25) 80%);
           border: 1.5px solid rgba(255, 255, 255, 0.28);
           box-shadow: 
@@ -893,9 +907,7 @@ function MainAppContent() {
             inset 0 -4px 8px rgba(0, 0, 0, 0.6),
             0 24px 60px rgba(0, 0, 0, 0.85);
         }
-
-        /* Water Drop Gloss Specular Arch */
-        .real-water-drop::before {
+        .liquid-lens-card::before {
           content: "";
           position: absolute;
           top: 3px;
@@ -906,12 +918,12 @@ function MainAppContent() {
           border-radius: 9999px 9999px 40px 40px;
           pointer-events: none;
         }
-        .dark .real-water-drop::before {
+        .dark .liquid-lens-card::before {
           background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.0) 100%);
         }
 
-        /* 2. Sub-Capsules Water Drop */
-        .water-drop-subcard {
+        /* 3. Sub-Capsules Water Drop */
+        .liquid-lens-subcard {
           position: relative;
           background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 85%);
           backdrop-filter: blur(20px) saturate(190%);
@@ -923,7 +935,7 @@ function MainAppContent() {
             0 10px 30px rgba(15, 23, 42, 0.06);
           border-radius: 28px;
         }
-        .dark .water-drop-subcard {
+        .dark .liquid-lens-subcard {
           background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 85%);
           border: 1.5px solid rgba(255, 255, 255, 0.2);
           box-shadow: 
@@ -932,29 +944,58 @@ function MainAppContent() {
             0 14px 35px rgba(0, 0, 0, 0.6);
         }
 
-        /* 3. Water Drop Action Buttons (High Vibrancy & Caustic Shine) */
-        .water-drop-btn {
-          background: linear-gradient(135deg, #06b6d4 0%, #0284c7 50%, #4f46e5 100%);
-          border: 1.5px solid rgba(255, 255, 255, 0.65);
+        /* 4. Truly Transparent Crystal Active Buttons (Not Solid) */
+        .liquid-active-pill {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.55) 0%, rgba(2, 132, 199, 0.35) 100%) !important;
+          backdrop-filter: blur(24px) saturate(220%) !important;
+          -webkit-backdrop-filter: blur(24px) saturate(220%) !important;
+          border: 1.5px solid rgba(255, 255, 255, 0.75) !important;
           box-shadow: 
-            inset 0 2px 3px rgba(255, 255, 255, 0.8),
+            inset 0 2.5px 3.5px rgba(255, 255, 255, 0.9),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+            0 12px 30px rgba(6, 182, 212, 0.45) !important;
+          border-radius: 9999px;
+          color: #FFFFFF !important;
+        }
+        .liquid-active-pill::before {
+          content: "";
+          position: absolute;
+          top: 2px;
+          left: 15%;
+          right: 15%;
+          height: 45%;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.0) 100%);
+          border-radius: 9999px;
+          pointer-events: none;
+        }
+
+        /* 5. Liquid Action Primary Buttons */
+        .liquid-drop-btn {
+          position: relative;
+          background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.75) 0%, rgba(79, 70, 229, 0.65) 100%);
+          backdrop-filter: blur(24px) saturate(220%);
+          -webkit-backdrop-filter: blur(24px) saturate(220%);
+          border: 1.5px solid rgba(255, 255, 255, 0.75);
+          box-shadow: 
+            inset 0 2.5px 3.5px rgba(255, 255, 255, 0.9),
             inset 0 -2px 4px rgba(0, 0, 0, 0.3),
-            0 12px 30px rgba(6, 182, 212, 0.45);
+            0 12px 32px rgba(6, 182, 212, 0.5);
           border-radius: 9999px;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .water-drop-btn:hover {
+        .liquid-drop-btn:hover {
           transform: translateY(-1.5px) scale(1.02);
           box-shadow: 
-            inset 0 2px 4px rgba(255, 255, 255, 0.95),
-            0 16px 40px rgba(6, 182, 212, 0.6);
+            inset 0 2.5px 4px rgba(255, 255, 255, 1),
+            0 16px 40px rgba(6, 182, 212, 0.65);
         }
-        .water-drop-btn:active {
+        .liquid-drop-btn:active {
           transform: scale(0.95);
         }
 
-        /* 4. Water Drop Inputs & Select Elements */
-        .water-drop-input {
+        /* 6. Liquid Glass Form Controls */
+        .liquid-lens-input {
           background: rgba(255, 255, 255, 0.65);
           border: 1.5px solid rgba(255, 255, 255, 0.75);
           box-shadow: 
@@ -966,7 +1007,7 @@ function MainAppContent() {
           -webkit-backdrop-filter: blur(18px);
           transition: all 0.3s ease;
         }
-        .dark .water-drop-input {
+        .dark .liquid-lens-input {
           background: rgba(6, 12, 28, 0.7);
           border: 1.5px solid rgba(6, 182, 212, 0.45);
           box-shadow: 
@@ -975,7 +1016,7 @@ function MainAppContent() {
             0 6px 24px rgba(0, 0, 0, 0.5);
           color: #FFFFFF !important;
         }
-        .dark .water-drop-input:focus {
+        .dark .liquid-lens-input:focus {
           border-color: #67e8f9 !important;
           box-shadow: 0 0 22px rgba(103, 232, 249, 0.5) !important;
         }
@@ -988,6 +1029,26 @@ function MainAppContent() {
         .dark select option {
           background-color: #060c1c !important;
           color: #FFFFFF !important;
+        }
+
+        /* HD Optical Depth & Glows (Etched on Glass) */
+        .hd-text-glow {
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+        }
+        .hd-text-cyan-glow {
+          text-shadow: 0 0 14px rgba(103, 232, 249, 0.6);
+        }
+        .hd-text-amber-glow {
+          text-shadow: 0 0 14px rgba(252, 211, 77, 0.6);
+        }
+        .hd-text-purple-glow {
+          text-shadow: 0 0 14px rgba(216, 180, 254, 0.6);
+        }
+        .hd-text-emerald-glow {
+          text-shadow: 0 0 14px rgba(110, 231, 183, 0.6);
+        }
+        .hd-text-depth {
+          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
         }
 
         /* Floating Orb Keyframes */
@@ -1032,10 +1093,10 @@ function MainAppContent() {
             </div>
               
             <div className="text-center space-y-1.5">
-              <h1 className="text-xl sm:text-3xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+              <h1 className="text-xl sm:text-3xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent hd-text-glow">
                 {config.studioName || 'H&F Makeup Artist'}
               </h1>
-              <p className="text-[11px] sm:text-xs font-black text-cyan-300 tracking-widest uppercase animate-pulse">
+              <p className="text-[11px] sm:text-xs font-black text-cyan-300 tracking-widest uppercase animate-pulse hd-text-cyan-glow">
                 {config.artistTagline || 'Beauty, Styled Your Way'}
               </p>
             </div>
@@ -1043,7 +1104,7 @@ function MainAppContent() {
             <div className="w-48 h-2.5 bg-white/20 rounded-full overflow-hidden shadow-inner">
               <div className="h-full bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 rounded-full animate-pulse w-full" />
             </div>
-            <span className="text-[11px] text-cyan-200 font-mono tracking-wide font-black">
+            <span className="text-[11px] text-cyan-200 font-mono tracking-wide font-black hd-text-cyan-glow">
               Curating Luxury Vanity Experience...
             </span>
           </div>
@@ -1052,7 +1113,7 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
-          <div className="max-w-sm w-full real-water-drop p-6 text-center space-y-4 ios-tab-spring">
+          <div className="max-w-sm w-full liquid-lens-card p-6 text-center space-y-4 ios-tab-spring">
             <div className="flex items-center justify-between">
               <span className={`font-black text-sm flex items-center gap-1.5 ${cyanAccent}`}>
                 <Share2 className="w-4 h-4 text-blue-600 dark:text-cyan-400 animate-pulse" /> Share Studio Lookbook
@@ -1079,7 +1140,7 @@ function MainAppContent() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className="px-5 py-3 rounded-full water-drop-btn text-white text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow"
+                className="px-5 py-3 rounded-full liquid-drop-btn text-white text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow"
               >
                 <Download className="w-4 h-4" />
                 <span>Save QR</span>
@@ -1091,7 +1152,7 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
-          <div className="max-w-md w-full real-water-drop p-6 space-y-4 ios-tab-spring">
+          <div className="max-w-md w-full liquid-lens-card p-6 space-y-4 ios-tab-spring">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${cyanAccent} animate-bounce`} />
@@ -1132,7 +1193,7 @@ function MainAppContent() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className="w-full py-3.5 water-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300"
+              className="w-full py-3.5 liquid-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300"
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -1173,8 +1234,8 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* Floating Apple Liquid Header */}
-      <header className="sticky top-0 z-40 px-3 sm:px-8 py-3 transition-all duration-300 bg-white/70 dark:bg-[#060B1E]/70 backdrop-blur-3xl border-b border-white/30 dark:border-cyan-400/20 shadow-lg">
+      {/* Ultra-Clear Translucent Apple Lens Header */}
+      <header className="sticky top-0 z-40 px-3 sm:px-8 py-3 transition-all duration-300 liquid-lens-header">
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none active:scale-[0.95] transition-transform duration-300 cursor-pointer min-w-0 group">
@@ -1189,7 +1250,7 @@ function MainAppContent() {
               </div>
                 
               <div className="truncate">
-                <h1 className="font-black text-sm sm:text-base bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 dark:from-cyan-300 dark:via-sky-200 dark:to-indigo-300 bg-clip-text text-transparent truncate tracking-tight">
+                <h1 className="font-black text-sm sm:text-base bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 dark:from-cyan-300 dark:via-sky-200 dark:to-indigo-300 bg-clip-text text-transparent truncate tracking-tight hd-text-glow">
                   {config.studioName || 'H&F Makeup Artist'}
                 </h1>
                 <p className={`text-[10px] sm:text-[11px] font-black ${cyanAccent} flex items-center gap-1 truncate`}>
@@ -1203,7 +1264,7 @@ function MainAppContent() {
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className="p-2.5 rounded-full water-drop-subcard text-blue-700 dark:text-cyan-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
+                className="p-2.5 rounded-full liquid-lens-subcard text-blue-700 dark:text-cyan-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
               >
                 <QrCode className="w-4 h-4" />
               </button>
@@ -1211,9 +1272,9 @@ function MainAppContent() {
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className="p-2.5 rounded-full water-drop-subcard text-amber-600 dark:text-amber-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
+                className="p-2.5 rounded-full liquid-lens-subcard text-amber-600 dark:text-amber-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
               >
-                {isDarkMode ? <Sun className="w-4 h-4 animate-spin" style={{ animationDuration: '8s' }} /> : <Moon className="w-4 h-4 text-indigo-700" />}
+                {isDarkMode ? <Sun className="w-4 h-4 animate-spin text-amber-300" style={{ animationDuration: '8s' }} /> : <Moon className="w-4 h-4 text-indigo-700" />}
               </button>
 
               <a
@@ -1244,7 +1305,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center py-1">
-            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full water-drop-subcard text-xs font-black shadow-inner">
+            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full liquid-lens-subcard text-xs font-black shadow-inner">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1260,7 +1321,7 @@ function MainAppContent() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.95] ${
                       isActive 
-                        ? 'water-drop-btn text-white scale-105 shadow-xl' 
+                        ? 'liquid-active-pill scale-105 shadow-xl' 
                         : 'text-slate-800 dark:text-slate-200 hover:bg-white/20'
                     }`}
                   >
@@ -1276,7 +1337,7 @@ function MainAppContent() {
 
       {/* Mobile Floating iOS Liquid Pill Dock */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full real-water-drop backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in border border-white/40">
+        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full liquid-lens-card backdrop-blur-3xl shadow-2xl flex items-center justify-around animate-fade-in border border-white/40">
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1291,7 +1352,7 @@ function MainAppContent() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-full transition-all duration-300 active:scale-[0.95] ${
-                  isActive ? 'water-drop-btn text-white scale-105 shadow-md' : titleText
+                  isActive ? 'liquid-active-pill scale-105 shadow-md' : titleText
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -1307,17 +1368,17 @@ function MainAppContent() {
         {activeTab === 'menu' && (
           <div key="tab-menu" className="space-y-8 sm:space-y-10 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2.5">
-              <span className={`px-4 py-1.5 rounded-full water-drop-subcard ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5`}>
+              <span className={`px-4 py-1.5 rounded-full liquid-lens-subcard ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5`}>
                 <Droplet className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> Professional Vanity Packages
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-full water-drop-subcard mt-2 gap-1.5 shadow-lg">
+              <div className="inline-flex p-1.5 rounded-full liquid-lens-subcard mt-2 gap-1.5 shadow-lg">
                 <button
                   onClick={() => setSelectedKit('international')}
                   className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
-                    selectedKit === 'international' ? 'water-drop-btn text-white scale-105' : 'text-slate-800 dark:text-slate-200'
+                    selectedKit === 'international' ? 'liquid-active-pill scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
                   <Crown className="w-4 h-4 text-amber-300 shrink-0" />
@@ -1326,7 +1387,7 @@ function MainAppContent() {
                 <button
                   onClick={() => setSelectedKit('drugstore')}
                   className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
-                    selectedKit === 'drugstore' ? 'water-drop-btn text-white scale-105' : 'text-slate-800 dark:text-slate-200'
+                    selectedKit === 'drugstore' ? 'liquid-active-pill scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
                   <PackageCheck className="w-4 h-4 text-cyan-300 shrink-0" />
@@ -1344,7 +1405,7 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className="real-water-drop p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
+                  <div key={`${selectedKit}_${key}`} className="liquid-lens-card p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[28px] overflow-hidden bg-neutral-900 relative border border-slate-200 dark:border-white/20">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
                       <div className="absolute top-2 left-2 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-black text-amber-300 border border-amber-400/50">
@@ -1373,7 +1434,7 @@ function MainAppContent() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                            className="px-3.5 py-1.5 rounded-full water-drop-subcard text-xs font-black flex items-center gap-1 active:scale-[0.95] text-slate-900 dark:text-cyan-200"
+                            className="px-3.5 py-1.5 rounded-full liquid-lens-subcard text-xs font-black flex items-center gap-1 active:scale-[0.95] text-slate-900 dark:text-cyan-200"
                           >
                             <Eye className={`w-3.5 h-3.5 ${cyanAccent}`} />
                             <span>Details</span>
@@ -1385,7 +1446,7 @@ function MainAppContent() {
                               setCalcKit(selectedKit);
                               setActiveTab('calculator');
                             }}
-                            className="px-4 py-1.5 water-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center gap-1"
+                            className="px-4 py-1.5 liquid-drop-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center gap-1"
                           >
                             <span>Book</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -1404,7 +1465,7 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div key="tab-gallery" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-full water-drop-subcard ${cyanAccent} text-xs font-black tracking-wide`}>
+              <span className={`px-4 py-1.5 rounded-full liquid-lens-subcard ${cyanAccent} text-xs font-black tracking-wide`}>
                 Discover Beautiful Makeup Transformations
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Featured Transformations</h2>
@@ -1418,7 +1479,7 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className="real-water-drop overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
+                  <div key={idx} className="liquid-lens-card overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} />
                     ) : (
@@ -1447,13 +1508,13 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div key="tab-brands" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-full water-drop-subcard ${cyanAccent} text-xs font-black`}>Authentic Vanity</span>
+              <span className={`px-4 py-1.5 rounded-full liquid-lens-subcard ${cyanAccent} text-xs font-black`}>Authentic Vanity</span>
               <h2 className={`text-2xl sm:text-4xl font-black ${titleText}`}>Products In Our Kit</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className="real-water-drop p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
+                <div key={idx} className="liquid-lens-card p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
                   <span className={`text-[10px] font-black ${amberAccent} bg-amber-100 dark:bg-amber-500/25 border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-1 rounded-full inline-block font-mono`}>
                     {brand.category}
                   </span>
@@ -1469,7 +1530,7 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div key="tab-calculator" className="max-w-4xl mx-auto ios-tab-spring">
             {isBookingDone ? (
-              <div className="real-water-drop p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
+              <div className="liquid-lens-card p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20 animate-bounce">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
@@ -1485,19 +1546,19 @@ function MainAppContent() {
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full water-drop-btn text-white inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105">
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full liquid-drop-btn text-white inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105">
                       <Download className="w-4 h-4" />
                       <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 water-drop-subcard text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 liquid-lens-subcard text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className="real-water-drop p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
+              <form onSubmit={handleDirectEstimateBooking} className="liquid-lens-card p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
                 <div className="md:col-span-7 space-y-5">
                   <div className="border-b border-slate-200 dark:border-cyan-400/30 pb-2">
                     <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${cyanAccent}`}>
@@ -1508,14 +1569,14 @@ function MainAppContent() {
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${titleText}`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? `bg-amber-100 dark:bg-amber-500/25 ${amberAccent} border-amber-400 dark:border-amber-400/60 shadow-md scale-105` : `water-drop-subcard ${bodyText}`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? `bg-blue-100 dark:bg-cyan-500/25 ${cyanAccent} border-blue-400 dark:border-cyan-400/60 shadow-md scale-105` : `water-drop-subcard ${bodyText}`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? 'liquid-active-pill scale-105' : `liquid-lens-subcard ${bodyText}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? 'liquid-active-pill scale-105' : `liquid-lens-subcard ${bodyText}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full water-drop-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full liquid-lens-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1530,7 +1591,7 @@ function MainAppContent() {
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full water-drop-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full liquid-lens-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key} className="py-2 font-semibold">{zone.name} (+₹{zone.fee})</option>
                       ))}
@@ -1549,14 +1610,14 @@ function MainAppContent() {
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className={`px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-500/25 ${purpleAccent} border border-purple-300 dark:border-purple-400/50 text-xs font-black flex items-center gap-1 active:scale-[0.95] transition-all duration-300 hover:scale-105`}
+                        className={`px-4 py-2 rounded-full bg-purple-100/90 dark:bg-purple-500/25 ${purpleAccent} border border-purple-300 dark:border-purple-400/50 text-xs font-black flex items-center gap-1 active:scale-[0.95] transition-all duration-300 hover:scale-105`}
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3.5 rounded-[28px] bg-emerald-100/90 dark:bg-emerald-950/60 border border-emerald-400 dark:border-emerald-400/50 flex items-center justify-between text-xs animate-fade-in shadow-sm">
+                      <div className="p-3.5 rounded-[28px] bg-emerald-100/90 dark:bg-emerald-500/20 border border-emerald-400 dark:border-emerald-400/50 flex items-center justify-between text-xs animate-fade-in shadow-sm">
                         <div className="flex items-center gap-2.5">
                           <div className="p-1.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300">
                             <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
@@ -1582,7 +1643,7 @@ function MainAppContent() {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className="p-4 rounded-[28px] water-drop-subcard border-purple-300 dark:border-purple-500/40 space-y-2.5 transition-all duration-300">
+                            <div key={guest.id} className="p-4 rounded-[28px] liquid-lens-subcard border-purple-300 dark:border-purple-500/40 space-y-2.5 transition-all duration-300">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className={`text-[11px] font-black ${purpleAccent} font-mono`}>Guest #{idx + 1}</span>
@@ -1599,7 +1660,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={`w-full p-2.5 rounded-full text-xs font-black water-drop-input ${amberAccent} cursor-pointer px-3.5`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black liquid-lens-input ${amberAccent} cursor-pointer px-3.5`}
                                   >
                                     <option value="international" className="py-1">👑 Luxury Kit</option>
                                     <option value="drugstore" className="py-1">✨ HD Kit</option>
@@ -1611,7 +1672,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2.5 rounded-full text-xs font-black water-drop-input ${cyanAccent} cursor-pointer px-3.5`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black liquid-lens-input ${cyanAccent} cursor-pointer px-3.5`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k} className="py-1">
@@ -1634,7 +1695,7 @@ function MainAppContent() {
                         <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-emerald-50/90 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/50 rounded-[24px] p-3.5 flex items-center justify-between gap-2 animate-fade-in">
+                        <div className="bg-emerald-50/90 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/50 rounded-[24px] p-3.5 flex items-center justify-between gap-2 animate-fade-in">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className={`text-xs font-black ${emeraldAccent} font-mono`}>CODE: {appliedCoupon.code} APPLIED</span>
@@ -1655,8 +1716,8 @@ function MainAppContent() {
                         </div>
                       ) : (
                         <div className="flex gap-2.5">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 water-drop-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
-                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 water-drop-btn text-white text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300">Apply</button>
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 liquid-lens-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
+                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 liquid-drop-btn text-white text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300">Apply</button>
                         </div>
                       )}
                       {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-black">{couponError}</p>}
@@ -1671,17 +1732,17 @@ function MainAppContent() {
 
                     <div>
                       <label className={`block text-xs ${labelText} mb-1.5`}>Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${titleText}`} />
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs ${titleText}`} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className={`block text-xs ${labelText} mb-1.5`}>Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full water-drop-input text-xs font-mono ${cyanAccent} font-black`} />
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs font-mono ${cyanAccent} font-black`} />
                       </div>
                       <div>
                         <label className={`block text-xs ${labelText} mb-1.5`}>Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full water-drop-input text-xs font-mono ${amberAccent} font-black`} />
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs font-mono ${amberAccent} font-black`} />
                       </div>
                     </div>
 
@@ -1699,8 +1760,8 @@ function MainAppContent() {
                               onClick={() => setAddressType(type)}
                               className={`px-3.5 py-1.5 rounded-full text-[10px] font-black border transition-all duration-300 active:scale-[0.95] ${
                                 addressType === type 
-                                  ? 'water-drop-btn text-white scale-105' 
-                                  : `water-drop-subcard ${bodyText}`
+                                  ? 'liquid-active-pill scale-105' 
+                                  : `liquid-lens-subcard ${bodyText}`
                               }`}
                             >
                               {type === 'Work' ? '🏢 Work / Office' : '🏠 Home'}
@@ -1719,7 +1780,7 @@ function MainAppContent() {
                             placeholder="e.g. 110025" 
                             value={pincode} 
                             onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
-                            className={`w-full px-5 py-3 rounded-full water-drop-input font-mono font-black text-xs ${purpleAccent}`} 
+                            className={`w-full px-5 py-3 rounded-full liquid-lens-input font-mono font-black text-xs ${purpleAccent}`} 
                           />
                         </div>
 
@@ -1730,7 +1791,7 @@ function MainAppContent() {
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${titleText}`} 
+                            className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs ${titleText}`} 
                           />
                         </div>
                       </div>
@@ -1743,7 +1804,7 @@ function MainAppContent() {
                           placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
-                          className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${titleText}`} 
+                          className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs ${titleText}`} 
                         />
                       </div>
 
@@ -1754,7 +1815,7 @@ function MainAppContent() {
                           placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
-                          className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${bodyText}`} 
+                          className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs ${bodyText}`} 
                         />
                       </div>
 
@@ -1767,7 +1828,7 @@ function MainAppContent() {
                             placeholder="e.g. New Delhi" 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
 
@@ -1779,7 +1840,7 @@ function MainAppContent() {
                             placeholder="e.g. Delhi" 
                             value={state} 
                             onChange={(e) => setState(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full water-drop-input text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-5 py-3 rounded-full liquid-lens-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
                       </div>
@@ -1788,7 +1849,7 @@ function MainAppContent() {
                 </div>
 
                 {/* RIGHT COLUMN: HIGH-CONTRAST COLORFUL SUMMARY WITH WATER DROP GLASS TIERS */}
-                <div className="md:col-span-5 water-drop-subcard p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-white/40 dark:border-cyan-400/40 rounded-[32px]">
+                <div className="md:col-span-5 liquid-lens-subcard p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-white/40 dark:border-cyan-400/40 rounded-[32px]">
                   <div>
                     <span className={`text-[11px] font-black uppercase tracking-widest ${cyanAccent} flex items-center gap-1.5`}>
                       <Zap className="w-4 h-4 text-amber-400 animate-bounce" /> Total Amount Summary
@@ -1801,7 +1862,7 @@ function MainAppContent() {
 
                   <div className="space-y-3.5 text-xs border-t border-b border-slate-200 dark:border-white/20 py-3.5">
                     {/* SECTION 1: MAIN MAKEOVER PACKAGE (SKY BLUE) */}
-                    <div className="p-4 rounded-[24px] bg-blue-500/10 dark:bg-sky-500/15 border border-blue-300 dark:border-sky-400/40 space-y-2 text-blue-900 dark:text-sky-100 transition-all duration-300">
+                    <div className="p-4 rounded-[24px] bg-blue-500/10 dark:bg-sky-500/20 border border-blue-300 dark:border-sky-400/40 space-y-2 text-blue-900 dark:text-sky-100 transition-all duration-300">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${cyanAccent}`}>
                         <span>1. Main Makeover Package:</span>
                         <span className={`font-mono ${titleText}`}>₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
@@ -1829,7 +1890,7 @@ function MainAppContent() {
                     </div>
 
                     {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS (PURPLE) */}
-                    <div className="p-4 rounded-[24px] bg-purple-500/10 dark:bg-purple-500/15 border border-purple-300 dark:border-purple-400/40 space-y-2 text-purple-950 dark:text-purple-100 transition-all duration-300">
+                    <div className="p-4 rounded-[24px] bg-purple-500/10 dark:bg-purple-500/20 border border-purple-300 dark:border-purple-400/40 space-y-2 text-purple-950 dark:text-purple-100 transition-all duration-300">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${purpleAccent}`}>
                         <span>2. Extra Family Makeovers ({familyGuests.length}):</span>
                         <span className={`font-mono ${titleText}`}>₹{familyGuestsGross.toLocaleString('en-IN')}</span>
@@ -1865,13 +1926,13 @@ function MainAppContent() {
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full real-water-drop border border-white/40 shadow-sm`}>
+                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full liquid-lens-card border border-white/40 shadow-sm`}>
                       <span>Booking Total Before Discounts:</span>
                       <span className={`font-mono ${amberAccent} text-sm font-black`}>₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
                     {/* SECTION 3: DISCOUNTS & OFFERS (EMERALD GREEN) */}
-                    <div className="p-4 rounded-[24px] bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-300 dark:border-emerald-400/40 space-y-2 text-emerald-950 dark:text-emerald-100 transition-all duration-300">
+                    <div className="p-4 rounded-[24px] bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-400/40 space-y-2 text-emerald-950 dark:text-emerald-100 transition-all duration-300">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${emeraldAccent}`}>
                         <span>3. Discounts & Offers:</span>
                         <span className={`font-mono ${emeraldAccent} font-black`}>-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
@@ -1905,7 +1966,7 @@ function MainAppContent() {
                     </div>
 
                     {/* FINAL AMOUNT CARD (WATER DROP HERO) */}
-                    <div className="p-5 rounded-[24px] real-water-drop border border-cyan-400 dark:border-cyan-400/60 shadow-2xl transition-all duration-300">
+                    <div className="p-5 rounded-[24px] liquid-lens-card border border-cyan-400 dark:border-cyan-400/60 shadow-2xl transition-all duration-300">
                       <div className="flex justify-between items-center">
                         <div>
                           <p className={`text-[11px] uppercase tracking-wider font-black ${cyanAccent} flex items-center gap-1.5`}>
@@ -1925,7 +1986,7 @@ function MainAppContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 water-drop-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-4 liquid-drop-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <Check className="w-4 h-4 animate-bounce" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
@@ -1938,7 +1999,7 @@ function MainAppContent() {
 
         {/* TAB 5: FEEDBACK */}
         {activeTab === 'feedback' && (
-          <div key="tab-feedback" className="p-6 sm:p-9 real-water-drop max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
+          <div key="tab-feedback" className="p-6 sm:p-9 liquid-lens-card max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
             <div className="text-center space-y-1.5">
               <span className={`text-[10px] font-black uppercase tracking-wider ${cyanAccent}`}>Client Experience</span>
               <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Feedback & Suggestions</h3>
@@ -1946,7 +2007,7 @@ function MainAppContent() {
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-[28px] bg-emerald-50/90 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/50 text-center space-y-2 animate-fade-in">
+              <div className="p-6 rounded-[28px] bg-emerald-50/90 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/50 text-center space-y-2 animate-fade-in">
                 <CheckCircle2 className="w-10 h-10 text-emerald-500 dark:text-emerald-400 mx-auto animate-bounce" />
                 <h4 className={`font-black text-sm ${emeraldAccent}`}>Thank you for your valuable feedback!</h4>
                 <p className={`text-xs ${bodyText}`}>Your suggestion has been securely submitted to our studio team.</p>
@@ -1978,14 +2039,14 @@ function MainAppContent() {
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} water-drop-input`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} liquid-lens-input`}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black water-drop-input`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black liquid-lens-input`}
                   />
                 </div>
 
@@ -1995,13 +2056,13 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} water-drop-input`}
+                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} liquid-lens-input`}
                 />
 
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className="w-full py-3.5 water-drop-btn text-white text-xs font-black rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5"
+                  className="w-full py-3.5 liquid-drop-btn text-white text-xs font-black rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
@@ -2016,7 +2077,7 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 real-water-drop p-4 shadow-2xl transition-all duration-500 ios-tab-spring border border-amber-400/60"
+          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 liquid-lens-card p-4 shadow-2xl transition-all duration-500 ios-tab-spring border border-amber-400/60"
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${amberAccent} shrink-0 mt-0.5 animate-bounce`} />
@@ -2060,7 +2121,7 @@ function MainAppContent() {
             className={`mt-3 w-full py-2.5 text-xs font-black rounded-full shadow transition-all duration-300 ${
               isFloatingExpired 
                 ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
-                : 'water-drop-btn text-white active:scale-[0.95]'
+                : 'liquid-drop-btn text-white active:scale-[0.95]'
             }`}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
