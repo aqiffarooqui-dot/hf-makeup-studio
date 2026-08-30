@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center p-6 text-center animate-fade-in">
-          <div className="max-w-md w-full ios-water-drop p-8 space-y-4 shadow-2xl">
-            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto border border-amber-400/40 animate-bounce">
+        <div className="min-h-screen bg-[#000000] text-white flex items-center justify-center p-6 text-center animate-fade-in">
+          <div className="max-w-md w-full oled-4k-card p-8 space-y-4 shadow-2xl">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center mx-auto border border-amber-400/50 animate-bounce">
               <ShieldAlert className="w-8 h-8" />
             </div>
-            <h2 className="text-xl font-black text-amber-300 tracking-tight hd-glass-text-night">System Safe Mode Active</h2>
+            <h2 className="text-xl font-black text-amber-300 tracking-tight oled-hdr-amber">System Safe Mode Active</h2>
             <p className="text-xs text-slate-200 leading-relaxed font-semibold">
-              We encountered a minor display update glitch. Our automated system has protected your session.
+              We encountered a display update glitch. Safe mode has secured your appointment session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3.5 ios-liquid-action-btn text-white font-black text-xs shadow-lg active:scale-95 transition-all duration-300"
+              className="w-full py-3.5 oled-4k-btn text-white font-black text-xs active:scale-95 transition-all"
             >
               Refresh to Safe Version
             </button>
@@ -62,10 +62,10 @@ const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-539
 const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
 
 const DEFAULT_BRANDS = [
-  { category: "Base & Foundation", name: "Dior / Charlotte Tilbury / NARS", desc: "For flawless, long-lasting luxury base." },
-  { category: "Eyes & Pigments", name: "Huda Beauty / Anastasia Beverly Hills", desc: "Highly pigmented luxury palettes." },
+  { category: "Base & Foundation", name: "Dior / Charlotte Tilbury / NARS", desc: "Flawless, ultra-durable studio glass skin base." },
+  { category: "Eyes & Pigments", name: "Huda Beauty / Anastasia Beverly Hills", desc: "Ultra-pigmented HDR shimmer palettes." },
   { category: "Setting & Finish", name: "Urban Decay / MAC Cosmetics", desc: "16-HR waterproof makeup locking." },
-  { category: "Skin Prep", name: "Estée Lauder / Smashbox", desc: "Premium hydration and primer layer." }
+  { category: "Skin Prep", name: "Estée Lauder / Smashbox", desc: "High-hydration radiant primer infusion." }
 ];
 
 const DEFAULT_KIT_IMAGES = {
@@ -183,7 +183,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px]">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-black flex items-center justify-center group rounded-[32px] border border-cyan-400/40">
       <video
         ref={videoRef}
         src={item.url}
@@ -192,10 +192,10 @@ const AutoPlayVideoCard = ({ item }) => {
         loop
         playsInline
         preload="auto"
-        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out pointer-events-none"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
-        <span className="text-[11px] uppercase font-mono font-black text-[#38BDF8] tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
+        <span className="text-[11px] uppercase font-mono font-black text-[#00F0FF] tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
         <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
           <Film className="w-4 h-4 text-pink-400 shrink-0 animate-pulse" />
           <span>{item.title}</span>
@@ -258,7 +258,6 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Sync Root HTML Element for Dark Mode
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -528,8 +527,8 @@ function MainAppContent() {
       return y + rowHeight + (options.gap ?? 6);
     };
 
-    const drawSectionTitle = (title, y, accent = '#007AFF') => {
-      ctx.fillStyle = 'rgba(0, 122, 255, 0.12)';
+    const drawSectionTitle = (title, y, accent = '#00F0FF') => {
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.15)';
       ctx.fillRect(90, y, 1020, 56);
       drawText(title, 120, y + 36, 20, 'bold', accent);
       return y + 64;
@@ -537,13 +536,13 @@ function MainAppContent() {
 
     const drawContent = (logoImageObj) => {
       const bgGrad = ctx.createLinearGradient(0, 0, 1200, canvas.height);
-      bgGrad.addColorStop(0, '#030712');
-      bgGrad.addColorStop(0.5, '#0B132B');
-      bgGrad.addColorStop(1, '#020617');
+      bgGrad.addColorStop(0, '#000000');
+      bgGrad.addColorStop(0.5, '#050A19');
+      bgGrad.addColorStop(1, '#00040F');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 1200, canvas.height);
 
-      ctx.strokeStyle = '#007AFF';
+      ctx.strokeStyle = '#00F0FF';
       ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, 1120, canvas.height - 80);
 
@@ -556,41 +555,41 @@ function MainAppContent() {
         ctx.drawImage(logoImageObj, 80, 80, 120, 120);
         ctx.restore();
 
-        ctx.strokeStyle = '#007AFF';
+        ctx.strokeStyle = '#00F0FF';
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
         ctx.stroke();
 
         drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold');
-        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#38BDF8');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#00F0FF');
       } else {
         drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 50, 'bold', '#ffffff', 'center');
-        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#38BDF8', 'center');
+        drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#00F0FF', 'center');
       }
 
-      ctx.strokeStyle = 'rgba(0, 122, 255, 0.4)';
+      ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(90, 230);
       ctx.lineTo(1110, 230);
       ctx.stroke();
 
-      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#FCD34D', 'center');
+      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#FFD700', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
       const zone = config.convenienceZones[calcZone];
 
       let startY = 340;
-      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#38BDF8', mono: true });
+      startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#00F0FF', mono: true });
       startY = drawRow('CLIENT NAME', clientName || 'Not Provided', startY);
       startY = drawRow('CONTACT NUMBER', clientPhone || 'Not Provided', startY);
       startY = drawRow('EVENT DATE', eventDate || 'Not Provided', startY);
 
       startY += 10;
-      startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#38BDF8');
-      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#38BDF8' });
+      startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#00F0FF');
+      startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#00F0FF' });
       if (flatHouseNo.trim()) {
         startY = drawDynamicRow('Flat / House No., Building:', flatHouseNo.trim(), startY);
       }
@@ -599,10 +598,10 @@ function MainAppContent() {
         startY = drawDynamicRow('Landmark:', landmark.trim(), startY);
       }
       startY = drawRow('Town / City & State:', `${city || 'New Delhi'}, ${state || 'Delhi'}`, startY);
-      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#38BDF8', mono: true });
+      startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#00F0FF', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#38BDF8');
+      startY = drawSectionTitle('1. MAIN MAKEOVER PACKAGE', startY, '#00F0FF');
       startY = drawRow('• Vanity:', kitName, startY);
       startY = drawRow('• Package:', pkgText.name, startY);
       startY = drawRow('• Package Price:', `₹${mainPackagePrice.toLocaleString('en-IN')}`, startY, { mono: true });
@@ -610,7 +609,7 @@ function MainAppContent() {
       startY = drawRow('Main Makeover Package Total:', `₹${mainBookingSubtotal.toLocaleString('en-IN')}`, startY, { labelColor: '#7dd3fc', valueColor: '#7dd3fc', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#C084FC');
+      startY = drawSectionTitle(`2. ADDITIONAL FAMILY & GUEST MAKEOVERS (${familyGuests.length})`, startY, '#E056FD');
       if (familyGuests.length > 0) {
         familyGuests.forEach((g, gIdx) => {
           const rawP = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
@@ -626,12 +625,12 @@ function MainAppContent() {
       startY = drawRow('Additional Family & Guest Total:', `₹${familyGuestsGross.toLocaleString('en-IN')}`, startY, { labelColor: '#d8b4fe', valueColor: '#d8b4fe', mono: true });
 
       startY += 10;
-      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#34D399');
+      startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#00FF88');
       if (guestDiscountSavedAmount > 0) {
-        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34D399', mono: true });
+        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#00FF88', mono: true });
       }
       if (appliedCoupon && couponDiscountAmount > 0) {
-        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#34D399', mono: true });
+        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#00FF88', mono: true });
       }
       if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
         startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#94a3b8', mono: true });
@@ -639,9 +638,9 @@ function MainAppContent() {
       startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#86efac', valueColor: '#86efac', mono: true });
 
       startY += 18;
-      ctx.fillStyle = 'rgba(0, 122, 255, 0.25)';
+      ctx.fillStyle = 'rgba(0, 240, 255, 0.25)';
       ctx.fillRect(90, startY, 1020, 115);
-      ctx.strokeStyle = '#007AFF';
+      ctx.strokeStyle = '#00F0FF';
       ctx.lineWidth = 3;
       ctx.strokeRect(90, startY, 1020, 115);
 
@@ -650,7 +649,7 @@ function MainAppContent() {
 
       const footerY = canvas.height - 75;
       drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#64748b', 'center');
-      drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#007AFF', 'center');
+      drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#00F0FF', 'center');
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
       setGeneratedJpgUrl(jpgUrl);
@@ -780,17 +779,16 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // Official Apple System Typography Stack
   const currentFontFamily = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Plus Jakarta Sans', system-ui, sans-serif";
 
-  // Optical Dynamic Text Colors with Hardware Subpixel Antialiasing
-  const titleText = isDarkMode ? "text-white font-black hd-glass-text-night" : "text-slate-950 font-black hd-glass-text-day";
-  const bodyText = isDarkMode ? "text-slate-100 font-semibold" : "text-slate-800 font-semibold";
-  const labelText = isDarkMode ? "text-slate-300 font-bold" : "text-slate-600 font-bold";
-  const cyanAccent = isDarkMode ? "text-[#38BDF8] font-black hd-text-cyan-glow" : "text-[#007AFF] font-black";
-  const amberAccent = isDarkMode ? "text-[#FCD34D] font-black hd-text-amber-glow" : "text-amber-700 font-black";
-  const purpleAccent = isDarkMode ? "text-[#C084FC] font-black hd-text-purple-glow" : "text-purple-700 font-black";
-  const emeraldAccent = isDarkMode ? "text-[#34D399] font-black hd-text-emerald-glow" : "text-emerald-700 font-black";
+  // Pure 4K HDR AMOLED Contrast Classes
+  const titleText = isDarkMode ? "text-white font-black oled-hdr-white" : "text-black font-black";
+  const bodyText = isDarkMode ? "text-[#E8F0FE] font-bold" : "text-slate-900 font-bold";
+  const labelText = isDarkMode ? "text-[#94A3B8] font-black uppercase" : "text-slate-700 font-black uppercase";
+  const cyanAccent = isDarkMode ? "text-[#00F0FF] font-black oled-hdr-cyan" : "text-blue-700 font-black";
+  const amberAccent = isDarkMode ? "text-[#FFD700] font-black oled-hdr-amber" : "text-amber-700 font-black";
+  const purpleAccent = isDarkMode ? "text-[#E056FD] font-black oled-hdr-purple" : "text-purple-700 font-black";
+  const emeraldAccent = isDarkMode ? "text-[#00FF88] font-black oled-hdr-emerald" : "text-emerald-700 font-black";
 
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
@@ -806,28 +804,27 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className="min-h-screen bg-[#F0F4FD] dark:bg-[#030712] flex items-center justify-center p-4 relative overflow-hidden select-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
-        <div className="max-w-md w-full ios-water-drop p-8 text-center space-y-5 animate-fade-in">
-          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-500 dark:text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
+      <div style={{ fontFamily: currentFontFamily }} className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden select-none">
+        <div className="max-w-md w-full oled-4k-card p-8 text-center space-y-5 animate-fade-in">
+          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 flex items-center justify-center mx-auto shadow-lg animate-bounce">
             <Wrench className="w-8 h-8" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-amber-900 dark:text-amber-300 bg-amber-100 dark:bg-amber-500/20 px-4 py-1.5 rounded-full border border-amber-300 dark:border-amber-400/40 inline-block">
+            <span className="text-[11px] uppercase font-mono font-black tracking-widest text-[#FFD700] bg-amber-500/20 px-4 py-1.5 rounded-full border border-[#FFD700]/50 inline-block">
               Scheduled System Upgrade
             </span>
-            <h2 className="text-2xl font-black bg-gradient-to-r from-amber-500 via-rose-500 to-cyan-400 bg-clip-text text-transparent hd-glass-text-night">
+            <h2 className="text-2xl font-black text-white oled-hdr-white">
               We'll Be Back Shortly
             </h2>
-            <p className="text-xs leading-relaxed text-slate-700 dark:text-slate-200 font-semibold">
-              We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience and look forward to welcoming you soon.
+            <p className="text-xs leading-relaxed text-slate-200 font-bold">
+              We are currently upgrading our reservation systems.
             </p>
           </div>
 
-          <div className="p-4 rounded-[24px] bg-slate-100/80 dark:bg-black/60 border border-slate-200 dark:border-white/20 text-left text-xs space-y-1.5">
-            <div className="flex justify-between"><span className="text-slate-600 dark:text-slate-200 font-bold">Artist:</span><span className="font-black text-slate-900 dark:text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
-            <div className="flex justify-between"><span className="text-slate-600 dark:text-slate-200 font-bold">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-black text-pink-600 dark:text-pink-300 hover:underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
+          <div className="p-4 rounded-[24px] bg-[#0A1020] border border-cyan-400/30 text-left text-xs space-y-1.5">
+            <div className="flex justify-between"><span className="text-slate-400 font-bold">Artist:</span><span className="font-black text-white">{config.studioName || 'H&F Makeup Artist'}</span></div>
+            <div className="flex justify-between"><span className="text-slate-400 font-bold">Instagram:</span><a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noreferrer" className="font-black text-[#00F0FF] hover:underline">@{getCleanInstagramHandle(config.instagramHandle)}</a></div>
           </div>
         </div>
       </div>
@@ -837,219 +834,157 @@ function MainAppContent() {
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', WebkitTouchCallout: 'none' }} 
-      className="min-h-screen ios-materials-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden selection:bg-cyan-500 selection:text-black transition-colors duration-500 select-none subpixel-antialiased"
+      className="min-h-screen oled-4k-bg text-slate-900 dark:text-white pb-24 sm:pb-20 relative overflow-x-hidden transition-colors duration-500 select-none subpixel-antialiased"
       onContextMenu={(e) => e.preventDefault()}
     >
-      {/* Apple Official iOS Materials & Depth Physics CSS */}
+      {/* Mini-LED Backlit Pure AMOLED Ultra-Contrast Engine */}
       <style>{`
-        /* Dynamic iOS Refractive Multi-Layer Backdrop */
-        .ios-materials-bg {
-          background-color: #F0F4FD;
-          background-image: 
-            radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.28) 0px, transparent 50%),
-            radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.22) 0px, transparent 50%),
-            radial-gradient(at 50% 50%, rgba(45, 212, 191, 0.22) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.25) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, rgba(96, 165, 250, 0.28) 0px, transparent 50%);
+        /* Pure 4K OLED Mini-LED True Black Engine */
+        .oled-4k-bg {
+          background-color: #F8FAFC;
         }
-        .dark .ios-materials-bg {
-          background-color: #030712;
+        .dark .oled-4k-bg {
+          background-color: #000000 !important;
           background-image: 
-            radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.35) 0px, transparent 50%),
-            radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.32) 0px, transparent 50%),
-            radial-gradient(at 50% 50%, rgba(20, 184, 166, 0.25) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.30) 0px, transparent 50%),
-            radial-gradient(at 0% 100%, rgba(59, 130, 246, 0.35) 0px, transparent 50%);
+            radial-gradient(at 0% 0%, rgba(0, 240, 255, 0.18) 0px, transparent 40%),
+            radial-gradient(at 100% 0%, rgba(224, 86, 253, 0.18) 0px, transparent 40%),
+            radial-gradient(at 50% 50%, rgba(0, 255, 136, 0.12) 0px, transparent 45%),
+            radial-gradient(at 0% 100%, rgba(0, 150, 255, 0.18) 0px, transparent 40%);
         }
 
-        /* 1. iOS Materials Liquid Glass Main Card (Curvature & Caustic Reflection) */
-        .ios-water-drop {
-          position: relative;
-          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.20) 75%);
-          backdrop-filter: blur(35px) saturate(210%);
-          -webkit-backdrop-filter: blur(35px) saturate(210%);
-          border: 1.5px solid rgba(255, 255, 255, 0.55);
-          box-shadow: 
-            inset 0 1.5px 2.5px rgba(255, 255, 255, 0.85),
-            inset 0 -3px 6px rgba(0, 0, 0, 0.08),
-            0 20px 50px rgba(0, 0, 0, 0.12);
+        /* 1. Ultra-Clear Translucent 4K HDR Header */
+        .oled-4k-header {
+          background: rgba(255, 255, 255, 0.75) !important;
+          backdrop-filter: blur(40px) saturate(220%) !important;
+          -webkit-backdrop-filter: blur(40px) saturate(220%) !important;
+          border-bottom: 1.5px solid rgba(0, 0, 0, 0.1) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .dark .oled-4k-header {
+          background: rgba(0, 0, 0, 0.75) !important;
+          border-bottom: 1.5px solid rgba(0, 240, 255, 0.35) !important;
+          box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15);
+        }
+
+        /* 2. 4K HDR Mini-LED OLED Cards */
+        .oled-4k-card {
+          background: #FFFFFF;
+          border: 1.5px solid rgba(0, 0, 0, 0.12);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
           border-radius: 36px;
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .dark .ios-water-drop {
-          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.15) 0%, rgba(15, 23, 42, 0.40) 80%);
-          border: 1px solid rgba(255, 255, 255, 0.20);
+        .dark .oled-4k-card {
+          background: radial-gradient(circle at 50% 0%, #0c1429 0%, #030611 100%) !important;
+          border: 1.5px solid rgba(0, 240, 255, 0.45) !important;
           box-shadow: 
-            inset 0 1.5px 2.5px rgba(255, 255, 255, 0.50),
-            inset 0 -3px 6px rgba(0, 0, 0, 0.55),
-            0 25px 60px rgba(0, 0, 0, 0.75);
-        }
-        /* Arched Specular Glint Reflection */
-        .ios-water-drop::before {
-          content: "";
-          position: absolute;
-          top: 2px;
-          left: 10%;
-          right: 10%;
-          height: 35%;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.0) 100%);
-          border-radius: 9999px 9999px 45px 45px;
-          pointer-events: none;
-        }
-        .dark .ios-water-drop::before {
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.0) 100%);
+            inset 0 1.5px 3px rgba(255, 255, 255, 0.35),
+            0 20px 50px rgba(0, 0, 0, 0.95),
+            0 0 25px rgba(0, 240, 255, 0.12) !important;
+          border-radius: 36px;
         }
 
-        /* 2. iOS Materials Sub-Capsule */
-        .ios-water-drop-sub {
-          position: relative;
-          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 85%);
-          backdrop-filter: blur(24px) saturate(200%);
-          -webkit-backdrop-filter: blur(24px) saturate(200%);
-          border: 1px solid rgba(255, 255, 255, 0.55);
-          box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.06),
-            0 12px 30px rgba(15, 23, 42, 0.06);
+        /* 3. Sub-Capsules Mini-LED */
+        .oled-4k-subcard {
+          background: #F1F5F9;
+          border: 1.5px solid rgba(0, 0, 0, 0.08);
           border-radius: 28px;
         }
-        .dark .ios-water-drop-sub {
-          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgba(3, 7, 18, 0.45) 85%);
-          border: 1px solid rgba(255, 255, 255, 0.18);
+        .dark .oled-4k-subcard {
+          background: #080e1e !important;
+          border: 1.5px solid rgba(255, 255, 255, 0.18) !important;
           box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
-            inset 0 -2px 5px rgba(0, 0, 0, 0.5),
-            0 14px 35px rgba(0, 0, 0, 0.6);
+            inset 0 1.5px 2px rgba(255, 255, 255, 0.2),
+            0 10px 30px rgba(0, 0, 0, 0.8) !important;
+          border-radius: 28px;
         }
 
-        /* 3. Transparent Liquid Active Tab / Pill */
-        .ios-liquid-active-tab {
-          position: relative;
-          background: radial-gradient(circle at 50% 0%, rgba(0, 122, 255, 0.60) 0%, rgba(2, 132, 199, 0.40) 100%) !important;
-          backdrop-filter: blur(28px) saturate(220%) !important;
-          -webkit-backdrop-filter: blur(28px) saturate(220%) !important;
-          border: 1.5px solid rgba(255, 255, 255, 0.75) !important;
-          box-shadow: 
-            inset 0 2px 3px rgba(255, 255, 255, 0.9),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.25),
-            0 12px 30px rgba(0, 122, 255, 0.45) !important;
-          border-radius: 9999px;
+        /* 4. Mini-LED Pure Active Tab */
+        .oled-4k-active-tab {
+          background: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%) !important;
+          border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+          box-shadow: 0 0 25px rgba(0, 198, 255, 0.6) !important;
           color: #FFFFFF !important;
+          border-radius: 9999px;
         }
 
-        /* 4. iOS Primary Action Pill */
-        .ios-liquid-action-btn {
-          position: relative;
-          background: radial-gradient(circle at 50% 0%, rgba(0, 122, 255, 0.85) 0%, rgba(79, 70, 229, 0.70) 100%);
-          backdrop-filter: blur(28px) saturate(220%);
-          -webkit-backdrop-filter: blur(28px) saturate(220%);
-          border: 1.5px solid rgba(255, 255, 255, 0.75);
-          box-shadow: 
-            inset 0 2px 3.5px rgba(255, 255, 255, 0.9),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
-            0 14px 35px rgba(0, 122, 255, 0.5);
+        /* 5. 4K High-Energy Punch Action Buttons */
+        .oled-4k-btn {
+          background: linear-gradient(135deg, #00F0FF 0%, #0072FF 50%, #7000FF 100%);
+          border: 1.5px solid rgba(255, 255, 255, 0.7);
+          box-shadow: 0 0 28px rgba(0, 240, 255, 0.5);
           border-radius: 9999px;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: all 0.25s ease;
         }
-        .ios-liquid-action-btn:hover {
-          transform: translateY(-1.5px) scale(1.02);
-          box-shadow: 
-            inset 0 2.5px 4px rgba(255, 255, 255, 1),
-            0 16px 45px rgba(0, 122, 255, 0.65);
+        .oled-4k-btn:hover {
+          transform: scale(1.02);
+          box-shadow: 0 0 35px rgba(0, 240, 255, 0.8);
         }
-        .ios-liquid-action-btn:active {
-          transform: scale(0.95);
+        .oled-4k-btn:active {
+          transform: scale(0.96);
         }
 
-        /* 5. iOS Translucent Form Input */
-        .ios-liquid-input {
-          background: rgba(255, 255, 255, 0.65);
-          border: 1.5px solid rgba(255, 255, 255, 0.75);
-          box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.8),
-            inset 0 -1.5px 3px rgba(0, 0, 0, 0.05),
-            0 6px 18px rgba(15, 23, 42, 0.05);
+        /* 6. Form Controls */
+        .oled-4k-input {
+          background: #F8FAFC;
+          border: 1.5px solid #CBD5E1;
+          color: #0F172A !important;
           border-radius: 9999px;
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          transition: all 0.3s ease;
         }
-        .dark .ios-liquid-input {
-          background: rgba(6, 12, 28, 0.7);
-          border: 1.5px solid rgba(56, 189, 248, 0.45);
-          box-shadow: 
-            inset 0 1.5px 2px rgba(255, 255, 255, 0.3),
-            inset 0 -2px 4px rgba(0, 0, 0, 0.6),
-            0 6px 24px rgba(0, 0, 0, 0.5);
+        .dark .oled-4k-input {
+          background: #030712 !important;
+          border: 1.5px solid rgba(0, 240, 255, 0.5) !important;
           color: #FFFFFF !important;
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.9);
         }
-        .dark .ios-liquid-input:focus {
-          border-color: #38BDF8 !important;
-          box-shadow: 0 0 22px rgba(56, 189, 248, 0.5) !important;
+        .dark .oled-4k-input:focus {
+          border-color: #00F0FF !important;
+          box-shadow: 0 0 20px rgba(0, 240, 255, 0.5) !important;
         }
 
-        /* HD Laser-Etched Text Glows & Depth */
-        .hd-glass-text-day {
-          text-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
+        /* 4K HDR High Dynamic Range Optical Glows */
+        .oled-hdr-white {
+          color: #FFFFFF !important;
+          text-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
         }
-        .hd-glass-text-night {
-          text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+        .oled-hdr-cyan {
+          color: #00F0FF !important;
+          text-shadow: 0 0 16px rgba(0, 240, 255, 0.75);
         }
-        .hd-text-cyan-glow {
-          text-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
+        .oled-hdr-amber {
+          color: #FFD700 !important;
+          text-shadow: 0 0 16px rgba(255, 215, 0, 0.75);
         }
-        .hd-text-amber-glow {
-          text-shadow: 0 0 14px rgba(252, 211, 77, 0.6);
+        .oled-hdr-purple {
+          color: #E056FD !important;
+          text-shadow: 0 0 16px rgba(224, 86, 253, 0.75);
         }
-        .hd-text-purple-glow {
-          text-shadow: 0 0 14px rgba(192, 132, 252, 0.6);
-        }
-        .hd-text-emerald-glow {
-          text-shadow: 0 0 14px rgba(52, 211, 153, 0.6);
+        .oled-hdr-emerald {
+          color: #00FF88 !important;
+          text-shadow: 0 0 16px rgba(0, 255, 136, 0.75);
         }
 
         select option {
           background-color: #FFFFFF;
-          color: #0f172a;
+          color: #000000;
         }
         .dark select option {
           background-color: #030712 !important;
           color: #FFFFFF !important;
         }
 
-        /* Floating Light Droplet Mesh Animations */
-        @keyframes floatDrop1 {
-          0%, 100% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(30px, -40px) scale(1.15); }
-        }
-        @keyframes floatDrop2 {
-          0%, 100% { transform: translate(0px, 0px) scale(1); }
-          50% { transform: translate(-35px, 35px) scale(1.18); }
-        }
-        .animate-drop-1 {
-          animation: floatDrop1 12s ease-in-out infinite;
-        }
-        .animate-drop-2 {
-          animation: floatDrop2 15s ease-in-out infinite;
-        }
         @keyframes iosSpringTab {
           0% { opacity: 0; transform: scale(0.97) translateY(8px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         .ios-tab-spring {
-          animation: iosSpringTab 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: iosSpringTab 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
 
-      {/* Floating Animated Liquid Mesh Light Droplets */}
-      <div className="absolute top-10 left-10 w-96 h-96 bg-cyan-400/25 dark:bg-cyan-400/20 rounded-full blur-3xl pointer-events-none animate-drop-1" />
-      <div className="absolute top-1/3 right-10 w-[450px] h-[450px] bg-purple-400/25 dark:bg-indigo-500/20 rounded-full blur-3xl pointer-events-none animate-drop-2" />
-      <div className="absolute bottom-10 left-1/3 w-[500px] h-[500px] bg-teal-400/20 dark:bg-sky-500/15 rounded-full blur-3xl pointer-events-none animate-drop-1" />
-
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#030712] transition-opacity duration-700 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-black transition-opacity duration-700 select-none ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="relative flex flex-col items-center space-y-6 px-4 ios-tab-spring">
-            <div className="w-24 h-24 rounded-full overflow-hidden border border-cyan-400/60 shadow-2xl p-1 bg-white/10 shadow-cyan-500/40 transition-transform duration-500 hover:scale-110">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#00F0FF] shadow-2xl p-1 bg-black shadow-[#00F0FF]/40">
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
@@ -1059,45 +994,42 @@ function MainAppContent() {
             </div>
               
             <div className="text-center space-y-1.5">
-              <h1 className="text-xl sm:text-3xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent hd-glass-text-night">
+              <h1 className="text-xl sm:text-3xl font-black tracking-wider text-white oled-hdr-white">
                 {config.studioName || 'H&F Makeup Artist'}
               </h1>
-              <p className="text-[11px] sm:text-xs font-black text-cyan-300 tracking-widest uppercase animate-pulse hd-text-cyan-glow">
+              <p className="text-[11px] sm:text-xs font-black text-[#00F0FF] tracking-widest uppercase oled-hdr-cyan">
                 {config.artistTagline || 'Beauty, Styled Your Way'}
               </p>
             </div>
 
-            <div className="w-48 h-2.5 bg-white/20 rounded-full overflow-hidden shadow-inner">
-              <div className="h-full bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500 rounded-full animate-pulse w-full" />
+            <div className="w-48 h-2 bg-slate-900 rounded-full overflow-hidden border border-[#00F0FF]/30">
+              <div className="h-full bg-gradient-to-r from-[#00F0FF] to-[#7000FF] rounded-full animate-pulse w-full" />
             </div>
-            <span className="text-[11px] text-cyan-200 font-mono tracking-wide font-black hd-text-cyan-glow">
-              Curating Luxury Vanity Experience...
-            </span>
           </div>
         </div>
       )}
 
       {showShareModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
-          <div className="max-w-sm w-full ios-water-drop p-6 text-center space-y-4 ios-tab-spring">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300 animate-fade-in">
+          <div className="max-w-sm w-full oled-4k-card p-6 text-center space-y-4 ios-tab-spring">
             <div className="flex items-center justify-between">
               <span className={`font-black text-sm flex items-center gap-1.5 ${cyanAccent}`}>
-                <Share2 className="w-4 h-4 text-blue-600 dark:text-cyan-400 animate-pulse" /> Share Studio Lookbook
+                <Share2 className="w-4 h-4 text-cyan-400 animate-pulse" /> Share Studio Lookbook
               </span>
-              <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-200 hover:rotate-90"><X className="w-5 h-5" /></button>
+              <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full text-slate-400 hover:text-white transition-transform hover:rotate-90"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-48 h-48 mx-auto bg-white p-3.5 rounded-[28px] border border-slate-200 shadow-inner flex items-center justify-center group">
-              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
+            <div className="w-48 h-48 mx-auto bg-white p-3.5 rounded-[28px] border-2 border-slate-200 shadow-inner flex items-center justify-center">
+              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
             </div>
             <p className={`text-xs ${bodyText}`}>Scan this QR code with any camera to explore portfolio & book instantly.</p>
 
             <div className="flex gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex-1 py-3 rounded-full bg-slate-100/90 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 active:scale-[0.95] text-xs font-black flex items-center justify-center gap-1.5 border border-slate-200 dark:border-white/15 transition-all duration-200 text-slate-900 dark:text-white"
+                className="flex-1 py-3 rounded-full bg-slate-200 dark:bg-[#0A1020] hover:bg-slate-300 dark:hover:bg-[#121D38] active:scale-95 text-xs font-black flex items-center justify-center gap-1.5 border border-slate-300 dark:border-cyan-400/40 text-slate-900 dark:text-white"
               >
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400" /> : <Copy className="w-4 h-4 text-blue-600 dark:text-cyan-300" />}
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-cyan-400" />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
 
@@ -1106,7 +1038,7 @@ function MainAppContent() {
                 download="H_F_Makeup_Artist_Lookbook_QR.png"
                 target="_blank"
                 rel="noreferrer"
-                className="px-5 py-3 rounded-full ios-liquid-action-btn text-white text-xs flex items-center justify-center gap-1 active:scale-[0.95] shadow"
+                className="px-5 py-3 rounded-full oled-4k-btn text-white text-xs font-black flex items-center justify-center gap-1 active:scale-95"
               >
                 <Download className="w-4 h-4" />
                 <span>Save QR</span>
@@ -1117,23 +1049,23 @@ function MainAppContent() {
       )}
 
       {viewingPackage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl transition-all duration-300 animate-fade-in">
-          <div className="max-w-md w-full ios-water-drop p-6 space-y-4 ios-tab-spring">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all duration-300 animate-fade-in">
+          <div className="max-w-md w-full oled-4k-card p-6 space-y-4 ios-tab-spring">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-5 h-5 ${cyanAccent} animate-bounce`} />
                 <h3 className={`font-black text-base sm:text-lg ${titleText}`}>{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-transform duration-200 hover:rotate-90"><X className="w-5 h-5" /></button>
+              <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full text-slate-400 hover:text-white transition-transform hover:rotate-90"><X className="w-5 h-5" /></button>
             </div>
 
-            <div className="w-full h-44 sm:h-52 rounded-[28px] overflow-hidden bg-neutral-900 border border-slate-200 dark:border-white/20 group">
-              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+            <div className="w-full h-44 sm:h-52 rounded-[28px] overflow-hidden bg-neutral-900 border-2 border-slate-200 dark:border-cyan-400/30">
+              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
             <p className={`text-xs leading-relaxed ${bodyText}`}>{viewingPackage.desc}</p>
 
-            <div className="space-y-2.5 text-xs border-t border-b border-slate-200 dark:border-white/15 py-3.5">
+            <div className="space-y-2.5 text-xs border-t border-b border-slate-200 dark:border-cyan-400/20 py-3.5">
               <div className="flex justify-between items-start gap-2">
                 <span className={`shrink-0 ${labelText}`}>Vanity Tier:</span>
                 <strong className={`capitalize text-right ${amberAccent} font-black`}>{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
@@ -1159,7 +1091,7 @@ function MainAppContent() {
                 setViewingPackage(null);
                 setActiveTab('calculator');
               }}
-              className="w-full py-3.5 ios-liquid-action-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center justify-center gap-1.5 transition-all duration-300"
+              className="w-full py-3.5 oled-4k-btn text-white text-xs font-black rounded-full shadow-lg active:scale-95 flex items-center justify-center gap-1.5"
             >
               <span>Estimate & Book This Look</span>
               <ChevronRight className="w-4 h-4" />
@@ -1170,21 +1102,12 @@ function MainAppContent() {
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-      {/* Marquee Announcement Liquid Pill Header */}
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-gradient-to-r from-cyan-500 via-sky-600 to-indigo-600 text-white py-2.5 px-3 overflow-hidden text-xs font-black shadow-sm relative flex items-center select-none border-b border-white/20">
+        <div className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white py-2.5 px-3 overflow-hidden text-xs font-black relative flex items-center select-none border-b border-cyan-400/30">
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-                  {ann}
-                </span>
-              ))}
-            </div>
-            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0 font-black" aria-hidden="true">
-              {(config.announcements || []).map((ann, idx) => (
-                <span key={`dup_${idx}`} className="mx-6 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-white animate-ping" />
                   {ann}
                 </span>
@@ -1200,12 +1123,12 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* Ultra-Clear Translucent Apple Lens Header */}
-      <header className="sticky top-0 z-40 px-3 sm:px-8 py-3 transition-all duration-300 bg-white/40 dark:bg-[#030712]/45 backdrop-blur-[40px] saturate-[220%] border-b border-white/60 dark:border-white/15 shadow-sm">
+      {/* Ultra-Clear Translucent 4K HDR AMOLED Header */}
+      <header className="sticky top-0 z-40 px-3 sm:px-8 py-3.5 oled-4k-header transition-all">
         <div className="max-w-6xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3 select-none active:scale-[0.95] transition-transform duration-300 cursor-pointer min-w-0 group">
-              <div className="w-11 sm:w-12 h-11 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-md border-2 border-cyan-400/80 p-0.5 bg-white/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+            <div className="flex items-center space-x-3 select-none active:scale-95 transition-transform cursor-pointer min-w-0">
+              <div className="w-11 sm:w-12 h-11 sm:h-12 rounded-full overflow-hidden shrink-0 border-2 border-[#00F0FF] p-0.5 bg-black flex items-center justify-center shadow-lg shadow-[#00F0FF]/30">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Logo" 
@@ -1216,12 +1139,12 @@ function MainAppContent() {
               </div>
                 
               <div className="truncate">
-                <h1 className="font-black text-sm sm:text-base bg-gradient-to-r from-blue-600 via-cyan-500 to-indigo-600 dark:from-cyan-300 dark:via-sky-200 dark:to-indigo-300 bg-clip-text text-transparent truncate tracking-tight hd-glass-text-night">
+                <h1 className="font-black text-sm sm:text-base text-slate-900 dark:text-white truncate oled-hdr-white">
                   {config.studioName || 'H&F Makeup Artist'}
                 </h1>
                 <p className={`text-[10px] sm:text-[11px] font-black ${cyanAccent} flex items-center gap-1 truncate`}>
                   <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
-                  <Sparkles className="w-3 h-3 animate-spin text-amber-500 dark:text-amber-300 shrink-0" style={{ animationDuration: '4s' }} />
+                  <Sparkles className="w-3 h-3 animate-spin text-amber-400 shrink-0" style={{ animationDuration: '4s' }} />
                 </p>
               </div>
             </div>
@@ -1230,7 +1153,7 @@ function MainAppContent() {
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className="p-2.5 rounded-full ios-water-drop-sub text-blue-700 dark:text-cyan-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
+                className="p-2.5 rounded-full bg-slate-200 dark:bg-[#070E1E] text-blue-700 dark:text-[#00F0FF] border border-slate-300 dark:border-[#00F0FF]/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
               >
                 <QrCode className="w-4 h-4" />
               </button>
@@ -1238,16 +1161,16 @@ function MainAppContent() {
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className="p-2.5 rounded-full ios-water-drop-sub text-amber-600 dark:text-amber-300 hover:scale-105 active:scale-[0.95] transition-all flex items-center justify-center"
+                className="p-2.5 rounded-full bg-slate-200 dark:bg-[#070E1E] text-amber-600 dark:text-[#FFD700] border border-slate-300 dark:border-[#FFD700]/40 hover:scale-105 active:scale-95 transition-all flex items-center justify-center"
               >
-                {isDarkMode ? <Sun className="w-4 h-4 animate-spin text-amber-300" style={{ animationDuration: '8s' }} /> : <Moon className="w-4 h-4 text-indigo-700" />}
+                {isDarkMode ? <Sun className="w-4 h-4 animate-spin" style={{ animationDuration: '8s' }} /> : <Moon className="w-4 h-4" />}
               </button>
 
               <a
                 href={getCleanInstagramUrl(config.instagramHandle)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-[11px] sm:text-xs font-black px-4 py-2 rounded-full transition-all duration-300 hover:scale-105 active:scale-[0.95] shadow-lg shadow-pink-500/25 border border-white/40"
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-500 text-white text-[11px] sm:text-xs font-black px-4 py-2 rounded-full hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/30 border border-white/40"
               >
                 <Camera className="w-3.5 h-3.5 shrink-0" />
                 <span className="hidden sm:inline">@{getCleanInstagramHandle(config.instagramHandle)}</span>
@@ -1255,7 +1178,7 @@ function MainAppContent() {
 
               {shouldShowProfileInHeader && (
                 <div 
-                  className="w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-500 p-0.5 shadow-lg overflow-hidden group shrink-0 ml-0.5 select-none transition-transform duration-300 hover:scale-105"
+                  className="w-10 sm:w-11 h-10 sm:h-11 rounded-full bg-gradient-to-tr from-[#00F0FF] to-[#7000FF] p-0.5 shadow-lg overflow-hidden shrink-0 ml-0.5 select-none"
                   onContextMenu={(e) => e.preventDefault()}
                 >
                   <img 
@@ -1263,7 +1186,7 @@ function MainAppContent() {
                     alt="Artist Profile" 
                     onError={() => setImgLoadFailed(true)}
                     draggable="false"
-                    className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500 pointer-events-none"
+                    className="w-full h-full object-cover rounded-full pointer-events-none"
                   />
                 </div>
               )}
@@ -1271,7 +1194,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center py-1">
-            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full ios-water-drop-sub text-xs font-black shadow-inner">
+            <nav className="inline-flex space-x-1.5 p-1.5 rounded-full bg-slate-200 dark:bg-[#050A18] border border-slate-300 dark:border-cyan-400/30 text-xs font-black shadow-inner">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1285,10 +1208,10 @@ function MainAppContent() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all duration-300 ease-out active:scale-[0.95] ${
+                    className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black whitespace-nowrap transition-all active:scale-95 ${
                       isActive 
-                        ? 'ios-liquid-active-tab scale-105 shadow-xl' 
-                        : 'text-slate-800 dark:text-slate-200 hover:bg-white/20'
+                        ? 'oled-4k-active-tab scale-105 shadow-xl' 
+                        : 'text-slate-800 dark:text-slate-200 hover:text-white'
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -1301,9 +1224,9 @@ function MainAppContent() {
         </div>
       </header>
 
-      {/* Mobile Floating iOS Liquid Pill Dock */}
+      {/* Mobile Floating AMOLED Dock */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full ios-water-drop backdrop-blur-[35px] shadow-2xl flex items-center justify-around animate-fade-in border border-white/40">
+        <nav aria-label="Mobile Navigation" className="sm:hidden fixed bottom-4 left-3 right-3 z-50 p-2 rounded-full bg-white/95 dark:bg-black/95 backdrop-blur-2xl shadow-2xl flex items-center justify-around animate-fade-in border-2 border-slate-200 dark:border-[#00F0FF]/40">
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1317,8 +1240,8 @@ function MainAppContent() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-full transition-all duration-300 active:scale-[0.95] ${
-                  isActive ? 'ios-liquid-active-tab scale-105 shadow-md' : titleText
+                className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-full transition-all active:scale-95 ${
+                  isActive ? 'oled-4k-active-tab scale-105 shadow-md' : titleText
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -1329,34 +1252,34 @@ function MainAppContent() {
         </nav>
       )}
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 transition-all duration-500">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
           <div key="tab-menu" className="space-y-8 sm:space-y-10 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2.5">
-              <span className={`px-4 py-1.5 rounded-full ios-water-drop-sub ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5`}>
-                <Droplet className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> Professional Vanity Packages
+              <span className={`px-4 py-1.5 rounded-full oled-4k-subcard ${cyanAccent} text-[11px] sm:text-xs font-black tracking-wide inline-flex items-center gap-1.5 border border-cyan-400/40`}>
+                <Droplet className="w-3.5 h-3.5 text-[#00F0FF] animate-pulse" /> Professional Vanity Packages
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-full ios-water-drop-sub mt-2 gap-1.5 shadow-lg">
+              <div className="inline-flex p-1.5 rounded-full bg-slate-200 dark:bg-[#050A18] border border-slate-300 dark:border-cyan-400/30 mt-2 gap-1.5 shadow-lg">
                 <button
                   onClick={() => setSelectedKit('international')}
-                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
-                    selectedKit === 'international' ? 'ios-liquid-active-tab scale-105' : 'text-slate-800 dark:text-slate-200'
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all active:scale-95 flex items-center gap-1.5 ${
+                    selectedKit === 'international' ? 'oled-4k-active-tab scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
-                  <Crown className="w-4 h-4 text-amber-300 shrink-0" />
+                  <Crown className="w-4 h-4 text-[#FFD700] shrink-0" />
                   <span>👑 International Luxury Kit</span>
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
-                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ease-out active:scale-[0.95] flex items-center gap-1.5 ${
-                    selectedKit === 'drugstore' ? 'ios-liquid-active-tab scale-105' : 'text-slate-800 dark:text-slate-200'
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all active:scale-95 flex items-center gap-1.5 ${
+                    selectedKit === 'drugstore' ? 'oled-4k-active-tab scale-105' : 'text-slate-800 dark:text-slate-200'
                   }`}
                 >
-                  <PackageCheck className="w-4 h-4 text-cyan-300 shrink-0" />
+                  <PackageCheck className="w-4 h-4 text-[#00F0FF] shrink-0" />
                   <span>✨ Premium HD Kit</span>
                 </button>
               </div>
@@ -1371,10 +1294,10 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className="ios-water-drop p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
-                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[28px] overflow-hidden bg-neutral-900 relative border border-slate-200 dark:border-white/20">
+                  <div key={`${selectedKit}_${key}`} className="oled-4k-card p-5 flex flex-col sm:flex-row gap-4 items-center group hover:scale-[1.02] ios-tab-spring">
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[28px] overflow-hidden bg-neutral-900 relative border-2 border-slate-200 dark:border-cyan-400/40">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                      <div className="absolute top-2 left-2 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono font-black text-amber-300 border border-amber-400/50">
+                      <div className="absolute top-2 left-2 px-3 py-1 rounded-full bg-black/80 text-[10px] font-mono font-black text-[#FFD700] border border-[#FFD700]/50">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
@@ -1391,7 +1314,7 @@ function MainAppContent() {
                         <p className={`text-xs mt-1.5 leading-relaxed ${bodyText}`}>{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2.5 border-t border-slate-200 dark:border-white/15">
+                      <div className="flex items-center justify-between pt-2.5 border-t border-slate-200 dark:border-cyan-400/20">
                         <span className={`text-[11px] ${cyanAccent} font-black truncate flex items-center gap-1`}>
                           <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                           16HR HD Glass Finish
@@ -1400,7 +1323,7 @@ function MainAppContent() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                            className="px-3.5 py-1.5 rounded-full ios-water-drop-sub text-xs font-black flex items-center gap-1 active:scale-[0.95] text-slate-900 dark:text-cyan-200"
+                            className="px-3.5 py-1.5 rounded-full oled-4k-subcard text-xs font-black flex items-center gap-1 active:scale-95 text-slate-900 dark:text-cyan-200"
                           >
                             <Eye className={`w-3.5 h-3.5 ${cyanAccent}`} />
                             <span>Details</span>
@@ -1412,7 +1335,7 @@ function MainAppContent() {
                               setCalcKit(selectedKit);
                               setActiveTab('calculator');
                             }}
-                            className="px-4 py-1.5 ios-liquid-action-btn text-white text-xs rounded-full shadow-lg active:scale-[0.95] flex items-center gap-1"
+                            className="px-4 py-1.5 oled-4k-btn text-white text-xs font-black rounded-full shadow-lg active:scale-95 flex items-center gap-1"
                           >
                             <span>Book</span>
                             <ChevronRight className="w-3.5 h-3.5" />
@@ -1431,7 +1354,7 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div key="tab-gallery" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-full ios-water-drop-sub ${cyanAccent} text-xs font-black tracking-wide`}>
+              <span className={`px-4 py-1.5 rounded-full oled-4k-subcard ${cyanAccent} text-xs font-black tracking-wide border border-cyan-400/40`}>
                 Discover Beautiful Makeup Transformations
               </span>
               <h2 className={`text-2xl sm:text-4xl font-black tracking-tight ${titleText}`}>Featured Transformations</h2>
@@ -1445,7 +1368,7 @@ function MainAppContent() {
                 const isVideo = isVideoMedia(item);
 
                 return (
-                  <div key={idx} className="ios-water-drop overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
+                  <div key={idx} className="oled-4k-card overflow-hidden group hover:scale-[1.03] transition-all duration-500 flex flex-col justify-between ios-tab-spring shadow-xl">
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} />
                     ) : (
@@ -1456,7 +1379,7 @@ function MainAppContent() {
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                         />
                         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
-                          <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-md">{item.sub || 'Client Transformation'}</span>
+                          <span className="text-[11px] uppercase font-mono font-black text-[#00F0FF] tracking-wider drop-shadow-md">{item.sub || 'Client Transformation'}</span>
                           <h4 className="font-black text-sm sm:text-base mt-0.5 text-pink-300 drop-shadow">
                             <span>{item.title}</span>
                           </h4>
@@ -1474,14 +1397,14 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div key="tab-brands" className="space-y-6 sm:space-y-8 ios-tab-spring">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-full ios-water-drop-sub ${cyanAccent} text-xs font-black`}>Authentic Vanity</span>
+              <span className={`px-4 py-1.5 rounded-full oled-4k-subcard ${cyanAccent} text-xs font-black border border-cyan-400/40`}>Authentic Vanity</span>
               <h2 className={`text-2xl sm:text-4xl font-black ${titleText}`}>Products In Our Kit</h2>
               <p className={`text-xs sm:text-sm ${bodyText}`}>100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className="ios-water-drop p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
-                  <span className={`text-[10px] font-black ${amberAccent} bg-amber-100 dark:bg-amber-500/25 border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-1 rounded-full inline-block font-mono`}>
+                <div key={idx} className="oled-4k-card p-5 transition-all duration-300 hover:scale-[1.03] ios-tab-spring space-y-2.5 shadow-lg">
+                  <span className={`text-[10px] font-black ${amberAccent} bg-amber-500/20 border border-[#FFD700]/50 uppercase px-3 py-1 rounded-full inline-block font-mono`}>
                     {brand.category}
                   </span>
                   <h4 className={`font-black text-sm ${cyanAccent}`}>{brand.name}</h4>
@@ -1496,53 +1419,53 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div key="tab-calculator" className="max-w-4xl mx-auto ios-tab-spring">
             {isBookingDone ? (
-              <div className="ios-water-drop p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/40 shadow-lg shadow-emerald-500/20 animate-bounce">
+              <div className="oled-4k-card p-8 sm:p-12 text-center space-y-4 animate-scale-up max-w-xl mx-auto">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-[#00FF88] flex items-center justify-center mx-auto border-2 border-[#00FF88] shadow-lg shadow-[#00FF88]/30 animate-bounce">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                   
-                <div className={`inline-block px-4 py-1.5 rounded-full bg-blue-100 dark:bg-cyan-500/20 ${cyanAccent} border border-blue-300 dark:border-cyan-400/40 font-mono font-black text-xs`}>
+                <div className={`inline-block px-4 py-1.5 rounded-full bg-cyan-500/20 ${cyanAccent} border border-cyan-400/40 font-mono font-black text-xs`}>
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
                 <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Booking Request Submitted Successfully</h3>
-                <p className={`text-xs ${bodyText} max-w-md mx-auto leading-relaxed`}>
+                <p className={`text-xs ${bodyText} max-w-md mx-auto leading-relaxed font-bold`}>
                   Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full ios-liquid-action-btn text-white inline-flex items-center gap-2 text-xs shadow-lg active:scale-[0.95] transition hover:scale-105">
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className="px-6 py-3 rounded-full oled-4k-btn text-white inline-flex items-center gap-2 text-xs font-black shadow-lg active:scale-95 transition hover:scale-105">
                       <Download className="w-4 h-4" />
                       <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ios-water-drop-sub text-xs ${titleText} font-black rounded-full active:scale-[0.95] mt-4 transition-all duration-300`}>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 oled-4k-subcard text-xs ${titleText} font-black rounded-full active:scale-95 mt-4 transition-all`}>
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className="ios-water-drop p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
+              <form onSubmit={handleDirectEstimateBooking} className="oled-4k-card p-6 sm:p-9 grid grid-cols-1 md:grid-cols-12 gap-7 shadow-2xl">
                 <div className="md:col-span-7 space-y-5">
                   <div className="border-b border-slate-200 dark:border-cyan-400/30 pb-2">
                     <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${cyanAccent}`}>
-                      <Calculator className="w-5 h-5 text-blue-600 dark:text-cyan-400" /> 1. Calculate & Choose Looks
+                      <Calculator className="w-5 h-5 text-cyan-400" /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2.5 ${titleText}`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'international' ? 'ios-liquid-active-tab scale-105' : `ios-water-drop-sub ${bodyText}`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-[0.95] ${calcKit === 'drugstore' ? 'ios-liquid-active-tab scale-105' : `ios-water-drop-sub ${bodyText}`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-95 ${calcKit === 'international' ? 'oled-4k-active-tab scale-105' : `oled-4k-subcard ${bodyText}`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-full text-xs font-black border text-center transition-all active:scale-95 ${calcKit === 'drugstore' ? 'oled-4k-active-tab scale-105' : `oled-4k-subcard ${bodyText}`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ios-liquid-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full oled-4k-input px-5 py-3 text-xs ${amberAccent} font-black cursor-pointer transition-all`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1557,7 +1480,7 @@ function MainAppContent() {
 
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${titleText}`}>Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ios-liquid-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full oled-4k-input px-5 py-3 text-xs font-black ${cyanAccent} cursor-pointer transition-all`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key} className="py-2 font-semibold">{zone.name} (+₹{zone.fee})</option>
                       ))}
@@ -1568,7 +1491,7 @@ function MainAppContent() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className={`font-black text-xs uppercase tracking-wider ${purpleAccent} flex items-center gap-1.5`}>
-                          <Users className="w-4 h-4 text-purple-500 dark:text-purple-400" /> Extra Family Makeup Customizer
+                          <Users className="w-4 h-4 text-[#E056FD]" /> Extra Family Makeup Customizer
                         </h4>
                         <p className={`text-[11px] ${bodyText}`}>Choose individual vanity tier & look for each family guest.</p>
                       </div>
@@ -1576,16 +1499,16 @@ function MainAppContent() {
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className={`px-4 py-2 rounded-full bg-purple-100/90 dark:bg-purple-500/25 ${purpleAccent} border border-purple-300 dark:border-purple-400/50 text-xs font-black flex items-center gap-1 active:scale-[0.95] transition-all duration-300 hover:scale-105`}
+                        className={`px-4 py-2 rounded-full bg-purple-500/20 ${purpleAccent} border border-[#E056FD]/60 text-xs font-black flex items-center gap-1 active:scale-95 transition-all hover:scale-105`}
                       >
                         <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3.5 rounded-[28px] bg-emerald-100/90 dark:bg-emerald-500/20 border border-emerald-400 dark:border-emerald-400/50 flex items-center justify-between text-xs animate-fade-in shadow-sm">
+                      <div className="p-3.5 rounded-[28px] bg-emerald-500/20 border border-[#00FF88]/60 flex items-center justify-between text-xs animate-fade-in shadow-sm">
                         <div className="flex items-center gap-2.5">
-                          <div className="p-1.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-300">
+                          <div className="p-1.5 rounded-full bg-emerald-500/20 text-[#00FF88]">
                             <Sparkles className="w-4 h-4 animate-spin" style={{ animationDuration: '4s' }} />
                           </div>
                           <div>
@@ -1597,7 +1520,7 @@ function MainAppContent() {
                             </p>
                           </div>
                         </div>
-                        <span className={`text-[11px] font-mono font-black bg-emerald-500/20 dark:bg-emerald-500/40 ${emeraldAccent} border border-emerald-500/40 px-3 py-1 rounded-full shrink-0`}>
+                        <span className={`text-[11px] font-mono font-black bg-emerald-500/20 ${emeraldAccent} border border-[#00FF88]/50 px-3 py-1 rounded-full shrink-0`}>
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
@@ -1609,7 +1532,7 @@ function MainAppContent() {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className="p-4 rounded-[28px] ios-water-drop-sub border-purple-300 dark:border-purple-500/40 space-y-2.5 transition-all duration-300">
+                            <div key={guest.id} className="p-4 rounded-[28px] oled-4k-subcard border-purple-400/40 space-y-2.5 transition-all">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
                                   <span className={`text-[11px] font-black ${purpleAccent} font-mono`}>Guest #{idx + 1}</span>
@@ -1617,7 +1540,7 @@ function MainAppContent() {
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-full transition-transform duration-200 hover:scale-110"><Trash2 className="w-3.5 h-3.5" /></button>
+                                <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/20 rounded-full transition-transform hover:scale-110"><Trash2 className="w-3.5 h-3.5" /></button>
                               </div>
 
                               <div className="grid grid-cols-2 gap-2.5">
@@ -1626,7 +1549,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className={`w-full p-2.5 rounded-full text-xs font-black ios-liquid-input ${amberAccent} cursor-pointer px-3.5`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black oled-4k-input ${amberAccent} cursor-pointer px-3.5`}
                                   >
                                     <option value="international" className="py-1">👑 Luxury Kit</option>
                                     <option value="drugstore" className="py-1">✨ HD Kit</option>
@@ -1638,7 +1561,7 @@ function MainAppContent() {
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className={`w-full p-2.5 rounded-full text-xs font-black ios-liquid-input ${cyanAccent} cursor-pointer px-3.5`}
+                                    className={`w-full p-2.5 rounded-full text-xs font-black oled-4k-input ${cyanAccent} cursor-pointer px-3.5`}
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k} className="py-1">
@@ -1658,17 +1581,17 @@ function MainAppContent() {
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                     <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-2.5">
                       <label className={`block text-xs font-black ${cyanAccent} uppercase tracking-wider flex items-center gap-1.5`}>
-                        <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" /> Promo Coupon Code
+                        <Tag className="w-3.5 h-3.5 text-cyan-400" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-emerald-50/90 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/50 rounded-[24px] p-3.5 flex items-center justify-between gap-2 animate-fade-in">
+                        <div className="bg-emerald-500/20 border border-[#00FF88]/60 rounded-[24px] p-3.5 flex items-center justify-between gap-2 animate-fade-in">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className={`text-xs font-black ${emeraldAccent} font-mono`}>CODE: {appliedCoupon.code} APPLIED</span>
                               {appliedCoupon.expiryDate && (() => {
                                 const tr = getTimeRemaining(appliedCoupon.expiryDate);
                                 return tr && !tr.expired ? (
-                                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
+                                  <span className={`text-[10px] font-mono font-black bg-amber-500/20 ${amberAccent} border border-[#FFD700]/50 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
                                     <Clock className="w-3 h-3 animate-spin" style={{ animationDuration: '6s' }} /> {tr.text}
                                   </span>
                                 ) : null;
@@ -1678,37 +1601,37 @@ function MainAppContent() {
                               🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`} • {appliedCoupon.label}
                             </p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 text-xs font-black underline shrink-0">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-400 hover:text-rose-300 text-xs font-black underline shrink-0">Remove</button>
                         </div>
                       ) : (
                         <div className="flex gap-2.5">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 ios-liquid-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
-                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 ios-liquid-action-btn text-white text-xs rounded-full shadow active:scale-[0.95] transition-all duration-300">Apply</button>
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className={`flex-1 oled-4k-input px-4 py-2.5 text-xs uppercase font-mono font-black ${amberAccent}`} />
+                          <button type="button" onClick={handleApplyCoupon} className="px-5 py-2.5 oled-4k-btn text-white text-xs font-black rounded-full shadow active:scale-95 transition-all">Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-black">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-500 font-black">{couponError}</p>}
                     </div>
                   )}
 
                   {/* 2. CLIENT CONTACT DETAILS */}
                   <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-3.5">
                     <h4 className={`font-black text-xs uppercase tracking-wider ${cyanAccent} flex items-center gap-1.5`}>
-                      <User className="w-4 h-4 text-blue-600 dark:text-cyan-400" /> 2. Enter Client Details to Lock Date
+                      <User className="w-4 h-4 text-cyan-400" /> 2. Enter Client Details to Lock Date
                     </h4>
 
                     <div>
                       <label className={`block text-xs ${labelText} mb-1.5`}>Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${titleText}`} />
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs ${titleText}`} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className={`block text-xs ${labelText} mb-1.5`}>Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs font-mono ${cyanAccent} font-black`} />
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs font-mono ${cyanAccent} font-black`} />
                       </div>
                       <div>
                         <label className={`block text-xs ${labelText} mb-1.5`}>Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs font-mono ${amberAccent} font-black`} />
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs font-mono ${amberAccent} font-black`} />
                       </div>
                     </div>
 
@@ -1716,7 +1639,7 @@ function MainAppContent() {
                     <div className="pt-3 border-t border-slate-200 dark:border-cyan-400/30 space-y-3.5">
                       <div className="flex items-center justify-between">
                         <h4 className={`font-black text-xs uppercase tracking-wider ${cyanAccent} flex items-center gap-1.5`}>
-                          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400 animate-bounce" /> 3. Destination Venue & Address
+                          <MapPin className="w-4 h-4 text-cyan-400 animate-bounce" /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-2">
                           {['Home', 'Work'].map((type) => (
@@ -1724,10 +1647,10 @@ function MainAppContent() {
                               key={type}
                               type="button"
                               onClick={() => setAddressType(type)}
-                              className={`px-3.5 py-1.5 rounded-full text-[10px] font-black border transition-all duration-300 active:scale-[0.95] ${
+                              className={`px-3.5 py-1.5 rounded-full text-[10px] font-black border transition-all active:scale-95 ${
                                 addressType === type 
-                                  ? 'ios-liquid-active-tab scale-105' 
-                                  : `ios-water-drop-sub ${bodyText}`
+                                  ? 'oled-4k-active-tab scale-105' 
+                                  : `oled-4k-subcard ${bodyText}`
                               }`}
                             >
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
@@ -1746,7 +1669,7 @@ function MainAppContent() {
                             placeholder="e.g. 110025" 
                             value={pincode} 
                             onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))} 
-                            className={`w-full px-5 py-3 rounded-full ios-liquid-input font-mono font-black text-xs ${purpleAccent}`} 
+                            className={`w-full px-5 py-3 rounded-full oled-4k-input font-mono font-black text-xs ${purpleAccent}`} 
                           />
                         </div>
 
@@ -1757,7 +1680,7 @@ function MainAppContent() {
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${titleText}`} 
+                            className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs ${titleText}`} 
                           />
                         </div>
                       </div>
@@ -1770,7 +1693,7 @@ function MainAppContent() {
                           placeholder="e.g. Tikona Park, Jamia Nagar, Okhla" 
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
-                          className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${titleText}`} 
+                          className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs ${titleText}`} 
                         />
                       </div>
 
@@ -1781,7 +1704,7 @@ function MainAppContent() {
                           placeholder="e.g. Near Metro Gate No. 2 / Opp. City Hospital" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
-                          className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${bodyText}`} 
+                          className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs ${bodyText}`} 
                         />
                       </div>
 
@@ -1794,7 +1717,7 @@ function MainAppContent() {
                             placeholder="e.g. New Delhi" 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
 
@@ -1806,7 +1729,7 @@ function MainAppContent() {
                             placeholder="e.g. Delhi" 
                             value={state} 
                             onChange={(e) => setState(e.target.value)} 
-                            className={`w-full px-5 py-3 rounded-full ios-liquid-input text-xs ${cyanAccent} font-black`} 
+                            className={`w-full px-5 py-3 rounded-full oled-4k-input text-xs ${cyanAccent} font-black`} 
                           />
                         </div>
                       </div>
@@ -1814,21 +1737,21 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: HIGH-CONTRAST COLORFUL SUMMARY WITH WATER DROP GLASS TIERS */}
-                <div className="md:col-span-5 ios-water-drop-sub p-6 flex flex-col justify-between space-y-5 shadow-2xl border border-white/40 dark:border-cyan-400/40 rounded-[32px]">
+                {/* RIGHT COLUMN: 4K HDR MINI-LED TOTAL SUMMARY */}
+                <div className="md:col-span-5 oled-4k-subcard p-6 flex flex-col justify-between space-y-5 shadow-2xl border-2 border-cyan-400/40 rounded-[32px]">
                   <div>
                     <span className={`text-[11px] font-black uppercase tracking-widest ${cyanAccent} flex items-center gap-1.5`}>
-                      <Zap className="w-4 h-4 text-amber-400 animate-bounce" /> Total Amount Summary
+                      <Zap className="w-4 h-4 text-[#FFD700] animate-bounce" /> Total Amount Summary
                     </span>
                     <div className={`mt-2 text-3xl sm:text-4xl font-black flex items-baseline gap-1.5 ${titleText}`}>
-                      <span className="text-cyan-500 dark:text-cyan-300 text-2xl sm:text-3xl">₹</span>
+                      <span className="text-[#00F0FF] text-2xl sm:text-3xl">₹</span>
                       <span className={`tracking-tight ${titleText} font-mono`}>{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3.5 text-xs border-t border-b border-slate-200 dark:border-white/20 py-3.5">
+                  <div className="space-y-3.5 text-xs border-t border-b border-slate-200 dark:border-cyan-400/30 py-3.5">
                     {/* SECTION 1: MAIN MAKEOVER PACKAGE (SKY BLUE) */}
-                    <div className="p-4 rounded-[24px] bg-blue-500/10 dark:bg-sky-500/20 border border-blue-300 dark:border-sky-400/40 space-y-2 text-blue-900 dark:text-sky-100 transition-all duration-300">
+                    <div className="p-4 rounded-[24px] bg-cyan-500/15 border-2 border-[#00F0FF]/50 space-y-2 text-slate-900 dark:text-white">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${cyanAccent}`}>
                         <span>1. Main Makeover Package:</span>
                         <span className={`font-mono ${titleText}`}>₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
@@ -1849,14 +1772,14 @@ function MainAppContent() {
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
                         <span className={`font-mono font-black ${cyanAccent}`}>₹{zoneFee.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className={`flex justify-between items-center border-t border-blue-200 dark:border-sky-400/40 pt-2 mt-1 font-black text-[11px] ${cyanAccent}`}>
+                      <div className={`flex justify-between items-center border-t border-cyan-400/30 pt-2 mt-1 font-black text-[11px] ${cyanAccent}`}>
                         <span>Main Makeover Total:</span>
                         <span className={`font-mono ${titleText}`}>₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
                     {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS (PURPLE) */}
-                    <div className="p-4 rounded-[24px] bg-purple-500/10 dark:bg-purple-500/20 border border-purple-300 dark:border-purple-400/40 space-y-2 text-purple-950 dark:text-purple-100 transition-all duration-300">
+                    <div className="p-4 rounded-[24px] bg-purple-500/15 border-2 border-[#E056FD]/50 space-y-2 text-slate-900 dark:text-white">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${purpleAccent}`}>
                         <span>2. Extra Family Makeovers ({familyGuests.length}):</span>
                         <span className={`font-mono ${titleText}`}>₹{familyGuestsGross.toLocaleString('en-IN')}</span>
@@ -1867,7 +1790,7 @@ function MainAppContent() {
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                           const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
                           return (
-                            <div key={i} className="rounded-[18px] bg-white/80 dark:bg-black/60 border border-purple-200 dark:border-purple-400/40 p-2.5 space-y-1 text-[11px]">
+                            <div key={i} className="rounded-[18px] bg-black/60 border border-[#E056FD]/40 p-2.5 space-y-1 text-[11px]">
                               <div className={`flex justify-between gap-3 ${bodyText}`}>
                                 <span>• Makeover #{i + 1} ({vanityName}):</span>
                                 <span className={`font-black text-right ${cyanAccent}`}>{pkgN}</span>
@@ -1881,24 +1804,24 @@ function MainAppContent() {
                         })
                       ) : (
                         <div className={`flex justify-between ${labelText} pl-1 text-[11px]`}>
-                          <span>• No additional family guests selected</span>
+                          <span>• No extra family guests selected</span>
                           <span className="font-mono text-slate-400">₹0</span>
                         </div>
                       )}
-                      <div className={`flex justify-between items-center border-t border-purple-200 dark:border-purple-400/40 pt-2 mt-1 font-black text-[11px] ${purpleAccent}`}>
+                      <div className={`flex justify-between items-center border-t border-[#E056FD]/30 pt-2 mt-1 font-black text-[11px] ${purpleAccent}`}>
                         <span>Additional Family Total:</span>
                         <span className={`font-mono ${titleText}`}>₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
                     {/* GROSS TOTAL BEFORE DISCOUNTS */}
-                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full ios-water-drop border border-white/40 shadow-sm`}>
+                    <div className={`flex justify-between items-center px-4 py-2.5 text-xs sm:text-[13px] font-black ${titleText} rounded-full oled-4k-card border border-cyan-400/30`}>
                       <span>Booking Total Before Discounts:</span>
                       <span className={`font-mono ${amberAccent} text-sm font-black`}>₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
                     {/* SECTION 3: DISCOUNTS & OFFERS (EMERALD GREEN) */}
-                    <div className="p-4 rounded-[24px] bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-400/40 space-y-2 text-emerald-950 dark:text-emerald-100 transition-all duration-300">
+                    <div className="p-4 rounded-[24px] bg-emerald-500/15 border-2 border-[#00FF88]/50 space-y-2 text-slate-900 dark:text-white">
                       <div className={`flex justify-between items-center font-black text-xs sm:text-[13px] ${emeraldAccent}`}>
                         <span>3. Discounts & Offers:</span>
                         <span className={`font-mono ${emeraldAccent} font-black`}>-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
@@ -1925,18 +1848,18 @@ function MainAppContent() {
                         </div>
                       )}
 
-                      <div className={`border-t border-emerald-200 dark:border-emerald-400/40 pt-2 mt-1 flex justify-between items-center font-black text-xs ${emeraldAccent}`}>
+                      <div className={`border-t border-[#00FF88]/30 pt-2 mt-1 flex justify-between items-center font-black text-xs ${emeraldAccent}`}>
                         <span>Total Discounts Saved:</span>
                         <span className="font-mono font-black">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
-                    {/* FINAL AMOUNT CARD (WATER DROP HERO) */}
-                    <div className="p-5 rounded-[24px] ios-water-drop border border-cyan-400 dark:border-cyan-400/60 shadow-2xl transition-all duration-300">
+                    {/* FINAL AMOUNT CARD (4K HDR HERO) */}
+                    <div className="p-5 rounded-[24px] oled-4k-card border-2 border-[#00F0FF] shadow-2xl transition-all">
                       <div className="flex justify-between items-center">
                         <div>
                           <p className={`text-[11px] uppercase tracking-wider font-black ${cyanAccent} flex items-center gap-1.5`}>
-                            <Droplet className="w-3.5 h-3.5 text-cyan-400 animate-bounce" /> Final Payable
+                            <Droplet className="w-3.5 h-3.5 text-[#00F0FF] animate-bounce" /> Final Payable
                           </p>
                           <p className={`text-[10px] mt-0.5 ${labelText}`}>Net all-inclusive rate</p>
                         </div>
@@ -1952,7 +1875,7 @@ function MainAppContent() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 ios-liquid-action-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-4 oled-4k-btn text-white text-xs font-black rounded-full shadow-2xl active:scale-95 transition-all flex items-center justify-center gap-2"
                   >
                     <Check className="w-4 h-4 animate-bounce" />
                     <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
@@ -1965,7 +1888,7 @@ function MainAppContent() {
 
         {/* TAB 5: FEEDBACK */}
         {activeTab === 'feedback' && (
-          <div key="tab-feedback" className="p-6 sm:p-9 ios-water-drop max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
+          <div key="tab-feedback" className="p-6 sm:p-9 oled-4k-card max-w-2xl mx-auto space-y-6 ios-tab-spring shadow-2xl">
             <div className="text-center space-y-1.5">
               <span className={`text-[10px] font-black uppercase tracking-wider ${cyanAccent}`}>Client Experience</span>
               <h3 className={`text-xl sm:text-2xl font-black ${titleText}`}>Feedback & Suggestions</h3>
@@ -1973,13 +1896,13 @@ function MainAppContent() {
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-[28px] bg-emerald-50/90 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-500/50 text-center space-y-2 animate-fade-in">
-                <CheckCircle2 className="w-10 h-10 text-emerald-500 dark:text-emerald-400 mx-auto animate-bounce" />
+              <div className="p-6 rounded-[28px] bg-emerald-500/20 border-2 border-[#00FF88] text-center space-y-2 animate-fade-in">
+                <CheckCircle2 className="w-10 h-10 text-[#00FF88] mx-auto animate-bounce" />
                 <h4 className={`font-black text-sm ${emeraldAccent}`}>Thank you for your valuable feedback!</h4>
                 <p className={`text-xs ${bodyText}`}>Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
-                  className={`mt-3 px-5 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 text-xs font-black ${titleText} transition-all duration-300 active:scale-[0.95] border border-slate-200 dark:border-white/20`}
+                  className={`mt-3 px-5 py-2.5 rounded-full bg-slate-200 dark:bg-[#0A1020] hover:bg-slate-300 dark:hover:bg-[#121D38] text-xs font-black ${titleText} transition-all active:scale-95 border border-cyan-400/40`}
                 >
                   Submit Another Feedback
                 </button>
@@ -1992,9 +1915,9 @@ function MainAppContent() {
                       key={star}
                       type="button"
                       onClick={() => setFeedbackRating(star)}
-                      className="p-1.5 active:scale-[0.9] transition-transform duration-200 hover:scale-125"
+                      className="p-1.5 active:scale-90 transition-transform hover:scale-125"
                     >
-                      <Star className={`w-8 h-8 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400 drop-shadow-md' : 'text-slate-300 dark:text-slate-600'}`} />
+                      <Star className={`w-8 h-8 ${star <= feedbackRating ? 'text-[#FFD700] fill-[#FFD700] drop-shadow-md' : 'text-slate-400 dark:text-slate-700'}`} />
                     </button>
                   ))}
                 </div>
@@ -2005,14 +1928,14 @@ function MainAppContent() {
                     placeholder="Your Name (Optional)"
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
-                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} ios-liquid-input`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${titleText} oled-4k-input`}
                   />
                   <input
                     type="tel"
                     placeholder="Phone Number (Optional)"
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
-                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black ios-liquid-input`}
+                    className={`w-full px-5 py-3 rounded-full text-xs ${cyanAccent} font-mono font-black oled-4k-input`}
                   />
                 </div>
 
@@ -2022,13 +1945,13 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} ios-liquid-input`}
+                  className={`w-full p-4 rounded-[28px] text-xs ${titleText} oled-4k-input`}
                 />
 
                 <button
                   type="submit"
                   disabled={isSubmittingFeedback}
-                  className="w-full py-3.5 ios-liquid-action-btn text-white text-xs font-black rounded-full shadow-lg active:scale-[0.95] transition-all duration-300 flex items-center justify-center gap-1.5"
+                  className="w-full py-3.5 oled-4k-btn text-white text-xs font-black rounded-full shadow-lg active:scale-95 transition-all flex items-center justify-center gap-1.5"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback / Suggestion'}</span>
@@ -2043,22 +1966,22 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 ios-water-drop p-4 shadow-2xl transition-all duration-500 ios-tab-spring border border-amber-400/60"
+          className="fixed bottom-20 sm:bottom-6 right-4 z-40 max-w-sm w-[calc(100%-2rem)] sm:w-80 oled-4k-card p-4 shadow-2xl transition-all ios-tab-spring border-2 border-[#FFD700]/70"
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className={`w-5 h-5 ${amberAccent} shrink-0 mt-0.5 animate-bounce`} />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`text-[10px] font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 dark:border-amber-400/50 uppercase px-3 py-0.5 rounded-full font-mono`}>
+                <span className={`text-[10px] font-black bg-amber-500/20 ${amberAccent} border border-[#FFD700]/50 uppercase px-3 py-0.5 rounded-full font-mono`}>
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-black bg-rose-100 dark:bg-rose-500/30 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                  <span className="text-[10px] font-mono font-black bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
                     <AlertCircle className="w-2.5 h-2.5" /> Code Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className={`text-[10px] font-mono font-black bg-amber-100 dark:bg-amber-500/30 ${amberAccent} border border-amber-300 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
+                  <span className={`text-[10px] font-mono font-black bg-amber-500/20 ${amberAccent} border border-[#FFD700]/50 px-2.5 py-0.5 rounded-full flex items-center gap-1`}>
                     <Clock className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '6s' }} /> {floatingTimer.text}
                   </span>
                 ) : null}
@@ -2067,13 +1990,13 @@ function MainAppContent() {
               <h4 className={`font-black text-xs mt-1.5 leading-snug ${titleText}`}>{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
               <p className={`text-[11px] mt-0.5 ${bodyText}`}>
                 {isFloatingExpired ? (
-                  <span className="text-rose-500 dark:text-rose-400 font-semibold">This promotion code has ended.</span>
+                  <span className="text-rose-400 font-bold">This promotion code has ended.</span>
                 ) : (
                   <>Use code <span className={`font-mono font-black ${amberAccent}`}>{floatingPromoCode}</span></>
                 )}
               </p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-slate-900 dark:hover:text-white p-1 shrink-0 transition-transform duration-200 hover:rotate-90"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="text-slate-400 hover:text-white p-1 shrink-0 transition-transform hover:rotate-90"><X className="w-4 h-4" /></button>
           </div>
 
           <button 
@@ -2084,10 +2007,10 @@ function MainAppContent() {
                 setActiveTab('calculator'); 
               }
             }} 
-            className={`mt-3 w-full py-2.5 text-xs font-black rounded-full shadow transition-all duration-300 ${
+            className={`mt-3 w-full py-2.5 text-xs font-black rounded-full shadow transition-all ${
               isFloatingExpired 
-                ? 'bg-slate-200 dark:bg-slate-700/60 text-slate-400 border border-slate-300 dark:border-white/10 cursor-not-allowed' 
-                : 'ios-liquid-action-btn text-white active:scale-[0.95]'
+                ? 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed' 
+                : 'oled-4k-btn text-white active:scale-95'
             }`}
           >
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
