@@ -209,7 +209,14 @@ function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('hf_theme_preference');
+      if (saved) return saved === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
@@ -258,17 +265,21 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
+  // Robust Dark/Light Mode Sync with DOM and LocalStorage
   useEffect(() => {
+    const root = document.documentElement;
     if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
+      root.classList.add('dark');
       localStorage.setItem('hf_theme_preference', 'dark');
     } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
+      root.classList.remove('dark');
       localStorage.setItem('hf_theme_preference', 'light');
     }
   }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prev => !prev);
+  };
 
   useEffect(() => {
     const handlePopState = (e) => {
@@ -321,19 +332,6 @@ function MainAppContent() {
     }, 1500);
     return () => clearTimeout(splashTimer);
   }, []);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('hf_theme_preference');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    } else if (config.theme?.defaultMode) {
-      setIsDarkMode(config.theme.defaultMode === 'dark');
-    }
-  }, [config.theme?.defaultMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
-  };
 
   useEffect(() => {
     const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
