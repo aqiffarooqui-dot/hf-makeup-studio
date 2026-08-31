@@ -1089,18 +1089,18 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[32px] text-center space-y-4 shadow-sm">
-          <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4`}>
+        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 rounded-[32px] text-center space-y-4 shadow-sm`}>
+          <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-600 flex items-center justify-center mx-auto border border-amber-500/20">
             <Wrench className="w-6 h-6" />
           </div>
 
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-md inline-block font-medium">
+            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-md inline-block font-medium border border-amber-500/20">
               Scheduled System Upgrade
             </span>
             <h2 className="text-xl font-semibold">We'll Be Back Shortly</h2>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+            <p className="text-xs opacity-75 leading-relaxed">
               We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.
             </p>
           </div>
@@ -1114,7 +1114,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
       data-hf-theme={activeThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-screen ${activeThemeStyle.bg} text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
+      className={`hf-app min-h-screen ${activeThemeStyle.bg} pb-24 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
@@ -1147,7 +1147,6 @@ function MainAppContent() {
           --hf-btn: #18181b; 
           --hf-btn-text: #ffffff; 
           color: var(--hf-text); 
-          background: var(--hf-bg); 
         }
         .hf-app[data-hf-mode="night"] { 
           --hf-bg: #05060a; 
@@ -1158,6 +1157,7 @@ function MainAppContent() {
           --hf-accent: #5ff8ff; 
           --hf-btn: #00b9c7; 
           --hf-btn-text: #001114; 
+          color: var(--hf-text); 
         }
 
         /* NEON TYPOGRAPHY IN NIGHT MODE FOR HEADINGS AND SUMMARIES */
@@ -1172,12 +1172,6 @@ function MainAppContent() {
         .hf-app[data-hf-mode="night"] .text-zinc-500,
         .hf-app[data-hf-mode="night"] .dark\:text-zinc-400 {
           color: var(--hf-muted) !important;
-        }
-        .hf-app[data-hf-mode="night"] .bg-white,
-        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-900,
-        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-950 {
-          background-color: var(--hf-card) !important;
-          border-color: var(--hf-border) !important;
         }
 
         /* iOS FLUID & TRANSITION ANIMATIONS */
@@ -1211,8 +1205,6 @@ function MainAppContent() {
           overflow-y: auto; 
           overscroll-behavior: contain; 
           margin: auto; 
-          background-color: var(--hf-card);
-          border: 1px solid var(--hf-border);
         }
 
         .hf-floating-banner { 
@@ -1223,8 +1215,6 @@ function MainAppContent() {
           max-height: min(42dvh, 320px); 
           overflow: auto; 
           z-index: 40;
-          background-color: var(--hf-card);
-          border: 1px solid var(--hf-border);
         }
         @media (min-width: 640px) { 
           .hf-floating-banner { bottom: 24px; right: 24px; width: 340px; } 
@@ -1239,16 +1229,10 @@ function MainAppContent() {
           max-width: 520px; 
           transform: translateX(-50%); 
           padding: 8px; 
-          border: 1px solid var(--hf-border); 
           border-radius: 999px !important; 
-          background: rgba(255,255,255,0.92); 
           backdrop-filter: blur(24px);
           box-shadow: 0 20px 50px rgba(0,0,0,0.22); 
           z-index: 50;
-        }
-        .dark .hf-bottom-nav, .hf-app[data-hf-mode="night"] .hf-bottom-nav { 
-          background: color-mix(in srgb, var(--hf-card) 88%, transparent); 
-          box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 35px color-mix(in srgb, var(--hf-accent) 20%, transparent); 
         }
         .hf-bottom-nav button { 
           min-height: 48px; 
@@ -1264,9 +1248,9 @@ function MainAppContent() {
       `}</style>
 
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="flex flex-col items-center space-y-4 px-4 text-center">
-            <div className="w-20 h-20 rounded-[24px] overflow-hidden border border-zinc-200 dark:border-zinc-800 p-1 bg-white dark:bg-zinc-900 shadow-xl animate-pulse">
+            <div className={`w-20 h-20 rounded-[24px] overflow-hidden ${activeThemeStyle.card} p-1 shadow-xl animate-pulse`}>
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
@@ -1289,25 +1273,25 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="hf-modal-backdrop">
-          <div className="hf-modal-card rounded-[32px] p-6 text-center space-y-4 shadow-2xl">
+          <div className={`hf-modal-card ${activeThemeStyle.card} rounded-[32px] p-6 text-center space-y-4 shadow-2xl`}>
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-xs text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+              <span className="font-semibold text-xs flex items-center gap-1.5">
                 <Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook
               </span>
-              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><X className="w-4 h-4" /></button>
+              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full opacity-60 hover:opacity-100"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="w-40 h-40 mx-auto bg-white p-2 rounded-[24px] border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-inner">
+            <div className="w-40 h-40 mx-auto bg-white p-2 rounded-[24px] border border-black/10 flex items-center justify-center shadow-inner">
               <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
             </div>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">Scan this QR code with any camera to explore portfolio.</p>
+            <p className="text-xs opacity-75">Scan this QR code with any camera to explore portfolio.</p>
 
             <div className="flex gap-2">
               <button
                 onClick={handleCopyLink}
-                className="flex-1 py-2.5 rounded-[16px] bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-xs font-medium flex items-center justify-center gap-1.5 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 transition"
+                className="flex-1 py-2.5 rounded-[16px] bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-xs font-medium flex items-center justify-center gap-1.5 border border-black/10 dark:border-white/10 transition"
               >
-                {copiedLink ? <CheckCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-zinc-500" />}
+                {copiedLink ? <CheckCheck className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 opacity-60" />}
                 <span>{copiedLink ? 'Copied' : 'Copy'}</span>
               </button>
 
@@ -1328,36 +1312,36 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="hf-modal-backdrop">
-          <div className="hf-modal-card rounded-[32px] p-6 space-y-4 shadow-2xl">
+          <div className={`hf-modal-card ${activeThemeStyle.card} rounded-[32px] p-6 space-y-4 shadow-2xl`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-4 h-4 ${activeThemeStyle.accentText}`} />
-                <h3 className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">{viewingPackage.name}</h3>
+                <h3 className="font-semibold text-sm sm:text-base">{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><X className="w-4 h-4" /></button>
+              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full opacity-60 hover:opacity-100"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-sm">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">{viewingPackage.desc}</p>
+            <p className="text-xs opacity-80 leading-relaxed">{viewingPackage.desc}</p>
 
-            <div className="space-y-2 text-xs border-t border-b border-zinc-100 dark:border-zinc-800 py-3">
+            <div className="space-y-2 text-xs border-t border-b border-black/10 dark:border-white/10 py-3">
               <div className="flex justify-between items-start gap-2">
-                <span className="text-zinc-500 dark:text-zinc-400">Vanity Tier:</span>
-                <strong className="text-zinc-900 dark:text-zinc-100 font-medium">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
+                <span className="opacity-70">Vanity Tier:</span>
+                <strong className="font-medium">{config.pricingByKit[selectedKit]?.name || (selectedKit === 'international' ? 'International Luxury Kit' : 'Premium HD Kit')}</strong>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="text-zinc-500 dark:text-zinc-400">Skin Finish:</span>
-                <span className="text-zinc-900 dark:text-zinc-100">{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
+                <span className="opacity-70">Skin Finish:</span>
+                <span>{viewingPackage.skinFinish || '16-Hour Water Resistant HD Glass'}</span>
               </div>
               <div className="flex justify-between items-start gap-2">
-                <span className="text-zinc-500 dark:text-zinc-400">Includes:</span>
-                <span className="text-zinc-900 dark:text-zinc-100">{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
+                <span className="opacity-70">Includes:</span>
+                <span>{viewingPackage.includes || 'Full Makeup + Hair Styling + Draping'}</span>
               </div>
               <div className="flex justify-between items-center font-semibold text-sm pt-1">
-                <span className="text-zinc-900 dark:text-zinc-100">Rate:</span>
+                <span>Rate:</span>
                 <span className={`${activeThemeStyle.accentText} font-mono text-sm font-bold`}>₹{(config.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
@@ -1378,15 +1362,13 @@ function MainAppContent() {
         </div>
       )}
 
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
-
       {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 py-2 px-3 overflow-hidden text-xs font-medium relative flex items-center select-none shadow-sm">
+        <div className="bg-black text-white py-2 px-3 overflow-hidden text-xs font-medium relative flex items-center select-none shadow-sm z-50">
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
               {(config.announcements || []).map((ann, idx) => (
                 <span key={idx} className="mx-6 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/50" />
                   {ann}
                 </span>
               ))}
@@ -1401,12 +1383,12 @@ function MainAppContent() {
         </div>
       )}
 
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 transition-colors`}>
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-xl border-b transition-colors shadow-sm`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
               {config.toggles?.showLogoOnApp !== false && (
-                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex items-center justify-center shadow-sm">
                   <img 
                     src={resolvedLogoUrl} 
                     alt="Logo" 
@@ -1418,7 +1400,7 @@ function MainAppContent() {
               )}
                 
               <div className="truncate">
-                <h1 className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100 truncate">
+                <h1 className="font-semibold text-sm sm:text-base truncate">
                   {config.studioName || 'H&F Makeup Artist'}
                 </h1>
                 <p className={`text-xs ${activeThemeStyle.accentText} flex items-center gap-1 truncate font-medium`}>
@@ -1431,7 +1413,7 @@ function MainAppContent() {
               <button
                 onClick={() => setShowShareModal(true)}
                 title="Share & QR Code"
-                className="p-2.5 rounded-[16px] border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition flex items-center justify-center shadow-2xs"
+                className="p-2.5 rounded-[16px] border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center justify-center shadow-2xs"
               >
                 <QrCode className="w-4 h-4" />
               </button>
@@ -1439,9 +1421,9 @@ function MainAppContent() {
               <button
                 onClick={toggleTheme}
                 title="Toggle Day/Night Mode"
-                className="p-2.5 rounded-[16px] border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition flex items-center justify-center shadow-2xs"
+                className="p-2.5 rounded-[16px] border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center justify-center shadow-2xs"
               >
-                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-600" />}
+                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
                 <span className="hidden md:inline text-[10px] font-semibold uppercase tracking-wider">{isDarkMode ? 'Switch to Day' : 'Switch to Night'}</span>
               </button>
 
@@ -1456,7 +1438,7 @@ function MainAppContent() {
               </a>
 
               {shouldShowProfileInHeader && (
-                <div className="w-9 h-9 rounded-[16px] border border-zinc-200 dark:border-zinc-800 overflow-hidden shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[16px] border border-black/10 dark:border-white/10 overflow-hidden shrink-0 shadow-2xs">
                   <img 
                     src={resolvedAvatar} 
                     alt="Artist Profile" 
@@ -1469,7 +1451,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center pt-1">
-            <nav className="inline-flex space-x-1 p-1 rounded-[22px] bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-medium shadow-inner">
+            <nav className="inline-flex space-x-1 p-1 rounded-[22px] border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs font-medium shadow-inner">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1486,7 +1468,7 @@ function MainAppContent() {
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-[18px] transition ${
                       isActive 
                         ? `${activeThemeStyle.btn} font-semibold shadow-sm` 
-                        : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
+                        : 'opacity-70 hover:opacity-100'
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -1500,7 +1482,7 @@ function MainAppContent() {
       </header>
 
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className="hf-bottom-nav sm:hidden flex items-center justify-around">
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1515,7 +1497,7 @@ function MainAppContent() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[16px] transition ${
-                  isActive ? `${activeThemeStyle.accentText} font-semibold bg-zinc-100 dark:bg-zinc-900 shadow-2xs` : 'text-zinc-400 dark:text-zinc-500 font-normal'
+                  isActive ? `${activeThemeStyle.accentText} font-semibold bg-black/5 dark:bg-white/5 shadow-2xs` : 'opacity-60'
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -1530,28 +1512,28 @@ function MainAppContent() {
         {activeTab === 'menu' && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
                 Professional Vanity Packages
               </span>
-              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Curated Makeup Menu</h2>
-              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">Select kit tier below to view package pricing & details:</p>
+              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Curated Makeup Menu</h2>
+              <p className="text-xs sm:text-sm opacity-70">Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1 rounded-[22px] bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 mt-2 gap-1 shadow-inner">
+              <div className="inline-flex p-1 rounded-[22px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mt-2 gap-1 shadow-inner">
                 <button
                   onClick={() => setSelectedKit('international')}
                   className={`px-4 py-2 rounded-[18px] text-xs font-medium transition ${
-                    selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'text-zinc-600 dark:text-zinc-400'
+                    selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'
                   }`}
                 >
-                  👑 International Luxury Kit
+                  👑 Luxury Kit
                 </button>
                 <button
                   onClick={() => setSelectedKit('drugstore')}
                   className={`px-4 py-2 rounded-[18px] text-xs font-medium transition ${
-                    selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'text-zinc-600 dark:text-zinc-400'
+                    selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'
                   }`}
                 >
-                  ✨ Premium HD Kit
+                  ✨ HD Kit
                 </button>
               </div>
             </div>
@@ -1566,7 +1548,7 @@ function MainAppContent() {
 
                 return (
                   <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center transition-all duration-300 hover:scale-[1.01]`}>
-                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[20px] overflow-hidden bg-zinc-100 dark:bg-zinc-800 relative border border-zinc-200 dark:border-zinc-800 shadow-sm">
+                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[20px] overflow-hidden bg-black/5 dark:bg-white/5 relative border border-black/10 dark:border-white/10 shadow-sm">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
                       <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-[10px] bg-black/70 text-[10px] font-mono font-medium text-amber-300 backdrop-blur-xs">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
@@ -1575,18 +1557,18 @@ function MainAppContent() {
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-semibold text-sm sm:text-base text-zinc-900 dark:text-zinc-100">
+                          <h4 className="font-semibold text-sm sm:text-base">
                             {item.num ? `${item.num}. ` : ''}{item.name}
                           </h4>
                           <span className={`font-mono font-semibold text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>
                             ₹{price.toLocaleString('en-IN')}
                           </span>
                         </div>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-2">{item.desc}</p>
+                        <p className="text-xs opacity-70 mt-1 line-clamp-2">{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800">
-                        <span className="text-[11px] text-zinc-500 dark:text-zinc-400 font-normal truncate flex items-center gap-1">
+                      <div className="flex items-center justify-between pt-2 border-t border-black/10 dark:border-white/10">
+                        <span className="text-[11px] opacity-70 font-normal truncate flex items-center gap-1">
                           <Sparkles className="w-3 h-3 text-amber-500 shrink-0" />
                           16HR HD Finish
                         </span>
@@ -1594,7 +1576,7 @@ function MainAppContent() {
                         <div className="flex items-center gap-1.5">
                           <button
                             onClick={() => setViewingPackage({ key, ...item, image: imgSrc })}
-                            className="px-3.5 py-2 rounded-[14px] border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition shadow-2xs"
+                            className="px-3.5 py-2 rounded-[14px] border border-black/10 dark:border-white/10 text-xs font-medium hover:bg-black/5 dark:hover:bg-white/5 transition shadow-2xs"
                           >
                             Details
                           </button>
@@ -1623,11 +1605,11 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
                 Discover Looks
               </span>
-              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Featured Transformations</h2>
-              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
+              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Featured Transformations</h2>
+              <p className="text-xs sm:text-sm opacity-70">
                 Explore signature makeup transformations crafted with perfection.
               </p>
             </div>
@@ -1641,7 +1623,7 @@ function MainAppContent() {
                     {isVideo ? (
                       <AutoPlayVideoCard item={item} />
                     ) : (
-                      <div className="h-72 sm:h-80 overflow-hidden relative bg-zinc-100 dark:bg-zinc-800 rounded-[28px]">
+                      <div className="h-72 sm:h-80 overflow-hidden relative bg-black/5 dark:bg-white/5 rounded-[28px]">
                         <img 
                           src={item.url} 
                           alt={item.title} 
@@ -1665,20 +1647,20 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
                 Authentic Vanity
               </span>
-              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Products In Our Kit</h2>
-              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">100% Genuine, skin-safe international luxury cosmetics.</p>
+              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Products In Our Kit</h2>
+              <p className="text-xs sm:text-sm opacity-70">100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
                 <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2 transition-all duration-300 hover:scale-[1.01]`}>
-                  <span className={`text-[10px] font-medium ${activeThemeStyle.accentText} bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 uppercase px-2.5 py-1 rounded-[10px] font-mono inline-block`}>
+                  <span className={`text-[10px] font-medium ${activeThemeStyle.accentText} bg-amber-500/10 border border-amber-500/20 uppercase px-2.5 py-1 rounded-[10px] font-mono inline-block`}>
                     {brand.category}
                   </span>
-                  <h4 className="font-semibold text-sm text-zinc-900 dark:text-zinc-100">{brand.name}</h4>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">{brand.desc}</p>
+                  <h4 className="font-semibold text-sm">{brand.name}</h4>
+                  <p className="text-xs opacity-70 leading-relaxed">{brand.desc}</p>
                 </div>
               ))}
             </div>
@@ -1689,19 +1671,19 @@ function MainAppContent() {
           <div className="max-w-4xl mx-auto">
             {isBookingDone ? (
               <div className={`${activeThemeStyle.card} p-8 text-center space-y-4 shadow-xl max-w-lg mx-auto`}>
-                <div className="w-12 h-12 rounded-[20px] bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto border border-emerald-200 dark:border-emerald-800 shadow-xs">
+                <div className="w-12 h-12 rounded-[20px] bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/20 shadow-xs">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                   
-                <div className="inline-block px-3.5 py-1.5 rounded-[16px] bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700 font-mono font-medium text-xs shadow-2xs">
+                <div className="inline-block px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-mono font-medium text-xs shadow-2xs">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
 
-                <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Booking Request Submitted Successfully</h3>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                <h3 className="text-lg font-semibold">Booking Request Submitted Successfully</h3>
+                <p className="text-xs opacity-70 leading-relaxed">
                   Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
-                {telegramStatus && <p className={`text-[11px] ${telegramStatus.startsWith('Telegram notification sent') ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>{telegramStatus}</p>}
+                {telegramStatus && <p className={`text-[11px] ${telegramStatus.startsWith('Telegram notification sent') ? 'text-emerald-500' : 'text-amber-500'}`}>{telegramStatus}</p>}
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
@@ -1712,30 +1694,30 @@ function MainAppContent() {
                   </div>
                 )}
 
-                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-xs text-zinc-800 dark:text-zinc-200 font-medium rounded-[16px] transition">
+                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-xs font-medium rounded-[16px] transition">
                   Make Another Calculation / Booking
                 </button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className={`${activeThemeStyle.card} p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-xl`}>
                 <div className="md:col-span-7 space-y-4">
-                  <div className="border-b border-zinc-100 dark:border-zinc-800 pb-2">
-                    <h3 className="font-semibold text-sm text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                  <div className="border-b border-black/10 dark:border-white/10 pb-2">
+                    <h3 className="font-semibold text-sm flex items-center gap-2">
                       <Calculator className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider mb-2 text-zinc-700 dark:text-zinc-300">Main Makeover Package: Vanity Tier</label>
+                    <label className="block text-xs font-semibold uppercase tracking-wider mb-2 opacity-70">Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 opacity-80'}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 opacity-80'}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 text-zinc-700 dark:text-zinc-300">Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs">
+                    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-70">Main Makeover Package: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-transparent border border-black/10 dark:border-white/10 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1749,41 +1731,41 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 text-zinc-700 dark:text-zinc-300">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs">
+                    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-70">Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-transparent border border-black/10 dark:border-white/10 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
+                  <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+                        <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
                           <Users className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Extra Family Makeup Customizer
                         </h4>
-                        <p className="text-[11px] text-zinc-500 dark:text-zinc-400">Choose individual vanity tier & look for each family guest.</p>
+                        <p className="text-[11px] opacity-70">Choose individual vanity tier & look for each family guest.</p>
                       </div>
 
                       <button
                         type="button"
                         onClick={handleAddFamilyGuest}
-                        className="px-3.5 py-2 rounded-[14px] bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-700 text-xs font-medium flex items-center gap-1 transition shadow-2xs"
+                        className="px-3.5 py-2 rounded-[14px] bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 text-xs font-medium flex items-center gap-1 transition shadow-2xs"
                       >
                         <Plus className="w-3 h-3" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3.5 rounded-[16px] bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-between text-xs shadow-2xs">
+                      <div className="p-3.5 rounded-[16px] bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs shadow-2xs">
                         <div className="flex items-center gap-2">
-                          <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                          <p className="text-emerald-800 dark:text-emerald-300 font-medium">
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+                          <p className="text-emerald-500 font-medium">
                             Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!
                           </p>
                         </div>
-                        <span className="font-mono font-medium text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-[8px] text-[10px]">
+                        <span className="font-mono font-medium text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-[8px] text-[10px]">
                           {guestDiscountPercent}% OFF
                         </span>
                       </div>
@@ -1795,24 +1777,24 @@ function MainAppContent() {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
 
                           return (
-                            <div key={guest.id} className="p-3.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/60 space-y-2 shadow-2xs">
+                            <div key={guest.id} className="p-3.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 space-y-2 shadow-2xs">
                               <div className="flex items-center justify-between">
-                                <span className="text-xs font-medium text-zinc-900 dark:text-zinc-100">Guest #{idx + 1}</span>
+                                <span className="text-xs font-medium">Guest #{idx + 1}</span>
                                 <div className="flex items-center gap-2">
                                   <span className={`text-xs font-semibold font-mono ${activeThemeStyle.accentText}`}>
                                     ₹{rawGuestPrice.toLocaleString('en-IN')}
                                   </span>
-                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                                 </div>
                               </div>
 
                               <div className="grid grid-cols-2 gap-2">
                                 <div>
-                                  <label className="block text-[10px] font-medium text-zinc-500 dark:text-zinc-400 mb-1">Vanity Tier</label>
+                                  <label className="block text-[10px] font-medium opacity-70 mb-1">Vanity Tier</label>
                                   <select
                                     value={guest.kit}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)}
-                                    className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100"
+                                    className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/10 dark:border-white/10 outline-none"
                                   >
                                     <option value="international">👑 Luxury Kit</option>
                                     <option value="drugstore">✨ HD Kit</option>
@@ -1820,11 +1802,11 @@ function MainAppContent() {
                                 </div>
 
                                 <div>
-                                  <label className="block text-[10px] font-medium text-zinc-500 dark:text-zinc-400 mb-1">Package Look</label>
+                                  <label className="block text-[10px] font-medium opacity-70 mb-1">Package Look</label>
                                   <select
                                     value={guest.packageKey}
                                     onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)}
-                                    className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100"
+                                    className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/10 dark:border-white/10 outline-none"
                                   >
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k}>
@@ -1842,19 +1824,19 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-2">
-                      <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-2">
+                      <label className="block text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
                         <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-[16px] p-3.5 flex items-center justify-between gap-2 shadow-2xs">
+                        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[16px] p-3.5 flex items-center justify-between gap-2 shadow-2xs">
                           <div>
-                            <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 font-mono">CODE: {appliedCoupon.code} APPLIED</span>
-                            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 font-normal">
+                            <span className="text-xs font-semibold font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                            <p className="text-[11px] opacity-70 font-normal">
                               🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}
                             </p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-600 dark:text-rose-400 text-xs font-medium underline">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-500 text-xs font-medium underline">Remove</button>
                         </div>
                       ) : (
                         <div className="flex gap-2">
@@ -1869,22 +1851,22 @@ function MainAppContent() {
                                 handleApplyCoupon(e);
                               }
                             }}
-                            className="flex-1 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-[16px] px-3.5 py-2.5 text-xs uppercase font-mono font-medium text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                            className="flex-1 bg-transparent border border-black/10 dark:border-white/10 rounded-[16px] px-3.5 py-2.5 text-xs uppercase font-mono font-medium outline-none shadow-2xs" 
                           />
                           <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2.5 ${activeThemeStyle.btn} text-xs font-medium rounded-[16px] transition shadow-sm`}>Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-600 dark:text-rose-400 font-normal">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-500 font-normal">{couponError}</p>}
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
-                    <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+                  <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-3">
+                    <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
                       <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
 
                     <div>
-                      <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1">Full Name *</label>
+                      <label className="block text-xs font-medium opacity-70 mb-1">Full Name *</label>
                       <input 
                         type="text" 
                         required 
@@ -1892,13 +1874,13 @@ function MainAppContent() {
                         value={clientName} 
                         onChange={(e) => setClientName(e.target.value)} 
                         onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                        className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                        className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" 
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1">Contact Phone *</label>
+                        <label className="block text-xs font-medium opacity-70 mb-1">Contact Phone *</label>
                         <input 
                           type="tel" 
                           required 
@@ -1906,25 +1888,25 @@ function MainAppContent() {
                           value={clientPhone} 
                           onChange={(e) => setClientPhone(e.target.value)} 
                           onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" 
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1">Event Date *</label>
+                        <label className="block text-xs font-medium opacity-70 mb-1">Event Date *</label>
                         <input 
                           type="date" 
                           required 
                           value={eventDate} 
                           onChange={(e) => setEventDate(e.target.value)} 
                           onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" 
                         />
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
+                    <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-3">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+                        <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
                           <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-1.5">
@@ -1936,7 +1918,7 @@ function MainAppContent() {
                               className={`px-3.5 py-1.5 rounded-[12px] text-[10px] font-medium border transition shadow-2xs ${
                                 addressType === type 
                                   ? `${activeThemeStyle.btn} font-semibold` 
-                                  : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400'
+                                  : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 opacity-70'
                               }`}
                             >
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
@@ -1947,7 +1929,7 @@ function MainAppContent() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Postal PIN Code *</label>
+                          <label className="block text-[11px] font-medium opacity-70 mb-1">Postal PIN Code *</label>
                           <input 
                             type="text" 
                             required 
@@ -1959,25 +1941,25 @@ function MainAppContent() {
                               setPincode(val === '0' ? '' : val);
                             }}
                             onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" 
                           />
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Flat, House No., Building</label>
+                          <label className="block text-[11px] font-medium opacity-70 mb-1">Flat, House No., Building</label>
                           <input 
                             type="text" 
                             placeholder="e.g. Flat 402, Royal Residency" 
                             value={flatHouseNo} 
                             onChange={(e) => setFlatHouseNo(e.target.value)} 
                             onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" 
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Street, Sector, Area, Locality *</label>
+                        <label className="block text-[11px] font-medium opacity-70 mb-1">Street, Sector, Area, Locality *</label>
                         <input 
                           type="text" 
                           required 
@@ -1985,25 +1967,25 @@ function MainAppContent() {
                           value={streetLocality} 
                           onChange={(e) => setStreetLocality(e.target.value)} 
                           onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Landmark (Optional)</label>
+                        <label className="block text-[11px] font-medium opacity-70 mb-1">Landmark (Optional)</label>
                         <input 
                           type="text" 
                           placeholder="e.g. Near Metro Gate No. 2" 
                           value={landmark} 
                           onChange={(e) => setLandmark(e.target.value)} 
                           onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 shadow-2xs" 
+                          className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" 
                         />
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">State / Region *</label>
+                          <label className="block text-[11px] font-medium opacity-70 mb-1">State / Region *</label>
                           <select 
                             value={selectedState} 
                             onChange={(e) => {
@@ -2013,7 +1995,7 @@ function MainAppContent() {
                               const availableCities = ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"];
                               setCity(availableCities[0]);
                             }} 
-                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-900 dark:text-zinc-100 shadow-2xs"
+                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-medium shadow-2xs outline-none"
                           >
                             {Object.keys(ALL_INDIA_STATES_AND_CITIES).map(stName => (
                               <option key={stName} value={stName}>{stName}</option>
@@ -2022,11 +2004,11 @@ function MainAppContent() {
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1">Town / City *</label>
+                          <label className="block text-[11px] font-medium opacity-70 mb-1">Town / City *</label>
                           <select 
                             value={city} 
                             onChange={(e) => setCity(e.target.value)} 
-                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-900 dark:text-zinc-100 shadow-2xs"
+                            className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-medium shadow-2xs outline-none"
                           >
                             {(ALL_INDIA_STATES_AND_CITIES[selectedState] || [city]).map(cityName => (
                               <option key={cityName} value={cityName}>{cityName}</option>
@@ -2038,41 +2020,45 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                <div className="md:col-span-5 bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 rounded-[28px] p-4 sm:p-5 flex flex-col justify-between space-y-4 shadow-md">
+                <div className="md:col-span-5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[28px] p-4 sm:p-5 flex flex-col justify-between space-y-4 shadow-md">
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Total Amount Summary</span>
-                    <div className="mt-1 text-2xl sm:text-3xl font-semibold flex items-baseline gap-1 text-zinc-900 dark:text-zinc-100">
+                    <span className="text-[11px] font-semibold uppercase tracking-wider opacity-60">Total Amount Summary</span>
+                    <div className="mt-1 text-2xl sm:text-3xl font-semibold flex items-baseline gap-1">
                       <span>₹</span>
                       <span className="font-mono">{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-xs border-t border-b border-zinc-200 dark:border-zinc-800 py-3">
-                    <div className="p-3 rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5 shadow-2xs">
-                      <div className="flex justify-between items-center font-semibold text-zinc-900 dark:text-zinc-100">
+                  {/* SUMMARY SECTION: Using matched colors from Admin App Component */}
+                  <div className="space-y-3 text-xs border-t border-b border-black/10 dark:border-white/10 py-3">
+                    
+                    {/* 1. Main Makeover Package - Matches Admin Sky Theme */}
+                    <div className={`p-3 rounded-[16px] border space-y-1.5 ${isDarkMode ? 'bg-sky-500/10 border-sky-500/20' : 'bg-sky-50 border-sky-200'}`}>
+                      <div className="flex justify-between items-center font-bold text-sky-500 dark:text-sky-400">
                         <span>1. Main Makeover Package:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between text-zinc-500 dark:text-zinc-400 pl-1 text-[11px]">
+                      <div className="flex justify-between pl-1 text-[11px] opacity-80">
                         <span>• Vanity:</span>
-                        <span className="font-medium text-zinc-900 dark:text-zinc-100">{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'Luxury Kit' : 'HD Kit')}</span>
+                        <span className="font-medium">{config.pricingByKit?.[calcKit]?.name || (calcKit === 'international' ? 'Luxury Kit' : 'HD Kit')}</span>
                       </div>
-                      <div className="flex justify-between text-zinc-500 dark:text-zinc-400 pl-1 text-[11px]">
+                      <div className="flex justify-between pl-1 text-[11px] opacity-80">
                         <span>• Package:</span>
-                        <span className="font-medium text-zinc-900 dark:text-zinc-100">{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
+                        <span className="font-medium">{(config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage])?.name || calcPackage}</span>
                       </div>
-                      <div className="flex justify-between text-zinc-500 dark:text-zinc-400 pl-1 text-[11px]">
+                      <div className="flex justify-between pl-1 text-[11px] opacity-80">
                         <span>• Package Price:</span>
-                        <span className="font-mono text-zinc-900 dark:text-zinc-100">₹{mainPackagePrice.toLocaleString('en-IN')}</span>
+                        <span className="font-mono">₹{mainPackagePrice.toLocaleString('en-IN')}</span>
                       </div>
-                      <div className="flex justify-between text-zinc-500 dark:text-zinc-400 pl-1 text-[11px]">
+                      <div className="flex justify-between pl-1 text-[11px] opacity-80">
                         <span>• Travel Fee ({config.convenienceZones[calcZone]?.name}):</span>
-                        <span className="font-mono text-zinc-900 dark:text-zinc-100">₹{zoneFee.toLocaleString('en-IN')}</span>
+                        <span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5 shadow-2xs">
-                      <div className="flex justify-between items-center font-semibold text-zinc-900 dark:text-zinc-100">
+                    {/* 2. Extra Guests - Matches Admin Purple Theme */}
+                    <div className={`p-3 rounded-[16px] border space-y-1.5 ${isDarkMode ? 'bg-purple-500/10 border-purple-500/20' : 'bg-purple-50 border-purple-200'}`}>
+                      <div className="flex justify-between items-center font-bold text-purple-600 dark:text-purple-400">
                         <span>2. Extra Guests ({familyGuests.length}):</span>
                         <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                       </div>
@@ -2082,27 +2068,28 @@ function MainAppContent() {
                           const pkgN = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                           const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury' : 'HD');
                           return (
-                            <div key={i} className="flex justify-between text-zinc-500 dark:text-zinc-400 pl-1 text-[11px]">
+                            <div key={i} className="flex justify-between pl-1 text-[11px] opacity-80">
                               <span>• Guest #{i + 1} ({vanityName} - {pkgN}):</span>
-                              <span className="font-mono text-zinc-900 dark:text-zinc-100 font-medium">₹{gp.toLocaleString('en-IN')}</span>
+                              <span className="font-mono font-medium">₹{gp.toLocaleString('en-IN')}</span>
                             </div>
                           );
                         })
                       ) : (
-                        <div className="flex justify-between text-zinc-400 pl-1 text-[11px]">
+                        <div className="flex justify-between pl-1 text-[11px] opacity-60">
                           <span>• No additional family guests</span>
                           <span className="font-mono">₹0</span>
                         </div>
                       )}
                     </div>
 
-                    <div className="flex justify-between items-center px-3 py-2 text-xs font-semibold text-zinc-900 dark:text-zinc-100 rounded-[14px] bg-zinc-100 dark:bg-zinc-800 shadow-2xs">
+                    <div className="flex justify-between items-center px-3 py-2 text-xs font-semibold rounded-[14px] bg-black/5 dark:bg-white/10 shadow-2xs">
                       <span>Total Before Discounts:</span>
                       <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
-                    <div className="p-3 rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5 shadow-2xs">
-                      <div className="flex justify-between items-center font-semibold text-emerald-600 dark:text-emerald-400">
+                    {/* 3. Discounts - Matches Admin Emerald Theme */}
+                    <div className={`p-3 rounded-[16px] border space-y-1.5 ${isDarkMode ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-emerald-50 border-emerald-200'}`}>
+                      <div className="flex justify-between items-center font-bold text-emerald-600 dark:text-emerald-400">
                         <span>3. Discounts & Offers:</span>
                         <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                       </div>
@@ -2122,7 +2109,7 @@ function MainAppContent() {
                       )}
 
                       {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && (
-                        <div className="flex justify-between text-zinc-400 pl-1 text-[11px]">
+                        <div className="flex justify-between pl-1 text-[11px] opacity-60">
                           <span>• No discounts applied</span>
                           <span className="font-mono">₹0</span>
                         </div>
@@ -2145,21 +2132,21 @@ function MainAppContent() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className="p-6 sm:p-7 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-xl">
+          <div className={`${activeThemeStyle.card} p-6 sm:p-7 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-xl`}>
             <div className="text-center space-y-1">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">Client Experience</span>
-              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Feedback & Suggestions</h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">Help us enhance your vanity experience by sharing your thoughts.</p>
+              <span className="text-[10px] font-semibold uppercase tracking-wider opacity-60">Client Experience</span>
+              <h3 className="text-lg font-semibold">Feedback & Suggestions</h3>
+              <p className="text-xs opacity-70">Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
 
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-[24px] bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 text-center space-y-2 shadow-2xs">
-                <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mx-auto" />
-                <h4 className="font-semibold text-sm text-emerald-800 dark:text-emerald-300">Thank you for your valuable feedback!</h4>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400">Your suggestion has been securely submitted to our studio team.</p>
+              <div className="p-6 rounded-[24px] bg-emerald-500/10 border border-emerald-500/20 text-center space-y-2 shadow-2xs">
+                <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto" />
+                <h4 className="font-semibold text-sm text-emerald-600 dark:text-emerald-400">Thank you for your valuable feedback!</h4>
+                <p className="text-xs opacity-70">Your suggestion has been securely submitted to our studio team.</p>
                 <button
                   onClick={() => setFeedbackSubmitted(false)}
-                  className="mt-3 px-4 py-2.5 rounded-[16px] bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 transition"
+                  className="mt-3 px-4 py-2.5 rounded-[16px] bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-xs font-medium transition"
                 >
                   Submit Another Feedback
                 </button>
@@ -2172,9 +2159,9 @@ function MainAppContent() {
                       key={star}
                       type="button"
                       onClick={() => setFeedbackRating(star)}
-                      className="p-1 text-zinc-300 dark:text-zinc-700 hover:text-amber-400 transition"
+                      className={`p-1 transition ${star <= feedbackRating ? 'text-amber-400' : 'opacity-20 hover:opacity-100 hover:text-amber-400'}`}
                     >
-                      <Star className={`w-6 h-6 ${star <= feedbackRating ? 'text-amber-400 fill-amber-400' : ''}`} />
+                      <Star className={`w-6 h-6 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
                     </button>
                   ))}
                 </div>
@@ -2186,7 +2173,7 @@ function MainAppContent() {
                     value={feedbackName}
                     onChange={e => setFeedbackName(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                    className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 shadow-2xs"
+                    className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none"
                   />
                   <input
                     type="tel"
@@ -2194,7 +2181,7 @@ function MainAppContent() {
                     value={feedbackPhone}
                     onChange={e => setFeedbackPhone(e.target.value)}
                     onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }}
-                    className="w-full px-3.5 py-2.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-mono text-zinc-900 dark:text-zinc-100 shadow-2xs"
+                    className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none"
                   />
                 </div>
 
@@ -2204,7 +2191,7 @@ function MainAppContent() {
                   placeholder="Share your suggestion, experience or styling ideas..."
                   value={feedbackMessage}
                   onChange={e => setFeedbackMessage(e.target.value)}
-                  className="w-full p-3.5 rounded-[16px] bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs text-zinc-900 dark:text-zinc-100 shadow-2xs"
+                  className="w-full p-3.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none"
                 />
 
                 <button
@@ -2224,37 +2211,37 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="hf-floating-banner p-4 rounded-[24px] shadow-2xl transition-all"
+          className={`hf-floating-banner ${activeThemeStyle.card} p-4 rounded-[24px] shadow-2xl transition-all`}
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[10px] font-medium bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800/60 uppercase px-2 py-0.5 rounded-[10px] font-mono">
+                <span className="text-[10px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 uppercase px-2 py-0.5 rounded-[10px] font-mono">
                   {config.floatingBanner?.tag || "SPECIAL OFFER"}
                 </span>
 
                 {isFloatingExpired ? (
-                  <span className="text-[10px] font-mono font-medium bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-[10px]">
+                  <span className="text-[10px] font-mono font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded-[10px]">
                     Expired
                   </span>
                 ) : floatingTimer ? (
-                  <span className="text-[10px] font-mono font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded-[10px]">
+                  <span className="text-[10px] font-mono font-medium bg-black/5 dark:bg-white/10 opacity-70 px-2 py-0.5 rounded-[10px]">
                     {floatingTimer.text}
                   </span>
                 ) : null}
               </div>
 
-              <h4 className="font-semibold text-xs mt-1.5 text-zinc-900 dark:text-zinc-100">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className="text-[11px] mt-0.5 text-zinc-500 dark:text-zinc-400 font-normal">
+              <h4 className="font-semibold text-xs mt-1.5">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className="text-[11px] mt-0.5 opacity-70 font-normal">
                 {isFloatingExpired ? (
                   <span className="text-rose-500">This promotion code has ended.</span>
                 ) : (
-                  <>Use code <span className="font-mono font-semibold text-zinc-900 dark:text-zinc-100">{floatingPromoCode}</span></>
+                  <>Use code <span className="font-mono font-semibold">{floatingPromoCode}</span></>
                 )}
               </p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 p-1 shrink-0"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="opacity-60 hover:opacity-100 p-1 shrink-0"><X className="w-4 h-4" /></button>
           </div>
 
           <button 
@@ -2267,7 +2254,7 @@ function MainAppContent() {
             }} 
             className={`mt-3 w-full py-2.5 text-xs font-medium rounded-[16px] transition shadow-sm ${
               isFloatingExpired 
-                ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed' 
+                ? 'bg-black/5 dark:bg-white/5 opacity-50 cursor-not-allowed' 
                 : `${activeThemeStyle.btn} active:scale-[0.98]`
             }`}
           >
