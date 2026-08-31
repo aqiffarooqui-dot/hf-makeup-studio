@@ -177,6 +177,7 @@ const FONT_OPTIONS = [
   { id: 'heebo', name: 'Heebo' },
   { id: 'titillium_web', name: 'Titillium Web' },
 ];
+
 const FONT_MAP = {
   plus_jakarta_sans: "'Plus Jakarta Sans', sans-serif",
   outfit: "'Outfit', sans-serif",
@@ -249,6 +250,24 @@ const THEME_STYLES = {
     card: "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px]",
     accent: "text-zinc-900 dark:text-zinc-100",
     btn: "bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 rounded-[14px]"
+  },
+  admin_aurora: {
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-purple-950/40 via-purple-900/20 to-slate-950/60 backdrop-blur-[28px] border border-purple-500/30 shadow-[0_12px_40px_rgba(168,85,247,0.18)] rounded-[28px]",
+    accent: "text-purple-400 dark:text-purple-300",
+    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]"
+  },
+  sunset_glow: {
+    bg: "bg-[#0c0a09] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-amber-950/40 via-rose-950/25 to-slate-950/60 backdrop-blur-[28px] border border-amber-500/30 shadow-[0_12px_40px_rgba(245,158,11,0.18)] rounded-[28px]",
+    accent: "text-amber-400 dark:text-amber-300",
+    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]"
+  },
+  cyber_matrix: {
+    bg: "bg-[#030a0a] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-cyan-950/40 via-emerald-950/25 to-slate-950/60 backdrop-blur-[28px] border border-cyan-500/30 shadow-[0_12px_40px_rgba(6,182,212,0.18)] rounded-[28px]",
+    accent: "text-cyan-400 dark:text-cyan-300",
+    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]"
   },
   real_glass_lens: {
     bg: "bg-slate-50 dark:bg-[#030712]",
@@ -1095,7 +1114,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
       data-hf-theme={activeThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-screen text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-300 overflow-x-hidden`}
+      className={`hf-app min-h-screen ${activeThemeStyle.bg} text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
@@ -1117,7 +1136,7 @@ function MainAppContent() {
         html { overflow-x: hidden; }
         body { overflow-x: hidden; }
         
-        /* 1 & 8 & 9 & 10. GLOBAL THEME ENGINE, DAY/NIGHT & NEON TYPOGRAPHY */
+        /* FULL DYNAMIC DAY/NIGHT & ADMIN THEME MIRRORING */
         .hf-app { 
           --hf-bg: #ffffff; 
           --hf-card: #ffffff; 
@@ -1140,55 +1159,35 @@ function MainAppContent() {
           --hf-btn: #00b9c7; 
           --hf-btn-text: #001114; 
         }
-        .hf-app[data-hf-theme="real_glass_lens"] { --hf-bg: #f8fafc; --hf-card: rgba(255,255,255,.90); --hf-accent: #2563eb; --hf-btn: #2563eb; }
-        .hf-app[data-hf-theme="real_ios_glass"] { --hf-bg: #f1f5f9; --hf-card: rgba(255,255,255,.86); --hf-accent: #4f46e5; --hf-btn: #4f46e5; }
-        .hf-app[data-hf-theme="liquid_glass"] { --hf-bg: #f0fbff; --hf-card: rgba(255,255,255,.84); --hf-accent: #0891b2; --hf-btn: #0891b2; }
-        .hf-app[data-hf-theme="one_ui_9"] { --hf-bg: #fafafa; --hf-card: #ffffff; --hf-accent: #7c3aed; --hf-btn: #7c3aed; }
-        .hf-app[data-hf-theme="gold_rose"] { --hf-bg: #fffaf0; --hf-card: rgba(255,255,255,.92); --hf-accent: #d97706; --hf-btn: #d97706; }
-        .hf-app[data-hf-theme="champagne"] { --hf-bg: #fffaf5; --hf-card: rgba(255,255,255,.92); --hf-accent: #ea580c; --hf-btn: #d97706; }
-        .hf-app[data-hf-theme="emerald"] { --hf-bg: #f3fff9; --hf-card: rgba(255,255,255,.92); --hf-accent: #059669; --hf-btn: #059669; }
-        .hf-app[data-hf-theme="violet"] { --hf-bg: #fbf7ff; --hf-card: rgba(255,255,255,.92); --hf-accent: #9333ea; --hf-btn: #9333ea; }
-        .hf-app[data-hf-theme="ruby"] { --hf-bg: #fff7f8; --hf-card: rgba(255,255,255,.92); --hf-accent: #e11d48; --hf-btn: #e11d48; }
-        .hf-app[data-hf-theme="sapphire"] { --hf-bg: #f5f8ff; --hf-card: rgba(255,255,255,.92); --hf-accent: #2563eb; --hf-btn: #2563eb; }
-        
-        .hf-app[data-hf-mode="night"][data-hf-theme="real_glass_lens"] { --hf-bg:#030712; --hf-card:#151922; --hf-accent:#22d3ee; --hf-btn:#0891b2; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="real_ios_glass"] { --hf-bg:#090a0f; --hf-card:#18181b; --hf-accent:#38bdf8; --hf-btn:#2563eb; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="liquid_glass"] { --hf-bg:#060b14; --hf-card:#0f172a; --hf-accent:#22d3ee; --hf-btn:#0891b2; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="one_ui_9"] { --hf-bg:#0c0c0e; --hf-card:#18181b; --hf-accent:#a78bfa; --hf-btn:#7c3aed; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="gold_rose"] { --hf-bg:#0f090a; --hf-card:#1a1113; --hf-accent:#fbbf24; --hf-btn:#d97706; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="champagne"] { --hf-bg:#100b07; --hf-card:#1c140d; --hf-accent:#fbbf24; --hf-btn:#ea580c; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="emerald"] { --hf-bg:#060f0c; --hf-card:#0f1c18; --hf-accent:#34d399; --hf-btn:#059669; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="violet"] { --hf-bg:#0a0612; --hf-card:#161024; --hf-accent:#c084fc; --hf-btn:#9333ea; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="ruby"] { --hf-bg:#120608; --hf-card:#200f12; --hf-accent:#fb7185; --hf-btn:#e11d48; }
-        .hf-app[data-hf-mode="night"][data-hf-theme="sapphire"] { --hf-bg:#060812; --hf-card:#0f1424; --hf-accent:#60a5fa; --hf-btn:#2563eb; }
 
-        .hf-app[data-hf-mode="night"] h1, 
-        .hf-app[data-hf-mode="night"] h2, 
-        .hf-app[data-hf-mode="night"] h3, 
-        .hf-app[data-hf-mode="night"] h4, 
-        .hf-app[data-hf-mode="night"] label, 
-        .hf-app[data-hf-mode="night"] span, 
-        .hf-app[data-hf-mode="night"] p {
-          color: var(--hf-text);
+        /* NEON TYPOGRAPHY IN NIGHT MODE FOR HEADINGS AND SUMMARIES */
+        .hf-app[data-hf-mode="night"] h1,
+        .hf-app[data-hf-mode="night"] h2,
+        .hf-app[data-hf-mode="night"] h3,
+        .hf-app[data-hf-mode="night"] h4,
+        .hf-app[data-hf-mode="night"] .font-mono {
+          color: var(--hf-text) !important;
+          text-shadow: 0 0 10px color-mix(in srgb, var(--hf-accent) 45%, transparent), 0 0 20px color-mix(in srgb, var(--hf-accent) 20%, transparent);
         }
         .hf-app[data-hf-mode="night"] .text-zinc-500,
-        .hf-app[data-hf-mode="night"] .dark\:text-zinc-400,
-        .hf-app[data-hf-mode="night"] .text-zinc-600,
-        .hf-app[data-hf-mode="night"] .dark\:text-zinc-300 { 
-          color: var(--hf-muted) !important; 
-        }
-        .hf-app[data-hf-mode="night"] .border-zinc-200,
-        .hf-app[data-hf-mode="night"] .dark\:border-zinc-800,
-        .hf-app[data-hf-mode="night"] .dark\:border-zinc-700 { 
-          border-color: var(--hf-border) !important; 
+        .hf-app[data-hf-mode="night"] .dark\:text-zinc-400 {
+          color: var(--hf-muted) !important;
         }
         .hf-app[data-hf-mode="night"] .bg-white,
         .hf-app[data-hf-mode="night"] .dark\:bg-zinc-900,
-        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-950 { 
-          background-color: var(--hf-card) !important; 
+        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-950 {
+          background-color: var(--hf-card) !important;
+          border-color: var(--hf-border) !important;
         }
 
-        /* 3 & 7. VIEWPORT-LEVEL MODALS & HEIGHT HANDLING */
+        /* iOS FLUID & TRANSITION ANIMATIONS */
+        .hf-app * {
+          transition: background-color 0.4s cubic-bezier(.22,1,.36,1), border-color 0.4s cubic-bezier(.22,1,.36,1), color 0.3s cubic-bezier(.22,1,.36,1), transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.4s cubic-bezier(.22,1,.36,1);
+        }
+        button:active, a:active {
+          transform: scale(0.97);
+        }
+
         .hf-modal-backdrop { 
           position: fixed; 
           inset: 0; 
@@ -1197,9 +1196,14 @@ function MainAppContent() {
           align-items: center; 
           justify-content: center; 
           padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
-          background: rgba(0,0,0,0.55); 
-          backdrop-filter: blur(14px); 
+          background: rgba(0,0,0,0.58); 
+          backdrop-filter: blur(16px); 
           overflow-y: auto; 
+          animation: fadeInModal 0.35s cubic-bezier(.22,1,.36,1);
+        }
+        @keyframes fadeInModal {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
         }
         .hf-modal-card { 
           width: min(100%, 560px); 
@@ -1211,7 +1215,6 @@ function MainAppContent() {
           border: 1px solid var(--hf-border);
         }
 
-        /* 4. INDEPENDENT VIEWPORT FLOATING BANNER */
         .hf-floating-banner { 
           position: fixed;
           bottom: calc(84px + env(safe-area-inset-bottom)); 
@@ -1227,7 +1230,6 @@ function MainAppContent() {
           .hf-floating-banner { bottom: 24px; right: 24px; width: 340px; } 
         }
 
-        /* 5. TRUE iOS FLOATING BOTTOM PILL NAV */
         .hf-bottom-nav { 
           position: fixed;
           bottom: max(12px, env(safe-area-inset-bottom)); 
@@ -1240,13 +1242,13 @@ function MainAppContent() {
           border: 1px solid var(--hf-border); 
           border-radius: 999px !important; 
           background: rgba(255,255,255,0.92); 
-          backdrop-filter: blur(20px);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.18); 
+          backdrop-filter: blur(24px);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.22); 
           z-index: 50;
         }
         .dark .hf-bottom-nav, .hf-app[data-hf-mode="night"] .hf-bottom-nav { 
-          background: color-mix(in srgb, var(--hf-card) 90%, transparent); 
-          box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px color-mix(in srgb, var(--hf-accent) 15%, transparent); 
+          background: color-mix(in srgb, var(--hf-card) 88%, transparent); 
+          box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 35px color-mix(in srgb, var(--hf-accent) 20%, transparent); 
         }
         .hf-bottom-nav button { 
           min-height: 48px; 
@@ -1262,9 +1264,9 @@ function MainAppContent() {
       `}</style>
 
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-opacity duration-500 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="flex flex-col items-center space-y-4 px-4 text-center">
-            <div className="w-20 h-20 rounded-[24px] overflow-hidden border border-zinc-200 dark:border-zinc-800 p-1 bg-white dark:bg-zinc-900 shadow-lg">
+            <div className="w-20 h-20 rounded-[24px] overflow-hidden border border-zinc-200 dark:border-zinc-800 p-1 bg-white dark:bg-zinc-900 shadow-xl animate-pulse">
               <img 
                 src={resolvedLogoUrl} 
                 alt="Studio Logo" 
@@ -1287,7 +1289,7 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="hf-modal-backdrop">
-          <div className="hf-modal-card rounded-[32px] p-6 text-center space-y-4 shadow-xl">
+          <div className="hf-modal-card rounded-[32px] p-6 text-center space-y-4 shadow-2xl">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-xs text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
                 <Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook
@@ -1295,7 +1297,7 @@ function MainAppContent() {
               <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="w-40 h-40 mx-auto bg-white p-2 rounded-[24px] border border-zinc-200 dark:border-zinc-800 flex items-center justify-center">
+            <div className="w-40 h-40 mx-auto bg-white p-2 rounded-[24px] border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shadow-inner">
               <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
             </div>
             <p className="text-xs text-zinc-500 dark:text-zinc-400">Scan this QR code with any camera to explore portfolio.</p>
@@ -1326,7 +1328,7 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="hf-modal-backdrop">
-          <div className="hf-modal-card rounded-[32px] p-6 space-y-4 shadow-xl">
+          <div className="hf-modal-card rounded-[32px] p-6 space-y-4 shadow-2xl">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-4 h-4 ${activeThemeStyle.accentText}`} />
@@ -1335,7 +1337,7 @@ function MainAppContent() {
               <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"><X className="w-4 h-4" /></button>
             </div>
 
-            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800">
+            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 shadow-sm">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
 
@@ -1399,7 +1401,7 @@ function MainAppContent() {
         </div>
       )}
 
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors`}>
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 transition-colors`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
@@ -2222,7 +2224,7 @@ function MainAppContent() {
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="hf-floating-banner p-4 rounded-[24px] shadow-xl transition-all"
+          className="hf-floating-banner p-4 rounded-[24px] shadow-2xl transition-all"
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
