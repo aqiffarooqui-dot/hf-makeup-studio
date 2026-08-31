@@ -245,11 +245,10 @@ const FONT_MAP = {
 
 const THEME_STYLES = {
   default: {
-    // Raw/default mode: removes decorative theme skin while keeping the app's normal structure and day/night readability.
-    bg: "bg-white dark:bg-black",
-    card: "bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-none rounded-[20px]",
+    bg: "bg-white dark:bg-zinc-950",
+    card: "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px]",
     accent: "text-zinc-900 dark:text-zinc-100",
-    btn: "bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-200 text-white dark:text-black shadow-none rounded-[14px]"
+    btn: "bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 rounded-[14px]"
   },
   real_glass_lens: {
     bg: "bg-slate-50 dark:bg-[#030712]",
@@ -734,7 +733,6 @@ function MainAppContent() {
   const couponDiscountAmount = getDiscountAmount(subtotalBeforePromo);
   const finalEstimate = Math.max(0, subtotalBeforePromo - couponDiscountAmount);
 
-  // IDENTICAL FORMAT PROFESSIONAL LIGHT-THEME BOOKING SLIP WITH WATERMARK
   const generateBookingSentSlipJpg = (bNumber) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -801,11 +799,9 @@ function MainAppContent() {
     };
 
     const drawContent = (logoImageObj) => {
-      // Clean Professional Light Background
       ctx.fillStyle = '#09090b';
       ctx.fillRect(0, 0, 1200, canvas.height);
 
-      // Outer Decorative Borders
       ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, 1120, canvas.height - 80);
@@ -814,7 +810,6 @@ function MainAppContent() {
       ctx.lineWidth = 2;
       ctx.strokeRect(55, 55, 1090, canvas.height - 110);
 
-      // Watermark Logo in Background
       if (logoImageObj) {
         ctx.save();
         ctx.globalAlpha = 0.04;
@@ -1100,14 +1095,13 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
       data-hf-theme={activeThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app hf-fluid min-h-screen ${activeThemeStyle.bg} text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-300 overflow-x-hidden`}
+      className={`hf-app min-h-screen text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-300 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
         *, *::before, *::after { box-sizing: border-box; }
         button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
         button, a { will-change: transform, opacity; }
-        .hf-fluid { transform: translateZ(0); backface-visibility: hidden; }
         @media (prefers-reduced-motion: no-preference) {
           .transition, .transition-all, .transition-colors, .transition-opacity, .transition-transform { transition-timing-function: cubic-bezier(.22,1,.36,1) !important; }
         }
@@ -1122,8 +1116,30 @@ function MainAppContent() {
         html, body, #root { min-height: 100%; width: 100%; margin: 0; }
         html { overflow-x: hidden; }
         body { overflow-x: hidden; }
-        .hf-app { --hf-bg: #ffffff; --hf-card: #ffffff; --hf-text: #18181b; --hf-muted: #71717a; --hf-border: #e4e4e7; --hf-accent: #18181b; --hf-btn: #18181b; --hf-btn-text: #ffffff; color: var(--hf-text); background: var(--hf-bg); }
-        .hf-app[data-hf-mode="night"] { --hf-bg: #05060a; --hf-card: #0d1018; --hf-text: #e8fbff; --hf-muted: #78a5b2; --hf-border: #183642; --hf-accent: #5ff8ff; --hf-btn: #00b9c7; --hf-btn-text: #001114; }
+        
+        /* 1 & 8 & 9 & 10. GLOBAL THEME ENGINE, DAY/NIGHT & NEON TYPOGRAPHY */
+        .hf-app { 
+          --hf-bg: #ffffff; 
+          --hf-card: #ffffff; 
+          --hf-text: #18181b; 
+          --hf-muted: #71717a; 
+          --hf-border: #e4e4e7; 
+          --hf-accent: #18181b; 
+          --hf-btn: #18181b; 
+          --hf-btn-text: #ffffff; 
+          color: var(--hf-text); 
+          background: var(--hf-bg); 
+        }
+        .hf-app[data-hf-mode="night"] { 
+          --hf-bg: #05060a; 
+          --hf-card: #0d1018; 
+          --hf-text: #e8fbff; 
+          --hf-muted: #78a5b2; 
+          --hf-border: #183642; 
+          --hf-accent: #5ff8ff; 
+          --hf-btn: #00b9c7; 
+          --hf-btn-text: #001114; 
+        }
         .hf-app[data-hf-theme="real_glass_lens"] { --hf-bg: #f8fafc; --hf-card: rgba(255,255,255,.90); --hf-accent: #2563eb; --hf-btn: #2563eb; }
         .hf-app[data-hf-theme="real_ios_glass"] { --hf-bg: #f1f5f9; --hf-card: rgba(255,255,255,.86); --hf-accent: #4f46e5; --hf-btn: #4f46e5; }
         .hf-app[data-hf-theme="liquid_glass"] { --hf-bg: #f0fbff; --hf-card: rgba(255,255,255,.84); --hf-accent: #0891b2; --hf-btn: #0891b2; }
@@ -1134,6 +1150,7 @@ function MainAppContent() {
         .hf-app[data-hf-theme="violet"] { --hf-bg: #fbf7ff; --hf-card: rgba(255,255,255,.92); --hf-accent: #9333ea; --hf-btn: #9333ea; }
         .hf-app[data-hf-theme="ruby"] { --hf-bg: #fff7f8; --hf-card: rgba(255,255,255,.92); --hf-accent: #e11d48; --hf-btn: #e11d48; }
         .hf-app[data-hf-theme="sapphire"] { --hf-bg: #f5f8ff; --hf-card: rgba(255,255,255,.92); --hf-accent: #2563eb; --hf-btn: #2563eb; }
+        
         .hf-app[data-hf-mode="night"][data-hf-theme="real_glass_lens"] { --hf-bg:#030712; --hf-card:#151922; --hf-accent:#22d3ee; --hf-btn:#0891b2; }
         .hf-app[data-hf-mode="night"][data-hf-theme="real_ios_glass"] { --hf-bg:#090a0f; --hf-card:#18181b; --hf-accent:#38bdf8; --hf-btn:#2563eb; }
         .hf-app[data-hf-mode="night"][data-hf-theme="liquid_glass"] { --hf-bg:#060b14; --hf-card:#0f172a; --hf-accent:#22d3ee; --hf-btn:#0891b2; }
@@ -1144,39 +1161,104 @@ function MainAppContent() {
         .hf-app[data-hf-mode="night"][data-hf-theme="violet"] { --hf-bg:#0a0612; --hf-card:#161024; --hf-accent:#c084fc; --hf-btn:#9333ea; }
         .hf-app[data-hf-mode="night"][data-hf-theme="ruby"] { --hf-bg:#120608; --hf-card:#200f12; --hf-accent:#fb7185; --hf-btn:#e11d48; }
         .hf-app[data-hf-mode="night"][data-hf-theme="sapphire"] { --hf-bg:#060812; --hf-card:#0f1424; --hf-accent:#60a5fa; --hf-btn:#2563eb; }
-        .hf-app[data-hf-mode="night"] .text-zinc-900,
-        .hf-app[data-hf-mode="night"] .dark\:text-zinc-100 { color: var(--hf-text) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--hf-accent) 32%, transparent); }
+
+        .hf-app[data-hf-mode="night"] h1, 
+        .hf-app[data-hf-mode="night"] h2, 
+        .hf-app[data-hf-mode="night"] h3, 
+        .hf-app[data-hf-mode="night"] h4, 
+        .hf-app[data-hf-mode="night"] label, 
+        .hf-app[data-hf-mode="night"] span, 
+        .hf-app[data-hf-mode="night"] p {
+          color: var(--hf-text);
+        }
         .hf-app[data-hf-mode="night"] .text-zinc-500,
         .hf-app[data-hf-mode="night"] .dark\:text-zinc-400,
         .hf-app[data-hf-mode="night"] .text-zinc-600,
-        .hf-app[data-hf-mode="night"] .dark\:text-zinc-300 { color: var(--hf-muted) !important; }
-        .hf-app[data-hf-mode="night"] .text-zinc-700,
-        .hf-app[data-hf-mode="night"] .dark\:text-zinc-300 { color: #b8f7ff !important; }
+        .hf-app[data-hf-mode="night"] .dark\:text-zinc-300 { 
+          color: var(--hf-muted) !important; 
+        }
         .hf-app[data-hf-mode="night"] .border-zinc-200,
         .hf-app[data-hf-mode="night"] .dark\:border-zinc-800,
-        .hf-app[data-hf-mode="night"] .dark\:border-zinc-700 { border-color: var(--hf-border) !important; }
+        .hf-app[data-hf-mode="night"] .dark\:border-zinc-700 { 
+          border-color: var(--hf-border) !important; 
+        }
         .hf-app[data-hf-mode="night"] .bg-white,
         .hf-app[data-hf-mode="night"] .dark\:bg-zinc-900,
-        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-950 { background-color: var(--hf-card) !important; }
-        .hf-app[data-hf-mode="night"] .bg-zinc-50,
-        .hf-app[data-hf-mode="night"] .bg-zinc-100,
-        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-800 { background-color: color-mix(in srgb, var(--hf-card) 88%, var(--hf-accent) 12%) !important; }
-        .hf-app[data-hf-mode="night"] [class*="text-"][class*="dark:text-"] { text-shadow: 0 0 7px color-mix(in srgb, var(--hf-accent) 25%, transparent); }
-        .hf-app .hf-themed-surface { background: var(--hf-card) !important; border-color: var(--hf-border) !important; }
-        .hf-app .hf-themed-accent { color: var(--hf-accent) !important; }
-        .hf-app .hf-themed-button { background: var(--hf-btn) !important; color: var(--hf-btn-text) !important; }
-        .hf-modal-backdrop { position: fixed; inset: 0; z-index: 90; display:flex; align-items:center; justify-content:center; padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); background: rgba(0,0,0,.48); backdrop-filter: blur(12px); overflow-y:auto; }
-        .hf-modal-card { width:min(100%, 560px); max-height: min(88dvh, 760px); overflow-y:auto; overscroll-behavior:contain; margin:auto; }
-        .hf-floating-banner { bottom: calc(84px + env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); width:min(360px, calc(100vw - 24px)); max-height: min(42dvh, 320px); overflow:auto; }
-        @media (min-width: 640px) { .hf-floating-banner { bottom:24px; right:24px; width:340px; } }
-        .hf-bottom-nav { bottom: max(10px, env(safe-area-inset-bottom)); left: 50%; right:auto; width:calc(100% - 20px); max-width:520px; transform:translateX(-50%); padding:7px; border:1px solid rgba(120,120,140,.22); border-radius:999px !important; background:rgba(255,255,255,.88); box-shadow:0 12px 36px rgba(0,0,0,.16); }
-        .dark .hf-bottom-nav, .hf-app[data-hf-mode="night"] .hf-bottom-nav { background:rgba(8,10,16,.88); border-color:rgba(100,240,255,.22); box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 24px rgba(0,220,255,.08); }
-        .hf-bottom-nav button { min-height:48px; border-radius:999px !important; }
-        @media (max-width: 639px) { .hf-app main { padding-left:12px !important; padding-right:12px !important; } .hf-app header { padding-left:12px !important; padding-right:12px !important; } }
-        @media (min-width: 640px) { .hf-app main { width:100%; } }
-        .hf-app img, .hf-app video { max-width:100%; }
-        .hf-app input, .hf-app select, .hf-app textarea, .hf-app button { max-width:100%; }
-        @media (max-width: 639px) { .hf-modal-card { border-radius:24px !important; padding:18px !important; } }
+        .hf-app[data-hf-mode="night"] .dark\:bg-zinc-950 { 
+          background-color: var(--hf-card) !important; 
+        }
+
+        /* 3 & 7. VIEWPORT-LEVEL MODALS & HEIGHT HANDLING */
+        .hf-modal-backdrop { 
+          position: fixed; 
+          inset: 0; 
+          z-index: 90; 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
+          background: rgba(0,0,0,0.55); 
+          backdrop-filter: blur(14px); 
+          overflow-y: auto; 
+        }
+        .hf-modal-card { 
+          width: min(100%, 560px); 
+          max-height: min(88dvh, 760px); 
+          overflow-y: auto; 
+          overscroll-behavior: contain; 
+          margin: auto; 
+          background-color: var(--hf-card);
+          border: 1px solid var(--hf-border);
+        }
+
+        /* 4. INDEPENDENT VIEWPORT FLOATING BANNER */
+        .hf-floating-banner { 
+          position: fixed;
+          bottom: calc(84px + env(safe-area-inset-bottom)); 
+          right: max(12px, env(safe-area-inset-right)); 
+          width: min(360px, calc(100vw - 24px)); 
+          max-height: min(42dvh, 320px); 
+          overflow: auto; 
+          z-index: 40;
+          background-color: var(--hf-card);
+          border: 1px solid var(--hf-border);
+        }
+        @media (min-width: 640px) { 
+          .hf-floating-banner { bottom: 24px; right: 24px; width: 340px; } 
+        }
+
+        /* 5. TRUE iOS FLOATING BOTTOM PILL NAV */
+        .hf-bottom-nav { 
+          position: fixed;
+          bottom: max(12px, env(safe-area-inset-bottom)); 
+          left: 50%; 
+          right: auto; 
+          width: calc(100% - 24px); 
+          max-width: 520px; 
+          transform: translateX(-50%); 
+          padding: 8px; 
+          border: 1px solid var(--hf-border); 
+          border-radius: 999px !important; 
+          background: rgba(255,255,255,0.92); 
+          backdrop-filter: blur(20px);
+          box-shadow: 0 16px 40px rgba(0,0,0,0.18); 
+          z-index: 50;
+        }
+        .dark .hf-bottom-nav, .hf-app[data-hf-mode="night"] .hf-bottom-nav { 
+          background: color-mix(in srgb, var(--hf-card) 90%, transparent); 
+          box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 30px color-mix(in srgb, var(--hf-accent) 15%, transparent); 
+        }
+        .hf-bottom-nav button { 
+          min-height: 48px; 
+          border-radius: 999px !important; 
+        }
+
+        @media (max-width: 639px) { 
+          .hf-app main { padding-left: 12px !important; padding-right: 12px !important; } 
+          .hf-app header { padding-left: 12px !important; padding-right: 12px !important; } 
+        }
+        .hf-app img, .hf-app video { max-width: 100%; }
+        .hf-app input, .hf-app select, .hf-app textarea, .hf-app button { max-width: 100%; }
       `}</style>
 
       {showSplash && (
@@ -1205,7 +1287,7 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="hf-modal-backdrop">
-          <div className="hf-modal-card bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[32px] p-6 text-center space-y-4 shadow-xl">
+          <div className="hf-modal-card rounded-[32px] p-6 text-center space-y-4 shadow-xl">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-xs text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
                 <Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook
@@ -1244,7 +1326,7 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="hf-modal-backdrop">
-          <div className="hf-modal-card bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[32px] p-6 space-y-4 shadow-xl">
+          <div className="hf-modal-card rounded-[32px] p-6 space-y-4 shadow-xl">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-4 h-4 ${activeThemeStyle.accentText}`} />
@@ -1415,9 +1497,8 @@ function MainAppContent() {
         </div>
       </header>
 
-      {/* Mobile Bottom Navigation with iOS Pill Style */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className="hf-bottom-nav sm:hidden fixed z-50 backdrop-blur-2xl flex items-center justify-around">
+        <nav aria-label="Mobile Navigation" className="hf-bottom-nav sm:hidden flex items-center justify-around">
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1444,7 +1525,6 @@ function MainAppContent() {
       )}
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        {/* TAB 1: PACKAGES MENU */}
         {activeTab === 'menu' && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1538,7 +1618,6 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* TAB 2: BEAUTY GALLERY & TRANSFORMATIONS */}
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1581,7 +1660,6 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* TAB 3: AUTHENTIC VANITY BRANDS */}
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1605,7 +1683,6 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* TAB 4: ESTIMATOR & INSTANT BOOKING */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto">
             {isBookingDone ? (
@@ -1799,7 +1876,6 @@ function MainAppContent() {
                     </div>
                   )}
 
-                  {/* CLIENT CONTACT DETAILS */}
                   <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
                     <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
                       <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
@@ -1844,7 +1920,6 @@ function MainAppContent() {
                       </div>
                     </div>
 
-                    {/* VENUE DELIVERY ADDRESS SECTION WITH ALL INDIA STATES & CITIES DROPDOWNS + ZERO FIX */}
                     <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-3">
                       <div className="flex items-center justify-between">
                         <h4 className="font-semibold text-xs uppercase tracking-wider text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
@@ -1961,7 +2036,6 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: CLEAN MINIMALIST SUMMARY */}
                 <div className="md:col-span-5 bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 rounded-[28px] p-4 sm:p-5 flex flex-col justify-between space-y-4 shadow-md">
                   <div>
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Total Amount Summary</span>
@@ -1972,7 +2046,6 @@ function MainAppContent() {
                   </div>
 
                   <div className="space-y-3 text-xs border-t border-b border-zinc-200 dark:border-zinc-800 py-3">
-                    {/* SECTION 1: MAIN MAKEOVER PACKAGE */}
                     <div className="p-3 rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5 shadow-2xs">
                       <div className="flex justify-between items-center font-semibold text-zinc-900 dark:text-zinc-100">
                         <span>1. Main Makeover Package:</span>
@@ -1996,7 +2069,6 @@ function MainAppContent() {
                       </div>
                     </div>
 
-                    {/* SECTION 2: ADDITIONAL FAMILY & GUEST MAKEOVERS */}
                     <div className="p-3 rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5 shadow-2xs">
                       <div className="flex justify-between items-center font-semibold text-zinc-900 dark:text-zinc-100">
                         <span>2. Extra Guests ({familyGuests.length}):</span>
@@ -2022,13 +2094,11 @@ function MainAppContent() {
                       )}
                     </div>
 
-                    {/* GROSS TOTAL BEFORE DISCOUNTS */}
                     <div className="flex justify-between items-center px-3 py-2 text-xs font-semibold text-zinc-900 dark:text-zinc-100 rounded-[14px] bg-zinc-100 dark:bg-zinc-800 shadow-2xs">
                       <span>Total Before Discounts:</span>
                       <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
-                    {/* SECTION 3: DISCOUNTS & OFFERS */}
                     <div className="p-3 rounded-[18px] bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1.5 shadow-2xs">
                       <div className="flex justify-between items-center font-semibold text-emerald-600 dark:text-emerald-400">
                         <span>3. Discounts & Offers:</span>
@@ -2072,7 +2142,6 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* TAB 5: FEEDBACK */}
         {activeTab === 'feedback' && (
           <div className="p-6 sm:p-7 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-xl">
             <div className="text-center space-y-1">
@@ -2150,11 +2219,10 @@ function MainAppContent() {
         )}
       </main>
 
-      {/* Floating Promotional Offer Pill */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside 
           aria-label="Promotional offer" 
-          className="hf-floating-banner fixed z-40 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 rounded-[24px] shadow-xl transition-all"
+          className="hf-floating-banner p-4 rounded-[24px] shadow-xl transition-all"
         >
           <div className="flex items-start justify-between gap-3">
             <Gift className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
