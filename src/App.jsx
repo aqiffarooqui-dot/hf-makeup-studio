@@ -5,7 +5,7 @@ import {
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
   Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw,
-  Home, Building2, Navigation, Compass, Zap, Droplet, Instagram
+  Home, Building2, Navigation, Compass, Zap, Droplet
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -244,7 +244,6 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// EXACT ADMIN-CLONE THEME ENGINE FOR MAIN APP
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
@@ -348,7 +347,6 @@ const THEME_STYLES = {
 
 Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
 
-// DAY MODE OVERRIDES FOR ADMIN-CLONE ENGINE
 const DAY_MODE_OVERRIDES = {
   bg: "bg-slate-100 text-slate-900",
   card: "bg-white/90 text-slate-900 border border-slate-200/90 shadow-xl rounded-[28px] backdrop-blur-xl",
@@ -1245,7 +1243,7 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* STICKY HEADER FOR BOTH MOBILE AND DESKTOP VIEWS */}
+      {/* STICKY HEADER FIXED FOR BOTH MOBILE AND DESKTOP VIEWS */}
       <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-xl border-b transition-colors shadow-sm`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
@@ -1271,9 +1269,9 @@ function MainAppContent() {
                 {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
               </button>
 
-              {/* INSTAGRAM ICON & "View on Instagram" TEXT */}
+              {/* CAMERA/INSTAGRAM ICON & "View on Instagram" TEXT */}
               <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition hover:opacity-90 shadow-sm`}>
-                <Instagram className="w-4 h-4 shrink-0" />
+                <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
               </a>
 
