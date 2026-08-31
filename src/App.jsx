@@ -35,8 +35,8 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-[#F2F2F7] flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-white/10 p-8 rounded-[32px] space-y-4 shadow-xl">
+        <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-xl">
             <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
@@ -244,95 +244,116 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// FULLY SYNCHRONIZED LIQUID GLASS THEME STYLES
+// EXACT ADMIN-CLONE THEME ENGINE FOR MAIN APP
 const THEME_STYLES = {
-  default: {
-    bg: "bg-slate-50 text-slate-900 dark:bg-[#030712] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-slate-200/80 shadow-lg dark:bg-[#151922]/90 dark:text-[#F2F2F7] dark:border-white/15 rounded-[28px] backdrop-blur-xl",
-    accent: "text-blue-600 dark:text-cyan-400",
-    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]"
-  },
   admin_aurora: {
-    bg: "bg-slate-50 text-slate-900 dark:bg-[#090a0f] dark:text-[#F2F2F7]",
-    card: "bg-white/95 text-slate-900 border border-purple-200 shadow-xl dark:bg-gradient-to-br dark:from-purple-950/40 dark:via-purple-900/20 dark:to-slate-950/60 dark:text-[#F2F2F7] dark:border-purple-500/40 rounded-[28px] backdrop-blur-[28px]",
-    accent: "text-purple-600 dark:text-purple-300",
-    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]"
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-purple-950/40 via-purple-900/20 to-slate-950/60 backdrop-blur-[28px] border border-purple-500/30 shadow-[0_12px_40px_rgba(168,85,247,0.18)] rounded-[28px]",
+    accent: "text-purple-400",
+    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]",
+    glowOrb: "from-purple-600/20 via-pink-600/10 to-transparent"
   },
   sunset_glow: {
-    bg: "bg-slate-50 text-slate-900 dark:bg-[#0c0a09] dark:text-[#F2F2F7]",
-    card: "bg-white/95 text-slate-900 border border-amber-200 shadow-xl dark:bg-gradient-to-br dark:from-amber-950/40 dark:via-rose-950/25 dark:to-slate-950/60 dark:text-[#F2F2F7] dark:border-amber-500/40 rounded-[28px] backdrop-blur-[28px]",
-    accent: "text-amber-600 dark:text-amber-300",
-    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]"
+    bg: "bg-[#0c0a09] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-amber-950/40 via-rose-950/25 to-slate-950/60 backdrop-blur-[28px] border border-amber-500/30 shadow-[0_12px_40px_rgba(245,158,11,0.18)] rounded-[28px]",
+    accent: "text-amber-400",
+    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]",
+    glowOrb: "from-amber-600/20 via-rose-600/10 to-transparent"
   },
   cyber_matrix: {
-    bg: "bg-slate-50 text-slate-900 dark:bg-[#030a0a] dark:text-[#F2F2F7]",
-    card: "bg-white/95 text-slate-900 border border-cyan-200 shadow-xl dark:bg-gradient-to-br dark:from-cyan-950/40 dark:via-emerald-950/25 dark:to-slate-950/60 dark:text-[#F2F2F7] dark:border-cyan-500/40 rounded-[28px] backdrop-blur-[28px]",
-    accent: "text-cyan-600 dark:text-cyan-300",
-    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]"
+    bg: "bg-[#030a0a] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-cyan-950/40 via-emerald-950/25 to-slate-950/60 backdrop-blur-[28px] border border-cyan-500/30 shadow-[0_12px_40px_rgba(6,182,212,0.18)] rounded-[28px]",
+    accent: "text-cyan-400",
+    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]",
+    glowOrb: "from-emerald-600/20 via-cyan-600/10 to-transparent"
   },
   real_glass_lens: {
-    bg: "bg-slate-50 text-slate-900 dark:bg-[#030712] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-slate-200 shadow-lg dark:bg-[#151922]/90 dark:text-[#F2F2F7] dark:border-white/15 rounded-[28px] backdrop-blur-xl",
-    accent: "text-blue-600 dark:text-cyan-400",
-    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-blue-950/40 via-indigo-950/25 to-slate-950/60 backdrop-blur-[28px] border border-blue-500/30 shadow-[0_12px_40px_rgba(0,122,255,0.18)] rounded-[28px]",
+    accent: "text-blue-400",
+    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_25px_rgba(0,122,255,0.3)] rounded-[20px]",
+    glowOrb: "from-blue-600/20 via-indigo-600/10 to-transparent"
   },
   real_ios_glass: {
-    bg: "bg-slate-100 text-slate-900 dark:bg-[#090a0f] dark:text-[#F2F2F7]",
-    card: "bg-white/85 text-slate-900 border border-slate-300 shadow-xl dark:bg-[#18181b]/85 dark:text-[#F2F2F7] dark:border-white/20 rounded-[32px] backdrop-blur-2xl",
-    accent: "text-indigo-600 dark:text-sky-400",
-    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]"
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-[#18181b]/85 backdrop-blur-2xl border border-white/15 shadow-xl rounded-[32px]",
+    accent: "text-sky-400",
+    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]",
+    glowOrb: "from-indigo-600/20 via-blue-600/10 to-transparent"
   },
   liquid_glass: {
-    bg: "bg-sky-50 text-slate-900 dark:bg-[#060b14] dark:text-[#F2F2F7]",
-    card: "bg-white/80 text-slate-900 border border-sky-200 shadow-lg dark:bg-[#0f172a]/80 dark:text-[#F2F2F7] dark:border-cyan-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-cyan-600 dark:text-cyan-400",
-    btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#060b14] text-[#F2F2F7]",
+    card: "bg-[#0f172a]/80 backdrop-blur-xl border border-cyan-500/30 shadow-lg rounded-[28px]",
+    accent: "text-cyan-400",
+    btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-cyan-600/20 via-blue-600/10 to-transparent"
   },
   one_ui_9: {
-    bg: "bg-zinc-50 text-zinc-900 dark:bg-[#0c0c0e] dark:text-[#F2F2F7]",
-    card: "bg-white text-zinc-900 border border-zinc-200 shadow-md dark:bg-[#18181b] dark:text-[#F2F2F7] dark:border-zinc-700 rounded-[26px]",
-    accent: "text-violet-600 dark:text-violet-400",
-    btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#0c0c0e] text-[#F2F2F7]",
+    card: "bg-[#18181b] border border-zinc-800 shadow-md rounded-[26px]",
+    accent: "text-violet-400",
+    btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-violet-600/20 via-purple-600/10 to-transparent"
   },
   gold_rose: {
-    bg: "bg-amber-50 text-slate-900 dark:bg-[#0f090a] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-amber-200 shadow-lg dark:bg-[#1a1113]/90 dark:text-[#F2F2F7] dark:border-amber-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-amber-600 dark:text-amber-400",
-    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#0f090a] text-[#F2F2F7]",
+    card: "bg-[#1a1113]/90 backdrop-blur-xl border border-amber-500/30 shadow-lg rounded-[28px]",
+    accent: "text-amber-400",
+    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-amber-600/20 via-rose-600/10 to-transparent"
   },
   champagne: {
-    bg: "bg-orange-50 text-slate-900 dark:bg-[#100b07] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-orange-200 shadow-lg dark:bg-[#1c140d]/90 dark:text-[#F2F2F7] dark:border-orange-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-orange-600 dark:text-amber-400",
-    btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#100b07] text-[#F2F2F7]",
+    card: "bg-[#1c140d]/90 backdrop-blur-xl border border-orange-500/30 shadow-lg rounded-[28px]",
+    accent: "text-amber-400",
+    btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-amber-600/20 via-orange-600/10 to-transparent"
   },
   emerald: {
-    bg: "bg-emerald-50 text-slate-900 dark:bg-[#060f0c] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-emerald-200 shadow-lg dark:bg-[#0f1c18]/90 dark:text-[#F2F2F7] dark:border-emerald-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-emerald-600 dark:text-emerald-400",
-    btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#060f0c] text-[#F2F2F7]",
+    card: "bg-[#0f1c18]/90 backdrop-blur-xl border border-emerald-500/30 shadow-lg rounded-[28px]",
+    accent: "text-emerald-400",
+    btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-emerald-600/20 via-teal-600/10 to-transparent"
   },
   violet: {
-    bg: "bg-purple-50 text-slate-900 dark:bg-[#0a0612] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-purple-200 shadow-lg dark:bg-[#161024]/90 dark:text-[#F2F2F7] dark:border-purple-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-purple-600 dark:text-purple-400",
-    btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#0a0612] text-[#F2F2F7]",
+    card: "bg-[#161024]/90 backdrop-blur-xl border border-purple-500/30 shadow-lg rounded-[28px]",
+    accent: "text-purple-400",
+    btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-purple-600/20 via-indigo-600/10 to-transparent"
   },
   ruby: {
-    bg: "bg-rose-50 text-slate-900 dark:bg-[#120608] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-rose-200 shadow-lg dark:bg-[#200f12]/90 dark:text-[#F2F2F7] dark:border-rose-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-rose-600 dark:text-rose-400",
-    btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#120608] text-[#F2F2F7]",
+    card: "bg-[#200f12]/90 backdrop-blur-xl border border-rose-500/30 shadow-lg rounded-[28px]",
+    accent: "text-rose-400",
+    btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-rose-600/20 via-pink-600/10 to-transparent"
   },
   sapphire: {
-    bg: "bg-blue-50 text-slate-900 dark:bg-[#060812] dark:text-[#F2F2F7]",
-    card: "bg-white/90 text-slate-900 border border-blue-200 shadow-lg dark:bg-[#0f1424]/90 dark:text-[#F2F2F7] dark:border-blue-500/40 rounded-[28px] backdrop-blur-xl",
-    accent: "text-blue-600 dark:text-blue-400",
-    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]"
+    bg: "bg-[#060812] text-[#F2F2F7]",
+    card: "bg-[#0f1424]/90 backdrop-blur-xl border border-blue-500/30 shadow-lg rounded-[28px]",
+    accent: "text-blue-400",
+    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-blue-600/20 via-indigo-600/10 to-transparent"
+  },
+  default: {
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-[#18181b]/85 backdrop-blur-2xl border border-white/15 shadow-xl rounded-[32px]",
+    accent: "text-sky-400",
+    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
+    glowOrb: "from-blue-600/20 to-transparent"
   }
 };
 
 Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
+
+// DAY MODE OVERRIDES FOR ADMIN-CLONE ENGINE
+const DAY_MODE_OVERRIDES = {
+  bg: "bg-slate-100 text-slate-900",
+  card: "bg-white/90 text-slate-900 border border-slate-200/90 shadow-xl rounded-[28px] backdrop-blur-xl",
+  glowOrb: "from-blue-500/10 via-indigo-500/5 to-transparent"
+};
 
 const ALL_INDIA_STATES_AND_CITIES = {
   "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Old Delhi", "Chandni Chowk", "Civil Lines", "Model Town", "Kamla Nagar", "Mukherjee Nagar", "GTB Nagar", "Shalimar Bagh", "Ashok Vihar", "Pitampura", "Rohini", "Prashant Vihar", "Kohat Enclave", "Keshav Puram", "Wazirpur", "Punjabi Bagh", "Rajouri Garden", "Tilak Nagar", "Janakpuri", "Vikaspuri", "Uttam Nagar", "Dwarka", "Palam", "Mahavir Enclave", "Vasant Kunj", "Vasant Vihar", "R K Puram", "Munirka", "Hauz Khas", "Green Park", "Saket", "Malviya Nagar", "Mehrauli", "Chhatarpur", "Greater Kailash", "GK-I", "GK-II", "Kalkaji", "Nehru Place", "Govindpuri", "Tughlakabad", "Okhla", "Okhla Phase I", "Okhla Phase II", "Okhla Phase III", "Jamia Nagar", "Abul Fazal Enclave", "Batla House", "Shaheen Bagh", "Jasola", "Sarita Vihar", "Madanpur Khadar", "Lajpat Nagar", "Amar Colony", "Greater Kailash", "Defence Colony", "Jangpura", "Lodi Colony", "South Extension", "Srinivaspuri", "East of Kailash", "Mayur Vihar", "Preet Vihar", "Laxmi Nagar", "Shahdara", "Patparganj", "Vivek Vihar", "Anand Vihar", "IP Extension", "Dilshad Garden", "Seelampur", "Karawal Nagar", "Burari", "Narela", "Bawana", "Najafgarh", "Dhaula Kuan", "Chanakyapuri", "Karol Bagh", "Paharganj", "Rajinder Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar", "Naraina", "Connaught Place", "Barakhamba", "India Gate", "Pragati Maidan"],
@@ -386,18 +407,9 @@ const getCleanInstagramUrl = (handleOrUrl) => {
   return `https://www.instagram.com/${clean}/`;
 };
 
-const getCleanInstagramHandle = (handleOrUrl) => {
-  if (!handleOrUrl) return "husna_farooqui_makeup";
-  let clean = String(handleOrUrl).trim();
-  if (clean.includes('instagram.com/')) {
-    clean = clean.split('instagram.com/')[1].split('/')[0].split('?')[0];
-  }
-  return clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
-};
-
 const resolveProfileImageUrl = (configData) => {
   if (configData?.profilePhotoType === 'instagram') {
-    const handle = getCleanInstagramHandle(configData.instagramHandle);
+    const handle = (configData.instagramHandle || '').replace('@', '').trim();
     if (handle) {
       return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
     }
@@ -460,7 +472,14 @@ function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem('hf_theme_preference');
+      return saved === null ? true : saved === 'dark';
+    } catch {
+      return true;
+    }
+  });
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
@@ -514,43 +533,20 @@ function MainAppContent() {
 
   // Day & Night Toggle Synchronization
   useEffect(() => {
-    const savedTheme = localStorage.getItem('hf_theme_preference');
-    if (savedTheme) {
-      const darkActive = savedTheme === 'dark';
-      setIsDarkMode(darkActive);
-      if (darkActive) {
+    try {
+      localStorage.setItem('hf_theme_preference', isDarkMode ? 'dark' : 'light');
+      if (isDarkMode) {
         document.documentElement.classList.add('dark');
         document.body.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
         document.body.classList.remove('dark');
       }
-    } else if (config.theme?.defaultMode) {
-      const darkActive = config.theme.defaultMode === 'dark';
-      setIsDarkMode(darkActive);
-      if (darkActive) {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.body.classList.remove('dark');
-      }
-    }
-  }, [config.theme?.defaultMode]);
+    } catch {}
+  }, [isDarkMode]);
 
   const toggleTheme = () => {
-    setIsDarkMode(prev => {
-      const next = !prev;
-      localStorage.setItem('hf_theme_preference', next ? 'dark' : 'light');
-      if (next) {
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.body.classList.remove('dark');
-      }
-      return next;
-    });
+    setIsDarkMode(prev => !prev);
   };
 
   useEffect(() => {
@@ -937,7 +933,7 @@ function MainAppContent() {
       drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92, 48, 'bold', '#ffffff', 'center', 'serif');
 
       const footerY = canvas.height - 75;
-      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#94a3b8', 'center');
+      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${(config.instagramHandle || '').replace('@','')}`, 600, footerY, 17, 'normal', '#94a3b8', 'center');
       drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#7c3aed', 'center');
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
@@ -1072,8 +1068,12 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  const activeThemeKey = config.theme?.colorTheme || 'real_glass_lens';
-  const activeThemeStyle = THEME_STYLES[activeThemeKey] || THEME_STYLES.real_glass_lens;
+  // ADMIN-CLONE THEME ENGINE RESOLUTION
+  const rawThemeKey = config.theme?.colorTheme || 'real_glass_lens';
+  const baseThemeStyle = THEME_STYLES[rawThemeKey] || THEME_STYLES.real_glass_lens;
+  const activeThemeStyle = isDarkMode
+    ? baseThemeStyle
+    : { ...baseThemeStyle, ...DAY_MODE_OVERRIDES };
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
@@ -1091,8 +1091,8 @@ function MainAppContent() {
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4`}>
-        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 rounded-[32px] text-center space-y-4 shadow-sm`}>
-          <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-600 flex items-center justify-center mx-auto border border-amber-500/20">
+        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 rounded-[32px] text-center space-y-4 shadow-xl`}>
+          <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
             <Wrench className="w-6 h-6" />
           </div>
 
@@ -1113,7 +1113,7 @@ function MainAppContent() {
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
-      data-hf-theme={activeThemeKey}
+      data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
       className={`hf-app min-h-screen ${activeThemeStyle.bg} pb-24 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
@@ -1159,6 +1159,9 @@ function MainAppContent() {
         }
         .hf-bottom-nav button { min-height: 48px; border-radius: 999px !important; }
       `}</style>
+
+      {/* AMBIENT GLOW ORB BACKGROUND */}
+      <div className={`absolute top-0 left-1/3 w-[650px] h-[650px] bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
 
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
@@ -1242,7 +1245,7 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* STICKY HEADER FIXED FOR BOTH MOBILE AND DESKTOP VIEWS */}
+      {/* STICKY HEADER FOR BOTH MOBILE AND DESKTOP VIEWS */}
       <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-xl border-b transition-colors shadow-sm`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
@@ -1269,7 +1272,7 @@ function MainAppContent() {
               </button>
 
               {/* INSTAGRAM ICON & "View on Instagram" TEXT */}
-              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3 py-2.5 transition hover:opacity-90 shadow-sm`}>
+              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition hover:opacity-90 shadow-sm`}>
                 <Instagram className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
               </a>
