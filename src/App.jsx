@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, onSnapshot } from 'firebase/firestore';
 
 class AppErrorBoundary extends Component {
   constructor(props) {
@@ -113,17 +113,134 @@ const DEFAULT_GALLERY = [
   { type: "video", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-makeup-41418-large.mp4" }
 ];
 
+const FONT_OPTIONS = [
+  { id: 'plus_jakarta_sans', name: 'Plus Jakarta Sans' },
+  { id: 'outfit', name: 'Outfit' },
+  { id: 'inter', name: 'Inter' },
+  { id: 'poppins', name: 'Poppins' },
+  { id: 'montserrat', name: 'Montserrat' },
+  { id: 'roboto', name: 'Roboto' },
+  { id: 'open_sans', name: 'Open Sans' },
+  { id: 'lato', name: 'Lato' },
+  { id: 'nunito', name: 'Nunito' },
+  { id: 'raleway', name: 'Raleway' },
+  { id: 'work_sans', name: 'Work Sans' },
+  { id: 'dm_sans', name: 'DM Sans' },
+  { id: 'manrope', name: 'Manrope' },
+  { id: 'rubik', name: 'Rubik' },
+  { id: 'mulish', name: 'Mulish' },
+  { id: 'quicksand', name: 'Quicksand' },
+  { id: 'urbanist', name: 'Urbanist' },
+  { id: 'space_grotesk', name: 'Space Grotesk' },
+  { id: 'sora', name: 'Sora' },
+  { id: 'bebas_neue', name: 'Bebas Neue' },
+  { id: 'oswald', name: 'Oswald' },
+  { id: 'barlow', name: 'Barlow' },
+  { id: 'barlow_condensed', name: 'Barlow Condensed' },
+  { id: 'archivo', name: 'Archivo' },
+  { id: 'archivo_narrow', name: 'Archivo Narrow' },
+  { id: 'merriweather', name: 'Merriweather' },
+  { id: 'playfair_display', name: 'Playfair Display' },
+  { id: 'cormorant_garamond', name: 'Cormorant Garamond' },
+  { id: 'cinzel', name: 'Cinzel' },
+  { id: 'libre_baskerville', name: 'Libre Baskerville' },
+  { id: 'bodoni_moda', name: 'Bodoni Moda' },
+  { id: 'dm_serif_display', name: 'DM Serif Display' },
+  { id: 'abril_fatface', name: 'Abril Fatface' },
+  { id: 'prata', name: 'Prata' },
+  { id: 'lora', name: 'Lora' },
+  { id: 'cardo', name: 'Cardo' },
+  { id: 'spectral', name: 'Spectral' },
+  { id: 'eb_garamond', name: 'EB Garamond' },
+  { id: 'cormorant_infant', name: 'Cormorant Infant' },
+  { id: 'josefin_sans', name: 'Josefin Sans' },
+  { id: 'josefin_slab', name: 'Josefin Slab' },
+  { id: 'karla', name: 'Karla' },
+  { id: 'cabin', name: 'Cabin' },
+  { id: 'dosis', name: 'Dosis' },
+  { id: 'exo_2', name: 'Exo 2' },
+  { id: 'figtree', name: 'Figtree' },
+  { id: 'lexend', name: 'Lexend' },
+  { id: 'league_spartan', name: 'League Spartan' },
+  { id: 'kanit', name: 'Kanit' },
+  { id: 'teko', name: 'Teko' },
+  { id: 'marcellus', name: 'Marcellus' },
+  { id: 'yeseva_one', name: 'Yeseva One' },
+  { id: 'great_vibes', name: 'Great Vibes' },
+  { id: 'dancing_script', name: 'Dancing Script' },
+  { id: 'pacifico', name: 'Pacifico' },
+  { id: 'caveat', name: 'Caveat' },
+  { id: 'comfortaa', name: 'Comfortaa' },
+  { id: 'maven_pro', name: 'Maven Pro' },
+  { id: 'alata', name: 'Alata' },
+  { id: 'asap', name: 'Asap' },
+  { id: 'heebo', name: 'Heebo' },
+  { id: 'titillium_web', name: 'Titillium Web' },
+];
 const FONT_MAP = {
-  sans: "'Plus Jakarta Sans', sans-serif",
+  plus_jakarta_sans: "'Plus Jakarta Sans', sans-serif",
   outfit: "'Outfit', sans-serif",
-  comic: "'Comic Neue', 'Comic Sans MS', cursive, sans-serif",
-  serif: "'Playfair Display', serif",
-  cormorant: "'Cormorant Garamond', serif",
-  cinzel: "'Cinzel', serif",
-  montserrat: "'Montserrat', sans-serif",
   inter: "'Inter', sans-serif",
   poppins: "'Poppins', sans-serif",
-  roboto: "'Roboto', sans-serif"
+  montserrat: "'Montserrat', sans-serif",
+  roboto: "'Roboto', sans-serif",
+  open_sans: "'Open Sans', sans-serif",
+  lato: "'Lato', sans-serif",
+  nunito: "'Nunito', sans-serif",
+  raleway: "'Raleway', sans-serif",
+  work_sans: "'Work Sans', sans-serif",
+  dm_sans: "'DM Sans', sans-serif",
+  manrope: "'Manrope', sans-serif",
+  rubik: "'Rubik', sans-serif",
+  mulish: "'Mulish', sans-serif",
+  quicksand: "'Quicksand', sans-serif",
+  urbanist: "'Urbanist', sans-serif",
+  space_grotesk: "'Space Grotesk', sans-serif",
+  sora: "'Sora', sans-serif",
+  bebas_neue: "'Bebas Neue', sans-serif",
+  oswald: "'Oswald', sans-serif",
+  barlow: "'Barlow', sans-serif",
+  barlow_condensed: "'Barlow Condensed', sans-serif",
+  archivo: "'Archivo', sans-serif",
+  archivo_narrow: "'Archivo Narrow', sans-serif",
+  merriweather: "'Merriweather', sans-serif",
+  playfair_display: "'Playfair Display', sans-serif",
+  cormorant_garamond: "'Cormorant Garamond', sans-serif",
+  cinzel: "'Cinzel', sans-serif",
+  libre_baskerville: "'Libre Baskerville', sans-serif",
+  bodoni_moda: "'Bodoni Moda', sans-serif",
+  dm_serif_display: "'DM Serif Display', sans-serif",
+  abril_fatface: "'Abril Fatface', sans-serif",
+  prata: "'Prata', sans-serif",
+  lora: "'Lora', sans-serif",
+  cardo: "'Cardo', sans-serif",
+  spectral: "'Spectral', sans-serif",
+  eb_garamond: "'EB Garamond', sans-serif",
+  cormorant_infant: "'Cormorant Infant', sans-serif",
+  josefin_sans: "'Josefin Sans', sans-serif",
+  josefin_slab: "'Josefin Slab', sans-serif",
+  karla: "'Karla', sans-serif",
+  cabin: "'Cabin', sans-serif",
+  dosis: "'Dosis', sans-serif",
+  exo_2: "'Exo 2', sans-serif",
+  figtree: "'Figtree', sans-serif",
+  lexend: "'Lexend', sans-serif",
+  league_spartan: "'League Spartan', sans-serif",
+  kanit: "'Kanit', sans-serif",
+  teko: "'Teko', sans-serif",
+  marcellus: "'Marcellus', sans-serif",
+  yeseva_one: "'Yeseva One', sans-serif",
+  great_vibes: "'Great Vibes', sans-serif",
+  dancing_script: "'Dancing Script', sans-serif",
+  pacifico: "'Pacifico', sans-serif",
+  caveat: "'Caveat', sans-serif",
+  comfortaa: "'Comfortaa', sans-serif",
+  maven_pro: "'Maven Pro', sans-serif",
+  alata: "'Alata', sans-serif",
+  asap: "'Asap', sans-serif",
+  heebo: "'Heebo', sans-serif",
+  titillium_web: "'Titillium Web', sans-serif",
+  sans: "'Plus Jakarta Sans', sans-serif"
 };
 
 const THEME_STYLES = {
@@ -189,8 +306,10 @@ const THEME_STYLES = {
   }
 };
 
+Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
+
 const ALL_INDIA_STATES_AND_CITIES = {
-  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Dwarka", "Saket", "Okhla", "Jamia Nagar", "Lajpat Nagar", "Rohini", "Pitampura", "Connaught Place"],
+  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Old Delhi", "Chandni Chowk", "Civil Lines", "Model Town", "Kamla Nagar", "Mukherjee Nagar", "GTB Nagar", "Shalimar Bagh", "Ashok Vihar", "Pitampura", "Rohini", "Prashant Vihar", "Kohat Enclave", "Keshav Puram", "Wazirpur", "Punjabi Bagh", "Rajouri Garden", "Tilak Nagar", "Janakpuri", "Vikaspuri", "Uttam Nagar", "Dwarka", "Palam", "Mahavir Enclave", "Vasant Kunj", "Vasant Vihar", "R K Puram", "Munirka", "Hauz Khas", "Green Park", "Saket", "Malviya Nagar", "Mehrauli", "Chhatarpur", "Greater Kailash", "GK-I", "GK-II", "Kalkaji", "Nehru Place", "Govindpuri", "Tughlakabad", "Okhla", "Okhla Phase I", "Okhla Phase II", "Okhla Phase III", "Jamia Nagar", "Abul Fazal Enclave", "Batla House", "Shaheen Bagh", "Jasola", "Sarita Vihar", "Madanpur Khadar", "Lajpat Nagar", "Amar Colony", "Greater Kailash", "Defence Colony", "Jangpura", "Lodi Colony", "South Extension", "Srinivaspuri", "East of Kailash", "Mayur Vihar", "Preet Vihar", "Laxmi Nagar", "Shahdara", "Patparganj", "Vivek Vihar", "Anand Vihar", "IP Extension", "Dilshad Garden", "Seelampur", "Karawal Nagar", "Burari", "Narela", "Bawana", "Najafgarh", "Dhaula Kuan", "Chanakyapuri", "Karol Bagh", "Paharganj", "Rajinder Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar", "Naraina", "Connaught Place", "Barakhamba", "India Gate", "Pragati Maidan"],
   "Uttar Pradesh": ["Noida", "Greater Noida", "Amroha", "Ghaziabad", "Lucknow", "Kanpur", "Agra", "Varanasi", "Meerut", "Moradabad", "Bareilly", "Aligarh", "Mathura", "Sambhal"],
   "Haryana": ["Gurugram (Gurgaon)", "Faridabad", "Panipat", "Ambala", "Karnal", "Rohtak", "Hisar", "Sonipat"],
   "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad", "Solapur", "Kolhapur"],
@@ -300,6 +419,17 @@ const AutoPlayVideoCard = ({ item }) => {
   );
 };
 
+const MEDIA_COLLECTION = 'studio_media';
+const resolveMediaValue = (value, mediaMap) => typeof value === 'string' && value.startsWith('media://') ? (mediaMap[value.slice(8)] || value) : value;
+const resolveConfigMedia = (live, mediaMap) => {
+  const next = JSON.parse(JSON.stringify(live || {}));
+  next.studioLogo = resolveMediaValue(next.studioLogo, mediaMap);
+  next.profileImage = resolveMediaValue(next.profileImage, mediaMap);
+  Object.entries(next.kitImages || {}).forEach(([kit, imgs]) => Object.entries(imgs || {}).forEach(([pkg, url]) => { next.kitImages[kit][pkg] = resolveMediaValue(url, mediaMap); }));
+  (next.galleryPhotos || []).forEach(item => { if (item?.url) item.url = resolveMediaValue(item.url, mediaMap); });
+  return next;
+};
+
 function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
@@ -353,6 +483,8 @@ function MainAppContent() {
 
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
+  const [mediaAssets, setMediaAssets] = useState({});
+  const [telegramStatus, setTelegramStatus] = useState('');
 
   // Day & Night Toggle Synchronization
   useEffect(() => {
@@ -448,43 +580,53 @@ function MainAppContent() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = subscribeToLiveConfig(STUDIO_CONFIG, (live) => {
+    let latestLive = STUDIO_CONFIG;
+    let latestMedia = {};
+    const applyLive = () => {
+      const live = resolveConfigMedia(latestLive, latestMedia);
       const mergedKitImages = {
         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
       };
-      
       const applyDefaults = (liveObj, defObj) => {
-        let result = {};
-        for(const k in defObj) {
-          result[k] = { ...defObj[k], ...(liveObj?.[k] || {}) };
-        }
-        for(const k in liveObj) {
-          if(!result[k]) result[k] = liveObj[k];
-        }
+        const result = {};
+        for (const k in defObj) result[k] = { ...defObj[k], ...(liveObj?.[k] || {}) };
+        for (const k in (liveObj || {})) if (!result[k]) result[k] = liveObj[k];
         return result;
       };
-
       const mergedKitText = {
         international: applyDefaults(live.kitText?.international, DEFAULT_KIT_TEXT.international),
         drugstore: applyDefaults(live.kitText?.drugstore, DEFAULT_KIT_TEXT.drugstore)
       };
-
       setConfig({
-        ...STUDIO_CONFIG,
-        ...live,
+        ...STUDIO_CONFIG, ...live,
         studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
-        telegramBotToken: live.telegramBotToken || STUDIO_CONFIG.telegramBotToken || "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg",
-        telegramChatId: live.telegramChatId || STUDIO_CONFIG.telegramChatId || "8891500480",
-        kitText: mergedKitText,
-        kitImages: mergedKitImages,
-        internationalBrands: (live.internationalBrands && live.internationalBrands.length > 0) ? live.internationalBrands : DEFAULT_BRANDS,
-        galleryPhotos: (live.galleryPhotos && live.galleryPhotos.length > 0) ? live.galleryPhotos : DEFAULT_GALLERY
+        telegramBotToken: live.telegramBotToken || STUDIO_CONFIG.telegramBotToken || '',
+        telegramChatId: live.telegramChatId || STUDIO_CONFIG.telegramChatId || '',
+        kitText: mergedKitText, kitImages: mergedKitImages,
+        internationalBrands: (live.internationalBrands?.length ? live.internationalBrands : DEFAULT_BRANDS),
+        galleryPhotos: (live.galleryPhotos?.length ? live.galleryPhotos : DEFAULT_GALLERY)
       });
-      setImgLoadFailed(false);
-      setLogoLoadFailed(false);
-    });
-    return () => unsubscribe();
+      setImgLoadFailed(false); setLogoLoadFailed(false);
+    };
+    const unsubscribeConfig = subscribeToLiveConfig(STUDIO_CONFIG, (live) => { latestLive = live || STUDIO_CONFIG; applyLive(); });
+    let unsubscribeMedia = () => {};
+    try {
+      unsubscribeMedia = onSnapshot(collection(db, MEDIA_COLLECTION), (snapshot) => {
+        const map = {}; snapshot.docs.forEach(d => { map[d.id] = d.data()?.dataUrl || ''; });
+        latestMedia = map; setMediaAssets(map); applyLive();
+      });
+    } catch (e) { console.warn('Media live sync unavailable:', e); }
+    return () => { unsubscribeConfig?.(); unsubscribeMedia?.(); };
+  }, []);
+
+  useEffect(() => {
+    const id = 'hf-google-fonts';
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link'); link.id = id; link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Alata&family=Archivo&family=Archivo+Narrow&family=Asap&family=Bebas+Neue&family=Barlow&family=Cabin&family=Cinzel&family=Comfortaa&family=Cormorant+Garamond&family=Dancing+Script&family=DM+Sans&family=DM+Serif+Display&family=Dosis&family=EB+Garamond&family=Exo+2&family=Figtree&family=Great+Vibes&family=Heebo&family=Inter&family=Josefin+Sans&family=Josefin+Slab&family=Kanit&family=Karla&family=League+Spartan&family=Lexend&family=Lato&family=Libre+Baskerville&family=Lora&family=Maven+Pro&family=Manrope&family=Marcellus&family=Merriweather&family=Montserrat&family=Mulish&family=Nunito&family=Open+Sans&family=Oswald&family=Outfit&family=Pacifico&family=Playfair+Display&family=Poppins&family=Prata&family=Quicksand&family=Raleway&family=Roboto&family=Rubik&family=Sora&family=Space+Grotesk&family=Spectral&family=Teko&family=Titillium+Web&family=Urbanist&family=Work+Sans&family=Yeseva+One&display=swap';
+      document.head.appendChild(link);
+    }
   }, []);
 
   const handleAddFamilyGuest = () => {
@@ -589,7 +731,7 @@ function MainAppContent() {
     canvas.width = 1200;
     canvas.height = Math.max(2600, 2150 + guestRowsHeight);
 
-    const drawText = (text, x, y, size, weight = 'normal', color = '#18181b', align = 'left', family = 'sans-serif') => {
+    const drawText = (text, x, y, size, weight = 'normal', color = '#ffffff', align = 'left', family = 'sans-serif') => {
       ctx.textAlign = align;
       ctx.fillStyle = color;
       ctx.font = `${weight} ${size}px ${family}`;
@@ -598,10 +740,10 @@ function MainAppContent() {
 
     const drawRow = (label, value, y, options = {}) => {
       const rowHeight = options.height || 54;
-      ctx.fillStyle = options.bg || 'rgba(0, 0, 0, 0.03)';
+      ctx.fillStyle = options.bg || 'rgba(255,255,255,0.035)';
       ctx.fillRect(90, y, 1020, rowHeight);
-      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#52525b');
-      drawText(value, 1080, y + 34, options.valueSize || 19, 'bold', options.valueColor || '#18181b', 'right', options.mono ? 'monospace' : 'sans-serif');
+      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
+      drawText(value, 1080, y + 34, options.valueSize || 19, 'bold', options.valueColor || '#ffffff', 'right', options.mono ? 'monospace' : 'sans-serif');
       return y + rowHeight + (options.gap ?? 6);
     };
 
@@ -627,19 +769,19 @@ function MainAppContent() {
 
       const lineHeight = 24;
       const rowHeight = Math.max(54, 24 + (lines.length * lineHeight));
-      ctx.fillStyle = options.bg || 'rgba(0, 0, 0, 0.03)';
+      ctx.fillStyle = options.bg || 'rgba(255,255,255,0.035)';
       ctx.fillRect(90, y, 1020, rowHeight);
 
-      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#52525b');
+      drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
       lines.forEach((line, lIdx) => {
-        drawText(line, 1080, y + 34 + (lIdx * lineHeight), options.valueSize || 18, 'bold', options.valueColor || '#18181b', 'right');
+        drawText(line, 1080, y + 34 + (lIdx * lineHeight), options.valueSize || 18, 'bold', options.valueColor || '#ffffff', 'right');
       });
 
       return y + rowHeight + (options.gap ?? 6);
     };
 
     const drawSectionTitle = (title, y, accent = '#7c3aed') => {
-      ctx.fillStyle = accent === '#7c3aed' ? 'rgba(124, 58, 237, 0.08)' : 'rgba(2, 132, 199, 0.08)';
+      ctx.fillStyle = accent === '#7c3aed' ? 'rgba(192,132,252,0.12)' : 'rgba(56,189,248,0.10)';
       ctx.fillRect(90, y, 1020, 56);
       drawText(title, 120, y + 36, 20, 'bold', accent);
       return y + 64;
@@ -647,11 +789,11 @@ function MainAppContent() {
 
     const drawContent = (logoImageObj) => {
       // Clean Professional Light Background
-      ctx.fillStyle = '#f8fafc';
+      ctx.fillStyle = '#09090b';
       ctx.fillRect(0, 0, 1200, canvas.height);
 
       // Outer Decorative Borders
-      ctx.strokeStyle = '#7c3aed';
+      ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, 1120, canvas.height - 80);
 
@@ -674,16 +816,16 @@ function MainAppContent() {
         ctx.drawImage(logoImageObj, 80, 80, 120, 120);
         ctx.restore();
 
-        ctx.strokeStyle = '#7c3aed';
+        ctx.strokeStyle = '#c084fc';
         ctx.lineWidth = 3;
         ctx.beginPath();
         ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
         ctx.stroke();
 
-        drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold', '#18181b');
+        drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold', '#ffffff');
         drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#7c3aed');
       } else {
-        drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 50, 'bold', '#18181b', 'center');
+        drawText(config.studioName || 'H&F MAKEUP ARTIST', 600, 135, 50, 'bold', '#ffffff', 'center');
         drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#7c3aed', 'center');
       }
 
@@ -694,7 +836,7 @@ function MainAppContent() {
       ctx.lineTo(1110, 230);
       ctx.stroke();
 
-      drawText('⏳ OFFICIAL BOOKING REQUEST RECEIPT', 600, 290, 26, 'bold', '#d97706', 'center');
+      drawText('⏳ OFFICIAL BOOKING REQUEST SLIP', 600, 290, 26, 'bold', '#fbbf24', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
       const kitName = config.pricingByKit[calcKit].name;
@@ -757,17 +899,17 @@ function MainAppContent() {
       startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#16a34a', valueColor: '#16a34a', mono: true });
 
       startY += 18;
-      ctx.fillStyle = 'rgba(124, 58, 237, 0.12)';
+      ctx.fillStyle = 'rgba(192,132,252,0.20)';
       ctx.fillRect(90, startY, 1020, 115);
-      ctx.strokeStyle = '#7c3aed';
+      ctx.strokeStyle = '#c084fc';
       ctx.lineWidth = 3;
       ctx.strokeRect(90, startY, 1020, 115);
 
-      drawText('FINAL AMOUNT PAYABLE', 600, startY + 38, 22, 'bold', '#3f3f46', 'center');
-      drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92, 48, 'bold', '#18181b', 'center', 'serif');
+      drawText('FINAL AMOUNT PAYABLE', 600, startY + 38, 22, 'bold', '#e2e8f0', 'center');
+      drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92, 48, 'bold', '#ffffff', 'center', 'serif');
 
       const footerY = canvas.height - 75;
-      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#71717a', 'center');
+      drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${getCleanInstagramHandle(config.instagramHandle)}`, 600, footerY, 17, 'normal', '#94a3b8', 'center');
       drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#7c3aed', 'center');
 
       const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
@@ -851,15 +993,19 @@ function MainAppContent() {
         `💰 <b>Final Amount:</b> ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
         `<i>Status: Pending Confirmation in Admin Console</i>`;
 
-      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: telegramChatId,
-          text: tgMsgText,
-          parse_mode: 'HTML'
-        })
-      }).catch(err => console.warn("Telegram dispatch warning:", err));
+      try {
+        if (!telegramBotToken || !telegramChatId) throw new Error('Telegram Bot Token / Chat ID is missing.');
+        const tgResponse = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' })
+        });
+        const tgResult = await tgResponse.json().catch(() => ({}));
+        if (!tgResponse.ok || !tgResult.ok) throw new Error(tgResult.description || `Telegram HTTP ${tgResponse.status}`);
+        setTelegramStatus('Telegram notification sent successfully.');
+      } catch (tgErr) {
+        console.warn('Telegram dispatch warning:', tgErr);
+        setTelegramStatus(`Telegram notification failed: ${tgErr.message}`);
+      }
 
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
@@ -939,10 +1085,17 @@ function MainAppContent() {
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
-      className={`min-h-screen ${activeThemeStyle.bg} text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-300`}
+      className={`hf-fluid min-h-screen ${activeThemeStyle.bg} text-zinc-900 dark:text-zinc-100 pb-24 sm:pb-16 relative transition-colors duration-300`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
+        *, *::before, *::after { box-sizing: border-box; }
+        button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
+        button, a { will-change: transform, opacity; }
+        .hf-fluid { transform: translateZ(0); backface-visibility: hidden; }
+        @media (prefers-reduced-motion: no-preference) {
+          .transition, .transition-all, .transition-colors, .transition-opacity, .transition-transform { transition-timing-function: cubic-bezier(.22,1,.36,1) !important; }
+        }
         select option {
           background-color: #ffffff;
           color: #18181b;
@@ -1132,6 +1285,7 @@ function MainAppContent() {
                 className="p-2.5 rounded-[16px] border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition flex items-center justify-center shadow-2xs"
               >
                 {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-600" />}
+                <span className="hidden md:inline text-[10px] font-semibold uppercase tracking-wider">{isDarkMode ? 'Switch to Day' : 'Switch to Night'}</span>
               </button>
 
               <a
@@ -1395,6 +1549,7 @@ function MainAppContent() {
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                   Your appointment request has been recorded securely. Our team will coordinate with you shortly.
                 </p>
+                {telegramStatus && <p className={`text-[11px] ${telegramStatus.startsWith('Telegram notification sent') ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>{telegramStatus}</p>}
 
                 {generatedJpgUrl && (
                   <div className="pt-2">
