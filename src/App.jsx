@@ -246,87 +246,87 @@ const FONT_MAP = {
 
 const THEME_STYLES = {
   default: {
-    bg: "bg-white dark:bg-zinc-950",
-    card: "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[20px]",
-    accent: "text-zinc-900 dark:text-zinc-100",
-    btn: "bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 rounded-[14px]"
+    bg: "bg-white text-zinc-900",
+    card: "bg-white border border-zinc-200 rounded-[20px]",
+    accent: "text-zinc-900",
+    btn: "bg-zinc-900 hover:bg-zinc-800 text-white rounded-[14px]"
   },
   admin_aurora: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
     card: "bg-gradient-to-br from-purple-950/40 via-purple-900/20 to-slate-950/60 backdrop-blur-[28px] border border-purple-500/30 shadow-[0_12px_40px_rgba(168,85,247,0.18)] rounded-[28px]",
-    accent: "text-purple-400 dark:text-purple-300",
+    accent: "text-purple-300",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]"
   },
   sunset_glow: {
     bg: "bg-[#0c0a09] text-[#F2F2F7]",
     card: "bg-gradient-to-br from-amber-950/40 via-rose-950/25 to-slate-950/60 backdrop-blur-[28px] border border-amber-500/30 shadow-[0_12px_40px_rgba(245,158,11,0.18)] rounded-[28px]",
-    accent: "text-amber-400 dark:text-amber-300",
+    accent: "text-amber-300",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]"
   },
   cyber_matrix: {
     bg: "bg-[#030a0a] text-[#F2F2F7]",
     card: "bg-gradient-to-br from-cyan-950/40 via-emerald-950/25 to-slate-950/60 backdrop-blur-[28px] border border-cyan-500/30 shadow-[0_12px_40px_rgba(6,182,212,0.18)] rounded-[28px]",
-    accent: "text-cyan-400 dark:text-cyan-300",
+    accent: "text-cyan-300",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]"
   },
   real_glass_lens: {
-    bg: "bg-slate-50 dark:bg-[#030712]",
-    card: "bg-white/90 dark:bg-[#151922]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg rounded-[28px]",
-    accent: "text-blue-600 dark:text-cyan-400",
+    bg: "bg-[#030712] text-[#F2F2F7]",
+    card: "bg-[#151922]/90 backdrop-blur-xl border border-white/10 shadow-lg rounded-[28px]",
+    accent: "text-cyan-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]"
   },
   real_ios_glass: {
-    bg: "bg-slate-100/70 dark:bg-[#090a0f]",
-    card: "bg-white/85 dark:bg-[#18181b]/85 backdrop-blur-2xl border border-white/40 dark:border-white/15 shadow-xl rounded-[32px]",
-    accent: "text-indigo-600 dark:text-sky-400",
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-[#18181b]/85 backdrop-blur-2xl border border-white/15 shadow-xl rounded-[32px]",
+    accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]"
   },
   liquid_glass: {
-    bg: "bg-sky-50/40 dark:bg-[#060b14]",
-    card: "bg-white/80 dark:bg-[#0f172a]/80 backdrop-blur-xl border border-sky-200 dark:border-cyan-500/30 shadow-lg rounded-[28px]",
-    accent: "text-cyan-600 dark:text-cyan-400",
+    bg: "bg-[#060b14] text-[#F2F2F7]",
+    card: "bg-[#0f172a]/80 backdrop-blur-xl border border-cyan-500/30 shadow-lg rounded-[28px]",
+    accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]"
   },
   one_ui_9: {
-    bg: "bg-zinc-50 dark:bg-[#0c0c0e]",
-    card: "bg-white dark:bg-[#18181b] border border-zinc-200 dark:border-zinc-800 shadow-md rounded-[26px]",
-    accent: "text-violet-600 dark:text-violet-400",
+    bg: "bg-[#0c0c0e] text-[#F2F2F7]",
+    card: "bg-[#18181b] border border-zinc-800 shadow-md rounded-[26px]",
+    accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]"
   },
   gold_rose: {
-    bg: "bg-amber-50/40 dark:bg-[#0f090a]",
-    card: "bg-white/90 dark:bg-[#1a1113]/90 backdrop-blur-xl border border-amber-200 dark:border-amber-500/30 shadow-lg rounded-[28px]",
-    accent: "text-amber-600 dark:text-amber-400",
+    bg: "bg-[#0f090a] text-[#F2F2F7]",
+    card: "bg-[#1a1113]/90 backdrop-blur-xl border border-amber-500/30 shadow-lg rounded-[28px]",
+    accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]"
   },
   champagne: {
-    bg: "bg-orange-50/30 dark:bg-[#100b07]",
-    card: "bg-white/90 dark:bg-[#1c140d]/90 backdrop-blur-xl border border-orange-200 dark:border-orange-500/30 shadow-lg rounded-[28px]",
-    accent: "text-orange-600 dark:text-amber-400",
+    bg: "bg-[#100b07] text-[#F2F2F7]",
+    card: "bg-[#1c140d]/90 backdrop-blur-xl border border-orange-500/30 shadow-lg rounded-[28px]",
+    accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]"
   },
   emerald: {
-    bg: "bg-emerald-50/30 dark:bg-[#060f0c]",
-    card: "bg-white/90 dark:bg-[#0f1c18]/90 backdrop-blur-xl border border-emerald-200 dark:border-emerald-500/30 shadow-lg rounded-[28px]",
-    accent: "text-emerald-600 dark:text-emerald-400",
+    bg: "bg-[#060f0c] text-[#F2F2F7]",
+    card: "bg-[#0f1c18]/90 backdrop-blur-xl border border-emerald-500/30 shadow-lg rounded-[28px]",
+    accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]"
   },
   violet: {
-    bg: "bg-purple-50/30 dark:bg-[#0a0612]",
-    card: "bg-white/90 dark:bg-[#161024]/90 backdrop-blur-xl border border-purple-200 dark:border-purple-500/30 shadow-lg rounded-[28px]",
-    accent: "text-purple-600 dark:text-purple-400",
+    bg: "bg-[#0a0612] text-[#F2F2F7]",
+    card: "bg-[#161024]/90 backdrop-blur-xl border border-purple-500/30 shadow-lg rounded-[28px]",
+    accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]"
   },
   ruby: {
-    bg: "bg-rose-50/30 dark:bg-[#120608]",
-    card: "bg-white/90 dark:bg-[#200f12]/90 backdrop-blur-xl border border-rose-200 dark:border-rose-500/30 shadow-lg rounded-[28px]",
-    accent: "text-rose-600 dark:text-rose-400",
+    bg: "bg-[#120608] text-[#F2F2F7]",
+    card: "bg-[#200f12]/90 backdrop-blur-xl border border-rose-500/30 shadow-lg rounded-[28px]",
+    accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]"
   },
   sapphire: {
-    bg: "bg-blue-50/30 dark:bg-[#060812]",
-    card: "bg-white/90 dark:bg-[#0f1424]/90 backdrop-blur-xl border border-blue-200 dark:border-blue-500/30 shadow-lg rounded-[28px]",
-    accent: "text-blue-600 dark:text-blue-400",
+    bg: "bg-[#060812] text-[#F2F2F7]",
+    card: "bg-[#0f1424]/90 backdrop-blur-xl border border-blue-500/30 shadow-lg rounded-[28px]",
+    accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]"
   }
 };
@@ -1125,20 +1125,12 @@ function MainAppContent() {
           .transition, .transition-all, .transition-colors, .transition-opacity, .transition-transform { transition-timing-function: cubic-bezier(.22,1,.36,1) !important; }
         }
         select option {
-          background-color: #ffffff;
-          color: #18181b;
-        }
-        .dark select option {
-          background-color: #18181b !important;
-          color: #f4f4f5 !important;
+          background-color: #18181b;
+          color: #f4f4f5;
         }
         html, body, #root { min-height: 100%; width: 100%; margin: 0; }
         html { overflow-x: hidden; }
         body { overflow-x: hidden; }
-        
-        .hf-app { 
-          color: var(--hf-text); 
-        }
 
         .hf-app * {
           transition: background-color 0.4s cubic-bezier(.22,1,.36,1), border-color 0.4s cubic-bezier(.22,1,.36,1), color 0.3s cubic-bezier(.22,1,.36,1), transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.4s cubic-bezier(.22,1,.36,1);
