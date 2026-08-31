@@ -36,7 +36,7 @@ class AppErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-xl">
+          <div className="max-w-md w-full bg-white/80 backdrop-blur-2xl border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-2xl">
             <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
@@ -244,113 +244,115 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
+// TRUE LIQUID GLASS THEME STYLES WITH ILLUSTRATIVE GLOW ORBS & BLUR LAYERS
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-purple-950/40 via-purple-900/20 to-slate-950/60 backdrop-blur-[28px] border border-purple-500/30 shadow-[0_12px_40px_rgba(168,85,247,0.18)] rounded-[28px]",
+    card: "bg-purple-950/25 backdrop-blur-2xl border border-purple-500/30 shadow-[0_16px_50px_rgba(168,85,247,0.15)] rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]",
-    glowOrb: "from-purple-600/20 via-pink-600/10 to-transparent"
+    glowOrb: "from-purple-600/30 via-pink-600/15 to-transparent"
   },
   sunset_glow: {
     bg: "bg-[#0c0a09] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-amber-950/40 via-rose-950/25 to-slate-950/60 backdrop-blur-[28px] border border-amber-500/30 shadow-[0_12px_40px_rgba(245,158,11,0.18)] rounded-[28px]",
+    card: "bg-amber-950/25 backdrop-blur-2xl border border-amber-500/30 shadow-[0_16px_50px_rgba(245,158,11,0.15)] rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]",
-    glowOrb: "from-amber-600/20 via-rose-600/10 to-transparent"
+    glowOrb: "from-amber-600/30 via-rose-600/15 to-transparent"
   },
   cyber_matrix: {
     bg: "bg-[#030a0a] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-cyan-950/40 via-emerald-950/25 to-slate-950/60 backdrop-blur-[28px] border border-cyan-500/30 shadow-[0_12px_40px_rgba(6,182,212,0.18)] rounded-[28px]",
+    card: "bg-cyan-950/25 backdrop-blur-2xl border border-cyan-500/30 shadow-[0_16px_50px_rgba(6,182,212,0.15)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]",
-    glowOrb: "from-emerald-600/20 via-cyan-600/10 to-transparent"
+    glowOrb: "from-emerald-600/30 via-cyan-600/15 to-transparent"
   },
   real_glass_lens: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-blue-950/40 via-indigo-950/25 to-slate-950/60 backdrop-blur-[28px] border border-blue-500/30 shadow-[0_12px_40px_rgba(0,122,255,0.18)] rounded-[28px]",
+    card: "bg-blue-950/25 backdrop-blur-2xl border border-blue-500/30 shadow-[0_16px_50px_rgba(0,122,255,0.15)] rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_25px_rgba(0,122,255,0.3)] rounded-[20px]",
-    glowOrb: "from-blue-600/20 via-indigo-600/10 to-transparent"
+    glowOrb: "from-blue-600/30 via-indigo-600/15 to-transparent"
   },
   real_ios_glass: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/85 backdrop-blur-2xl border border-white/15 shadow-xl rounded-[32px]",
+    card: "bg-[#18181b]/70 backdrop-blur-3xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.4)] rounded-[36px]",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]",
-    glowOrb: "from-indigo-600/20 via-blue-600/10 to-transparent"
+    glowOrb: "from-indigo-600/30 via-sky-600/15 to-transparent"
   },
   liquid_glass: {
     bg: "bg-[#060b14] text-[#F2F2F7]",
-    card: "bg-[#0f172a]/80 backdrop-blur-xl border border-cyan-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#0f172a]/70 backdrop-blur-3xl border border-cyan-500/35 shadow-[0_20px_60px_rgba(6,182,212,0.15)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-cyan-600/20 via-blue-600/10 to-transparent"
+    glowOrb: "from-cyan-600/30 via-blue-600/15 to-transparent"
   },
   one_ui_9: {
     bg: "bg-[#0c0c0e] text-[#F2F2F7]",
-    card: "bg-[#18181b] border border-zinc-800 shadow-md rounded-[26px]",
+    card: "bg-[#18181b]/80 backdrop-blur-2xl border border-zinc-700/80 shadow-xl rounded-[30px]",
     accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-violet-600/20 via-purple-600/10 to-transparent"
+    glowOrb: "from-violet-600/30 via-purple-600/15 to-transparent"
   },
   gold_rose: {
     bg: "bg-[#0f090a] text-[#F2F2F7]",
-    card: "bg-[#1a1113]/90 backdrop-blur-xl border border-amber-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#1a1113]/80 backdrop-blur-2xl border border-amber-500/35 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-amber-600/20 via-rose-600/10 to-transparent"
+    glowOrb: "from-amber-600/30 via-rose-600/15 to-transparent"
   },
   champagne: {
     bg: "bg-[#100b07] text-[#F2F2F7]",
-    card: "bg-[#1c140d]/90 backdrop-blur-xl border border-orange-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#1c140d]/80 backdrop-blur-2xl border border-orange-500/35 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-amber-600/20 via-orange-600/10 to-transparent"
+    glowOrb: "from-amber-600/30 via-orange-600/15 to-transparent"
   },
   emerald: {
     bg: "bg-[#060f0c] text-[#F2F2F7]",
-    card: "bg-[#0f1c18]/90 backdrop-blur-xl border border-emerald-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#0f1c18]/80 backdrop-blur-2xl border border-emerald-500/35 shadow-xl rounded-[32px]",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-emerald-600/20 via-teal-600/10 to-transparent"
+    glowOrb: "from-emerald-600/30 via-teal-600/15 to-transparent"
   },
   violet: {
     bg: "bg-[#0a0612] text-[#F2F2F7]",
-    card: "bg-[#161024]/90 backdrop-blur-xl border border-purple-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#161024]/80 backdrop-blur-2xl border border-purple-500/35 shadow-xl rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-purple-600/20 via-indigo-600/10 to-transparent"
+    glowOrb: "from-purple-600/30 via-indigo-600/15 to-transparent"
   },
   ruby: {
     bg: "bg-[#120608] text-[#F2F2F7]",
-    card: "bg-[#200f12]/90 backdrop-blur-xl border border-rose-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#200f12]/80 backdrop-blur-2xl border border-rose-500/35 shadow-xl rounded-[32px]",
     accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-rose-600/20 via-pink-600/10 to-transparent"
+    glowOrb: "from-rose-600/30 via-pink-600/15 to-transparent"
   },
   sapphire: {
     bg: "bg-[#060812] text-[#F2F2F7]",
-    card: "bg-[#0f1424]/90 backdrop-blur-xl border border-blue-500/30 shadow-lg rounded-[28px]",
+    card: "bg-[#0f1424]/80 backdrop-blur-2xl border border-blue-500/35 shadow-xl rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-blue-600/20 via-indigo-600/10 to-transparent"
+    glowOrb: "from-blue-600/30 via-indigo-600/15 to-transparent"
   },
   default: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/85 backdrop-blur-2xl border border-white/15 shadow-xl rounded-[32px]",
+    card: "bg-[#18181b]/75 backdrop-blur-2xl border border-white/20 shadow-xl rounded-[32px]",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-blue-600/20 to-transparent"
+    glowOrb: "from-blue-600/30 to-transparent"
   }
 };
 
 Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
 
+// DAY MODE TRUE LIQUID GLASS OVERRIDES
 const DAY_MODE_OVERRIDES = {
   bg: "bg-slate-100 text-slate-900",
-  card: "bg-white/90 text-slate-900 border border-slate-200/90 shadow-xl rounded-[28px] backdrop-blur-xl",
-  glowOrb: "from-blue-500/10 via-indigo-500/5 to-transparent"
+  card: "bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_16px_40px_rgba(15,23,42,0.08)] rounded-[32px]",
+  glowOrb: "from-blue-500/20 via-indigo-500/10 to-transparent"
 };
 
 const ALL_INDIA_STATES_AND_CITIES = {
@@ -1066,7 +1068,7 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // ADMIN-CLONE THEME ENGINE RESOLUTION
+  // ADMIN-CLONE TRUE LIQUID GLASS ENGINE RESOLUTION
   const rawThemeKey = config.theme?.colorTheme || 'real_glass_lens';
   const baseThemeStyle = THEME_STYLES[rawThemeKey] || THEME_STYLES.real_glass_lens;
   const activeThemeStyle = isDarkMode
@@ -1088,8 +1090,9 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4`}>
-        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 rounded-[32px] text-center space-y-4 shadow-xl`}>
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden`}>
+        <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
+        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
             <Wrench className="w-6 h-6" />
           </div>
@@ -1164,7 +1167,7 @@ function MainAppContent() {
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="flex flex-col items-center space-y-4 px-4 text-center">
-            <div className={`w-20 h-20 rounded-[24px] overflow-hidden ${activeThemeStyle.card} p-1 shadow-xl animate-pulse`}>
+            <div className={`w-20 h-20 rounded-[24px] overflow-hidden ${activeThemeStyle.card} p-1 shadow-2xl animate-pulse`}>
               <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[20px]" />
             </div>
             <div className="space-y-1">
@@ -1243,8 +1246,8 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* STICKY HEADER FIXED FOR BOTH MOBILE AND DESKTOP VIEWS */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-xl border-b transition-colors shadow-sm`}>
+      {/* STICKY HEADER FOR BOTH MOBILE AND DESKTOP VIEWS */}
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-2xl border-b transition-colors shadow-lg`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
@@ -1284,7 +1287,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center pt-1">
-            <nav className="inline-flex space-x-1 p-1 rounded-[22px] border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs font-medium shadow-inner">
+            <nav className="inline-flex space-x-1 p-1 rounded-[22px] border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs font-medium shadow-inner backdrop-blur-xl">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1306,7 +1309,7 @@ function MainAppContent() {
       </header>
 
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around`}>
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around backdrop-blur-2xl`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1325,7 +1328,7 @@ function MainAppContent() {
         </nav>
       )}
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 relative z-10">
         {activeTab === 'menu' && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1335,7 +1338,7 @@ function MainAppContent() {
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Curated Makeup Menu</h2>
               <p className="text-xs sm:text-sm opacity-70">Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1 rounded-[22px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mt-2 gap-1 shadow-inner">
+              <div className="inline-flex p-1 rounded-[22px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mt-2 gap-1 shadow-inner backdrop-blur-xl">
                 <button onClick={() => setSelectedKit('international')} className={`px-4 py-2 rounded-[18px] text-xs font-medium transition ${selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>👑 Luxury Kit</button>
                 <button onClick={() => setSelectedKit('drugstore')} className={`px-4 py-2 rounded-[18px] text-xs font-medium transition ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>✨ HD Kit</button>
               </div>
@@ -1435,7 +1438,7 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto">
             {isBookingDone ? (
-              <div className={`${activeThemeStyle.card} p-8 text-center space-y-4 shadow-xl max-w-lg mx-auto`}>
+              <div className={`${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl max-w-lg mx-auto`}>
                 <div className="w-12 h-12 rounded-[20px] bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/20 shadow-xs">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
@@ -1455,7 +1458,7 @@ function MainAppContent() {
                 <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 text-xs font-medium rounded-[16px] transition">Make Another Calculation / Booking</button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className={`${activeThemeStyle.card} p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-xl`}>
+              <form onSubmit={handleDirectEstimateBooking} className={`${activeThemeStyle.card} p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-2xl`}>
                 <div className="md:col-span-7 space-y-4">
                   <div className="border-b border-black/10 dark:border-white/10 pb-2">
                     <h3 className="font-semibold text-sm flex items-center gap-2">
@@ -1700,7 +1703,7 @@ function MainAppContent() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className={`${activeThemeStyle.card} p-6 sm:p-7 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-xl`}>
+          <div className={`${activeThemeStyle.card} p-6 sm:p-7 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-2xl`}>
             <div className="text-center space-y-1">
               <span className="text-[10px] font-semibold uppercase tracking-wider opacity-60">Client Experience</span>
               <h3 className="text-lg font-semibold">Feedback & Suggestions</h3>
