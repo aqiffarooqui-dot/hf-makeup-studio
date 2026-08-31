@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-[32px] space-y-4 shadow-sm">
-            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
+        <div className="min-h-screen bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-[#F2F2F7] flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white dark:bg-[#151922] border border-slate-200 dark:border-white/10 p-8 rounded-[32px] space-y-4 shadow-xl">
+            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
             <h2 className="text-lg font-semibold">System Safe Mode Active</h2>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+            <p className="text-xs opacity-75 leading-relaxed">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-2.5 rounded-[16px] bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-medium text-xs transition active:scale-[0.98]"
+              className="w-full py-2.5 rounded-[16px] bg-blue-600 text-white font-medium text-xs transition active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -244,7 +244,7 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// UNIFIED LIQUID GLASS THEME STYLES WITH DYNAMIC DAY/NIGHT MAPPING
+// FULLY UNIFIED LIQUID GLASS ARCHITECTURE WITH DYNAMIC DAY/NIGHT MAPPING
 const THEME_STYLES = {
   default: {
     bg: "bg-slate-50 text-slate-900 dark:bg-[#030712] dark:text-[#F2F2F7]",
@@ -1131,7 +1131,6 @@ function MainAppContent() {
         html { overflow-x: hidden; }
         body { overflow-x: hidden; }
 
-        /* LIQUID GLASS NIGHT MODE NEON GLOW & TEXT CONTRAST */
         .hf-app[data-hf-mode="night"] h1,
         .hf-app[data-hf-mode="night"] h2,
         .hf-app[data-hf-mode="night"] h3,
