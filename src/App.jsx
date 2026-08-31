@@ -1136,45 +1136,10 @@ function MainAppContent() {
         html { overflow-x: hidden; }
         body { overflow-x: hidden; }
         
-        /* FULL DYNAMIC DAY/NIGHT & ADMIN THEME MIRRORING */
         .hf-app { 
-          --hf-bg: #ffffff; 
-          --hf-card: #ffffff; 
-          --hf-text: #18181b; 
-          --hf-muted: #71717a; 
-          --hf-border: #e4e4e7; 
-          --hf-accent: #18181b; 
-          --hf-btn: #18181b; 
-          --hf-btn-text: #ffffff; 
-          color: var(--hf-text); 
-        }
-        .hf-app[data-hf-mode="night"] { 
-          --hf-bg: #05060a; 
-          --hf-card: #0d1018; 
-          --hf-text: #e8fbff; 
-          --hf-muted: #78a5b2; 
-          --hf-border: #183642; 
-          --hf-accent: #5ff8ff; 
-          --hf-btn: #00b9c7; 
-          --hf-btn-text: #001114; 
           color: var(--hf-text); 
         }
 
-        /* NEON TYPOGRAPHY IN NIGHT MODE FOR HEADINGS AND SUMMARIES */
-        .hf-app[data-hf-mode="night"] h1,
-        .hf-app[data-hf-mode="night"] h2,
-        .hf-app[data-hf-mode="night"] h3,
-        .hf-app[data-hf-mode="night"] h4,
-        .hf-app[data-hf-mode="night"] .font-mono {
-          color: var(--hf-text) !important;
-          text-shadow: 0 0 10px color-mix(in srgb, var(--hf-accent) 45%, transparent), 0 0 20px color-mix(in srgb, var(--hf-accent) 20%, transparent);
-        }
-        .hf-app[data-hf-mode="night"] .text-zinc-500,
-        .hf-app[data-hf-mode="night"] .dark\:text-zinc-400 {
-          color: var(--hf-muted) !important;
-        }
-
-        /* iOS FLUID & TRANSITION ANIMATIONS */
         .hf-app * {
           transition: background-color 0.4s cubic-bezier(.22,1,.36,1), border-color 0.4s cubic-bezier(.22,1,.36,1), color 0.3s cubic-bezier(.22,1,.36,1), transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.4s cubic-bezier(.22,1,.36,1);
         }
@@ -1362,7 +1327,8 @@ function MainAppContent() {
         </div>
       )}
 
-      {config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
+      {/* ANNOUNCEMENT TICKER: Rendered ONLY after splash screen is completely gone */}
+      {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
         <div className="bg-black text-white py-2 px-3 overflow-hidden text-xs font-medium relative flex items-center select-none shadow-sm z-50">
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
@@ -2029,10 +1995,8 @@ function MainAppContent() {
                     </div>
                   </div>
 
-                  {/* SUMMARY SECTION: Using matched colors from Admin App Component */}
                   <div className="space-y-3 text-xs border-t border-b border-black/10 dark:border-white/10 py-3">
                     
-                    {/* 1. Main Makeover Package - Matches Admin Sky Theme */}
                     <div className={`p-3 rounded-[16px] border space-y-1.5 ${isDarkMode ? 'bg-sky-500/10 border-sky-500/20' : 'bg-sky-50 border-sky-200'}`}>
                       <div className="flex justify-between items-center font-bold text-sky-500 dark:text-sky-400">
                         <span>1. Main Makeover Package:</span>
@@ -2056,7 +2020,6 @@ function MainAppContent() {
                       </div>
                     </div>
 
-                    {/* 2. Extra Guests - Matches Admin Purple Theme */}
                     <div className={`p-3 rounded-[16px] border space-y-1.5 ${isDarkMode ? 'bg-purple-500/10 border-purple-500/20' : 'bg-purple-50 border-purple-200'}`}>
                       <div className="flex justify-between items-center font-bold text-purple-600 dark:text-purple-400">
                         <span>2. Extra Guests ({familyGuests.length}):</span>
@@ -2087,7 +2050,6 @@ function MainAppContent() {
                       <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
-                    {/* 3. Discounts - Matches Admin Emerald Theme */}
                     <div className={`p-3 rounded-[16px] border space-y-1.5 ${isDarkMode ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-emerald-50 border-emerald-200'}`}>
                       <div className="flex justify-between items-center font-bold text-emerald-600 dark:text-emerald-400">
                         <span>3. Discounts & Offers:</span>
