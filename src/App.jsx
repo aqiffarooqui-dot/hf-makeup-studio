@@ -244,6 +244,13 @@ const FONT_MAP = {
 };
 
 const THEME_STYLES = {
+  default: {
+    // Raw/default mode: removes decorative theme skin while keeping the app's normal structure and day/night readability.
+    bg: "bg-white dark:bg-black",
+    card: "bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-none rounded-[20px]",
+    accent: "text-zinc-900 dark:text-zinc-100",
+    btn: "bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-200 text-white dark:text-black shadow-none rounded-[14px]"
+  },
   real_glass_lens: {
     bg: "bg-slate-50 dark:bg-[#030712]",
     card: "bg-white/90 dark:bg-[#151922]/90 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg rounded-[28px]",
@@ -1044,7 +1051,7 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  const activeThemeKey = config.theme?.colorTheme || 'real_glass_lens';
+  const activeThemeKey = config.theme?.colorTheme || 'default';
   const activeThemeStyle = THEME_STYLES[activeThemeKey] || THEME_STYLES.real_glass_lens;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
 
