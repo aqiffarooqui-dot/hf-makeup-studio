@@ -46,7 +46,7 @@ class AppErrorBoundary extends Component {
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 sm:py-3.5 rounded-full hf-bubble-btn text-white font-bold text-xs sm:text-sm transition-all duration-300 active:scale-[0.98]"
+              className="w-full py-3 sm:py-3.5 rounded-full hf-waterdrop-btn text-white font-bold text-xs sm:text-sm transition-all duration-300 active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -185,10 +185,11 @@ const THEME_STYLES = {
     card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/40 shadow-[0_20px_50px_rgba(168,85,247,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
     headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
+    tabActiveText: "text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]",
     accent: "text-purple-300",
     accentText: "text-purple-300 font-extrabold",
     pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_34px_rgba(236,72,153,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(236, 72, 153, 0) 70%)"
@@ -198,10 +199,11 @@ const THEME_STYLES = {
     card: "bg-amber-950/40 backdrop-blur-[50px] border border-amber-400/40 shadow-[0_20px_50px_rgba(245,158,11,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-amber-900/30 border border-amber-400/40 shadow-inner",
     headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
+    tabActiveText: "text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]",
     accent: "text-amber-300",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-amber-400/50 bg-amber-500/20 text-amber-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-amber-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
@@ -211,10 +213,11 @@ const THEME_STYLES = {
     card: "bg-cyan-950/40 backdrop-blur-[50px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-cyan-900/30 border border-cyan-400/40 shadow-inner",
     headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
+    tabActiveText: "text-cyan-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]",
     accent: "text-cyan-300",
     accentText: "text-cyan-300 font-extrabold",
     pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
-    btn: "hf-bubble-btn text-neutral-950 font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-neutral-950 font-black rounded-full",
     inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(16, 185, 129, 0) 70%)"
@@ -224,10 +227,11 @@ const THEME_STYLES = {
     card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/40 shadow-[0_20px_50px_rgba(0,122,255,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
     headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
+    tabActiveText: "text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]",
     accent: "text-sky-300",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_34px_rgba(0,122,255,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.45) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -237,10 +241,11 @@ const THEME_STYLES = {
     card: "bg-zinc-900/45 backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.65),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[36px]",
     innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
     headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
+    tabActiveText: "text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]",
     accent: "text-sky-300",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-sky-400/50 bg-sky-500/20 text-sky-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -250,10 +255,11 @@ const THEME_STYLES = {
     card: "bg-sky-950/40 backdrop-blur-[50px] border border-cyan-400/45 shadow-[0_20px_50px_rgba(6,182,212,0.25),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-sky-900/30 border border-cyan-400/40 shadow-inner",
     headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
+    tabActiveText: "text-cyan-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]",
     accent: "text-cyan-300",
     accentText: "text-cyan-300 font-extrabold",
     pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(37, 99, 235, 0) 70%)"
@@ -263,10 +269,11 @@ const THEME_STYLES = {
     card: "bg-zinc-900/80 backdrop-blur-[50px] border border-zinc-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[30px]",
     innerCard: "bg-zinc-800/70 border border-zinc-500/50 shadow-inner",
     headingColor: "text-violet-300 drop-shadow-[0_2px_10px_rgba(139,92,246,0.4)]",
+    tabActiveText: "text-violet-300 drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]",
     accent: "text-violet-300",
     accentText: "text-violet-300 font-extrabold",
     pillBorder: "border border-violet-400/50 bg-violet-500/20 text-violet-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(139,92,246,0.45)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-zinc-500/50 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.42) 0%, rgba(139, 92, 246, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(168, 85, 247, 0) 70%)"
@@ -276,10 +283,11 @@ const THEME_STYLES = {
     card: "bg-rose-950/40 backdrop-blur-[50px] border border-amber-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-rose-900/30 border border-amber-400/40 shadow-inner",
     headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
+    tabActiveText: "text-rose-300 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)]",
     accent: "text-amber-300",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
@@ -289,10 +297,11 @@ const THEME_STYLES = {
     card: "bg-orange-950/40 backdrop-blur-[50px] border border-orange-400/45 shadow-[0_20px_50px_rgba(249,115,22,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-orange-900/30 border border-orange-400/40 shadow-inner",
     headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
+    tabActiveText: "text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]",
     accent: "text-amber-300",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-orange-400/50 bg-orange-500/20 text-orange-200",
-    btn: "hf-bubble-btn text-neutral-950 font-black shadow-[0_10px_28px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_34px_rgba(249,115,22,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-neutral-950 font-black rounded-full",
     inputBg: "bg-black/40 border border-orange-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)"
@@ -302,10 +311,11 @@ const THEME_STYLES = {
     card: "bg-emerald-950/40 backdrop-blur-[50px] border border-emerald-400/45 shadow-[0_20px_50px_rgba(16,185,129,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-emerald-900/30 border border-emerald-400/40 shadow-inner",
     headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(16,185,129,0.4)]",
+    tabActiveText: "text-emerald-300 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]",
     accent: "text-emerald-300",
     accentText: "text-emerald-300 font-extrabold",
     pillBorder: "border border-emerald-400/50 bg-emerald-500/20 text-emerald-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_34px_rgba(16,185,129,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-emerald-400/40 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
@@ -315,10 +325,11 @@ const THEME_STYLES = {
     card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/45 shadow-[0_20px_50px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
     headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
+    tabActiveText: "text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]",
     accent: "text-purple-300",
     accentText: "text-purple-300 font-extrabold",
     pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_34px_rgba(168,85,247,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -328,10 +339,11 @@ const THEME_STYLES = {
     card: "bg-rose-950/40 backdrop-blur-[50px] border border-rose-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-rose-900/30 border border-rose-400/40 shadow-inner",
     headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
+    tabActiveText: "text-rose-300 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)]",
     accent: "text-rose-300",
     accentText: "text-rose-300 font-extrabold",
     pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0) 70%)"
@@ -341,10 +353,11 @@ const THEME_STYLES = {
     card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/45 shadow-[0_20px_50px_rgba(37,99,235,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
     headingColor: "text-blue-300 drop-shadow-[0_2px_10px_rgba(37,99,235,0.4)]",
+    tabActiveText: "text-blue-300 drop-shadow-[0_0_8px_rgba(37,99,235,0.8)]",
     accent: "text-blue-300",
     accentText: "text-blue-300 font-extrabold",
     pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(37, 99, 235, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 70%)"
@@ -354,10 +367,11 @@ const THEME_STYLES = {
     card: "bg-white/[0.1] backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
     headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
+    tabActiveText: "text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]",
     accent: "text-sky-300",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-white/35 bg-white/15 text-white",
-    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] rounded-full",
+    btn: "hf-waterdrop-btn text-white font-black rounded-full",
     inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.42) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 70%)"
@@ -368,7 +382,8 @@ const DAY_MODE_OVERRIDES = {
   bg: "bg-[#edf2f7] text-[#0f172a]",
   card: "bg-white/80 backdrop-blur-[50px] border-2 border-slate-300/80 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
   innerCard: "bg-slate-100/90 border-2 border-slate-300 shadow-[0_4px_16px_rgba(15,23,42,0.06)]",
-  headingColor: "text-indigo-900 font-extrabold drop-shadow-sm",
+  headingColor: "text-indigo-950 font-extrabold drop-shadow-sm",
+  tabActiveText: "text-indigo-950 font-black drop-shadow-[0_0_6px_rgba(79,70,229,0.4)]",
   accent: "text-indigo-600 font-bold",
   accentText: "text-indigo-600 font-black",
   pillBorder: "border-2 border-slate-400/80 bg-white/80 text-slate-900 font-bold shadow-sm backdrop-blur-md",
@@ -513,6 +528,9 @@ function MainAppContent() {
   const [viewingPackage, setViewingPackage] = useState(null);
   const [viewingMedia, setViewingMedia] = useState(null);
   const [zoomScale, setZoomScale] = useState(1);
+  const [panPos, setPanPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [nowTick, setNowTick] = useState(Date.now());
 
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
@@ -560,7 +578,11 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Fullscreen mobile support & meta viewport fix
+  // Dynamic Navigation Pill Bar references
+  const navTrackRef = useRef(null);
+  const [gliderStyle, setGliderStyle] = useState({ left: 0, width: 0 });
+
+  // Fullscreen mobile support
   useEffect(() => {
     try {
       const vh = window.innerHeight * 0.01;
@@ -612,6 +634,7 @@ function MainAppContent() {
         e.preventDefault();
         setViewingMedia(null);
         setZoomScale(1);
+        setPanPos({ x: 0, y: 0 });
         window.history.pushState(null, '', window.location.href);
       } else if (viewingPackage) {
         e.preventDefault();
@@ -1000,9 +1023,53 @@ function MainAppContent() {
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
   const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
 
+  const navTabs = [
+    { id: 'menu', label: 'Packages', icon: Crown, show: true },
+    { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
+    { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+    { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+    { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
+  ].filter(t => t.show);
+
+  // Dynamic pill glider alignment computation
+  useEffect(() => {
+    if (navTrackRef.current) {
+      const activeEl = navTrackRef.current.querySelector(`[data-tab-id="${activeTab}"]`);
+      if (activeEl) {
+        setGliderStyle({
+          left: activeEl.offsetLeft,
+          width: activeEl.offsetWidth
+        });
+      }
+    }
+  }, [activeTab, navTabs.length]);
+
+  // Touch and mouse pan handlers for zoomed transformation modal
+  const handleMouseDown = (e) => {
+    if (zoomScale <= 1) return;
+    setIsDragging(true);
+    setDragStart({ x: e.clientX - panPos.x, y: e.clientY - panPos.y });
+  };
+  const handleMouseMove = (e) => {
+    if (!isDragging || zoomScale <= 1) return;
+    setPanPos({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y });
+  };
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleTouchStart = (e) => {
+    if (zoomScale <= 1 || !e.touches[0]) return;
+    setIsDragging(true);
+    setDragStart({ x: e.touches[0].clientX - panPos.x, y: e.touches[0].clientY - panPos.y });
+  };
+  const handleTouchMove = (e) => {
+    if (!isDragging || zoomScale <= 1 || !e.touches[0]) return;
+    setPanPos({ x: e.touches[0].clientX - dragStart.x, y: e.touches[0].clientY - dragStart.y });
+  };
+  const handleTouchEnd = () => setIsDragging(false);
+
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-all duration-500 ease-out`}>
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-500 ease-out`}>
         <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40">
@@ -1018,22 +1085,12 @@ function MainAppContent() {
     );
   }
 
-  const navTabs = [
-    { id: 'menu', label: 'Packages', icon: Crown, show: true },
-    { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
-    { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-    { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-    { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
-  ].filter(t => t.show);
-
-  const activeTabIndex = Math.max(0, navTabs.findIndex(t => t.id === activeTab));
-
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-500 ease-out overflow-x-hidden`}
+      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-300 ease-out overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -1042,80 +1099,89 @@ function MainAppContent() {
         *, *::before, *::after { box-sizing: border-box; }
         button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
         
-        /* Ultra Smooth Hardware-Accelerated Rendering */
+        /* Smooth Mobile Theme Transition without Layout Jitter */
         .hf-app {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           text-rendering: optimizeLegibility;
         }
 
-        /* Water-Bubble Fluid Glass Interactive Effect */
-        .hf-bubble-btn {
+        /* Natural Water-Drop Lens Glass Button & Pill */
+        .hf-waterdrop-btn {
           position: relative;
-          background: rgba(255, 255, 255, 0.12) !important;
-          backdrop-filter: blur(25px) saturate(180%);
-          -webkit-backdrop-filter: blur(25px) saturate(180%);
-          border: 1.5px solid rgba(255, 255, 255, 0.55) !important;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 
-                      inset 0 2px 4px rgba(255, 255, 255, 0.8), 
-                      inset 0 -2px 4px rgba(0, 0, 0, 0.15) !important;
+          background: rgba(255, 255, 255, 0.04) !important;
+          backdrop-filter: blur(24px) saturate(220%) contrast(110%);
+          -webkit-backdrop-filter: blur(24px) saturate(220%) contrast(110%);
+          border: 1px solid rgba(255, 255, 255, 0.35) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 
+                      inset 0 1.5px 3px rgba(255, 255, 255, 0.7), 
+                      inset 0 -1.5px 3px rgba(0, 0, 0, 0.4) !important;
           transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.25s ease;
           overflow: hidden;
         }
-        .hf-bubble-btn::before {
+        .hf-waterdrop-btn::before {
           content: '';
           position: absolute;
-          top: 2px;
-          left: 10%;
-          right: 10%;
-          height: 35%;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.05) 100%);
+          top: 1.5px;
+          left: 15%;
+          right: 15%;
+          height: 38%;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.02) 100%);
           border-radius: 999px;
           pointer-events: none;
         }
-        .hf-bubble-btn:hover {
-          background: rgba(255, 255, 255, 0.22) !important;
-          transform: translateY(-1.5px) scale(1.02);
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2), 
-                      inset 0 3px 6px rgba(255, 255, 255, 0.9) !important;
+        .hf-waterdrop-btn:hover {
+          background: rgba(255, 255, 255, 0.08) !important;
+          transform: translateY(-1px) scale(1.01);
+          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3), 
+                      inset 0 2px 4px rgba(255, 255, 255, 0.85) !important;
         }
-        .hf-bubble-btn:active {
+        .hf-waterdrop-btn:active {
           transform: scale(0.97) translateY(0);
         }
 
-        .hf-app[data-hf-mode="day"] .hf-bubble-btn {
-          background: rgba(255, 255, 255, 0.65) !important;
-          border: 2px solid rgba(99, 102, 241, 0.5) !important;
-          color: #1e1b4b !important;
-          box-shadow: 0 6px 20px rgba(99, 102, 241, 0.18), 
-                      inset 0 2px 4px rgba(255, 255, 255, 1), 
-                      inset 0 -1.5px 3px rgba(99, 102, 241, 0.2) !important;
+        .hf-app[data-hf-mode="day"] .hf-waterdrop-btn {
+          background: rgba(255, 255, 255, 0.2) !important;
+          border: 1.5px solid rgba(99, 102, 241, 0.45) !important;
+          box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15), 
+                      inset 0 1.5px 3px rgba(255, 255, 255, 0.9), 
+                      inset 0 -1.5px 2.5px rgba(99, 102, 241, 0.15) !important;
         }
 
-        /* Smooth Moving Pill Transitions */
-        .hf-pill-track {
+        /* Mobile Dynamic Navigation Glider */
+        .hf-dynamic-pill-track {
           position: relative;
           display: flex;
           align-items: center;
+          width: 100%;
         }
-        .hf-pill-glider {
+        .hf-dynamic-glider {
           position: absolute;
-          top: 4px;
-          bottom: 4px;
+          top: 3px;
+          bottom: 3px;
           border-radius: 9999px;
-          transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.35s ease;
+          transition: left 0.35s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
           pointer-events: none;
           z-index: 1;
         }
 
-        /* HD Zoomable Canvas */
-        .hf-zoomable-media {
-          transform-origin: center center;
-          transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-          will-change: transform;
+        /* Kit Sub-tab Smooth Fade Animation */
+        .hf-kit-enter {
+          animation: hfKitFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes hfKitFade {
+          0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Liquid Organic Glows */
+        /* Pan and Zoom Canvas */
+        .hf-zoomable-media {
+          will-change: transform;
+          user-select: none;
+          -webkit-user-drag: none;
+        }
+
+        /* Ambient Fluid Glows */
         .hf-mesh-glow {
           position: fixed;
           pointer-events: none;
@@ -1132,7 +1198,6 @@ function MainAppContent() {
           100% { transform: scale(0.95) translate(-20px, 15px); }
         }
 
-        /* Seamless Continuous Running Marquee */
         .hf-marquee-track {
           display: flex;
           width: max-content;
@@ -1147,7 +1212,7 @@ function MainAppContent() {
         }
 
         .hf-tab-enter {
-          animation: hfFadeScale 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: hfFadeScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes hfFadeScale {
           0% { opacity: 0; transform: scale(0.98) translateY(12px); }
@@ -1157,11 +1222,10 @@ function MainAppContent() {
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
           padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); 
-          background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); overflow-y: auto; 
+          background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); overflow-y: auto; 
         }
         .hf-modal-card { width: min(100%, 540px); max-height: min(90dvh, 740px); overflow-y: auto; margin: auto; }
 
-        /* Floating Promo aligned above Bottom Navigation Pills */
         .hf-floating-banner-mobile {
           position: fixed;
           bottom: calc(72px + env(safe-area-inset-bottom));
@@ -1187,7 +1251,7 @@ function MainAppContent() {
           transform: translateX(-50%); 
           width: calc(100% - 20px); 
           max-width: 500px; 
-          padding: 5px; 
+          padding: 4px; 
           border-radius: 9999px !important; 
           backdrop-filter: blur(40px); 
           -webkit-backdrop-filter: blur(40px);
@@ -1215,7 +1279,7 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* MEDIA DETAILS MODAL (ZOOMABLE HIGH DEF TRANSFORMATION MODAL) */}
+      {/* ZOOMABLE & DRAGGABLE MEDIA MODAL */}
       {viewingMedia && (
         <div className="hf-modal-backdrop">
           <div className={`hf-modal-card ${activeThemeStyle.card} p-4 sm:p-6 space-y-4 shadow-2xl hf-tab-enter relative`}>
@@ -1225,38 +1289,52 @@ function MainAppContent() {
                 <h3 className={`font-black text-sm sm:text-lg ${activeThemeStyle.headingColor}`}>{viewingMedia.title}</h3>
               </div>
               <button 
-                onClick={() => { setViewingMedia(null); setZoomScale(1); }} 
+                onClick={() => { setViewingMedia(null); setZoomScale(1); setPanPos({ x: 0, y: 0 }); }} 
                 className="p-1.5 rounded-full bg-slate-500/20 hover:bg-slate-500/40 text-white transition-all active:scale-95"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="relative w-full h-72 sm:h-96 rounded-[22px] overflow-hidden bg-black flex items-center justify-center border border-white/20">
+            <div 
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full h-72 sm:h-96 rounded-[22px] overflow-hidden bg-black flex items-center justify-center border border-white/20 select-none touch-none"
+            >
               {isVideoMedia(viewingMedia) ? (
                 <video src={viewingMedia.url} controls autoPlay className="w-full h-full object-contain" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
+                <div 
+                  className={`w-full h-full flex items-center justify-center ${zoomScale > 1 ? 'cursor-grab active:cursor-grabbing' : ''}`}
+                >
                   <img 
                     src={viewingMedia.url} 
                     alt={viewingMedia.title} 
-                    style={{ transform: `scale(${zoomScale})` }}
-                    className="hf-zoomable-media max-w-full max-h-full object-contain" 
+                    style={{ 
+                      transform: `translate(${panPos.x}px, ${panPos.y}px) scale(${zoomScale})`,
+                      transition: isDragging ? 'none' : 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)'
+                    }}
+                    className="hf-zoomable-media max-w-full max-h-full object-contain pointer-events-none" 
                   />
                 </div>
               )}
 
               {!isVideoMedia(viewingMedia) && (
-                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/70 backdrop-blur-md p-1.5 rounded-full border border-white/20">
-                  <button onClick={() => setZoomScale(prev => Math.min(3, prev + 0.3))} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomIn className="w-4 h-4" /></button>
-                  <button onClick={() => setZoomScale(prev => Math.max(1, prev - 0.3))} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomOut className="w-4 h-4" /></button>
-                  <button onClick={() => setZoomScale(1)} className="p-1.5 text-white hover:text-cyan-300 transition-all"><RotateCcw className="w-4 h-4" /></button>
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/75 backdrop-blur-md p-1.5 rounded-full border border-white/20 z-20">
+                  <button onClick={() => setZoomScale(prev => Math.min(3.5, prev + 0.3))} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomIn className="w-4 h-4" /></button>
+                  <button onClick={() => { setZoomScale(prev => { const next = Math.max(1, prev - 0.3); if (next === 1) setPanPos({ x: 0, y: 0 }); return next; }); }} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomOut className="w-4 h-4" /></button>
+                  <button onClick={() => { setZoomScale(1); setPanPos({ x: 0, y: 0 }); }} className="p-1.5 text-white hover:text-cyan-300 transition-all"><RotateCcw className="w-4 h-4" /></button>
                 </div>
               )}
             </div>
 
             <div className="flex items-center justify-between pt-1">
-              <span className="text-[11px] font-medium opacity-80">High Precision Studio Transformation</span>
+              <span className={`text-[11px] font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore makeup transformation</span>
               <button 
                 onClick={() => { setViewingMedia(null); setActiveTab('calculator'); }} 
                 className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-black`}
@@ -1394,14 +1472,7 @@ function MainAppContent() {
 
             {/* DESKTOP FLUID TABS */}
             <div className="hidden sm:flex w-full items-center justify-center">
-              <nav className="hf-pill-track p-1 rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-md">
-                <div 
-                  className="hf-pill-glider hf-bubble-btn"
-                  style={{
-                    width: `${100 / navTabs.length}%`,
-                    transform: `translateX(${activeTabIndex * 100}%)`
-                  }}
-                />
+              <nav className="hf-dynamic-pill-track p-1 rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-md max-w-xl">
                 {navTabs.map(tab => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -1409,7 +1480,7 @@ function MainAppContent() {
                     <button 
                       key={tab.id} 
                       onClick={() => setActiveTab(tab.id)} 
-                      className={`relative z-10 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-black transition-colors duration-300 ${isActive ? (isDarkMode ? 'text-white' : 'text-indigo-950') : (isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900')}`}
+                      className={`relative z-10 flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ${isActive ? `${activeThemeStyle.tabActiveText} hf-waterdrop-btn scale-102` : (isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900')}`}
                     >
                       <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                     </button>
@@ -1421,15 +1492,15 @@ function MainAppContent() {
         </header>
       </div>
 
-      {/* MOBILE BOTTOM NAVIGATION BAR WITH FLUID SLIDING GLIDER */}
+      {/* MOBILE BOTTOM NAVIGATION BAR WITH REAL-TIME DYNAMIC GLIDER */}
       {!showSplash && (
         <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden border-2 border-slate-400/40 shadow-2xl`}>
-          <div className="hf-pill-track w-full">
+          <div ref={navTrackRef} className="hf-dynamic-pill-track w-full">
             <div 
-              className="hf-pill-glider hf-bubble-btn"
+              className="hf-dynamic-glider hf-waterdrop-btn"
               style={{
-                width: `${100 / navTabs.length}%`,
-                transform: `translateX(${activeTabIndex * 100}%)`
+                left: `${gliderStyle.left}px`,
+                width: `${gliderStyle.width}px`
               }}
             />
             {navTabs.map(tab => {
@@ -1438,8 +1509,9 @@ function MainAppContent() {
               return (
                 <button 
                   key={tab.id} 
+                  data-tab-id={tab.id}
                   onClick={() => setActiveTab(tab.id)} 
-                  className={`relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-colors duration-200 ${isActive ? (isDarkMode ? 'text-cyan-300 font-black' : 'text-indigo-950 font-black') : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
+                  className={`relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-colors duration-200 ${isActive ? `${activeThemeStyle.tabActiveText} font-black` : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" />
                   <span className="text-[9px] mt-0.5 font-extrabold">{tab.label}</span>
@@ -1465,12 +1537,13 @@ function MainAppContent() {
               <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Select your vanity tier to view tailored makeover packages:</p>
 
               <div className="inline-flex p-1 rounded-full bg-slate-500/10 border border-slate-400/40 mt-1 gap-1.5">
-                <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
-                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>✨ HD Kit</button>
+                <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
+                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>✨ HD Kit</button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+            {/* Smooth transition animated card grid for Luxury & HD kits */}
+            <div key={selectedKit} className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 hf-kit-enter">
               {Object.keys(config.kitText?.[selectedKit] || {}).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit?.[selectedKit]?.[key] || 0;
@@ -1491,17 +1564,17 @@ function MainAppContent() {
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2 min-w-0">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className={`font-black text-sm sm:text-base leading-snug truncate ${activeThemeStyle.headingColor}`}>{item.num ? `${item.num}. ` : ''}{item.name}</h4>
+                          <h4 className={`font-black text-sm sm:text-base leading-snug break-words ${activeThemeStyle.headingColor}`}>{item.num ? `${item.num}. ` : ''}{item.name}</h4>
                           <span className={`font-mono font-black text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
-                        <p className={`text-xs font-medium mt-1 line-clamp-2 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{item.desc}</p>
+                        <p className={`text-xs font-medium mt-1 leading-relaxed whitespace-normal break-words ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{item.desc}</p>
                       </div>
 
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2.5 border-t border-slate-400/25 gap-2">
                         <div className="min-w-0 flex-1">
-                          <span className={`text-[10px] sm:text-[11px] font-extrabold truncate flex items-center gap-1 ${isDarkMode ? 'text-cyan-300' : 'text-indigo-900'}`} title={displaySkinFinish}>
+                          <span className={`text-[10px] sm:text-[11px] font-extrabold flex items-center gap-1 ${isDarkMode ? 'text-cyan-300' : 'text-indigo-900'}`} title={displaySkinFinish}>
                             <Sparkles className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" />
-                            <span className="truncate">Skin Finish: {displaySkinFinish}</span>
+                            <span className="whitespace-normal break-words leading-tight">{displaySkinFinish}</span>
                           </span>
                         </div>
                         <div className="flex items-center gap-1.5 shrink-0">
@@ -1526,7 +1599,7 @@ function MainAppContent() {
                 <Camera className="w-3.5 h-3.5" /> Discover Looks
               </span>
               <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Featured Transformations</h2>
-              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore signature makeup transformations. Click to zoom and inspect high-definition details.</p>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore signature makeup transformations. Click to zoom, inspect details, and pan around.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
@@ -1611,8 +1684,8 @@ function MainAppContent() {
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2.5">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'international' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
@@ -1745,7 +1818,7 @@ function MainAppContent() {
                         </h4>
                         <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
-                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3 py-1 rounded-full text-[10px] font-black border transition-all ${addressType === type ? `${activeThemeStyle.btn} shadow-sm` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>
+                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3 py-1 rounded-full text-[10px] font-black border transition-all ${addressType === type ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-sm` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
                             </button>
                           ))}
@@ -1884,7 +1957,7 @@ function MainAppContent() {
         )}
       </main>
 
-      {/* FLOATING PROMO OFFER BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
+      {/* FLOATING PROMO BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border-2 border-slate-400/40 backdrop-blur-[50px]`}>
           <div className="flex items-start justify-between gap-2.5">
