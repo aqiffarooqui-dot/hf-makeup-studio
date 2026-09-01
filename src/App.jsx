@@ -46,7 +46,7 @@ class AppErrorBoundary extends Component {
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 sm:py-3.5 rounded-full hf-waterdrop-btn text-white font-bold text-xs sm:text-sm transition-all duration-300 active:scale-[0.98]"
+              className="w-full py-3 sm:py-3.5 rounded-full hf-lens-btn text-white font-bold text-xs sm:text-sm transition-all duration-300 active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -185,11 +185,12 @@ const THEME_STYLES = {
     card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/40 shadow-[0_20px_50px_rgba(168,85,247,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
     headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
-    tabActiveText: "text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]",
-    accent: "text-purple-300",
+    tabActiveText: "text-purple-300 drop-shadow-[0_0_10px_rgba(168,85,247,0.9)]",
+    accent: "text-purple-400",
     accentText: "text-purple-300 font-extrabold",
     pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_30px_rgba(236,72,153,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(236, 72, 153, 0) 70%)"
@@ -199,11 +200,12 @@ const THEME_STYLES = {
     card: "bg-amber-950/40 backdrop-blur-[50px] border border-amber-400/40 shadow-[0_20px_50px_rgba(245,158,11,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-amber-900/30 border border-amber-400/40 shadow-inner",
     headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
-    tabActiveText: "text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]",
-    accent: "text-amber-300",
+    tabActiveText: "text-amber-300 drop-shadow-[0_0_10px_rgba(245,158,11,0.9)]",
+    accent: "text-amber-400",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-amber-400/50 bg-amber-500/20 text-amber-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-amber-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
@@ -213,11 +215,12 @@ const THEME_STYLES = {
     card: "bg-cyan-950/40 backdrop-blur-[50px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-cyan-900/30 border border-cyan-400/40 shadow-inner",
     headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
-    tabActiveText: "text-cyan-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]",
-    accent: "text-cyan-300",
+    tabActiveText: "text-cyan-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.9)]",
+    accent: "text-cyan-400",
     accentText: "text-cyan-300 font-extrabold",
     pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
-    btn: "hf-waterdrop-btn text-neutral-950 font-black rounded-full",
+    btn: "hf-lens-btn text-neutral-950 font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_30px_rgba(6,182,212,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(16, 185, 129, 0) 70%)"
@@ -227,11 +230,12 @@ const THEME_STYLES = {
     card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/40 shadow-[0_20px_50px_rgba(0,122,255,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
     headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
-    tabActiveText: "text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]",
-    accent: "text-sky-300",
+    tabActiveText: "text-sky-300 drop-shadow-[0_0_10px_rgba(56,189,248,0.9)]",
+    accent: "text-sky-400",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_30px_rgba(0,122,255,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.45) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -241,11 +245,12 @@ const THEME_STYLES = {
     card: "bg-zinc-900/45 backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.65),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[36px]",
     innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
     headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
-    tabActiveText: "text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]",
-    accent: "text-sky-300",
+    tabActiveText: "text-sky-300 drop-shadow-[0_0_10px_rgba(56,189,248,0.9)]",
+    accent: "text-sky-400",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-sky-400/50 bg-sky-500/20 text-sky-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -255,11 +260,12 @@ const THEME_STYLES = {
     card: "bg-sky-950/40 backdrop-blur-[50px] border border-cyan-400/45 shadow-[0_20px_50px_rgba(6,182,212,0.25),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-sky-900/30 border border-cyan-400/40 shadow-inner",
     headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
-    tabActiveText: "text-cyan-300 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]",
-    accent: "text-cyan-300",
+    tabActiveText: "text-cyan-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.9)]",
+    accent: "text-cyan-400",
     accentText: "text-cyan-300 font-extrabold",
     pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_30px_rgba(6,182,212,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(37, 99, 235, 0) 70%)"
@@ -269,11 +275,12 @@ const THEME_STYLES = {
     card: "bg-zinc-900/80 backdrop-blur-[50px] border border-zinc-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[30px]",
     innerCard: "bg-zinc-800/70 border border-zinc-500/50 shadow-inner",
     headingColor: "text-violet-300 drop-shadow-[0_2px_10px_rgba(139,92,246,0.4)]",
-    tabActiveText: "text-violet-300 drop-shadow-[0_0_8px_rgba(139,92,246,0.8)]",
-    accent: "text-violet-300",
+    tabActiveText: "text-violet-300 drop-shadow-[0_0_10px_rgba(139,92,246,0.9)]",
+    accent: "text-violet-400",
     accentText: "text-violet-300 font-extrabold",
     pillBorder: "border border-violet-400/50 bg-violet-500/20 text-violet-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black shadow-[0_10px_25px_rgba(139,92,246,0.45)] rounded-full",
     inputBg: "bg-black/40 border border-zinc-500/50 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.42) 0%, rgba(139, 92, 246, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(168, 85, 247, 0) 70%)"
@@ -283,11 +290,12 @@ const THEME_STYLES = {
     card: "bg-rose-950/40 backdrop-blur-[50px] border border-amber-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-rose-900/30 border border-amber-400/40 shadow-inner",
     headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
-    tabActiveText: "text-rose-300 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)]",
-    accent: "text-amber-300",
+    tabActiveText: "text-rose-300 drop-shadow-[0_0_10px_rgba(244,63,94,0.9)]",
+    accent: "text-amber-400",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
@@ -297,11 +305,12 @@ const THEME_STYLES = {
     card: "bg-orange-950/40 backdrop-blur-[50px] border border-orange-400/45 shadow-[0_20px_50px_rgba(249,115,22,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-orange-900/30 border border-orange-400/40 shadow-inner",
     headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
-    tabActiveText: "text-amber-300 drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]",
-    accent: "text-amber-300",
+    tabActiveText: "text-amber-300 drop-shadow-[0_0_10px_rgba(245,158,11,0.9)]",
+    accent: "text-amber-400",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-orange-400/50 bg-orange-500/20 text-orange-200",
-    btn: "hf-waterdrop-btn text-neutral-950 font-black rounded-full",
+    btn: "hf-lens-btn text-neutral-950 font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_30px_rgba(249,115,22,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-orange-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)"
@@ -311,11 +320,12 @@ const THEME_STYLES = {
     card: "bg-emerald-950/40 backdrop-blur-[50px] border border-emerald-400/45 shadow-[0_20px_50px_rgba(16,185,129,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-emerald-900/30 border border-emerald-400/40 shadow-inner",
     headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(16,185,129,0.4)]",
-    tabActiveText: "text-emerald-300 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]",
-    accent: "text-emerald-300",
+    tabActiveText: "text-emerald-300 drop-shadow-[0_0_10px_rgba(16,185,129,0.9)]",
+    accent: "text-emerald-400",
     accentText: "text-emerald-300 font-extrabold",
     pillBorder: "border border-emerald-400/50 bg-emerald-500/20 text-emerald-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_30px_rgba(16,185,129,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-emerald-400/40 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
@@ -325,11 +335,12 @@ const THEME_STYLES = {
     card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/45 shadow-[0_20px_50px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
     headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
-    tabActiveText: "text-purple-300 drop-shadow-[0_0_8px_rgba(168,85,247,0.8)]",
-    accent: "text-purple-300",
+    tabActiveText: "text-purple-300 drop-shadow-[0_0_10px_rgba(168,85,247,0.9)]",
+    accent: "text-purple-400",
     accentText: "text-purple-300 font-extrabold",
     pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_30px_rgba(168,85,247,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -339,11 +350,12 @@ const THEME_STYLES = {
     card: "bg-rose-950/40 backdrop-blur-[50px] border border-rose-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-rose-900/30 border border-rose-400/40 shadow-inner",
     headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
-    tabActiveText: "text-rose-300 drop-shadow-[0_0_8px_rgba(244,63,94,0.8)]",
-    accent: "text-rose-300",
+    tabActiveText: "text-rose-300 drop-shadow-[0_0_10px_rgba(244,63,94,0.9)]",
+    accent: "text-rose-400",
     accentText: "text-rose-300 font-extrabold",
     pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0) 70%)"
@@ -353,11 +365,12 @@ const THEME_STYLES = {
     card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/45 shadow-[0_20px_50px_rgba(37,99,235,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
     headingColor: "text-blue-300 drop-shadow-[0_2px_10px_rgba(37,99,235,0.4)]",
-    tabActiveText: "text-blue-300 drop-shadow-[0_0_8px_rgba(37,99,235,0.8)]",
-    accent: "text-blue-300",
+    tabActiveText: "text-blue-300 drop-shadow-[0_0_10px_rgba(37,99,235,0.9)]",
+    accent: "text-blue-400",
     accentText: "text-blue-300 font-extrabold",
     pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(37, 99, 235, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 70%)"
@@ -367,11 +380,12 @@ const THEME_STYLES = {
     card: "bg-white/[0.1] backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
     innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
     headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
-    tabActiveText: "text-sky-300 drop-shadow-[0_0_8px_rgba(56,189,248,0.8)]",
-    accent: "text-sky-300",
+    tabActiveText: "text-sky-300 drop-shadow-[0_0_10px_rgba(56,189,248,0.9)]",
+    accent: "text-sky-400",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-white/35 bg-white/15 text-white",
-    btn: "hf-waterdrop-btn text-white font-black rounded-full",
+    btn: "hf-lens-btn text-white font-black rounded-full",
+    btnPrimary: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] rounded-full",
     inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.42) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 70%)"
@@ -379,17 +393,19 @@ const THEME_STYLES = {
 };
 
 const DAY_MODE_OVERRIDES = {
-  bg: "bg-[#edf2f7] text-[#0f172a]",
-  card: "bg-white/80 backdrop-blur-[50px] border-2 border-slate-300/80 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-  innerCard: "bg-slate-100/90 border-2 border-slate-300 shadow-[0_4px_16px_rgba(15,23,42,0.06)]",
-  headingColor: "text-indigo-950 font-extrabold drop-shadow-sm",
-  tabActiveText: "text-indigo-950 font-black drop-shadow-[0_0_6px_rgba(79,70,229,0.4)]",
+  bg: "bg-[#e2e8f0] text-[#0f172a]",
+  card: "bg-white/90 backdrop-blur-[50px] border-2 border-indigo-200/80 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
+  innerCard: "bg-slate-50/95 border-2 border-indigo-100 shadow-[0_4px_16px_rgba(15,23,42,0.06)]",
+  headingColor: "text-indigo-950 font-black drop-shadow-sm",
+  tabActiveText: "text-indigo-900 font-black drop-shadow-[0_0_10px_rgba(79,70,229,0.5)]",
   accent: "text-indigo-600 font-bold",
   accentText: "text-indigo-600 font-black",
-  pillBorder: "border-2 border-slate-400/80 bg-white/80 text-slate-900 font-bold shadow-sm backdrop-blur-md",
+  pillBorder: "border-2 border-indigo-300 bg-white text-indigo-950 font-black shadow-sm",
+  btn: "hf-lens-btn text-indigo-950 font-black rounded-full",
+  btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black shadow-[0_10px_25px_rgba(79,70,229,0.45)] active:scale-[0.98] rounded-full",
   inputBg: "bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-500 focus:border-indigo-600 focus:bg-white shadow-inner font-medium",
-  glowOrb1: "radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0) 70%)",
-  glowOrb2: "radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, rgba(14, 165, 233, 0) 70%)"
+  glowOrb1: "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0) 70%)",
+  glowOrb2: "radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, rgba(14, 165, 233, 0) 70%)"
 };
 
 const ALL_INDIA_STATES_AND_CITIES = {
@@ -1031,18 +1047,8 @@ function MainAppContent() {
     { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
   ].filter(t => t.show);
 
-  // Dynamic pill glider alignment computation
-  useEffect(() => {
-    if (navTrackRef.current) {
-      const activeEl = navTrackRef.current.querySelector(`[data-tab-id="${activeTab}"]`);
-      if (activeEl) {
-        setGliderStyle({
-          left: activeEl.offsetLeft,
-          width: activeEl.offsetWidth
-        });
-      }
-    }
-  }, [activeTab, navTabs.length]);
+  // Equal 1/N percentage positioning for iOS style navigation bar
+  const activeTabIndex = Math.max(0, navTabs.findIndex(t => t.id === activeTab));
 
   // Touch and mouse pan handlers for zoomed transformation modal
   const handleMouseDown = (e) => {
@@ -1099,68 +1105,71 @@ function MainAppContent() {
         *, *::before, *::after { box-sizing: border-box; }
         button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
         
-        /* Smooth Mobile Theme Transition without Layout Jitter */
+        /* Ultra Smooth Hardware-Accelerated Rendering */
         .hf-app {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           text-rendering: optimizeLegibility;
         }
 
-        /* Natural Water-Drop Lens Glass Button & Pill */
-        .hf-waterdrop-btn {
+        /* Natural Water-Drop Convex Lens Glass Interactive Effect */
+        .hf-lens-btn {
           position: relative;
-          background: rgba(255, 255, 255, 0.04) !important;
-          backdrop-filter: blur(24px) saturate(220%) contrast(110%);
-          -webkit-backdrop-filter: blur(24px) saturate(220%) contrast(110%);
-          border: 1px solid rgba(255, 255, 255, 0.35) !important;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 
-                      inset 0 1.5px 3px rgba(255, 255, 255, 0.7), 
+          background: rgba(255, 255, 255, 0.02) !important;
+          backdrop-filter: blur(28px) saturate(240%) contrast(115%);
+          -webkit-backdrop-filter: blur(28px) saturate(240%) contrast(115%);
+          border: 1px solid rgba(255, 255, 255, 0.4) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 
+                      inset 0 1.5px 3px rgba(255, 255, 255, 0.75), 
                       inset 0 -1.5px 3px rgba(0, 0, 0, 0.4) !important;
           transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.25s ease;
           overflow: hidden;
         }
-        .hf-waterdrop-btn::before {
+        .hf-lens-btn::before {
           content: '';
           position: absolute;
           top: 1.5px;
-          left: 15%;
-          right: 15%;
+          left: 12%;
+          right: 12%;
           height: 38%;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.02) 100%);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.01) 100%);
           border-radius: 999px;
           pointer-events: none;
         }
-        .hf-waterdrop-btn:hover {
-          background: rgba(255, 255, 255, 0.08) !important;
+        .hf-lens-btn:hover {
+          background: rgba(255, 255, 255, 0.06) !important;
           transform: translateY(-1px) scale(1.01);
-          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3), 
+          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 
                       inset 0 2px 4px rgba(255, 255, 255, 0.85) !important;
         }
-        .hf-waterdrop-btn:active {
+        .hf-lens-btn:active {
           transform: scale(0.97) translateY(0);
         }
 
-        .hf-app[data-hf-mode="day"] .hf-waterdrop-btn {
-          background: rgba(255, 255, 255, 0.2) !important;
-          border: 1.5px solid rgba(99, 102, 241, 0.45) !important;
-          box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15), 
-                      inset 0 1.5px 3px rgba(255, 255, 255, 0.9), 
-                      inset 0 -1.5px 2.5px rgba(99, 102, 241, 0.15) !important;
+        .hf-app[data-hf-mode="day"] .hf-lens-btn {
+          background: rgba(255, 255, 255, 0.15) !important;
+          border: 1.5px solid rgba(79, 70, 229, 0.45) !important;
+          color: #1e1b4b !important;
+          box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15), 
+                      inset 0 1.5px 3px rgba(255, 255, 255, 0.95), 
+                      inset 0 -1.5px 2.5px rgba(79, 70, 229, 0.15) !important;
         }
 
-        /* Mobile Dynamic Navigation Glider */
-        .hf-dynamic-pill-track {
+        /* iOS Standard Floating Navigation Dock */
+        .hf-ios-dock {
           position: relative;
           display: flex;
           align-items: center;
           width: 100%;
+          height: 52px;
+          padding: 4px;
         }
-        .hf-dynamic-glider {
+        .hf-ios-glider {
           position: absolute;
-          top: 3px;
-          bottom: 3px;
+          top: 4px;
+          bottom: 4px;
           border-radius: 9999px;
-          transition: left 0.35s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
+          transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
           pointer-events: none;
           z-index: 1;
         }
@@ -1228,9 +1237,9 @@ function MainAppContent() {
 
         .hf-floating-banner-mobile {
           position: fixed;
-          bottom: calc(72px + env(safe-area-inset-bottom));
-          left: 12px;
-          right: 12px;
+          bottom: calc(76px + env(safe-area-inset-bottom));
+          left: 14px;
+          right: 14px;
           max-width: 440px;
           margin: 0 auto;
           z-index: 45;
@@ -1246,12 +1255,11 @@ function MainAppContent() {
 
         .hf-bottom-nav { 
           position: fixed; 
-          bottom: max(10px, env(safe-area-inset-bottom)); 
+          bottom: max(12px, env(safe-area-inset-bottom)); 
           left: 50%; 
           transform: translateX(-50%); 
-          width: calc(100% - 20px); 
-          max-width: 500px; 
-          padding: 4px; 
+          width: calc(100% - 24px); 
+          max-width: 460px; 
           border-radius: 9999px !important; 
           backdrop-filter: blur(40px); 
           -webkit-backdrop-filter: blur(40px);
@@ -1334,10 +1342,10 @@ function MainAppContent() {
             </div>
 
             <div className="flex items-center justify-between pt-1">
-              <span className={`text-[11px] font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore makeup transformation</span>
+              <span className={`text-[11px] font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Explore Makeup Transformations</span>
               <button 
                 onClick={() => { setViewingMedia(null); setActiveTab('calculator'); }} 
-                className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-black`}
+                className={`px-5 py-2.5 ${activeThemeStyle.btnPrimary} text-xs font-black`}
               >
                 Book Similar Look
               </button>
@@ -1363,7 +1371,7 @@ function MainAppContent() {
                 {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 opacity-80" />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
-              <a href={qrCodeApiUrl} download="HF_Studio_QR.png" target="_blank" rel="noreferrer" className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full ${activeThemeStyle.btn} text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shrink-0`}>
+              <a href={qrCodeApiUrl} download="HF_Studio_QR.png" target="_blank" rel="noreferrer" className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full ${activeThemeStyle.btnPrimary} text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shrink-0`}>
                 <Download className="w-4 h-4" /> <span>Save QR</span>
               </a>
             </div>
@@ -1391,14 +1399,14 @@ function MainAppContent() {
             <p className={`text-xs sm:text-sm font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{viewingPackage.desc}</p>
             <div className={`space-y-2 text-xs sm:text-sm ${activeThemeStyle.innerCard} p-3.5 sm:p-4 rounded-[20px]`}>
               <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Vanity Tier:</span><strong className="font-black">{config.pricingByKit[selectedKit]?.name}</strong></div>
-              <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Skin Finish:</span><span className="font-bold">{viewingPackage.skinFinish}</span></div>
+              <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Finish:</span><span className="font-bold">{viewingPackage.skinFinish}</span></div>
               <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Includes:</span><span className="font-bold">{viewingPackage.includes}</span></div>
               <div className="flex justify-between items-center font-black text-sm sm:text-base pt-2 border-t border-slate-400/30">
                 <span>Investment:</span>
                 <span className={`${activeThemeStyle.accentText} font-mono text-base sm:text-lg font-black`}>₹{(config.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
-            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3 sm:py-3.5 ${activeThemeStyle.btn} text-xs sm:text-sm font-black transition-all active:scale-95 flex items-center justify-center gap-2`}>
+            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3 sm:py-3.5 ${activeThemeStyle.btnPrimary} text-xs sm:text-sm font-black transition-all active:scale-95 flex items-center justify-center gap-2`}>
               <span>Estimate & Book This Look</span> <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -1457,7 +1465,7 @@ function MainAppContent() {
                   {isDarkMode ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600" />}
                 </button>
 
-                <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-1.5 ${activeThemeStyle.btn} text-[11px] sm:text-xs font-bold px-3 sm:px-4 py-2 sm:py-2.5 active:scale-95 shadow-md`}>
+                <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-1.5 ${activeThemeStyle.btnPrimary} text-[11px] sm:text-xs font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 active:scale-95 shadow-md`}>
                   <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                   <span className="hidden sm:inline">Instagram</span>
                 </a>
@@ -1470,9 +1478,16 @@ function MainAppContent() {
               </div>
             </div>
 
-            {/* DESKTOP FLUID TABS */}
+            {/* DESKTOP FLUID TABS (iOS Style Standard Size) */}
             <div className="hidden sm:flex w-full items-center justify-center">
-              <nav className="hf-dynamic-pill-track p-1 rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-md max-w-xl">
+              <nav className="hf-ios-dock rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-md max-w-xl">
+                <div 
+                  className="hf-ios-glider hf-lens-btn"
+                  style={{
+                    width: `${100 / navTabs.length}%`,
+                    transform: `translateX(${activeTabIndex * 100}%)`
+                  }}
+                />
                 {navTabs.map(tab => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -1480,7 +1495,7 @@ function MainAppContent() {
                     <button 
                       key={tab.id} 
                       onClick={() => setActiveTab(tab.id)} 
-                      className={`relative z-10 flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-black transition-all duration-300 ${isActive ? `${activeThemeStyle.tabActiveText} hf-waterdrop-btn scale-102` : (isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900')}`}
+                      className={`relative z-10 flex-1 h-full flex items-center justify-center gap-1.5 px-3 rounded-full text-xs font-black transition-colors duration-200 ${isActive ? `${activeThemeStyle.tabActiveText}` : (isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900')}`}
                     >
                       <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                     </button>
@@ -1492,15 +1507,15 @@ function MainAppContent() {
         </header>
       </div>
 
-      {/* MOBILE BOTTOM NAVIGATION BAR WITH REAL-TIME DYNAMIC GLIDER */}
+      {/* MOBILE BOTTOM NAVIGATION BAR (iOS Native Floating Tab Bar) */}
       {!showSplash && (
         <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden border-2 border-slate-400/40 shadow-2xl`}>
-          <div ref={navTrackRef} className="hf-dynamic-pill-track w-full">
+          <div className="hf-ios-dock">
             <div 
-              className="hf-dynamic-glider hf-waterdrop-btn"
+              className="hf-ios-glider hf-lens-btn"
               style={{
-                left: `${gliderStyle.left}px`,
-                width: `${gliderStyle.width}px`
+                width: `${100 / navTabs.length}%`,
+                transform: `translateX(${activeTabIndex * 100}%)`
               }}
             />
             {navTabs.map(tab => {
@@ -1509,9 +1524,8 @@ function MainAppContent() {
               return (
                 <button 
                   key={tab.id} 
-                  data-tab-id={tab.id}
                   onClick={() => setActiveTab(tab.id)} 
-                  className={`relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-colors duration-200 ${isActive ? `${activeThemeStyle.tabActiveText} font-black` : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
+                  className={`relative z-10 flex-1 h-full flex flex-col items-center justify-center rounded-full transition-colors duration-200 ${isActive ? `${activeThemeStyle.tabActiveText} font-black` : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" />
                   <span className="text-[9px] mt-0.5 font-extrabold">{tab.label}</span>
@@ -1537,8 +1551,8 @@ function MainAppContent() {
               <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Select your vanity tier to view tailored makeover packages:</p>
 
               <div className="inline-flex p-1 rounded-full bg-slate-500/10 border border-slate-400/40 mt-1 gap-1.5">
-                <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
-                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>✨ HD Kit</button>
+                <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btnPrimary} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
+                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'drugstore' ? `${activeThemeStyle.btnPrimary} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>✨ HD Kit</button>
               </div>
             </div>
 
@@ -1579,7 +1593,7 @@ function MainAppContent() {
                         </div>
                         <div className="flex items-center gap-1.5 shrink-0">
                           <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full ${activeThemeStyle.pillBorder} text-xs font-bold hover:opacity-90 transition-all active:scale-95`}>Details</button>
-                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 sm:px-5 py-1.5 sm:py-2 ${activeThemeStyle.btn} text-xs font-extrabold transition-all active:scale-95 flex items-center gap-1`}>
+                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 sm:px-5 py-1.5 sm:py-2 ${activeThemeStyle.btnPrimary} text-xs font-extrabold transition-all active:scale-95 flex items-center gap-1`}>
                             <span>Book</span> <ChevronRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1663,7 +1677,7 @@ function MainAppContent() {
                 <p className={`text-xs sm:text-sm font-semibold leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Your appointment request has been recorded securely. Our team will coordinate with you shortly.</p>
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 rounded-full ${activeThemeStyle.btn} font-extrabold inline-flex items-center gap-2 text-xs sm:text-sm transition-all shadow-xl active:scale-95`}>
+                    <a href={generatedJpgUrl} download={`Booking_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 rounded-full ${activeThemeStyle.btnPrimary} font-extrabold inline-flex items-center gap-2 text-xs sm:text-sm transition-all shadow-xl active:scale-95`}>
                       <Download className="w-4 h-4" /> <span>Download Official Slip (.JPG)</span>
                     </a>
                   </div>
@@ -1684,8 +1698,8 @@ function MainAppContent() {
                   <div>
                     <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2.5">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'international' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'international' ? `${activeThemeStyle.btnPrimary} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'drugstore' ? `${activeThemeStyle.btnPrimary} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
@@ -1785,7 +1799,7 @@ function MainAppContent() {
                       ) : (
                         <div className="flex gap-2">
                           <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className={`flex-1 ${activeThemeStyle.inputBg} rounded-full px-4 py-2.5 text-xs sm:text-sm uppercase font-mono font-black outline-none`} />
-                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-black rounded-full shrink-0 shadow-md active:scale-95`}>Apply</button>
+                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-2.5 ${activeThemeStyle.btnPrimary} text-xs font-black rounded-full shrink-0 shadow-md active:scale-95`}>Apply</button>
                         </div>
                       )}
                       {couponError && <p className="text-[11px] text-rose-500 font-bold">{couponError}</p>}
@@ -1818,7 +1832,7 @@ function MainAppContent() {
                         </h4>
                         <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
-                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3 py-1 rounded-full text-[10px] font-black border transition-all ${addressType === type ? `${activeThemeStyle.btn} ${activeThemeStyle.tabActiveText} shadow-sm` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>
+                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3 py-1 rounded-full text-[10px] font-black border transition-all ${addressType === type ? `${activeThemeStyle.btnPrimary} shadow-sm` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
                             </button>
                           ))}
@@ -1910,7 +1924,7 @@ function MainAppContent() {
                       </div>
                     </div>
 
-                    <button type="submit" disabled={isSubmitting} className={`w-full py-3.5 sm:py-4 ${activeThemeStyle.btn} font-black text-xs sm:text-sm rounded-full shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
+                    <button type="submit" disabled={isSubmitting} className={`w-full py-3.5 sm:py-4 ${activeThemeStyle.btnPrimary} font-black text-xs sm:text-sm rounded-full shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
                       <Check className="w-4 h-4 sm:w-5 sm:h-5" /> <span>{isSubmitting ? 'Recording...' : 'Confirm & Send Booking'}</span>
                     </button>
                   </div>
@@ -1948,7 +1962,7 @@ function MainAppContent() {
                   <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-mono font-bold outline-none`} />
                 </div>
                 <textarea rows={3} required placeholder="Share your suggestions, review or thoughts..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className={`w-full p-3.5 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-medium outline-none`} />
-                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3.5 sm:py-4 ${activeThemeStyle.btn} font-black text-xs sm:text-sm rounded-full shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
+                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3.5 sm:py-4 ${activeThemeStyle.btnPrimary} font-black text-xs sm:text-sm rounded-full shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
                   <Send className="w-4 h-4" /> <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback'}</span>
                 </button>
               </form>
@@ -1974,7 +1988,7 @@ function MainAppContent() {
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="opacity-70 hover:opacity-100 p-1 shrink-0 transition-all active:scale-90"><X className="w-3.5 h-3.5" /></button>
           </div>
-          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-2.5 w-full py-2 sm:py-2.5 text-xs font-black rounded-full transition-all shadow-md ${isFloatingExpired ? 'bg-slate-500/20 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
+          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-2.5 w-full py-2 sm:py-2.5 text-xs font-black rounded-full transition-all shadow-md ${isFloatingExpired ? 'bg-slate-500/20 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btnPrimary} active:scale-[0.98]`}`}>
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply Code & Book")}
           </button>
         </aside>
