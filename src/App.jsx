@@ -455,7 +455,7 @@ const THEME_STYLES = {
       bg: "bg-[#030907] text-[#FFFFFF]",
       card: "bg-emerald-950/20 backdrop-blur-[40px] border border-emerald-400/35 shadow-[0_24px_60px_rgba(16,185,129,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
       innerCard: "bg-emerald-900/20 backdrop-blur-[30px] border border-emerald-400/30 shadow-inner",
-      headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(16,185,129,0.4)]",
+      headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
       tabActiveText: "text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.9)]",
       accent: "text-emerald-400",
       accentText: "text-emerald-300 font-extrabold",
@@ -800,13 +800,11 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
-  // Dynamic Navigation Pill Bar references
   const desktopNavRef = useRef(null);
   const mobileNavRef = useRef(null);
   const [desktopGlider, setDesktopGlider] = useState({ left: 0, width: 0 });
   const [mobileGlider, setMobileGlider] = useState({ left: 0, width: 0 });
 
-  // Persistence of active state on refresh
   useEffect(() => {
     try {
       localStorage.setItem('hf_active_tab', activeTab);
@@ -819,7 +817,6 @@ function MainAppContent() {
     } catch {}
   }, [selectedKit]);
 
-  // Fullscreen mobile support
   useEffect(() => {
     try {
       const vh = window.innerHeight * 0.01;
@@ -2183,12 +2180,12 @@ function MainAppContent() {
                               const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
                               const gPkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                               return (
-                                <div key={i} className={`p-2 rounded-[12px] bg-black/10 dark:bg-white/5 space-y-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>
+                                <div key={i} className={`p-2.5 rounded-[14px] border border-purple-400/30 backdrop-blur-[25px] ${isDarkMode ? 'bg-purple-900/20 text-purple-200' : 'bg-purple-100/35 text-purple-950'} space-y-1 shadow-sm`}>
                                   <div className="flex justify-between items-center font-bold">
                                     <span>Guest #{i + 1} ({vanityName}):</span>
-                                    <span className="font-mono">₹{gp.toLocaleString('en-IN')}</span>
+                                    <span className="font-mono font-black">₹{gp.toLocaleString('en-IN')}</span>
                                   </div>
-                                  <div className="text-[11px] opacity-80 pl-1">
+                                  <div className="text-[11px] font-semibold opacity-85 pl-1">
                                     • Look: {gPkgName}
                                   </div>
                                 </div>
