@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/10 backdrop-blur-[45px] border border-white/20 p-8 rounded-[32px] space-y-4 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.4)]">
-            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
+        <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white/60 backdrop-blur-[40px] border border-white/60 p-8 rounded-[32px] space-y-4 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
-            <h2 className="text-lg font-bold">System Safe Mode Active</h2>
+            <h2 className="text-lg font-semibold">System Safe Mode Active</h2>
             <p className="text-xs opacity-75 leading-relaxed">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 rounded-[18px] bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs transition active:scale-[0.98] shadow-lg"
+              className="w-full py-3 rounded-[16px] bg-blue-600 text-white font-medium text-xs transition active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -182,7 +182,7 @@ const FONT_MAP = {
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-purple-950/20 backdrop-blur-[45px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(236,72,153,0.35)] rounded-[20px]",
@@ -191,7 +191,7 @@ const THEME_STYLES = {
   },
   sunset_glow: {
     bg: "bg-[#0a0807] text-[#F2F2F7]",
-    card: "bg-amber-950/20 backdrop-blur-[45px] border border-amber-400/40 shadow-[0_24px_60px_rgba(245,158,11,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-amber-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-amber-900/20 border border-amber-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(244,63,94,0.35)] rounded-[20px]",
@@ -200,7 +200,7 @@ const THEME_STYLES = {
   },
   cyber_matrix: {
     bg: "bg-[#020808] text-[#F2F2F7]",
-    card: "bg-cyan-950/20 backdrop-blur-[45px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-cyan-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-cyan-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_30px_rgba(6,182,212,0.35)] rounded-[20px]",
@@ -209,7 +209,7 @@ const THEME_STYLES = {
   },
   real_glass_lens: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-blue-950/20 backdrop-blur-[45px] border border-blue-400/40 shadow-[0_24px_60px_rgba(0,122,255,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(0,122,255,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-blue-900/20 border border-blue-400/30",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_30px_rgba(0,122,255,0.35)] rounded-[20px]",
@@ -218,7 +218,7 @@ const THEME_STYLES = {
   },
   real_ios_glass: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-zinc-950/40 backdrop-blur-[45px] border border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[36px]",
+    card: "bg-zinc-950/40 backdrop-blur-[40px] border border-white/20 shadow-[0_25px_70px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[36px]",
     innerCard: "bg-white/[0.05] border border-white/15",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_10px_25px_rgba(37,99,235,0.4)] rounded-[22px]",
@@ -227,7 +227,7 @@ const THEME_STYLES = {
   },
   liquid_glass: {
     bg: "bg-[#040812] text-[#F2F2F7]",
-    card: "bg-sky-950/20 backdrop-blur-[45px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-sky-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-sky-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
@@ -236,7 +236,7 @@ const THEME_STYLES = {
   },
   one_ui_9: {
     bg: "bg-[#0a0a0c] text-[#F2F2F7]",
-    card: "bg-zinc-900/70 backdrop-blur-[45px] border border-zinc-600/50 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[30px]",
+    card: "bg-zinc-900/70 backdrop-blur-[40px] border border-zinc-600/50 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] rounded-[30px]",
     innerCard: "bg-zinc-800/50 border border-zinc-600/40",
     accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
@@ -245,7 +245,7 @@ const THEME_STYLES = {
   },
   gold_rose: {
     bg: "bg-[#0d0708] text-[#F2F2F7]",
-    card: "bg-rose-950/20 backdrop-blur-[45px] border border-amber-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-rose-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-rose-900/20 border border-amber-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
@@ -254,7 +254,7 @@ const THEME_STYLES = {
   },
   champagne: {
     bg: "bg-[#0d0805] text-[#F2F2F7]",
-    card: "bg-orange-950/20 backdrop-blur-[45px] border border-orange-400/40 shadow-[0_24px_60px_rgba(249,115,22,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-orange-950/25 backdrop-blur-[40px] border border-orange-400/40 shadow-[0_24px_60px_rgba(249,115,22,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-orange-900/20 border border-orange-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
@@ -263,7 +263,7 @@ const THEME_STYLES = {
   },
   emerald: {
     bg: "bg-[#040c0a] text-[#F2F2F7]",
-    card: "bg-emerald-950/20 backdrop-blur-[45px] border border-emerald-400/40 shadow-[0_24px_60px_rgba(16,185,129,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-emerald-950/25 backdrop-blur-[40px] border border-emerald-400/40 shadow-[0_24px_60px_rgba(16,185,129,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-emerald-900/20 border border-emerald-400/30",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
@@ -272,7 +272,7 @@ const THEME_STYLES = {
   },
   violet: {
     bg: "bg-[#080410] text-[#F2F2F7]",
-    card: "bg-purple-950/20 backdrop-blur-[45px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
@@ -281,7 +281,7 @@ const THEME_STYLES = {
   },
   ruby: {
     bg: "bg-[#100406] text-[#F2F2F7]",
-    card: "bg-rose-950/20 backdrop-blur-[45px] border border-rose-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-rose-950/25 backdrop-blur-[40px] border border-rose-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-rose-900/20 border border-rose-400/30",
     accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
@@ -290,7 +290,7 @@ const THEME_STYLES = {
   },
   sapphire: {
     bg: "bg-[#040610] text-[#F2F2F7]",
-    card: "bg-blue-950/20 backdrop-blur-[45px] border border-blue-400/40 shadow-[0_24px_60px_rgba(37,99,235,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(37,99,235,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-blue-900/20 border border-blue-400/30",
     accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
@@ -299,7 +299,7 @@ const THEME_STYLES = {
   },
   default: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-white/[0.08] backdrop-blur-[45px] border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1.5px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.05)] rounded-[32px]",
+    card: "bg-white/[0.08] backdrop-blur-[40px] border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_8px_20px_rgba(255,255,255,0.05)] rounded-[32px]",
     innerCard: "bg-white/[0.05] border border-white/10",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
@@ -312,14 +312,14 @@ Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) the
 
 const DAY_MODE_OVERRIDES = {
   bg: "bg-[#f4f6fa] text-slate-900",
-  card: "bg-white/60 backdrop-blur-[45px] border border-white/80 shadow-[0_24px_60px_rgba(15,23,42,0.08),inset_0_1.5px_2px_rgba(255,255,255,0.9),inset_0_8px_24px_rgba(255,255,255,0.5)] rounded-[32px]",
-  innerCard: "bg-white/65 border border-white/90 shadow-sm",
+  card: "bg-white/50 backdrop-blur-[40px] border border-white/80 shadow-[0_24px_60px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_8px_24px_rgba(255,255,255,0.5)] rounded-[32px]",
+  innerCard: "bg-white/60 border border-white/90 shadow-sm",
   glowOrb1: "rgba(168, 85, 247, 0.15)",
   glowOrb2: "rgba(56, 189, 248, 0.15)"
 };
 
 const ALL_INDIA_STATES_AND_CITIES = {
-  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Old Delhi", "Chandni Chowk", "Civil Lines", "Model Town", "Kamla Nagar", "Mukherjee Nagar", "GTB Nagar", "Shalimar Bagh", "Ashok Vihar", "Pitampura", "Rohini", "Prashant Vihar", "Kohat Enclave", "Keshav Puram", "Wazirpur", "Punjabi Bagh", "Rajouri Garden", "Tilak Nagar", "Janakpuri", "Vikaspuri", "Uttam Nagar", "Dwarka", "Palam", "Mahavir Enclave", "Vasant Kunj", "Vasant Vihar", "R K Puram", "Munirka", "Hauz Khas", "Green Park", "Saket", "Malviya Nagar", "Mehrauli", "Chhatarpur", "Greater Kailash", "GK-I", "GK-II", "Kalkaji", "Nehru Place", "Govindpuri", "Tughlakabad", "Okhla", "Okhla Phase I", "Okhla Phase II", "Okhla Phase III", "Jamia Nagar", "Abul Fazal Enclave", "Batla House", "Shaheen Bagh", "Jasola", "Sarita Vihar", "Madanpur Khadar", "Lajpat Nagar", "Amar Colony", "Greater Kailash", "Defence Colony", "Jangpura", "Lodi Colony", "South Extension", "Srinivaspuri", "East of Kailash", "Mayur Vihar", "Preet Vihar", "Laxmi Nagar", "Shahdara", "Patparganj", "Vivek Vihar", "Anand Vihar", "IP Extension", "Dilshad Garden", "Seelampur", "Karawal Nagar", "Burari", "Narela", "Bawana", "Najafgarh", "Dhaula Kuan", "Chanakyapuri", "Karol Bagh", "Paharganj", "Rajinder Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar", "Naraina", "Connaught Place", "Barakhamba", "India Gate", "Pragati Maidan"],
+  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Old Delhi", "Chandni Chowk", "Civil Lines", "Model Town", "Kamla Nagar", "Mukherjee Nagar", "GTB Nagar", "Shalimar Bagh", "Ashok Vihar", "Pitampura", "Rohini", "Prashant Vihar", "Kohat Enclave", "Keshav Puram", "Wazirpur", "Punjabi Bagh", "Rajouri Garden", "Tilak Nagar", "Janakpuri", "Vikaspuri", "Uttam Nagar", "Dwarka", "Palam", "Mahavir Enclave", "Vasant Kunj", "Vasant Vihar", "R K Puram", "Munirka", "Hauz Khas", "Green Park", "Saket", "Malviya Nagar", "Mehrauli", "Chhatarpur", "Greater Kailash", "GK-I", "GK-II", "Kalkaji", "Nehru Place", "Govindpuri", "Tughlakabad", "Okhla", "Okhla Phase I", "Okhla Phase II", "Okhla Phase III", "Jamia Nagar", "Abul Fazal Enclave", "Batla House", "Shaheen Bagh", "Jasola", "Sarita Vihar", "Madanpur Khadar", "Lajpat Nagar", "Amar Colony", "Defence Colony", "Jangpura", "Lodi Colony", "South Extension", "Srinivaspuri", "East of Kailash", "Mayur Vihar", "Preet Vihar", "Laxmi Nagar", "Shahdara", "Patparganj", "Vivek Vihar", "Anand Vihar", "IP Extension", "Dilshad Garden", "Seelampur", "Karawal Nagar", "Burari", "Narela", "Bawana", "Najafgarh", "Dhaula Kuan", "Chanakyapuri", "Karol Bagh", "Paharganj", "Rajinder Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar", "Naraina", "Connaught Place", "Barakhamba", "India Gate", "Pragati Maidan"],
   "Uttar Pradesh": ["Noida", "Greater Noida", "Amroha", "Ghaziabad", "Lucknow", "Kanpur", "Agra", "Varanasi", "Meerut", "Moradabad", "Bareilly", "Aligarh", "Mathura", "Sambhal"],
   "Haryana": ["Gurugram (Gurgaon)", "Faridabad", "Panipat", "Ambala", "Karnal", "Rohtak", "Hisar", "Sonipat"],
   "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad", "Solapur", "Kolhapur"],
@@ -433,6 +433,7 @@ const resolveConfigMedia = (live, mediaMap) => {
 
 function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
+  const [mediaAssets, setMediaAssets] = useState({});
   const [activeTab, setActiveTab] = useState('menu');
   const [selectedKit, setSelectedKit] = useState('international');
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -489,6 +490,9 @@ function MainAppContent() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
+  const topHeaderWrapperRef = useRef(null);
+  const [headerOffsetHeight, setHeaderOffsetHeight] = useState(130);
+
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
@@ -506,6 +510,17 @@ function MainAppContent() {
   }, [isDarkMode]);
 
   const toggleTheme = () => setIsDarkMode(prev => !prev);
+
+  useEffect(() => {
+    const updateDynamicHeaderHeight = () => {
+      if (topHeaderWrapperRef.current) {
+        setHeaderOffsetHeight(topHeaderWrapperRef.current.offsetHeight);
+      }
+    };
+    updateDynamicHeaderHeight();
+    window.addEventListener('resize', updateDynamicHeaderHeight);
+    return () => window.removeEventListener('resize', updateDynamicHeaderHeight);
+  }, [showSplash, config.toggles?.enableAnnouncements, config.showOfferSection, config.announcements]);
 
   useEffect(() => {
     const locked = Boolean(viewingPackage || showShareModal);
@@ -607,7 +622,7 @@ function MainAppContent() {
     const id = 'hf-google-fonts';
     if (!document.getElementById(id)) {
       const link = document.createElement('link'); link.id = id; link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Alata&family=Archivo&family=Archivo+Narrow&family=Asap&family=Bebas+Neue&family=Barlow&family=Cabin&family=Cinzel&family=Comfortaa&family=Cormorant+Garamond&family=Dancing+Script&family=DM+Sans&family=DM+Serif+Display&family=Dosis&family=EB+Garamond&family=Exo+2&family=Figtree&family=Great+Vibes&family=Heebo&family=Inter&family=Josefin+Sans&family=Josefin+Slab&family=Kanit&family=Karla&family=League+Spartan&family=Lexend&family=Lato&family=Libre+Baskerville&family=Lora&family=Maven+Pro&family=Manrope&family=Marcellus&family=Merriweather&family=Montserrat&family=Mulish&family=Nunito&family=Open+Sans&family=Oswald&family=Outfit&family=Pacifico&family=Playfair+Display&family=Poppins&family=Prata&family=Quicksand&family=Raleway&family=Roboto&family=Rubik&family=Sora&family=Space+Grotesk&family=Spectral&family=Teko&family=Titillium+Web&family=Urbanist&family=Work+Sans&display=swap';
+      link.href = 'https://fonts.googleapis.com/css2?family=Alata&family=Archivo&family=Archivo+Narrow&family=Asap&family=Bebas+Neue&family=Barlow&family=Cabin&family=Cinzel&family=Comfortaa&family=Cormorant+Garamond&family=Dancing+Script&family=DM+Sans&family=DM+Serif+Display&family=Dosis&family=EB+Garamond&family=Exo+2&family=Figtree&family=Great+Vibes&family=Heebo&family=Inter&family=Josefin+Sans&family=Josefin+Slab&family=Kanit&family=Karla&family=League+Spartan&family=Lexend&family=Lato&family=Libre+Baskerville&family=Lora&family=Maven+Pro&family=Manrope&family=Marcellus&family=Merriweather&family=Montserrat&family=Mulish&family=Nunito&family=Open+Sans&family=Oswald&family=Outfit&family=Pacifico&family=Playfair+Display&family=Poppins&family=Prata&family=Quicksand&family=Raleway&family=Roboto&family=Rubik&family=Sora&family=Space+Grotesk&family=Spectral&family=Teko&family=Titillium+Web&family=Urbanist&family=Work+Sans&family=Yeseva+One&display=swap';
       document.head.appendChild(link);
     }
   }, []);
@@ -738,10 +753,12 @@ function MainAppContent() {
       ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)'; ctx.lineWidth = 2; ctx.strokeRect(55, 55, 1090, canvas.height - 110);
 
       if (logoImageObj) {
-        ctx.save(); ctx.globalAlpha = 0.04; ctx.drawImage(logoImageObj, 300, 900, 600, 600); ctx.restore();
-        ctx.save(); ctx.beginPath(); ctx.arc(140, 140, 60, 0, Math.PI * 2, true); ctx.closePath(); ctx.clip();
-        ctx.drawImage(logoImageObj, 80, 80, 120, 120); ctx.restore();
-        ctx.strokeStyle = '#c084fc'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(140, 140, 60, 0, Math.PI * 2, true); ctx.stroke();
+        try {
+          ctx.save(); ctx.globalAlpha = 0.04; ctx.drawImage(logoImageObj, 300, 900, 600, 600); ctx.restore();
+          ctx.save(); ctx.beginPath(); ctx.arc(140, 140, 60, 0, Math.PI * 2, true); ctx.closePath(); ctx.clip();
+          ctx.drawImage(logoImageObj, 80, 80, 120, 120); ctx.restore();
+          ctx.strokeStyle = '#c084fc'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(140, 140, 60, 0, Math.PI * 2, true); ctx.stroke();
+        } catch (e) { console.warn('Canvas image draw security pass:', e); }
         drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold', '#ffffff');
         drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#7c3aed');
       } else {
@@ -753,7 +770,7 @@ function MainAppContent() {
       drawText('⏳ OFFICIAL BOOKING REQUEST SLIP', 600, 290, 26, 'bold', '#fbbf24', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
-      const kitName = config.pricingByKit[calcKit].name; const zone = config.convenienceZones[calcZone];
+      const kitName = config.pricingByKit[calcKit]?.name || 'Luxury Kit'; const zone = config.convenienceZones[calcZone];
 
       let startY = 340;
       startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#7c3aed', mono: true });
@@ -811,13 +828,20 @@ function MainAppContent() {
       drawText(`Studio Base Location: ${config.baseLocation} • Instagram: @${(config.instagramHandle || '').replace('@','')}`, 600, footerY, 17, 'normal', '#94a3b8', 'center');
       drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, footerY + 32, 18, 'italic', '#7c3aed', 'center');
 
-      const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
-      setGeneratedJpgUrl(jpgUrl);
+      try {
+        const jpgUrl = canvas.toDataURL('image/jpeg', 0.95);
+        setGeneratedJpgUrl(jpgUrl);
+      } catch (e) {
+        console.warn('Canvas export skipped:', e);
+      }
     };
 
     const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
-    const logoImg = new Image(); logoImg.crossOrigin = "anonymous";
-    logoImg.src = logoUrlToLoad; logoImg.onload = () => drawContent(logoImg); logoImg.onerror = () => drawContent(null);
+    const logoImg = new Image(); 
+    logoImg.crossOrigin = "anonymous";
+    logoImg.src = logoUrlToLoad; 
+    logoImg.onload = () => drawContent(logoImg); 
+    logoImg.onerror = () => drawContent(null);
   };
 
   const handleDirectEstimateBooking = async (e) => {
@@ -836,21 +860,25 @@ function MainAppContent() {
     try {
       await addDoc(collection(db, "bookings"), {
         bookingNumber: generatedBookingNo, clientName: clientName.trim(), clientPhone: clientPhone.trim(), eventDate: eventDate,
-        kitType: config.pricingByKit[calcKit].name, packageKey: calcPackage, packageName: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}`,
+        kitType: config.pricingByKit[calcKit]?.name || 'Luxury Kit', packageKey: calcPackage, packageName: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}`,
         basePackagePrice: mainPackagePrice, extraGuestsCount: familyGuests.length, extraGuestsList: familyGuests, extraGuestsCost: familyGuestsGross, extraGuestsFinalCost: familyGuestsFinalTotal,
         guestDiscountSaved: guestDiscountSavedAmount, zoneName: zone?.name || 'Delhi NCR', zoneFee: zone?.fee || 350,
         addressType: addressType, flatHouseNo: flatHouseNo.trim(), streetLocality: streetLocality.trim(), landmark: landmark.trim(), city: city.trim(), state: state.trim(), pincode: pincode.trim(), venueAddress: compiledAddress,
         appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None', couponDiscountAmount: couponDiscountAmount, discountAmount: guestDiscountSavedAmount + couponDiscountAmount, totalAmount: finalEstimate, status: 'pending', createdAt: serverTimestamp()
       });
 
-      const telegramBotToken = config.telegramBotToken || STUDIO_CONFIG.telegramBotToken || "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
-      const telegramChatId = config.telegramChatId || STUDIO_CONFIG.telegramChatId || "8891500480";
+      const telegramBotToken = config.telegramBotToken;
+      const telegramChatId = config.telegramChatId;
       
-      const tgMsgText = `🚨 <b>NEW APPOINTMENT BOOKING REQUEST</b> 🚨\n\n🔢 <b>Booking No:</b> ${generatedBookingNo}\n👤 <b>Client Name:</b> ${clientName.trim()}\n📞 <b>Contact Phone:</b> ${clientPhone.trim()}\n📅 <b>Event Date:</b> ${eventDate}\n💄 <b>Main Look:</b> ${pkgText.name}\n💎 <b>Vanity Tier:</b> ${config.pricingByKit[calcKit].name}\n👥 <b>Extra Guests:</b> ${familyGuests.length} person(s)\n🏷️ <b>Address Type:</b> ${addressType}\n🏠 <b>Venue Address:</b> ${compiledAddress}\n📮 <b>Postal PIN:</b> ${pincode.trim()}\n🎁 <b>Discounts:</b> Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n💰 <b>Final Amount:</b> ₹${finalEstimate.toLocaleString('en-IN')}\n\n<i>Status: Pending Confirmation in Admin Console</i>`;
+      const tgMsgText = `🚨 <b>NEW APPOINTMENT BOOKING REQUEST</b> 🚨\n\n🔢 <b>Booking No:</b> ${generatedBookingNo}\n👤 <b>Client Name:</b> ${clientName.trim()}\n📞 <b>Contact Phone:</b> ${clientPhone.trim()}\n📅 <b>Event Date:</b> ${eventDate}\n💄 <b>Main Look:</b> ${pkgText.name}\n💎 <b>Vanity Tier:</b> ${config.pricingByKit[calcKit]?.name || 'Luxury Kit'}\n👥 <b>Extra Guests:</b> ${familyGuests.length} person(s)\n🏷️ <b>Address Type:</b> ${addressType}\n🏠 <b>Venue Address:</b> ${compiledAddress}\n📮 <b>Postal PIN:</b> ${pincode.trim()}\n🎁 <b>Discounts:</b> Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n💰 <b>Final Amount:</b> ₹${finalEstimate.toLocaleString('en-IN')}\n\n<i>Status: Pending Confirmation in Admin Console</i>`;
 
       try {
         if (telegramBotToken && telegramChatId) {
-          await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' }) });
+          await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' }) 
+          });
         }
       } catch (tgErr) { console.warn('Telegram notification silent skip:', tgErr); }
 
@@ -889,7 +917,23 @@ function MainAppContent() {
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
   const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
 
-  const isAnnouncementActive = !showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false;
+  if (config.isAppDown || config.maintenanceMode) {
+    return (
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden`}>
+        <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
+        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl relative z-10`}>
+          <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
+            <Wrench className="w-6 h-6" />
+          </div>
+          <div className="space-y-2">
+            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-md inline-block font-medium border border-amber-500/20">Scheduled System Upgrade</span>
+            <h2 className="text-xl font-semibold">We'll Be Back Shortly</h2>
+            <p className="text-xs opacity-75 leading-relaxed">We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -899,7 +943,68 @@ function MainAppContent() {
       className={`hf-app min-h-screen ${activeThemeStyle.bg} relative transition-colors duration-700 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <canvas ref={canvasRef} className="hidden" />
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+      <style>{`
+        *, *::before, *::after { box-sizing: border-box; }
+        button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
+        button, a { will-change: transform, opacity; }
+        
+        select option { background-color: #18181b; color: #f4f4f5; }
+        html, body, #root { min-height: 100%; width: 100%; margin: 0; }
+        html { overflow-x: hidden; scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
+
+        .hf-mesh-glow {
+          position: fixed;
+          pointer-events: none;
+          z-index: 0;
+          border-radius: 9999px;
+          filter: blur(120px);
+          transform: translate3d(0,0,0);
+          animation: hfFloat 14s ease-in-out infinite alternate;
+        }
+        @keyframes hfFloat {
+          0% { transform: scale(1) translate(0px, 0px); }
+          100% { transform: scale(1.15) translate(40px, 30px); }
+        }
+
+        .hf-tab-enter {
+          animation: hfFadeScale 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes hfFadeScale {
+          0% { opacity: 0; transform: scale(0.97) translateY(12px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .hf-app[data-hf-mode="night"] h1,
+        .hf-app[data-hf-mode="night"] h2,
+        .hf-app[data-hf-mode="night"] h3,
+        .hf-app[data-hf-mode="night"] h4,
+        .hf-app[data-hf-mode="night"] .font-mono {
+          text-shadow: 0 0 16px rgba(168, 85, 247, 0.25);
+        }
+
+        .hf-modal-backdrop { 
+          position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
+          padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
+          background: rgba(0,0,0,0.72); backdrop-filter: blur(28px); overflow-y: auto; 
+        }
+        .hf-modal-card { width: min(100%, 560px); max-height: min(88dvh, 760px); overflow-y: auto; margin: auto; }
+
+        .hf-floating-banner { 
+          position: fixed; bottom: calc(84px + env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); 
+          width: min(360px, calc(100vw - 24px)); z-index: 40;
+        }
+        @media (min-width: 640px) { .hf-floating-banner { bottom: 24px; right: 24px; width: 340px; } }
+
+        .hf-bottom-nav { 
+          position: fixed; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
+          width: calc(100% - 24px); max-width: 520px; padding: 8px; border-radius: 999px !important; 
+          backdrop-filter: blur(40px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); z-index: 50;
+        }
+        .hf-bottom-nav button { min-height: 48px; border-radius: 999px !important; }
+      `}</style>
 
       {/* DYNAMIC LIQUID GLASS RADIANT GLOW LIGHTS */}
       <div className="hf-mesh-glow w-[550px] h-[550px] -top-24 -left-24 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
@@ -974,99 +1079,85 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* TOP THEME-ALIGNED ANNOUNCEMENT TICKER WITH MOVING CSS MARQUEE */}
-      {isAnnouncementActive && (
-        <div className={`fixed top-0 inset-x-0 z-50 h-[30px] flex items-center overflow-hidden text-[11px] font-semibold border-b shadow-sm backdrop-blur-2xl transition-all duration-500 ${isDarkMode ? 'bg-black/40 border-white/10 text-white' : 'bg-white/40 border-black/10 text-slate-900'}`}>
-          <div className="relative flex overflow-hidden whitespace-nowrap w-full select-none">
-            <div className="flex shrink-0 animate-[hfMarquee_28s_linear_infinite] will-change-transform">
-              {(config.announcements || []).map((ann, idx) => (
-                <span key={`a1-${idx}`} className="mx-8 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse shrink-0" />
-                  <span>{ann}</span>
-                </span>
-              ))}
-            </div>
-            <div className="flex shrink-0 animate-[hfMarquee_28s_linear_infinite] will-change-transform" aria-hidden="true">
-              {(config.announcements || []).map((ann, idx) => (
-                <span key={`a2-${idx}`} className="mx-8 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse shrink-0" />
-                  <span>{ann}</span>
-                </span>
-              ))}
+      {/* TOP HEADER WRAPPER (TICKER + NAVBAR) WITH DYNAMIC HEIGHT REF */}
+      <div ref={topHeaderWrapperRef} className="fixed top-0 inset-x-0 z-40">
+        {/* TOP THEME-ALIGNED ANNOUNCEMENT TICKER */}
+        {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
+          <div className={`w-full py-1.5 px-3 overflow-hidden text-[11px] font-semibold border-b shadow-sm backdrop-blur-2xl transition-all duration-500 ${isDarkMode ? 'bg-black/40 border-white/10 text-white' : 'bg-white/40 border-black/10 text-slate-900'}`}>
+            <div className="flex overflow-hidden whitespace-nowrap w-full">
+              <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
+                {(config.announcements || []).map((ann, idx) => (
+                  <span key={idx} className="mx-6 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />{ann}</span>
+                ))}
+              </div>
             </div>
           </div>
-          <style>{`
-            @keyframes hfMarquee {
-              0% { transform: translateX(0%); }
-              100% { transform: translateX(-50%); }
-            }
-          `}</style>
-        </div>
-      )}
+        )}
 
-      {/* FIXED LIQUID GLASS HEADER FOR ALL SCREENS */}
-      <header className={`fixed ${isAnnouncementActive ? 'top-[30px]' : 'top-0'} inset-x-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-[45px] transition-all duration-500 shadow-xl`}>
-        <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
-              {config.toggles?.showLogoOnApp !== false && (
-                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-white/30 bg-white/10 flex items-center justify-center shadow-md">
-                  <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" draggable="false" />
+        {/* FIXED LIQUID GLASS HEADER */}
+        <header className={`w-full px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-[40px] transition-all duration-500 shadow-xl`}>
+          <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
+                {config.toggles?.showLogoOnApp !== false && (
+                  <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-white/30 bg-white/10 flex items-center justify-center shadow-md">
+                    <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" draggable="false" />
+                  </div>
+                )}
+                <div className="truncate">
+                  <h1 className="font-semibold text-sm sm:text-base truncate tracking-tight">{config.studioName || 'H&F Makeup Artist'}</h1>
+                  <p className={`text-[11px] ${activeThemeStyle.accentText} flex items-center gap-1 truncate font-medium`}><span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span></p>
                 </div>
-              )}
-              <div className="truncate">
-                <h1 className="font-semibold text-sm sm:text-base truncate tracking-tight">{config.studioName || 'H&F Makeup Artist'}</h1>
-                <p className={`text-[11px] ${activeThemeStyle.accentText} flex items-center gap-1 truncate font-medium`}><span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span></p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
+                  <QrCode className="w-4 h-4" />
+                </button>
+
+                <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
+                  {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+                </button>
+
+                <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-semibold px-4 py-2.5 transition-all duration-500 active:scale-95 shadow-md`}>
+                  <Camera className="w-4 h-4 shrink-0" />
+                  <span className="hidden sm:inline">View on Instagram</span>
+                </a>
+
+                {shouldShowProfileInHeader && (
+                  <div className="w-9 h-9 rounded-[16px] border border-white/30 overflow-hidden shrink-0 shadow-sm">
+                    <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" />
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
-                <QrCode className="w-4 h-4" />
-              </button>
-
-              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
-                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-              </button>
-
-              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-semibold px-4 py-2.5 transition-all duration-500 active:scale-95 shadow-md`}>
-                <Camera className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">View on Instagram</span>
-              </a>
-
-              {shouldShowProfileInHeader && (
-                <div className="w-9 h-9 rounded-[16px] border border-white/30 overflow-hidden shrink-0 shadow-sm">
-                  <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" />
-                </div>
-              )}
+            <div className="hidden sm:flex w-full items-center justify-center pt-0.5">
+              <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-white/25 bg-white/[0.08] text-xs font-medium shadow-inner backdrop-blur-[40px]">
+                {[
+                  { id: 'menu', label: 'Packages', icon: Crown, show: true },
+                  { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
+                  { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+                  { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+                  { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
+                ].filter(t => t.show).map(tab => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition-all duration-500 ease-out ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/15'}`}>
+                      <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
+                    </button>
+                  );
+                })}
+              </nav>
             </div>
           </div>
-
-          <div className="hidden sm:flex w-full items-center justify-center pt-0.5">
-            <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-white/25 bg-white/[0.08] text-xs font-medium shadow-inner backdrop-blur-[45px]">
-              {[
-                { id: 'menu', label: 'Packages', icon: Crown, show: true },
-                { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
-                { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-                { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-                { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
-              ].filter(t => t.show).map(tab => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.id;
-                return (
-                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition-all duration-500 ease-out ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/15'}`}>
-                    <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* MOBILE BOTTOM NAVIGATION BAR */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border border-white/30 shadow-[0_24px_60px_rgba(0,0,0,0.5)] backdrop-blur-[45px]`}>
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border border-white/30 shadow-[0_24px_60px_rgba(0,0,0,0.5)] backdrop-blur-[40px]`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1085,8 +1176,11 @@ function MainAppContent() {
         </nav>
       )}
 
-      {/* MAIN CONTAINER: DYNAMICALLY PADDED BELOW THE HEADER */}
-      <main className={`max-w-5xl mx-auto px-4 sm:px-6 ${isAnnouncementActive ? 'pt-28 sm:pt-36' : 'pt-20 sm:pt-28'} pb-32 sm:pb-24 relative z-10`}>
+      {/* MAIN CONTAINER WITH DYNAMIC PADDING TO PREVENT OVERLAP */}
+      <main 
+        style={{ paddingTop: `${headerOffsetHeight + 20}px` }} 
+        className="max-w-5xl mx-auto px-4 sm:px-6 pb-32 sm:pb-24 relative z-10 transition-all duration-300"
+      >
         {activeTab === 'menu' && (
           <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1096,7 +1190,7 @@ function MainAppContent() {
               <h2 className="text-xl sm:text-3xl font-bold tracking-tight">Curated Makeup Menu</h2>
               <p className="text-xs sm:text-sm opacity-70">Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-[26px] bg-white/10 border border-white/30 mt-2 gap-1.5 shadow-inner backdrop-blur-[45px]">
+              <div className="inline-flex p-1.5 rounded-[26px] bg-white/10 border border-white/30 mt-2 gap-1.5 shadow-inner backdrop-blur-[40px]">
                 <button onClick={() => setSelectedKit('international')} className={`px-6 py-3 rounded-[20px] text-xs font-bold transition-all duration-500 ease-out ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/10'}`}>👑 Luxury Kit</button>
                 <button onClick={() => setSelectedKit('drugstore')} className={`px-6 py-3 rounded-[20px] text-xs font-bold transition-all duration-500 ease-out ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/10'}`}>✨ HD Kit</button>
               </div>
@@ -1114,7 +1208,7 @@ function MainAppContent() {
                   <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-500 ease-out hover:scale-[1.015] hover:shadow-2xl`}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[24px] overflow-hidden bg-white/10 relative border border-white/30 shadow-inner">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                      <div className="absolute top-2 left-2 px-2.5 py-1 rounded-[12px] bg-black/75 text-[10px] font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20 shadow-sm">
+                      <div className="absolute top-2 left-2 px-2.5 py-1 rounded-[12px] bg-black/60 text-[10px] font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20 shadow-sm">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
@@ -1193,7 +1287,6 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* ESTIMATOR & BOOKING TAB */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
@@ -1209,7 +1302,7 @@ function MainAppContent() {
                 {generatedJpgUrl && (
                   <div className="pt-3">
                     <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 rounded-[20px] ${activeThemeStyle.btn} font-semibold inline-flex items-center gap-2 text-sm transition-all duration-500 shadow-xl active:scale-95`}>
-                      <Download className="w-4 h-4" /> <span>Download Booking Slip (.JPG)</span>
+                      <Download className="w-4 h-4" /> <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
@@ -1317,7 +1410,7 @@ function MainAppContent() {
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                     <div className="pt-4 border-t border-white/20 space-y-2.5">
                       <label className="block text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
-                        <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
+                        <Tag className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
                         <div className={`${activeThemeStyle.innerCard} rounded-[20px] p-4 flex items-center justify-between gap-3 shadow-inner`}>
@@ -1339,7 +1432,7 @@ function MainAppContent() {
 
                   <div className="pt-4 border-t border-white/20 space-y-4">
                     <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
-                      <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
+                      <User className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
                     <div>
                       <label className="block text-xs font-bold opacity-80 mb-1.5">Full Name *</label>
@@ -1359,7 +1452,7 @@ function MainAppContent() {
                     <div className="pt-4 border-t border-white/20 space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
-                          <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
+                          <MapPin className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-2">
                           {['Home', 'Work'].map((type) => (
