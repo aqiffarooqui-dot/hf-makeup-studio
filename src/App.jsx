@@ -35,9 +35,9 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/10 backdrop-blur-3xl border border-white/20 p-8 rounded-[32px] space-y-4 shadow-2xl">
-            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
+        <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white/60 backdrop-blur-[40px] border border-white/60 p-8 rounded-[32px] space-y-4 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)]">
+            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
             <h2 className="text-lg font-semibold">System Safe Mode Active</h2>
@@ -46,7 +46,7 @@ class AppErrorBoundary extends Component {
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-2.5 rounded-[16px] bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium text-xs transition active:scale-[0.98]"
+              className="w-full py-3 rounded-[16px] bg-blue-600 text-white font-medium text-xs transition active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -179,37 +179,41 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
+// ==========================================
+// TRUE IPHONE LIQUID BUBBLE GLASS ARCHITECTURE
+// High backdrop-blur + Inset reflection highlights + Deep shadows
+// ==========================================
 const THEME_STYLES = {
   admin_aurora: {
-    bg: "bg-[#08070d] text-[#F2F2F7]",
-    card: "bg-purple-950/20 backdrop-blur-[36px] border border-purple-400/40 shadow-[0_20px_50px_rgba(168,85,247,0.2)] rounded-[32px]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
+    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
-    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(236,72,153,0.4)] rounded-[20px]",
+    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(236,72,153,0.35)] rounded-[20px]",
     glowOrb1: "rgba(168, 85, 247, 0.28)",
     glowOrb2: "rgba(236, 72, 153, 0.22)"
   },
   sunset_glow: {
-    bg: "bg-[#0d0705] text-[#F2F2F7]",
-    card: "bg-amber-950/20 backdrop-blur-[36px] border border-amber-400/40 shadow-[0_20px_50px_rgba(245,158,11,0.2)] rounded-[32px]",
+    bg: "bg-[#0a0807] text-[#F2F2F7]",
+    card: "bg-amber-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-amber-900/20 border border-amber-400/30",
     accent: "text-amber-400",
-    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(244,63,94,0.4)] rounded-[20px]",
+    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(244,63,94,0.35)] rounded-[20px]",
     glowOrb1: "rgba(245, 158, 11, 0.28)",
     glowOrb2: "rgba(244, 63, 94, 0.22)"
   },
   cyber_matrix: {
-    bg: "bg-[#020908] text-[#F2F2F7]",
-    card: "bg-cyan-950/20 backdrop-blur-[36px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2)] rounded-[32px]",
+    bg: "bg-[#020808] text-[#F2F2F7]",
+    card: "bg-cyan-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-cyan-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
-    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_30px_rgba(6,182,212,0.4)] rounded-[20px]",
+    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_30px_rgba(6,182,212,0.35)] rounded-[20px]",
     glowOrb1: "rgba(6, 182, 212, 0.28)",
     glowOrb2: "rgba(16, 185, 129, 0.22)"
   },
   real_glass_lens: {
-    bg: "bg-[#060810] text-[#F2F2F7]",
-    card: "bg-blue-950/20 backdrop-blur-[36px] border border-blue-400/40 shadow-[0_20px_50px_rgba(0,122,255,0.2)] rounded-[32px]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
+    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(0,122,255,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-blue-900/20 border border-blue-400/30",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_30px_rgba(0,122,255,0.35)] rounded-[20px]",
@@ -217,8 +221,8 @@ const THEME_STYLES = {
     glowOrb2: "rgba(99, 102, 241, 0.22)"
   },
   real_ios_glass: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-white/[0.06] backdrop-blur-[40px] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.5)] rounded-[36px]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
+    card: "bg-zinc-950/40 backdrop-blur-[40px] border border-white/20 shadow-[0_25px_70px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[36px]",
     innerCard: "bg-white/[0.05] border border-white/15",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_10px_25px_rgba(37,99,235,0.4)] rounded-[22px]",
@@ -226,26 +230,44 @@ const THEME_STYLES = {
     glowOrb2: "rgba(99, 102, 241, 0.20)"
   },
   liquid_glass: {
-    bg: "bg-[#050912] text-[#F2F2F7]",
-    card: "bg-sky-950/20 backdrop-blur-[36px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2)] rounded-[32px]",
+    bg: "bg-[#040812] text-[#F2F2F7]",
+    card: "bg-sky-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-sky-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
     glowOrb1: "rgba(6, 182, 212, 0.28)",
     glowOrb2: "rgba(37, 99, 235, 0.22)"
   },
+  one_ui_9: {
+    bg: "bg-[#0a0a0c] text-[#F2F2F7]",
+    card: "bg-zinc-900/70 backdrop-blur-[40px] border border-zinc-600/50 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] rounded-[30px]",
+    innerCard: "bg-zinc-800/50 border border-zinc-600/40",
+    accent: "text-violet-400",
+    btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
+    glowOrb1: "rgba(139, 92, 246, 0.25)",
+    glowOrb2: "rgba(168, 85, 247, 0.15)"
+  },
   gold_rose: {
-    bg: "bg-[#0e0708] text-[#F2F2F7]",
-    card: "bg-rose-950/20 backdrop-blur-[36px] border border-amber-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#0d0708] text-[#F2F2F7]",
+    card: "bg-rose-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-rose-900/20 border border-amber-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
     glowOrb1: "rgba(245, 158, 11, 0.25)",
     glowOrb2: "rgba(244, 63, 94, 0.22)"
   },
+  champagne: {
+    bg: "bg-[#0d0805] text-[#F2F2F7]",
+    card: "bg-orange-950/25 backdrop-blur-[40px] border border-orange-400/40 shadow-[0_24px_60px_rgba(249,115,22,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    innerCard: "bg-orange-900/20 border border-orange-400/30",
+    accent: "text-amber-400",
+    btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
+    glowOrb1: "rgba(245, 158, 11, 0.25)",
+    glowOrb2: "rgba(249, 115, 22, 0.20)"
+  },
   emerald: {
-    bg: "bg-[#030c08] text-[#F2F2F7]",
-    card: "bg-emerald-950/20 backdrop-blur-[36px] border border-emerald-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#040c0a] text-[#F2F2F7]",
+    card: "bg-emerald-950/25 backdrop-blur-[40px] border border-emerald-400/40 shadow-[0_24px_60px_rgba(16,185,129,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-emerald-900/20 border border-emerald-400/30",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
@@ -253,17 +275,35 @@ const THEME_STYLES = {
     glowOrb2: "rgba(20, 184, 166, 0.20)"
   },
   violet: {
-    bg: "bg-[#090512] text-[#F2F2F7]",
-    card: "bg-purple-950/20 backdrop-blur-[36px] border border-purple-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#080410] text-[#F2F2F7]",
+    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
     glowOrb1: "rgba(168, 85, 247, 0.28)",
     glowOrb2: "rgba(99, 102, 241, 0.22)"
   },
+  ruby: {
+    bg: "bg-[#100406] text-[#F2F2F7]",
+    card: "bg-rose-950/25 backdrop-blur-[40px] border border-rose-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    innerCard: "bg-rose-900/20 border border-rose-400/30",
+    accent: "text-rose-400",
+    btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
+    glowOrb1: "rgba(244, 63, 94, 0.28)",
+    glowOrb2: "rgba(225, 29, 72, 0.20)"
+  },
+  sapphire: {
+    bg: "bg-[#040610] text-[#F2F2F7]",
+    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(37,99,235,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    innerCard: "bg-blue-900/20 border border-blue-400/30",
+    accent: "text-blue-400",
+    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
+    glowOrb1: "rgba(37, 99, 235, 0.28)",
+    glowOrb2: "rgba(79, 70, 229, 0.20)"
+  },
   default: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-white/[0.06] backdrop-blur-[36px] border border-white/20 shadow-xl rounded-[32px]",
+    card: "bg-white/[0.08] backdrop-blur-[40px] border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_8px_20px_rgba(255,255,255,0.05)] rounded-[32px]",
     innerCard: "bg-white/[0.05] border border-white/10",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
@@ -272,10 +312,13 @@ const THEME_STYLES = {
   }
 };
 
+Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
+
+// DAY MODE TRUE LIQUID BUBBLE GLASS WITH CRISP BORDERS & INSET REFLECTIONS
 const DAY_MODE_OVERRIDES = {
   bg: "bg-[#f4f6fa] text-slate-900",
-  card: "bg-white/70 backdrop-blur-[36px] border border-white/80 shadow-[0_20px_50px_rgba(15,23,42,0.08)] rounded-[32px]",
-  innerCard: "bg-white/60 border border-slate-200/80",
+  card: "bg-white/50 backdrop-blur-[40px] border border-white/80 shadow-[0_24px_60px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_8px_24px_rgba(255,255,255,0.5)] rounded-[32px]",
+  innerCard: "bg-white/60 border border-white/90 shadow-sm",
   glowOrb1: "rgba(168, 85, 247, 0.15)",
   glowOrb2: "rgba(56, 189, 248, 0.15)"
 };
@@ -360,7 +403,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px] shadow-md transition-all duration-300 hover:scale-[1.01]">
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out hover:scale-[1.02]">
       <video
         ref={videoRef}
         src={item.url}
@@ -369,7 +412,7 @@ const AutoPlayVideoCard = ({ item }) => {
         loop
         playsInline
         preload="auto"
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
         <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
@@ -453,7 +496,6 @@ function MainAppContent() {
 
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
-  const [mediaAssets, setMediaAssets] = useState({});
 
   useEffect(() => {
     try {
@@ -468,9 +510,7 @@ function MainAppContent() {
     } catch {}
   }, [isDarkMode]);
 
-  const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
-  };
+  const toggleTheme = () => setIsDarkMode(prev => !prev);
 
   useEffect(() => {
     const locked = Boolean(viewingPackage || showShareModal);
@@ -494,7 +534,6 @@ function MainAppContent() {
         window.history.pushState(null, '', window.location.href);
       }
     };
-
     window.history.pushState({ tab: activeTab }, '', window.location.href);
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -581,17 +620,10 @@ function MainAppContent() {
   const handleAddFamilyGuest = () => {
     const defaultKit = 'international';
     const firstPkgKey = Object.keys(config.kitText?.[defaultKit] || {})[0] || 'hd_party';
-    setFamilyGuests([...familyGuests, {
-      id: Date.now(),
-      name: `Guest #${familyGuests.length + 1}`,
-      kit: defaultKit,
-      packageKey: firstPkgKey
-    }]);
+    setFamilyGuests([...familyGuests, { id: Date.now(), name: `Guest #${familyGuests.length + 1}`, kit: defaultKit, packageKey: firstPkgKey }]);
   };
 
-  const handleRemoveFamilyGuest = (id) => {
-    setFamilyGuests(familyGuests.filter(g => g.id !== id));
-  };
+  const handleRemoveFamilyGuest = (id) => setFamilyGuests(familyGuests.filter(g => g.id !== id));
 
   const handleUpdateFamilyGuest = (id, field, value) => {
     setFamilyGuests(familyGuests.map(g => {
@@ -610,22 +642,17 @@ function MainAppContent() {
 
   const calculateFamilyGuestsGross = () => {
     let subtotal = 0;
-    familyGuests.forEach(g => {
-      const raw = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-      subtotal += raw;
-    });
+    familyGuests.forEach(g => { subtotal += (config.pricingByKit[g.kit]?.[g.packageKey] || 2500); });
     return subtotal;
   };
 
   const mainPackagePrice = config.pricingByKit[calcKit]?.[calcPackage] || 15000;
   const zoneFee = config.convenienceZones[calcZone]?.fee || 350;
-  
   const mainBookingSubtotal = mainPackagePrice + zoneFee;
   const familyGuestsGross = calculateFamilyGuestsGross();
   
   const guestDiscountSavedAmount = isGuestDiscountActive && familyGuests.length > 0
-    ? Math.round((familyGuestsGross * guestDiscountPercent) / 100)
-    : 0;
+    ? Math.round((familyGuestsGross * guestDiscountPercent) / 100) : 0;
     
   const familyGuestsFinalTotal = familyGuestsGross - guestDiscountSavedAmount;
   const subtotalBeforePromo = mainBookingSubtotal + familyGuestsFinalTotal;
@@ -634,25 +661,17 @@ function MainAppContent() {
     if (e) e.preventDefault();
     setCouponError('');
     if (config.toggles?.enableCoupons === false || config.enableDiscountsAndCoupons === false) {
-      setCouponError('❌ Coupon system is currently disabled.');
-      return;
+      setCouponError('❌ Coupon system is currently disabled.'); return;
     }
     const code = (customCode || couponInput).trim().toUpperCase();
     if (!code) return;
     const couponData = config.validCoupons?.[code];
-    if (!couponData) {
-      setCouponError('❌ Invalid promo coupon code.');
-      return;
-    }
-    if (couponData.enabled === false) {
-      setCouponError('⚠️ This promo coupon code is currently unavailable.');
-      return;
-    }
+    if (!couponData) { setCouponError('❌ Invalid promo coupon code.'); return; }
+    if (couponData.enabled === false) { setCouponError('⚠️ This promo coupon code is currently unavailable.'); return; }
     if (couponData.expiryDate) {
       const timeRemaining = getTimeRemaining(couponData.expiryDate);
       if (timeRemaining && timeRemaining.expired) {
-        setCouponError(`⚠️ Coupon code ${code} expired on ${new Date(couponData.expiryDate).toLocaleDateString()}.`);
-        return;
+        setCouponError(`⚠️ Coupon code ${code} expired on ${new Date(couponData.expiryDate).toLocaleDateString()}.`); return;
       }
     }
     setAppliedCoupon({ code, ...couponData });
@@ -680,10 +699,7 @@ function MainAppContent() {
     canvas.height = Math.max(2600, 2150 + guestRowsHeight);
 
     const drawText = (text, x, y, size, weight = 'normal', color = '#ffffff', align = 'left', family = 'sans-serif') => {
-      ctx.textAlign = align;
-      ctx.fillStyle = color;
-      ctx.font = `${weight} ${size}px ${family}`;
-      ctx.fillText(String(text ?? ''), x, y);
+      ctx.textAlign = align; ctx.fillStyle = color; ctx.font = `${weight} ${size}px ${family}`; ctx.fillText(String(text ?? ''), x, y);
     };
 
     const drawRow = (label, value, y, options = {}) => {
@@ -699,74 +715,38 @@ function MainAppContent() {
       ctx.font = `bold ${options.valueSize || 18}px sans-serif`;
       const maxWidth = options.maxWidth || 500;
       const words = String(value || '').split(' ');
-      let lines = [];
-      let curLine = '';
-
+      let lines = []; let curLine = '';
       for (let i = 0; i < words.length; i++) {
         const testLine = curLine + words[i] + ' ';
         const metrics = ctx.measureText(testLine);
-        if (metrics.width > maxWidth && i > 0) {
-          lines.push(curLine.trim());
-          curLine = words[i] + ' ';
-        } else {
-          curLine = testLine;
-        }
+        if (metrics.width > maxWidth && i > 0) { lines.push(curLine.trim()); curLine = words[i] + ' '; } 
+        else { curLine = testLine; }
       }
       if (curLine.trim()) lines.push(curLine.trim());
       if (lines.length === 0) lines = [String(value || '')];
 
-      const lineHeight = 24;
-      const rowHeight = Math.max(54, 24 + (lines.length * lineHeight));
-      ctx.fillStyle = options.bg || 'rgba(255,255,255,0.035)';
-      ctx.fillRect(90, y, 1020, rowHeight);
-
+      const lineHeight = 24; const rowHeight = Math.max(54, 24 + (lines.length * lineHeight));
+      ctx.fillStyle = options.bg || 'rgba(255,255,255,0.035)'; ctx.fillRect(90, y, 1020, rowHeight);
       drawText(label, 120, y + 34, options.labelSize || 18, 'bold', options.labelColor || '#94a3b8');
-      lines.forEach((line, lIdx) => {
-        drawText(line, 1080, y + 34 + (lIdx * lineHeight), options.valueSize || 18, 'bold', options.valueColor || '#ffffff', 'right');
-      });
-
+      lines.forEach((line, lIdx) => { drawText(line, 1080, y + 34 + (lIdx * lineHeight), options.valueSize || 18, 'bold', options.valueColor || '#ffffff', 'right'); });
       return y + rowHeight + (options.gap ?? 6);
     };
 
     const drawSectionTitle = (title, y, accent = '#7c3aed') => {
       ctx.fillStyle = accent === '#7c3aed' ? 'rgba(192,132,252,0.12)' : 'rgba(56,189,248,0.10)';
-      ctx.fillRect(90, y, 1020, 56);
-      drawText(title, 120, y + 36, 20, 'bold', accent);
-      return y + 64;
+      ctx.fillRect(90, y, 1020, 56); drawText(title, 120, y + 36, 20, 'bold', accent); return y + 64;
     };
 
     const drawContent = (logoImageObj) => {
-      ctx.fillStyle = '#09090b';
-      ctx.fillRect(0, 0, 1200, canvas.height);
-
-      ctx.strokeStyle = '#c084fc';
-      ctx.lineWidth = 6;
-      ctx.strokeRect(40, 40, 1120, canvas.height - 80);
-
-      ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(55, 55, 1090, canvas.height - 110);
+      ctx.fillStyle = '#09090b'; ctx.fillRect(0, 0, 1200, canvas.height);
+      ctx.strokeStyle = '#c084fc'; ctx.lineWidth = 6; ctx.strokeRect(40, 40, 1120, canvas.height - 80);
+      ctx.strokeStyle = 'rgba(124, 58, 237, 0.25)'; ctx.lineWidth = 2; ctx.strokeRect(55, 55, 1090, canvas.height - 110);
 
       if (logoImageObj) {
-        ctx.save();
-        ctx.globalAlpha = 0.04;
-        ctx.drawImage(logoImageObj, 300, 900, 600, 600);
-        ctx.restore();
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(logoImageObj, 80, 80, 120, 120);
-        ctx.restore();
-
-        ctx.strokeStyle = '#c084fc';
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.arc(140, 140, 60, 0, Math.PI * 2, true);
-        ctx.stroke();
-
+        ctx.save(); ctx.globalAlpha = 0.04; ctx.drawImage(logoImageObj, 300, 900, 600, 600); ctx.restore();
+        ctx.save(); ctx.beginPath(); ctx.arc(140, 140, 60, 0, Math.PI * 2, true); ctx.closePath(); ctx.clip();
+        ctx.drawImage(logoImageObj, 80, 80, 120, 120); ctx.restore();
+        ctx.strokeStyle = '#c084fc'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(140, 140, 60, 0, Math.PI * 2, true); ctx.stroke();
         drawText(config.studioName || 'H&F MAKEUP ARTIST', 230, 130, 44, 'bold', '#ffffff');
         drawText(config.artistTagline || 'Beauty, Styled Your Way', 230, 175, 22, 'bold', '#7c3aed');
       } else {
@@ -774,35 +754,23 @@ function MainAppContent() {
         drawText(config.artistTagline || 'Beauty, Styled Your Way', 600, 175, 22, 'bold', '#7c3aed', 'center');
       }
 
-      ctx.strokeStyle = 'rgba(124, 58, 237, 0.2)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(90, 230);
-      ctx.lineTo(1110, 230);
-      ctx.stroke();
-
+      ctx.strokeStyle = 'rgba(124, 58, 237, 0.2)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(90, 230); ctx.lineTo(1110, 230); ctx.stroke();
       drawText('⏳ OFFICIAL BOOKING REQUEST SLIP', 600, 290, 26, 'bold', '#fbbf24', 'center');
 
       const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
-      const kitName = config.pricingByKit[calcKit].name;
-      const zone = config.convenienceZones[calcZone];
+      const kitName = config.pricingByKit[calcKit].name; const zone = config.convenienceZones[calcZone];
 
       let startY = 340;
       startY = drawRow('BOOKING NUMBER', bNumber || '#HF-PENDING', startY, { valueColor: '#7c3aed', mono: true });
       startY = drawRow('CLIENT NAME', clientName || 'Not Provided', startY);
       startY = drawRow('CONTACT NUMBER', clientPhone || 'Not Provided', startY);
       startY = drawRow('EVENT DATE', eventDate || 'Not Provided', startY);
-
       startY += 10;
       startY = drawSectionTitle('📍 VENUE DESTINATION & STRUCTURED ADDRESS', startY, '#0284c7');
       startY = drawRow('Address Type:', `[ ${addressType} ]`, startY, { valueColor: '#0284c7' });
-      if (flatHouseNo.trim()) {
-        startY = drawDynamicRow('Flat / House No., Building:', flatHouseNo.trim(), startY);
-      }
+      if (flatHouseNo.trim()) startY = drawDynamicRow('Flat / House No., Building:', flatHouseNo.trim(), startY);
       startY = drawDynamicRow('Street, Sector, Locality:', streetLocality.trim() || 'Not Provided', startY);
-      if (landmark.trim()) {
-        startY = drawDynamicRow('Landmark:', landmark.trim(), startY);
-      }
+      if (landmark.trim()) startY = drawDynamicRow('Landmark:', landmark.trim(), startY);
       startY = drawRow('Town / City & State:', `${city || 'New Delhi'}, ${state || 'Delhi'}`, startY);
       startY = drawRow('Postal PIN Code:', pincode.trim() || 'Not Provided', startY, { valueColor: '#7c3aed', mono: true });
 
@@ -832,23 +800,14 @@ function MainAppContent() {
 
       startY += 10;
       startY = drawSectionTitle('3. DISCOUNTS & OFFERS', startY, '#16a34a');
-      if (guestDiscountSavedAmount > 0) {
-        startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#16a34a', mono: true });
-      }
-      if (appliedCoupon && couponDiscountAmount > 0) {
-        startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#16a34a', mono: true });
-      }
-      if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) {
-        startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#71717a', mono: true });
-      }
+      if (guestDiscountSavedAmount > 0) startY = drawRow(`• Extra Guest Discount (${guestDiscountPercent}%):`, `-₹${guestDiscountSavedAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#16a34a', mono: true });
+      if (appliedCoupon && couponDiscountAmount > 0) startY = drawRow(`• Coupon Code (${appliedCoupon.code}):`, `-₹${couponDiscountAmount.toLocaleString('en-IN')}`, startY, { valueColor: '#16a34a', mono: true });
+      if (guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0)) startY = drawRow('• No discounts applied', '₹0', startY, { valueColor: '#71717a', mono: true });
       startY = drawRow('Total Discounts:', `-₹${(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}`, startY, { labelColor: '#16a34a', valueColor: '#16a34a', mono: true });
 
       startY += 18;
-      ctx.fillStyle = 'rgba(192,132,252,0.20)';
-      ctx.fillRect(90, startY, 1020, 115);
-      ctx.strokeStyle = '#c084fc';
-      ctx.lineWidth = 3;
-      ctx.strokeRect(90, startY, 1020, 115);
+      ctx.fillStyle = 'rgba(192,132,252,0.20)'; ctx.fillRect(90, startY, 1020, 115);
+      ctx.strokeStyle = '#c084fc'; ctx.lineWidth = 3; ctx.strokeRect(90, startY, 1020, 115);
 
       drawText('FINAL AMOUNT PAYABLE', 600, startY + 38, 22, 'bold', '#e2e8f0', 'center');
       drawText(`₹${finalEstimate.toLocaleString('en-IN')}`, 600, startY + 92, 48, 'bold', '#ffffff', 'center', 'serif');
@@ -862,20 +821,15 @@ function MainAppContent() {
     };
 
     const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
-    const logoImg = new Image();
-    logoImg.crossOrigin = "anonymous";
-    logoImg.src = logoUrlToLoad;
-    logoImg.onload = () => drawContent(logoImg);
-    logoImg.onerror = () => drawContent(null);
+    const logoImg = new Image(); logoImg.crossOrigin = "anonymous";
+    logoImg.src = logoUrlToLoad; logoImg.onload = () => drawContent(logoImg); logoImg.onerror = () => drawContent(null);
   };
 
   const handleDirectEstimateBooking = async (e) => {
     e.preventDefault();
     if (!clientName.trim() || !clientPhone.trim() || !eventDate || !streetLocality.trim() || !pincode.trim()) {
-      alert("Please fill your Name, Contact Phone, Event Date, Street/Locality, and Postal PIN Code.");
-      return;
+      alert("Please fill your Name, Contact Phone, Event Date, Street/Locality, and Postal PIN Code."); return;
     }
-
     setIsSubmitting(true);
     const pkgText = config.kitText?.[calcKit]?.[calcPackage] || DEFAULT_KIT_TEXT[calcKit][calcPackage];
     const zone = config.convenienceZones[calcZone];
@@ -886,68 +840,24 @@ function MainAppContent() {
 
     try {
       await addDoc(collection(db, "bookings"), {
-        bookingNumber: generatedBookingNo,
-        clientName: clientName.trim(),
-        clientPhone: clientPhone.trim(),
-        eventDate: eventDate,
-        kitType: config.pricingByKit[calcKit].name,
-        packageKey: calcPackage,
-        packageName: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}`,
-        basePackagePrice: mainPackagePrice,
-        extraGuestsCount: familyGuests.length,
-        extraGuestsList: familyGuests,
-        extraGuestsCost: familyGuestsGross,
-        extraGuestsFinalCost: familyGuestsFinalTotal,
-        guestDiscountSaved: guestDiscountSavedAmount,
-        zoneName: zone?.name || 'Delhi NCR',
-        zoneFee: zone?.fee || 350,
-        
-        addressType: addressType,
-        flatHouseNo: flatHouseNo.trim(),
-        streetLocality: streetLocality.trim(),
-        landmark: landmark.trim(),
-        city: city.trim(),
-        state: state.trim(),
-        pincode: pincode.trim(),
-        venueAddress: compiledAddress,
-
-        appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None',
-        couponDiscountAmount: couponDiscountAmount,
-        discountAmount: guestDiscountSavedAmount + couponDiscountAmount,
-        totalAmount: finalEstimate,
-        status: 'pending',
-        createdAt: serverTimestamp()
+        bookingNumber: generatedBookingNo, clientName: clientName.trim(), clientPhone: clientPhone.trim(), eventDate: eventDate,
+        kitType: config.pricingByKit[calcKit].name, packageKey: calcPackage, packageName: `${pkgText.num ? pkgText.num + '.' : ''} ${pkgText.name}`,
+        basePackagePrice: mainPackagePrice, extraGuestsCount: familyGuests.length, extraGuestsList: familyGuests, extraGuestsCost: familyGuestsGross, extraGuestsFinalCost: familyGuestsFinalTotal,
+        guestDiscountSaved: guestDiscountSavedAmount, zoneName: zone?.name || 'Delhi NCR', zoneFee: zone?.fee || 350,
+        addressType: addressType, flatHouseNo: flatHouseNo.trim(), streetLocality: streetLocality.trim(), landmark: landmark.trim(), city: city.trim(), state: state.trim(), pincode: pincode.trim(), venueAddress: compiledAddress,
+        appliedCoupon: appliedCoupon ? appliedCoupon.code : 'None', couponDiscountAmount: couponDiscountAmount, discountAmount: guestDiscountSavedAmount + couponDiscountAmount, totalAmount: finalEstimate, status: 'pending', createdAt: serverTimestamp()
       });
 
       const telegramBotToken = config.telegramBotToken || STUDIO_CONFIG.telegramBotToken || "8891500480:AAGvxL16eNxSkn6ZXgoG28EW80VM75mwukg";
       const telegramChatId = config.telegramChatId || STUDIO_CONFIG.telegramChatId || "8891500480";
       
-      const tgMsgText = 
-        `🚨 <b>NEW APPOINTMENT BOOKING REQUEST</b> 🚨\n\n` +
-        `🔢 <b>Booking No:</b> ${generatedBookingNo}\n` +
-        `👤 <b>Client Name:</b> ${clientName.trim()}\n` +
-        `📞 <b>Contact Phone:</b> ${clientPhone.trim()}\n` +
-        `📅 <b>Event Date:</b> ${eventDate}\n` +
-        `💄 <b>Main Look:</b> ${pkgText.name}\n` +
-        `💎 <b>Vanity Tier:</b> ${config.pricingByKit[calcKit].name}\n` +
-        `👥 <b>Extra Guests:</b> ${familyGuests.length} person(s)\n` +
-        `🏷️ <b>Address Type:</b> ${addressType}\n` +
-        `🏠 <b>Venue Address:</b> ${compiledAddress}\n` +
-        `📮 <b>Postal PIN:</b> ${pincode.trim()}\n` +
-        `🎁 <b>Discounts:</b> Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n` +
-        `💰 <b>Final Amount:</b> ₹${finalEstimate.toLocaleString('en-IN')}\n\n` +
-        `<i>Status: Pending Confirmation in Admin Console</i>`;
+      const tgMsgText = `🚨 <b>NEW APPOINTMENT BOOKING REQUEST</b> 🚨\n\n🔢 <b>Booking No:</b> ${generatedBookingNo}\n👤 <b>Client Name:</b> ${clientName.trim()}\n📞 <b>Contact Phone:</b> ${clientPhone.trim()}\n📅 <b>Event Date:</b> ${eventDate}\n💄 <b>Main Look:</b> ${pkgText.name}\n💎 <b>Vanity Tier:</b> ${config.pricingByKit[calcKit].name}\n👥 <b>Extra Guests:</b> ${familyGuests.length} person(s)\n🏷️ <b>Address Type:</b> ${addressType}\n🏠 <b>Venue Address:</b> ${compiledAddress}\n📮 <b>Postal PIN:</b> ${pincode.trim()}\n🎁 <b>Discounts:</b> Guest (-₹${guestDiscountSavedAmount}) | Promo (-₹${couponDiscountAmount})\n💰 <b>Final Amount:</b> ₹${finalEstimate.toLocaleString('en-IN')}\n\n<i>Status: Pending Confirmation in Admin Console</i>`;
 
       try {
         if (telegramBotToken && telegramChatId) {
-          await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' })
-          });
+          await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' }) });
         }
-      } catch (tgErr) {
-        console.warn('Telegram notification silent skip:', tgErr);
-      }
+      } catch (tgErr) { console.warn('Telegram notification silent skip:', tgErr); }
 
       generateBookingSentSlipJpg(generatedBookingNo);
       setIsBookingDone(true);
@@ -961,70 +871,41 @@ function MainAppContent() {
   const handleSubmitFeedback = async (e) => {
     e.preventDefault();
     if (!feedbackMessage.trim()) return;
-
     setIsSubmittingFeedback(true);
     try {
-      await addDoc(collection(db, "feedbacks"), {
-        clientName: feedbackName.trim() || 'Valued Client',
-        clientPhone: feedbackPhone.trim() || 'Not Provided',
-        rating: feedbackRating,
-        message: feedbackMessage.trim(),
-        submittedAt: serverTimestamp()
-      });
-      setFeedbackSubmitted(true);
-      setFeedbackMessage('');
-    } catch (err) {
-      alert("Error submitting suggestion: " + err.message);
-    } finally {
-      setIsSubmittingFeedback(false);
-    }
+      await addDoc(collection(db, "feedbacks"), { clientName: feedbackName.trim() || 'Valued Client', clientPhone: feedbackPhone.trim() || 'Not Provided', rating: feedbackRating, message: feedbackMessage.trim(), submittedAt: serverTimestamp() });
+      setFeedbackSubmitted(true); setFeedbackMessage('');
+    } catch (err) { alert("Error submitting suggestion: " + err.message); } finally { setIsSubmittingFeedback(false); }
   };
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2500);
-  };
+  const handleCopyLink = () => { navigator.clipboard.writeText(window.location.href); setCopiedLink(true); setTimeout(() => setCopiedLink(false), 2500); };
 
   const rawThemeKey = config.theme?.colorTheme || 'real_glass_lens';
   const baseThemeStyle = THEME_STYLES[rawThemeKey] || THEME_STYLES.real_glass_lens;
-  const activeThemeStyle = isDarkMode
-    ? baseThemeStyle
-    : { ...baseThemeStyle, ...DAY_MODE_OVERRIDES };
+  const activeThemeStyle = isDarkMode ? baseThemeStyle : { ...baseThemeStyle, ...DAY_MODE_OVERRIDES };
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
-
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
-
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
   const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
   const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
   const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
-
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
   const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden`}>
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-40 blur-[100px]"
-          style={{ background: `radial-gradient(circle at 50% 50%, ${activeThemeStyle.glowOrb1}, transparent 70%)` }}
-        />
+        <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
             <Wrench className="w-6 h-6" />
           </div>
-
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-md inline-block font-medium border border-amber-500/20">
-              Scheduled System Upgrade
-            </span>
+            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-md inline-block font-medium border border-amber-500/20">Scheduled System Upgrade</span>
             <h2 className="text-xl font-semibold">We'll Be Back Shortly</h2>
-            <p className="text-xs opacity-75 leading-relaxed">
-              We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.
-            </p>
+            <p className="text-xs opacity-75 leading-relaxed">We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.</p>
           </div>
         </div>
       </div>
@@ -1036,7 +917,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-screen ${activeThemeStyle.bg} pt-24 sm:pt-28 pb-28 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
+      className={`hf-app min-h-screen ${activeThemeStyle.bg} relative transition-colors duration-700 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
@@ -1044,10 +925,7 @@ function MainAppContent() {
         button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
         button, a { will-change: transform, opacity; }
         
-        select option {
-          background-color: #18181b;
-          color: #f4f4f5;
-        }
+        select option { background-color: #18181b; color: #f4f4f5; }
         html, body, #root { min-height: 100%; width: 100%; margin: 0; }
         html { overflow-x: hidden; scroll-behavior: smooth; }
         body { overflow-x: hidden; }
@@ -1067,12 +945,12 @@ function MainAppContent() {
           100% { transform: scale(1.15) translate(40px, 30px); }
         }
 
-        /* FLUID TAB TRANSITION */
+        /* FLUID TAB TRANSITION - SLOWER & SMOOTHER */
         .hf-tab-enter {
-          animation: hfFadeScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: hfFadeScale 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes hfFadeScale {
-          0% { opacity: 0; transform: scale(0.98) translateY(6px); }
+          0% { opacity: 0; transform: scale(0.97) translateY(12px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
@@ -1100,27 +978,18 @@ function MainAppContent() {
         .hf-bottom-nav { 
           position: fixed; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
           width: calc(100% - 24px); max-width: 520px; padding: 8px; border-radius: 999px !important; 
-          backdrop-filter: blur(32px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); z-index: 50;
+          backdrop-filter: blur(40px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); z-index: 50;
         }
         .hf-bottom-nav button { min-height: 48px; border-radius: 999px !important; }
       `}</style>
 
       {/* DYNAMIC LIQUID GLASS RADIANT GLOW LIGHTS */}
-      <div 
-        className="hf-mesh-glow w-[550px] h-[550px] -top-24 -left-24 opacity-60" 
-        style={{ background: activeThemeStyle.glowOrb1 }} 
-      />
-      <div 
-        className="hf-mesh-glow w-[500px] h-[500px] top-1/3 -right-24 opacity-50" 
-        style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} 
-      />
-      <div 
-        className="hf-mesh-glow w-[600px] h-[600px] -bottom-32 left-1/4 opacity-40" 
-        style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} 
-      />
+      <div className="hf-mesh-glow w-[550px] h-[550px] -top-24 -left-24 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
+      <div className="hf-mesh-glow w-[500px] h-[500px] top-1/3 -right-24 opacity-50" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} />
+      <div className="hf-mesh-glow w-[600px] h-[600px] -bottom-32 left-1/4 opacity-40" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-1000 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="flex flex-col items-center space-y-4 px-4 text-center">
             <div className={`w-20 h-20 rounded-[24px] overflow-hidden ${activeThemeStyle.card} p-1 shadow-2xl animate-pulse`}>
               <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[20px]" />
@@ -1135,21 +1004,21 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 text-center space-y-4 shadow-2xl animate-fade-in`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 text-center space-y-4 shadow-2xl hf-tab-enter`}>
             <div className="flex items-center justify-between">
               <span className="font-semibold text-xs flex items-center gap-1.5"><Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook</span>
-              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full opacity-60 hover:opacity-100"><X className="w-4 h-4" /></button>
+              <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full opacity-60 hover:opacity-100 transition-all duration-500"><X className="w-4 h-4" /></button>
             </div>
             <div className="w-40 h-40 mx-auto bg-white p-2 rounded-[24px] border border-black/10 flex items-center justify-center shadow-inner">
               <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain" />
             </div>
             <p className="text-xs opacity-75">Scan this QR code with any camera to explore portfolio.</p>
             <div className="flex gap-2">
-              <button onClick={handleCopyLink} className="flex-1 py-2.5 rounded-[16px] bg-white/10 hover:bg-white/15 text-xs font-medium flex items-center justify-center gap-1.5 border border-white/20 transition">
+              <button onClick={handleCopyLink} className="flex-1 py-2.5 rounded-[16px] bg-white/10 hover:bg-white/20 text-xs font-semibold flex items-center justify-center gap-1.5 border border-white/20 transition-all duration-500">
                 {copiedLink ? <CheckCheck className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 opacity-60" />}
                 <span>{copiedLink ? 'Copied' : 'Copy'}</span>
               </button>
-              <a href={qrCodeApiUrl} download="QR.png" target="_blank" rel="noreferrer" className={`px-4 py-2.5 rounded-[16px] ${activeThemeStyle.btn} text-xs font-medium flex items-center justify-center gap-1 transition`}>
+              <a href={qrCodeApiUrl} download="QR.png" target="_blank" rel="noreferrer" className={`px-4 py-2.5 rounded-[16px] ${activeThemeStyle.btn} text-xs font-semibold flex items-center justify-center gap-1 transition-all duration-500`}>
                 <Download className="w-3.5 h-3.5" /> <span>Save</span>
               </a>
             </div>
@@ -1159,20 +1028,20 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 space-y-4 shadow-2xl animate-fade-in`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 space-y-4 shadow-2xl hf-tab-enter`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-4 h-4 ${activeThemeStyle.accentText}`} />
                 <h3 className="font-semibold text-sm sm:text-base">{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full opacity-60 hover:opacity-100"><X className="w-4 h-4" /></button>
+              <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full opacity-60 hover:opacity-100 transition-all duration-500"><X className="w-4 h-4" /></button>
             </div>
-            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-black/10 border border-white/20 shadow-sm">
+            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-black/10 border border-white/20 shadow-inner">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
             <p className="text-xs opacity-80 leading-relaxed">{viewingPackage.desc}</p>
             <div className="space-y-2 text-xs border-t border-b border-white/15 py-3">
-              <div className="flex justify-between items-start gap-2"><span className="opacity-70">Vanity Tier:</span><strong className="font-medium">{config.pricingByKit[selectedKit]?.name}</strong></div>
+              <div className="flex justify-between items-start gap-2"><span className="opacity-70">Vanity Tier:</span><strong className="font-semibold">{config.pricingByKit[selectedKit]?.name}</strong></div>
               <div className="flex justify-between items-start gap-2"><span className="opacity-70">Skin Finish:</span><span>{viewingPackage.skinFinish}</span></div>
               <div className="flex justify-between items-start gap-2"><span className="opacity-70">Includes:</span><span>{viewingPackage.includes}</span></div>
               <div className="flex justify-between items-center font-semibold text-sm pt-1">
@@ -1180,16 +1049,16 @@ function MainAppContent() {
                 <span className={`${activeThemeStyle.accentText} font-mono text-sm font-bold`}>₹{(config.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
-            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3.5 ${activeThemeStyle.btn} text-xs font-medium transition flex items-center justify-center gap-1.5`}>
+            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3.5 ${activeThemeStyle.btn} text-xs font-semibold transition-all duration-500 active:scale-95 flex items-center justify-center gap-1.5`}>
               <span>Estimate & Book This Look</span> <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       )}
 
-      {/* TOP ANNOUNCEMENT TICKER */}
+      {/* TOP THEME-ALIGNED ANNOUNCEMENT TICKER */}
       {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="fixed top-0 inset-x-0 z-50 bg-black/90 text-white py-1.5 px-3 overflow-hidden text-[11px] font-medium border-b border-white/10 backdrop-blur-md">
+        <div className={`fixed top-0 inset-x-0 z-50 py-1.5 px-3 overflow-hidden text-[11px] font-semibold border-b shadow-sm backdrop-blur-2xl transition-all duration-500 ${isDarkMode ? 'bg-black/40 border-white/10 text-white' : 'bg-white/40 border-black/10 text-slate-900'}`}>
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
               {(config.announcements || []).map((ann, idx) => (
@@ -1197,17 +1066,16 @@ function MainAppContent() {
               ))}
             </div>
           </div>
-          <style>{`@keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-100%); } }`}</style>
         </div>
       )}
 
       {/* FIXED LIQUID GLASS HEADER FOR ALL SCREENS */}
-      <header className={`fixed ${!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false ? 'top-7' : 'top-0'} inset-x-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-[36px] transition-all duration-300 shadow-xl`}>
+      <header className={`fixed ${!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false ? 'top-[28px]' : 'top-0'} inset-x-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-[40px] transition-all duration-500 shadow-xl`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
               {config.toggles?.showLogoOnApp !== false && (
-                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-white/25 bg-white/10 flex items-center justify-center shadow-md">
+                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-white/30 bg-white/10 flex items-center justify-center shadow-md">
                   <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" draggable="false" />
                 </div>
               )}
@@ -1218,21 +1086,23 @@ function MainAppContent() {
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-white/25 bg-white/10 hover:bg-white/20 transition flex items-center justify-center shadow-sm active:scale-95">
+              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
                 <QrCode className="w-4 h-4" />
               </button>
 
-              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/25 bg-white/10 hover:bg-white/20 transition flex items-center justify-center shadow-sm active:scale-95">
-                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-purple-600" />}
+              {/* DAY/NIGHT TOGGLE WITH ICON ONLY */}
+              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
+                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
               </button>
 
-              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition active:scale-95 shadow-md`}>
+              {/* CAMERA/INSTAGRAM ICON & "View on Instagram" TEXT */}
+              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-semibold px-4 py-2.5 transition-all duration-500 active:scale-95 shadow-md`}>
                 <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
               </a>
 
               {shouldShowProfileInHeader && (
-                <div className="w-9 h-9 rounded-[16px] border border-white/25 overflow-hidden shrink-0 shadow-sm">
+                <div className="w-9 h-9 rounded-[16px] border border-white/30 overflow-hidden shrink-0 shadow-sm">
                   <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" />
                 </div>
               )}
@@ -1240,7 +1110,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center pt-0.5">
-            <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-white/20 bg-white/[0.06] text-xs font-medium shadow-inner backdrop-blur-3xl">
+            <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-white/25 bg-white/[0.08] text-xs font-medium shadow-inner backdrop-blur-[40px]">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1251,7 +1121,7 @@ function MainAppContent() {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
                 return (
-                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition-all duration-300 ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/10'}`}>
+                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition-all duration-500 ease-out ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/15'}`}>
                     <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                   </button>
                 );
@@ -1263,7 +1133,7 @@ function MainAppContent() {
 
       {/* MOBILE BOTTOM NAVIGATION BAR */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border border-white/25 shadow-2xl`}>
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border border-white/30 shadow-[0_24px_60px_rgba(0,0,0,0.5)] backdrop-blur-[40px]`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1274,7 +1144,7 @@ function MainAppContent() {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[16px] transition-all duration-300 ${isActive ? `${activeThemeStyle.accentText} font-semibold bg-white/20 shadow-md` : 'opacity-60 hover:opacity-100'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[20px] transition-all duration-500 ease-out ${isActive ? `${activeThemeStyle.accentText} font-semibold bg-white/20 shadow-inner` : 'opacity-60 hover:opacity-100'}`}>
                 <Icon className="w-4 h-4 shrink-0" /><span className="text-[10px] mt-0.5">{tab.label}</span>
               </button>
             );
@@ -1282,24 +1152,24 @@ function MainAppContent() {
         </nav>
       )}
 
-      {/* MAIN CONTAINER WITH FLUID TRANSITION */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-4 relative z-10">
+      {/* MAIN CONTAINER WITH INCREASED PADDING TO PREVENT HEADER OVERLAP */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-[120px] sm:pt-[140px] pb-32 sm:pb-24 relative z-10">
         {activeTab === 'menu' && (
           <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/25 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>
+              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/30 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>
                 Professional Vanity Packages
               </span>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Curated Makeup Menu</h2>
+              <h2 className="text-xl sm:text-3xl font-bold tracking-tight">Curated Makeup Menu</h2>
               <p className="text-xs sm:text-sm opacity-70">Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-[24px] bg-white/10 border border-white/25 mt-2 gap-1.5 shadow-inner backdrop-blur-3xl">
-                <button onClick={() => setSelectedKit('international')} className={`px-5 py-2.5 rounded-[20px] text-xs font-bold transition-all duration-300 ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100'}`}>👑 Luxury Kit</button>
-                <button onClick={() => setSelectedKit('drugstore')} className={`px-5 py-2.5 rounded-[20px] text-xs font-bold transition-all duration-300 ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100'}`}>✨ HD Kit</button>
+              <div className="inline-flex p-1.5 rounded-[26px] bg-white/10 border border-white/30 mt-2 gap-1.5 shadow-inner backdrop-blur-[40px]">
+                <button onClick={() => setSelectedKit('international')} className={`px-6 py-3 rounded-[20px] text-xs font-bold transition-all duration-500 ease-out ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/10'}`}>👑 Luxury Kit</button>
+                <button onClick={() => setSelectedKit('drugstore')} className={`px-6 py-3 rounded-[20px] text-xs font-bold transition-all duration-500 ease-out ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/10'}`}>✨ HD Kit</button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {Object.keys(config.kitText?.[selectedKit] || {}).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit?.[selectedKit]?.[key] || 0;
@@ -1308,29 +1178,29 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center transition-all duration-300 hover:scale-[1.015]`}>
-                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[22px] overflow-hidden bg-black/10 relative border border-white/25 shadow-md">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
-                      <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-[10px] bg-black/75 text-[10px] font-mono font-medium text-amber-300 backdrop-blur-md border border-white/10">
+                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-500 ease-out hover:scale-[1.015] hover:shadow-2xl`}>
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[24px] overflow-hidden bg-white/10 relative border border-white/30 shadow-inner">
+                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
+                      <div className="absolute top-2 left-2 px-2.5 py-1 rounded-[12px] bg-black/60 text-[10px] font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20 shadow-sm">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-bold text-sm sm:text-base">{item.num ? `${item.num}. ` : ''}{item.name}</h4>
+                          <h4 className="font-bold text-sm sm:text-base leading-tight">{item.num ? `${item.num}. ` : ''}{item.name}</h4>
                           <span className={`font-mono font-bold text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
-                        <p className="text-xs opacity-70 mt-1 line-clamp-2 leading-relaxed">{item.desc}</p>
+                        <p className="text-xs opacity-75 mt-1.5 line-clamp-2 leading-relaxed">{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-white/15">
-                        <span className="text-[11px] opacity-70 font-normal truncate flex items-center gap-1">
-                          <Sparkles className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" /> 16HR HD Finish
+                      <div className="flex items-center justify-between pt-3 border-t border-white/20">
+                        <span className="text-[11px] opacity-80 font-medium truncate flex items-center gap-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" /> 16HR HD Finish
                         </span>
-                        <div className="flex items-center gap-1.5">
-                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-3.5 py-2 rounded-[16px] border border-white/25 bg-white/10 text-xs font-semibold hover:bg-white/20 transition shadow-xs active:scale-95">Details</button>
-                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 py-2 ${activeThemeStyle.btn} text-xs font-semibold transition active:scale-95 flex items-center gap-1 shadow-md`}>
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-4 py-2.5 rounded-[18px] border border-white/30 bg-white/10 text-xs font-bold hover:bg-white/20 transition-all duration-500 shadow-sm active:scale-95">Details</button>
+                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-bold transition-all duration-500 active:scale-95 flex items-center gap-1.5 shadow-md`}>
                             <span>Book</span> <ChevronRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1346,21 +1216,21 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/25 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>Discover Looks</span>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Featured Transformations</h2>
+              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/30 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>Discover Looks</span>
+              <h2 className="text-xl sm:text-3xl font-bold tracking-tight">Featured Transformations</h2>
               <p className="text-xs sm:text-sm opacity-70">Explore signature makeup transformations crafted with perfection.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
                 return (
-                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.015]`}>
+                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-500 ease-out hover:scale-[1.02] hover:shadow-2xl p-1`}>
                     {isVideo ? <AutoPlayVideoCard item={item} /> : (
-                      <div className="h-72 sm:h-80 overflow-hidden relative bg-black/10 rounded-[28px] border border-white/20">
-                        <img src={item.url} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
-                          <span className="text-[11px] uppercase font-mono font-medium text-zinc-300">{item.sub || 'Client Transformation'}</span>
-                          <h4 className="font-bold text-sm mt-0.5 text-white"><span>{item.title}</span></h4>
+                      <div className="h-72 sm:h-80 overflow-hidden relative bg-white/5 rounded-[28px] border border-white/20 shadow-inner">
+                        <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-110" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5 text-white">
+                          <span className="text-[11px] uppercase font-mono font-bold text-zinc-300 drop-shadow-md">{item.sub || 'Client Transformation'}</span>
+                          <h4 className="font-bold text-sm mt-1 text-white drop-shadow-lg"><span>{item.title}</span></h4>
                         </div>
                       </div>
                     )}
@@ -1374,16 +1244,16 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/25 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>Authentic Vanity</span>
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Products In Our Kit</h2>
+              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/30 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>Authentic Vanity</span>
+              <h2 className="text-xl sm:text-3xl font-bold tracking-tight">Products In Our Kit</h2>
               <p className="text-xs sm:text-sm opacity-70">100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2 transition-all duration-300 hover:scale-[1.015]`}>
-                  <span className={`text-[10px] font-bold ${activeThemeStyle.accentText} bg-amber-500/10 border border-amber-500/30 uppercase px-2.5 py-1 rounded-[10px] font-mono inline-block`}>{brand.category}</span>
-                  <h4 className="font-bold text-sm">{brand.name}</h4>
-                  <p className="text-xs opacity-70 leading-relaxed">{brand.desc}</p>
+                <div key={idx} className={`${activeThemeStyle.card} p-6 space-y-3 transition-all duration-500 ease-out hover:scale-[1.02] hover:shadow-2xl`}>
+                  <span className={`text-[10px] font-bold ${activeThemeStyle.accentText} bg-amber-500/15 border border-amber-500/30 uppercase px-3 py-1.5 rounded-[12px] font-mono inline-block shadow-sm`}>{brand.category}</span>
+                  <h4 className="font-bold text-base">{brand.name}</h4>
+                  <p className="text-xs opacity-75 leading-relaxed">{brand.desc}</p>
                 </div>
               ))}
             </div>
@@ -1393,46 +1263,46 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
-              <div className={`${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl max-w-lg mx-auto`}>
-                <div className="w-14 h-14 rounded-[22px] bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-md">
-                  <CheckCircle2 className="w-7 h-7" />
+              <div className={`${activeThemeStyle.card} p-10 text-center space-y-5 shadow-2xl max-w-lg mx-auto`}>
+                <div className="w-16 h-16 rounded-[24px] bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-lg">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <div className="inline-block px-4 py-1.5 rounded-[16px] bg-white/10 border border-white/20 font-mono font-bold text-xs shadow-inner">
+                <div className="inline-block px-5 py-2 rounded-[18px] bg-white/15 border border-white/30 font-mono font-bold text-xs shadow-inner">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
-                <h3 className="text-lg font-bold">Booking Request Submitted Successfully</h3>
-                <p className="text-xs opacity-75 leading-relaxed">Your appointment request has been recorded securely. Our team will coordinate with you shortly.</p>
+                <h3 className="text-xl font-bold">Booking Request Submitted Successfully</h3>
+                <p className="text-xs opacity-80 leading-relaxed">Your appointment request has been recorded securely. Our team will coordinate with you shortly.</p>
                 {generatedJpgUrl && (
-                  <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-3 rounded-[18px] ${activeThemeStyle.btn} font-medium inline-flex items-center gap-2 text-xs transition shadow-md active:scale-95`}>
+                  <div className="pt-3">
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 rounded-[20px] ${activeThemeStyle.btn} font-semibold inline-flex items-center gap-2 text-sm transition-all duration-500 shadow-xl active:scale-95`}>
                       <Download className="w-4 h-4" /> <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-white/10 hover:bg-white/15 text-xs font-semibold rounded-[16px] border border-white/15 transition active:scale-95">Make Another Calculation / Booking</button>
+                <button onClick={() => setIsBookingDone(false)} className="block w-full py-4 bg-white/10 hover:bg-white/20 text-xs font-bold rounded-[20px] border border-white/25 transition-all duration-500 active:scale-95 shadow-sm">Make Another Calculation / Booking</button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 
                 {/* LEFT COLUMN: OPTIONS & CLIENT INFO */}
-                <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-2xl`}>
-                  <div className="border-b border-white/15 pb-2.5">
-                    <h3 className="font-bold text-sm flex items-center gap-2">
-                      <Calculator className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
+                <div className={`md:col-span-7 ${activeThemeStyle.card} p-6 sm:p-8 space-y-6 shadow-2xl`}>
+                  <div className="border-b border-white/20 pb-3">
+                    <h3 className="font-bold text-base flex items-center gap-2">
+                      <Calculator className={`w-5 h-5 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-2 opacity-70">Main Makeover Package: Vanity Tier</label>
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-[18px] text-xs font-bold border text-center transition-all duration-300 shadow-sm ${calcKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : 'bg-white/10 border-white/20 opacity-80 hover:opacity-100'}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-[18px] text-xs font-bold border text-center transition-all duration-300 shadow-sm ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : 'bg-white/10 border-white/20 opacity-80 hover:opacity-100'}`}>✨ HD Kit</button>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2 opacity-80">Main Makeover Package: Vanity Tier</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-4 rounded-[20px] text-xs font-bold border text-center transition-all duration-500 shadow-sm ${calcKit === 'international' ? `${activeThemeStyle.btn} shadow-lg` : 'bg-white/10 border-white/30 opacity-80 hover:opacity-100 hover:bg-white/15'}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-4 rounded-[20px] text-xs font-bold border text-center transition-all duration-500 shadow-sm ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-lg` : 'bg-white/10 border-white/30 opacity-80 hover:opacity-100 hover:bg-white/15'}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-70">Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-white/10 border border-white/25 rounded-[18px] px-4 py-3 text-xs font-semibold shadow-inner outline-none">
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2 opacity-80">Main Makeover Package: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-white/10 border border-white/30 rounded-[20px] px-4 py-3.5 text-sm font-semibold shadow-inner outline-none transition-all duration-300 focus:bg-white/20 focus:border-white/50">
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1442,61 +1312,61 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-70">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-white/10 border border-white/25 rounded-[18px] px-4 py-3 text-xs font-semibold shadow-inner outline-none">
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2 opacity-80">Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-white/10 border border-white/30 rounded-[20px] px-4 py-3.5 text-sm font-semibold shadow-inner outline-none transition-all duration-300 focus:bg-white/20 focus:border-white/50">
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-3 border-t border-white/15 space-y-3">
+                  <div className="pt-4 border-t border-white/20 space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
-                          <Users className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Extra Family Makeup Customizer
+                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                          <Users className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Extra Family Makeup Customizer
                         </h4>
-                        <p className="text-[11px] opacity-70">Choose individual vanity tier & look for each family guest.</p>
+                        <p className="text-[11px] opacity-75 mt-0.5">Choose individual vanity tier & look for each family guest.</p>
                       </div>
-                      <button type="button" onClick={handleAddFamilyGuest} className="px-3.5 py-2 rounded-[16px] bg-white/10 hover:bg-white/20 border border-white/25 text-xs font-semibold flex items-center gap-1 transition shadow-sm active:scale-95">
-                        <Plus className="w-3 h-3" /> Add Guest
+                      <button type="button" onClick={handleAddFamilyGuest} className="px-4 py-2.5 rounded-[18px] bg-white/15 hover:bg-white/25 border border-white/30 text-xs font-bold flex items-center gap-1.5 transition-all duration-500 shadow-sm active:scale-95">
+                        <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3.5 rounded-[18px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs shadow-sm">
-                        <div className="flex items-center gap-2">
-                          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                      <div className="p-4 rounded-[20px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs shadow-inner">
+                        <div className="flex items-center gap-2.5">
+                          <Sparkles className="w-4 h-4 text-emerald-400" />
                           <p className="text-emerald-400 font-bold">Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!</p>
                         </div>
-                        <span className="font-mono font-bold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-[8px] text-[10px]">{guestDiscountPercent}% OFF</span>
+                        <span className="font-mono font-bold text-emerald-300 bg-emerald-500/25 px-2.5 py-1 rounded-[10px] text-[10px] shadow-sm">{guestDiscountPercent}% OFF</span>
                       </div>
                     )}
 
                     {familyGuests.length > 0 && (
-                      <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
+                      <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
                           return (
-                            <div key={guest.id} className="p-3.5 rounded-[18px] bg-white/10 border border-white/20 space-y-2 shadow-sm">
+                            <div key={guest.id} className={`p-4 rounded-[20px] ${activeThemeStyle.innerCard} space-y-3 shadow-sm`}>
                               <div className="flex items-center justify-between">
                                 <span className="text-xs font-bold">Guest #{idx + 1}</span>
-                                <div className="flex items-center gap-2">
-                                  <span className={`text-xs font-bold font-mono ${activeThemeStyle.accentText}`}>₹{rawGuestPrice.toLocaleString('en-IN')}</span>
-                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                                <div className="flex items-center gap-2.5">
+                                  <span className={`text-sm font-bold font-mono ${activeThemeStyle.accentText}`}>₹{rawGuestPrice.toLocaleString('en-IN')}</span>
+                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1.5 text-rose-400 hover:bg-rose-500/20 rounded-[10px] transition-all"><Trash2 className="w-4 h-4" /></button>
                                 </div>
                               </div>
-                              <div className="grid grid-cols-2 gap-2">
+                              <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                  <label className="block text-[10px] font-medium opacity-70 mb-1">Vanity Tier</label>
-                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-2.5 rounded-[14px] text-xs font-medium bg-black/20 border border-white/20 outline-none">
+                                  <label className="block text-[10px] font-bold opacity-75 mb-1.5">Vanity Tier</label>
+                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-3 rounded-[16px] text-xs font-semibold bg-black/20 border border-white/20 outline-none focus:border-white/50 transition-all">
                                     <option value="international">👑 Luxury Kit</option>
                                     <option value="drugstore">✨ HD Kit</option>
                                   </select>
                                 </div>
                                 <div>
-                                  <label className="block text-[10px] font-medium opacity-70 mb-1">Package Look</label>
-                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-2.5 rounded-[14px] text-xs font-medium bg-black/20 border border-white/20 outline-none">
+                                  <label className="block text-[10px] font-bold opacity-75 mb-1.5">Package Look</label>
+                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-3 rounded-[16px] text-xs font-semibold bg-black/20 border border-white/20 outline-none focus:border-white/50 transition-all">
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
                                     ))}
@@ -1511,89 +1381,89 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-3 border-t border-white/15 space-y-2">
+                    <div className="pt-4 border-t border-white/20 space-y-2.5">
                       <label className="block text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
-                        <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
+                        <Tag className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-white/10 border border-white/25 rounded-[18px] p-3.5 flex items-center justify-between gap-2 shadow-sm">
+                        <div className={`${activeThemeStyle.innerCard} rounded-[20px] p-4 flex items-center justify-between gap-3 shadow-inner`}>
                           <div>
                             <span className="text-xs font-bold font-mono">CODE: {appliedCoupon.code} APPLIED</span>
-                            <p className="text-[11px] opacity-70 font-normal">🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}</p>
+                            <p className="text-[11px] opacity-80 font-medium mt-0.5">🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}</p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-400 text-xs font-bold underline">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-400 text-xs font-bold hover:underline transition-all">Remove</button>
                         </div>
                       ) : (
-                        <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-white/10 border border-white/25 rounded-[18px] px-4 py-2.5 text-xs uppercase font-mono font-bold outline-none shadow-inner" />
-                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-bold rounded-[18px] transition shadow-md active:scale-95`}>Apply</button>
+                        <div className="flex gap-2.5">
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-white/10 border border-white/30 rounded-[20px] px-4 py-3.5 text-sm uppercase font-mono font-bold outline-none shadow-inner transition-all focus:bg-white/20" />
+                          <button type="button" onClick={handleApplyCoupon} className={`px-6 py-3.5 ${activeThemeStyle.btn} text-xs font-bold rounded-[20px] transition-all duration-500 shadow-md active:scale-95`}>Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-400 font-normal">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-400 font-semibold">{couponError}</p>}
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-white/15 space-y-3">
-                    <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
-                      <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
+                  <div className="pt-4 border-t border-white/20 space-y-4">
+                    <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                      <User className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
                     <div>
-                      <label className="block text-xs font-medium opacity-70 mb-1">Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
+                      <label className="block text-xs font-bold opacity-80 mb-1.5">Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm shadow-inner outline-none transition-all focus:bg-white/20" />
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-medium opacity-70 mb-1">Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
+                        <label className="block text-xs font-bold opacity-80 mb-1.5">Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm font-mono shadow-inner outline-none transition-all focus:bg-white/20" />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium opacity-70 mb-1">Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
+                        <label className="block text-xs font-bold opacity-80 mb-1.5">Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm font-mono shadow-inner outline-none transition-all focus:bg-white/20" />
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-white/15 space-y-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
-                          <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
+                    <div className="pt-4 border-t border-white/20 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                          <MapPin className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-2">
                           {['Home', 'Work'].map((type) => (
-                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-4 py-1.5 rounded-[14px] text-[10px] font-bold border transition-all duration-300 ${addressType === type ? `${activeThemeStyle.btn} shadow-sm` : 'bg-white/10 border-white/20 opacity-70 hover:opacity-100'}`}>
+                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-4 py-2 rounded-[16px] text-[10px] font-bold border transition-all duration-500 ${addressType === type ? `${activeThemeStyle.btn} shadow-md` : 'bg-white/10 border-white/30 opacity-70 hover:opacity-100 hover:bg-white/20'}`}>
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
                             </button>
                           ))}
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[11px] font-medium opacity-70 mb-1">Postal PIN Code *</label>
-                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
+                          <label className="block text-xs font-bold opacity-80 mb-1.5">Postal PIN Code *</label>
+                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm font-mono shadow-inner outline-none transition-all focus:bg-white/20" />
                         </div>
                         <div>
-                          <label className="block text-[11px] font-medium opacity-70 mb-1">Flat, House No., Building</label>
-                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
+                          <label className="block text-xs font-bold opacity-80 mb-1.5">Flat, House No., Building</label>
+                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm shadow-inner outline-none transition-all focus:bg-white/20" />
                         </div>
                       </div>
                       <div>
-                        <label className="block text-[11px] font-medium opacity-70 mb-1">Street, Sector, Area, Locality *</label>
-                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
+                        <label className="block text-xs font-bold opacity-80 mb-1.5">Street, Sector, Area, Locality *</label>
+                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm shadow-inner outline-none transition-all focus:bg-white/20" />
                       </div>
                       <div>
-                        <label className="block text-[11px] font-medium opacity-70 mb-1">Landmark (Optional)</label>
-                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
+                        <label className="block text-xs font-bold opacity-80 mb-1.5">Landmark (Optional)</label>
+                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm shadow-inner outline-none transition-all focus:bg-white/20" />
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-[11px] font-medium opacity-70 mb-1">State / Region *</label>
-                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-semibold shadow-inner outline-none">
+                          <label className="block text-xs font-bold opacity-80 mb-1.5">State / Region *</label>
+                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-white/20">
                             {Object.keys(ALL_INDIA_STATES_AND_CITIES).map(stName => <option key={stName} value={stName}>{stName}</option>)}
                           </select>
                         </div>
                         <div>
-                          <label className="block text-[11px] font-medium opacity-70 mb-1">Town / City *</label>
-                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-semibold shadow-inner outline-none">
+                          <label className="block text-xs font-bold opacity-80 mb-1.5">Town / City *</label>
+                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-white/20">
                             {(ALL_INDIA_STATES_AND_CITIES[selectedState] || [city]).map(cityName => <option key={cityName} value={cityName}>{cityName}</option>)}
                           </select>
                         </div>
@@ -1602,57 +1472,59 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: STANDALONE TOTAL AMOUNT SUMMARY CARD */}
-                <div className={`md:col-span-5 ${activeThemeStyle.card} p-5 sm:p-6 flex flex-col justify-between space-y-4 shadow-2xl`}>
-                  <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider opacity-60">Total Amount Summary</span>
-                    <div className="mt-1 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
-                      <span>₹</span><span className="font-mono">{finalEstimate.toLocaleString('en-IN')}</span>
+                {/* RIGHT COLUMN: ISOLATED STANDALONE TOTAL AMOUNT SUMMARY CARD */}
+                <div className="md:col-span-5 flex flex-col gap-6">
+                  <div className={`${activeThemeStyle.card} p-6 sm:p-8 flex flex-col justify-between space-y-5 shadow-2xl sticky top-28`}>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider opacity-60">Total Amount Summary</span>
+                      <div className="mt-1.5 text-3xl sm:text-4xl font-bold flex items-baseline gap-1.5">
+                        <span>₹</span><span className="font-mono">{finalEstimate.toLocaleString('en-IN')}</span>
+                      </div>
                     </div>
+
+                    <div className="space-y-3.5 text-xs border-t border-b border-white/20 py-4">
+                      <div className="p-4 rounded-[20px] border border-sky-400/40 bg-sky-500/10 space-y-2 shadow-inner">
+                        <div className="flex justify-between items-center font-bold text-sky-400 text-sm">
+                          <span>1. Main Makeover Package:</span>
+                          <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
+                        </div>
+                        <div className="flex justify-between pl-1 opacity-80"><span>• Vanity:</span><span>{config.pricingByKit?.[calcKit]?.name}</span></div>
+                        <div className="flex justify-between pl-1 opacity-80"><span>• Package:</span><span>{(config.kitText?.[calcKit]?.[calcPackage])?.name}</span></div>
+                        <div className="flex justify-between pl-1 opacity-80"><span>• Package Price:</span><span className="font-mono">₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
+                        <div className="flex justify-between pl-1 opacity-80"><span>• Travel Fee:</span><span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span></div>
+                      </div>
+
+                      <div className="p-4 rounded-[20px] border border-purple-400/40 bg-purple-500/10 space-y-2 shadow-inner">
+                        <div className="flex justify-between items-center font-bold text-purple-400 text-sm">
+                          <span>2. Extra Guests ({familyGuests.length}):</span>
+                          <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
+                        </div>
+                        {familyGuests.length > 0 ? familyGuests.map((g, i) => {
+                          const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+                          return <div key={i} className="flex justify-between pl-1 opacity-80"><span>• Guest #{i + 1}:</span><span className="font-mono">₹{gp.toLocaleString('en-IN')}</span></div>;
+                        }) : <div className="flex justify-between pl-1 opacity-60"><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
+                      </div>
+
+                      <div className="flex justify-between items-center px-4 py-3 text-sm font-bold rounded-[18px] bg-white/15 border border-white/20 shadow-sm">
+                        <span>Total Before Discounts:</span>
+                        <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
+                      </div>
+
+                      <div className="p-4 rounded-[20px] border border-emerald-400/40 bg-emerald-500/10 space-y-2 shadow-inner">
+                        <div className="flex justify-between items-center font-bold text-emerald-400 text-sm">
+                          <span>3. Discounts & Offers:</span>
+                          <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
+                        </div>
+                        {guestDiscountSavedAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-400"><span>• Family Discount:</span><span className="font-mono">-₹{guestDiscountSavedAmount}</span></div>}
+                        {appliedCoupon && couponDiscountAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-400"><span>• Promo Code:</span><span className="font-mono">-₹{couponDiscountAmount}</span></div>}
+                        {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && <div className="flex justify-between pl-1 text-[11px] opacity-60"><span>• No discounts</span><span className="font-mono">₹0</span></div>}
+                      </div>
+                    </div>
+
+                    <button type="submit" disabled={isSubmitting} className={`w-full py-4 ${activeThemeStyle.btn} font-bold text-sm rounded-[20px] shadow-xl active:scale-[0.98] transition-all duration-500 flex items-center justify-center gap-2`}>
+                      <Check className="w-5 h-5" /> <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
+                    </button>
                   </div>
-
-                  <div className="space-y-3 text-xs border-t border-b border-white/15 py-3">
-                    <div className="p-3.5 rounded-[18px] border border-sky-400/30 bg-sky-500/10 space-y-1.5">
-                      <div className="flex justify-between items-center font-bold text-sky-400">
-                        <span>1. Main Makeover Package:</span>
-                        <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
-                      </div>
-                      <div className="flex justify-between pl-1 text-[11px] opacity-80"><span>• Vanity:</span><span>{config.pricingByKit?.[calcKit]?.name}</span></div>
-                      <div className="flex justify-between pl-1 text-[11px] opacity-80"><span>• Package:</span><span>{(config.kitText?.[calcKit]?.[calcPackage])?.name}</span></div>
-                      <div className="flex justify-between pl-1 text-[11px] opacity-80"><span>• Package Price:</span><span className="font-mono">₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
-                      <div className="flex justify-between pl-1 text-[11px] opacity-80"><span>• Travel Fee:</span><span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span></div>
-                    </div>
-
-                    <div className="p-3.5 rounded-[18px] border border-purple-400/30 bg-purple-500/10 space-y-1.5">
-                      <div className="flex justify-between items-center font-bold text-purple-400">
-                        <span>2. Extra Guests ({familyGuests.length}):</span>
-                        <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
-                      </div>
-                      {familyGuests.length > 0 ? familyGuests.map((g, i) => {
-                        const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-                        return <div key={i} className="flex justify-between pl-1 text-[11px] opacity-80"><span>• Guest #{i + 1}:</span><span className="font-mono">₹{gp.toLocaleString('en-IN')}</span></div>;
-                      }) : <div className="flex justify-between pl-1 text-[11px] opacity-60"><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
-                    </div>
-
-                    <div className="flex justify-between items-center px-3.5 py-2.5 text-xs font-bold rounded-[16px] bg-white/10 border border-white/15">
-                      <span>Total Before Discounts:</span>
-                      <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
-                    </div>
-
-                    <div className="p-3.5 rounded-[18px] border border-emerald-400/30 bg-emerald-500/10 space-y-1.5">
-                      <div className="flex justify-between items-center font-bold text-emerald-400">
-                        <span>3. Discounts & Offers:</span>
-                        <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
-                      </div>
-                      {guestDiscountSavedAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-400"><span>• Family Discount:</span><span className="font-mono">-₹{guestDiscountSavedAmount}</span></div>}
-                      {appliedCoupon && couponDiscountAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-400"><span>• Promo Code:</span><span className="font-mono">-₹{couponDiscountAmount}</span></div>}
-                      {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && <div className="flex justify-between pl-1 text-[11px] opacity-60"><span>• No discounts</span><span className="font-mono">₹0</span></div>}
-                    </div>
-                  </div>
-
-                  <button type="submit" disabled={isSubmitting} className={`w-full py-4 ${activeThemeStyle.btn} font-bold text-xs rounded-[18px] shadow-lg active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-1.5`}>
-                    <Check className="w-4 h-4" /> <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
-                  </button>
                 </div>
               </form>
             )}
@@ -1660,35 +1532,35 @@ function MainAppContent() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className={`${activeThemeStyle.card} p-6 sm:p-7 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-2xl hf-tab-enter`}>
+          <div className={`${activeThemeStyle.card} p-6 sm:p-8 rounded-[36px] max-w-xl mx-auto space-y-6 shadow-2xl hf-tab-enter`}>
             <div className="text-center space-y-1">
               <span className="text-[10px] font-bold uppercase tracking-wider opacity-60">Client Experience</span>
-              <h3 className="text-lg font-bold">Feedback & Suggestions</h3>
-              <p className="text-xs opacity-70">Help us enhance your vanity experience by sharing your thoughts.</p>
+              <h3 className="text-xl font-bold">Feedback & Suggestions</h3>
+              <p className="text-sm opacity-70">Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-[24px] bg-emerald-500/15 border border-emerald-500/30 text-center space-y-2 shadow-sm">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <h4 className="font-bold text-sm text-emerald-300">Thank you for your valuable feedback!</h4>
-                <p className="text-xs opacity-70">Your suggestion has been securely submitted.</p>
-                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-5 py-2.5 rounded-[16px] bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/20 transition active:scale-95">Submit Another</button>
+              <div className="p-6 rounded-[24px] bg-emerald-500/15 border border-emerald-500/30 text-center space-y-3 shadow-inner">
+                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
+                <h4 className="font-bold text-base text-emerald-300">Thank you for your valuable feedback!</h4>
+                <p className="text-xs opacity-75 leading-relaxed">Your suggestion has been securely submitted.</p>
+                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-6 py-3 rounded-[20px] bg-white/10 hover:bg-white/20 text-xs font-bold border border-white/30 transition-all duration-500 active:scale-95 shadow-sm">Submit Another</button>
               </div>
             ) : (
-              <form onSubmit={handleSubmitFeedback} className="space-y-4">
-                <div className="flex justify-center gap-1.5 py-1">
+              <form onSubmit={handleSubmitFeedback} className="space-y-5">
+                <div className="flex justify-center gap-2 py-2">
                   {[1, 2, 3, 4, 5].map(star => (
-                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition-all duration-200 ${star <= feedbackRating ? 'text-amber-400 scale-110' : 'opacity-20 hover:opacity-100 hover:text-amber-400'}`}>
-                      <Star className={`w-6 h-6 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
+                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1.5 transition-all duration-300 ease-out ${star <= feedbackRating ? 'text-amber-400 scale-110 drop-shadow-md' : 'opacity-30 hover:opacity-100 hover:text-amber-400 hover:scale-110'}`}>
+                      <Star className={`w-8 h-8 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
                     </button>
                   ))}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
-                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm shadow-inner outline-none transition-all focus:bg-white/20" />
+                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-white/10 border border-white/30 text-sm font-mono shadow-inner outline-none transition-all focus:bg-white/20" />
                 </div>
-                <textarea rows={4} required placeholder="Share your suggestion..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-4 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
-                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3.5 ${activeThemeStyle.btn} font-bold text-xs rounded-[18px] shadow-lg active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-1.5`}>
-                  <Send className="w-3.5 h-3.5" /> <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback'}</span>
+                <textarea rows={4} required placeholder="Share your suggestion..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-4 rounded-[20px] bg-white/10 border border-white/30 text-sm shadow-inner outline-none transition-all focus:bg-white/20" />
+                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-4 ${activeThemeStyle.btn} font-bold text-sm rounded-[20px] shadow-lg active:scale-[0.98] transition-all duration-500 flex items-center justify-center gap-2`}>
+                  <Send className="w-4 h-4" /> <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback'}</span>
                 </button>
               </form>
             )}
@@ -1698,20 +1570,20 @@ function MainAppContent() {
 
       {/* FLOATING PROMO OFFER BANNER */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
-        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-4 rounded-[26px] shadow-2xl transition-all border border-white/30`}>
-          <div className="flex items-start justify-between gap-3">
-            <Gift className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-5 rounded-[28px] shadow-2xl transition-all duration-500 border border-white/30`}>
+          <div className="flex items-start justify-between gap-4">
+            <Gift className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 uppercase px-2 py-0.5 rounded-[10px] font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
-                {isFloatingExpired ? <span className="text-[10px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-[10px]">Expired</span> : floatingTimer ? <span className="text-[10px] font-mono opacity-70 px-2 py-0.5 rounded-[10px]">{floatingTimer.text}</span> : null}
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 uppercase px-2.5 py-0.5 rounded-[10px] font-mono shadow-sm">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+                {isFloatingExpired ? <span className="text-[10px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-[10px]">Expired</span> : floatingTimer ? <span className="text-[10px] font-mono opacity-80 px-2 py-0.5 rounded-[10px]">{floatingTimer.text}</span> : null}
               </div>
-              <h4 className="font-bold text-xs mt-1.5">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className="text-[11px] mt-0.5 opacity-70 font-normal">{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-bold text-amber-300">{floatingPromoCode}</span></>}</p>
+              <h4 className="font-bold text-sm mt-2 leading-tight">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className="text-xs mt-1 opacity-80 font-normal">{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-bold text-amber-300">{floatingPromoCode}</span></>}</p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="opacity-60 hover:opacity-100 p-1 shrink-0"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="opacity-60 hover:opacity-100 p-1.5 shrink-0 transition-all active:scale-90 bg-white/10 rounded-full hover:bg-white/20"><X className="w-4 h-4" /></button>
           </div>
-          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-3 w-full py-2.5 text-xs font-bold rounded-[16px] transition shadow-md ${isFloatingExpired ? 'bg-white/10 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
+          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-4 w-full py-3 text-xs font-bold rounded-[20px] transition-all duration-500 shadow-md ${isFloatingExpired ? 'bg-white/10 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
           </button>
         </aside>
