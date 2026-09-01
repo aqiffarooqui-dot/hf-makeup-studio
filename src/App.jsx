@@ -244,102 +244,102 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// TRUE IPHONE CRYSTAL GLASS LENS ARCHITECTURE WITH CRISP SEPARATING BORDERS
+// EXACT ADMIN-CLONE THEME ENGINE WITH IPHONE LIQUID GLASS & LUMINESCENT BORDERS
 const THEME_STYLES = {
   admin_aurora: {
-    bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-purple-950/20 backdrop-blur-3xl border border-purple-400/40 shadow-[0_20px_60px_rgba(168,85,247,0.18)] rounded-[32px]",
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-purple-950/40 via-purple-900/20 to-slate-950/60 backdrop-blur-[32px] border border-purple-400/50 shadow-[0_16px_50px_rgba(168,85,247,0.25)] rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]",
     glowOrb: "from-purple-600/35 via-pink-600/20 to-transparent"
   },
   sunset_glow: {
-    bg: "bg-[#0a0807] text-[#F2F2F7]",
-    card: "bg-amber-950/20 backdrop-blur-3xl border border-amber-400/40 shadow-[0_20px_60px_rgba(245,158,11,0.18)] rounded-[32px]",
+    bg: "bg-[#0c0a09] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-amber-950/40 via-rose-950/25 to-slate-950/60 backdrop-blur-[32px] border border-amber-400/50 shadow-[0_16px_50px_rgba(245,158,11,0.25)] rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]",
     glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
   },
   cyber_matrix: {
-    bg: "bg-[#020808] text-[#F2F2F7]",
-    card: "bg-cyan-950/20 backdrop-blur-3xl border border-cyan-400/40 shadow-[0_20px_60px_rgba(6,182,212,0.18)] rounded-[32px]",
+    bg: "bg-[#030a0a] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-cyan-950/40 via-emerald-950/25 to-slate-950/60 backdrop-blur-[32px] border border-cyan-400/50 shadow-[0_16px_50px_rgba(6,182,212,0.25)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]",
     glowOrb: "from-emerald-600/35 via-cyan-600/20 to-transparent"
   },
   real_glass_lens: {
-    bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-blue-950/20 backdrop-blur-3xl border border-blue-400/40 shadow-[0_20px_60px_rgba(0,122,255,0.18)] rounded-[32px]",
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-gradient-to-br from-blue-950/40 via-indigo-950/25 to-slate-950/60 backdrop-blur-[32px] border border-blue-400/50 shadow-[0_16px_50px_rgba(0,122,255,0.25)] rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_25px_rgba(0,122,255,0.3)] rounded-[20px]",
     glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
   },
   real_ios_glass: {
-    bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-[#18181b]/65 backdrop-blur-3xl border border-white/30 shadow-[0_25px_70px_rgba(0,0,0,0.5)] rounded-[36px]",
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-[#18181b]/70 backdrop-blur-[32px] border border-white/30 shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-[36px]",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]",
-    glowOrb: "from-indigo-600/35 via-sky-600/20 to-transparent"
+    glowOrb: "from-indigo-600/35 via-blue-600/20 to-transparent"
   },
   liquid_glass: {
-    bg: "bg-[#040812] text-[#F2F2F7]",
-    card: "bg-[#0f172a]/65 backdrop-blur-3xl border border-cyan-400/40 shadow-[0_25px_70px_rgba(6,182,212,0.18)] rounded-[32px]",
+    bg: "bg-[#060b14] text-[#F2F2F7]",
+    card: "bg-[#0f172a]/70 backdrop-blur-[32px] border border-cyan-400/50 shadow-[0_20px_60px_rgba(6,182,212,0.2)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
     glowOrb: "from-cyan-600/35 via-blue-600/20 to-transparent"
   },
   one_ui_9: {
-    bg: "bg-[#0a0a0c] text-[#F2F2F7]",
-    card: "bg-[#18181b]/80 backdrop-blur-3xl border border-zinc-600 shadow-xl rounded-[30px]",
+    bg: "bg-[#0c0c0e] text-[#F2F2F7]",
+    card: "bg-[#18181b]/85 backdrop-blur-[32px] border border-zinc-600 shadow-xl rounded-[30px]",
     accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-violet-600/35 via-purple-600/20 to-transparent"
   },
   gold_rose: {
-    bg: "bg-[#0d0708] text-[#F2F2F7]",
-    card: "bg-[#1a1113]/80 backdrop-blur-3xl border border-amber-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#0f090a] text-[#F2F2F7]",
+    card: "bg-[#1a1113]/85 backdrop-blur-[32px] border border-amber-400/50 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
     glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
   },
   champagne: {
-    bg: "bg-[#0d0805] text-[#F2F2F7]",
-    card: "bg-[#1c140d]/80 backdrop-blur-3xl border border-orange-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#100b07] text-[#F2F2F7]",
+    card: "bg-[#1c140d]/85 backdrop-blur-[32px] border border-orange-400/50 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
     glowOrb: "from-amber-600/35 via-orange-600/20 to-transparent"
   },
   emerald: {
-    bg: "bg-[#040c0a] text-[#F2F2F7]",
-    card: "bg-[#0f1c18]/80 backdrop-blur-3xl border border-emerald-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#060f0c] text-[#F2F2F7]",
+    card: "bg-[#0f1c18]/85 backdrop-blur-[32px] border border-emerald-400/50 shadow-xl rounded-[32px]",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-emerald-600/35 via-teal-600/20 to-transparent"
   },
   violet: {
-    bg: "bg-[#080410] text-[#F2F2F7]",
-    card: "bg-[#161024]/80 backdrop-blur-3xl border border-purple-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#0a0612] text-[#F2F2F7]",
+    card: "bg-[#161024]/85 backdrop-blur-[32px] border border-purple-400/50 shadow-xl rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-purple-600/35 via-indigo-600/20 to-transparent"
   },
   ruby: {
-    bg: "bg-[#100406] text-[#F2F2F7]",
-    card: "bg-[#200f12]/80 backdrop-blur-3xl border border-rose-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#120608] text-[#F2F2F7]",
+    card: "bg-[#200f12]/85 backdrop-blur-[32px] border border-rose-400/50 shadow-xl rounded-[32px]",
     accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-rose-600/35 via-pink-600/20 to-transparent"
   },
   sapphire: {
-    bg: "bg-[#040610] text-[#F2F2F7]",
-    card: "bg-[#0f1424]/80 backdrop-blur-3xl border border-blue-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#060812] text-[#F2F2F7]",
+    card: "bg-[#0f1424]/85 backdrop-blur-[32px] border border-blue-400/50 shadow-xl rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
   },
   default: {
-    bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-[#18181b]/75 backdrop-blur-3xl border border-white/25 shadow-xl rounded-[32px]",
+    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    card: "bg-[#18181b]/75 backdrop-blur-[32px] border border-white/25 shadow-xl rounded-[32px]",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-blue-600/30 to-transparent"
@@ -351,7 +351,7 @@ Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) the
 // DAY MODE TRUE LIQUID GLASS WITH CRISP SEPARATING BORDERS
 const DAY_MODE_OVERRIDES = {
   bg: "bg-slate-100 text-slate-900",
-  card: "bg-white/80 backdrop-blur-3xl border border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12)] rounded-[32px]",
+  card: "bg-white/85 backdrop-blur-[32px] border border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12)] rounded-[32px]",
   glowOrb: "from-blue-500/25 via-indigo-500/15 to-transparent"
 };
 
@@ -1246,7 +1246,7 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* STICKY HEADER FIXED FOR BOTH MOBILE AND DESKTOP VIEWS */}
+      {/* STICKY HEADER FOR BOTH MOBILE AND DESKTOP VIEWS */}
       <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-3xl border-b transition-colors shadow-xl`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
@@ -1332,7 +1332,7 @@ function MainAppContent() {
         {activeTab === 'menu' && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-xs`}>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
                 Professional Vanity Packages
               </span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Curated Makeup Menu</h2>
