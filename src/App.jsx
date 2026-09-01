@@ -36,7 +36,7 @@ class AppErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/60 backdrop-blur-[40px] border border-white/60 p-8 rounded-[32px] space-y-4 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_1px_1px_rgba(255,255,255,0.9)]">
+          <div className="max-w-md w-full bg-white/80 backdrop-blur-[40px] border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-2xl">
             <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
@@ -179,10 +179,6 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// ==========================================
-// TRUE IPHONE LIQUID BUBBLE GLASS ARCHITECTURE
-// High backdrop-blur + Inset reflection highlights + Deep shadows
-// ==========================================
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
@@ -314,126 +310,12 @@ const THEME_STYLES = {
 
 Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
 
-// DAY MODE TRUE LIQUID BUBBLE GLASS WITH CRISP BORDERS & INSET REFLECTIONS
 const DAY_MODE_OVERRIDES = {
   bg: "bg-[#f4f6fa] text-slate-900",
   card: "bg-white/50 backdrop-blur-[40px] border border-white/80 shadow-[0_24px_60px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_8px_24px_rgba(255,255,255,0.5)] rounded-[32px]",
   innerCard: "bg-white/60 border border-white/90 shadow-sm",
   glowOrb1: "rgba(168, 85, 247, 0.15)",
   glowOrb2: "rgba(56, 189, 248, 0.15)"
-};
-
-const ALL_INDIA_STATES_AND_CITIES = {
-  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Old Delhi", "Chandni Chowk", "Civil Lines", "Model Town", "Kamla Nagar", "Mukherjee Nagar", "GTB Nagar", "Shalimar Bagh", "Ashok Vihar", "Pitampura", "Rohini", "Prashant Vihar", "Kohat Enclave", "Keshav Puram", "Wazirpur", "Punjabi Bagh", "Rajouri Garden", "Tilak Nagar", "Janakpuri", "Vikaspuri", "Uttam Nagar", "Dwarka", "Palam", "Mahavir Enclave", "Vasant Kunj", "Vasant Vihar", "R K Puram", "Munirka", "Hauz Khas", "Green Park", "Saket", "Malviya Nagar", "Mehrauli", "Chhatarpur", "Greater Kailash", "GK-I", "GK-II", "Kalkaji", "Nehru Place", "Govindpuri", "Tughlakabad", "Okhla", "Okhla Phase I", "Okhla Phase II", "Okhla Phase III", "Jamia Nagar", "Abul Fazal Enclave", "Batla House", "Shaheen Bagh", "Jasola", "Sarita Vihar", "Madanpur Khadar", "Lajpat Nagar", "Amar Colony", "Greater Kailash", "Defence Colony", "Jangpura", "Lodi Colony", "South Extension", "Srinivaspuri", "East of Kailash", "Mayur Vihar", "Preet Vihar", "Laxmi Nagar", "Shahdara", "Patparganj", "Vivek Vihar", "Anand Vihar", "IP Extension", "Dilshad Garden", "Seelampur", "Karawal Nagar", "Burari", "Narela", "Bawana", "Najafgarh", "Dhaula Kuan", "Chanakyapuri", "Karol Bagh", "Paharganj", "Rajinder Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar", "Naraina", "Connaught Place", "Barakhamba", "India Gate", "Pragati Maidan"],
-  "Uttar Pradesh": ["Noida", "Greater Noida", "Amroha", "Ghaziabad", "Lucknow", "Kanpur", "Agra", "Varanasi", "Meerut", "Moradabad", "Bareilly", "Aligarh", "Mathura", "Sambhal"],
-  "Haryana": ["Gurugram (Gurgaon)", "Faridabad", "Panipat", "Ambala", "Karnal", "Rohtak", "Hisar", "Sonipat"],
-  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad", "Solapur", "Kolhapur"],
-  "Karnataka": ["Bengaluru (Bangalore)", "Mysuru (Mysore)", "Hubballi", "Mangaluru", "Belagavi"],
-  "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer", "Bikaner", "Alwar"],
-  "Punjab": ["Chandigarh", "Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda"],
-  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar", "Bhavnagar"],
-  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Asansol", "Siliguri"],
-  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Vellore"],
-  "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam"],
-  "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
-  "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur", "Purnia"],
-  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam"],
-  "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Berhampur", "Puri"],
-  "Other State / UT": ["Other Major City"]
-};
-
-const getTimeRemaining = (expiryDateStr) => {
-  if (!expiryDateStr) return null;
-  const total = Date.parse(expiryDateStr) - Date.now();
-  if (total <= 0) return { expired: true, text: "Expired" };
-
-  const seconds = Math.floor((total / 1000) % 60);
-  const minutes = Math.floor((total / 1000 / 60) % 60);
-  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
-  const days = Math.floor(total / (1000 * 60 * 60 * 24));
-
-  return {
-    expired: false,
-    text: `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`
-  };
-};
-
-const isVideoMedia = (item) => {
-  if (item?.type === 'video') return true;
-  if (typeof item?.url === 'string') {
-    const u = item.url.toLowerCase();
-    return u.startsWith('data:video') || u.endsWith('.mp4') || u.endsWith('.webm') || u.endsWith('.mov') || u.endsWith('.mkv') || u.includes('video/');
-  }
-  return false;
-};
-
-const getCleanInstagramUrl = (handleOrUrl) => {
-  if (!handleOrUrl) return "https://www.instagram.com/husna_farooqui_makeup/";
-  let clean = String(handleOrUrl).trim();
-  if (clean.startsWith('http://') || clean.startsWith('https://')) return clean;
-  clean = clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
-  return `https://www.instagram.com/${clean}/`;
-};
-
-const resolveProfileImageUrl = (configData) => {
-  if (configData?.profilePhotoType === 'instagram') {
-    const handle = (configData.instagramHandle || '').replace('@', '').trim();
-    if (handle) {
-      return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
-    }
-  }
-  if (configData?.profileImage && configData.profileImage.trim().length > 0) {
-    return configData.profileImage;
-  }
-  return DEFAULT_PROFILE_IMG;
-};
-
-const AutoPlayVideoCard = ({ item }) => {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        if (videoRef.current) {
-          videoRef.current.muted = true;
-          videoRef.current.play().catch(() => {});
-        }
-      });
-    }
-  }, [item.url]);
-
-  return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out hover:scale-[1.02]">
-      <video
-        ref={videoRef}
-        src={item.url}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
-      />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
-        <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
-        <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
-          <Film className="w-4 h-4 text-pink-400 shrink-0 animate-pulse" />
-          <span>{item.title}</span>
-        </h4>
-      </div>
-    </div>
-  );
-};
-
-const MEDIA_COLLECTION = 'studio_media';
-const resolveMediaValue = (value, mediaMap) => typeof value === 'string' && value.startsWith('media://') ? (mediaMap[value.slice(8)] || value) : value;
-const resolveConfigMedia = (live, mediaMap) => {
-  const next = JSON.parse(JSON.stringify(live || {}));
-  next.studioLogo = resolveMediaValue(next.studioLogo, mediaMap);
-  next.profileImage = resolveMediaValue(next.profileImage, mediaMap);
-  Object.entries(next.kitImages || {}).forEach(([kit, imgs]) => Object.entries(imgs || {}).forEach(([pkg, url]) => { next.kitImages[kit][pkg] = resolveMediaValue(url, mediaMap); }));
-  (next.galleryPhotos || []).forEach(item => { if (item?.url) item.url = resolveMediaValue(item.url, mediaMap); });
-  return next;
 };
 
 function MainAppContent() {
@@ -894,24 +776,6 @@ function MainAppContent() {
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
   const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
 
-  if (config.isAppDown || config.maintenanceMode) {
-    return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden`}>
-        <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
-        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl relative z-10`}>
-          <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
-            <Wrench className="w-6 h-6" />
-          </div>
-          <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-600 bg-amber-500/10 px-2.5 py-1 rounded-md inline-block font-medium border border-amber-500/20">Scheduled System Upgrade</span>
-            <h2 className="text-xl font-semibold">We'll Be Back Shortly</h2>
-            <p className="text-xs opacity-75 leading-relaxed">We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
@@ -920,68 +784,7 @@ function MainAppContent() {
       className={`hf-app min-h-screen ${activeThemeStyle.bg} relative transition-colors duration-700 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <style>{`
-        *, *::before, *::after { box-sizing: border-box; }
-        button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
-        button, a { will-change: transform, opacity; }
-        
-        select option { background-color: #18181b; color: #f4f4f5; }
-        html, body, #root { min-height: 100%; width: 100%; margin: 0; }
-        html { overflow-x: hidden; scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
-
-        /* RADIAL AMBIENT MESH & GLOW */
-        .hf-mesh-glow {
-          position: fixed;
-          pointer-events: none;
-          z-index: 0;
-          border-radius: 9999px;
-          filter: blur(120px);
-          transform: translate3d(0,0,0);
-          animation: hfFloat 14s ease-in-out infinite alternate;
-        }
-        @keyframes hfFloat {
-          0% { transform: scale(1) translate(0px, 0px); }
-          100% { transform: scale(1.15) translate(40px, 30px); }
-        }
-
-        /* FLUID TAB TRANSITION - SLOWER & SMOOTHER */
-        .hf-tab-enter {
-          animation: hfFadeScale 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes hfFadeScale {
-          0% { opacity: 0; transform: scale(0.97) translateY(12px); }
-          100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .hf-app[data-hf-mode="night"] h1,
-        .hf-app[data-hf-mode="night"] h2,
-        .hf-app[data-hf-mode="night"] h3,
-        .hf-app[data-hf-mode="night"] h4,
-        .hf-app[data-hf-mode="night"] .font-mono {
-          text-shadow: 0 0 16px rgba(168, 85, 247, 0.25);
-        }
-
-        .hf-modal-backdrop { 
-          position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
-          padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
-          background: rgba(0,0,0,0.72); backdrop-filter: blur(28px); overflow-y: auto; 
-        }
-        .hf-modal-card { width: min(100%, 560px); max-height: min(88dvh, 760px); overflow-y: auto; margin: auto; }
-
-        .hf-floating-banner { 
-          position: fixed; bottom: calc(84px + env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); 
-          width: min(360px, calc(100vw - 24px)); z-index: 40;
-        }
-        @media (min-width: 640px) { .hf-floating-banner { bottom: 24px; right: 24px; width: 340px; } }
-
-        .hf-bottom-nav { 
-          position: fixed; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
-          width: calc(100% - 24px); max-width: 520px; padding: 8px; border-radius: 999px !important; 
-          backdrop-filter: blur(40px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); z-index: 50;
-        }
-        .hf-bottom-nav button { min-height: 48px; border-radius: 999px !important; }
-      `}</style>
+      <canvas ref={canvasRef} className="hidden" />
 
       {/* DYNAMIC LIQUID GLASS RADIANT GLOW LIGHTS */}
       <div className="hf-mesh-glow w-[550px] h-[550px] -top-24 -left-24 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
@@ -1056,16 +859,33 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* TOP THEME-ALIGNED ANNOUNCEMENT TICKER */}
+      {/* TOP THEME-ALIGNED ANNOUNCEMENT TICKER WITH WORKING INFINITE CSS MARQUEE */}
       {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
         <div className={`fixed top-0 inset-x-0 z-50 py-1.5 px-3 overflow-hidden text-[11px] font-semibold border-b shadow-sm backdrop-blur-2xl transition-all duration-500 ${isDarkMode ? 'bg-black/40 border-white/10 text-white' : 'bg-white/40 border-black/10 text-slate-900'}`}>
-          <div className="flex overflow-hidden whitespace-nowrap w-full">
-            <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
+          <div className="relative flex overflow-hidden whitespace-nowrap w-full select-none">
+            <div className="flex shrink-0 animate-[hfMarquee_28s_linear_infinite] will-change-transform">
               {(config.announcements || []).map((ann, idx) => (
-                <span key={idx} className="mx-6 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />{ann}</span>
+                <span key={`a1-${idx}`} className="mx-8 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse shrink-0" />
+                  <span>{ann}</span>
+                </span>
+              ))}
+            </div>
+            <div className="flex shrink-0 animate-[hfMarquee_28s_linear_infinite] will-change-transform" aria-hidden="true">
+              {(config.announcements || []).map((ann, idx) => (
+                <span key={`a2-${idx}`} className="mx-8 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse shrink-0" />
+                  <span>{ann}</span>
+                </span>
               ))}
             </div>
           </div>
+          <style>{`
+            @keyframes hfMarquee {
+              0% { transform: translateX(0%); }
+              100% { transform: translateX(-50%); }
+            }
+          `}</style>
         </div>
       )}
 
@@ -1090,12 +910,10 @@ function MainAppContent() {
                 <QrCode className="w-4 h-4" />
               </button>
 
-              {/* DAY/NIGHT TOGGLE WITH ICON ONLY */}
               <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
                 {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
               </button>
 
-              {/* CAMERA/INSTAGRAM ICON & "View on Instagram" TEXT */}
               <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-semibold px-4 py-2.5 transition-all duration-500 active:scale-95 shadow-md`}>
                 <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
@@ -1152,8 +970,8 @@ function MainAppContent() {
         </nav>
       )}
 
-      {/* MAIN CONTAINER WITH INCREASED PADDING TO PREVENT HEADER OVERLAP */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-[120px] sm:pt-[140px] pb-32 sm:pb-24 relative z-10">
+      {/* MAIN CONTAINER: PRECISE PADDING TO PREVENT OVERLAP */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-[148px] sm:pt-[168px] pb-32 sm:pb-24 relative z-10">
         {activeTab === 'menu' && (
           <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1181,7 +999,7 @@ function MainAppContent() {
                   <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-500 ease-out hover:scale-[1.015] hover:shadow-2xl`}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[24px] overflow-hidden bg-white/10 relative border border-white/30 shadow-inner">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                      <div className="absolute top-2 left-2 px-2.5 py-1 rounded-[12px] bg-black/60 text-[10px] font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20 shadow-sm">
+                      <div className="absolute top-2 left-2 px-2.5 py-1 rounded-[12px] bg-black/75 text-[10px] font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20 shadow-sm">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
@@ -1260,6 +1078,7 @@ function MainAppContent() {
           </div>
         )}
 
+        {/* ESTIMATOR & BOOKING TAB */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
@@ -1383,7 +1202,7 @@ function MainAppContent() {
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
                     <div className="pt-4 border-t border-white/20 space-y-2.5">
                       <label className="block text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
-                        <Tag className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
+                        <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
                         <div className={`${activeThemeStyle.innerCard} rounded-[20px] p-4 flex items-center justify-between gap-3 shadow-inner`}>
@@ -1405,7 +1224,7 @@ function MainAppContent() {
 
                   <div className="pt-4 border-t border-white/20 space-y-4">
                     <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
-                      <User className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
+                      <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
                     <div>
                       <label className="block text-xs font-bold opacity-80 mb-1.5">Full Name *</label>
@@ -1425,7 +1244,7 @@ function MainAppContent() {
                     <div className="pt-4 border-t border-white/20 space-y-4">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-2">
-                          <MapPin className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
+                          <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-2">
                           {['Home', 'Work'].map((type) => (
