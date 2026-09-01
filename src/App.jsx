@@ -244,102 +244,102 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// TRUE LIQUID GLASS THEME STYLES WITH ILLUSTRATIVE GLOW ORBS & BLUR LAYERS
+// TRUE IPHONE LIQUID GLASS ARCHITECTURE WITH VIBRANT BLUR & VISIBLE BORDERS
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-purple-950/25 backdrop-blur-2xl border border-purple-500/30 shadow-[0_16px_50px_rgba(168,85,247,0.15)] rounded-[32px]",
+    card: "bg-purple-950/20 backdrop-blur-3xl border border-purple-400/40 shadow-[0_20px_60px_rgba(168,85,247,0.18)] rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]",
-    glowOrb: "from-purple-600/30 via-pink-600/15 to-transparent"
+    glowOrb: "from-purple-600/35 via-pink-600/20 to-transparent"
   },
   sunset_glow: {
     bg: "bg-[#0c0a09] text-[#F2F2F7]",
-    card: "bg-amber-950/25 backdrop-blur-2xl border border-amber-500/30 shadow-[0_16px_50px_rgba(245,158,11,0.15)] rounded-[32px]",
+    card: "bg-amber-950/20 backdrop-blur-3xl border border-amber-400/40 shadow-[0_20px_60px_rgba(245,158,11,0.18)] rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]",
-    glowOrb: "from-amber-600/30 via-rose-600/15 to-transparent"
+    glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
   },
   cyber_matrix: {
     bg: "bg-[#030a0a] text-[#F2F2F7]",
-    card: "bg-cyan-950/25 backdrop-blur-2xl border border-cyan-500/30 shadow-[0_16px_50px_rgba(6,182,212,0.15)] rounded-[32px]",
+    card: "bg-cyan-950/20 backdrop-blur-3xl border border-cyan-400/40 shadow-[0_20px_60px_rgba(6,182,212,0.18)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]",
-    glowOrb: "from-emerald-600/30 via-cyan-600/15 to-transparent"
+    glowOrb: "from-emerald-600/35 via-cyan-600/20 to-transparent"
   },
   real_glass_lens: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-blue-950/25 backdrop-blur-2xl border border-blue-500/30 shadow-[0_16px_50px_rgba(0,122,255,0.15)] rounded-[32px]",
+    card: "bg-blue-950/20 backdrop-blur-3xl border border-blue-400/40 shadow-[0_20px_60px_rgba(0,122,255,0.18)] rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_25px_rgba(0,122,255,0.3)] rounded-[20px]",
-    glowOrb: "from-blue-600/30 via-indigo-600/15 to-transparent"
+    glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
   },
   real_ios_glass: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/70 backdrop-blur-3xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.4)] rounded-[36px]",
+    card: "bg-[#18181b]/65 backdrop-blur-3xl border border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.5)] rounded-[36px]",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]",
-    glowOrb: "from-indigo-600/30 via-sky-600/15 to-transparent"
+    glowOrb: "from-indigo-600/35 via-sky-600/20 to-transparent"
   },
   liquid_glass: {
     bg: "bg-[#060b14] text-[#F2F2F7]",
-    card: "bg-[#0f172a]/70 backdrop-blur-3xl border border-cyan-500/35 shadow-[0_20px_60px_rgba(6,182,212,0.15)] rounded-[32px]",
+    card: "bg-[#0f172a]/65 backdrop-blur-3xl border border-cyan-400/40 shadow-[0_25px_70px_rgba(6,182,212,0.18)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-cyan-600/30 via-blue-600/15 to-transparent"
+    glowOrb: "from-cyan-600/35 via-blue-600/20 to-transparent"
   },
   one_ui_9: {
     bg: "bg-[#0c0c0e] text-[#F2F2F7]",
-    card: "bg-[#18181b]/80 backdrop-blur-2xl border border-zinc-700/80 shadow-xl rounded-[30px]",
+    card: "bg-[#18181b]/75 backdrop-blur-3xl border border-zinc-600 shadow-xl rounded-[30px]",
     accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-violet-600/30 via-purple-600/15 to-transparent"
+    glowOrb: "from-violet-600/35 via-purple-600/20 to-transparent"
   },
   gold_rose: {
     bg: "bg-[#0f090a] text-[#F2F2F7]",
-    card: "bg-[#1a1113]/80 backdrop-blur-2xl border border-amber-500/35 shadow-xl rounded-[32px]",
+    card: "bg-[#1a1113]/75 backdrop-blur-3xl border border-amber-400/40 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-amber-600/30 via-rose-600/15 to-transparent"
+    glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
   },
   champagne: {
     bg: "bg-[#100b07] text-[#F2F2F7]",
-    card: "bg-[#1c140d]/80 backdrop-blur-2xl border border-orange-500/35 shadow-xl rounded-[32px]",
+    card: "bg-[#1c140d]/75 backdrop-blur-3xl border border-orange-400/40 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-amber-600/30 via-orange-600/15 to-transparent"
+    glowOrb: "from-amber-600/35 via-orange-600/20 to-transparent"
   },
   emerald: {
     bg: "bg-[#060f0c] text-[#F2F2F7]",
-    card: "bg-[#0f1c18]/80 backdrop-blur-2xl border border-emerald-500/35 shadow-xl rounded-[32px]",
+    card: "bg-[#0f1c18]/75 backdrop-blur-3xl border border-emerald-400/40 shadow-xl rounded-[32px]",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-emerald-600/30 via-teal-600/15 to-transparent"
+    glowOrb: "from-emerald-600/35 via-teal-600/20 to-transparent"
   },
   violet: {
     bg: "bg-[#0a0612] text-[#F2F2F7]",
-    card: "bg-[#161024]/80 backdrop-blur-2xl border border-purple-500/35 shadow-xl rounded-[32px]",
+    card: "bg-[#161024]/75 backdrop-blur-3xl border border-purple-400/40 shadow-xl rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-purple-600/30 via-indigo-600/15 to-transparent"
+    glowOrb: "from-purple-600/35 via-indigo-600/20 to-transparent"
   },
   ruby: {
     bg: "bg-[#120608] text-[#F2F2F7]",
-    card: "bg-[#200f12]/80 backdrop-blur-2xl border border-rose-500/35 shadow-xl rounded-[32px]",
+    card: "bg-[#200f12]/75 backdrop-blur-3xl border border-rose-400/40 shadow-xl rounded-[32px]",
     accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-rose-600/30 via-pink-600/15 to-transparent"
+    glowOrb: "from-rose-600/35 via-pink-600/20 to-transparent"
   },
   sapphire: {
     bg: "bg-[#060812] text-[#F2F2F7]",
-    card: "bg-[#0f1424]/80 backdrop-blur-2xl border border-blue-500/35 shadow-xl rounded-[32px]",
+    card: "bg-[#0f1424]/75 backdrop-blur-3xl border border-blue-400/40 shadow-xl rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-blue-600/30 via-indigo-600/15 to-transparent"
+    glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
   },
   default: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/75 backdrop-blur-2xl border border-white/20 shadow-xl rounded-[32px]",
+    card: "bg-[#18181b]/70 backdrop-blur-3xl border border-white/25 shadow-xl rounded-[32px]",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-blue-600/30 to-transparent"
@@ -348,11 +348,11 @@ const THEME_STYLES = {
 
 Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
 
-// DAY MODE TRUE LIQUID GLASS OVERRIDES
+// DAY MODE TRUE LIQUID GLASS WITH VISIBLE CRISP BORDERS
 const DAY_MODE_OVERRIDES = {
   bg: "bg-slate-100 text-slate-900",
-  card: "bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_16px_40px_rgba(15,23,42,0.08)] rounded-[32px]",
-  glowOrb: "from-blue-500/20 via-indigo-500/10 to-transparent"
+  card: "bg-white/70 backdrop-blur-3xl border border-slate-300/90 shadow-[0_20px_50px_rgba(15,23,42,0.1)] rounded-[32px]",
+  glowOrb: "from-blue-500/25 via-indigo-500/15 to-transparent"
 };
 
 const ALL_INDIA_STATES_AND_CITIES = {
@@ -1435,6 +1435,7 @@ function MainAppContent() {
           </div>
         )}
 
+        {/* ESTIMATOR & BOOKING TAB WITH SEPARATE ISOLATED SUMMARY CARD */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto">
             {isBookingDone ? (
@@ -1458,8 +1459,10 @@ function MainAppContent() {
                 <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 text-xs font-medium rounded-[16px] transition">Make Another Calculation / Booking</button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className={`${activeThemeStyle.card} p-5 sm:p-7 grid grid-cols-1 md:grid-cols-12 gap-6 shadow-2xl`}>
-                <div className="md:col-span-7 space-y-4">
+              <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                {/* LEFT COLUMN: OPTIONS & CLIENT INFO (IN A LIQUID GLASS CARD) */}
+                <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-2xl`}>
                   <div className="border-b border-black/10 dark:border-white/10 pb-2">
                     <h3 className="font-semibold text-sm flex items-center gap-2">
                       <Calculator className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
@@ -1646,7 +1649,8 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                <div className="md:col-span-5 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[28px] p-4 sm:p-5 flex flex-col justify-between space-y-4 shadow-md">
+                {/* RIGHT COLUMN: ISOLATED STANDALONE TOTAL AMOUNT SUMMARY CARD */}
+                <div className={`md:col-span-5 ${activeThemeStyle.card} p-5 sm:p-6 flex flex-col justify-between space-y-4 shadow-2xl`}>
                   <div>
                     <span className="text-[11px] font-semibold uppercase tracking-wider opacity-60">Total Amount Summary</span>
                     <div className="mt-1 text-2xl sm:text-3xl font-semibold flex items-baseline gap-1">
