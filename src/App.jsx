@@ -333,7 +333,7 @@ const THEME_STYLES = {
   liquid_glass: {
     night: {
       bg: "bg-[#030610] text-[#FFFFFF]",
-      card: "bg-sky-950/20 backdrop-blur-[40px] border border-cyan-400/35 shadow-[0_24px_60px_rgba(6,182,212,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+      card: "bg-sky-950/20 backdrop-blur-[40px] border border-cyan-400/35 shadow-[0_24px_60px_rgba(6,182,212,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
       innerCard: "bg-sky-900/20 backdrop-blur-[30px] border border-cyan-400/30 shadow-inner",
       headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
       tabActiveText: "text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.9)]",
@@ -1075,19 +1075,19 @@ function MainAppContent() {
       return { lines, height: Math.max(50, 22 + lines.length * lineHeight) };
     };
 
-    let estHeight = 360; // header & booking title
-    estHeight += 4 * 56; // basic details
-    estHeight += 64 + 54; // address section header + type
+    let estHeight = 360;
+    estHeight += 4 * 56;
+    estHeight += 64 + 54;
     if (flatHouseNo.trim()) estHeight += measureDynamicHeight(flatHouseNo.trim(), contentMaxWidth, 18).height + 6;
     estHeight += measureDynamicHeight(streetLocality.trim() || 'Not Provided', contentMaxWidth, 18).height + 6;
     if (landmark.trim()) estHeight += measureDynamicHeight(landmark.trim(), contentMaxWidth, 18).height + 6;
-    estHeight += 2 * 56; // town/city & pincode
+    estHeight += 2 * 56;
 
-    estHeight += 64 + 5 * 56; // section 1 (main package)
-    estHeight += 64 + (familyGuests.length > 0 ? familyGuests.length * 3 * 54 : 54) + 54; // section 2 (guests)
-    estHeight += 64 + 4 * 54; // section 3 (discounts)
-    estHeight += 135; // final total box
-    estHeight += 140; // footer
+    estHeight += 64 + 5 * 56;
+    estHeight += 64 + (familyGuests.length > 0 ? familyGuests.length * 3 * 54 : 54) + 54;
+    estHeight += 64 + 4 * 54;
+    estHeight += 135;
+    estHeight += 140;
 
     canvas.width = 1200;
     canvas.height = Math.ceil(estHeight);
@@ -1345,7 +1345,7 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-500 ease-out`}>
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300 ease-out`}>
         <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
@@ -1366,7 +1366,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-500 ease-out overflow-x-hidden`}
+      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-300 ease-out overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -1381,7 +1381,6 @@ function MainAppContent() {
           text-rendering: optimizeLegibility;
         }
 
-        /* Pure Convex Water-Drop Dynamic Lens Button & Capsule */
         .hf-lens-btn {
           position: relative;
           background: rgba(255, 255, 255, 0.03) !important;
@@ -1426,7 +1425,6 @@ function MainAppContent() {
                       inset 0 -1.5px 2.5px rgba(99, 102, 241, 0.15) !important;
         }
 
-        /* iOS Dock with Measured Responsive Capsule */
         .hf-ios-dock-wrapper {
           position: relative;
           display: flex;
@@ -1445,7 +1443,6 @@ function MainAppContent() {
           z-index: 1;
         }
 
-        /* Kit Sub-tab Smooth Fade Animation */
         .hf-kit-enter {
           animation: hfKitFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -1454,14 +1451,12 @@ function MainAppContent() {
           100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Pan and Zoom Canvas */
         .hf-zoomable-media {
           will-change: transform;
           user-select: none;
           -webkit-user-drag: none;
         }
 
-        /* Enhanced Ambient Liquid Glowing Lights */
         .hf-mesh-glow {
           position: fixed;
           pointer-events: none;
@@ -1961,7 +1956,7 @@ function MainAppContent() {
                     </a>
                   </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ${activeThemeStyle.pillBorder} text-xs font-bold rounded-full transition-all active:scale-95`}>Make Another Calculation</button>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ${activeThemeStyle.pillBorder} text-xs font-bold rounded-full transition-all active:scale-95`}>Done</button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
@@ -2181,10 +2176,28 @@ function MainAppContent() {
                           <span>2. Extra Guests ({familyGuests.length}):</span>
                           <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                         </div>
-                        {familyGuests.length > 0 ? familyGuests.map((g, i) => {
-                          const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-                          return <div key={i} className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}><span>• Guest #{i + 1}:</span><span className="font-mono">₹{gp.toLocaleString('en-IN')}</span></div>;
-                        }) : <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
+                        {familyGuests.length > 0 ? (
+                          <div className="space-y-2 pt-1 border-t border-purple-400/20">
+                            {familyGuests.map((g, i) => {
+                              const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
+                              const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
+                              const gPkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
+                              return (
+                                <div key={i} className={`p-2 rounded-[12px] bg-black/10 dark:bg-white/5 space-y-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>
+                                  <div className="flex justify-between items-center font-bold">
+                                    <span>Guest #{i + 1} ({vanityName}):</span>
+                                    <span className="font-mono">₹{gp.toLocaleString('en-IN')}</span>
+                                  </div>
+                                  <div className="text-[11px] opacity-80 pl-1">
+                                    • Look: {gPkgName}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}><span>• No extra guests</span><span className="font-mono">₹0</span></div>
+                        )}
                       </div>
 
                       <div className={`flex justify-between items-center px-3.5 py-2.5 text-xs sm:text-sm font-black rounded-full ${activeThemeStyle.pillBorder}`}>
