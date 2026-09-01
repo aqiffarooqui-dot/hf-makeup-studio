@@ -35,9 +35,9 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/80 backdrop-blur-3xl border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-2xl">
-            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white/10 backdrop-blur-3xl border border-white/20 p-8 rounded-[32px] space-y-4 shadow-2xl">
+            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
             <h2 className="text-lg font-semibold">System Safe Mode Active</h2>
@@ -46,7 +46,7 @@ class AppErrorBoundary extends Component {
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-2.5 rounded-[16px] bg-blue-600 text-white font-medium text-xs transition active:scale-[0.98]"
+              className="w-full py-2.5 rounded-[16px] bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium text-xs transition active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -111,71 +111,6 @@ const DEFAULT_GALLERY = [
   { type: "video", title: "Dewy Glow Finishing", sub: "16HR Stay Artistry", url: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-woman-applying-makeup-41419-large.mp4" },
   { type: "image", title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80" },
   { type: "video", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-makeup-41418-large.mp4" }
-];
-
-const FONT_OPTIONS = [
-  { id: 'plus_jakarta_sans', name: 'Plus Jakarta Sans' },
-  { id: 'outfit', name: 'Outfit' },
-  { id: 'inter', name: 'Inter' },
-  { id: 'poppins', name: 'Poppins' },
-  { id: 'montserrat', name: 'Montserrat' },
-  { id: 'roboto', name: 'Roboto' },
-  { id: 'open_sans', name: 'Open Sans' },
-  { id: 'lato', name: 'Lato' },
-  { id: 'nunito', name: 'Nunito' },
-  { id: 'raleway', name: 'Raleway' },
-  { id: 'work_sans', name: 'Work Sans' },
-  { id: 'dm_sans', name: 'DM Sans' },
-  { id: 'manrope', name: 'Manrope' },
-  { id: 'rubik', name: 'Rubik' },
-  { id: 'mulish', name: 'Mulish' },
-  { id: 'quicksand', name: 'Quicksand' },
-  { id: 'urbanist', name: 'Urbanist' },
-  { id: 'space_grotesk', name: 'Space Grotesk' },
-  { id: 'sora', name: 'Sora' },
-  { id: 'bebas_neue', name: 'Bebas Neue' },
-  { id: 'oswald', name: 'Oswald' },
-  { id: 'barlow', name: 'Barlow' },
-  { id: 'barlow_condensed', name: 'Barlow Condensed' },
-  { id: 'archivo', name: 'Archivo' },
-  { id: 'archivo_narrow', name: 'Archivo Narrow' },
-  { id: 'merriweather', name: 'Merriweather' },
-  { id: 'playfair_display', name: 'Playfair Display' },
-  { id: 'cormorant_garamond', name: 'Cormorant Garamond' },
-  { id: 'cinzel', name: 'Cinzel' },
-  { id: 'libre_baskerville', name: 'Libre Baskerville' },
-  { id: 'bodoni_moda', name: 'Bodoni Moda' },
-  { id: 'dm_serif_display', name: 'DM Serif Display' },
-  { id: 'abril_fatface', name: 'Abril Fatface' },
-  { id: 'prata', name: 'Prata' },
-  { id: 'lora', name: 'Lora' },
-  { id: 'cardo', name: 'Cardo' },
-  { id: 'spectral', name: 'Spectral' },
-  { id: 'eb_garamond', name: 'EB Garamond' },
-  { id: 'cormorant_infant', name: 'Cormorant Infant' },
-  { id: 'josefin_sans', name: 'Josefin Sans' },
-  { id: 'josefin_slab', name: 'Josefin Slab' },
-  { id: 'karla', name: 'Karla' },
-  { id: 'cabin', name: 'Cabin' },
-  { id: 'dosis', name: 'Dosis' },
-  { id: 'exo_2', name: 'Exo 2' },
-  { id: 'figtree', name: 'Figtree' },
-  { id: 'lexend', name: 'Lexend' },
-  { id: 'league_spartan', name: 'League Spartan' },
-  { id: 'kanit', name: 'Kanit' },
-  { id: 'teko', name: 'Teko' },
-  { id: 'marcellus', name: 'Marcellus' },
-  { id: 'yeseva_one', name: 'Yeseva One' },
-  { id: 'great_vibes', name: 'Great Vibes' },
-  { id: 'dancing_script', name: 'Dancing Script' },
-  { id: 'pacifico', name: 'Pacifico' },
-  { id: 'caveat', name: 'Caveat' },
-  { id: 'comfortaa', name: 'Comfortaa' },
-  { id: 'maven_pro', name: 'Maven Pro' },
-  { id: 'alata', name: 'Alata' },
-  { id: 'asap', name: 'Asap' },
-  { id: 'heebo', name: 'Heebo' },
-  { id: 'titillium_web', name: 'Titillium Web' },
 ];
 
 const FONT_MAP = {
@@ -244,115 +179,105 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// EXACT ADMIN-CLONE THEME ENGINE WITH IPHONE LIQUID GLASS & LUMINESCENT BORDERS
 const THEME_STYLES = {
   admin_aurora: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-purple-950/40 via-purple-900/20 to-slate-950/60 backdrop-blur-[32px] border border-purple-400/50 shadow-[0_16px_50px_rgba(168,85,247,0.25)] rounded-[32px]",
+    bg: "bg-[#08070d] text-[#F2F2F7]",
+    card: "bg-purple-950/20 backdrop-blur-[36px] border border-purple-400/40 shadow-[0_20px_50px_rgba(168,85,247,0.2)] rounded-[32px]",
+    innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
-    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]",
-    glowOrb: "from-purple-600/35 via-pink-600/20 to-transparent"
+    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(236,72,153,0.4)] rounded-[20px]",
+    glowOrb1: "rgba(168, 85, 247, 0.28)",
+    glowOrb2: "rgba(236, 72, 153, 0.22)"
   },
   sunset_glow: {
-    bg: "bg-[#0c0a09] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-amber-950/40 via-rose-950/25 to-slate-950/60 backdrop-blur-[32px] border border-amber-400/50 shadow-[0_16px_50px_rgba(245,158,11,0.25)] rounded-[32px]",
+    bg: "bg-[#0d0705] text-[#F2F2F7]",
+    card: "bg-amber-950/20 backdrop-blur-[36px] border border-amber-400/40 shadow-[0_20px_50px_rgba(245,158,11,0.2)] rounded-[32px]",
+    innerCard: "bg-amber-900/20 border border-amber-400/30",
     accent: "text-amber-400",
-    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]",
-    glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
+    btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(244,63,94,0.4)] rounded-[20px]",
+    glowOrb1: "rgba(245, 158, 11, 0.28)",
+    glowOrb2: "rgba(244, 63, 94, 0.22)"
   },
   cyber_matrix: {
-    bg: "bg-[#030a0a] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-cyan-950/40 via-emerald-950/25 to-slate-950/60 backdrop-blur-[32px] border border-cyan-400/50 shadow-[0_16px_50px_rgba(6,182,212,0.25)] rounded-[32px]",
+    bg: "bg-[#020908] text-[#F2F2F7]",
+    card: "bg-cyan-950/20 backdrop-blur-[36px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2)] rounded-[32px]",
+    innerCard: "bg-cyan-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
-    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]",
-    glowOrb: "from-emerald-600/35 via-cyan-600/20 to-transparent"
+    btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_30px_rgba(6,182,212,0.4)] rounded-[20px]",
+    glowOrb1: "rgba(6, 182, 212, 0.28)",
+    glowOrb2: "rgba(16, 185, 129, 0.22)"
   },
   real_glass_lens: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-gradient-to-br from-blue-950/40 via-indigo-950/25 to-slate-950/60 backdrop-blur-[32px] border border-blue-400/50 shadow-[0_16px_50px_rgba(0,122,255,0.25)] rounded-[32px]",
+    bg: "bg-[#060810] text-[#F2F2F7]",
+    card: "bg-blue-950/20 backdrop-blur-[36px] border border-blue-400/40 shadow-[0_20px_50px_rgba(0,122,255,0.2)] rounded-[32px]",
+    innerCard: "bg-blue-900/20 border border-blue-400/30",
     accent: "text-blue-400",
-    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_25px_rgba(0,122,255,0.3)] rounded-[20px]",
-    glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
+    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_30px_rgba(0,122,255,0.35)] rounded-[20px]",
+    glowOrb1: "rgba(0, 122, 255, 0.28)",
+    glowOrb2: "rgba(99, 102, 241, 0.22)"
   },
   real_ios_glass: {
     bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/70 backdrop-blur-[32px] border border-white/30 shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-[36px]",
+    card: "bg-white/[0.06] backdrop-blur-[40px] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.5)] rounded-[36px]",
+    innerCard: "bg-white/[0.05] border border-white/15",
     accent: "text-sky-400",
-    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]",
-    glowOrb: "from-indigo-600/35 via-blue-600/20 to-transparent"
+    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_10px_25px_rgba(37,99,235,0.4)] rounded-[22px]",
+    glowOrb1: "rgba(56, 189, 248, 0.25)",
+    glowOrb2: "rgba(99, 102, 241, 0.20)"
   },
   liquid_glass: {
-    bg: "bg-[#060b14] text-[#F2F2F7]",
-    card: "bg-[#0f172a]/70 backdrop-blur-[32px] border border-cyan-400/50 shadow-[0_20px_60px_rgba(6,182,212,0.2)] rounded-[32px]",
+    bg: "bg-[#050912] text-[#F2F2F7]",
+    card: "bg-sky-950/20 backdrop-blur-[36px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2)] rounded-[32px]",
+    innerCard: "bg-sky-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-cyan-600/35 via-blue-600/20 to-transparent"
-  },
-  one_ui_9: {
-    bg: "bg-[#0c0c0e] text-[#F2F2F7]",
-    card: "bg-[#18181b]/85 backdrop-blur-[32px] border border-zinc-600 shadow-xl rounded-[30px]",
-    accent: "text-violet-400",
-    btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-violet-600/35 via-purple-600/20 to-transparent"
+    glowOrb1: "rgba(6, 182, 212, 0.28)",
+    glowOrb2: "rgba(37, 99, 235, 0.22)"
   },
   gold_rose: {
-    bg: "bg-[#0f090a] text-[#F2F2F7]",
-    card: "bg-[#1a1113]/85 backdrop-blur-[32px] border border-amber-400/50 shadow-xl rounded-[32px]",
+    bg: "bg-[#0e0708] text-[#F2F2F7]",
+    card: "bg-rose-950/20 backdrop-blur-[36px] border border-amber-400/40 shadow-xl rounded-[32px]",
+    innerCard: "bg-rose-900/20 border border-amber-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
-  },
-  champagne: {
-    bg: "bg-[#100b07] text-[#F2F2F7]",
-    card: "bg-[#1c140d]/85 backdrop-blur-[32px] border border-orange-400/50 shadow-xl rounded-[32px]",
-    accent: "text-amber-400",
-    btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-amber-600/35 via-orange-600/20 to-transparent"
+    glowOrb1: "rgba(245, 158, 11, 0.25)",
+    glowOrb2: "rgba(244, 63, 94, 0.22)"
   },
   emerald: {
-    bg: "bg-[#060f0c] text-[#F2F2F7]",
-    card: "bg-[#0f1c18]/85 backdrop-blur-[32px] border border-emerald-400/50 shadow-xl rounded-[32px]",
+    bg: "bg-[#030c08] text-[#F2F2F7]",
+    card: "bg-emerald-950/20 backdrop-blur-[36px] border border-emerald-400/40 shadow-xl rounded-[32px]",
+    innerCard: "bg-emerald-900/20 border border-emerald-400/30",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-emerald-600/35 via-teal-600/20 to-transparent"
+    glowOrb1: "rgba(16, 185, 129, 0.28)",
+    glowOrb2: "rgba(20, 184, 166, 0.20)"
   },
   violet: {
-    bg: "bg-[#0a0612] text-[#F2F2F7]",
-    card: "bg-[#161024]/85 backdrop-blur-[32px] border border-purple-400/50 shadow-xl rounded-[32px]",
+    bg: "bg-[#090512] text-[#F2F2F7]",
+    card: "bg-purple-950/20 backdrop-blur-[36px] border border-purple-400/40 shadow-xl rounded-[32px]",
+    innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-purple-600/35 via-indigo-600/20 to-transparent"
-  },
-  ruby: {
-    bg: "bg-[#120608] text-[#F2F2F7]",
-    card: "bg-[#200f12]/85 backdrop-blur-[32px] border border-rose-400/50 shadow-xl rounded-[32px]",
-    accent: "text-rose-400",
-    btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-rose-600/35 via-pink-600/20 to-transparent"
-  },
-  sapphire: {
-    bg: "bg-[#060812] text-[#F2F2F7]",
-    card: "bg-[#0f1424]/85 backdrop-blur-[32px] border border-blue-400/50 shadow-xl rounded-[32px]",
-    accent: "text-blue-400",
-    btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
+    glowOrb1: "rgba(168, 85, 247, 0.28)",
+    glowOrb2: "rgba(99, 102, 241, 0.22)"
   },
   default: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/75 backdrop-blur-[32px] border border-white/25 shadow-xl rounded-[32px]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
+    card: "bg-white/[0.06] backdrop-blur-[36px] border border-white/20 shadow-xl rounded-[32px]",
+    innerCard: "bg-white/[0.05] border border-white/10",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
-    glowOrb: "from-blue-600/30 to-transparent"
+    glowOrb1: "rgba(0, 122, 255, 0.25)",
+    glowOrb2: "rgba(56, 189, 248, 0.18)"
   }
 };
 
-Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
-
-// DAY MODE TRUE LIQUID GLASS WITH CRISP SEPARATING BORDERS
 const DAY_MODE_OVERRIDES = {
-  bg: "bg-slate-100 text-slate-900",
-  card: "bg-white/85 backdrop-blur-[32px] border border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12)] rounded-[32px]",
-  glowOrb: "from-blue-500/25 via-indigo-500/15 to-transparent"
+  bg: "bg-[#f4f6fa] text-slate-900",
+  card: "bg-white/70 backdrop-blur-[36px] border border-white/80 shadow-[0_20px_50px_rgba(15,23,42,0.08)] rounded-[32px]",
+  innerCard: "bg-white/60 border border-slate-200/80",
+  glowOrb1: "rgba(168, 85, 247, 0.15)",
+  glowOrb2: "rgba(56, 189, 248, 0.15)"
 };
 
 const ALL_INDIA_STATES_AND_CITIES = {
@@ -529,9 +454,7 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
   const [mediaAssets, setMediaAssets] = useState({});
-  const [telegramStatus, setTelegramStatus] = useState('');
 
-  // Day & Night Toggle Synchronization
   useEffect(() => {
     try {
       localStorage.setItem('hf_theme_preference', isDarkMode ? 'dark' : 'light');
@@ -629,8 +552,6 @@ function MainAppContent() {
       setConfig({
         ...STUDIO_CONFIG, ...live,
         studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
-        telegramBotToken: live.telegramBotToken || STUDIO_CONFIG.telegramBotToken || '',
-        telegramChatId: live.telegramChatId || STUDIO_CONFIG.telegramChatId || '',
         kitText: mergedKitText, kitImages: mergedKitImages,
         internationalBrands: (live.internationalBrands?.length ? live.internationalBrands : DEFAULT_BRANDS),
         galleryPhotos: (live.galleryPhotos?.length ? live.galleryPhotos : DEFAULT_GALLERY)
@@ -1018,17 +939,14 @@ function MainAppContent() {
         `<i>Status: Pending Confirmation in Admin Console</i>`;
 
       try {
-        if (!telegramBotToken || !telegramChatId) throw new Error('Telegram Bot Token / Chat ID is missing.');
-        const tgResponse = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' })
-        });
-        const tgResult = await tgResponse.json().catch(() => ({}));
-        if (!tgResponse.ok || !tgResult.ok) throw new Error(tgResult.description || `Telegram HTTP ${tgResponse.status}`);
-        setTelegramStatus('Telegram notification sent successfully.');
+        if (telegramBotToken && telegramChatId) {
+          await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: telegramChatId, text: tgMsgText, parse_mode: 'HTML' })
+          });
+        }
       } catch (tgErr) {
-        console.warn('Telegram dispatch warning:', tgErr);
-        setTelegramStatus(`Telegram notification failed: ${tgErr.message}`);
+        console.warn('Telegram notification silent skip:', tgErr);
       }
 
       generateBookingSentSlipJpg(generatedBookingNo);
@@ -1068,7 +986,6 @@ function MainAppContent() {
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  // ADMIN-CLONE TRUE LIQUID GLASS ENGINE RESOLUTION
   const rawThemeKey = config.theme?.colorTheme || 'real_glass_lens';
   const baseThemeStyle = THEME_STYLES[rawThemeKey] || THEME_STYLES.real_glass_lens;
   const activeThemeStyle = isDarkMode
@@ -1091,7 +1008,10 @@ function MainAppContent() {
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden`}>
-        <div className={`absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-40 blur-[100px]"
+          style={{ background: `radial-gradient(circle at 50% 50%, ${activeThemeStyle.glowOrb1}, transparent 70%)` }}
+        />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
             <Wrench className="w-6 h-6" />
@@ -1116,7 +1036,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-screen ${activeThemeStyle.bg} pb-24 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
+      className={`hf-app min-h-screen ${activeThemeStyle.bg} pt-24 sm:pt-28 pb-28 sm:pb-16 relative transition-colors duration-500 overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <style>{`
@@ -1129,21 +1049,45 @@ function MainAppContent() {
           color: #f4f4f5;
         }
         html, body, #root { min-height: 100%; width: 100%; margin: 0; }
-        html { overflow-x: hidden; }
+        html { overflow-x: hidden; scroll-behavior: smooth; }
         body { overflow-x: hidden; }
+
+        /* RADIAL AMBIENT MESH & GLOW */
+        .hf-mesh-glow {
+          position: fixed;
+          pointer-events: none;
+          z-index: 0;
+          border-radius: 9999px;
+          filter: blur(120px);
+          transform: translate3d(0,0,0);
+          animation: hfFloat 14s ease-in-out infinite alternate;
+        }
+        @keyframes hfFloat {
+          0% { transform: scale(1) translate(0px, 0px); }
+          100% { transform: scale(1.15) translate(40px, 30px); }
+        }
+
+        /* FLUID TAB TRANSITION */
+        .hf-tab-enter {
+          animation: hfFadeScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes hfFadeScale {
+          0% { opacity: 0; transform: scale(0.98) translateY(6px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
 
         .hf-app[data-hf-mode="night"] h1,
         .hf-app[data-hf-mode="night"] h2,
         .hf-app[data-hf-mode="night"] h3,
         .hf-app[data-hf-mode="night"] h4,
         .hf-app[data-hf-mode="night"] .font-mono {
-          text-shadow: 0 0 12px rgba(95, 248, 255, 0.35);
+          text-shadow: 0 0 16px rgba(168, 85, 247, 0.25);
         }
 
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
           padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
-          background: rgba(0,0,0,0.65); backdrop-filter: blur(20px); overflow-y: auto; 
+          background: rgba(0,0,0,0.72); backdrop-filter: blur(28px); overflow-y: auto; 
         }
         .hf-modal-card { width: min(100%, 560px); max-height: min(88dvh, 760px); overflow-y: auto; margin: auto; }
 
@@ -1156,13 +1100,24 @@ function MainAppContent() {
         .hf-bottom-nav { 
           position: fixed; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
           width: calc(100% - 24px); max-width: 520px; padding: 8px; border-radius: 999px !important; 
-          backdrop-filter: blur(24px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); z-index: 50;
+          backdrop-filter: blur(32px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); z-index: 50;
         }
         .hf-bottom-nav button { min-height: 48px; border-radius: 999px !important; }
       `}</style>
 
-      {/* AMBIENT GLOW ORB BACKGROUND */}
-      <div className={`absolute top-0 left-1/3 w-[650px] h-[650px] bg-gradient-to-br ${activeThemeStyle.glowOrb} rounded-full blur-3xl pointer-events-none animate-pulse`} />
+      {/* DYNAMIC LIQUID GLASS RADIANT GLOW LIGHTS */}
+      <div 
+        className="hf-mesh-glow w-[550px] h-[550px] -top-24 -left-24 opacity-60" 
+        style={{ background: activeThemeStyle.glowOrb1 }} 
+      />
+      <div 
+        className="hf-mesh-glow w-[500px] h-[500px] top-1/3 -right-24 opacity-50" 
+        style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} 
+      />
+      <div 
+        className="hf-mesh-glow w-[600px] h-[600px] -bottom-32 left-1/4 opacity-40" 
+        style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} 
+      />
 
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-600 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
@@ -1180,7 +1135,7 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} rounded-[32px] p-6 text-center space-y-4 shadow-2xl`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 text-center space-y-4 shadow-2xl animate-fade-in`}>
             <div className="flex items-center justify-between">
               <span className="font-semibold text-xs flex items-center gap-1.5"><Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook</span>
               <button onClick={() => setShowShareModal(false)} className="p-1 rounded-full opacity-60 hover:opacity-100"><X className="w-4 h-4" /></button>
@@ -1190,8 +1145,8 @@ function MainAppContent() {
             </div>
             <p className="text-xs opacity-75">Scan this QR code with any camera to explore portfolio.</p>
             <div className="flex gap-2">
-              <button onClick={handleCopyLink} className="flex-1 py-2.5 rounded-[16px] bg-black/5 dark:bg-white/5 hover:bg-black/10 text-xs font-medium flex items-center justify-center gap-1.5 border border-black/10 dark:border-white/10 transition">
-                {copiedLink ? <CheckCheck className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 opacity-60" />}
+              <button onClick={handleCopyLink} className="flex-1 py-2.5 rounded-[16px] bg-white/10 hover:bg-white/15 text-xs font-medium flex items-center justify-center gap-1.5 border border-white/20 transition">
+                {copiedLink ? <CheckCheck className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 opacity-60" />}
                 <span>{copiedLink ? 'Copied' : 'Copy'}</span>
               </button>
               <a href={qrCodeApiUrl} download="QR.png" target="_blank" rel="noreferrer" className={`px-4 py-2.5 rounded-[16px] ${activeThemeStyle.btn} text-xs font-medium flex items-center justify-center gap-1 transition`}>
@@ -1204,7 +1159,7 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} rounded-[32px] p-6 space-y-4 shadow-2xl`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 space-y-4 shadow-2xl animate-fade-in`}>
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Crown className={`w-4 h-4 ${activeThemeStyle.accentText}`} />
@@ -1212,11 +1167,11 @@ function MainAppContent() {
               </div>
               <button onClick={() => setViewingPackage(null)} className="p-1 rounded-full opacity-60 hover:opacity-100"><X className="w-4 h-4" /></button>
             </div>
-            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 shadow-sm">
+            <div className="w-full h-40 sm:h-48 rounded-[24px] overflow-hidden bg-black/10 border border-white/20 shadow-sm">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
             </div>
             <p className="text-xs opacity-80 leading-relaxed">{viewingPackage.desc}</p>
-            <div className="space-y-2 text-xs border-t border-b border-black/10 dark:border-white/10 py-3">
+            <div className="space-y-2 text-xs border-t border-b border-white/15 py-3">
               <div className="flex justify-between items-start gap-2"><span className="opacity-70">Vanity Tier:</span><strong className="font-medium">{config.pricingByKit[selectedKit]?.name}</strong></div>
               <div className="flex justify-between items-start gap-2"><span className="opacity-70">Skin Finish:</span><span>{viewingPackage.skinFinish}</span></div>
               <div className="flex justify-between items-start gap-2"><span className="opacity-70">Includes:</span><span>{viewingPackage.includes}</span></div>
@@ -1225,20 +1180,20 @@ function MainAppContent() {
                 <span className={`${activeThemeStyle.accentText} font-mono text-sm font-bold`}>₹{(config.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
-            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3 ${activeThemeStyle.btn} text-xs font-medium transition flex items-center justify-center gap-1.5`}>
+            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3.5 ${activeThemeStyle.btn} text-xs font-medium transition flex items-center justify-center gap-1.5`}>
               <span>Estimate & Book This Look</span> <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       )}
 
-      {/* ANNOUNCEMENT TICKER: Rendered ONLY after splash screen is completely gone */}
+      {/* TOP ANNOUNCEMENT TICKER */}
       {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-        <div className="bg-black text-white py-2 px-3 overflow-hidden text-xs font-medium relative flex items-center select-none shadow-sm z-50">
+        <div className="fixed top-0 inset-x-0 z-50 bg-black/90 text-white py-1.5 px-3 overflow-hidden text-[11px] font-medium border-b border-white/10 backdrop-blur-md">
           <div className="flex overflow-hidden whitespace-nowrap w-full">
             <div className="inline-flex space-x-12 animate-[marquee_25s_linear_infinite] shrink-0">
               {(config.announcements || []).map((ann, idx) => (
-                <span key={idx} className="mx-6 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-white/50" />{ann}</span>
+                <span key={idx} className="mx-6 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />{ann}</span>
               ))}
             </div>
           </div>
@@ -1246,48 +1201,46 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* STICKY HEADER FOR BOTH MOBILE AND DESKTOP VIEWS */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-3xl border-b transition-colors shadow-xl`}>
+      {/* FIXED LIQUID GLASS HEADER FOR ALL SCREENS */}
+      <header className={`fixed ${!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false ? 'top-7' : 'top-0'} inset-x-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-[36px] transition-all duration-300 shadow-xl`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
               {config.toggles?.showLogoOnApp !== false && (
-                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-black/10 dark:border-white/20 bg-black/5 dark:bg-white/10 flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-white/25 bg-white/10 flex items-center justify-center shadow-md">
                   <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" draggable="false" />
                 </div>
               )}
               <div className="truncate">
-                <h1 className="font-semibold text-sm sm:text-base truncate">{config.studioName || 'H&F Makeup Artist'}</h1>
-                <p className={`text-xs ${activeThemeStyle.accentText} flex items-center gap-1 truncate font-medium`}><span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span></p>
+                <h1 className="font-semibold text-sm sm:text-base truncate tracking-tight">{config.studioName || 'H&F Makeup Artist'}</h1>
+                <p className={`text-[11px] ${activeThemeStyle.accentText} flex items-center gap-1 truncate font-medium`}><span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span></p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-black/15 dark:border-white/25 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition flex items-center justify-center shadow-xs">
+              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-white/25 bg-white/10 hover:bg-white/20 transition flex items-center justify-center shadow-sm active:scale-95">
                 <QrCode className="w-4 h-4" />
               </button>
 
-              {/* DAY/NIGHT TOGGLE WITH ICON ONLY (NO TEXT) */}
-              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-black/15 dark:border-white/25 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition flex items-center justify-center shadow-xs">
-                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/25 bg-white/10 hover:bg-white/20 transition flex items-center justify-center shadow-sm active:scale-95">
+                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-purple-600" />}
               </button>
 
-              {/* CAMERA/INSTAGRAM ICON & "View on Instagram" TEXT */}
-              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition hover:opacity-90 shadow-md`}>
+              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition active:scale-95 shadow-md`}>
                 <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
               </a>
 
               {shouldShowProfileInHeader && (
-                <div className="w-9 h-9 rounded-[16px] border border-black/15 dark:border-white/25 overflow-hidden shrink-0 shadow-xs">
+                <div className="w-9 h-9 rounded-[16px] border border-white/25 overflow-hidden shrink-0 shadow-sm">
                   <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" />
                 </div>
               )}
             </div>
           </div>
 
-          <div className="hidden sm:flex w-full items-center justify-center pt-1">
-            <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-black/15 dark:border-white/25 bg-black/5 dark:bg-white/10 text-xs font-medium shadow-inner backdrop-blur-3xl">
+          <div className="hidden sm:flex w-full items-center justify-center pt-0.5">
+            <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-white/20 bg-white/[0.06] text-xs font-medium shadow-inner backdrop-blur-3xl">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1298,7 +1251,7 @@ function MainAppContent() {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
                 return (
-                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100'}`}>
+                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition-all duration-300 ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100 hover:bg-white/10'}`}>
                     <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                   </button>
                 );
@@ -1308,8 +1261,9 @@ function MainAppContent() {
         </div>
       </header>
 
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around backdrop-blur-3xl border border-black/15 dark:border-white/25`}>
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border border-white/25 shadow-2xl`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1320,7 +1274,7 @@ function MainAppContent() {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[16px] transition ${isActive ? `${activeThemeStyle.accentText} font-semibold bg-black/10 dark:bg-white/20 shadow-xs` : 'opacity-60'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[16px] transition-all duration-300 ${isActive ? `${activeThemeStyle.accentText} font-semibold bg-white/20 shadow-md` : 'opacity-60 hover:opacity-100'}`}>
                 <Icon className="w-4 h-4 shrink-0" /><span className="text-[10px] mt-0.5">{tab.label}</span>
               </button>
             );
@@ -1328,19 +1282,20 @@ function MainAppContent() {
         </nav>
       )}
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 relative z-10">
+      {/* MAIN CONTAINER WITH FLUID TRANSITION */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-4 relative z-10">
         {activeTab === 'menu' && (
-          <div className="space-y-6">
+          <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
+              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/25 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>
                 Professional Vanity Packages
               </span>
-              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Curated Makeup Menu</h2>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Curated Makeup Menu</h2>
               <p className="text-xs sm:text-sm opacity-70">Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1.5 rounded-[24px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 mt-2 gap-1 shadow-inner backdrop-blur-3xl">
-                <button onClick={() => setSelectedKit('international')} className={`px-4 py-2 rounded-[20px] text-xs font-medium transition ${selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>👑 Luxury Kit</button>
-                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 py-2 rounded-[20px] text-xs font-medium transition ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>✨ HD Kit</button>
+              <div className="inline-flex p-1.5 rounded-[24px] bg-white/10 border border-white/25 mt-2 gap-1.5 shadow-inner backdrop-blur-3xl">
+                <button onClick={() => setSelectedKit('international')} className={`px-5 py-2.5 rounded-[20px] text-xs font-bold transition-all duration-300 ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100'}`}>👑 Luxury Kit</button>
+                <button onClick={() => setSelectedKit('drugstore')} className={`px-5 py-2.5 rounded-[20px] text-xs font-bold transition-all duration-300 ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : 'opacity-70 hover:opacity-100'}`}>✨ HD Kit</button>
               </div>
             </div>
 
@@ -1353,29 +1308,29 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center transition-all duration-300 hover:scale-[1.01]`}>
-                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[20px] overflow-hidden bg-black/5 dark:bg-white/10 relative border border-black/15 dark:border-white/25 shadow-sm">
+                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center transition-all duration-300 hover:scale-[1.015]`}>
+                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[22px] overflow-hidden bg-black/10 relative border border-white/25 shadow-md">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
-                      <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-[10px] bg-black/70 text-[10px] font-mono font-medium text-amber-300 backdrop-blur-xs">
+                      <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-[10px] bg-black/75 text-[10px] font-mono font-medium text-amber-300 backdrop-blur-md border border-white/10">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
                     <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-semibold text-sm sm:text-base">{item.num ? `${item.num}. ` : ''}{item.name}</h4>
-                          <span className={`font-mono font-semibold text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
+                          <h4 className="font-bold text-sm sm:text-base">{item.num ? `${item.num}. ` : ''}{item.name}</h4>
+                          <span className={`font-mono font-bold text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
-                        <p className="text-xs opacity-70 mt-1 line-clamp-2">{item.desc}</p>
+                        <p className="text-xs opacity-70 mt-1 line-clamp-2 leading-relaxed">{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-black/10 dark:border-white/15">
+                      <div className="flex items-center justify-between pt-2 border-t border-white/15">
                         <span className="text-[11px] opacity-70 font-normal truncate flex items-center gap-1">
-                          <Sparkles className="w-3 h-3 text-amber-500 shrink-0" /> 16HR HD Finish
+                          <Sparkles className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" /> 16HR HD Finish
                         </span>
                         <div className="flex items-center gap-1.5">
-                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-3.5 py-2 rounded-[14px] border border-black/15 dark:border-white/25 text-xs font-medium hover:bg-black/10 dark:hover:bg-white/15 transition shadow-2xs">Details</button>
-                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 py-2 ${activeThemeStyle.btn} text-xs font-medium transition flex items-center gap-1 shadow-sm`}>
+                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-3.5 py-2 rounded-[16px] border border-white/25 bg-white/10 text-xs font-semibold hover:bg-white/20 transition shadow-xs active:scale-95">Details</button>
+                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 py-2 ${activeThemeStyle.btn} text-xs font-semibold transition active:scale-95 flex items-center gap-1 shadow-md`}>
                             <span>Book</span> <ChevronRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1389,23 +1344,23 @@ function MainAppContent() {
         )}
 
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
-          <div className="space-y-6">
+          <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>Discover Looks</span>
-              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Featured Transformations</h2>
+              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/25 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>Discover Looks</span>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Featured Transformations</h2>
               <p className="text-xs sm:text-sm opacity-70">Explore signature makeup transformations crafted with perfection.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
                 return (
-                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.01]`}>
+                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.015]`}>
                     {isVideo ? <AutoPlayVideoCard item={item} /> : (
-                      <div className="h-72 sm:h-80 overflow-hidden relative bg-black/5 dark:bg-white/10 rounded-[28px] border border-black/15 dark:border-white/25">
+                      <div className="h-72 sm:h-80 overflow-hidden relative bg-black/10 rounded-[28px] border border-white/20">
                         <img src={item.url} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
                           <span className="text-[11px] uppercase font-mono font-medium text-zinc-300">{item.sub || 'Client Transformation'}</span>
-                          <h4 className="font-semibold text-sm mt-0.5 text-white"><span>{item.title}</span></h4>
+                          <h4 className="font-bold text-sm mt-0.5 text-white"><span>{item.title}</span></h4>
                         </div>
                       </div>
                     )}
@@ -1417,17 +1372,17 @@ function MainAppContent() {
         )}
 
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
-          <div className="space-y-6">
+          <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>Authentic Vanity</span>
-              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Products In Our Kit</h2>
+              <span className={`px-4 py-1.5 rounded-[18px] bg-white/10 border border-white/25 ${activeThemeStyle.accentText} text-xs font-semibold inline-block shadow-sm backdrop-blur-xl`}>Authentic Vanity</span>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Products In Our Kit</h2>
               <p className="text-xs sm:text-sm opacity-70">100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2 transition-all duration-300 hover:scale-[1.01]`}>
-                  <span className={`text-[10px] font-medium ${activeThemeStyle.accentText} bg-amber-500/10 border border-amber-500/20 uppercase px-2.5 py-1 rounded-[10px] font-mono inline-block`}>{brand.category}</span>
-                  <h4 className="font-semibold text-sm">{brand.name}</h4>
+                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2 transition-all duration-300 hover:scale-[1.015]`}>
+                  <span className={`text-[10px] font-bold ${activeThemeStyle.accentText} bg-amber-500/10 border border-amber-500/30 uppercase px-2.5 py-1 rounded-[10px] font-mono inline-block`}>{brand.category}</span>
+                  <h4 className="font-bold text-sm">{brand.name}</h4>
                   <p className="text-xs opacity-70 leading-relaxed">{brand.desc}</p>
                 </div>
               ))}
@@ -1435,51 +1390,49 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* ESTIMATOR & BOOKING TAB WITH SEPARATE ISOLATED SUMMARY CARD */}
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
               <div className={`${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl max-w-lg mx-auto`}>
-                <div className="w-12 h-12 rounded-[20px] bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/20 shadow-xs">
-                  <CheckCircle2 className="w-6 h-6" />
+                <div className="w-14 h-14 rounded-[22px] bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/30 shadow-md">
+                  <CheckCircle2 className="w-7 h-7" />
                 </div>
-                <div className="inline-block px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 font-mono font-medium text-xs shadow-2xs">
+                <div className="inline-block px-4 py-1.5 rounded-[16px] bg-white/10 border border-white/20 font-mono font-bold text-xs shadow-inner">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
-                <h3 className="text-lg font-semibold">Booking Request Submitted Successfully</h3>
-                <p className="text-xs opacity-70 leading-relaxed">Your appointment request has been recorded securely. Our team will coordinate with you shortly.</p>
-                {telegramStatus && <p className={`text-[11px] ${telegramStatus.startsWith('Telegram notification sent') ? 'text-emerald-500' : 'text-amber-500'}`}>{telegramStatus}</p>}
+                <h3 className="text-lg font-bold">Booking Request Submitted Successfully</h3>
+                <p className="text-xs opacity-75 leading-relaxed">Your appointment request has been recorded securely. Our team will coordinate with you shortly.</p>
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-4 py-3 rounded-[16px] ${activeThemeStyle.btn} font-medium inline-flex items-center gap-2 text-xs transition shadow-sm`}>
-                      <Download className="w-3.5 h-3.5" /> <span>Download Booking Receipt (.JPG)</span>
+                    <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-5 py-3 rounded-[18px] ${activeThemeStyle.btn} font-medium inline-flex items-center gap-2 text-xs transition shadow-md active:scale-95`}>
+                      <Download className="w-4 h-4" /> <span>Download Booking Receipt (.JPG)</span>
                     </a>
                   </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-black/5 dark:bg-white/10 hover:bg-black/10 text-xs font-medium rounded-[16px] transition">Make Another Calculation / Booking</button>
+                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-white/10 hover:bg-white/15 text-xs font-semibold rounded-[16px] border border-white/15 transition active:scale-95">Make Another Calculation / Booking</button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 
                 {/* LEFT COLUMN: OPTIONS & CLIENT INFO */}
                 <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-2xl`}>
-                  <div className="border-b border-black/10 dark:border-white/15 pb-2">
-                    <h3 className="font-semibold text-sm flex items-center gap-2">
+                  <div className="border-b border-white/15 pb-2.5">
+                    <h3 className="font-bold text-sm flex items-center gap-2">
                       <Calculator className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider mb-2 opacity-70">Main Makeover Package: Vanity Tier</label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/25 opacity-80'}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/25 opacity-80'}`}>✨ HD Kit</button>
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-2 opacity-70">Main Makeover Package: Vanity Tier</label>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3.5 rounded-[18px] text-xs font-bold border text-center transition-all duration-300 shadow-sm ${calcKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : 'bg-white/10 border-white/20 opacity-80 hover:opacity-100'}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3.5 rounded-[18px] text-xs font-bold border text-center transition-all duration-300 shadow-sm ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : 'bg-white/10 border-white/20 opacity-80 hover:opacity-100'}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-70">Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-transparent border border-black/15 dark:border-white/25 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-70">Main Makeover Package: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-white/10 border border-white/25 rounded-[18px] px-4 py-3 text-xs font-semibold shadow-inner outline-none">
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1489,34 +1442,34 @@ function MainAppContent() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-70">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-transparent border border-black/15 dark:border-white/25 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
+                    <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-70">Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-white/10 border border-white/25 rounded-[18px] px-4 py-3 text-xs font-semibold shadow-inner outline-none">
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-3">
+                  <div className="pt-3 border-t border-white/15 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
                           <Users className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Extra Family Makeup Customizer
                         </h4>
                         <p className="text-[11px] opacity-70">Choose individual vanity tier & look for each family guest.</p>
                       </div>
-                      <button type="button" onClick={handleAddFamilyGuest} className="px-3.5 py-2 rounded-[14px] bg-black/5 dark:bg-white/10 hover:bg-black/10 border border-black/15 dark:border-white/25 text-xs font-medium flex items-center gap-1 transition shadow-2xs">
+                      <button type="button" onClick={handleAddFamilyGuest} className="px-3.5 py-2 rounded-[16px] bg-white/10 hover:bg-white/20 border border-white/25 text-xs font-semibold flex items-center gap-1 transition shadow-sm active:scale-95">
                         <Plus className="w-3 h-3" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-3.5 rounded-[16px] bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs shadow-2xs">
+                      <div className="p-3.5 rounded-[18px] bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between text-xs shadow-sm">
                         <div className="flex items-center gap-2">
-                          <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
-                          <p className="text-emerald-500 font-medium">Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!</p>
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                          <p className="text-emerald-400 font-bold">Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!</p>
                         </div>
-                        <span className="font-mono font-medium text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-[8px] text-[10px]">{guestDiscountPercent}% OFF</span>
+                        <span className="font-mono font-bold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-[8px] text-[10px]">{guestDiscountPercent}% OFF</span>
                       </div>
                     )}
 
@@ -1525,25 +1478,25 @@ function MainAppContent() {
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
                           return (
-                            <div key={guest.id} className="p-3.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 space-y-2 shadow-2xs">
+                            <div key={guest.id} className="p-3.5 rounded-[18px] bg-white/10 border border-white/20 space-y-2 shadow-sm">
                               <div className="flex items-center justify-between">
-                                <span className="text-xs font-medium">Guest #{idx + 1}</span>
+                                <span className="text-xs font-bold">Guest #{idx + 1}</span>
                                 <div className="flex items-center gap-2">
-                                  <span className={`text-xs font-semibold font-mono ${activeThemeStyle.accentText}`}>₹{rawGuestPrice.toLocaleString('en-IN')}</span>
-                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                                  <span className={`text-xs font-bold font-mono ${activeThemeStyle.accentText}`}>₹{rawGuestPrice.toLocaleString('en-IN')}</span>
+                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-400 hover:bg-rose-500/10 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                                 </div>
                               </div>
                               <div className="grid grid-cols-2 gap-2">
                                 <div>
                                   <label className="block text-[10px] font-medium opacity-70 mb-1">Vanity Tier</label>
-                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/15 dark:border-white/25 outline-none">
+                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-2.5 rounded-[14px] text-xs font-medium bg-black/20 border border-white/20 outline-none">
                                     <option value="international">👑 Luxury Kit</option>
                                     <option value="drugstore">✨ HD Kit</option>
                                   </select>
                                 </div>
                                 <div>
                                   <label className="block text-[10px] font-medium opacity-70 mb-1">Package Look</label>
-                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/15 dark:border-white/25 outline-none">
+                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-2.5 rounded-[14px] text-xs font-medium bg-black/20 border border-white/20 outline-none">
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
                                     ))}
@@ -1558,55 +1511,55 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-2">
-                      <label className="block text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
+                    <div className="pt-3 border-t border-white/15 space-y-2">
+                      <label className="block text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
                         <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 rounded-[16px] p-3.5 flex items-center justify-between gap-2 shadow-2xs">
+                        <div className="bg-white/10 border border-white/25 rounded-[18px] p-3.5 flex items-center justify-between gap-2 shadow-sm">
                           <div>
-                            <span className="text-xs font-semibold font-mono">CODE: {appliedCoupon.code} APPLIED</span>
+                            <span className="text-xs font-bold font-mono">CODE: {appliedCoupon.code} APPLIED</span>
                             <p className="text-[11px] opacity-70 font-normal">🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}</p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-500 text-xs font-medium underline">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-400 text-xs font-bold underline">Remove</button>
                         </div>
                       ) : (
                         <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-transparent border border-black/15 dark:border-white/25 rounded-[16px] px-3.5 py-2.5 text-xs uppercase font-mono font-medium outline-none shadow-2xs" />
-                          <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2.5 ${activeThemeStyle.btn} text-xs font-medium rounded-[16px] transition shadow-sm`}>Apply</button>
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-white/10 border border-white/25 rounded-[18px] px-4 py-2.5 text-xs uppercase font-mono font-bold outline-none shadow-inner" />
+                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-bold rounded-[18px] transition shadow-md active:scale-95`}>Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-500 font-normal">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-400 font-normal">{couponError}</p>}
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-3">
-                    <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                  <div className="pt-3 border-t border-white/15 space-y-3">
+                    <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
                       <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
                     <div>
                       <label className="block text-xs font-medium opacity-70 mb-1">Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium opacity-70 mb-1">Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
                       </div>
                       <div>
                         <label className="block text-xs font-medium opacity-70 mb-1">Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-3">
+                    <div className="pt-3 border-t border-white/15 space-y-3">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <h4 className="font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
                           <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
-                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3.5 py-1.5 rounded-[12px] text-[10px] font-medium border transition shadow-2xs ${addressType === type ? `${activeThemeStyle.btn} font-semibold` : 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/25 opacity-70'}`}>
+                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-4 py-1.5 rounded-[14px] text-[10px] font-bold border transition-all duration-300 ${addressType === type ? `${activeThemeStyle.btn} shadow-sm` : 'bg-white/10 border-white/20 opacity-70 hover:opacity-100'}`}>
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
                             </button>
                           ))}
@@ -1616,31 +1569,31 @@ function MainAppContent() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">Postal PIN Code *</label>
-                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
+                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
                         </div>
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">Flat, House No., Building</label>
-                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
+                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
                         </div>
                       </div>
                       <div>
                         <label className="block text-[11px] font-medium opacity-70 mb-1">Street, Sector, Area, Locality *</label>
-                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
+                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
                       </div>
                       <div>
                         <label className="block text-[11px] font-medium opacity-70 mb-1">Landmark (Optional)</label>
-                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
+                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">State / Region *</label>
-                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-medium shadow-2xs outline-none">
+                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-semibold shadow-inner outline-none">
                             {Object.keys(ALL_INDIA_STATES_AND_CITIES).map(stName => <option key={stName} value={stName}>{stName}</option>)}
                           </select>
                         </div>
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">Town / City *</label>
-                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-medium shadow-2xs outline-none">
+                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-semibold shadow-inner outline-none">
                             {(ALL_INDIA_STATES_AND_CITIES[selectedState] || [city]).map(cityName => <option key={cityName} value={cityName}>{cityName}</option>)}
                           </select>
                         </div>
@@ -1649,17 +1602,17 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: INDEPENDENT STANDALONE TOTAL AMOUNT SUMMARY CARD */}
+                {/* RIGHT COLUMN: STANDALONE TOTAL AMOUNT SUMMARY CARD */}
                 <div className={`md:col-span-5 ${activeThemeStyle.card} p-5 sm:p-6 flex flex-col justify-between space-y-4 shadow-2xl`}>
                   <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider opacity-60">Total Amount Summary</span>
-                    <div className="mt-1 text-2xl sm:text-3xl font-semibold flex items-baseline gap-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider opacity-60">Total Amount Summary</span>
+                    <div className="mt-1 text-2xl sm:text-3xl font-bold flex items-baseline gap-1">
                       <span>₹</span><span className="font-mono">{finalEstimate.toLocaleString('en-IN')}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-xs border-t border-b border-black/10 dark:border-white/15 py-3">
-                    <div className="p-3 rounded-[16px] border border-sky-500/30 bg-sky-500/10 space-y-1.5">
+                  <div className="space-y-3 text-xs border-t border-b border-white/15 py-3">
+                    <div className="p-3.5 rounded-[18px] border border-sky-400/30 bg-sky-500/10 space-y-1.5">
                       <div className="flex justify-between items-center font-bold text-sky-400">
                         <span>1. Main Makeover Package:</span>
                         <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
@@ -1670,7 +1623,7 @@ function MainAppContent() {
                       <div className="flex justify-between pl-1 text-[11px] opacity-80"><span>• Travel Fee:</span><span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span></div>
                     </div>
 
-                    <div className="p-3 rounded-[16px] border border-purple-500/30 bg-purple-500/10 space-y-1.5">
+                    <div className="p-3.5 rounded-[18px] border border-purple-400/30 bg-purple-500/10 space-y-1.5">
                       <div className="flex justify-between items-center font-bold text-purple-400">
                         <span>2. Extra Guests ({familyGuests.length}):</span>
                         <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
@@ -1681,12 +1634,12 @@ function MainAppContent() {
                       }) : <div className="flex justify-between pl-1 text-[11px] opacity-60"><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
                     </div>
 
-                    <div className="flex justify-between items-center px-3 py-2 text-xs font-semibold rounded-[14px] bg-black/5 dark:bg-white/15">
+                    <div className="flex justify-between items-center px-3.5 py-2.5 text-xs font-bold rounded-[16px] bg-white/10 border border-white/15">
                       <span>Total Before Discounts:</span>
                       <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
 
-                    <div className="p-3 rounded-[16px] border border-emerald-500/30 bg-emerald-500/10 space-y-1.5">
+                    <div className="p-3.5 rounded-[18px] border border-emerald-400/30 bg-emerald-500/10 space-y-1.5">
                       <div className="flex justify-between items-center font-bold text-emerald-400">
                         <span>3. Discounts & Offers:</span>
                         <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
@@ -1697,8 +1650,8 @@ function MainAppContent() {
                     </div>
                   </div>
 
-                  <button type="submit" disabled={isSubmitting} className={`w-full py-3.5 ${activeThemeStyle.btn} font-medium text-xs rounded-[16px] shadow-md active:scale-[0.98] transition flex items-center justify-center gap-1.5`}>
-                    <Check className="w-3.5 h-3.5" /> <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
+                  <button type="submit" disabled={isSubmitting} className={`w-full py-4 ${activeThemeStyle.btn} font-bold text-xs rounded-[18px] shadow-lg active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-1.5`}>
+                    <Check className="w-4 h-4" /> <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
                   </button>
                 </div>
               </form>
@@ -1707,34 +1660,34 @@ function MainAppContent() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className={`${activeThemeStyle.card} p-6 sm:p-7 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-2xl`}>
+          <div className={`${activeThemeStyle.card} p-6 sm:p-7 rounded-[32px] max-w-xl mx-auto space-y-5 shadow-2xl hf-tab-enter`}>
             <div className="text-center space-y-1">
-              <span className="text-[10px] font-semibold uppercase tracking-wider opacity-60">Client Experience</span>
-              <h3 className="text-lg font-semibold">Feedback & Suggestions</h3>
+              <span className="text-[10px] font-bold uppercase tracking-wider opacity-60">Client Experience</span>
+              <h3 className="text-lg font-bold">Feedback & Suggestions</h3>
               <p className="text-xs opacity-70">Help us enhance your vanity experience by sharing your thoughts.</p>
             </div>
             {feedbackSubmitted ? (
-              <div className="p-6 rounded-[24px] bg-emerald-500/10 border border-emerald-500/20 text-center space-y-2 shadow-2xs">
-                <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto" />
-                <h4 className="font-semibold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
+              <div className="p-6 rounded-[24px] bg-emerald-500/15 border border-emerald-500/30 text-center space-y-2 shadow-sm">
+                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+                <h4 className="font-bold text-sm text-emerald-300">Thank you for your valuable feedback!</h4>
                 <p className="text-xs opacity-70">Your suggestion has been securely submitted.</p>
-                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-4 py-2.5 rounded-[16px] bg-black/5 dark:bg-white/10 hover:bg-white/15 text-xs font-medium transition">Submit Another</button>
+                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-5 py-2.5 rounded-[16px] bg-white/10 hover:bg-white/20 text-xs font-semibold border border-white/20 transition active:scale-95">Submit Another</button>
               </div>
             ) : (
               <form onSubmit={handleSubmitFeedback} className="space-y-4">
                 <div className="flex justify-center gap-1.5 py-1">
                   {[1, 2, 3, 4, 5].map(star => (
-                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition ${star <= feedbackRating ? 'text-amber-400' : 'opacity-20 hover:opacity-100 hover:text-amber-400'}`}>
+                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition-all duration-200 ${star <= feedbackRating ? 'text-amber-400 scale-110' : 'opacity-20 hover:opacity-100 hover:text-amber-400'}`}>
                       <Star className={`w-6 h-6 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
                     </button>
                   ))}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
-                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
+                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
+                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3 rounded-[18px] bg-white/10 border border-white/25 text-xs font-mono shadow-inner outline-none" />
                 </div>
-                <textarea rows={4} required placeholder="Share your suggestion..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-3.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
-                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3 ${activeThemeStyle.btn} font-medium text-xs rounded-[16px] shadow-md active:scale-[0.98] transition flex items-center justify-center gap-1.5`}>
+                <textarea rows={4} required placeholder="Share your suggestion..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-4 rounded-[18px] bg-white/10 border border-white/25 text-xs shadow-inner outline-none" />
+                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3.5 ${activeThemeStyle.btn} font-bold text-xs rounded-[18px] shadow-lg active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-1.5`}>
                   <Send className="w-3.5 h-3.5" /> <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback'}</span>
                 </button>
               </form>
@@ -1743,21 +1696,22 @@ function MainAppContent() {
         )}
       </main>
 
+      {/* FLOATING PROMO OFFER BANNER */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
-        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-4 rounded-[24px] shadow-2xl transition-all`}>
+        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-4 rounded-[26px] shadow-2xl transition-all border border-white/30`}>
           <div className="flex items-start justify-between gap-3">
-            <Gift className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+            <Gift className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[10px] font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase px-2 py-0.5 rounded-[10px] font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
-                {isFloatingExpired ? <span className="text-[10px] font-mono bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded-[10px]">Expired</span> : floatingTimer ? <span className="text-[10px] font-mono opacity-70 px-2 py-0.5 rounded-[10px]">{floatingTimer.text}</span> : null}
+                <span className="text-[10px] font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30 uppercase px-2 py-0.5 rounded-[10px] font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+                {isFloatingExpired ? <span className="text-[10px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-[10px]">Expired</span> : floatingTimer ? <span className="text-[10px] font-mono opacity-70 px-2 py-0.5 rounded-[10px]">{floatingTimer.text}</span> : null}
               </div>
-              <h4 className="font-semibold text-xs mt-1.5">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className="text-[11px] mt-0.5 opacity-70 font-normal">{isFloatingExpired ? <span className="text-rose-500">Ended.</span> : <>Use code <span className="font-mono font-semibold">{floatingPromoCode}</span></>}</p>
+              <h4 className="font-bold text-xs mt-1.5">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
+              <p className="text-[11px] mt-0.5 opacity-70 font-normal">{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-bold text-amber-300">{floatingPromoCode}</span></>}</p>
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="opacity-60 hover:opacity-100 p-1 shrink-0"><X className="w-4 h-4" /></button>
           </div>
-          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-3 w-full py-2.5 text-xs font-medium rounded-[16px] transition shadow-sm ${isFloatingExpired ? 'bg-black/5 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
+          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-3 w-full py-2.5 text-xs font-bold rounded-[16px] transition shadow-md ${isFloatingExpired ? 'bg-white/10 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply")}
           </button>
         </aside>
