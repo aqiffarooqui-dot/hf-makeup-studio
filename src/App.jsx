@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-[60px] border border-white/20 p-8 rounded-[36px] space-y-4 shadow-[0_32px_80px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.4)]">
-            <div className="w-14 h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
-              <ShieldAlert className="w-7 h-7" />
+        <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4 sm:p-6 text-center">
+          <div className="max-w-md w-full bg-slate-900/90 backdrop-blur-[50px] border border-white/20 p-6 sm:p-8 rounded-[28px] sm:rounded-[36px] space-y-4 shadow-[0_32px_80px_rgba(0,0,0,0.7)]">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[20px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40">
+              <ShieldAlert className="w-6 h-6 sm:w-7 sm:h-7" />
             </div>
-            <h2 className="text-xl font-bold tracking-tight text-white">System Safe Mode Active</h2>
-            <p className="text-xs text-slate-300 leading-relaxed font-medium">
+            <h2 className="text-lg sm:text-xl font-extrabold tracking-tight text-white">System Safe Mode Active</h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3.5 rounded-[20px] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] active:scale-[0.98]"
+              className="w-full py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -182,142 +182,199 @@ const FONT_MAP = {
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#06070b] text-[#FFFFFF]",
-    card: "bg-purple-950/35 backdrop-blur-[50px] border border-purple-400/40 shadow-[0_28px_70px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-purple-900/25 border border-purple-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/40 shadow-[0_20px_50px_rgba(168,85,247,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
+    headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
     accent: "text-purple-300",
-    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_12px_32px_rgba(236,72,153,0.45)] hover:shadow-[0_16px_36px_rgba(236,72,153,0.6)] rounded-[20px]",
+    accentText: "text-purple-300 font-extrabold",
+    pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
+    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_28px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_34px_rgba(236,72,153,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(236, 72, 153, 0) 70%)"
   },
   sunset_glow: {
     bg: "bg-[#080605] text-[#FFFFFF]",
-    card: "bg-amber-950/35 backdrop-blur-[50px] border border-amber-400/40 shadow-[0_28px_70px_rgba(245,158,11,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-amber-900/25 border border-amber-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-amber-950/40 backdrop-blur-[50px] border border-amber-400/40 shadow-[0_20px_50px_rgba(245,158,11,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-amber-900/30 border border-amber-400/40 shadow-inner",
+    headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
     accent: "text-amber-300",
-    btn: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-bold shadow-[0_12px_32px_rgba(244,63,94,0.45)] hover:shadow-[0_16px_36px_rgba(244,63,94,0.6)] rounded-[20px]",
+    accentText: "text-amber-300 font-extrabold",
+    pillBorder: "border border-amber-400/50 bg-amber-500/20 text-amber-200",
+    btn: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-amber-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
   },
   cyber_matrix: {
     bg: "bg-[#020808] text-[#FFFFFF]",
-    card: "bg-cyan-950/35 backdrop-blur-[50px] border border-cyan-400/40 shadow-[0_28px_70px_rgba(6,182,212,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-cyan-900/25 border border-cyan-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-cyan-950/40 backdrop-blur-[50px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-cyan-900/30 border border-cyan-400/40 shadow-inner",
+    headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
     accent: "text-cyan-300",
-    btn: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-bold shadow-[0_12px_32px_rgba(6,182,212,0.45)] hover:shadow-[0_16px_36px_rgba(6,182,212,0.6)] rounded-[20px]",
+    accentText: "text-cyan-300 font-extrabold",
+    pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
+    btn: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(16, 185, 129, 0) 70%)"
   },
   real_glass_lens: {
     bg: "bg-[#06080e] text-[#FFFFFF]",
-    card: "bg-blue-950/35 backdrop-blur-[50px] border border-blue-400/40 shadow-[0_28px_70px_rgba(0,122,255,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-blue-900/25 border border-blue-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/40 shadow-[0_20px_50px_rgba(0,122,255,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
+    headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
     accent: "text-sky-300",
-    btn: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_12px_32px_rgba(0,122,255,0.45)] hover:shadow-[0_16px_36px_rgba(0,122,255,0.6)] rounded-[20px]",
+    accentText: "text-sky-300 font-extrabold",
+    pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
+    btn: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_34px_rgba(0,122,255,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.45) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
   },
   real_ios_glass: {
     bg: "bg-[#06070a] text-[#FFFFFF]",
-    card: "bg-zinc-900/40 backdrop-blur-[50px] border border-white/30 shadow-[0_28px_70px_rgba(0,0,0,0.65),inset_0_1.5px_2px_rgba(255,255,255,0.4),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[36px]",
-    innerCard: "bg-white/[0.08] border border-white/20 backdrop-blur-md shadow-inner",
+    card: "bg-zinc-900/45 backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.65),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[36px]",
+    innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
+    headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
     accent: "text-sky-300",
-    btn: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-bold shadow-[0_12px_32px_rgba(37,99,235,0.45)] hover:shadow-[0_16px_36px_rgba(37,99,235,0.6)] rounded-[22px]",
+    accentText: "text-sky-300 font-extrabold",
+    pillBorder: "border border-sky-400/50 bg-sky-500/20 text-sky-200",
+    btn: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%)"
   },
   liquid_glass: {
     bg: "bg-[#030610] text-[#FFFFFF]",
-    card: "bg-sky-950/35 backdrop-blur-[50px] border border-cyan-400/45 shadow-[0_28px_70px_rgba(6,182,212,0.25),inset_0_1.5px_2px_rgba(255,255,255,0.4),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-sky-900/25 border border-cyan-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-sky-950/40 backdrop-blur-[50px] border border-cyan-400/45 shadow-[0_20px_50px_rgba(6,182,212,0.25),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-sky-900/30 border border-cyan-400/40 shadow-inner",
+    headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
     accent: "text-cyan-300",
-    btn: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-bold shadow-[0_12px_32px_rgba(6,182,212,0.45)] hover:shadow-[0_16px_36px_rgba(6,182,212,0.6)] rounded-[20px]",
+    accentText: "text-cyan-300 font-extrabold",
+    pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
+    btn: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(37, 99, 235, 0) 70%)"
   },
   one_ui_9: {
     bg: "bg-[#08080a] text-[#FFFFFF]",
-    card: "bg-zinc-900/75 backdrop-blur-[50px] border border-zinc-500/50 shadow-[0_28px_70px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[30px]",
-    innerCard: "bg-zinc-800/60 border border-zinc-500/40 backdrop-blur-md shadow-inner",
+    card: "bg-zinc-900/80 backdrop-blur-[50px] border border-zinc-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[30px]",
+    innerCard: "bg-zinc-800/70 border border-zinc-500/50 shadow-inner",
+    headingColor: "text-violet-300 drop-shadow-[0_2px_10px_rgba(139,92,246,0.4)]",
     accent: "text-violet-300",
-    btn: "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold shadow-[0_12px_32px_rgba(139,92,246,0.45)] rounded-[20px]",
+    accentText: "text-violet-300 font-extrabold",
+    pillBorder: "border border-violet-400/50 bg-violet-500/20 text-violet-200",
+    btn: "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black shadow-[0_10px_28px_rgba(139,92,246,0.45)] rounded-full",
+    inputBg: "bg-black/40 border border-zinc-500/50 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.42) 0%, rgba(139, 92, 246, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(168, 85, 247, 0) 70%)"
   },
   gold_rose: {
     bg: "bg-[#0a0506] text-[#FFFFFF]",
-    card: "bg-rose-950/35 backdrop-blur-[50px] border border-amber-400/45 shadow-[0_28px_70px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-rose-900/25 border border-amber-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-rose-950/40 backdrop-blur-[50px] border border-amber-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-rose-900/30 border border-amber-400/40 shadow-inner",
+    headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
     accent: "text-amber-300",
-    btn: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-bold shadow-[0_12px_32px_rgba(244,63,94,0.45)] hover:shadow-[0_16px_36px_rgba(244,63,94,0.6)] rounded-[20px]",
+    accentText: "text-amber-300 font-extrabold",
+    pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
+    btn: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
   },
   champagne: {
     bg: "bg-[#0a0604] text-[#FFFFFF]",
-    card: "bg-orange-950/35 backdrop-blur-[50px] border border-orange-400/45 shadow-[0_28px_70px_rgba(249,115,22,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-orange-900/25 border border-orange-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-orange-950/40 backdrop-blur-[50px] border border-orange-400/45 shadow-[0_20px_50px_rgba(249,115,22,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-orange-900/30 border border-orange-400/40 shadow-inner",
+    headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
     accent: "text-amber-300",
-    btn: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-bold shadow-[0_12px_32px_rgba(249,115,22,0.45)] hover:shadow-[0_16px_36px_rgba(249,115,22,0.6)] rounded-[20px]",
+    accentText: "text-amber-300 font-extrabold",
+    pillBorder: "border border-orange-400/50 bg-orange-500/20 text-orange-200",
+    btn: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_28px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_34px_rgba(249,115,22,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-orange-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)"
   },
   emerald: {
     bg: "bg-[#030907] text-[#FFFFFF]",
-    card: "bg-emerald-950/35 backdrop-blur-[50px] border border-emerald-400/45 shadow-[0_28px_70px_rgba(16,185,129,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-emerald-900/25 border border-emerald-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-emerald-950/40 backdrop-blur-[50px] border border-emerald-400/45 shadow-[0_20px_50px_rgba(16,185,129,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-emerald-900/30 border border-emerald-400/40 shadow-inner",
+    headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(16,185,129,0.4)]",
     accent: "text-emerald-300",
-    btn: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-bold shadow-[0_12px_32px_rgba(16,185,129,0.45)] hover:shadow-[0_16px_36px_rgba(16,185,129,0.6)] rounded-[20px]",
+    accentText: "text-emerald-300 font-extrabold",
+    pillBorder: "border border-emerald-400/50 bg-emerald-500/20 text-emerald-200",
+    btn: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_28px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_34px_rgba(16,185,129,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-emerald-400/40 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
   },
   violet: {
     bg: "bg-[#06030c] text-[#FFFFFF]",
-    card: "bg-purple-950/35 backdrop-blur-[50px] border border-purple-400/45 shadow-[0_28px_70px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-purple-900/25 border border-purple-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/45 shadow-[0_20px_50px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
+    headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
     accent: "text-purple-300",
-    btn: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-bold shadow-[0_12px_32px_rgba(168,85,247,0.45)] hover:shadow-[0_16px_36px_rgba(168,85,247,0.6)] rounded-[20px]",
+    accentText: "text-purple-300 font-extrabold",
+    pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
+    btn: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_28px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_34px_rgba(168,85,247,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
   },
   ruby: {
     bg: "bg-[#0c0305] text-[#FFFFFF]",
-    card: "bg-rose-950/35 backdrop-blur-[50px] border border-rose-400/45 shadow-[0_28px_70px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-rose-900/25 border border-rose-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-rose-950/40 backdrop-blur-[50px] border border-rose-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-rose-900/30 border border-rose-400/40 shadow-inner",
+    headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
     accent: "text-rose-300",
-    btn: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-bold shadow-[0_12px_32px_rgba(244,63,94,0.45)] hover:shadow-[0_16px_36px_rgba(244,63,94,0.6)] rounded-[20px]",
+    accentText: "text-rose-300 font-extrabold",
+    pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
+    btn: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0) 70%)"
   },
   sapphire: {
     bg: "bg-[#03050c] text-[#FFFFFF]",
-    card: "bg-blue-950/35 backdrop-blur-[50px] border border-blue-400/45 shadow-[0_28px_70px_rgba(37,99,235,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-blue-900/25 border border-blue-400/35 backdrop-blur-md shadow-inner",
+    card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/45 shadow-[0_20px_50px_rgba(37,99,235,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
+    headingColor: "text-blue-300 drop-shadow-[0_2px_10px_rgba(37,99,235,0.4)]",
     accent: "text-blue-300",
-    btn: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-bold shadow-[0_12px_32px_rgba(37,99,235,0.45)] hover:shadow-[0_16px_36px_rgba(37,99,235,0.6)] rounded-[20px]",
+    accentText: "text-blue-300 font-extrabold",
+    pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
+    btn: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
+    inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(37, 99, 235, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 70%)"
   },
   default: {
     bg: "bg-[#06070a] text-[#FFFFFF]",
-    card: "bg-white/[0.09] backdrop-blur-[50px] border border-white/25 shadow-[0_28px_70px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35),inset_0_8px_20px_rgba(255,255,255,0.08)] rounded-[32px]",
-    innerCard: "bg-white/[0.06] border border-white/15 backdrop-blur-md shadow-inner",
+    card: "bg-white/[0.1] backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+    innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
+    headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
     accent: "text-sky-300",
-    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_12px_32px_rgba(0,122,255,0.45)] rounded-[20px]",
+    accentText: "text-sky-300 font-extrabold",
+    pillBorder: "border border-white/35 bg-white/15 text-white",
+    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] rounded-full",
+    inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.42) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 70%)"
   }
 };
 
-Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
-
 const DAY_MODE_OVERRIDES = {
-  bg: "bg-[#eef2f8] text-[#0f172a]",
-  card: "bg-white/70 backdrop-blur-[50px] border border-white/95 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_2px_3px_rgba(255,255,255,0.95),inset_0_8px_24px_rgba(255,255,255,0.6)] rounded-[32px]",
-  innerCard: "bg-white/80 border border-slate-200/80 shadow-[0_4px_16px_rgba(15,23,42,0.04)]",
-  accent: "text-blue-600 font-bold",
-  accentText: "text-blue-600 font-bold",
-  glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(168, 85, 247, 0) 70%)",
-  glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(56, 189, 248, 0) 70%)"
+  bg: "bg-[#edf2f7] text-[#0f172a]",
+  card: "bg-white/85 backdrop-blur-[50px] border-2 border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
+  innerCard: "bg-slate-100/90 border-2 border-slate-300 shadow-[0_4px_16px_rgba(15,23,42,0.06)]",
+  headingColor: "text-indigo-900 font-extrabold drop-shadow-sm",
+  accent: "text-indigo-600 font-bold",
+  accentText: "text-indigo-600 font-black",
+  pillBorder: "border-2 border-slate-400/80 bg-white text-slate-900 font-bold shadow-sm",
+  inputBg: "bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-500 focus:border-indigo-600 focus:bg-white shadow-inner font-medium",
+  glowOrb1: "radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0) 70%)",
+  glowOrb2: "radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, rgba(14, 165, 233, 0) 70%)"
 };
 
 const ALL_INDIA_STATES_AND_CITIES = {
@@ -400,7 +457,7 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px] shadow-[inset_0_0_25px_rgba(0,0,0,0.9)] transition-all duration-700 ease-out hover:scale-[1.02] border border-white/20">
+    <div className="h-64 sm:h-80 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[24px] sm:rounded-[32px] shadow-[inset_0_0_25px_rgba(0,0,0,0.9)] transition-all duration-700 ease-out hover:scale-[1.01] border border-white/20">
       <video
         ref={videoRef}
         src={item.url}
@@ -411,10 +468,10 @@ const AutoPlayVideoCard = ({ item }) => {
         preload="auto"
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
       />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
-        <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
-        <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
-          <Film className="w-4 h-4 text-pink-400 shrink-0 animate-pulse" />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-4 sm:p-5 text-white">
+        <span className="text-[10px] sm:text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
+        <h4 className="font-extrabold text-xs sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
+          <Film className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-pink-400 shrink-0 animate-pulse" />
           <span>{item.title}</span>
         </h4>
       </div>
@@ -922,15 +979,15 @@ function MainAppContent() {
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-all duration-700 ease-in-out`}>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
-        <div className={`max-w-md w-full ${activeThemeStyle.card} p-8 text-center space-y-4 shadow-2xl relative z-10`}>
-          <div className="w-14 h-14 rounded-[24px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_30px_rgba(245,158,11,0.3)]">
-            <Wrench className="w-7 h-7" />
+        <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
+        <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40">
+            <Wrench className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
           <div className="space-y-2">
-            <span className="text-[10px] uppercase font-mono tracking-wider text-amber-300 bg-amber-500/20 px-3 py-1.5 rounded-full inline-block font-bold border border-amber-400/40">Scheduled System Upgrade</span>
-            <h2 className="text-xl font-bold tracking-tight">We'll Be Back Shortly</h2>
-            <p className="text-xs opacity-85 leading-relaxed font-medium">We are currently fine-tuning our luxury digital experience and updating reservation systems. We appreciate your patience.</p>
+            <span className={`text-[10px] sm:text-xs uppercase font-mono tracking-wider ${activeThemeStyle.pillBorder} px-3 py-1.5 rounded-full inline-block font-extrabold`}>Scheduled Upgrade</span>
+            <h2 className={`text-lg sm:text-2xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>We'll Be Back Shortly</h2>
+            <p className="text-xs sm:text-sm font-semibold opacity-90 leading-relaxed">We are currently fine-tuning our luxury digital experience. We appreciate your patience.</p>
           </div>
         </div>
       </div>
@@ -942,7 +999,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-screen ${activeThemeStyle.bg} relative transition-all duration-700 ease-in-out overflow-x-hidden`}
+      className={`hf-app min-h-screen ${activeThemeStyle.bg} relative transition-all duration-500 ease-out overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -954,21 +1011,20 @@ function MainAppContent() {
         /* Ultra Smooth Day/Night & Element Transitions */
         .hf-app,
         .hf-app * {
-          transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                      border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                      color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                      box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                      border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                      color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         button, a { 
           will-change: transform, opacity;
-          transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                      opacity 0.25s ease, 
-                      background 0.5s ease,
-                      box-shadow 0.4s ease !important; 
+          transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                      opacity 0.2s ease, 
+                      background 0.4s ease,
+                      box-shadow 0.3s ease !important; 
         }
         
-        select option { background-color: #090a0f; color: #ffffff; }
         html, body, #root { min-height: 100%; width: 100%; margin: 0; }
         html { overflow-x: hidden; scroll-behavior: smooth; }
         body { overflow-x: hidden; }
@@ -979,22 +1035,22 @@ function MainAppContent() {
           pointer-events: none;
           z-index: 0;
           border-radius: 9999px;
-          filter: blur(100px);
+          filter: blur(80px);
           transform: translate3d(0,0,0);
           will-change: transform;
           animation: hfLiquidFloat 18s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
         }
         @keyframes hfLiquidFloat {
-          0% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
-          50% { transform: scale(1.25) translate(60px, 40px) rotate(180deg); }
-          100% { transform: scale(0.95) translate(-40px, 20px) rotate(360deg); }
+          0% { transform: scale(1) translate(0px, 0px); }
+          50% { transform: scale(1.2) translate(40px, 30px); }
+          100% { transform: scale(0.95) translate(-30px, 20px); }
         }
 
-        /* Seamless Continuous Running Marquee */
+        /* Running Announcement Marquee */
         .hf-marquee-track {
           display: flex;
           width: max-content;
-          animation: hfRunMarquee 24s linear infinite;
+          animation: hfRunMarquee 26s linear infinite;
         }
         .hf-marquee-track:hover {
           animation-play-state: paused;
@@ -1004,61 +1060,48 @@ function MainAppContent() {
           100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* Smooth Tab Entrance */
         .hf-tab-enter {
-          animation: hfFadeScale 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: hfFadeScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes hfFadeScale {
-          0% { opacity: 0; transform: scale(0.98) translateY(16px); }
+          0% { opacity: 0; transform: scale(0.98) translateY(12px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* Ambient Glow Highlights */
-        .hf-app[data-hf-mode="night"] h1,
-        .hf-app[data-hf-mode="night"] h2,
-        .hf-app[data-hf-mode="night"] h3,
-        .hf-app[data-hf-mode="night"] h4,
-        .hf-app[data-hf-mode="night"] .font-mono {
-          text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-        }
-
-        /* Modals & Backdrop Blur */
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
           padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
           background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); overflow-y: auto; 
         }
-        .hf-modal-card { width: min(100%, 560px); max-height: min(88dvh, 760px); overflow-y: auto; margin: auto; }
+        .hf-modal-card { width: min(100%, 540px); max-height: min(88dvh, 740px); overflow-y: auto; margin: auto; }
 
         .hf-floating-banner { 
-          position: fixed; bottom: calc(84px + env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); 
-          width: min(360px, calc(100vw - 24px)); z-index: 40;
+          position: fixed; bottom: calc(80px + env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); 
+          width: min(340px, calc(100vw - 24px)); z-index: 40;
         }
-        @media (min-width: 640px) { .hf-floating-banner { bottom: 24px; right: 24px; width: 340px; } }
+        @media (min-width: 640px) { .hf-floating-banner { bottom: 24px; right: 24px; width: 330px; } }
 
         .hf-bottom-nav { 
-          position: fixed; bottom: max(12px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
-          width: calc(100% - 24px); max-width: 520px; padding: 6px; border-radius: 9999px !important; 
+          position: fixed; bottom: max(10px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
+          width: calc(100% - 20px); max-width: 500px; padding: 6px; border-radius: 9999px !important; 
           backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
-          box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1.5px 2px rgba(255,255,255,0.35); z-index: 50;
+          box-shadow: 0 16px 40px rgba(0,0,0,0.45); z-index: 50;
         }
-        .hf-bottom-nav button { min-height: 48px; border-radius: 9999px !important; }
       `}</style>
 
-      {/* DYNAMIC LIQUID GLASS RADIANT GLOW LIGHTS */}
-      <div className="hf-mesh-glow w-[600px] h-[600px] -top-28 -left-28 opacity-70" style={{ background: activeThemeStyle.glowOrb1 }} />
-      <div className="hf-mesh-glow w-[550px] h-[550px] top-1/3 -right-28 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-7s' }} />
-      <div className="hf-mesh-glow w-[650px] h-[650px] -bottom-36 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-12s' }} />
+      {/* AMBIENT GLOWS */}
+      <div className="hf-mesh-glow w-[380px] sm:w-[550px] h-[380px] sm:h-[550px] -top-20 -left-20 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
+      <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-50" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} />
 
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-1000 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="flex flex-col items-center space-y-4 px-4 text-center">
-            <div className={`w-24 h-24 rounded-[28px] overflow-hidden ${activeThemeStyle.card} p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] animate-pulse`}>
-              <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[24px]" />
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="flex flex-col items-center space-y-3 px-4 text-center">
+            <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-[26px] overflow-hidden ${activeThemeStyle.card} p-1.5 shadow-2xl animate-pulse`}>
+              <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[20px]" />
             </div>
             <div className="space-y-1">
-              <h1 className="text-2xl font-black tracking-tight">{config.studioName || 'H&F Makeup Artist'}</h1>
-              <p className={`text-xs ${activeThemeStyle.accentText} font-bold uppercase tracking-widest`}>{config.artistTagline || 'Beauty, Styled Your Way'}</p>
+              <h1 className={`text-xl sm:text-2xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>{config.studioName || 'H&F Makeup Artist'}</h1>
+              <p className={`text-xs ${activeThemeStyle.accentText} uppercase tracking-widest`}>{config.artistTagline || 'Beauty, Styled Your Way'}</p>
             </div>
           </div>
         </div>
@@ -1066,21 +1109,21 @@ function MainAppContent() {
 
       {showShareModal && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} p-7 text-center space-y-5 shadow-2xl hf-tab-enter`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-5 sm:p-7 text-center space-y-4 shadow-2xl hf-tab-enter`}>
             <div className="flex items-center justify-between">
-              <span className="font-bold text-sm flex items-center gap-2"><Share2 className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Share Studio Lookbook</span>
-              <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 opacity-80 hover:opacity-100 transition-all duration-300"><X className="w-4 h-4" /></button>
+              <span className={`font-black text-xs sm:text-sm flex items-center gap-2 ${activeThemeStyle.headingColor}`}><Share2 className="w-4 h-4" /> Share Lookbook</span>
+              <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full bg-slate-500/10 hover:bg-slate-500/20 opacity-80 hover:opacity-100 transition-all"><X className="w-4 h-4" /></button>
             </div>
-            <div className="w-44 h-44 mx-auto bg-white p-3 rounded-[28px] border-2 border-white/40 flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.2)]">
-              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain rounded-[16px]" />
+            <div className="w-36 h-36 sm:w-44 sm:h-44 mx-auto bg-white p-2.5 rounded-[24px] border-2 border-slate-300 flex items-center justify-center shadow-md">
+              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain rounded-[14px]" />
             </div>
-            <p className="text-xs font-semibold opacity-85">Scan this QR code with any camera or scanner to explore the portfolio & book instantly.</p>
-            <div className="flex gap-2.5 pt-1">
-              <button onClick={handleCopyLink} className="flex-1 py-3 rounded-[18px] bg-white/10 hover:bg-white/20 text-xs font-bold flex items-center justify-center gap-2 border border-white/25 shadow-md active:scale-95 transition-all">
-                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 opacity-80" />}
+            <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Scan this QR code with any camera or scanner to explore the portfolio & book instantly.</p>
+            <div className="flex gap-2 pt-1">
+              <button onClick={handleCopyLink} className={`flex-1 py-2.5 sm:py-3 rounded-full ${activeThemeStyle.pillBorder} text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all`}>
+                {copiedLink ? <CheckCheck className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 opacity-80" />}
                 <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
               </button>
-              <a href={qrCodeApiUrl} download="HF_Studio_QR.png" target="_blank" rel="noreferrer" className={`px-6 py-3 rounded-[18px] ${activeThemeStyle.btn} text-xs font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95`}>
+              <a href={qrCodeApiUrl} download="HF_Studio_QR.png" target="_blank" rel="noreferrer" className={`px-5 sm:px-6 py-2.5 sm:py-3 rounded-full ${activeThemeStyle.btn} text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95 shrink-0`}>
                 <Download className="w-4 h-4" /> <span>Save QR</span>
               </a>
             </div>
@@ -1090,65 +1133,54 @@ function MainAppContent() {
 
       {viewingPackage && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} p-6 sm:p-7 space-y-5 shadow-2xl hf-tab-enter`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-5 sm:p-6 space-y-4 shadow-2xl hf-tab-enter`}>
             <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30">
-                  <Crown className={`w-4 h-4 text-amber-300`} />
-                </div>
-                <h3 className="font-bold text-base sm:text-lg">{viewingPackage.name}</h3>
+              <div className="flex items-center gap-2">
+                <Crown className={`w-4 h-4 sm:w-5 sm:h-5 ${activeThemeStyle.accentText}`} />
+                <h3 className={`font-black text-sm sm:text-lg ${activeThemeStyle.headingColor}`}>{viewingPackage.name}</h3>
               </div>
-              <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 opacity-80 hover:opacity-100 transition-all"><X className="w-4 h-4" /></button>
+              <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full bg-slate-500/10 hover:bg-slate-500/20 opacity-80 hover:opacity-100 transition-all"><X className="w-4 h-4" /></button>
             </div>
-            <div className="w-full h-44 sm:h-52 rounded-[24px] overflow-hidden bg-black/20 border border-white/25 shadow-inner relative">
+            <div className="w-full h-40 sm:h-48 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-black/20 border border-slate-300 relative">
               <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
-              <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[11px] font-bold text-amber-300">
+              <div className="absolute top-2.5 left-2.5 px-3 py-1 rounded-full bg-black/75 text-[10px] sm:text-xs font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20">
                 {selectedKit === 'international' ? '👑 Luxury Tier' : '✨ HD Classic'}
               </div>
             </div>
-            <p className="text-xs sm:text-sm opacity-90 leading-relaxed font-medium">{viewingPackage.desc}</p>
-            <div className={`space-y-2.5 text-xs ${activeThemeStyle.innerCard} p-4 rounded-[22px]`}>
-              <div className="flex justify-between items-center"><span className="opacity-75 font-medium">Vanity Tier:</span><strong className="font-bold">{config.pricingByKit[selectedKit]?.name}</strong></div>
-              <div className="flex justify-between items-center"><span className="opacity-75 font-medium">Skin Finish:</span><span className="font-semibold">{viewingPackage.skinFinish}</span></div>
-              <div className="flex justify-between items-center"><span className="opacity-75 font-medium">Includes:</span><span className="font-semibold">{viewingPackage.includes}</span></div>
-              <div className="flex justify-between items-center font-bold text-sm pt-2 border-t border-white/15">
-                <span>Investment Rate:</span>
-                <span className={`${activeThemeStyle.accentText} font-mono text-base font-black`}>₹{(config.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
+            <p className={`text-xs sm:text-sm font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{viewingPackage.desc}</p>
+            <div className={`space-y-2 text-xs sm:text-sm ${activeThemeStyle.innerCard} p-3.5 sm:p-4 rounded-[20px]`}>
+              <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Vanity Tier:</span><strong className="font-black">{config.pricingByKit[selectedKit]?.name}</strong></div>
+              <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Skin Finish:</span><span className="font-bold">{viewingPackage.skinFinish}</span></div>
+              <div className="flex justify-between items-center"><span className="font-semibold opacity-80">Includes:</span><span className="font-bold">{viewingPackage.includes}</span></div>
+              <div className="flex justify-between items-center font-black text-sm sm:text-base pt-2 border-t border-slate-400/30">
+                <span>Investment:</span>
+                <span className={`${activeThemeStyle.accentText} font-mono text-base sm:text-lg font-black`}>₹{(config.pricingByKit?.[selectedKit]?.[viewingPackage.key] || 0).toLocaleString('en-IN')}</span>
               </div>
             </div>
-            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-4 ${activeThemeStyle.btn} text-xs font-bold transition-all active:scale-95 flex items-center justify-center gap-2 shadow-xl`}>
+            <button onClick={() => { setCalcPackage(viewingPackage.key); setCalcKit(selectedKit); setViewingPackage(null); setActiveTab('calculator'); }} className={`w-full py-3 sm:py-3.5 ${activeThemeStyle.btn} text-xs sm:text-sm font-black transition-all active:scale-95 flex items-center justify-center gap-2`}>
               <span>Estimate & Book This Look</span> <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       )}
 
-      {/* TOP HEADER WRAPPER (TICKER + NAVBAR) WITH DYNAMIC HEIGHT REF */}
+      {/* TOP FIXED TICKER & HEADER */}
       <div ref={topHeaderWrapperRef} className="fixed top-0 inset-x-0 z-40">
-        {/* TOP RUNNING MARQUEE TICKER */}
         {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-          <div className={`w-full py-2 px-3 overflow-hidden text-[11px] font-bold border-b shadow-md backdrop-blur-[50px] ${isDarkMode ? 'bg-black/50 border-white/15 text-white' : 'bg-white/80 border-slate-300 text-slate-900'}`}>
+          <div className={`w-full py-1.5 px-3 overflow-hidden text-[10px] sm:text-xs font-bold border-b shadow-sm backdrop-blur-[40px] ${isDarkMode ? 'bg-black/60 border-white/10 text-white' : 'bg-white/90 border-slate-300 text-slate-900'}`}>
             <div className="overflow-hidden whitespace-nowrap w-full flex items-center">
               <div className="hf-marquee-track flex items-center">
-                {/* 1st copy of announcements */}
                 {(config.announcements && config.announcements.length > 0 ? config.announcements : [
-                  "🌟 Book Bridal Makeup for 2026-2027 Season & Get Complimentary Pre-Bridal Skin Consultation",
+                  "🌟 Book Bridal Makeup for 2026-2027 Season & Get Complimentary Pre-Bridal Consultation",
+                  "✨ Flat 15% OFF on Family & Guest Makeovers with Main Bridal Package",
+                  "💄 Certified International Makeup Artist • 100% Genuine Luxury Vanity Products (Dior, Charlotte Tilbury, Huda Beauty)"
+                ]).concat(config.announcements && config.announcements.length > 0 ? config.announcements : [
+                  "🌟 Book Bridal Makeup for 2026-2027 Season & Get Complimentary Pre-Bridal Consultation",
                   "✨ Flat 15% OFF on Family & Guest Makeovers with Main Bridal Package",
                   "💄 Certified International Makeup Artist • 100% Genuine Luxury Vanity Products (Dior, Charlotte Tilbury, Huda Beauty)"
                 ]).map((ann, idx) => (
-                  <span key={`a1-${idx}`} className="mx-8 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-pink-500 shadow-[0_0_10px_#ec4899] animate-pulse" />
-                    <span>{ann}</span>
-                  </span>
-                ))}
-                {/* 2nd copy for seamless continuous loop */}
-                {(config.announcements && config.announcements.length > 0 ? config.announcements : [
-                  "🌟 Book Bridal Makeup for 2026-2027 Season & Get Complimentary Pre-Bridal Skin Consultation",
-                  "✨ Flat 15% OFF on Family & Guest Makeovers with Main Bridal Package",
-                  "💄 Certified International Makeup Artist • 100% Genuine Luxury Vanity Products (Dior, Charlotte Tilbury, Huda Beauty)"
-                ]).map((ann, idx) => (
-                  <span key={`a2-${idx}`} className="mx-8 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-pink-500 shadow-[0_0_10px_#ec4899] animate-pulse" />
+                  <span key={idx} className="mx-6 sm:mx-8 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-pink-500 animate-pulse shrink-0" />
                     <span>{ann}</span>
                   </span>
                 ))}
@@ -1157,49 +1189,50 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* FIXED LIQUID GLASS HEADER */}
-        <header className={`w-full px-4 sm:px-8 py-3.5 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-[60px] shadow-2xl transition-all duration-500`}>
-          <div className="max-w-5xl mx-auto flex flex-col gap-3">
+        {/* HEADER NAVBAR */}
+        <header className={`w-full px-3 sm:px-8 py-2.5 sm:py-3.5 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 shadow-lg backdrop-blur-[50px]`}>
+          <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3.5 select-none cursor-pointer min-w-0">
+              <div className="flex items-center space-x-2.5 sm:space-x-3.5 select-none min-w-0">
                 {config.toggles?.showLogoOnApp !== false && (
-                  <div className="w-11 h-11 rounded-[18px] overflow-hidden shrink-0 border-2 border-white/40 bg-white/10 flex items-center justify-center shadow-lg p-0.5">
-                    <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" draggable="false" />
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-[16px] sm:rounded-[18px] overflow-hidden shrink-0 border border-slate-400/40 bg-white/10 flex items-center justify-center p-0.5 shadow-sm">
+                    <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[13px]" draggable="false" />
                   </div>
                 )}
                 <div className="truncate">
-                  <h1 className="font-extrabold text-base sm:text-lg truncate tracking-tight">{config.studioName || 'H&F Makeup Artist'}</h1>
-                  <p className={`text-[11px] ${activeThemeStyle.accentText} flex items-center gap-1.5 truncate font-bold uppercase tracking-wider`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
+                  <h1 className={`font-black text-sm sm:text-lg truncate tracking-tight ${activeThemeStyle.headingColor}`}>{config.studioName || 'H&F Makeup Artist'}</h1>
+                  <p className={`text-[10px] sm:text-xs ${activeThemeStyle.accentText} flex items-center gap-1.5 truncate font-extrabold uppercase tracking-wider`}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping shrink-0" />
                     <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
-                <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[18px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-300 flex items-center justify-center shadow-sm active:scale-95">
-                  <QrCode className="w-4 h-4" />
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <button onClick={() => setShowShareModal(true)} title="Share QR" className={`p-2 sm:p-2.5 rounded-full ${activeThemeStyle.pillBorder} transition-all flex items-center justify-center shadow-sm active:scale-95`}>
+                  <QrCode className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
 
-                <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[18px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-300 flex items-center justify-center shadow-sm active:scale-95">
-                  {isDarkMode ? <Sun className="w-4 h-4 text-amber-300 animate-spin-slow" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+                <button onClick={toggleTheme} title="Toggle Day/Night" className={`p-2 sm:p-2.5 rounded-full ${activeThemeStyle.pillBorder} transition-all flex items-center justify-center shadow-sm active:scale-95`}>
+                  {isDarkMode ? <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" /> : <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600" />}
                 </button>
 
-                <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-2 ${activeThemeStyle.btn} text-xs font-bold px-4 py-2.5 transition-all duration-300 active:scale-95 shadow-lg`}>
-                  <Camera className="w-4 h-4 shrink-0" />
+                <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-1.5 ${activeThemeStyle.btn} text-[11px] sm:text-xs font-bold px-3 sm:px-4 py-2 sm:py-2.5 active:scale-95 shadow-md`}>
+                  <Camera className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                   <span className="hidden sm:inline">Instagram</span>
                 </a>
 
                 {shouldShowProfileInHeader && (
-                  <div className="w-10 h-10 rounded-[18px] border-2 border-white/40 overflow-hidden shrink-0 shadow-md p-0.5">
-                    <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-[14px] sm:rounded-[18px] border border-slate-400/40 overflow-hidden shrink-0 shadow-sm p-0.5">
+                    <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[12px]" />
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="hidden sm:flex w-full items-center justify-center pt-0.5">
-              <nav className="inline-flex space-x-1.5 p-1.5 rounded-full border border-white/30 bg-black/15 text-xs font-bold shadow-inner backdrop-blur-[50px]">
+            {/* DESKTOP TABS */}
+            <div className="hidden sm:flex w-full items-center justify-center">
+              <nav className="inline-flex space-x-1.5 p-1 rounded-full border border-slate-400/30 bg-black/10 text-xs font-bold backdrop-blur-md">
                 {[
                   { id: 'menu', label: 'Packages', icon: Crown, show: true },
                   { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1210,8 +1243,8 @@ function MainAppContent() {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
                   return (
-                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-5 py-2.5 rounded-full transition-all duration-300 ease-out ${isActive ? `${activeThemeStyle.btn} font-extrabold shadow-lg` : 'opacity-75 hover:opacity-100 hover:bg-white/15'}`}>
-                      <Icon className="w-4 h-4 shrink-0" /><span>{tab.label}</span>
+                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 ${isActive ? `${activeThemeStyle.btn} font-black shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200'}`}`}>
+                      <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                     </button>
                   );
                 })}
@@ -1221,9 +1254,9 @@ function MainAppContent() {
         </header>
       </div>
 
-      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      {/* MOBILE BOTTOM NAVIGATION */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border border-white/40 shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-[60px]`}>
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border-2 border-slate-400/40 shadow-2xl`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1234,35 +1267,35 @@ function MainAppContent() {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-2 rounded-full transition-all duration-300 ease-out ${isActive ? `${activeThemeStyle.accentText} font-black bg-white/20 shadow-inner scale-105` : 'opacity-70 hover:opacity-100'}`}>
-                <Icon className="w-4 h-4 shrink-0" /><span className="text-[10px] mt-0.5 font-bold">{tab.label}</span>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-all duration-200 ${isActive ? `${activeThemeStyle.accentText} font-black bg-indigo-500/20 shadow-inner scale-105` : `${isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'}`}`}>
+                <Icon className="w-4 h-4 shrink-0" /><span className="text-[9px] mt-0.5 font-extrabold">{tab.label}</span>
               </button>
             );
           })}
         </nav>
       )}
 
-      {/* MAIN CONTAINER WITH DYNAMIC PADDING TO PREVENT OVERLAP */}
+      {/* MAIN VIEWPORT */}
       <main 
-        style={{ paddingTop: `${headerOffsetHeight + 24}px` }} 
-        className="max-w-5xl mx-auto px-4 sm:px-6 pb-32 sm:pb-24 relative z-10 transition-all duration-300"
+        style={{ paddingTop: `${headerOffsetHeight + 18}px` }} 
+        className="max-w-5xl mx-auto px-3 sm:px-6 pb-28 sm:pb-24 relative z-10"
       >
         {activeTab === 'menu' && (
-          <div className="space-y-7 hf-tab-enter">
-            <div className="text-center max-w-xl mx-auto space-y-2.5">
-              <span className={`px-4 py-1.5 rounded-full bg-white/15 border border-white/35 ${activeThemeStyle.accentText} text-xs font-bold inline-flex items-center gap-1.5 shadow-md backdrop-blur-2xl`}>
-                <Sparkles className="w-3.5 h-3.5" /> Professional Vanity Packages
+          <div className="space-y-6 sm:space-y-7 hf-tab-enter">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className={`px-3.5 py-1 rounded-full ${activeThemeStyle.pillBorder} text-[10px] sm:text-xs font-black inline-flex items-center gap-1.5 shadow-sm`}>
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Professional Vanity Packages
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black tracking-tight">Curated Makeup Menu</h2>
-              <p className="text-xs sm:text-sm font-medium opacity-80">Select your preferred vanity tier below to view package pricing & details:</p>
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Curated Makeup Menu</h2>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Select your vanity tier to view tailored makeover packages:</p>
 
-              <div className="inline-flex p-1.5 rounded-full bg-black/20 border border-white/30 mt-2 gap-2 shadow-inner backdrop-blur-[50px]">
-                <button onClick={() => setSelectedKit('international')} className={`px-6 py-3 rounded-full text-xs font-extrabold transition-all duration-300 ease-out ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-lg scale-105` : 'opacity-75 hover:opacity-100 hover:bg-white/10'}`}>👑 Luxury Kit</button>
-                <button onClick={() => setSelectedKit('drugstore')} className={`px-6 py-3 rounded-full text-xs font-extrabold transition-all duration-300 ease-out ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-lg scale-105` : 'opacity-75 hover:opacity-100 hover:bg-white/10'}`}>✨ HD Kit</button>
+              <div className="inline-flex p-1 rounded-full bg-slate-500/10 border border-slate-400/40 mt-1 gap-1.5">
+                <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
+                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>✨ HD Kit</button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
               {Object.keys(config.kitText?.[selectedKit] || {}).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
                 const price = config.pricingByKit?.[selectedKit]?.[key] || 0;
@@ -1271,29 +1304,29 @@ function MainAppContent() {
                 if (!item.name) return null;
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-5 flex flex-col sm:flex-row gap-5 items-center transition-all duration-400 ease-out hover:scale-[1.02] hover:shadow-[0_30px_70px_rgba(0,0,0,0.5)]`}>
-                    <div className="w-full sm:w-40 h-44 sm:h-40 shrink-0 rounded-[26px] overflow-hidden bg-white/10 relative border-2 border-white/35 shadow-inner">
-                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-                      <div className="absolute top-2.5 left-2.5 px-3 py-1 rounded-full bg-black/70 text-[10px] font-mono font-extrabold text-amber-300 backdrop-blur-md border border-white/30 shadow-md">
+                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}>
+                    <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-slate-900/20 relative border border-slate-400/30">
+                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                      <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/75 text-[10px] font-mono font-extrabold text-amber-300 border border-white/20 shadow-sm">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
-                    <div className="flex-1 w-full flex flex-col justify-between space-y-2.5">
+                    <div className="flex-1 w-full flex flex-col justify-between space-y-2">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className="font-extrabold text-base sm:text-lg leading-tight">{item.num ? `${item.num}. ` : ''}{item.name}</h4>
-                          <span className={`font-mono font-black text-base sm:text-lg ${activeThemeStyle.accentText} shrink-0 drop-shadow-sm`}>₹{price.toLocaleString('en-IN')}</span>
+                          <h4 className={`font-black text-sm sm:text-base leading-snug ${activeThemeStyle.headingColor}`}>{item.num ? `${item.num}. ` : ''}{item.name}</h4>
+                          <span className={`font-mono font-black text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
-                        <p className="text-xs font-medium opacity-85 mt-2 line-clamp-2 leading-relaxed">{item.desc}</p>
+                        <p className={`text-xs font-medium mt-1 line-clamp-2 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-3 border-t border-white/20">
-                        <span className="text-[11px] font-bold opacity-90 truncate flex items-center gap-1.5">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0 animate-pulse" /> 16HR HD Finish
+                      <div className="flex items-center justify-between pt-2.5 border-t border-slate-400/25">
+                        <span className={`text-[10px] sm:text-[11px] font-bold truncate flex items-center gap-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                          <Sparkles className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" /> 16HR HD Finish
                         </span>
-                        <div className="flex items-center gap-2">
-                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-4 py-2.5 rounded-full border border-white/35 bg-white/15 text-xs font-bold hover:bg-white/25 transition-all shadow-sm active:scale-95">Details</button>
-                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-bold transition-all active:scale-95 flex items-center gap-1.5 shadow-md`}>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full ${activeThemeStyle.pillBorder} text-xs font-bold hover:opacity-90 transition-all active:scale-95`}>Details</button>
+                          <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 sm:px-5 py-1.5 sm:py-2 ${activeThemeStyle.btn} text-xs font-extrabold transition-all active:scale-95 flex items-center gap-1`}>
                             <span>Book</span> <ChevronRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1307,25 +1340,25 @@ function MainAppContent() {
         )}
 
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
-          <div className="space-y-7 hf-tab-enter">
-            <div className="text-center max-w-xl mx-auto space-y-2.5">
-              <span className={`px-4 py-1.5 rounded-full bg-white/15 border border-white/35 ${activeThemeStyle.accentText} text-xs font-bold inline-flex items-center gap-1.5 shadow-md backdrop-blur-2xl`}>
+          <div className="space-y-6 sm:space-y-7 hf-tab-enter">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className={`px-3.5 py-1 rounded-full ${activeThemeStyle.pillBorder} text-[10px] sm:text-xs font-black inline-flex items-center gap-1.5 shadow-sm`}>
                 <Camera className="w-3.5 h-3.5" /> Discover Looks
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black tracking-tight">Featured Transformations</h2>
-              <p className="text-xs sm:text-sm font-medium opacity-80">Explore signature makeup transformations crafted with precision and artistry.</p>
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Featured Transformations</h2>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore signature makeup transformations crafted with precision and artistry.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
                 return (
-                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-400 ease-out hover:scale-[1.03] hover:shadow-2xl p-1.5`}>
+                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] p-1.5`}>
                     {isVideo ? <AutoPlayVideoCard item={item} /> : (
-                      <div className="h-72 sm:h-80 overflow-hidden relative bg-white/5 rounded-[28px] border border-white/25 shadow-inner">
-                        <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-110" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent flex flex-col justify-end p-5 text-white">
-                          <span className="text-[11px] uppercase font-mono font-bold text-cyan-300 drop-shadow-md">{item.sub || 'Client Transformation'}</span>
-                          <h4 className="font-extrabold text-sm sm:text-base mt-1 text-white drop-shadow-lg"><span>{item.title}</span></h4>
+                      <div className="h-64 sm:h-80 overflow-hidden relative bg-slate-900/20 rounded-[22px] sm:rounded-[26px] border border-slate-400/30">
+                        <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
+                          <span className="text-[10px] sm:text-[11px] uppercase font-mono font-bold text-cyan-300">{item.sub || 'Client Transformation'}</span>
+                          <h4 className="font-extrabold text-xs sm:text-sm mt-0.5 text-white"><span>{item.title}</span></h4>
                         </div>
                       </div>
                     )}
@@ -1337,20 +1370,20 @@ function MainAppContent() {
         )}
 
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
-          <div className="space-y-7 hf-tab-enter">
-            <div className="text-center max-w-xl mx-auto space-y-2.5">
-              <span className={`px-4 py-1.5 rounded-full bg-white/15 border border-white/35 ${activeThemeStyle.accentText} text-xs font-bold inline-flex items-center gap-1.5 shadow-md backdrop-blur-2xl`}>
+          <div className="space-y-6 sm:space-y-7 hf-tab-enter">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className={`px-3.5 py-1 rounded-full ${activeThemeStyle.pillBorder} text-[10px] sm:text-xs font-black inline-flex items-center gap-1.5 shadow-sm`}>
                 <Star className="w-3.5 h-3.5" /> Authentic Vanity
               </span>
-              <h2 className="text-2xl sm:text-4xl font-black tracking-tight">Products In Our Kit</h2>
-              <p className="text-xs sm:text-sm font-medium opacity-80">100% Genuine, skin-safe international luxury cosmetics used for all makeovers.</p>
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Products In Our Kit</h2>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>100% Genuine, skin-safe international luxury cosmetics used for all makeovers.</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${activeThemeStyle.card} p-6 space-y-3.5 transition-all duration-400 ease-out hover:scale-[1.03] hover:shadow-2xl`}>
-                  <span className={`text-[10px] font-extrabold ${activeThemeStyle.accentText} bg-amber-500/20 border border-amber-400/40 uppercase px-3 py-1.5 rounded-full font-mono inline-block shadow-sm`}>{brand.category}</span>
-                  <h4 className="font-extrabold text-base sm:text-lg">{brand.name}</h4>
-                  <p className="text-xs font-medium opacity-85 leading-relaxed">{brand.desc}</p>
+                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2.5 transition-all duration-300 hover:scale-[1.02]`}>
+                  <span className={`text-[10px] font-extrabold ${activeThemeStyle.accentText} bg-amber-500/15 border border-amber-400/40 uppercase px-3 py-1 rounded-full font-mono inline-block`}>{brand.category}</span>
+                  <h4 className={`font-black text-sm sm:text-base ${activeThemeStyle.headingColor}`}>{brand.name}</h4>
+                  <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{brand.desc}</p>
                 </div>
               ))}
             </div>
@@ -1360,112 +1393,112 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
-              <div className={`${activeThemeStyle.card} p-8 sm:p-12 text-center space-y-6 shadow-2xl max-w-lg mx-auto`}>
-                <div className="w-20 h-20 rounded-[28px] bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border-2 border-emerald-400/40 shadow-[0_0_35px_rgba(16,185,129,0.3)]">
-                  <CheckCircle2 className="w-10 h-10" />
+              <div className={`${activeThemeStyle.card} p-6 sm:p-10 text-center space-y-5 shadow-2xl max-w-lg mx-auto`}>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[24px] bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border-2 border-emerald-400/40">
+                  <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
                 </div>
-                <div className="inline-block px-6 py-2.5 rounded-full bg-white/20 border border-white/40 font-mono font-black text-xs shadow-inner tracking-wider">
-                  BOOKING NUMBER: {currentBookingNumber}
+                <div className={`inline-block px-5 py-2 rounded-full ${activeThemeStyle.pillBorder} font-mono font-black text-xs`}>
+                  BOOKING NO: {currentBookingNumber}
                 </div>
-                <h3 className="text-2xl font-black">Booking Request Submitted!</h3>
-                <p className="text-xs sm:text-sm opacity-90 leading-relaxed font-medium">Your appointment request has been recorded securely. Our team will coordinate with you shortly to confirm timings.</p>
+                <h3 className={`text-xl sm:text-2xl font-black ${activeThemeStyle.headingColor}`}>Booking Request Sent!</h3>
+                <p className={`text-xs sm:text-sm font-semibold leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Your appointment request has been recorded securely. Our team will coordinate with you shortly.</p>
                 {generatedJpgUrl && (
                   <div className="pt-2">
-                    <a href={generatedJpgUrl} download={`Booking_Receipt_${currentBookingNumber}.jpg`} className={`px-8 py-4 rounded-full ${activeThemeStyle.btn} font-extrabold inline-flex items-center gap-2.5 text-sm transition-all shadow-2xl active:scale-95`}>
-                      <Download className="w-5 h-5" /> <span>Download Official Slip (.JPG)</span>
+                    <a href={generatedJpgUrl} download={`Booking_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 rounded-full ${activeThemeStyle.btn} font-extrabold inline-flex items-center gap-2 text-xs sm:text-sm transition-all shadow-xl active:scale-95`}>
+                      <Download className="w-4 h-4" /> <span>Download Official Slip (.JPG)</span>
                     </a>
                   </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className="block w-full py-4 bg-white/10 hover:bg-white/20 text-xs font-bold rounded-full border border-white/30 transition-all active:scale-95 shadow-md">Make Another Calculation / Booking</button>
+                <button onClick={() => setIsBookingDone(false)} className={`block w-full py-3.5 ${activeThemeStyle.pillBorder} text-xs font-bold rounded-full transition-all active:scale-95`}>Make Another Calculation</button>
               </div>
             ) : (
-              <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-6">
+              <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
                 
-                {/* LEFT COLUMN: OPTIONS & CLIENT INFO */}
-                <div className={`md:col-span-7 ${activeThemeStyle.card} p-6 sm:p-8 space-y-6 shadow-2xl`}>
-                  <div className="border-b border-white/20 pb-3.5">
-                    <h3 className="font-extrabold text-base sm:text-lg flex items-center gap-2.5">
-                      <Calculator className={`w-5 h-5 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
+                {/* LEFT OPTIONS & DETAILS */}
+                <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-xl`}>
+                  <div className="border-b border-slate-400/30 pb-3">
+                    <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${activeThemeStyle.headingColor}`}>
+                      <Calculator className="w-4 h-4 sm:w-5 sm:h-5" /> 1. Calculate & Choose Looks
                     </h3>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-wider mb-2 opacity-90">Main Makeover Package: Vanity Tier</label>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-4 rounded-[22px] text-xs font-extrabold border text-center transition-all duration-300 shadow-sm ${calcKit === 'international' ? `${activeThemeStyle.btn} shadow-lg scale-102` : 'bg-white/10 border-white/30 opacity-80 hover:opacity-100 hover:bg-white/15'}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-4 rounded-[22px] text-xs font-extrabold border text-center transition-all duration-300 shadow-sm ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-lg scale-102` : 'bg-white/10 border-white/30 opacity-80 hover:opacity-100 hover:bg-white/15'}`}>✨ HD Kit</button>
+                    <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Main Makeover Package: Vanity Tier</label>
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'international' ? `${activeThemeStyle.btn} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 sm:p-3.5 rounded-full text-xs font-extrabold border text-center transition-all ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} shadow-md` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-wider mb-2 opacity-90">Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-black/20 border-2 border-white/30 rounded-[20px] px-4 py-3.5 text-sm font-bold shadow-inner outline-none transition-all duration-300 focus:bg-black/30 focus:border-white/60">
+                    <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Main Makeover Package: Package</label>
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className={`w-full ${activeThemeStyle.inputBg} rounded-[18px] px-3.5 py-3 text-xs sm:text-sm font-bold outline-none`}>
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
-                        return <option key={k} value={k}>{pData.num ? `${pData.num}. ` : ''}{pData.name} (₹{pPrice.toLocaleString('en-IN')})</option>;
+                        return <option key={k} value={k} className="bg-slate-900 text-white">{pData.num ? `${pData.num}. ` : ''}{pData.name} (₹{pPrice.toLocaleString('en-IN')})</option>;
                       })}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black uppercase tracking-wider mb-2 opacity-90">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-black/20 border-2 border-white/30 rounded-[20px] px-4 py-3.5 text-sm font-bold shadow-inner outline-none transition-all duration-300 focus:bg-black/30 focus:border-white/60">
+                    <label className={`block text-xs font-black uppercase tracking-wider mb-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Venue Location Zone</label>
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className={`w-full ${activeThemeStyle.inputBg} rounded-[18px] px-3.5 py-3 text-xs sm:text-sm font-bold outline-none`}>
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
-                        <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
+                        <option key={key} value={key} className="bg-slate-900 text-white">{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-4 border-t border-white/20 space-y-4">
+                  <div className="pt-3 border-t border-slate-400/30 space-y-3.5">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="font-extrabold text-xs uppercase tracking-wider flex items-center gap-2">
-                          <Users className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Extra Family Makeup Customizer
+                        <h4 className={`font-black text-xs uppercase tracking-wider flex items-center gap-1.5 ${activeThemeStyle.headingColor}`}>
+                          <Users className="w-4 h-4" /> Extra Family Makeup Customizer
                         </h4>
-                        <p className="text-[11px] font-medium opacity-80 mt-0.5">Customize individual vanity tier & look for each family guest.</p>
+                        <p className={`text-[11px] font-semibold mt-0.5 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Add vanity look for each family guest.</p>
                       </div>
-                      <button type="button" onClick={handleAddFamilyGuest} className="px-4 py-2.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/35 text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-sm active:scale-95">
-                        <Plus className="w-4 h-4" /> Add Guest
+                      <button type="button" onClick={handleAddFamilyGuest} className={`px-3.5 py-1.5 rounded-full ${activeThemeStyle.pillBorder} text-xs font-black flex items-center gap-1 active:scale-95`}>
+                        <Plus className="w-3.5 h-3.5" /> Add Guest
                       </button>
                     </div>
 
                     {isGuestDiscountActive && guestDiscountPercent > 0 && (
-                      <div className="p-4 rounded-[22px] bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-between text-xs shadow-inner">
-                        <div className="flex items-center gap-2.5">
-                          <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
-                          <p className="text-emerald-300 font-extrabold">Flat {guestDiscountPercent}% Extra Family Makeup Discount Active!</p>
+                      <div className="p-3 rounded-[18px] bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-emerald-500 shrink-0" />
+                          <p className="text-emerald-500 font-black">Flat {guestDiscountPercent}% Extra Family Discount Active!</p>
                         </div>
-                        <span className="font-mono font-black text-emerald-300 bg-emerald-500/30 px-3 py-1 rounded-full text-[10px] shadow-sm">{guestDiscountPercent}% OFF</span>
+                        <span className="font-mono font-black text-emerald-500 bg-emerald-500/20 px-2.5 py-0.5 rounded-full text-[10px]">{guestDiscountPercent}% OFF</span>
                       </div>
                     )}
 
                     {familyGuests.length > 0 && (
-                      <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
+                      <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
                           return (
-                            <div key={guest.id} className={`p-4 rounded-[22px] ${activeThemeStyle.innerCard} space-y-3 shadow-sm border border-white/25`}>
+                            <div key={guest.id} className={`p-3.5 rounded-[20px] ${activeThemeStyle.innerCard} space-y-2.5`}>
                               <div className="flex items-center justify-between">
-                                <span className="text-xs font-extrabold">Guest #{idx + 1}</span>
-                                <div className="flex items-center gap-2.5">
-                                  <span className={`text-sm font-black font-mono ${activeThemeStyle.accentText}`}>₹{rawGuestPrice.toLocaleString('en-IN')}</span>
-                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1.5 text-rose-400 hover:bg-rose-500/20 rounded-full transition-all"><Trash2 className="w-4 h-4" /></button>
+                                <span className="text-xs font-black">Guest #{idx + 1}</span>
+                                <div className="flex items-center gap-2">
+                                  <span className={`text-xs sm:text-sm font-black font-mono ${activeThemeStyle.accentText}`}>₹{rawGuestPrice.toLocaleString('en-IN')}</span>
+                                  <button type="button" onClick={() => handleRemoveFamilyGuest(guest.id)} className="p-1 text-rose-500 hover:bg-rose-500/10 rounded-full"><Trash2 className="w-4 h-4" /></button>
                                 </div>
                               </div>
-                              <div className="grid grid-cols-2 gap-3">
+                              <div className="grid grid-cols-2 gap-2.5">
                                 <div>
-                                  <label className="block text-[10px] font-bold opacity-80 mb-1.5">Vanity Tier</label>
-                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-3 rounded-[16px] text-xs font-bold bg-black/30 border border-white/25 outline-none focus:border-white/60 transition-all">
-                                    <option value="international">👑 Luxury Kit</option>
-                                    <option value="drugstore">✨ HD Kit</option>
+                                  <label className="block text-[10px] font-black opacity-80 mb-1">Vanity Tier</label>
+                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className={`w-full p-2.5 rounded-[14px] text-xs font-bold ${activeThemeStyle.inputBg}`}>
+                                    <option value="international" className="bg-slate-900 text-white">👑 Luxury Kit</option>
+                                    <option value="drugstore" className="bg-slate-900 text-white">✨ HD Kit</option>
                                   </select>
                                 </div>
                                 <div>
-                                  <label className="block text-[10px] font-bold opacity-80 mb-1.5">Package Look</label>
-                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-3 rounded-[16px] text-xs font-bold bg-black/30 border border-white/25 outline-none focus:border-white/60 transition-all">
+                                  <label className="block text-[10px] font-black opacity-80 mb-1">Package Look</label>
+                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className={`w-full p-2.5 rounded-[14px] text-xs font-bold ${activeThemeStyle.inputBg}`}>
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
-                                      <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
+                                      <option key={k} value={k} className="bg-slate-900 text-white">{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
                                     ))}
                                   </select>
                                 </div>
@@ -1478,90 +1511,90 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-4 border-t border-white/20 space-y-2.5">
-                      <label className="block text-xs font-black uppercase tracking-wider flex items-center gap-1.5 opacity-90">
-                        <Tag className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
+                    <div className="pt-3 border-t border-slate-400/30 space-y-2">
+                      <label className={`block text-xs font-black uppercase tracking-wider flex items-center gap-1.5 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                        <Tag className="w-3.5 h-3.5" /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className={`${activeThemeStyle.innerCard} rounded-[22px] p-4 flex items-center justify-between gap-3 shadow-inner border border-white/25`}>
+                        <div className={`${activeThemeStyle.innerCard} rounded-[18px] p-3 flex items-center justify-between gap-2`}>
                           <div>
                             <span className="text-xs font-black font-mono">CODE: {appliedCoupon.code} APPLIED</span>
-                            <p className="text-[11px] opacity-90 font-bold mt-0.5 text-emerald-400">🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}</p>
+                            <p className="text-[11px] font-black text-emerald-500">🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}</p>
                           </div>
-                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-400 text-xs font-bold hover:underline transition-all">Remove</button>
+                          <button type="button" onClick={() => { setAppliedCoupon(null); setCouponInput(''); }} className="text-rose-500 text-xs font-bold hover:underline">Remove</button>
                         </div>
                       ) : (
-                        <div className="flex gap-2.5">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-black/20 border-2 border-white/30 rounded-[20px] px-4 py-3.5 text-sm uppercase font-mono font-bold outline-none shadow-inner transition-all focus:bg-black/30 focus:border-white/60" />
-                          <button type="button" onClick={handleApplyCoupon} className={`px-6 py-3.5 ${activeThemeStyle.btn} text-xs font-bold rounded-full transition-all shadow-md active:scale-95`}>Apply</button>
+                        <div className="flex gap-2">
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className={`flex-1 ${activeThemeStyle.inputBg} rounded-full px-4 py-2.5 text-xs sm:text-sm uppercase font-mono font-black outline-none`} />
+                          <button type="button" onClick={handleApplyCoupon} className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-black rounded-full shrink-0 shadow-md active:scale-95`}>Apply</button>
                         </div>
                       )}
-                      {couponError && <p className="text-[11px] text-rose-400 font-bold">{couponError}</p>}
+                      {couponError && <p className="text-[11px] text-rose-500 font-bold">{couponError}</p>}
                     </div>
                   )}
 
-                  <div className="pt-4 border-t border-white/20 space-y-4">
-                    <h4 className="font-extrabold text-xs uppercase tracking-wider flex items-center gap-2">
-                      <User className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
+                  <div className="pt-3 border-t border-slate-400/30 space-y-3.5">
+                    <h4 className={`font-black text-xs uppercase tracking-wider flex items-center gap-1.5 ${activeThemeStyle.headingColor}`}>
+                      <User className="w-4 h-4" /> 2. Enter Client Details
                     </h4>
                     <div>
-                      <label className="block text-xs font-bold opacity-85 mb-1.5">Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                      <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Full Name *</label>
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-semibold outline-none`} />
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs font-bold opacity-85 mb-1.5">Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-mono font-bold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                        <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Contact Phone *</label>
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-mono font-bold outline-none`} />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold opacity-85 mb-1.5">Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-mono font-bold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                        <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Event Date *</label>
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-mono font-bold outline-none`} />
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-white/20 space-y-4">
+                    <div className="pt-3 border-t border-slate-400/30 space-y-3.5">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <h4 className="font-extrabold text-xs uppercase tracking-wider flex items-center gap-2">
-                          <MapPin className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
+                        <h4 className={`font-black text-xs uppercase tracking-wider flex items-center gap-1.5 ${activeThemeStyle.headingColor}`}>
+                          <MapPin className="w-4 h-4" /> 3. Destination Venue & Address
                         </h4>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
-                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-4 py-2 rounded-full text-[10px] font-extrabold border transition-all ${addressType === type ? `${activeThemeStyle.btn} shadow-md` : 'bg-white/10 border-white/30 opacity-75 hover:opacity-100 hover:bg-white/20'}`}>
+                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3 py-1 rounded-full text-[10px] font-black border transition-all ${addressType === type ? `${activeThemeStyle.btn} shadow-sm` : `${activeThemeStyle.pillBorder} opacity-80 hover:opacity-100`}`}>
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
                             </button>
                           ))}
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-xs font-bold opacity-85 mb-1.5">Postal PIN Code *</label>
-                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-mono font-bold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                          <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Postal PIN Code *</label>
+                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-mono font-bold outline-none`} />
                         </div>
                         <div>
-                          <label className="block text-xs font-bold opacity-85 mb-1.5">Flat, House No., Building</label>
-                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                          <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Flat, House No., Building</label>
+                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-semibold outline-none`} />
                         </div>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold opacity-85 mb-1.5">Street, Sector, Area, Locality *</label>
-                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                        <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Street, Sector, Area, Locality *</label>
+                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-semibold outline-none`} />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold opacity-85 mb-1.5">Landmark (Optional)</label>
-                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                        <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Landmark (Optional)</label>
+                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-semibold outline-none`} />
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block text-xs font-bold opacity-85 mb-1.5">State / Region *</label>
-                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-bold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60">
-                            {Object.keys(ALL_INDIA_STATES_AND_CITIES).map(stName => <option key={stName} value={stName}>{stName}</option>)}
+                          <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>State / Region *</label>
+                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-bold outline-none`}>
+                            {Object.keys(ALL_INDIA_STATES_AND_CITIES).map(stName => <option key={stName} value={stName} className="bg-slate-900 text-white">{stName}</option>)}
                           </select>
                         </div>
                         <div>
-                          <label className="block text-xs font-bold opacity-85 mb-1.5">Town / City *</label>
-                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-bold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60">
-                            {(ALL_INDIA_STATES_AND_CITIES[selectedState] || [city]).map(cityName => <option key={cityName} value={cityName}>{cityName}</option>)}
+                          <label className={`block text-xs font-bold mb-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>Town / City *</label>
+                          <select value={city} onChange={(e) => setCity(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-bold outline-none`}>
+                            {(ALL_INDIA_STATES_AND_CITIES[selectedState] || [city]).map(cityName => <option key={cityName} value={cityName} className="bg-slate-900 text-white">{cityName}</option>)}
                           </select>
                         </div>
                       </div>
@@ -1569,57 +1602,57 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: ISOLATED STANDALONE TOTAL AMOUNT SUMMARY CARD */}
-                <div className="md:col-span-5 flex flex-col gap-6">
-                  <div className={`${activeThemeStyle.card} p-6 sm:p-8 flex flex-col justify-between space-y-5 shadow-2xl sticky top-28`}>
+                {/* RIGHT SUMMARY */}
+                <div className="md:col-span-5 flex flex-col gap-5">
+                  <div className={`${activeThemeStyle.card} p-5 sm:p-7 flex flex-col justify-between space-y-4 shadow-xl sticky top-28`}>
                     <div>
-                      <span className="text-xs font-extrabold uppercase tracking-widest opacity-70">Total Amount Summary</span>
-                      <div className="mt-1.5 text-3xl sm:text-4xl font-black flex items-baseline gap-1.5">
-                        <span className={activeThemeStyle.accentText}>₹</span><span className="font-mono">{finalEstimate.toLocaleString('en-IN')}</span>
+                      <span className={`text-[11px] font-black uppercase tracking-widest ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Total Investment Summary</span>
+                      <div className="mt-1 text-2xl sm:text-4xl font-black flex items-baseline gap-1">
+                        <span className={activeThemeStyle.accentText}>₹</span><span className={`font-mono ${activeThemeStyle.headingColor}`}>{finalEstimate.toLocaleString('en-IN')}</span>
                       </div>
                     </div>
 
-                    <div className="space-y-3.5 text-xs border-t border-b border-white/20 py-4">
-                      <div className="p-4 rounded-[22px] border-2 border-sky-400/50 bg-sky-500/15 space-y-2 shadow-inner">
-                        <div className="flex justify-between items-center font-black text-sky-300 text-sm">
+                    <div className="space-y-3 text-xs border-t border-b border-slate-400/30 py-3.5">
+                      <div className={`p-3 sm:p-3.5 rounded-[18px] border-2 border-sky-400/50 ${isDarkMode ? 'bg-sky-500/10' : 'bg-sky-50'} space-y-1.5`}>
+                        <div className="flex justify-between items-center font-black text-sky-500 text-xs sm:text-sm">
                           <span>1. Main Makeover Package:</span>
                           <span className="font-mono">₹{mainBookingSubtotal.toLocaleString('en-IN')}</span>
                         </div>
-                        <div className="flex justify-between pl-1 font-semibold opacity-90"><span>• Vanity:</span><span>{config.pricingByKit?.[calcKit]?.name}</span></div>
-                        <div className="flex justify-between pl-1 font-semibold opacity-90"><span>• Package:</span><span>{(config.kitText?.[calcKit]?.[calcPackage])?.name}</span></div>
-                        <div className="flex justify-between pl-1 font-semibold opacity-90"><span>• Package Price:</span><span className="font-mono">₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
-                        <div className="flex justify-between pl-1 font-semibold opacity-90"><span>• Travel Fee:</span><span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span></div>
+                        <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}><span>• Vanity:</span><span>{config.pricingByKit?.[calcKit]?.name}</span></div>
+                        <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}><span>• Package:</span><span>{(config.kitText?.[calcKit]?.[calcPackage])?.name}</span></div>
+                        <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}><span>• Package Price:</span><span className="font-mono">₹{mainPackagePrice.toLocaleString('en-IN')}</span></div>
+                        <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}><span>• Travel Fee:</span><span className="font-mono">₹{zoneFee.toLocaleString('en-IN')}</span></div>
                       </div>
 
-                      <div className="p-4 rounded-[22px] border-2 border-purple-400/50 bg-purple-500/15 space-y-2 shadow-inner">
-                        <div className="flex justify-between items-center font-black text-purple-300 text-sm">
+                      <div className={`p-3 sm:p-3.5 rounded-[18px] border-2 border-purple-400/50 ${isDarkMode ? 'bg-purple-500/10' : 'bg-purple-50'} space-y-1.5`}>
+                        <div className="flex justify-between items-center font-black text-purple-500 text-xs sm:text-sm">
                           <span>2. Extra Guests ({familyGuests.length}):</span>
                           <span className="font-mono">₹{familyGuestsGross.toLocaleString('en-IN')}</span>
                         </div>
                         {familyGuests.length > 0 ? familyGuests.map((g, i) => {
                           const gp = config.pricingByKit[g.kit]?.[g.packageKey] || 2500;
-                          return <div key={i} className="flex justify-between pl-1 font-semibold opacity-90"><span>• Guest #{i + 1}:</span><span className="font-mono">₹{gp.toLocaleString('en-IN')}</span></div>;
-                        }) : <div className="flex justify-between pl-1 opacity-70 font-medium"><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
+                          return <div key={i} className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}><span>• Guest #{i + 1}:</span><span className="font-mono">₹{gp.toLocaleString('en-IN')}</span></div>;
+                        }) : <div className={`flex justify-between pl-1 font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
                       </div>
 
-                      <div className="flex justify-between items-center px-4 py-3.5 text-sm font-black rounded-full bg-white/15 border border-white/30 shadow-sm">
+                      <div className={`flex justify-between items-center px-3.5 py-2.5 text-xs sm:text-sm font-black rounded-full ${activeThemeStyle.pillBorder}`}>
                         <span>Total Before Discounts:</span>
                         <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                       </div>
 
-                      <div className="p-4 rounded-[22px] border-2 border-emerald-400/50 bg-emerald-500/15 space-y-2 shadow-inner">
-                        <div className="flex justify-between items-center font-black text-emerald-300 text-sm">
+                      <div className={`p-3 sm:p-3.5 rounded-[18px] border-2 border-emerald-400/50 ${isDarkMode ? 'bg-emerald-500/10' : 'bg-emerald-50'} space-y-1.5`}>
+                        <div className="flex justify-between items-center font-black text-emerald-500 text-xs sm:text-sm">
                           <span>3. Discounts & Offers:</span>
                           <span className="font-mono">-₹{(guestDiscountSavedAmount + couponDiscountAmount).toLocaleString('en-IN')}</span>
                         </div>
-                        {guestDiscountSavedAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-300 font-bold"><span>• Family Discount:</span><span className="font-mono">-₹{guestDiscountSavedAmount}</span></div>}
-                        {appliedCoupon && couponDiscountAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-300 font-bold"><span>• Promo Code:</span><span className="font-mono">-₹{couponDiscountAmount}</span></div>}
-                        {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && <div className="flex justify-between pl-1 text-[11px] opacity-70 font-medium"><span>• No discounts</span><span className="font-mono">₹0</span></div>}
+                        {guestDiscountSavedAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-500 font-bold"><span>• Family Discount:</span><span className="font-mono">-₹{guestDiscountSavedAmount}</span></div>}
+                        {appliedCoupon && couponDiscountAmount > 0 && <div className="flex justify-between pl-1 text-[11px] text-emerald-500 font-bold"><span>• Promo Code:</span><span className="font-mono">-₹{couponDiscountAmount}</span></div>}
+                        {guestDiscountSavedAmount === 0 && (!appliedCoupon || couponDiscountAmount === 0) && <div className={`flex justify-between pl-1 text-[11px] font-semibold ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}><span>• No discounts</span><span className="font-mono">₹0</span></div>}
                       </div>
                     </div>
 
-                    <button type="submit" disabled={isSubmitting} className={`w-full py-4.5 ${activeThemeStyle.btn} font-black text-sm rounded-full shadow-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-2.5`}>
-                      <Check className="w-5 h-5" /> <span>{isSubmitting ? 'Recording Booking...' : 'Confirm & Send Booking Request'}</span>
+                    <button type="submit" disabled={isSubmitting} className={`w-full py-3.5 sm:py-4 ${activeThemeStyle.btn} font-black text-xs sm:text-sm rounded-full shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
+                      <Check className="w-4 h-4 sm:w-5 sm:h-5" /> <span>{isSubmitting ? 'Recording...' : 'Confirm & Send Booking'}</span>
                     </button>
                   </div>
                 </div>
@@ -1629,35 +1662,35 @@ function MainAppContent() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className={`${activeThemeStyle.card} p-6 sm:p-9 rounded-[36px] max-w-xl mx-auto space-y-6 shadow-2xl hf-tab-enter`}>
-            <div className="text-center space-y-1.5">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest opacity-70">Client Experience</span>
-              <h3 className="text-2xl font-black">Feedback & Suggestions</h3>
-              <p className="text-xs sm:text-sm opacity-80 font-medium">Help us enhance your vanity experience by sharing your valuable thoughts.</p>
+          <div className={`${activeThemeStyle.card} p-5 sm:p-8 rounded-[28px] sm:rounded-[36px] max-w-xl mx-auto space-y-5 shadow-2xl hf-tab-enter`}>
+            <div className="text-center space-y-1">
+              <span className={`text-[10px] font-extrabold uppercase tracking-widest ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Client Experience</span>
+              <h3 className={`text-xl sm:text-2xl font-black ${activeThemeStyle.headingColor}`}>Feedback & Suggestions</h3>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Help us enhance your vanity experience by sharing your valuable thoughts.</p>
             </div>
             {feedbackSubmitted ? (
-              <div className="p-7 rounded-[26px] bg-emerald-500/20 border-2 border-emerald-400/40 text-center space-y-3 shadow-inner">
-                <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto animate-bounce" />
-                <h4 className="font-black text-lg text-emerald-300">Thank you for your feedback!</h4>
-                <p className="text-xs opacity-90 leading-relaxed font-semibold">Your suggestion has been securely recorded to help us improve.</p>
-                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-6 py-3 rounded-full bg-white/15 hover:bg-white/25 text-xs font-bold border border-white/35 transition-all active:scale-95 shadow-md">Submit Another</button>
+              <div className="p-6 rounded-[22px] bg-emerald-500/20 border-2 border-emerald-400/40 text-center space-y-3">
+                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+                <h4 className="font-black text-base sm:text-lg text-emerald-500">Thank you for your feedback!</h4>
+                <p className={`text-xs font-semibold leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Your suggestion has been securely recorded to help us improve.</p>
+                <button onClick={() => setFeedbackSubmitted(false)} className={`mt-2 px-5 py-2.5 rounded-full ${activeThemeStyle.pillBorder} text-xs font-bold transition-all active:scale-95`}>Submit Another</button>
               </div>
             ) : (
-              <form onSubmit={handleSubmitFeedback} className="space-y-5">
-                <div className="flex justify-center gap-3 py-2">
+              <form onSubmit={handleSubmitFeedback} className="space-y-4">
+                <div className="flex justify-center gap-2 py-1">
                   {[1, 2, 3, 4, 5].map(star => (
-                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition-all duration-300 ease-out ${star <= feedbackRating ? 'text-amber-400 scale-115 drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]' : 'opacity-30 hover:opacity-100 hover:text-amber-400 hover:scale-110'}`}>
-                      <Star className={`w-8 h-8 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
+                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition-all ${star <= feedbackRating ? 'text-amber-400 scale-110 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]' : 'opacity-30 hover:opacity-100 hover:text-amber-400'}`}>
+                      <Star className={`w-7 h-7 sm:w-8 sm:h-8 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
                     </button>
                   ))}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-semibold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
-                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-4 py-3.5 rounded-[20px] bg-black/20 border-2 border-white/30 text-sm font-mono font-bold shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-semibold outline-none`} />
+                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} className={`w-full px-3.5 py-2.5 sm:py-3 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-mono font-bold outline-none`} />
                 </div>
-                <textarea rows={4} required placeholder="Share your suggestions, review or thoughts..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-4 rounded-[22px] bg-black/20 border-2 border-white/30 text-sm font-medium shadow-inner outline-none transition-all focus:bg-black/30 focus:border-white/60" />
-                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-4 ${activeThemeStyle.btn} font-black text-sm rounded-full shadow-2xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
-                  <Send className="w-4 h-4" /> <span>{isSubmittingFeedback ? 'Submitting Review...' : 'Send Feedback'}</span>
+                <textarea rows={3} required placeholder="Share your suggestions, review or thoughts..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className={`w-full p-3.5 rounded-[18px] ${activeThemeStyle.inputBg} text-xs sm:text-sm font-medium outline-none`} />
+                <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3.5 sm:py-4 ${activeThemeStyle.btn} font-black text-xs sm:text-sm rounded-full shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2`}>
+                  <Send className="w-4 h-4" /> <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback'}</span>
                 </button>
               </form>
             )}
@@ -1667,22 +1700,22 @@ function MainAppContent() {
 
       {/* FLOATING PROMO OFFER BANNER */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
-        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-5 rounded-[30px] shadow-[0_25px_60px_rgba(0,0,0,0.6)] transition-all duration-500 border-2 border-white/40`}>
-          <div className="flex items-start justify-between gap-3.5">
-            <div className="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5">
-              <Gift className="w-5 h-5 text-amber-300 animate-bounce" />
+        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-4 rounded-[24px] sm:rounded-[28px] shadow-2xl transition-all border-2 border-slate-400/40`}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5">
+              <Gift className="w-4 h-4 text-amber-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40 uppercase px-2.5 py-0.5 rounded-full font-mono shadow-sm">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
-                {isFloatingExpired ? <span className="text-[10px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full">Expired</span> : floatingTimer ? <span className="text-[10px] font-mono font-bold opacity-90 px-2 py-0.5 rounded-full bg-white/10">{floatingTimer.text}</span> : null}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[9px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40 uppercase px-2 py-0.5 rounded-full font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+                {isFloatingExpired ? <span className="text-[9px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full">Expired</span> : floatingTimer ? <span className="text-[9px] font-mono font-bold opacity-90 px-2 py-0.5 rounded-full bg-slate-500/10">{floatingTimer.text}</span> : null}
               </div>
-              <h4 className="font-extrabold text-sm mt-1.5 leading-tight">{config.floatingBanner?.title || "Limited Wedding Season Discount"}</h4>
-              <p className="text-xs mt-1 opacity-90 font-medium">{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-black text-amber-300 bg-black/30 px-1.5 py-0.5 rounded-md border border-amber-400/30">{floatingPromoCode}</span></>}</p>
+              <h4 className={`font-black text-xs sm:text-sm mt-1 leading-tight ${activeThemeStyle.headingColor}`}>{config.floatingBanner?.title || "Wedding Season Discount"}</h4>
+              <p className={`text-[11px] mt-0.5 font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-black text-amber-400 bg-black/40 px-1.5 py-0.5 rounded border border-amber-400/30">{floatingPromoCode}</span></>}</p>
             </div>
-            <button onClick={() => setShowFloatingBanner(false)} className="opacity-70 hover:opacity-100 p-1.5 shrink-0 transition-all active:scale-90 bg-white/10 rounded-full hover:bg-white/20"><X className="w-4 h-4" /></button>
+            <button onClick={() => setShowFloatingBanner(false)} className="opacity-70 hover:opacity-100 p-1 shrink-0 transition-all active:scale-90"><X className="w-3.5 h-3.5" /></button>
           </div>
-          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-3.5 w-full py-3 text-xs font-black rounded-full transition-all duration-300 shadow-lg ${isFloatingExpired ? 'bg-white/10 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
+          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-3 w-full py-2.5 text-xs font-black rounded-full transition-all shadow-md ${isFloatingExpired ? 'bg-slate-500/20 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply Code & Book")}
           </button>
         </aside>
