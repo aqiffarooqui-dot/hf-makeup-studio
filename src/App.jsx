@@ -1541,17 +1541,11 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN */}
+      {/* SPLASH SCREEN (ANIMATED LOGO ONLY) */}
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="flex flex-col items-center space-y-3 px-4 text-center">
-            <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-[26px] overflow-hidden ${activeThemeStyle.card} p-1.5 shadow-2xl animate-pulse`}>
-              <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[20px]" />
-            </div>
-            <div className="space-y-1">
-              <h1 className={`text-xl sm:text-2xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>{config.studioName || 'H&F Makeup Artist'}</h1>
-              <p className={`text-xs ${activeThemeStyle.accentText} uppercase tracking-widest`}>{config.artistTagline || 'Beauty, Styled Your Way'}</p>
-            </div>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className={`w-28 h-28 sm:w-36 sm:h-36 rounded-[32px] overflow-hidden ${activeThemeStyle.card} p-2 shadow-2xl animate-pulse flex items-center justify-center`}>
+            <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[24px]" />
           </div>
         </div>
       )}
