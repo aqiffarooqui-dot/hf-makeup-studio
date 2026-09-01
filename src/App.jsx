@@ -183,29 +183,29 @@ const THEME_STYLES = {
   admin_aurora: {
     night: {
       bg: "bg-[#06070b] text-[#FFFFFF]",
-      card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/40 shadow-[0_20px_50px_rgba(168,85,247,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
+      card: "bg-purple-950/25 backdrop-blur-[60px] border border-purple-400/35 shadow-[0_24px_60px_rgba(168,85,247,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-purple-900/20 backdrop-blur-[40px] border border-purple-400/30 shadow-inner",
       headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
       tabActiveText: "text-purple-300 drop-shadow-[0_0_12px_rgba(168,85,247,0.9)]",
       accent: "text-purple-400",
       accentText: "text-purple-300 font-extrabold",
-      pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
+      pillBorder: "border border-purple-400/40 bg-purple-500/15 text-purple-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_30px_rgba(236,72,153,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-purple-400/35 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(236, 72, 153, 0) 70%)"
     },
     day: {
       bg: "bg-[#faf5ff] text-[#1e1b4b]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-purple-300 shadow-[0_20px_50px_rgba(168,85,247,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-purple-50/90 border-2 border-purple-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-purple-300/70 shadow-[0_24px_60px_rgba(168,85,247,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-purple-50/40 backdrop-blur-[40px] border-2 border-purple-200/60 shadow-sm",
       headingColor: "text-purple-950 font-black drop-shadow-sm",
       tabActiveText: "text-purple-900 font-black drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]",
       accent: "text-purple-700 font-bold",
       accentText: "text-purple-700 font-black",
-      pillBorder: "border-2 border-purple-400 bg-purple-100/80 text-purple-950 font-black shadow-sm",
+      pillBorder: "border-2 border-purple-400/70 bg-purple-100/50 text-purple-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-purple-300 text-purple-950 placeholder-purple-400 focus:border-purple-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-purple-300/70 text-purple-950 placeholder-purple-400 focus:border-purple-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(236, 72, 153, 0) 70%)"
     }
@@ -213,29 +213,29 @@ const THEME_STYLES = {
   sunset_glow: {
     night: {
       bg: "bg-[#080605] text-[#FFFFFF]",
-      card: "bg-amber-950/40 backdrop-blur-[50px] border border-amber-400/40 shadow-[0_20px_50px_rgba(245,158,11,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-amber-900/30 border border-amber-400/40 shadow-inner",
+      card: "bg-amber-950/25 backdrop-blur-[60px] border border-amber-400/35 shadow-[0_24px_60px_rgba(245,158,11,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-amber-900/20 backdrop-blur-[40px] border border-amber-400/30 shadow-inner",
       headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
       tabActiveText: "text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.9)]",
       accent: "text-amber-400",
       accentText: "text-amber-300 font-extrabold",
-      pillBorder: "border border-amber-400/50 bg-amber-500/20 text-amber-200",
+      pillBorder: "border border-amber-400/40 bg-amber-500/15 text-amber-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-amber-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-amber-400/35 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
     },
     day: {
       bg: "bg-[#fffbeb] text-[#451a03]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-amber-300 shadow-[0_20px_50px_rgba(245,158,11,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-amber-50/90 border-2 border-amber-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-amber-300/70 shadow-[0_24px_60px_rgba(245,158,11,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-amber-50/40 backdrop-blur-[40px] border-2 border-amber-200/60 shadow-sm",
       headingColor: "text-amber-950 font-black drop-shadow-sm",
       tabActiveText: "text-amber-900 font-black drop-shadow-[0_0_10px_rgba(245,158,11,0.6)]",
       accent: "text-amber-700 font-bold",
       accentText: "text-amber-700 font-black",
-      pillBorder: "border-2 border-amber-400 bg-amber-100/80 text-amber-950 font-black shadow-sm",
+      pillBorder: "border-2 border-amber-400/70 bg-amber-100/50 text-amber-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(245,158,11,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-amber-300 text-amber-950 placeholder-amber-400 focus:border-amber-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-amber-300/70 text-amber-950 placeholder-amber-400 focus:border-amber-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.25) 0%, rgba(244, 63, 94, 0) 70%)"
     }
@@ -243,29 +243,29 @@ const THEME_STYLES = {
   cyber_matrix: {
     night: {
       bg: "bg-[#020808] text-[#FFFFFF]",
-      card: "bg-cyan-950/40 backdrop-blur-[50px] border border-cyan-400/40 shadow-[0_20px_50px_rgba(6,182,212,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-cyan-900/30 border border-cyan-400/40 shadow-inner",
+      card: "bg-cyan-950/25 backdrop-blur-[60px] border border-cyan-400/35 shadow-[0_24px_60px_rgba(6,182,212,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-cyan-900/20 backdrop-blur-[40px] border border-cyan-400/30 shadow-inner",
       headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
       tabActiveText: "text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.9)]",
       accent: "text-cyan-400",
       accentText: "text-cyan-300 font-extrabold",
-      pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
+      pillBorder: "border border-cyan-400/40 bg-cyan-500/15 text-cyan-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_30px_rgba(6,182,212,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-cyan-400/35 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(16, 185, 129, 0) 70%)"
     },
     day: {
       bg: "bg-[#ecfeff] text-[#083344]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-cyan-300 shadow-[0_20px_50px_rgba(6,182,212,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-cyan-50/90 border-2 border-cyan-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-cyan-300/70 shadow-[0_24px_60px_rgba(6,182,212,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-cyan-50/40 backdrop-blur-[40px] border-2 border-cyan-200/60 shadow-sm",
       headingColor: "text-cyan-950 font-black drop-shadow-sm",
       tabActiveText: "text-cyan-900 font-black drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]",
       accent: "text-cyan-700 font-bold",
       accentText: "text-cyan-700 font-black",
-      pillBorder: "border-2 border-cyan-400 bg-cyan-100/80 text-cyan-950 font-black shadow-sm",
+      pillBorder: "border-2 border-cyan-400/70 bg-cyan-100/50 text-cyan-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-cyan-300 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-cyan-300/70 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(6, 182, 212, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0) 70%)"
     }
@@ -273,29 +273,29 @@ const THEME_STYLES = {
   real_glass_lens: {
     night: {
       bg: "bg-[#06080e] text-[#FFFFFF]",
-      card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/40 shadow-[0_20px_50px_rgba(0,122,255,0.2),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
+      card: "bg-blue-950/25 backdrop-blur-[60px] border border-blue-400/35 shadow-[0_24px_60px_rgba(0,122,255,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-blue-900/20 backdrop-blur-[40px] border border-blue-400/30 shadow-inner",
       headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
       tabActiveText: "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]",
       accent: "text-sky-400",
       accentText: "text-sky-300 font-extrabold",
-      pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
+      pillBorder: "border border-blue-400/40 bg-blue-500/15 text-blue-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_30px_rgba(0,122,255,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-blue-400/35 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.45) 0%, rgba(0, 122, 255, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
     },
     day: {
       bg: "bg-[#eff6ff] text-[#1e3a8a]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-blue-300 shadow-[0_20px_50px_rgba(0,122,255,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-blue-50/90 border-2 border-blue-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-blue-300/70 shadow-[0_24px_60px_rgba(0,122,255,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-blue-50/40 backdrop-blur-[40px] border-2 border-blue-200/60 shadow-sm",
       headingColor: "text-blue-950 font-black drop-shadow-sm",
       tabActiveText: "text-blue-900 font-black drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]",
       accent: "text-blue-700 font-bold",
       accentText: "text-blue-700 font-black",
-      pillBorder: "border-2 border-blue-400 bg-blue-100/80 text-blue-950 font-black shadow-sm",
+      pillBorder: "border-2 border-blue-400/70 bg-blue-100/50 text-blue-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-blue-300 text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-blue-300/70 text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.3) 0%, rgba(0, 122, 255, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%)"
     }
@@ -303,29 +303,29 @@ const THEME_STYLES = {
   real_ios_glass: {
     night: {
       bg: "bg-[#06070a] text-[#FFFFFF]",
-      card: "bg-zinc-900/45 backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.65),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[36px]",
-      innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
+      card: "bg-zinc-900/35 backdrop-blur-[60px] border border-white/25 shadow-[0_24px_60px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[36px]",
+      innerCard: "bg-white/[0.06] backdrop-blur-[40px] border border-white/20 shadow-inner",
       headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
       tabActiveText: "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]",
       accent: "text-sky-400",
       accentText: "text-sky-300 font-extrabold",
-      pillBorder: "border border-sky-400/50 bg-sky-500/20 text-sky-200",
+      pillBorder: "border border-sky-400/40 bg-sky-500/15 text-sky-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-white/25 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%)"
     },
     day: {
       bg: "bg-[#f8fafc] text-[#0f172a]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[36px]",
-      innerCard: "bg-slate-100/90 border-2 border-slate-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-slate-300/70 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[36px]",
+      innerCard: "bg-slate-100/40 backdrop-blur-[40px] border-2 border-slate-200/60 shadow-sm",
       headingColor: "text-slate-950 font-black drop-shadow-sm",
       tabActiveText: "text-sky-900 font-black drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]",
       accent: "text-sky-700 font-bold",
       accentText: "text-sky-700 font-black",
-      pillBorder: "border-2 border-slate-400 bg-slate-100 text-slate-950 font-black shadow-sm",
+      pillBorder: "border-2 border-slate-400/70 bg-slate-100/50 text-slate-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-slate-300 text-slate-950 placeholder-slate-400 focus:border-sky-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-slate-300/70 text-slate-950 placeholder-slate-400 focus:border-sky-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%)"
     }
@@ -333,29 +333,29 @@ const THEME_STYLES = {
   liquid_glass: {
     night: {
       bg: "bg-[#030610] text-[#FFFFFF]",
-      card: "bg-sky-950/40 backdrop-blur-[50px] border border-cyan-400/45 shadow-[0_20px_50px_rgba(6,182,212,0.25),inset_0_1.5px_2px_rgba(255,255,255,0.4)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-sky-900/30 border border-cyan-400/40 shadow-inner",
+      card: "bg-sky-950/25 backdrop-blur-[60px] border border-cyan-400/35 shadow-[0_24px_60px_rgba(6,182,212,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-sky-900/20 backdrop-blur-[40px] border border-cyan-400/30 shadow-inner",
       headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
       tabActiveText: "text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.9)]",
       accent: "text-cyan-400",
       accentText: "text-cyan-300 font-extrabold",
-      pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
+      pillBorder: "border border-cyan-400/40 bg-cyan-500/15 text-cyan-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_30px_rgba(6,182,212,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-cyan-400/35 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(37, 99, 235, 0) 70%)"
     },
     day: {
       bg: "bg-[#f0f9ff] text-[#0c4a6e]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-cyan-300 shadow-[0_20px_50px_rgba(6,182,212,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-cyan-50/90 border-2 border-cyan-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-cyan-300/70 shadow-[0_24px_60px_rgba(6,182,212,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-cyan-50/40 backdrop-blur-[40px] border-2 border-cyan-200/60 shadow-sm",
       headingColor: "text-cyan-950 font-black drop-shadow-sm",
       tabActiveText: "text-cyan-900 font-black drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]",
       accent: "text-cyan-700 font-bold",
       accentText: "text-cyan-700 font-black",
-      pillBorder: "border-2 border-cyan-400 bg-cyan-100/80 text-cyan-950 font-black shadow-sm",
+      pillBorder: "border-2 border-cyan-400/70 bg-cyan-100/50 text-cyan-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-cyan-300 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-cyan-300/70 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(6, 182, 212, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0) 70%)"
     }
@@ -363,29 +363,29 @@ const THEME_STYLES = {
   one_ui_9: {
     night: {
       bg: "bg-[#08080a] text-[#FFFFFF]",
-      card: "bg-zinc-900/80 backdrop-blur-[50px] border border-zinc-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[30px]",
-      innerCard: "bg-zinc-800/70 border border-zinc-500/50 shadow-inner",
+      card: "bg-zinc-900/40 backdrop-blur-[60px] border border-zinc-500/40 shadow-[0_24px_60px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[30px]",
+      innerCard: "bg-zinc-800/30 backdrop-blur-[40px] border border-zinc-500/35 shadow-inner",
       headingColor: "text-violet-300 drop-shadow-[0_2px_10px_rgba(139,92,246,0.4)]",
       tabActiveText: "text-violet-300 drop-shadow-[0_0_12px_rgba(139,92,246,0.9)]",
       accent: "text-violet-400",
       accentText: "text-violet-300 font-extrabold",
-      pillBorder: "border border-violet-400/50 bg-violet-500/20 text-violet-200",
+      pillBorder: "border border-violet-400/40 bg-violet-500/15 text-violet-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black shadow-[0_10px_25px_rgba(139,92,246,0.45)] rounded-full",
-      inputBg: "bg-black/40 border border-zinc-500/50 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-zinc-500/40 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.42) 0%, rgba(139, 92, 246, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(168, 85, 247, 0) 70%)"
     },
     day: {
       bg: "bg-[#f5f3ff] text-[#2e1065]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-violet-300 shadow-[0_20px_50px_rgba(139,92,246,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[30px]",
-      innerCard: "bg-violet-50/90 border-2 border-violet-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-violet-300/70 shadow-[0_24px_60px_rgba(139,92,246,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[30px]",
+      innerCard: "bg-violet-50/40 backdrop-blur-[40px] border-2 border-violet-200/60 shadow-sm",
       headingColor: "text-violet-950 font-black drop-shadow-sm",
       tabActiveText: "text-violet-900 font-black drop-shadow-[0_0_10px_rgba(139,92,246,0.6)]",
       accent: "text-violet-700 font-bold",
       accentText: "text-violet-700 font-black",
-      pillBorder: "border-2 border-violet-400 bg-violet-100/80 text-violet-950 font-black shadow-sm",
+      pillBorder: "border-2 border-violet-400/70 bg-violet-100/50 text-violet-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-violet-600 to-purple-600 text-white font-black shadow-[0_10px_25px_rgba(139,92,246,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-violet-300 text-violet-950 placeholder-violet-400 focus:border-violet-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-violet-300/70 text-violet-950 placeholder-violet-400 focus:border-violet-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(168, 85, 247, 0) 70%)"
     }
@@ -393,29 +393,29 @@ const THEME_STYLES = {
   gold_rose: {
     night: {
       bg: "bg-[#0a0506] text-[#FFFFFF]",
-      card: "bg-rose-950/40 backdrop-blur-[50px] border border-amber-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-rose-900/30 border border-amber-400/40 shadow-inner",
+      card: "bg-rose-950/25 backdrop-blur-[60px] border border-amber-400/35 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-rose-900/20 backdrop-blur-[40px] border border-amber-400/30 shadow-inner",
       headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
       tabActiveText: "text-rose-300 drop-shadow-[0_0_12px_rgba(244,63,94,0.9)]",
       accent: "text-amber-400",
       accentText: "text-amber-300 font-extrabold",
-      pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
+      pillBorder: "border border-rose-400/40 bg-rose-500/15 text-rose-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-rose-400/35 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
     },
     day: {
       bg: "bg-[#fff1f2] text-[#4c0519]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-rose-300 shadow-[0_20px_50px_rgba(244,63,94,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-rose-50/90 border-2 border-rose-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-rose-300/70 shadow-[0_24px_60px_rgba(244,63,94,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-rose-50/40 backdrop-blur-[40px] border-2 border-rose-200/60 shadow-sm",
       headingColor: "text-rose-950 font-black drop-shadow-sm",
       tabActiveText: "text-rose-900 font-black drop-shadow-[0_0_10px_rgba(244,63,94,0.6)]",
       accent: "text-rose-700 font-bold",
       accentText: "text-rose-700 font-black",
-      pillBorder: "border-2 border-rose-400 bg-rose-100/80 text-rose-950 font-black shadow-sm",
+      pillBorder: "border-2 border-rose-400/70 bg-rose-100/50 text-rose-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-rose-300 text-rose-950 placeholder-rose-400 focus:border-rose-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-rose-300/70 text-rose-950 placeholder-rose-400 focus:border-rose-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.25) 0%, rgba(244, 63, 94, 0) 70%)"
     }
@@ -423,29 +423,29 @@ const THEME_STYLES = {
   champagne: {
     night: {
       bg: "bg-[#0a0604] text-[#FFFFFF]",
-      card: "bg-orange-950/40 backdrop-blur-[50px] border border-orange-400/45 shadow-[0_20px_50px_rgba(249,115,22,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-orange-900/30 border border-orange-400/40 shadow-inner",
+      card: "bg-orange-950/25 backdrop-blur-[60px] border border-orange-400/35 shadow-[0_24px_60px_rgba(249,115,22,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-orange-900/20 backdrop-blur-[40px] border border-orange-400/30 shadow-inner",
       headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
       tabActiveText: "text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.9)]",
       accent: "text-amber-400",
       accentText: "text-amber-300 font-extrabold",
-      pillBorder: "border border-orange-400/50 bg-orange-500/20 text-orange-200",
+      pillBorder: "border border-orange-400/40 bg-orange-500/15 text-orange-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_30px_rgba(249,115,22,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-orange-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-orange-400/35 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)"
     },
     day: {
       bg: "bg-[#fff7ed] text-[#431407]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-orange-300 shadow-[0_20px_50px_rgba(249,115,22,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-orange-50/90 border-2 border-orange-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-orange-300/70 shadow-[0_24px_60px_rgba(249,115,22,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-orange-50/40 backdrop-blur-[40px] border-2 border-orange-200/60 shadow-sm",
       headingColor: "text-orange-950 font-black drop-shadow-sm",
       tabActiveText: "text-orange-900 font-black drop-shadow-[0_0_10px_rgba(249,115,22,0.6)]",
       accent: "text-orange-700 font-bold",
       accentText: "text-orange-700 font-black",
-      pillBorder: "border-2 border-orange-400 bg-orange-100/80 text-orange-950 font-black shadow-sm",
+      pillBorder: "border-2 border-orange-400/70 bg-orange-100/50 text-orange-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(249,115,22,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-orange-300 text-orange-950 placeholder-orange-400 focus:border-orange-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-orange-300/70 text-orange-950 placeholder-orange-400 focus:border-orange-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.25) 0%, rgba(249, 115, 22, 0) 70%)"
     }
@@ -453,29 +453,29 @@ const THEME_STYLES = {
   emerald: {
     night: {
       bg: "bg-[#030907] text-[#FFFFFF]",
-      card: "bg-emerald-950/40 backdrop-blur-[50px] border border-emerald-400/45 shadow-[0_20px_50px_rgba(16,185,129,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-emerald-900/30 border border-emerald-400/40 shadow-inner",
+      card: "bg-emerald-950/25 backdrop-blur-[60px] border border-emerald-400/35 shadow-[0_24px_60px_rgba(16,185,129,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-emerald-900/20 backdrop-blur-[40px] border border-emerald-400/30 shadow-inner",
       headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(16,185,129,0.4)]",
       tabActiveText: "text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.9)]",
       accent: "text-emerald-400",
       accentText: "text-emerald-300 font-extrabold",
-      pillBorder: "border border-emerald-400/50 bg-emerald-500/20 text-emerald-200",
+      pillBorder: "border border-emerald-400/40 bg-emerald-500/15 text-emerald-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_30px_rgba(16,185,129,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-emerald-400/40 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-emerald-400/35 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
     },
     day: {
       bg: "bg-[#ecfdf5] text-[#064e3b]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-emerald-300 shadow-[0_20px_50px_rgba(16,185,129,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-emerald-50/90 border-2 border-emerald-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-emerald-300/70 shadow-[0_24px_60px_rgba(16,185,129,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-emerald-50/40 backdrop-blur-[40px] border-2 border-emerald-200/60 shadow-sm",
       headingColor: "text-emerald-950 font-black drop-shadow-sm",
       tabActiveText: "text-emerald-900 font-black drop-shadow-[0_0_10px_rgba(16,185,129,0.6)]",
       accent: "text-emerald-700 font-bold",
       accentText: "text-emerald-700 font-black",
-      pillBorder: "border-2 border-emerald-400 bg-emerald-100/80 text-emerald-950 font-black shadow-sm",
+      pillBorder: "border-2 border-emerald-400/70 bg-emerald-100/50 text-emerald-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-emerald-300 text-emerald-950 placeholder-emerald-400 focus:border-emerald-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-emerald-300/70 text-emerald-950 placeholder-emerald-400 focus:border-emerald-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.25) 0%, rgba(20, 184, 166, 0) 70%)"
     }
@@ -483,29 +483,29 @@ const THEME_STYLES = {
   violet: {
     night: {
       bg: "bg-[#06030c] text-[#FFFFFF]",
-      card: "bg-purple-950/40 backdrop-blur-[50px] border border-purple-400/45 shadow-[0_20px_50px_rgba(168,85,247,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-purple-900/30 border border-purple-400/40 shadow-inner",
+      card: "bg-purple-950/25 backdrop-blur-[60px] border border-purple-400/35 shadow-[0_24px_60px_rgba(168,85,247,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-purple-900/20 backdrop-blur-[40px] border border-purple-400/30 shadow-inner",
       headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
       tabActiveText: "text-purple-300 drop-shadow-[0_0_12px_rgba(168,85,247,0.9)]",
       accent: "text-purple-400",
       accentText: "text-purple-300 font-extrabold",
-      pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
+      pillBorder: "border border-purple-400/40 bg-purple-500/15 text-purple-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_30px_rgba(168,85,247,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-purple-400/35 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
     },
     day: {
       bg: "bg-[#faf5ff] text-[#3b0764]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-purple-300 shadow-[0_20px_50px_rgba(168,85,247,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-purple-50/90 border-2 border-purple-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-purple-300/70 shadow-[0_24px_60px_rgba(168,85,247,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-purple-50/40 backdrop-blur-[40px] border-2 border-purple-200/60 shadow-sm",
       headingColor: "text-purple-950 font-black drop-shadow-sm",
       tabActiveText: "text-purple-900 font-black drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]",
       accent: "text-purple-700 font-bold",
       accentText: "text-purple-700 font-black",
-      pillBorder: "border-2 border-purple-400 bg-purple-100/80 text-purple-950 font-black shadow-sm",
+      pillBorder: "border-2 border-purple-400/70 bg-purple-100/50 text-purple-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-purple-300 text-purple-950 placeholder-purple-400 focus:border-purple-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-purple-300/70 text-purple-950 placeholder-purple-400 focus:border-purple-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%)"
     }
@@ -513,29 +513,29 @@ const THEME_STYLES = {
   ruby: {
     night: {
       bg: "bg-[#0c0305] text-[#FFFFFF]",
-      card: "bg-rose-950/40 backdrop-blur-[50px] border border-rose-400/45 shadow-[0_20px_50px_rgba(244,63,94,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-rose-900/30 border border-rose-400/40 shadow-inner",
+      card: "bg-rose-950/25 backdrop-blur-[60px] border border-rose-400/35 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-rose-900/20 backdrop-blur-[40px] border border-rose-400/30 shadow-inner",
       headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
       tabActiveText: "text-rose-300 drop-shadow-[0_0_12px_rgba(244,63,94,0.9)]",
       accent: "text-rose-400",
       accentText: "text-rose-300 font-extrabold",
-      pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
+      pillBorder: "border border-rose-400/40 bg-rose-500/15 text-rose-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-rose-400/35 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0) 70%)"
     },
     day: {
       bg: "bg-[#fff1f2] text-[#4c0519]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-rose-300 shadow-[0_20px_50px_rgba(244,63,94,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-rose-50/90 border-2 border-rose-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-rose-300/70 shadow-[0_24px_60px_rgba(244,63,94,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-rose-50/40 backdrop-blur-[40px] border-2 border-rose-200/60 shadow-sm",
       headingColor: "text-rose-950 font-black drop-shadow-sm",
       tabActiveText: "text-rose-900 font-black drop-shadow-[0_0_10px_rgba(244,63,94,0.6)]",
       accent: "text-rose-700 font-bold",
       accentText: "text-rose-700 font-black",
-      pillBorder: "border-2 border-rose-400 bg-rose-100/80 text-rose-950 font-black shadow-sm",
+      pillBorder: "border-2 border-rose-400/70 bg-rose-100/50 text-rose-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-rose-300 text-rose-950 placeholder-rose-400 focus:border-rose-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-rose-300/70 text-rose-950 placeholder-rose-400 focus:border-rose-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.3) 0%, rgba(244, 63, 94, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.25) 0%, rgba(225, 29, 72, 0) 70%)"
     }
@@ -543,29 +543,29 @@ const THEME_STYLES = {
   sapphire: {
     night: {
       bg: "bg-[#03050c] text-[#FFFFFF]",
-      card: "bg-blue-950/40 backdrop-blur-[50px] border border-blue-400/45 shadow-[0_20px_50px_rgba(37,99,235,0.22),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-blue-900/30 border border-blue-400/40 shadow-inner",
+      card: "bg-blue-950/25 backdrop-blur-[60px] border border-blue-400/35 shadow-[0_24px_60px_rgba(37,99,235,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-blue-900/20 backdrop-blur-[40px] border border-blue-400/30 shadow-inner",
       headingColor: "text-blue-300 drop-shadow-[0_2px_10px_rgba(37,99,235,0.4)]",
       tabActiveText: "text-blue-300 drop-shadow-[0_0_12px_rgba(37,99,235,0.9)]",
       accent: "text-blue-400",
       accentText: "text-blue-300 font-extrabold",
-      pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
+      pillBorder: "border border-blue-400/40 bg-blue-500/15 text-blue-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.6)] rounded-full",
-      inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-blue-400/35 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(37, 99, 235, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 70%)"
     },
     day: {
       bg: "bg-[#eff6ff] text-[#1e3a8a]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-blue-300 shadow-[0_20px_50px_rgba(37,99,235,0.15),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-blue-50/90 border-2 border-blue-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-blue-300/70 shadow-[0_24px_60px_rgba(37,99,235,0.12),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-blue-50/40 backdrop-blur-[40px] border-2 border-blue-200/60 shadow-sm",
       headingColor: "text-blue-950 font-black drop-shadow-sm",
       tabActiveText: "text-blue-900 font-black drop-shadow-[0_0_10px_rgba(37,99,235,0.6)]",
       accent: "text-blue-700 font-bold",
       accentText: "text-blue-700 font-black",
-      pillBorder: "border-2 border-blue-400 bg-blue-100/80 text-blue-950 font-black shadow-sm",
+      pillBorder: "border-2 border-blue-400/70 bg-blue-100/50 text-blue-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-blue-300 text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-blue-300/70 text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, rgba(37, 99, 235, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, rgba(79, 70, 229, 0) 70%)"
     }
@@ -573,29 +573,29 @@ const THEME_STYLES = {
   default: {
     night: {
       bg: "bg-[#06070a] text-[#FFFFFF]",
-      card: "bg-white/[0.1] backdrop-blur-[50px] border border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/[0.08] border border-white/20 shadow-inner",
+      card: "bg-white/[0.06] backdrop-blur-[60px] border border-white/25 shadow-[0_24px_60px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/[0.04] backdrop-blur-[40px] border border-white/20 shadow-inner",
       headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
       tabActiveText: "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]",
       accent: "text-sky-400",
       accentText: "text-sky-300 font-extrabold",
-      pillBorder: "border border-white/35 bg-white/15 text-white",
+      pillBorder: "border border-white/30 bg-white/10 text-white backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] rounded-full",
-      inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
+      inputBg: "bg-black/30 backdrop-blur-[40px] border border-white/25 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.42) 0%, rgba(0, 122, 255, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 70%)"
     },
     day: {
       bg: "bg-[#f8fafc] text-[#0f172a]",
-      card: "bg-white/85 backdrop-blur-[50px] border-2 border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-slate-100/90 border-2 border-slate-200 shadow-sm",
+      card: "bg-white/45 backdrop-blur-[60px] border-2 border-slate-300/70 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_2px_3px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-slate-100/40 backdrop-blur-[40px] border-2 border-slate-200/60 shadow-sm",
       headingColor: "text-slate-950 font-black drop-shadow-sm",
       tabActiveText: "text-sky-900 font-black drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]",
       accent: "text-sky-700 font-bold",
       accentText: "text-sky-700 font-black",
-      pillBorder: "border-2 border-slate-400 bg-slate-100 text-slate-950 font-black shadow-sm",
+      pillBorder: "border-2 border-slate-400/70 bg-slate-100/50 text-slate-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white border-2 border-slate-300 text-slate-950 placeholder-slate-400 focus:border-sky-600 focus:bg-white shadow-inner font-medium",
+      inputBg: "bg-white/50 backdrop-blur-[40px] border-2 border-slate-300/70 text-slate-950 placeholder-slate-400 focus:border-sky-600 focus:bg-white/80 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.3) 0%, rgba(0, 122, 255, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0) 70%)"
     }
@@ -787,10 +787,6 @@ function MainAppContent() {
 
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
-
-  // Dynamic Navigation Pill Bar references
-  const navTrackRef = useRef(null);
-  const [gliderStyle, setGliderStyle] = useState({ left: 0, width: 0 });
 
   // Fullscreen mobile support
   useEffect(() => {
@@ -1272,7 +1268,7 @@ function MainAppContent() {
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-500 ease-out`}>
         <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
             <Wrench className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
           <div className="space-y-2">
@@ -1290,7 +1286,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-300 ease-out overflow-x-hidden`}
+      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-500 ease-out overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -1342,12 +1338,13 @@ function MainAppContent() {
         .hf-app[data-hf-mode="day"] .hf-lens-btn {
           background: rgba(255, 255, 255, 0.25) !important;
           border: 1.5px solid rgba(99, 102, 241, 0.45) !important;
+          color: #1e1b4b !important;
           box-shadow: 0 8px 24px rgba(99, 102, 241, 0.18), 
                       inset 0 1.5px 3px rgba(255, 255, 255, 0.95), 
                       inset 0 -1.5px 2.5px rgba(99, 102, 241, 0.15) !important;
         }
 
-        /* iOS Centered Dock */
+        /* iOS Dock with Perfectly Centered Sliding Glass Capsule */
         .hf-ios-dock-wrapper {
           position: relative;
           display: flex;
@@ -1389,7 +1386,7 @@ function MainAppContent() {
           pointer-events: none;
           z-index: 0;
           border-radius: 9999px;
-          filter: blur(75px);
+          filter: blur(85px);
           transform: translate3d(0,0,0);
           will-change: transform;
           animation: hfLiquidFloat 16s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
@@ -1454,9 +1451,9 @@ function MainAppContent() {
           width: calc(100% - 24px); 
           max-width: 460px; 
           border-radius: 9999px !important; 
-          backdrop-filter: blur(40px); 
-          -webkit-backdrop-filter: blur(40px);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.45); 
+          backdrop-filter: blur(60px); 
+          -webkit-backdrop-filter: blur(60px);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
           z-index: 50;
         }
       `}</style>
@@ -1610,7 +1607,7 @@ function MainAppContent() {
       {/* TOP FIXED TICKER & HEADER */}
       <div ref={topHeaderWrapperRef} className="fixed top-0 inset-x-0 z-40">
         {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-          <div className={`w-full py-1.5 px-3 overflow-hidden text-[10px] sm:text-xs font-bold border-b shadow-sm backdrop-blur-[40px] ${isDarkMode ? 'bg-black/60 border-white/10 text-white' : 'bg-white/90 border-slate-300 text-slate-900'}`}>
+          <div className={`w-full py-1.5 px-3 overflow-hidden text-[10px] sm:text-xs font-bold border-b shadow-sm backdrop-blur-[50px] ${isDarkMode ? 'bg-black/50 border-white/10 text-white' : 'bg-white/80 border-slate-300 text-slate-900'}`}>
             <div className="overflow-hidden whitespace-nowrap w-full flex items-center">
               <div className="hf-marquee-track flex items-center">
                 {(config.announcements && config.announcements.length > 0 ? config.announcements : [
@@ -1623,7 +1620,7 @@ function MainAppContent() {
                   "💄 Certified International Makeup Artist • 100% Genuine Luxury Vanity Products (Dior, Charlotte Tilbury, Huda Beauty)"
                 ]).map((ann, idx) => (
                   <span key={idx} className="mx-6 sm:mx-8 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-pink-500 animate-pulse shrink-0" />
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-pink-500 animate-pulse shrink-0 shadow-[0_0_10px_#ec4899]" />
                     <span>{ann}</span>
                   </span>
                 ))}
@@ -1632,8 +1629,8 @@ function MainAppContent() {
           </div>
         )}
 
-        {/* HEADER NAVBAR */}
-        <header className={`w-full px-3 sm:px-8 py-2.5 sm:py-3.5 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 shadow-lg backdrop-blur-[50px]`}>
+        {/* TRANSLUCENT HEADER NAVBAR */}
+        <header className={`w-full px-3 sm:px-8 py-2.5 sm:py-3.5 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 shadow-lg backdrop-blur-[60px]`}>
           <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2.5 sm:space-x-3.5 select-none min-w-0">
@@ -1674,12 +1671,12 @@ function MainAppContent() {
 
             {/* DESKTOP FLUID TABS (iOS Style Standard Size) */}
             <div className="hidden sm:flex w-full items-center justify-center">
-              <nav className="hf-ios-dock-wrapper rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-md max-w-xl">
+              <nav className="hf-ios-dock-wrapper rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-[60px] max-w-xl">
                 <div 
                   className="hf-ios-glider hf-lens-btn"
                   style={{
-                    width: `calc(${100 / navTabs.length}% - 8px / ${navTabs.length})`,
-                    transform: `translateX(calc(${activeTabIndex * 100}% + ${activeTabIndex * (8 / navTabs.length)}px))`
+                    width: `calc((100% - 8px) / ${navTabs.length})`,
+                    transform: `translateX(calc(${activeTabIndex} * 100%))`
                   }}
                 />
                 {navTabs.map(tab => {
@@ -1689,7 +1686,7 @@ function MainAppContent() {
                     <button 
                       key={tab.id} 
                       onClick={() => setActiveTab(tab.id)} 
-                      className={`relative z-10 flex-1 h-full flex items-center justify-center gap-1.5 px-3 rounded-full text-xs font-black transition-colors duration-200 ${isActive ? `${activeThemeStyle.tabActiveText}` : (isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900')}`}
+                      className={`relative z-10 flex-1 h-full flex items-center justify-center gap-1.5 px-3 rounded-full text-xs font-black transition-colors duration-200 text-center ${isActive ? `${activeThemeStyle.tabActiveText}` : (isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900')}`}
                     >
                       <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                     </button>
@@ -1708,8 +1705,8 @@ function MainAppContent() {
             <div 
               className="hf-ios-glider hf-lens-btn"
               style={{
-                width: `calc(${100 / navTabs.length}% - 8px / ${navTabs.length})`,
-                transform: `translateX(calc(${activeTabIndex * 100}% + ${activeTabIndex * (8 / navTabs.length)}px))`
+                width: `calc((100% - 8px) / ${navTabs.length})`,
+                transform: `translateX(calc(${activeTabIndex} * 100%))`
               }}
             />
             {navTabs.map(tab => {
@@ -1719,7 +1716,7 @@ function MainAppContent() {
                 <button 
                   key={tab.id} 
                   onClick={() => setActiveTab(tab.id)} 
-                  className={`relative z-10 flex-1 h-full flex flex-col items-center justify-center rounded-full transition-colors duration-200 ${isActive ? `${activeThemeStyle.tabActiveText} font-black` : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
+                  className={`relative z-10 flex-1 h-full flex flex-col items-center justify-center rounded-full transition-colors duration-200 text-center ${isActive ? `${activeThemeStyle.tabActiveText} font-black` : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
                 >
                   <Icon className="w-4 h-4 shrink-0" />
                   <span className="text-[9px] mt-0.5 font-extrabold">{tab.label}</span>
@@ -1861,7 +1858,7 @@ function MainAppContent() {
           <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
               <div className={`${activeThemeStyle.card} p-6 sm:p-10 text-center space-y-5 shadow-2xl max-w-lg mx-auto`}>
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[24px] bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border-2 border-emerald-400/40">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[24px] bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border-2 border-emerald-400/40 shadow-[0_0_25px_rgba(16,185,129,0.3)]">
                   <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
                 </div>
                 <div className={`inline-block px-5 py-2 rounded-full ${activeThemeStyle.pillBorder} font-mono font-black text-xs`}>
@@ -2137,7 +2134,7 @@ function MainAppContent() {
             </div>
             {feedbackSubmitted ? (
               <div className="p-6 rounded-[22px] bg-emerald-500/20 border-2 border-emerald-400/40 text-center space-y-3">
-                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
+                <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto shadow-[0_0_20px_rgba(16,185,129,0.4)]" />
                 <h4 className="font-black text-base sm:text-lg text-emerald-500">Thank you for your feedback!</h4>
                 <p className={`text-xs font-semibold leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Your suggestion has been securely recorded to help us improve.</p>
                 <button onClick={() => setFeedbackSubmitted(false)} className={`mt-2 px-5 py-2.5 rounded-full ${activeThemeStyle.pillBorder} text-xs font-bold transition-all active:scale-95`}>Submit Another</button>
@@ -2167,9 +2164,9 @@ function MainAppContent() {
 
       {/* FLOATING PROMO BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
-        <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border-2 border-slate-400/40 backdrop-blur-[50px]`}>
+        <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border-2 border-slate-400/40 backdrop-blur-[60px]`}>
           <div className="flex items-start justify-between gap-2.5">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
               <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
             </div>
             <div className="flex-1 min-w-0">
