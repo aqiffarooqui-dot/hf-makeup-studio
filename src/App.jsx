@@ -318,6 +318,119 @@ const DAY_MODE_OVERRIDES = {
   glowOrb2: "rgba(56, 189, 248, 0.15)"
 };
 
+const ALL_INDIA_STATES_AND_CITIES = {
+  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi", "Old Delhi", "Chandni Chowk", "Civil Lines", "Model Town", "Kamla Nagar", "Mukherjee Nagar", "GTB Nagar", "Shalimar Bagh", "Ashok Vihar", "Pitampura", "Rohini", "Prashant Vihar", "Kohat Enclave", "Keshav Puram", "Wazirpur", "Punjabi Bagh", "Rajouri Garden", "Tilak Nagar", "Janakpuri", "Vikaspuri", "Uttam Nagar", "Dwarka", "Palam", "Mahavir Enclave", "Vasant Kunj", "Vasant Vihar", "R K Puram", "Munirka", "Hauz Khas", "Green Park", "Saket", "Malviya Nagar", "Mehrauli", "Chhatarpur", "Greater Kailash", "GK-I", "GK-II", "Kalkaji", "Nehru Place", "Govindpuri", "Tughlakabad", "Okhla", "Okhla Phase I", "Okhla Phase II", "Okhla Phase III", "Jamia Nagar", "Abul Fazal Enclave", "Batla House", "Shaheen Bagh", "Jasola", "Sarita Vihar", "Madanpur Khadar", "Lajpat Nagar", "Amar Colony", "Greater Kailash", "Defence Colony", "Jangpura", "Lodi Colony", "South Extension", "Srinivaspuri", "East of Kailash", "Mayur Vihar", "Preet Vihar", "Laxmi Nagar", "Shahdara", "Patparganj", "Vivek Vihar", "Anand Vihar", "IP Extension", "Dilshad Garden", "Seelampur", "Karawal Nagar", "Burari", "Narela", "Bawana", "Najafgarh", "Dhaula Kuan", "Chanakyapuri", "Karol Bagh", "Paharganj", "Rajinder Nagar", "Patel Nagar", "Kirti Nagar", "Moti Nagar", "Naraina", "Connaught Place", "Barakhamba", "India Gate", "Pragati Maidan"],
+  "Uttar Pradesh": ["Noida", "Greater Noida", "Amroha", "Ghaziabad", "Lucknow", "Kanpur", "Agra", "Varanasi", "Meerut", "Moradabad", "Bareilly", "Aligarh", "Mathura", "Sambhal"],
+  "Haryana": ["Gurugram (Gurgaon)", "Faridabad", "Panipat", "Ambala", "Karnal", "Rohtak", "Hisar", "Sonipat"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad", "Solapur", "Kolhapur"],
+  "Karnataka": ["Bengaluru (Bangalore)", "Mysuru (Mysore)", "Hubballi", "Mangaluru", "Belagavi"],
+  "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer", "Bikaner", "Alwar"],
+  "Punjab": ["Chandigarh", "Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar", "Bhavnagar"],
+  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Asansol", "Siliguri"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Vellore"],
+  "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam"],
+  "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
+  "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur", "Purnia"],
+  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam"],
+  "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Berhampur", "Puri"],
+  "Other State / UT": ["Other Major City"]
+};
+
+const getTimeRemaining = (expiryDateStr) => {
+  if (!expiryDateStr) return null;
+  const total = Date.parse(expiryDateStr) - Date.now();
+  if (total <= 0) return { expired: true, text: "Expired" };
+
+  const seconds = Math.floor((total / 1000) % 60);
+  const minutes = Math.floor((total / 1000 / 60) % 60);
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+  return {
+    expired: false,
+    text: `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`
+  };
+};
+
+const isVideoMedia = (item) => {
+  if (item?.type === 'video') return true;
+  if (typeof item?.url === 'string') {
+    const u = item.url.toLowerCase();
+    return u.startsWith('data:video') || u.endsWith('.mp4') || u.endsWith('.webm') || u.endsWith('.mov') || u.endsWith('.mkv') || u.includes('video/');
+  }
+  return false;
+};
+
+const getCleanInstagramUrl = (handleOrUrl) => {
+  if (!handleOrUrl) return "https://www.instagram.com/husna_farooqui_makeup/";
+  let clean = String(handleOrUrl).trim();
+  if (clean.startsWith('http://') || clean.startsWith('https://')) return clean;
+  clean = clean.replace(/^@+/, '').replace(/^\/+|\/+$/g, '');
+  return `https://www.instagram.com/${clean}/`;
+};
+
+const resolveProfileImageUrl = (configData) => {
+  if (configData?.profilePhotoType === 'instagram') {
+    const handle = (configData.instagramHandle || '').replace('@', '').trim();
+    if (handle) {
+      return `https://wsrv.nl/?url=https://unavatar.io/instagram/${handle}&w=300&h=300&fit=cover&default=${encodeURIComponent(DEFAULT_PROFILE_IMG)}`;
+    }
+  }
+  if (configData?.profileImage && configData.profileImage.trim().length > 0) {
+    return configData.profileImage;
+  }
+  return DEFAULT_PROFILE_IMG;
+};
+
+const AutoPlayVideoCard = ({ item }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play().catch(() => {});
+        }
+      });
+    }
+  }, [item.url]);
+
+  return (
+    <div className="h-72 sm:h-84 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[32px] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out hover:scale-[1.02]">
+      <video
+        ref={videoRef}
+        src={item.url}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
+      />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5 text-white">
+        <span className="text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
+        <h4 className="font-black text-sm sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
+          <Film className="w-4 h-4 text-pink-400 shrink-0 animate-pulse" />
+          <span>{item.title}</span>
+        </h4>
+      </div>
+    </div>
+  );
+};
+
+const MEDIA_COLLECTION = 'studio_media';
+const resolveMediaValue = (value, mediaMap) => typeof value === 'string' && value.startsWith('media://') ? (mediaMap[value.slice(8)] || value) : value;
+const resolveConfigMedia = (live, mediaMap) => {
+  const next = JSON.parse(JSON.stringify(live || {}));
+  next.studioLogo = resolveMediaValue(next.studioLogo, mediaMap);
+  next.profileImage = resolveMediaValue(next.profileImage, mediaMap);
+  Object.entries(next.kitImages || {}).forEach(([kit, imgs]) => Object.entries(imgs || {}).forEach(([pkg, url]) => { next.kitImages[kit][pkg] = resolveMediaValue(url, mediaMap); }));
+  (next.galleryPhotos || []).forEach(item => { if (item?.url) item.url = resolveMediaValue(item.url, mediaMap); });
+  return next;
+};
+
 function MainAppContent() {
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [activeTab, setActiveTab] = useState('menu');
@@ -973,7 +1086,7 @@ function MainAppContent() {
       )}
 
       {/* MAIN CONTAINER: PRECISE PADDING TO PREVENT OVERLAP */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-[148px] sm:pt-[168px] pb-32 sm:pb-24 relative z-10">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-[140px] sm:pt-[150px] pb-32 sm:pb-24 relative z-10">
         {activeTab === 'menu' && (
           <div className="space-y-6 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
@@ -1096,7 +1209,7 @@ function MainAppContent() {
                 {generatedJpgUrl && (
                   <div className="pt-3">
                     <a href={generatedJpgUrl} download={`Booking_Sent_Receipt_${currentBookingNumber}.jpg`} className={`px-6 py-3.5 rounded-[20px] ${activeThemeStyle.btn} font-semibold inline-flex items-center gap-2 text-sm transition-all duration-500 shadow-xl active:scale-95`}>
-                      <Download className="w-4 h-4" /> <span>Download Booking Receipt (.JPG)</span>
+                      <Download className="w-4 h-4" /> <span>Download Booking Slip (.JPG)</span>
                     </a>
                   </div>
                 )}
