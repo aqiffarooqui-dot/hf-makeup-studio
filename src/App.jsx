@@ -5,7 +5,7 @@ import {
   Volume2, Sun, Moon, Send, Percent, Camera, Award, Heart, Download, Image as ImageIcon,
   Play, Film, ExternalLink, User, Flame, ArrowRight, Eye, Info, Activity, Clock, AlertCircle,
   Receipt, FileText, Hash, Wrench, ShieldAlert, Users, Plus, Trash2, MessageSquare, Share2, QrCode, Copy, CheckCheck, RefreshCw,
-  Home, Building2, Navigation, Compass, Zap, Droplet
+  Home, Building2, Navigation, Compass, Zap, Droplet, ZoomIn, ZoomOut, RotateCcw
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
@@ -46,7 +46,7 @@ class AppErrorBoundary extends Component {
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm transition-all duration-300 shadow-[0_10px_25px_rgba(37,99,235,0.4)] active:scale-[0.98]"
+              className="w-full py-3 sm:py-3.5 rounded-full hf-bubble-btn text-white font-bold text-xs sm:text-sm transition-all duration-300 active:scale-[0.98]"
             >
               Refresh to Safe Version
             </button>
@@ -107,9 +107,9 @@ const DEFAULT_KIT_TEXT = {
 };
 
 const DEFAULT_GALLERY = [
-  { type: "image", title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&auto=format&fit=crop&q=80" },
+  { type: "image", title: "Royal Asian Bridal", sub: "Prestige HD Artistry", url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1600&auto=format&fit=crop&q=95" },
   { type: "video", title: "Dewy Glow Finishing", sub: "16HR Stay Artistry", url: "https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-woman-applying-makeup-41419-large.mp4" },
-  { type: "image", title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=800&auto=format&fit=crop&q=80" },
+  { type: "image", title: "Engagement Glow", sub: "Dewy Glass Finish", url: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?w=1600&auto=format&fit=crop&q=95" },
   { type: "video", title: "Cocktail Reception Glam", sub: "Smokey Eyes & Bold Lips", url: "https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-makeup-41418-large.mp4" }
 ];
 
@@ -188,7 +188,7 @@ const THEME_STYLES = {
     accent: "text-purple-300",
     accentText: "text-purple-300 font-extrabold",
     pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
-    btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_28px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_34px_rgba(236,72,153,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_34px_rgba(236,72,153,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(236, 72, 153, 0) 70%)"
@@ -201,7 +201,7 @@ const THEME_STYLES = {
     accent: "text-amber-300",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-amber-400/50 bg-amber-500/20 text-amber-200",
-    btn: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-amber-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
@@ -214,7 +214,7 @@ const THEME_STYLES = {
     accent: "text-cyan-300",
     accentText: "text-cyan-300 font-extrabold",
     pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
-    btn: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-neutral-950 font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(16, 185, 129, 0) 70%)"
@@ -227,7 +227,7 @@ const THEME_STYLES = {
     accent: "text-sky-300",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
-    btn: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_34px_rgba(0,122,255,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_34px_rgba(0,122,255,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.45) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -240,7 +240,7 @@ const THEME_STYLES = {
     accent: "text-sky-300",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-sky-400/50 bg-sky-500/20 text-sky-200",
-    btn: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -253,7 +253,7 @@ const THEME_STYLES = {
     accent: "text-cyan-300",
     accentText: "text-cyan-300 font-extrabold",
     pillBorder: "border border-cyan-400/50 bg-cyan-500/20 text-cyan-200",
-    btn: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_34px_rgba(6,182,212,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-cyan-400/40 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(37, 99, 235, 0) 70%)"
@@ -266,7 +266,7 @@ const THEME_STYLES = {
     accent: "text-violet-300",
     accentText: "text-violet-300 font-extrabold",
     pillBorder: "border border-violet-400/50 bg-violet-500/20 text-violet-200",
-    btn: "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black shadow-[0_10px_28px_rgba(139,92,246,0.45)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(139,92,246,0.45)] rounded-full",
     inputBg: "bg-black/40 border border-zinc-500/50 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.42) 0%, rgba(139, 92, 246, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(168, 85, 247, 0) 70%)"
@@ -279,7 +279,7 @@ const THEME_STYLES = {
     accent: "text-amber-300",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
-    btn: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
@@ -292,7 +292,7 @@ const THEME_STYLES = {
     accent: "text-amber-300",
     accentText: "text-amber-300 font-extrabold",
     pillBorder: "border border-orange-400/50 bg-orange-500/20 text-orange-200",
-    btn: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_28px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_34px_rgba(249,115,22,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-neutral-950 font-black shadow-[0_10px_28px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_34px_rgba(249,115,22,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-orange-400/40 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)"
@@ -305,7 +305,7 @@ const THEME_STYLES = {
     accent: "text-emerald-300",
     accentText: "text-emerald-300 font-extrabold",
     pillBorder: "border border-emerald-400/50 bg-emerald-500/20 text-emerald-200",
-    btn: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_28px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_34px_rgba(16,185,129,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_34px_rgba(16,185,129,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-emerald-400/40 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
@@ -318,7 +318,7 @@ const THEME_STYLES = {
     accent: "text-purple-300",
     accentText: "text-purple-300 font-extrabold",
     pillBorder: "border border-purple-400/50 bg-purple-500/20 text-purple-200",
-    btn: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_28px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_34px_rgba(168,85,247,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_34px_rgba(168,85,247,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-purple-400/40 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
@@ -331,7 +331,7 @@ const THEME_STYLES = {
     accent: "text-rose-300",
     accentText: "text-rose-300 font-extrabold",
     pillBorder: "border border-rose-400/50 bg-rose-500/20 text-rose-200",
-    btn: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_34px_rgba(244,63,94,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-rose-400/40 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0) 70%)"
@@ -344,7 +344,7 @@ const THEME_STYLES = {
     accent: "text-blue-300",
     accentText: "text-blue-300 font-extrabold",
     pillBorder: "border border-blue-400/50 bg-blue-500/20 text-blue-200",
-    btn: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_34px_rgba(37,99,235,0.6)] rounded-full",
     inputBg: "bg-black/40 border border-blue-400/40 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(37, 99, 235, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 70%)"
@@ -357,7 +357,7 @@ const THEME_STYLES = {
     accent: "text-sky-300",
     accentText: "text-sky-300 font-extrabold",
     pillBorder: "border border-white/35 bg-white/15 text-white",
-    btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] rounded-full",
+    btn: "hf-bubble-btn text-white font-black shadow-[0_10px_28px_rgba(0,122,255,0.45)] rounded-full",
     inputBg: "bg-black/40 border border-white/30 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/60",
     glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.42) 0%, rgba(0, 122, 255, 0) 70%)",
     glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 70%)"
@@ -366,12 +366,12 @@ const THEME_STYLES = {
 
 const DAY_MODE_OVERRIDES = {
   bg: "bg-[#edf2f7] text-[#0f172a]",
-  card: "bg-white/85 backdrop-blur-[50px] border-2 border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
+  card: "bg-white/80 backdrop-blur-[50px] border-2 border-slate-300/80 shadow-[0_20px_50px_rgba(15,23,42,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] rounded-[28px] sm:rounded-[32px]",
   innerCard: "bg-slate-100/90 border-2 border-slate-300 shadow-[0_4px_16px_rgba(15,23,42,0.06)]",
   headingColor: "text-indigo-900 font-extrabold drop-shadow-sm",
   accent: "text-indigo-600 font-bold",
   accentText: "text-indigo-600 font-black",
-  pillBorder: "border-2 border-slate-400/80 bg-white text-slate-900 font-bold shadow-sm",
+  pillBorder: "border-2 border-slate-400/80 bg-white/80 text-slate-900 font-bold shadow-sm backdrop-blur-md",
   inputBg: "bg-white border-2 border-slate-300 text-slate-900 placeholder-slate-500 focus:border-indigo-600 focus:bg-white shadow-inner font-medium",
   glowOrb1: "radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(99, 102, 241, 0) 70%)",
   glowOrb2: "radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, rgba(14, 165, 233, 0) 70%)"
@@ -442,7 +442,7 @@ const resolveProfileImageUrl = (configData) => {
   return DEFAULT_PROFILE_IMG;
 };
 
-const AutoPlayVideoCard = ({ item }) => {
+const AutoPlayVideoCard = ({ item, onOpen }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -457,7 +457,10 @@ const AutoPlayVideoCard = ({ item }) => {
   }, [item.url]);
 
   return (
-    <div className="h-64 sm:h-80 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[24px] sm:rounded-[32px] shadow-[inset_0_0_25px_rgba(0,0,0,0.9)] transition-all duration-700 ease-out hover:scale-[1.01] border border-white/20">
+    <div 
+      onClick={() => onOpen?.(item)} 
+      className="h-64 sm:h-80 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[24px] sm:rounded-[32px] shadow-[inset_0_0_25px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out hover:scale-[1.01] border border-white/20 cursor-pointer"
+    >
       <video
         ref={videoRef}
         src={item.url}
@@ -508,6 +511,8 @@ function MainAppContent() {
   const [showSplash, setShowSplash] = useState(true);
   const [splashFade, setSplashFade] = useState(false);
   const [viewingPackage, setViewingPackage] = useState(null);
+  const [viewingMedia, setViewingMedia] = useState(null);
+  const [zoomScale, setZoomScale] = useState(1);
   const [nowTick, setNowTick] = useState(Date.now());
 
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
@@ -555,6 +560,20 @@ function MainAppContent() {
   const canvasRef = useRef(null);
   const [generatedJpgUrl, setGeneratedJpgUrl] = useState(null);
 
+  // Fullscreen mobile support & meta viewport fix
+  useEffect(() => {
+    try {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      const handleResize = () => {
+        const nextVh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${nextVh}px`);
+      };
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    } catch {}
+  }, []);
+
   useEffect(() => {
     try {
       localStorage.setItem('hf_theme_preference', isDarkMode ? 'dark' : 'light');
@@ -582,14 +601,19 @@ function MainAppContent() {
   }, [showSplash, config.toggles?.enableAnnouncements, config.showOfferSection, config.announcements]);
 
   useEffect(() => {
-    const locked = Boolean(viewingPackage || showShareModal);
+    const locked = Boolean(viewingPackage || showShareModal || viewingMedia);
     document.body.style.overflow = locked ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [viewingPackage, showShareModal]);
+  }, [viewingPackage, showShareModal, viewingMedia]);
 
   useEffect(() => {
     const handlePopState = (e) => {
-      if (viewingPackage) {
+      if (viewingMedia) {
+        e.preventDefault();
+        setViewingMedia(null);
+        setZoomScale(1);
+        window.history.pushState(null, '', window.location.href);
+      } else if (viewingPackage) {
         e.preventDefault();
         setViewingPackage(null);
         window.history.pushState(null, '', window.location.href);
@@ -606,7 +630,7 @@ function MainAppContent() {
     window.history.pushState({ tab: activeTab }, '', window.location.href);
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, [activeTab, viewingPackage, showShareModal]);
+  }, [activeTab, viewingPackage, showShareModal, viewingMedia]);
 
   useEffect(() => {
     const timer = setInterval(() => setNowTick(Date.now()), 1000);
@@ -978,7 +1002,7 @@ function MainAppContent() {
 
   if (config.isAppDown || config.maintenanceMode) {
     return (
-      <div style={{ fontFamily: currentFontFamily }} className={`min-h-screen ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-all duration-700 ease-in-out`}>
+      <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-all duration-500 ease-out`}>
         <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40">
@@ -994,12 +1018,22 @@ function MainAppContent() {
     );
   }
 
+  const navTabs = [
+    { id: 'menu', label: 'Packages', icon: Crown, show: true },
+    { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
+    { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
+    { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+    { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
+  ].filter(t => t.show);
+
+  const activeTabIndex = Math.max(0, navTabs.findIndex(t => t.id === activeTab));
+
   return (
     <div 
-      style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none' }} 
+      style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-screen ${activeThemeStyle.bg} relative transition-all duration-500 ease-out overflow-x-hidden`}
+      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-500 ease-out overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -1008,28 +1042,80 @@ function MainAppContent() {
         *, *::before, *::after { box-sizing: border-box; }
         button, a, input, select, textarea, [role="button"] { -webkit-tap-highlight-color: transparent; }
         
-        /* Ultra Smooth Day/Night & Element Transitions */
-        .hf-app,
-        .hf-app * {
-          transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                      border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                      color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                      box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Ultra Smooth Hardware-Accelerated Rendering */
+        .hf-app {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility;
         }
 
-        button, a { 
-          will-change: transform, opacity;
-          transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                      opacity 0.2s ease, 
-                      background 0.4s ease,
-                      box-shadow 0.3s ease !important; 
+        /* Water-Bubble Fluid Glass Interactive Effect */
+        .hf-bubble-btn {
+          position: relative;
+          background: rgba(255, 255, 255, 0.12) !important;
+          backdrop-filter: blur(25px) saturate(180%);
+          -webkit-backdrop-filter: blur(25px) saturate(180%);
+          border: 1.5px solid rgba(255, 255, 255, 0.55) !important;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 
+                      inset 0 2px 4px rgba(255, 255, 255, 0.8), 
+                      inset 0 -2px 4px rgba(0, 0, 0, 0.15) !important;
+          transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.25s ease;
+          overflow: hidden;
         }
-        
-        html, body, #root { min-height: 100%; width: 100%; margin: 0; }
-        html { overflow-x: hidden; scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
+        .hf-bubble-btn::before {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 10%;
+          right: 10%;
+          height: 35%;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.05) 100%);
+          border-radius: 999px;
+          pointer-events: none;
+        }
+        .hf-bubble-btn:hover {
+          background: rgba(255, 255, 255, 0.22) !important;
+          transform: translateY(-1.5px) scale(1.02);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2), 
+                      inset 0 3px 6px rgba(255, 255, 255, 0.9) !important;
+        }
+        .hf-bubble-btn:active {
+          transform: scale(0.97) translateY(0);
+        }
 
-        /* Liquid Organic Ambient Glowing Lights */
+        .hf-app[data-hf-mode="day"] .hf-bubble-btn {
+          background: rgba(255, 255, 255, 0.65) !important;
+          border: 2px solid rgba(99, 102, 241, 0.5) !important;
+          color: #1e1b4b !important;
+          box-shadow: 0 6px 20px rgba(99, 102, 241, 0.18), 
+                      inset 0 2px 4px rgba(255, 255, 255, 1), 
+                      inset 0 -1.5px 3px rgba(99, 102, 241, 0.2) !important;
+        }
+
+        /* Smooth Moving Pill Transitions */
+        .hf-pill-track {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+        .hf-pill-glider {
+          position: absolute;
+          top: 4px;
+          bottom: 4px;
+          border-radius: 9999px;
+          transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.35s ease;
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        /* HD Zoomable Canvas */
+        .hf-zoomable-media {
+          transform-origin: center center;
+          transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+          will-change: transform;
+        }
+
+        /* Liquid Organic Glows */
         .hf-mesh-glow {
           position: fixed;
           pointer-events: none;
@@ -1042,11 +1128,11 @@ function MainAppContent() {
         }
         @keyframes hfLiquidFloat {
           0% { transform: scale(1) translate(0px, 0px); }
-          50% { transform: scale(1.2) translate(40px, 30px); }
-          100% { transform: scale(0.95) translate(-30px, 20px); }
+          50% { transform: scale(1.15) translate(30px, 20px); }
+          100% { transform: scale(0.95) translate(-20px, 15px); }
         }
 
-        /* Running Announcement Marquee */
+        /* Seamless Continuous Running Marquee */
         .hf-marquee-track {
           display: flex;
           width: max-content;
@@ -1061,7 +1147,7 @@ function MainAppContent() {
         }
 
         .hf-tab-enter {
-          animation: hfFadeScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: hfFadeScale 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes hfFadeScale {
           0% { opacity: 0; transform: scale(0.98) translateY(12px); }
@@ -1070,29 +1156,51 @@ function MainAppContent() {
 
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
-          padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); 
-          background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); overflow-y: auto; 
+          padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); 
+          background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); overflow-y: auto; 
         }
-        .hf-modal-card { width: min(100%, 540px); max-height: min(88dvh, 740px); overflow-y: auto; margin: auto; }
+        .hf-modal-card { width: min(100%, 540px); max-height: min(90dvh, 740px); overflow-y: auto; margin: auto; }
 
-        .hf-floating-banner { 
-          position: fixed; bottom: calc(80px + env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); 
-          width: min(340px, calc(100vw - 24px)); z-index: 40;
+        /* Floating Promo aligned above Bottom Navigation Pills */
+        .hf-floating-banner-mobile {
+          position: fixed;
+          bottom: calc(72px + env(safe-area-inset-bottom));
+          left: 12px;
+          right: 12px;
+          max-width: 440px;
+          margin: 0 auto;
+          z-index: 45;
         }
-        @media (min-width: 640px) { .hf-floating-banner { bottom: 24px; right: 24px; width: 330px; } }
+        @media (min-width: 640px) {
+          .hf-floating-banner-mobile {
+            bottom: 24px;
+            right: 24px;
+            left: auto;
+            width: 320px;
+          }
+        }
 
         .hf-bottom-nav { 
-          position: fixed; bottom: max(10px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); 
-          width: calc(100% - 20px); max-width: 500px; padding: 6px; border-radius: 9999px !important; 
-          backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.45); z-index: 50;
+          position: fixed; 
+          bottom: max(10px, env(safe-area-inset-bottom)); 
+          left: 50%; 
+          transform: translateX(-50%); 
+          width: calc(100% - 20px); 
+          max-width: 500px; 
+          padding: 5px; 
+          border-radius: 9999px !important; 
+          backdrop-filter: blur(40px); 
+          -webkit-backdrop-filter: blur(40px);
+          box-shadow: 0 16px 40px rgba(0,0,0,0.45); 
+          z-index: 50;
         }
       `}</style>
 
       {/* AMBIENT GLOWS */}
-      <div className="hf-mesh-glow w-[380px] sm:w-[550px] h-[380px] sm:h-[550px] -top-20 -left-20 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
-      <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-50" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} />
+      <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] -top-20 -left-20 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
+      <div className="hf-mesh-glow w-[300px] sm:w-[450px] h-[300px] sm:h-[450px] top-1/3 -right-20 opacity-50" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} />
 
+      {/* SPLASH SCREEN */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="flex flex-col items-center space-y-3 px-4 text-center">
@@ -1107,6 +1215,60 @@ function MainAppContent() {
         </div>
       )}
 
+      {/* MEDIA DETAILS MODAL (ZOOMABLE HIGH DEF TRANSFORMATION MODAL) */}
+      {viewingMedia && (
+        <div className="hf-modal-backdrop">
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-4 sm:p-6 space-y-4 shadow-2xl hf-tab-enter relative`}>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[10px] sm:text-xs uppercase font-mono font-black text-cyan-400">{viewingMedia.sub || 'Client Transformation'}</span>
+                <h3 className={`font-black text-sm sm:text-lg ${activeThemeStyle.headingColor}`}>{viewingMedia.title}</h3>
+              </div>
+              <button 
+                onClick={() => { setViewingMedia(null); setZoomScale(1); }} 
+                className="p-1.5 rounded-full bg-slate-500/20 hover:bg-slate-500/40 text-white transition-all active:scale-95"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="relative w-full h-72 sm:h-96 rounded-[22px] overflow-hidden bg-black flex items-center justify-center border border-white/20">
+              {isVideoMedia(viewingMedia) ? (
+                <video src={viewingMedia.url} controls autoPlay className="w-full h-full object-contain" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing">
+                  <img 
+                    src={viewingMedia.url} 
+                    alt={viewingMedia.title} 
+                    style={{ transform: `scale(${zoomScale})` }}
+                    className="hf-zoomable-media max-w-full max-h-full object-contain" 
+                  />
+                </div>
+              )}
+
+              {!isVideoMedia(viewingMedia) && (
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/70 backdrop-blur-md p-1.5 rounded-full border border-white/20">
+                  <button onClick={() => setZoomScale(prev => Math.min(3, prev + 0.3))} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomIn className="w-4 h-4" /></button>
+                  <button onClick={() => setZoomScale(prev => Math.max(1, prev - 0.3))} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomOut className="w-4 h-4" /></button>
+                  <button onClick={() => setZoomScale(1)} className="p-1.5 text-white hover:text-cyan-300 transition-all"><RotateCcw className="w-4 h-4" /></button>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between pt-1">
+              <span className="text-[11px] font-medium opacity-80">High Precision Studio Transformation</span>
+              <button 
+                onClick={() => { setViewingMedia(null); setActiveTab('calculator'); }} 
+                className={`px-5 py-2.5 ${activeThemeStyle.btn} text-xs font-black`}
+              >
+                Book Similar Look
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SHARE MODAL */}
       {showShareModal && (
         <div className="hf-modal-backdrop">
           <div className={`hf-modal-card ${activeThemeStyle.card} p-5 sm:p-7 text-center space-y-4 shadow-2xl hf-tab-enter`}>
@@ -1131,6 +1293,7 @@ function MainAppContent() {
         </div>
       )}
 
+      {/* PACKAGE DETAILS MODAL */}
       {viewingPackage && (
         <div className="hf-modal-backdrop">
           <div className={`hf-modal-card ${activeThemeStyle.card} p-5 sm:p-6 space-y-4 shadow-2xl hf-tab-enter`}>
@@ -1202,7 +1365,6 @@ function MainAppContent() {
                 <div className="truncate">
                   <h1 className={`font-black text-sm sm:text-lg truncate tracking-tight ${activeThemeStyle.headingColor}`}>{config.studioName || 'H&F Makeup Artist'}</h1>
                   <p className={`text-[10px] sm:text-xs ${activeThemeStyle.accentText} flex items-center gap-1.5 truncate font-extrabold uppercase tracking-wider`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping shrink-0" />
                     <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
                   </p>
                 </div>
@@ -1230,20 +1392,25 @@ function MainAppContent() {
               </div>
             </div>
 
-            {/* DESKTOP TABS */}
+            {/* DESKTOP FLUID TABS */}
             <div className="hidden sm:flex w-full items-center justify-center">
-              <nav className="inline-flex space-x-1.5 p-1 rounded-full border border-slate-400/30 bg-black/10 text-xs font-bold backdrop-blur-md">
-                {[
-                  { id: 'menu', label: 'Packages', icon: Crown, show: true },
-                  { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
-                  { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-                  { id: 'calculator', label: 'Estimate & Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-                  { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
-                ].filter(t => t.show).map(tab => {
+              <nav className="hf-pill-track p-1 rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-md">
+                <div 
+                  className="hf-pill-glider hf-bubble-btn"
+                  style={{
+                    width: `${100 / navTabs.length}%`,
+                    transform: `translateX(${activeTabIndex * 100}%)`
+                  }}
+                />
+                {navTabs.map(tab => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
                   return (
-                    <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all duration-300 ${isActive ? `${activeThemeStyle.btn} font-black shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-200'}`}`}>
+                    <button 
+                      key={tab.id} 
+                      onClick={() => setActiveTab(tab.id)} 
+                      className={`relative z-10 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-black transition-colors duration-300 ${isActive ? (isDarkMode ? 'text-white' : 'text-indigo-950') : (isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900')}`}
+                    >
                       <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                     </button>
                   );
@@ -1254,24 +1421,32 @@ function MainAppContent() {
         </header>
       </div>
 
-      {/* MOBILE BOTTOM NAVIGATION */}
+      {/* MOBILE BOTTOM NAVIGATION BAR WITH FLUID SLIDING GLIDER */}
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around border-2 border-slate-400/40 shadow-2xl`}>
-          {[
-            { id: 'menu', label: 'Packages', icon: Crown, show: true },
-            { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
-            { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
-            { id: 'calculator', label: 'Book', icon: Calculator, show: config.toggles?.enableEstimator !== false },
-            { id: 'feedback', label: 'Review', icon: MessageSquare, show: true }
-          ].filter(t => t.show).map(tab => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-all duration-200 ${isActive ? `${activeThemeStyle.accentText} font-black bg-indigo-500/20 shadow-inner scale-105` : `${isDarkMode ? 'text-slate-400 hover:text-slate-200' : 'text-slate-600 hover:text-slate-900'}`}`}>
-                <Icon className="w-4 h-4 shrink-0" /><span className="text-[9px] mt-0.5 font-extrabold">{tab.label}</span>
-              </button>
-            );
-          })}
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden border-2 border-slate-400/40 shadow-2xl`}>
+          <div className="hf-pill-track w-full">
+            <div 
+              className="hf-pill-glider hf-bubble-btn"
+              style={{
+                width: `${100 / navTabs.length}%`,
+                transform: `translateX(${activeTabIndex * 100}%)`
+              }}
+            />
+            {navTabs.map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button 
+                  key={tab.id} 
+                  onClick={() => setActiveTab(tab.id)} 
+                  className={`relative z-10 flex-1 flex flex-col items-center justify-center py-1.5 rounded-full transition-colors duration-200 ${isActive ? (isDarkMode ? 'text-cyan-300 font-black' : 'text-indigo-950 font-black') : (isDarkMode ? 'text-slate-400' : 'text-slate-600')}`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span className="text-[9px] mt-0.5 font-extrabold">{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </nav>
       )}
 
@@ -1303,6 +1478,8 @@ function MainAppContent() {
 
                 if (!item.name) return null;
 
+                const displaySkinFinish = item.skinFinish || "16-Hour Water Resistant HD Glass";
+
                 return (
                   <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-slate-900/20 relative border border-slate-400/30">
@@ -1311,19 +1488,22 @@ function MainAppContent() {
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
                     </div>
-                    <div className="flex-1 w-full flex flex-col justify-between space-y-2">
+                    <div className="flex-1 w-full flex flex-col justify-between space-y-2 min-w-0">
                       <div>
                         <div className="flex justify-between items-baseline gap-2">
-                          <h4 className={`font-black text-sm sm:text-base leading-snug ${activeThemeStyle.headingColor}`}>{item.num ? `${item.num}. ` : ''}{item.name}</h4>
+                          <h4 className={`font-black text-sm sm:text-base leading-snug truncate ${activeThemeStyle.headingColor}`}>{item.num ? `${item.num}. ` : ''}{item.name}</h4>
                           <span className={`font-mono font-black text-sm sm:text-base ${activeThemeStyle.accentText} shrink-0`}>₹{price.toLocaleString('en-IN')}</span>
                         </div>
                         <p className={`text-xs font-medium mt-1 line-clamp-2 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2.5 border-t border-slate-400/25">
-                        <span className={`text-[10px] sm:text-[11px] font-bold truncate flex items-center gap-1 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                          <Sparkles className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" /> 16HR HD Finish
-                        </span>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2.5 border-t border-slate-400/25 gap-2">
+                        <div className="min-w-0 flex-1">
+                          <span className={`text-[10px] sm:text-[11px] font-extrabold truncate flex items-center gap-1 ${isDarkMode ? 'text-cyan-300' : 'text-indigo-900'}`} title={displaySkinFinish}>
+                            <Sparkles className="w-3 h-3 text-amber-400 shrink-0 animate-pulse" />
+                            <span className="truncate">Skin Finish: {displaySkinFinish}</span>
+                          </span>
+                        </div>
                         <div className="flex items-center gap-1.5 shrink-0">
                           <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full ${activeThemeStyle.pillBorder} text-xs font-bold hover:opacity-90 transition-all active:scale-95`}>Details</button>
                           <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 sm:px-5 py-1.5 sm:py-2 ${activeThemeStyle.btn} text-xs font-extrabold transition-all active:scale-95 flex items-center gap-1`}>
@@ -1346,19 +1526,25 @@ function MainAppContent() {
                 <Camera className="w-3.5 h-3.5" /> Discover Looks
               </span>
               <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Featured Transformations</h2>
-              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore signature makeup transformations crafted with precision and artistry.</p>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Explore signature makeup transformations. Click to zoom and inspect high-definition details.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
                 return (
                   <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] p-1.5`}>
-                    {isVideo ? <AutoPlayVideoCard item={item} /> : (
-                      <div className="h-64 sm:h-80 overflow-hidden relative bg-slate-900/20 rounded-[22px] sm:rounded-[26px] border border-slate-400/30">
-                        <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+                    {isVideo ? <AutoPlayVideoCard item={item} onOpen={(it) => setViewingMedia(it)} /> : (
+                      <div 
+                        onClick={() => setViewingMedia(item)}
+                        className="h-64 sm:h-80 overflow-hidden relative bg-slate-900/20 rounded-[22px] sm:rounded-[26px] border border-slate-400/30 cursor-pointer group"
+                      >
+                        <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
                           <span className="text-[10px] sm:text-[11px] uppercase font-mono font-bold text-cyan-300">{item.sub || 'Client Transformation'}</span>
-                          <h4 className="font-extrabold text-xs sm:text-sm mt-0.5 text-white"><span>{item.title}</span></h4>
+                          <h4 className="font-extrabold text-xs sm:text-sm mt-0.5 text-white flex items-center justify-between">
+                            <span>{item.title}</span>
+                            <ZoomIn className="w-4 h-4 opacity-75 group-hover:opacity-100" />
+                          </h4>
                         </div>
                       </div>
                     )}
@@ -1698,24 +1884,24 @@ function MainAppContent() {
         )}
       </main>
 
-      {/* FLOATING PROMO OFFER BANNER */}
+      {/* FLOATING PROMO OFFER BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
-        <aside aria-label="Promotional offer" className={`hf-floating-banner ${activeThemeStyle.card} p-4 rounded-[24px] sm:rounded-[28px] shadow-2xl transition-all border-2 border-slate-400/40`}>
-          <div className="flex items-start justify-between gap-3">
-            <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5">
-              <Gift className="w-4 h-4 text-amber-400" />
+        <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border-2 border-slate-400/40 backdrop-blur-[50px]`}>
+          <div className="flex items-start justify-between gap-2.5">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5">
+              <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[9px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40 uppercase px-2 py-0.5 rounded-full font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
+                <span className="text-[9px] font-black bg-amber-500/20 text-amber-400 border border-amber-400/40 uppercase px-2 py-0.5 rounded-full font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
                 {isFloatingExpired ? <span className="text-[9px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full">Expired</span> : floatingTimer ? <span className="text-[9px] font-mono font-bold opacity-90 px-2 py-0.5 rounded-full bg-slate-500/10">{floatingTimer.text}</span> : null}
               </div>
               <h4 className={`font-black text-xs sm:text-sm mt-1 leading-tight ${activeThemeStyle.headingColor}`}>{config.floatingBanner?.title || "Wedding Season Discount"}</h4>
-              <p className={`text-[11px] mt-0.5 font-medium ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-black text-amber-400 bg-black/40 px-1.5 py-0.5 rounded border border-amber-400/30">{floatingPromoCode}</span></>}</p>
+              <p className={`text-[11px] mt-0.5 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-black text-amber-400 bg-black/40 px-1.5 py-0.5 rounded border border-amber-400/30">{floatingPromoCode}</span></>}</p>
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="opacity-70 hover:opacity-100 p-1 shrink-0 transition-all active:scale-90"><X className="w-3.5 h-3.5" /></button>
           </div>
-          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-3 w-full py-2.5 text-xs font-black rounded-full transition-all shadow-md ${isFloatingExpired ? 'bg-slate-500/20 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
+          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-2.5 w-full py-2 sm:py-2.5 text-xs font-black rounded-full transition-all shadow-md ${isFloatingExpired ? 'bg-slate-500/20 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btn} active:scale-[0.98]`}`}>
             {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply Code & Book")}
           </button>
         </aside>
