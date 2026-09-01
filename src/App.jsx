@@ -35,18 +35,18 @@ class AppErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/80 backdrop-blur-[40px] border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-2xl">
-            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white/10 backdrop-blur-[40px] border border-white/20 p-8 rounded-[32px] space-y-4 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.3)]">
+            <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-400 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
-            <h2 className="text-lg font-semibold">System Safe Mode Active</h2>
+            <h2 className="text-lg font-bold">System Safe Mode Active</h2>
             <p className="text-xs opacity-75 leading-relaxed">
               We encountered a minor display update glitch. Our automated system has protected your session.
             </p>
             <button 
               onClick={() => window.location.reload()} 
-              className="w-full py-3 rounded-[16px] bg-blue-600 text-white font-medium text-xs transition active:scale-[0.98]"
+              className="w-full py-3 rounded-[18px] bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs transition active:scale-[0.98] shadow-lg"
             >
               Refresh to Safe Version
             </button>
@@ -182,7 +182,7 @@ const FONT_MAP = {
 const THEME_STYLES = {
   admin_aurora: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.22),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(236,72,153,0.35)] rounded-[20px]",
@@ -191,7 +191,7 @@ const THEME_STYLES = {
   },
   sunset_glow: {
     bg: "bg-[#0a0807] text-[#F2F2F7]",
-    card: "bg-amber-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(245,158,11,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-amber-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(245,158,11,0.22),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-amber-900/20 border border-amber-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_30px_rgba(244,63,94,0.35)] rounded-[20px]",
@@ -200,7 +200,7 @@ const THEME_STYLES = {
   },
   cyber_matrix: {
     bg: "bg-[#020808] text-[#F2F2F7]",
-    card: "bg-cyan-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-cyan-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.22),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-cyan-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_30px_rgba(6,182,212,0.35)] rounded-[20px]",
@@ -209,7 +209,7 @@ const THEME_STYLES = {
   },
   real_glass_lens: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(0,122,255,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(0,122,255,0.22),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-blue-900/20 border border-blue-400/30",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_30px_rgba(0,122,255,0.35)] rounded-[20px]",
@@ -218,7 +218,7 @@ const THEME_STYLES = {
   },
   real_ios_glass: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-zinc-950/40 backdrop-blur-[40px] border border-white/20 shadow-[0_25px_70px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[36px]",
+    card: "bg-zinc-950/40 backdrop-blur-[40px] border border-white/20 shadow-[0_25px_70px_rgba(0,0,0,0.6),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[36px]",
     innerCard: "bg-white/[0.05] border border-white/15",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_10px_25px_rgba(37,99,235,0.4)] rounded-[22px]",
@@ -227,7 +227,7 @@ const THEME_STYLES = {
   },
   liquid_glass: {
     bg: "bg-[#040812] text-[#F2F2F7]",
-    card: "bg-sky-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.2),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-sky-950/25 backdrop-blur-[40px] border border-cyan-400/40 shadow-[0_24px_60px_rgba(6,182,212,0.22),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-sky-900/20 border border-cyan-400/30",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
@@ -236,7 +236,7 @@ const THEME_STYLES = {
   },
   one_ui_9: {
     bg: "bg-[#0a0a0c] text-[#F2F2F7]",
-    card: "bg-zinc-900/70 backdrop-blur-[40px] border border-zinc-600/50 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] rounded-[30px]",
+    card: "bg-zinc-900/70 backdrop-blur-[40px] border border-zinc-600/50 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.2)] rounded-[30px]",
     innerCard: "bg-zinc-800/50 border border-zinc-600/40",
     accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
@@ -245,7 +245,7 @@ const THEME_STYLES = {
   },
   gold_rose: {
     bg: "bg-[#0d0708] text-[#F2F2F7]",
-    card: "bg-rose-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-rose-950/25 backdrop-blur-[40px] border border-amber-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-rose-900/20 border border-amber-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
@@ -254,7 +254,7 @@ const THEME_STYLES = {
   },
   champagne: {
     bg: "bg-[#0d0805] text-[#F2F2F7]",
-    card: "bg-orange-950/25 backdrop-blur-[40px] border border-orange-400/40 shadow-[0_24px_60px_rgba(249,115,22,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-orange-950/25 backdrop-blur-[40px] border border-orange-400/40 shadow-[0_24px_60px_rgba(249,115,22,0.18),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-orange-900/20 border border-orange-400/30",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
@@ -263,7 +263,7 @@ const THEME_STYLES = {
   },
   emerald: {
     bg: "bg-[#040c0a] text-[#F2F2F7]",
-    card: "bg-emerald-950/25 backdrop-blur-[40px] border border-emerald-400/40 shadow-[0_24px_60px_rgba(16,185,129,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-emerald-950/25 backdrop-blur-[40px] border border-emerald-400/40 shadow-[0_24px_60px_rgba(16,185,129,0.18),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-emerald-900/20 border border-emerald-400/30",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
@@ -272,7 +272,7 @@ const THEME_STYLES = {
   },
   violet: {
     bg: "bg-[#080410] text-[#F2F2F7]",
-    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-purple-950/25 backdrop-blur-[40px] border border-purple-400/40 shadow-[0_24px_60px_rgba(168,85,247,0.18),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-purple-900/20 border border-purple-400/30",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
@@ -281,7 +281,7 @@ const THEME_STYLES = {
   },
   ruby: {
     bg: "bg-[#100406] text-[#F2F2F7]",
-    card: "bg-rose-950/25 backdrop-blur-[40px] border border-rose-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-rose-950/25 backdrop-blur-[40px] border border-rose-400/40 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-rose-900/20 border border-rose-400/30",
     accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
@@ -290,7 +290,7 @@ const THEME_STYLES = {
   },
   sapphire: {
     bg: "bg-[#040610] text-[#F2F2F7]",
-    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(37,99,235,0.15),inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
+    card: "bg-blue-950/25 backdrop-blur-[40px] border border-blue-400/40 shadow-[0_24px_60px_rgba(37,99,235,0.18),inset_0_1px_2px_rgba(255,255,255,0.3),inset_0_8px_20px_rgba(255,255,255,0.06)] rounded-[32px]",
     innerCard: "bg-blue-900/20 border border-blue-400/30",
     accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
@@ -299,7 +299,7 @@ const THEME_STYLES = {
   },
   default: {
     bg: "bg-[#07080c] text-[#F2F2F7]",
-    card: "bg-white/[0.08] backdrop-blur-[40px] border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_8px_20px_rgba(255,255,255,0.05)] rounded-[32px]",
+    card: "bg-white/[0.08] backdrop-blur-[40px] border border-white/20 shadow-[0_24px_60px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.25),inset_0_8px_20px_rgba(255,255,255,0.05)] rounded-[32px]",
     innerCard: "bg-white/[0.05] border border-white/10",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
@@ -312,8 +312,8 @@ Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) the
 
 const DAY_MODE_OVERRIDES = {
   bg: "bg-[#f4f6fa] text-slate-900",
-  card: "bg-white/50 backdrop-blur-[40px] border border-white/80 shadow-[0_24px_60px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_8px_24px_rgba(255,255,255,0.5)] rounded-[32px]",
-  innerCard: "bg-white/60 border border-white/90 shadow-sm",
+  card: "bg-white/55 backdrop-blur-[40px] border border-white/80 shadow-[0_24px_60px_rgba(15,23,42,0.08),inset_0_1px_2px_rgba(255,255,255,0.9),inset_0_8px_24px_rgba(255,255,255,0.5)] rounded-[32px]",
+  innerCard: "bg-white/65 border border-white/90 shadow-sm",
   glowOrb1: "rgba(168, 85, 247, 0.15)",
   glowOrb2: "rgba(56, 189, 248, 0.15)"
 };
@@ -910,10 +910,12 @@ function MainAppContent() {
                 <QrCode className="w-4 h-4" />
               </button>
 
+              {/* DAY/NIGHT TOGGLE WITH ICON ONLY */}
               <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-white/30 bg-white/10 hover:bg-white/20 transition-all duration-500 flex items-center justify-center shadow-sm active:scale-95">
                 {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
               </button>
 
+              {/* CAMERA/INSTAGRAM ICON & "View on Instagram" TEXT */}
               <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-semibold px-4 py-2.5 transition-all duration-500 active:scale-95 shadow-md`}>
                 <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
