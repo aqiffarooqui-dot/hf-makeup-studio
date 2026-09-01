@@ -36,7 +36,7 @@ class AppErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-6 text-center">
-          <div className="max-w-md w-full bg-white/80 backdrop-blur-2xl border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-2xl">
+          <div className="max-w-md w-full bg-white/80 backdrop-blur-3xl border border-slate-200 p-8 rounded-[32px] space-y-4 shadow-2xl">
             <div className="w-12 h-12 rounded-[20px] bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto border border-amber-500/20">
               <ShieldAlert className="w-6 h-6" />
             </div>
@@ -244,102 +244,102 @@ const FONT_MAP = {
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
-// TRUE IPHONE LIQUID GLASS ARCHITECTURE WITH VIBRANT BLUR & VISIBLE BORDERS
+// TRUE IPHONE CRYSTAL GLASS LENS ARCHITECTURE WITH CRISP SEPARATING BORDERS
 const THEME_STYLES = {
   admin_aurora: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
     card: "bg-purple-950/20 backdrop-blur-3xl border border-purple-400/40 shadow-[0_20px_60px_rgba(168,85,247,0.18)] rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(236,72,153,0.35)] rounded-[20px]",
     glowOrb: "from-purple-600/35 via-pink-600/20 to-transparent"
   },
   sunset_glow: {
-    bg: "bg-[#0c0a09] text-[#F2F2F7]",
+    bg: "bg-[#0a0807] text-[#F2F2F7]",
     card: "bg-amber-950/20 backdrop-blur-3xl border border-amber-400/40 shadow-[0_20px_60px_rgba(245,158,11,0.18)] rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white font-bold shadow-[0_10px_25px_rgba(244,63,94,0.35)] rounded-[20px]",
     glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
   },
   cyber_matrix: {
-    bg: "bg-[#030a0a] text-[#F2F2F7]",
+    bg: "bg-[#020808] text-[#F2F2F7]",
     card: "bg-cyan-950/20 backdrop-blur-3xl border border-cyan-400/40 shadow-[0_20px_60px_rgba(6,182,212,0.18)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-emerald-500 to-cyan-600 text-neutral-950 font-bold shadow-[0_10px_25px_rgba(6,182,212,0.35)] rounded-[20px]",
     glowOrb: "from-emerald-600/35 via-cyan-600/20 to-transparent"
   },
   real_glass_lens: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
     card: "bg-blue-950/20 backdrop-blur-3xl border border-blue-400/40 shadow-[0_20px_60px_rgba(0,122,255,0.18)] rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-[0_10px_25px_rgba(0,122,255,0.3)] rounded-[20px]",
     glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
   },
   real_ios_glass: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/65 backdrop-blur-3xl border border-white/25 shadow-[0_25px_70px_rgba(0,0,0,0.5)] rounded-[36px]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
+    card: "bg-[#18181b]/65 backdrop-blur-3xl border border-white/30 shadow-[0_25px_70px_rgba(0,0,0,0.5)] rounded-[36px]",
     accent: "text-sky-400",
     btn: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg rounded-[22px]",
     glowOrb: "from-indigo-600/35 via-sky-600/20 to-transparent"
   },
   liquid_glass: {
-    bg: "bg-[#060b14] text-[#F2F2F7]",
+    bg: "bg-[#040812] text-[#F2F2F7]",
     card: "bg-[#0f172a]/65 backdrop-blur-3xl border border-cyan-400/40 shadow-[0_25px_70px_rgba(6,182,212,0.18)] rounded-[32px]",
     accent: "text-cyan-400",
     btn: "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md rounded-[20px]",
     glowOrb: "from-cyan-600/35 via-blue-600/20 to-transparent"
   },
   one_ui_9: {
-    bg: "bg-[#0c0c0e] text-[#F2F2F7]",
-    card: "bg-[#18181b]/75 backdrop-blur-3xl border border-zinc-600 shadow-xl rounded-[30px]",
+    bg: "bg-[#0a0a0c] text-[#F2F2F7]",
+    card: "bg-[#18181b]/80 backdrop-blur-3xl border border-zinc-600 shadow-xl rounded-[30px]",
     accent: "text-violet-400",
     btn: "bg-violet-600 hover:bg-violet-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-violet-600/35 via-purple-600/20 to-transparent"
   },
   gold_rose: {
-    bg: "bg-[#0f090a] text-[#F2F2F7]",
-    card: "bg-[#1a1113]/75 backdrop-blur-3xl border border-amber-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#0d0708] text-[#F2F2F7]",
+    card: "bg-[#1a1113]/80 backdrop-blur-3xl border border-amber-400/40 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-500 to-rose-600 text-white shadow-md rounded-[20px]",
     glowOrb: "from-amber-600/35 via-rose-600/20 to-transparent"
   },
   champagne: {
-    bg: "bg-[#100b07] text-[#F2F2F7]",
-    card: "bg-[#1c140d]/75 backdrop-blur-3xl border border-orange-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#0d0805] text-[#F2F2F7]",
+    card: "bg-[#1c140d]/80 backdrop-blur-3xl border border-orange-400/40 shadow-xl rounded-[32px]",
     accent: "text-amber-400",
     btn: "bg-gradient-to-r from-amber-600 to-orange-500 text-white shadow-md rounded-[20px]",
     glowOrb: "from-amber-600/35 via-orange-600/20 to-transparent"
   },
   emerald: {
-    bg: "bg-[#060f0c] text-[#F2F2F7]",
-    card: "bg-[#0f1c18]/75 backdrop-blur-3xl border border-emerald-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#040c0a] text-[#F2F2F7]",
+    card: "bg-[#0f1c18]/80 backdrop-blur-3xl border border-emerald-400/40 shadow-xl rounded-[32px]",
     accent: "text-emerald-400",
     btn: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-emerald-600/35 via-teal-600/20 to-transparent"
   },
   violet: {
-    bg: "bg-[#0a0612] text-[#F2F2F7]",
-    card: "bg-[#161024]/75 backdrop-blur-3xl border border-purple-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#080410] text-[#F2F2F7]",
+    card: "bg-[#161024]/80 backdrop-blur-3xl border border-purple-400/40 shadow-xl rounded-[32px]",
     accent: "text-purple-400",
     btn: "bg-purple-600 hover:bg-purple-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-purple-600/35 via-indigo-600/20 to-transparent"
   },
   ruby: {
-    bg: "bg-[#120608] text-[#F2F2F7]",
-    card: "bg-[#200f12]/75 backdrop-blur-3xl border border-rose-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#100406] text-[#F2F2F7]",
+    card: "bg-[#200f12]/80 backdrop-blur-3xl border border-rose-400/40 shadow-xl rounded-[32px]",
     accent: "text-rose-400",
     btn: "bg-rose-600 hover:bg-rose-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-rose-600/35 via-pink-600/20 to-transparent"
   },
   sapphire: {
-    bg: "bg-[#060812] text-[#F2F2F7]",
-    card: "bg-[#0f1424]/75 backdrop-blur-3xl border border-blue-400/40 shadow-xl rounded-[32px]",
+    bg: "bg-[#040610] text-[#F2F2F7]",
+    card: "bg-[#0f1424]/80 backdrop-blur-3xl border border-blue-400/40 shadow-xl rounded-[32px]",
     accent: "text-blue-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-blue-600/35 via-indigo-600/20 to-transparent"
   },
   default: {
-    bg: "bg-[#090a0f] text-[#F2F2F7]",
-    card: "bg-[#18181b]/70 backdrop-blur-3xl border border-white/25 shadow-xl rounded-[32px]",
+    bg: "bg-[#07080c] text-[#F2F2F7]",
+    card: "bg-[#18181b]/75 backdrop-blur-3xl border border-white/25 shadow-xl rounded-[32px]",
     accent: "text-sky-400",
     btn: "bg-blue-600 hover:bg-blue-700 text-white shadow-md rounded-[20px]",
     glowOrb: "from-blue-600/30 to-transparent"
@@ -348,10 +348,10 @@ const THEME_STYLES = {
 
 Object.entries(THEME_STYLES).forEach(([, theme]) => { if (!theme.accentText) theme.accentText = theme.accent; });
 
-// DAY MODE TRUE LIQUID GLASS WITH VISIBLE CRISP BORDERS
+// DAY MODE TRUE LIQUID GLASS WITH CRISP SEPARATING BORDERS
 const DAY_MODE_OVERRIDES = {
   bg: "bg-slate-100 text-slate-900",
-  card: "bg-white/70 backdrop-blur-3xl border border-slate-300/90 shadow-[0_20px_50px_rgba(15,23,42,0.1)] rounded-[32px]",
+  card: "bg-white/80 backdrop-blur-3xl border border-slate-300 shadow-[0_20px_50px_rgba(15,23,42,0.12)] rounded-[32px]",
   glowOrb: "from-blue-500/25 via-indigo-500/15 to-transparent"
 };
 
@@ -1246,13 +1246,13 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* STICKY HEADER FOR BOTH MOBILE AND DESKTOP VIEWS */}
-      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-2xl border-b transition-colors shadow-lg`}>
+      {/* STICKY HEADER FIXED FOR BOTH MOBILE AND DESKTOP VIEWS */}
+      <header className={`sticky top-0 z-40 px-4 sm:px-8 py-3 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 backdrop-blur-3xl border-b transition-colors shadow-xl`}>
         <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 select-none cursor-pointer min-w-0">
               {config.toggles?.showLogoOnApp !== false && (
-                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 rounded-[16px] overflow-hidden shrink-0 border border-black/10 dark:border-white/20 bg-black/5 dark:bg-white/10 flex items-center justify-center shadow-sm">
                   <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" draggable="false" />
                 </div>
               )}
@@ -1262,24 +1262,24 @@ function MainAppContent() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 shrink-0">
-              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center justify-center shadow-2xs">
+            <div className="flex items-center gap-2 shrink-0">
+              <button onClick={() => setShowShareModal(true)} title="Share & QR Code" className="p-2.5 rounded-[16px] border border-black/15 dark:border-white/25 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition flex items-center justify-center shadow-xs">
                 <QrCode className="w-4 h-4" />
               </button>
 
               {/* DAY/NIGHT TOGGLE WITH ICON ONLY (NO TEXT) */}
-              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition flex items-center justify-center shadow-2xs">
-                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+              <button onClick={toggleTheme} title="Toggle Day/Night Mode" className="p-2.5 rounded-[16px] border border-black/15 dark:border-white/25 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition flex items-center justify-center shadow-xs">
+                {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
               </button>
 
               {/* CAMERA/INSTAGRAM ICON & "View on Instagram" TEXT */}
-              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition hover:opacity-90 shadow-sm`}>
+              <a href={getCleanInstagramUrl(config.instagramHandle)} target="_blank" rel="noopener noreferrer" className={`flex items-center space-x-1.5 ${activeThemeStyle.btn} text-xs font-medium px-3.5 py-2.5 transition hover:opacity-90 shadow-md`}>
                 <Camera className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">View on Instagram</span>
               </a>
 
               {shouldShowProfileInHeader && (
-                <div className="w-9 h-9 rounded-[16px] border border-black/10 dark:border-white/10 overflow-hidden shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[16px] border border-black/15 dark:border-white/25 overflow-hidden shrink-0 shadow-xs">
                   <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[14px]" />
                 </div>
               )}
@@ -1287,7 +1287,7 @@ function MainAppContent() {
           </div>
 
           <div className="hidden sm:flex w-full items-center justify-center pt-1">
-            <nav className="inline-flex space-x-1 p-1 rounded-[22px] border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-xs font-medium shadow-inner backdrop-blur-xl">
+            <nav className="inline-flex space-x-1 p-1.5 rounded-[24px] border border-black/15 dark:border-white/25 bg-black/5 dark:bg-white/10 text-xs font-medium shadow-inner backdrop-blur-3xl">
               {[
                 { id: 'menu', label: 'Packages', icon: Crown, show: true },
                 { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1298,7 +1298,7 @@ function MainAppContent() {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
                 return (
-                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[18px] transition ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70 hover:opacity-100'}`}>
+                  <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-1.5 px-4 py-2 rounded-[20px] transition ${isActive ? `${activeThemeStyle.btn} font-semibold shadow-md` : 'opacity-70 hover:opacity-100'}`}>
                     <Icon className="w-3.5 h-3.5 shrink-0" /><span>{tab.label}</span>
                   </button>
                 );
@@ -1309,7 +1309,7 @@ function MainAppContent() {
       </header>
 
       {!showSplash && (
-        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around backdrop-blur-2xl`}>
+        <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden flex items-center justify-around backdrop-blur-3xl border border-black/15 dark:border-white/25`}>
           {[
             { id: 'menu', label: 'Packages', icon: Crown, show: true },
             { id: 'gallery', label: 'Gallery', icon: Camera, show: config.toggles?.enableGallery !== false },
@@ -1320,7 +1320,7 @@ function MainAppContent() {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[16px] transition ${isActive ? `${activeThemeStyle.accentText} font-semibold bg-black/5 dark:bg-white/5 shadow-2xs` : 'opacity-60'}`}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex flex-col items-center justify-center py-1.5 rounded-[16px] transition ${isActive ? `${activeThemeStyle.accentText} font-semibold bg-black/10 dark:bg-white/20 shadow-xs` : 'opacity-60'}`}>
                 <Icon className="w-4 h-4 shrink-0" /><span className="text-[10px] mt-0.5">{tab.label}</span>
               </button>
             );
@@ -1332,15 +1332,15 @@ function MainAppContent() {
         {activeTab === 'menu' && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-xs`}>
                 Professional Vanity Packages
               </span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Curated Makeup Menu</h2>
               <p className="text-xs sm:text-sm opacity-70">Select kit tier below to view package pricing & details:</p>
 
-              <div className="inline-flex p-1 rounded-[22px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mt-2 gap-1 shadow-inner backdrop-blur-xl">
-                <button onClick={() => setSelectedKit('international')} className={`px-4 py-2 rounded-[18px] text-xs font-medium transition ${selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>👑 Luxury Kit</button>
-                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 py-2 rounded-[18px] text-xs font-medium transition ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>✨ HD Kit</button>
+              <div className="inline-flex p-1.5 rounded-[24px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 mt-2 gap-1 shadow-inner backdrop-blur-3xl">
+                <button onClick={() => setSelectedKit('international')} className={`px-4 py-2 rounded-[20px] text-xs font-medium transition ${selectedKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>👑 Luxury Kit</button>
+                <button onClick={() => setSelectedKit('drugstore')} className={`px-4 py-2 rounded-[20px] text-xs font-medium transition ${selectedKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'opacity-70'}`}>✨ HD Kit</button>
               </div>
             </div>
 
@@ -1354,7 +1354,7 @@ function MainAppContent() {
 
                 return (
                   <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-center transition-all duration-300 hover:scale-[1.01]`}>
-                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[20px] overflow-hidden bg-black/5 dark:bg-white/5 relative border border-black/10 dark:border-white/10 shadow-sm">
+                    <div className="w-full sm:w-32 h-36 sm:h-32 shrink-0 rounded-[20px] overflow-hidden bg-black/5 dark:bg-white/10 relative border border-black/15 dark:border-white/25 shadow-sm">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover" />
                       <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-[10px] bg-black/70 text-[10px] font-mono font-medium text-amber-300 backdrop-blur-xs">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
@@ -1369,12 +1369,12 @@ function MainAppContent() {
                         <p className="text-xs opacity-70 mt-1 line-clamp-2">{item.desc}</p>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-black/10 dark:border-white/10">
+                      <div className="flex items-center justify-between pt-2 border-t border-black/10 dark:border-white/15">
                         <span className="text-[11px] opacity-70 font-normal truncate flex items-center gap-1">
                           <Sparkles className="w-3 h-3 text-amber-500 shrink-0" /> 16HR HD Finish
                         </span>
                         <div className="flex items-center gap-1.5">
-                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-3.5 py-2 rounded-[14px] border border-black/10 dark:border-white/10 text-xs font-medium hover:bg-black/5 dark:hover:bg-white/5 transition shadow-2xs">Details</button>
+                          <button onClick={() => setViewingPackage({ key, ...item, image: imgSrc })} className="px-3.5 py-2 rounded-[14px] border border-black/15 dark:border-white/25 text-xs font-medium hover:bg-black/10 dark:hover:bg-white/15 transition shadow-2xs">Details</button>
                           <button onClick={() => { setCalcPackage(key); setCalcKit(selectedKit); setActiveTab('calculator'); }} className={`px-4 py-2 ${activeThemeStyle.btn} text-xs font-medium transition flex items-center gap-1 shadow-sm`}>
                             <span>Book</span> <ChevronRight className="w-3.5 h-3.5" />
                           </button>
@@ -1391,7 +1391,7 @@ function MainAppContent() {
         {activeTab === 'gallery' && config.toggles?.enableGallery !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>Discover Looks</span>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>Discover Looks</span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Featured Transformations</h2>
               <p className="text-xs sm:text-sm opacity-70">Explore signature makeup transformations crafted with perfection.</p>
             </div>
@@ -1401,7 +1401,7 @@ function MainAppContent() {
                 return (
                   <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.01]`}>
                     {isVideo ? <AutoPlayVideoCard item={item} /> : (
-                      <div className="h-72 sm:h-80 overflow-hidden relative bg-black/5 dark:bg-white/5 rounded-[28px]">
+                      <div className="h-72 sm:h-80 overflow-hidden relative bg-black/5 dark:bg-white/10 rounded-[28px] border border-black/15 dark:border-white/25">
                         <img src={item.url} alt={item.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-4 text-white">
                           <span className="text-[11px] uppercase font-mono font-medium text-zinc-300">{item.sub || 'Client Transformation'}</span>
@@ -1419,7 +1419,7 @@ function MainAppContent() {
         {activeTab === 'brands' && config.toggles?.enableBrands !== false && (
           <div className="space-y-6">
             <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>Authentic Vanity</span>
+              <span className={`px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 ${activeThemeStyle.accentText} text-xs font-medium inline-block shadow-2xs`}>Authentic Vanity</span>
               <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">Products In Our Kit</h2>
               <p className="text-xs sm:text-sm opacity-70">100% Genuine, skin-safe international luxury cosmetics.</p>
             </div>
@@ -1443,7 +1443,7 @@ function MainAppContent() {
                 <div className="w-12 h-12 rounded-[20px] bg-emerald-500/10 text-emerald-500 flex items-center justify-center mx-auto border border-emerald-500/20 shadow-xs">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <div className="inline-block px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-mono font-medium text-xs shadow-2xs">
+                <div className="inline-block px-3.5 py-1.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 font-mono font-medium text-xs shadow-2xs">
                   BOOKING NUMBER: {currentBookingNumber}
                 </div>
                 <h3 className="text-lg font-semibold">Booking Request Submitted Successfully</h3>
@@ -1456,14 +1456,14 @@ function MainAppContent() {
                     </a>
                   </div>
                 )}
-                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-black/5 dark:bg-white/5 hover:bg-black/10 text-xs font-medium rounded-[16px] transition">Make Another Calculation / Booking</button>
+                <button onClick={() => setIsBookingDone(false)} className="block w-full py-3 bg-black/5 dark:bg-white/10 hover:bg-black/10 text-xs font-medium rounded-[16px] transition">Make Another Calculation / Booking</button>
               </div>
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-6">
                 
-                {/* LEFT COLUMN: OPTIONS & CLIENT INFO (IN A LIQUID GLASS CARD) */}
+                {/* LEFT COLUMN: OPTIONS & CLIENT INFO */}
                 <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-2xl`}>
-                  <div className="border-b border-black/10 dark:border-white/10 pb-2">
+                  <div className="border-b border-black/10 dark:border-white/15 pb-2">
                     <h3 className="font-semibold text-sm flex items-center gap-2">
                       <Calculator className={`w-4 h-4 ${activeThemeStyle.accentText}`} /> 1. Calculate & Choose Looks
                     </h3>
@@ -1472,14 +1472,14 @@ function MainAppContent() {
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider mb-2 opacity-70">Main Makeover Package: Vanity Tier</label>
                     <div className="grid grid-cols-2 gap-2">
-                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 opacity-80'}`}>👑 Luxury Kit</button>
-                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 opacity-80'}`}>✨ HD Kit</button>
+                      <button type="button" onClick={() => setCalcKit('international')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'international' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/25 opacity-80'}`}>👑 Luxury Kit</button>
+                      <button type="button" onClick={() => setCalcKit('drugstore')} className={`p-3 rounded-[16px] text-xs font-medium border text-center transition shadow-2xs ${calcKit === 'drugstore' ? `${activeThemeStyle.btn} font-semibold shadow-sm` : 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/25 opacity-80'}`}>✨ HD Kit</button>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-70">Main Makeover Package: Package</label>
-                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-transparent border border-black/10 dark:border-white/10 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
+                    <select value={calcPackage} onChange={(e) => setCalcPackage(e.target.value)} className="w-full bg-transparent border border-black/15 dark:border-white/25 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
                       {Object.keys(config.kitText?.[calcKit] || {}).map(k => {
                         const pData = config.kitText[calcKit][k];
                         const pPrice = config.pricingByKit?.[calcKit]?.[k] || 0;
@@ -1490,14 +1490,14 @@ function MainAppContent() {
 
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5 opacity-70">Venue Location Zone</label>
-                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-transparent border border-black/10 dark:border-white/10 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
+                    <select value={calcZone} onChange={(e) => setCalcZone(e.target.value)} className="w-full bg-transparent border border-black/15 dark:border-white/25 rounded-[16px] px-3.5 py-3 text-xs font-medium shadow-2xs outline-none">
                       {Object.entries(config.convenienceZones).map(([key, zone]) => (
                         <option key={key} value={key}>{zone.name} (+₹{zone.fee})</option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-3">
+                  <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
@@ -1505,7 +1505,7 @@ function MainAppContent() {
                         </h4>
                         <p className="text-[11px] opacity-70">Choose individual vanity tier & look for each family guest.</p>
                       </div>
-                      <button type="button" onClick={handleAddFamilyGuest} className="px-3.5 py-2 rounded-[14px] bg-black/5 dark:bg-white/5 hover:bg-black/10 border border-black/10 dark:border-white/10 text-xs font-medium flex items-center gap-1 transition shadow-2xs">
+                      <button type="button" onClick={handleAddFamilyGuest} className="px-3.5 py-2 rounded-[14px] bg-black/5 dark:bg-white/10 hover:bg-black/10 border border-black/15 dark:border-white/25 text-xs font-medium flex items-center gap-1 transition shadow-2xs">
                         <Plus className="w-3 h-3" /> Add Guest
                       </button>
                     </div>
@@ -1525,7 +1525,7 @@ function MainAppContent() {
                         {familyGuests.map((guest, idx) => {
                           const rawGuestPrice = config.pricingByKit[guest.kit]?.[guest.packageKey] || 2500;
                           return (
-                            <div key={guest.id} className="p-3.5 rounded-[16px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 space-y-2 shadow-2xs">
+                            <div key={guest.id} className="p-3.5 rounded-[16px] bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 space-y-2 shadow-2xs">
                               <div className="flex items-center justify-between">
                                 <span className="text-xs font-medium">Guest #{idx + 1}</span>
                                 <div className="flex items-center gap-2">
@@ -1536,14 +1536,14 @@ function MainAppContent() {
                               <div className="grid grid-cols-2 gap-2">
                                 <div>
                                   <label className="block text-[10px] font-medium opacity-70 mb-1">Vanity Tier</label>
-                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/10 dark:border-white/10 outline-none">
+                                  <select value={guest.kit} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'kit', e.target.value)} className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/15 dark:border-white/25 outline-none">
                                     <option value="international">👑 Luxury Kit</option>
                                     <option value="drugstore">✨ HD Kit</option>
                                   </select>
                                 </div>
                                 <div>
                                   <label className="block text-[10px] font-medium opacity-70 mb-1">Package Look</label>
-                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/10 dark:border-white/10 outline-none">
+                                  <select value={guest.packageKey} onChange={(e) => handleUpdateFamilyGuest(guest.id, 'packageKey', e.target.value)} className="w-full p-2.5 rounded-[12px] text-xs font-medium bg-transparent border border-black/15 dark:border-white/25 outline-none">
                                     {Object.keys(config.kitText?.[guest.kit] || {}).map(k => (
                                       <option key={k} value={k}>{config.kitText[guest.kit][k]?.name || k} (₹{config.pricingByKit[guest.kit][k]})</option>
                                     ))}
@@ -1558,12 +1558,12 @@ function MainAppContent() {
                   </div>
 
                   {config.toggles?.enableCoupons !== false && config.enableDiscountsAndCoupons !== false && (
-                    <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-2">
+                    <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-2">
                       <label className="block text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 opacity-90">
                         <Tag className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> Promo Coupon Code
                       </label>
                       {appliedCoupon ? (
-                        <div className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[16px] p-3.5 flex items-center justify-between gap-2 shadow-2xs">
+                        <div className="bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/25 rounded-[16px] p-3.5 flex items-center justify-between gap-2 shadow-2xs">
                           <div>
                             <span className="text-xs font-semibold font-mono">CODE: {appliedCoupon.code} APPLIED</span>
                             <p className="text-[11px] opacity-70 font-normal">🎉 {appliedCoupon.type === 'percent' ? `${appliedCoupon.value}% OFF` : `Flat ₹${appliedCoupon.value} OFF`}</p>
@@ -1572,7 +1572,7 @@ function MainAppContent() {
                         </div>
                       ) : (
                         <div className="flex gap-2">
-                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-transparent border border-black/10 dark:border-white/10 rounded-[16px] px-3.5 py-2.5 text-xs uppercase font-mono font-medium outline-none shadow-2xs" />
+                          <input type="text" placeholder="e.g. BRIDE2026" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleApplyCoupon(e); } }} className="flex-1 bg-transparent border border-black/15 dark:border-white/25 rounded-[16px] px-3.5 py-2.5 text-xs uppercase font-mono font-medium outline-none shadow-2xs" />
                           <button type="button" onClick={handleApplyCoupon} className={`px-4 py-2.5 ${activeThemeStyle.btn} text-xs font-medium rounded-[16px] transition shadow-sm`}>Apply</button>
                         </div>
                       )}
@@ -1580,33 +1580,33 @@ function MainAppContent() {
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-3">
+                  <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-3">
                     <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
                       <User className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 2. Enter Client Details
                     </h4>
                     <div>
                       <label className="block text-xs font-medium opacity-70 mb-1">Full Name *</label>
-                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" />
+                      <input type="text" required placeholder="e.g. Aliza Khan" value={clientName} onChange={(e) => setClientName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium opacity-70 mb-1">Contact Phone *</label>
-                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" />
+                        <input type="tel" required placeholder="e.g. 9876543210" value={clientPhone} onChange={(e) => setClientPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
                       </div>
                       <div>
                         <label className="block text-xs font-medium opacity-70 mb-1">Event Date *</label>
-                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" />
+                        <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
                       </div>
                     </div>
 
-                    <div className="pt-3 border-t border-black/10 dark:border-white/10 space-y-3">
+                    <div className="pt-3 border-t border-black/10 dark:border-white/15 space-y-3">
                       <div className="flex items-center justify-between">
                         <h4 className="font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
                           <MapPin className={`w-3.5 h-3.5 ${activeThemeStyle.accentText}`} /> 3. Destination Venue & Address
                         </h4>
                         <div className="flex items-center gap-1.5">
                           {['Home', 'Work'].map((type) => (
-                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3.5 py-1.5 rounded-[12px] text-[10px] font-medium border transition shadow-2xs ${addressType === type ? `${activeThemeStyle.btn} font-semibold` : 'bg-black/5 dark:bg-white/5 border-black/10 dark:border-white/10 opacity-70'}`}>
+                            <button key={type} type="button" onClick={() => setAddressType(type)} className={`px-3.5 py-1.5 rounded-[12px] text-[10px] font-medium border transition shadow-2xs ${addressType === type ? `${activeThemeStyle.btn} font-semibold` : 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/25 opacity-70'}`}>
                               {type === 'Work' ? '🏢 Work' : '🏠 Home'}
                             </button>
                           ))}
@@ -1616,31 +1616,31 @@ function MainAppContent() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">Postal PIN Code *</label>
-                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" />
+                          <input type="text" required maxLength={6} placeholder="e.g. 110025" value={pincode} onChange={(e) => { const val = e.target.value.replace(/\D/g, ''); setPincode(val === '0' ? '' : val); }} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
                         </div>
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">Flat, House No., Building</label>
-                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" />
+                          <input type="text" placeholder="e.g. Flat 402" value={flatHouseNo} onChange={(e) => setFlatHouseNo(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
                         </div>
                       </div>
                       <div>
                         <label className="block text-[11px] font-medium opacity-70 mb-1">Street, Sector, Area, Locality *</label>
-                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" />
+                        <input type="text" required placeholder="e.g. Jamia Nagar, Okhla" value={streetLocality} onChange={(e) => setStreetLocality(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
                       </div>
                       <div>
                         <label className="block text-[11px] font-medium opacity-70 mb-1">Landmark (Optional)</label>
-                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" />
+                        <input type="text" placeholder="e.g. Near Metro Gate" value={landmark} onChange={(e) => setLandmark(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">State / Region *</label>
-                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-medium shadow-2xs outline-none">
+                          <select value={selectedState} onChange={(e) => { const st = e.target.value; setSelectedState(st); setState(st); setCity((ALL_INDIA_STATES_AND_CITIES[st] || ["Other Major City"])[0]); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-medium shadow-2xs outline-none">
                             {Object.keys(ALL_INDIA_STATES_AND_CITIES).map(stName => <option key={stName} value={stName}>{stName}</option>)}
                           </select>
                         </div>
                         <div>
                           <label className="block text-[11px] font-medium opacity-70 mb-1">Town / City *</label>
-                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-medium shadow-2xs outline-none">
+                          <select value={city} onChange={(e) => setCity(e.target.value)} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-medium shadow-2xs outline-none">
                             {(ALL_INDIA_STATES_AND_CITIES[selectedState] || [city]).map(cityName => <option key={cityName} value={cityName}>{cityName}</option>)}
                           </select>
                         </div>
@@ -1649,7 +1649,7 @@ function MainAppContent() {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN: ISOLATED STANDALONE TOTAL AMOUNT SUMMARY CARD */}
+                {/* RIGHT COLUMN: INDEPENDENT STANDALONE TOTAL AMOUNT SUMMARY CARD */}
                 <div className={`md:col-span-5 ${activeThemeStyle.card} p-5 sm:p-6 flex flex-col justify-between space-y-4 shadow-2xl`}>
                   <div>
                     <span className="text-[11px] font-semibold uppercase tracking-wider opacity-60">Total Amount Summary</span>
@@ -1658,7 +1658,7 @@ function MainAppContent() {
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-xs border-t border-b border-black/10 dark:border-white/10 py-3">
+                  <div className="space-y-3 text-xs border-t border-b border-black/10 dark:border-white/15 py-3">
                     <div className="p-3 rounded-[16px] border border-sky-500/30 bg-sky-500/10 space-y-1.5">
                       <div className="flex justify-between items-center font-bold text-sky-400">
                         <span>1. Main Makeover Package:</span>
@@ -1681,7 +1681,7 @@ function MainAppContent() {
                       }) : <div className="flex justify-between pl-1 text-[11px] opacity-60"><span>• No extra guests</span><span className="font-mono">₹0</span></div>}
                     </div>
 
-                    <div className="flex justify-between items-center px-3 py-2 text-xs font-semibold rounded-[14px] bg-black/5 dark:bg-white/10">
+                    <div className="flex justify-between items-center px-3 py-2 text-xs font-semibold rounded-[14px] bg-black/5 dark:bg-white/15">
                       <span>Total Before Discounts:</span>
                       <span className="font-mono">₹{(mainBookingSubtotal + familyGuestsGross).toLocaleString('en-IN')}</span>
                     </div>
@@ -1718,7 +1718,7 @@ function MainAppContent() {
                 <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto" />
                 <h4 className="font-semibold text-sm text-emerald-400">Thank you for your valuable feedback!</h4>
                 <p className="text-xs opacity-70">Your suggestion has been securely submitted.</p>
-                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-4 py-2.5 rounded-[16px] bg-black/5 dark:bg-white/5 hover:bg-white/10 text-xs font-medium transition">Submit Another</button>
+                <button onClick={() => setFeedbackSubmitted(false)} className="mt-3 px-4 py-2.5 rounded-[16px] bg-black/5 dark:bg-white/10 hover:bg-white/15 text-xs font-medium transition">Submit Another</button>
               </div>
             ) : (
               <form onSubmit={handleSubmitFeedback} className="space-y-4">
@@ -1730,10 +1730,10 @@ function MainAppContent() {
                   ))}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" />
-                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs font-mono shadow-2xs outline-none" />
+                  <input type="text" placeholder="Your Name" value={feedbackName} onChange={e => setFeedbackName(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
+                  <input type="tel" placeholder="Phone Number" value={feedbackPhone} onChange={e => setFeedbackPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault(); }} className="w-full px-3.5 py-2.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs font-mono shadow-2xs outline-none" />
                 </div>
-                <textarea rows={4} required placeholder="Share your suggestion..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-3.5 rounded-[16px] bg-transparent border border-black/10 dark:border-white/10 text-xs shadow-2xs outline-none" />
+                <textarea rows={4} required placeholder="Share your suggestion..." value={feedbackMessage} onChange={e => setFeedbackMessage(e.target.value)} className="w-full p-3.5 rounded-[16px] bg-transparent border border-black/15 dark:border-white/25 text-xs shadow-2xs outline-none" />
                 <button type="submit" disabled={isSubmittingFeedback} className={`w-full py-3 ${activeThemeStyle.btn} font-medium text-xs rounded-[16px] shadow-md active:scale-[0.98] transition flex items-center justify-center gap-1.5`}>
                   <Send className="w-3.5 h-3.5" /> <span>{isSubmittingFeedback ? 'Submitting...' : 'Send Feedback'}</span>
                 </button>
