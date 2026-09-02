@@ -59,7 +59,7 @@ class AppErrorBoundary extends Component {
 }
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
-const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80";
+const DEFAULT_STUDIO_LOGO = "";
 
 const DEFAULT_BRANDS = [
   { category: "Base & Foundation", name: "Dior / Charlotte Tilbury / NARS", desc: "For flawless, long-lasting luxury base." },
@@ -1208,7 +1208,7 @@ function MainAppContent() {
       } catch (e) {}
     };
 
-    const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
+    const logoUrlToLoad = config.studioLogo;
     const logoImg = new Image(); 
     logoImg.crossOrigin = "anonymous";
     logoImg.src = logoUrlToLoad; 
@@ -1281,7 +1281,7 @@ function MainAppContent() {
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   
-  const resolvedLogoUrl = config.studioLogo || DEFAULT_STUDIO_LOGO;
+  const resolvedLogoUrl = config.studioLogo;
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
@@ -1571,14 +1571,20 @@ function MainAppContent() {
           <div className="space-y-6 flex flex-col items-center">
             
             {/* LOGO WITH PIXELATION / BLUR REVEAL */}
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md">
-              <img 
-                src={resolvedLogoUrl} 
-                alt="Studio Logo" 
-                className="w-full h-full object-contain rounded-[20px] splash-pixelate-anim" 
-              />
-              <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
-            </div>
+            {resolvedLogoUrl ? (
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md">
+                <img 
+                  src={resolvedLogoUrl} 
+                  alt="Studio Logo" 
+                  className="w-full h-full object-contain rounded-[20px] splash-pixelate-anim" 
+                />
+                <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
+              </div>
+            ) : (
+              <div className="w-20 h-20 rounded-full bg-purple-500/20 flex items-center justify-center animate-pulse">
+                <Crown className="w-10 h-10 text-purple-400" />
+              </div>
+            )}
 
             {/* STUDIO NAME & TAGLINE */}
             <div className="space-y-1.5 animate-fade-in">
