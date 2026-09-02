@@ -59,7 +59,7 @@ class AppErrorBoundary extends Component {
 }
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
-const DEFAULT_STUDIO_LOGO = "";
+const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&auto=format&fit=crop&q=80";
 
 const DEFAULT_BRANDS = [
   { category: "Base & Foundation", name: "Dior / Charlotte Tilbury / NARS", desc: "For flawless, long-lasting luxury base." },
@@ -1302,14 +1302,21 @@ function MainAppContent() {
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   
+  // Instant direct resolved logo URL using localStorage cache as primary fallback for zero delay
   let resolvedLogoUrl = config.studioLogo;
   if (typeof resolvedLogoUrl === 'string' && resolvedLogoUrl.startsWith('media://')) {
     const mediaKey = resolvedLogoUrl.slice(8);
     resolvedLogoUrl = mediaAssets[mediaKey] || "";
   }
-  if (!resolvedLogoUrl) {
+  if (!resolvedLogoUrl || resolvedLogoUrl === '') {
     try {
-      resolvedLogoUrl = localStorage.getItem('hf_cached_logo') || "";
+      resolvedLogoUrl = localStorage.getItem('hf_cached_logo') || DEFAULT_STUDIO_LOGO;
+    } catch {
+      resolvedLogoUrl = DEFAULT_STUDIO_LOGO;
+    }
+  } else {
+    try {
+      localStorage.setItem('hf_cached_logo', resolvedLogoUrl);
     } catch {}
   }
 
@@ -1523,7 +1530,6 @@ function MainAppContent() {
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* PIXELATE & BLUR-TO-CLEAR ANIMATION */
         @keyframes pixelateToClear {
           0% {
             filter: blur(16px) contrast(300%) grayscale(40%);
@@ -1595,24 +1601,14 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN WITH TEXT FIRST & RESOLVED CACHED LOGO */}
+      {/* SPLASH SCREEN: LOGO IMAGE FIRST (ABOVE) & TEXT/TAGLINE BELOW */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="space-y-6 flex flex-col items-center max-w-sm w-full mx-auto">
             
-            {/* STUDIO NAME & TAGLINE FIRST */}
-            <div className="space-y-2 animate-fade-in w-full">
-              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor} break-words`}>
-                {config.studioName || 'H&F Makeup Artist'}
-              </h2>
-              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText} break-words`}>
-                {config.artistTagline || 'Beauty, Styled Your Way'}
-              </p>
-            </div>
-
-            {/* RESOLVED LOGO IMAGE WITH PIXELATION ANIMATION */}
+            {/* RESOLVED LOGO IMAGE FIRST (ABOVE) */}
             {resolvedLogoUrl ? (
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mt-2 mx-auto">
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mx-auto">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Studio Logo" 
@@ -1621,6 +1617,16 @@ function MainAppContent() {
                 <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
               </div>
             ) : null}
+
+            {/* STUDIO NAME & TAGLINE BELOW */}
+            <div className="space-y-2 animate-fade-in w-full">
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor} break-words`}>
+                {config.studioName || 'H&F Makeup Artist'}
+              </h2>
+              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText} break-words`}>
+                {config.artistTagline || 'Beauty, Styled Your Way'}
+              </p>
+            </div>
 
           </div>
         </div>
@@ -1897,7 +1903,6 @@ function MainAppContent() {
               </div>
             </div>
 
-            {/* Smooth transition animated card grid for Luxury & HD kits */}
             <div key={selectedKit} className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 hf-kit-enter">
               {Object.keys(config.kitText?.[selectedKit] || {}).map((key) => {
                 const item = config.kitText?.[selectedKit]?.[key] || DEFAULT_KIT_TEXT[selectedKit][key];
