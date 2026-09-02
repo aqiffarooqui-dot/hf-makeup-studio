@@ -59,7 +59,7 @@ class AppErrorBoundary extends Component {
 }
 
 const DEFAULT_PROFILE_IMG = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80";
-const DEFAULT_STUDIO_LOGO = "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=300&auto=format&fit=crop&q=80";
+const DEFAULT_STUDIO_LOGO = "";
 
 const DEFAULT_BRANDS = [
   { category: "Base & Foundation", name: "Dior / Charlotte Tilbury / NARS", desc: "For flawless, long-lasting luxury base." },
@@ -928,13 +928,72 @@ function MainAppContent() {
     logVisitorTraffic();
   }, []);
 
+  let resolvedLogoUrl = config.studioLogo;
+  if (typeof resolvedLogoUrl === 'string' && resolvedLogoUrl.startsWith('media://')) {
+    const mediaKey = resolvedLogoUrl.slice(8);
+    resolvedLogoUrl = mediaAssets[mediaKey] || "";
+  }
+  if (!resolvedLogoUrl || resolvedLogoUrl === '') {
+    try {
+      resolvedLogoUrl = localStorage.getItem('hf_cached_logo') || "";
+    } catch {
+      resolvedLogoUrl = "";
+    }
+  } else {
+    try {
+      localStorage.setItem('hf_cached_logo', resolvedLogoUrl);
+    } catch {}
+  }
+
+  // Smart Splash Screen Controller: Waits until actual logo is fully loaded or falls back safely after max 3.5s
   useEffect(() => {
-    const splashTimer = setTimeout(() => {
-      setSplashFade(true);
-      setTimeout(() => setShowSplash(false), 700);
-    }, 2400);
-    return () => clearTimeout(splashTimer);
-  }, []);
+    let isMounted = true;
+    const targetUrl = resolvedLogoUrl;
+
+    if (!targetUrl) {
+      const timer = setTimeout(() => {
+        if (isMounted) {
+          setSplashFade(true);
+          setTimeout(() => setShowSplash(false), 700);
+        }
+      }, 1800);
+      return () => { isMounted = false; clearTimeout(timer); };
+    }
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = targetUrl;
+
+    let safetyTimer = setTimeout(() => {
+      if (isMounted) {
+        setSplashFade(true);
+        setTimeout(() => setShowSplash(false), 700);
+      }
+    }, 3500);
+
+    img.onload = () => {
+      clearTimeout(safetyTimer);
+      if (isMounted) {
+        setTimeout(() => {
+          setSplashFade(true);
+          setTimeout(() => setShowSplash(false), 700);
+        }, 1200);
+      }
+    };
+
+    img.onerror = () => {
+      clearTimeout(safetyTimer);
+      if (isMounted) {
+        setSplashFade(true);
+        setTimeout(() => setShowSplash(false), 700);
+      }
+    };
+
+    return () => {
+      isMounted = false;
+      clearTimeout(safetyTimer);
+    };
+  }, [resolvedLogoUrl]);
 
   useEffect(() => {
     let latestLive = STUDIO_CONFIG;
@@ -1301,24 +1360,6 @@ function MainAppContent() {
   const activeThemeStyle = isDarkMode ? currentThemeGroup.night : currentThemeGroup.day;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
-  
-  // Instant direct resolved logo URL using localStorage cache as primary fallback for zero delay
-  let resolvedLogoUrl = config.studioLogo;
-  if (typeof resolvedLogoUrl === 'string' && resolvedLogoUrl.startsWith('media://')) {
-    const mediaKey = resolvedLogoUrl.slice(8);
-    resolvedLogoUrl = mediaAssets[mediaKey] || "";
-  }
-  if (!resolvedLogoUrl || resolvedLogoUrl === '') {
-    try {
-      resolvedLogoUrl = localStorage.getItem('hf_cached_logo') || DEFAULT_STUDIO_LOGO;
-    } catch {
-      resolvedLogoUrl = DEFAULT_STUDIO_LOGO;
-    }
-  } else {
-    try {
-      localStorage.setItem('hf_cached_logo', resolvedLogoUrl);
-    } catch {}
-  }
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
@@ -1601,12 +1642,12 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN: LOGO IMAGE FIRST (ABOVE) & TEXT/TAGLINE BELOW */}
+      {/* SPLASH SCREEN WITH ZERO-DUMMY FALLBACK & SMART LOAD WAITING */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="space-y-6 flex flex-col items-center max-w-sm w-full mx-auto">
             
-            {/* RESOLVED LOGO IMAGE FIRST (ABOVE) */}
+            {/* RESOLVED LOGO IMAGE FIRST (ONLY RENDERED IF URL IS AVAILABLE) */}
             {resolvedLogoUrl ? (
               <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mx-auto">
                 <img 
