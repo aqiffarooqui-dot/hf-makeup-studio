@@ -1208,7 +1208,7 @@ function MainAppContent() {
       } catch (e) {}
     };
 
-    const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
+    const logoUrlToLoad = config.studioLogo;
     const logoImg = new Image(); 
     logoImg.crossOrigin = "anonymous";
     logoImg.src = logoUrlToLoad; 
@@ -1280,7 +1280,10 @@ function MainAppContent() {
   const activeThemeStyle = isDarkMode ? currentThemeGroup.night : currentThemeGroup.day;
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
-  const resolvedLogoUrl = logoLoadFailed || !config.studioLogo ? DEFAULT_STUDIO_LOGO : config.studioLogo;
+  
+  // FIXED: Only dependent on Firebase / live config studioLogo
+  const resolvedLogoUrl = config.studioLogo;
+
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
   const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
@@ -1336,7 +1339,7 @@ function MainAppContent() {
   };
   const handleTouchMove = (e) => {
     if (!isDragging || zoomScale <= 1 || !e.touches[0]) return;
-    setPanPos({ x: e.touches[0].clientX - dragStart.x, y: e.touches[0].clientY - dragStart.y });
+    setPanPos({ x: e.touches[0].clientX - panPos.x, y: e.touches[0].clientY - panPos.y });
   };
   const handleTouchEnd = () => setIsDragging(false);
 
@@ -1491,6 +1494,29 @@ function MainAppContent() {
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
+        /* SPLASH PIECE ASSEMBLE ANIMATIONS */
+        @keyframes assembleTopLeft {
+          0% { transform: translate(-140px, -140px) rotate(-35deg) scale(0.3); opacity: 0; }
+          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes assembleTopRight {
+          0% { transform: translate(140px, -140px) rotate(35deg) scale(0.3); opacity: 0; }
+          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes assembleBottomLeft {
+          0% { transform: translate(-140px, 140px) rotate(35deg) scale(0.3); opacity: 0; }
+          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+        @keyframes assembleBottomRight {
+          0% { transform: translate(140px, 140px) rotate(-35deg) scale(0.3); opacity: 0; }
+          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        }
+
+        .assemble-piece-tl { animation: assembleTopLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .assemble-piece-tr { animation: assembleTopRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .assemble-piece-bl { animation: assembleBottomLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .assemble-piece-br { animation: assembleBottomRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
           padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); 
@@ -1541,11 +1567,33 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN (ANIMATED LOGO ONLY) */}
+      {/* SPLASH SCREEN WITH 4-CORNER PIECE ASSEMBLE ANIMATION */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className={`w-28 h-28 sm:w-36 sm:h-36 rounded-[32px] overflow-hidden ${activeThemeStyle.card} p-2 shadow-2xl animate-pulse flex items-center justify-center`}>
-            <img src={resolvedLogoUrl} alt="Studio Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-contain rounded-[24px]" />
+          <div className="relative w-36 h-36 sm:w-44 sm:h-44 flex items-center justify-center">
+            
+            {/* TOP-LEFT PIECE */}
+            <div className="absolute top-0 left-0 w-1/2 h-1/2 overflow-hidden assemble-piece-tl rounded-tl-[24px]">
+              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ objectPosition: 'top left' }} />
+            </div>
+
+            {/* TOP-RIGHT PIECE */}
+            <div className="absolute top-0 right-0 w-1/2 h-1/2 overflow-hidden assemble-piece-tr rounded-tr-[24px]">
+              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ marginLeft: '-50%', objectPosition: 'top right' }} />
+            </div>
+
+            {/* BOTTOM-LEFT PIECE */}
+            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 overflow-hidden assemble-piece-bl rounded-bl-[24px]">
+              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ marginTop: '-50%', objectPosition: 'bottom left' }} />
+            </div>
+
+            {/* BOTTOM-RIGHT PIECE */}
+            <div className="absolute bottom-0 right-0 w-1/2 h-1/2 overflow-hidden assemble-piece-br rounded-br-[24px]">
+              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ marginLeft: '-50%', marginTop: '-50%', objectPosition: 'bottom right' }} />
+            </div>
+
+            {/* CENTRAL SHINE RING OVERLAY */}
+            <div className="absolute inset-0 rounded-[28px] border-2 border-purple-400/40 shadow-[0_0_30px_rgba(168,85,247,0.5)] pointer-events-none animate-pulse" />
           </div>
         </div>
       )}
