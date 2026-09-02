@@ -928,6 +928,7 @@ function MainAppContent() {
     logVisitorTraffic();
   }, []);
 
+  // Instant direct resolved logo URL using localStorage cache as primary fallback for zero delay
   let resolvedLogoUrl = config.studioLogo;
   if (typeof resolvedLogoUrl === 'string' && resolvedLogoUrl.startsWith('media://')) {
     const mediaKey = resolvedLogoUrl.slice(8);
