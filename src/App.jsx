@@ -1576,21 +1576,21 @@ function MainAppContent() {
       {/* SPLASH SCREEN WITH TEXT FIRST & SEQUENTIAL REVEAL ANIMATION */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="space-y-6 flex flex-col items-center">
+          <div className="space-y-6 flex flex-col items-center max-w-sm w-full mx-auto">
             
             {/* STUDIO NAME & TAGLINE FIRST */}
-            <div className="space-y-2 animate-fade-in">
-              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>
+            <div className="space-y-2 animate-fade-in w-full">
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor} break-words`}>
                 {config.studioName || 'H&F Makeup Artist'}
               </h2>
-              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText}`}>
+              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText} break-words`}>
                 {config.artistTagline || 'Beauty, Styled Your Way'}
               </p>
             </div>
 
             {/* RESOLVED LOGO IMAGE WITH PIXELATION ANIMATION */}
             {resolvedLogoUrl ? (
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mt-2">
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mt-2 mx-auto">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Studio Logo" 
@@ -1598,11 +1598,7 @@ function MainAppContent() {
                 />
                 <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
               </div>
-            ) : (
-              <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center animate-pulse mt-2">
-                <Crown className="w-8 h-8 text-purple-400" />
-              </div>
-            )}
+            ) : null}
 
           </div>
         </div>
