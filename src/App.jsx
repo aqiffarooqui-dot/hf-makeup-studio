@@ -174,7 +174,7 @@ const FONT_MAP = {
   maven_pro: "'Maven Pro', sans-serif",
   alata: "'Alata', sans-serif",
   asap: "'Asap', sans-serif",
-  heebo: "'Asap', sans-serif",
+  heebo: "'Heebo', sans-serif",
   titillium_web: "'Titillium Web', sans-serif",
   sans: "'Plus Jakarta Sans', sans-serif"
 };
@@ -1355,7 +1355,7 @@ function MainAppContent() {
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300 ease-out`}>
         <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
             <Wrench className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
           <div className="space-y-2">
@@ -1573,14 +1573,24 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN WITH STUDIO NAME, TAGLINE & RESOLVED LOGO PIXELATE ANIMATION */}
+      {/* SPLASH SCREEN WITH TEXT FIRST & SEQUENTIAL REVEAL ANIMATION */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="space-y-6 flex flex-col items-center">
             
-            {/* LOGO WITH PIXELATION / BLUR REVEAL */}
+            {/* STUDIO NAME & TAGLINE FIRST */}
+            <div className="space-y-2 animate-fade-in">
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>
+                {config.studioName || 'H&F Makeup Artist'}
+              </h2>
+              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText}`}>
+                {config.artistTagline || 'Beauty, Styled Your Way'}
+              </p>
+            </div>
+
+            {/* RESOLVED LOGO IMAGE WITH PIXELATION ANIMATION */}
             {resolvedLogoUrl ? (
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md">
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mt-2">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Studio Logo" 
@@ -1589,20 +1599,10 @@ function MainAppContent() {
                 <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
               </div>
             ) : (
-              <div className="w-20 h-20 rounded-full bg-purple-500/20 flex items-center justify-center animate-pulse">
-                <Crown className="w-10 h-10 text-purple-400" />
+              <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center animate-pulse mt-2">
+                <Crown className="w-8 h-8 text-purple-400" />
               </div>
             )}
-
-            {/* STUDIO NAME & TAGLINE */}
-            <div className="space-y-1.5 animate-fade-in">
-              <h2 className={`text-xl sm:text-2xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>
-                {config.studioName || 'H&F Makeup Artist'}
-              </h2>
-              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText}`}>
-                {config.artistTagline || 'Beauty, Styled Your Way'}
-              </p>
-            </div>
 
           </div>
         </div>
