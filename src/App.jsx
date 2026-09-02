@@ -1208,7 +1208,7 @@ function MainAppContent() {
       } catch (e) {}
     };
 
-    const logoUrlToLoad = config.studioLogo;
+    const logoUrlToLoad = config.studioLogo || DEFAULT_STUDIO_LOGO;
     const logoImg = new Image(); 
     logoImg.crossOrigin = "anonymous";
     logoImg.src = logoUrlToLoad; 
@@ -1281,8 +1281,8 @@ function MainAppContent() {
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   
-  // FIXED: Only dependent on Firebase / live config studioLogo
-  const resolvedLogoUrl = config.studioLogo;
+  // Safe fallback included so splash screen and header logo load immediately without breaking
+  const resolvedLogoUrl = config.studioLogo || DEFAULT_STUDIO_LOGO;
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
