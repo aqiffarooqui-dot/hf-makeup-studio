@@ -1281,7 +1281,6 @@ function MainAppContent() {
   const currentFontFamily = FONT_MAP[config.theme?.fontFamily] || FONT_MAP.sans;
   const resolvedAvatar = imgLoadFailed ? DEFAULT_PROFILE_IMG : resolveProfileImageUrl(config);
   
-  // Safe fallback included so splash screen and header logo load immediately without breaking
   const resolvedLogoUrl = config.studioLogo || DEFAULT_STUDIO_LOGO;
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
@@ -1494,28 +1493,27 @@ function MainAppContent() {
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* SPLASH PIECE ASSEMBLE ANIMATIONS */
-        @keyframes assembleTopLeft {
-          0% { transform: translate(-140px, -140px) rotate(-35deg) scale(0.3); opacity: 0; }
-          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        /* PIXELATE & BLUR-TO-CLEAR ANIMATION */
+        @keyframes pixelateToClear {
+          0% {
+            filter: blur(16px) contrast(300%) grayscale(40%);
+            transform: scale(1.15);
+            opacity: 0.1;
+          }
+          50% {
+            filter: blur(6px) contrast(180%) grayscale(15%);
+            transform: scale(1.06);
+            opacity: 0.6;
+          }
+          100% {
+            filter: blur(0px) contrast(100%) grayscale(0%);
+            transform: scale(1);
+            opacity: 1;
+          }
         }
-        @keyframes assembleTopRight {
-          0% { transform: translate(140px, -140px) rotate(35deg) scale(0.3); opacity: 0; }
-          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+        .splash-pixelate-anim {
+          animation: pixelateToClear 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        @keyframes assembleBottomLeft {
-          0% { transform: translate(-140px, 140px) rotate(35deg) scale(0.3); opacity: 0; }
-          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
-        }
-        @keyframes assembleBottomRight {
-          0% { transform: translate(140px, 140px) rotate(-35deg) scale(0.3); opacity: 0; }
-          100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
-        }
-
-        .assemble-piece-tl { animation: assembleTopLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-        .assemble-piece-tr { animation: assembleTopRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-        .assemble-piece-bl { animation: assembleBottomLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-        .assemble-piece-br { animation: assembleBottomRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
@@ -1567,33 +1565,16 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN WITH 4-CORNER PIECE ASSEMBLE ANIMATION */}
+      {/* SPLASH SCREEN WITH PIXELATE / BLUR-TO-CLEAR EFFECT */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="relative w-36 h-36 sm:w-44 sm:h-44 flex items-center justify-center">
-            
-            {/* TOP-LEFT PIECE */}
-            <div className="absolute top-0 left-0 w-1/2 h-1/2 overflow-hidden assemble-piece-tl rounded-tl-[24px]">
-              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ objectPosition: 'top left' }} />
-            </div>
-
-            {/* TOP-RIGHT PIECE */}
-            <div className="absolute top-0 right-0 w-1/2 h-1/2 overflow-hidden assemble-piece-tr rounded-tr-[24px]">
-              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ marginLeft: '-50%', objectPosition: 'top right' }} />
-            </div>
-
-            {/* BOTTOM-LEFT PIECE */}
-            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 overflow-hidden assemble-piece-bl rounded-bl-[24px]">
-              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ marginTop: '-50%', objectPosition: 'bottom left' }} />
-            </div>
-
-            {/* BOTTOM-RIGHT PIECE */}
-            <div className="absolute bottom-0 right-0 w-1/2 h-1/2 overflow-hidden assemble-piece-br rounded-br-[24px]">
-              <img src={resolvedLogoUrl} alt="Logo Part" className="w-36 h-36 sm:w-44 sm:h-44 max-w-none object-cover" style={{ marginLeft: '-50%', marginTop: '-50%', objectPosition: 'bottom right' }} />
-            </div>
-
-            {/* CENTRAL SHINE RING OVERLAY */}
-            <div className="absolute inset-0 rounded-[28px] border-2 border-purple-400/40 shadow-[0_0_30px_rgba(168,85,247,0.5)] pointer-events-none animate-pulse" />
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md">
+            <img 
+              src={resolvedLogoUrl} 
+              alt="Studio Logo" 
+              className="w-full h-full object-contain rounded-[20px] splash-pixelate-anim" 
+            />
+            <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
           </div>
         </div>
       )}
