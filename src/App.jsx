@@ -708,7 +708,24 @@ const AutoPlayVideoCard = ({ item, onOpen }) => {
 };
 
 const MEDIA_COLLECTION = 'studio_media';
-const resolveMediaValue = (value, mediaMap) => typeof value === 'string' && value.startsWith('media://') ? (mediaMap[value.slice(8)] || value) : value;
+const resolveMediaValue = (value, mediaMap) => {
+  if (typeof value === 'string' && value.startsWith('media://')) {
+    const resolved = mediaMap[value.slice(8)];
+    if (resolved) {
+      try { localStorage.setItem('hf_cached_logo', resolved); } catch {}
+      return resolved;
+    }
+    try {
+      const cached = localStorage.getItem('hf_cached_logo');
+      if (cached) return cached;
+    } catch {}
+  }
+  if (typeof value === 'string' && value && !value.startsWith('media://')) {
+    try { localStorage.setItem('hf_cached_logo', value); } catch {}
+  }
+  return value;
+};
+
 const resolveConfigMedia = (live, mediaMap) => {
   const next = JSON.parse(JSON.stringify(live || {}));
   next.studioLogo = resolveMediaValue(next.studioLogo, mediaMap);
@@ -1290,6 +1307,11 @@ function MainAppContent() {
     const mediaKey = resolvedLogoUrl.slice(8);
     resolvedLogoUrl = mediaAssets[mediaKey] || "";
   }
+  if (!resolvedLogoUrl) {
+    try {
+      resolvedLogoUrl = localStorage.getItem('hf_cached_logo') || "";
+    } catch {}
+  }
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
@@ -1355,7 +1377,7 @@ function MainAppContent() {
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300 ease-out`}>
         <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
             <Wrench className="w-6 h-6 sm:w-7 sm:h-7" />
           </div>
           <div className="space-y-2">
@@ -1573,7 +1595,7 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN WITH TEXT FIRST & SEQUENTIAL REVEAL ANIMATION */}
+      {/* SPLASH SCREEN WITH TEXT FIRST & RESOLVED CACHED LOGO */}
       {showSplash && (
         <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="space-y-6 flex flex-col items-center max-w-sm w-full mx-auto">
