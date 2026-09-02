@@ -914,8 +914,8 @@ function MainAppContent() {
   useEffect(() => {
     const splashTimer = setTimeout(() => {
       setSplashFade(true);
-      setTimeout(() => setShowSplash(false), 600);
-    }, 2000);
+      setTimeout(() => setShowSplash(false), 700);
+    }, 2400);
     return () => clearTimeout(splashTimer);
   }, []);
 
@@ -1565,16 +1565,31 @@ function MainAppContent() {
       <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
       <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN WITH PIXELATE / BLUR-TO-CLEAR EFFECT */}
+      {/* SPLASH SCREEN WITH STUDIO NAME, TAGLINE & PIXELATE LOGO ANIMATION */}
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md">
-            <img 
-              src={resolvedLogoUrl} 
-              alt="Studio Logo" 
-              className="w-full h-full object-contain rounded-[20px] splash-pixelate-anim" 
-            />
-            <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="space-y-6 flex flex-col items-center">
+            
+            {/* LOGO WITH PIXELATION / BLUR REVEAL */}
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md">
+              <img 
+                src={resolvedLogoUrl} 
+                alt="Studio Logo" 
+                className="w-full h-full object-contain rounded-[20px] splash-pixelate-anim" 
+              />
+              <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
+            </div>
+
+            {/* STUDIO NAME & TAGLINE */}
+            <div className="space-y-1.5 animate-fade-in">
+              <h2 className={`text-xl sm:text-2xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>
+                {config.studioName || 'H&F Makeup Artist'}
+              </h2>
+              <p className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${activeThemeStyle.accentText}`}>
+                {config.artistTagline || 'Beauty, Styled Your Way'}
+              </p>
+            </div>
+
           </div>
         </div>
       )}
