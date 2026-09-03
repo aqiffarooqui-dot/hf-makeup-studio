@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { STUDIO_CONFIG } from './config';
 import { subscribeToLiveConfig, db } from './firebase';
-import { collection, addDoc, serverTimestamp, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, getDocs, doc, getDoc } from 'firebase/firestore';
 
 class AppErrorBoundary extends Component {
   constructor(props) {
@@ -460,21 +460,21 @@ const THEME_STYLES = {
       accent: "text-emerald-400",
       accentText: "text-emerald-300 font-extrabold",
       pillBorder: "border border-emerald-400/40 bg-emerald-500/15 text-emerald-200 backdrop-blur-[30px]",
-      btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_30px_rgba(16,185,129,0.6)] rounded-full",
+      btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_30px_rgba(168,85,247,0.6)] rounded-full",
       inputBg: "bg-black/30 backdrop-blur-[30px] border border-emerald-400/35 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/50",
       glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
     },
     day: {
       bg: "bg-[#ecfdf5] text-[#064e3b]",
-      card: "bg-white/20 backdrop-blur-[40px] border border-emerald-300/60 shadow-[0_24px_60px_rgba(16,185,129,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-emerald-300/60 shadow-[0_24px_60px_rgba(168,85,247,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
       innerCard: "bg-white/25 backdrop-blur-[30px] border border-emerald-200/60 shadow-sm",
       headingColor: "text-emerald-950 font-black drop-shadow-sm",
       tabActiveText: "text-emerald-900 font-black drop-shadow-[0_0_10px_rgba(16,185,129,0.6)]",
       accent: "text-emerald-700 font-bold",
       accentText: "text-emerald-700 font-black",
       pillBorder: "border border-emerald-400/70 bg-white/30 text-emerald-950 font-black shadow-sm backdrop-blur-[30px]",
-      btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] active:scale-[0.98] rounded-full",
+      btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] active:scale-[0.98] rounded-full",
       inputBg: "bg-white/30 backdrop-blur-[30px] border border-emerald-300/60 text-emerald-950 placeholder-emerald-400 focus:border-emerald-600 focus:bg-white/50 shadow-inner font-medium",
       glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0) 70%)",
       glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, rgba(20, 184, 166, 0) 70%)"
@@ -667,35 +667,55 @@ const resolveProfileImageUrl = (configData) => {
   return DEFAULT_PROFILE_IMG;
 };
 
+// THERMAL-SAFE LAZY VIDEO CARD (DECODES ONLY WHEN VISIBLE ON SCREEN)
 const AutoPlayVideoCard = ({ item, onOpen }) => {
   const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        if (videoRef.current) {
-          videoRef.current.muted = true;
-          videoRef.current.play().catch(() => {});
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsVisible(entry.isIntersecting);
+      if (videoRef.current) {
+        if (entry.isIntersecting) {
+          videoRef.current.play().catch(() => {
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(() => {});
+            }
+          });
+        } else {
+          videoRef.current.pause();
         }
-      });
-    }
-  }, [item.url]);
+      }
+    }, { threshold: 0.2 });
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div 
+      ref={containerRef}
       onClick={() => onOpen?.(item)} 
       className="h-64 sm:h-80 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[24px] sm:rounded-[32px] shadow-[inset_0_0_25px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out hover:scale-[1.01] border border-white/20 cursor-pointer"
     >
-      <video
-        ref={videoRef}
-        src={item.url}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
-      />
+      {isVisible ? (
+        <video
+          ref={videoRef}
+          src={item.url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
+        />
+      ) : (
+        <div className="w-full h-full bg-neutral-900 flex items-center justify-center">
+          <Film className="w-8 h-8 text-neutral-600 animate-pulse" />
+        </div>
+      )}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-4 sm:p-5 text-white">
         <span className="text-[10px] sm:text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
         <h4 className="font-extrabold text-xs sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
@@ -727,11 +747,9 @@ const resolveMediaValue = (value, mediaMap) => {
 };
 
 const resolveConfigMedia = (live, mediaMap) => {
-  const next = JSON.parse(JSON.stringify(live || {}));
+  const next = { ...live };
   next.studioLogo = resolveMediaValue(next.studioLogo, mediaMap);
   next.profileImage = resolveMediaValue(next.profileImage, mediaMap);
-  Object.entries(next.kitImages || {}).forEach(([kit, imgs]) => Object.entries(imgs || {}).forEach(([pkg, url]) => { next.kitImages[kit][pkg] = resolveMediaValue(url, mediaMap); }));
-  (next.galleryPhotos || []).forEach(item => { if (item?.url) item.url = resolveMediaValue(item.url, mediaMap); });
   return next;
 };
 
@@ -743,7 +761,6 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
       <div className="absolute w-80 h-80 rounded-full bg-purple-600/15 blur-[60px] pointer-events-none -bottom-12 -right-12" />
 
       <div className="relative flex flex-col items-center max-w-xs w-full text-center">
-        {/* Animated Compact & Cosmetic Objects */}
         <div className="relative w-32 h-32 flex items-center justify-center mb-6">
           <div className="absolute inset-0 rounded-full border border-pink-500/30 animate-ping opacity-25" />
           <div className="absolute inset-1 rounded-full border-2 border-dashed border-pink-400/50 animate-spin" style={{ animationDuration: '9s' }} />
@@ -758,7 +775,6 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
           <div className="absolute top-1 -left-2 text-lg animate-pulse" style={{ animationDuration: '1.8s' }}>🌸</div>
         </div>
 
-        {/* Dynamic Header Name & Tagline Revealed when received from Firebase */}
         <div className={`space-y-1.5 transition-all duration-700 ease-out ${isDataLoaded ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}>
           <h2 className="text-base sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-rose-300 to-purple-300 tracking-wider uppercase drop-shadow-md">
             {studioName || 'H&F MAKEUP ARTIST'}
@@ -768,7 +784,6 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
           </p>
         </div>
 
-        {/* Status Line */}
         <div className="flex items-center justify-center gap-1.5 text-[10px] text-purple-300/70 font-semibold tracking-widest uppercase mt-4">
           <span>{isDataLoaded ? 'Theme Ready' : 'Vanity Ready'}</span>
           <span className="inline-flex gap-1">
@@ -778,7 +793,6 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
           </span>
         </div>
 
-        {/* Sleek Line Progress */}
         <div className="w-44 h-1 bg-white/10 rounded-full overflow-hidden mt-4">
           <div className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-rose-400 rounded-full animate-[hfPreloaderBar_1.8s_ease-in-out_infinite]" />
         </div>
@@ -818,7 +832,6 @@ function MainAppContent() {
   const [isAppReady, setIsAppReady] = useState(false);
   const [isFirebaseSynced, setIsFirebaseSynced] = useState(false);
 
-  // AUTOMATIC DEVICE & BROWSER TIER ENGINE (SAFARI / SAMSUNG / ANDROID CHROME / LOW-END)
   const [deviceProfile, setDeviceProfile] = useState(() => {
     if (typeof window === 'undefined') return { platform: 'desktop', tier: 'high' };
     const ua = navigator.userAgent || '';
@@ -826,7 +839,6 @@ function MainAppContent() {
     const isSamsungBrowser = /SamsungBrowser/i.test(ua);
     const isAndroid = /Android/i.test(ua);
 
-    // RAM and CPU Cores Check for Budget Protection
     const memory = navigator.deviceMemory || 8;
     const cores = navigator.hardwareConcurrency || 8;
     const isLowEnd = (memory < 4 || cores < 4);
@@ -963,7 +975,6 @@ function MainAppContent() {
     } catch {}
   }, [isDarkMode]);
 
-  // JITTER-FREE THEME TOGGLER (DISPLAYS INSTANTLY ON MOBILE GPU WITHOUT 60FPS REPAINT STORM)
   const toggleTheme = () => {
     try {
       document.documentElement.classList.add('hf-theme-switching');
@@ -1024,7 +1035,6 @@ function MainAppContent() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, [activeTab, viewingPackage, showShareModal, viewingMedia]);
 
-  // SMART TICKER (ONLY RUNS WHEN NEEDED TO ALLOW LTPO 1HZ TO REST THE PROCESSOR)
   useEffect(() => {
     if (!showFloatingBanner) return;
     const timer = setInterval(() => {
@@ -1118,14 +1128,20 @@ function MainAppContent() {
     };
   }, [resolvedLogoUrl]);
 
-  // LIVE FIRESTORE SYNC & SEAMLESS FULL READY TRANSITION
-  useEffect(() => {
-    let latestLive = STUDIO_CONFIG;
-    let latestMedia = {};
-    const applyLive = () => {
-      const live = resolveConfigMedia(latestLive, latestMedia);
-      
-      // Cache incoming theme & header titles to eliminate any startup delays
+  // SMART ON-DEMAND SYNC ENGINE (ELIMINATES 24/7 OPEN FIRESTORE WEBSOCKET/DRAIN)
+  const syncLatestAdminData = async () => {
+    try {
+      // 1. Fetch live media without keeping socket open
+      const mediaSnap = await getDocs(collection(db, MEDIA_COLLECTION));
+      const map = {};
+      mediaSnap.docs.forEach(d => { map[d.id] = d.data()?.dataUrl || ''; });
+      setMediaAssets(map);
+
+      // 2. Fetch live config doc directly
+      const configDocRef = doc(db, "studio_settings", "main_config");
+      const configDoc = await getDoc(configDocRef);
+      const live = configDoc.exists() ? configDoc.data() : STUDIO_CONFIG;
+
       if (live?.theme?.colorTheme) {
         try { localStorage.setItem('hf_cached_theme', live.theme.colorTheme); } catch {}
       }
@@ -1150,41 +1166,44 @@ function MainAppContent() {
         international: applyDefaults(live.kitText?.international, DEFAULT_KIT_TEXT.international),
         drugstore: applyDefaults(live.kitText?.drugstore, DEFAULT_KIT_TEXT.drugstore)
       };
+
+      const resolved = resolveConfigMedia(live, map);
       setConfig({
-        ...STUDIO_CONFIG, ...live,
-        studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
+        ...STUDIO_CONFIG, ...resolved,
+        studioLogo: resolved.studioLogo || DEFAULT_STUDIO_LOGO,
         kitText: mergedKitText, kitImages: mergedKitImages,
         internationalBrands: (live.internationalBrands?.length ? live.internationalBrands : DEFAULT_BRANDS),
         galleryPhotos: (live.galleryPhotos?.length ? live.galleryPhotos : DEFAULT_GALLERY)
       });
       setImgLoadFailed(false); setLogoLoadFailed(false);
-
-      // 1. Mark Firebase synced to reveal title & tagline on preloader
       setIsFirebaseSynced(true);
+      setTimeout(() => setIsAppReady(true), 400);
+    } catch (err) {
+      setIsFirebaseSynced(true);
+      setIsAppReady(true);
+    }
+  };
 
-      // 2. Mark app fully ready with smooth transition into main app
-      setTimeout(() => {
-        setIsAppReady(true);
-      }, 700);
+  useEffect(() => {
+    syncLatestAdminData();
+
+    // Auto sync without open listener when user re-focuses tab or re-opens app
+    const handleReFocus = () => {
+      if (document.visibilityState === 'visible') {
+        syncLatestAdminData();
+      }
     };
-
-    const unsubscribeConfig = subscribeToLiveConfig(STUDIO_CONFIG, (live) => { latestLive = live || STUDIO_CONFIG; applyLive(); });
-    let unsubscribeMedia = () => {};
-    try {
-      unsubscribeMedia = onSnapshot(collection(db, MEDIA_COLLECTION), (snapshot) => {
-        const map = {}; snapshot.docs.forEach(d => { map[d.id] = d.data()?.dataUrl || ''; });
-        latestMedia = map; setMediaAssets(map); applyLive();
-      });
-    } catch (e) { console.warn('Media live sync unavailable:', e); }
+    window.addEventListener('visibilitychange', handleReFocus);
+    window.addEventListener('focus', handleReFocus);
 
     const maxWaitSafetyTimer = setTimeout(() => {
       setIsFirebaseSynced(true);
       setIsAppReady(true);
     }, 2800);
 
-    return () => { 
-      unsubscribeConfig?.(); 
-      unsubscribeMedia?.(); 
+    return () => {
+      window.removeEventListener('visibilitychange', handleReFocus);
+      window.removeEventListener('focus', handleReFocus);
       clearTimeout(maxWaitSafetyTimer);
     };
   }, []);
@@ -1575,7 +1594,7 @@ function MainAppContent() {
   };
   const handleTouchEnd = () => setIsDragging(false);
 
-  // 1. DYNAMIC COSMETIC PRELOADER (RUNS ON APP START, REVEALS HEADER TITLE & TAGLINE WHEN RECEIVED FROM FIREBASE)
+  // 1. DYNAMIC COSMETIC PRELOADER
   if (!isAppReady) {
     return (
       <CosmeticPreloader 
@@ -1629,14 +1648,14 @@ function MainAppContent() {
           isolation: isolate;
         }
 
-        /* 1. JITTER-FREE THEME SWITCHING HOOK */
+        /* 1. ZERO-JITTER TRANSITION FREEZER */
         .hf-theme-switching,
         .hf-theme-switching * {
           transition: none !important;
           animation-play-state: paused !important;
         }
 
-        /* 2. PLATFORM ADAPTIVE GPU OPTIMIZATIONS (CHROMIUM & SAMSUNG INTERNET FLATTENING) */
+        /* 2. CHROMIUM FLATTENING: NO DOUBLE BLURS ON ANDROID/SAMSUNG */
         .hf-app[data-platform="android-chrome"] [class*="innerCard"],
         .hf-app[data-platform="samsung-internet"] [class*="innerCard"] {
           backdrop-filter: none !important;
@@ -1660,7 +1679,7 @@ function MainAppContent() {
           -webkit-backdrop-filter: none !important;
         }
 
-        /* 3. LOW-END / BUDGET PHONE PROTECTION ENGINE (ZERO LAG & ZERO FREEZE) */
+        /* 3. LOW-END DEVICE AUTO FALLBACK */
         .hf-app[data-tier="low-end"] [class*="backdrop-blur-"] {
           backdrop-filter: none !important;
           -webkit-backdrop-filter: none !important;
@@ -1675,7 +1694,7 @@ function MainAppContent() {
           display: none !important;
         }
 
-        /* 4. HARDWARE ACCELERATED GPU TEXTURES FOR GLASS ELEMENTS */
+        /* 4. HARDWARE ACCELERATED GPU TEXTURES */
         .hf-gpu-layer {
           transform: translateZ(0);
           backface-visibility: hidden;
@@ -1761,7 +1780,7 @@ function MainAppContent() {
           -webkit-user-drag: none;
         }
 
-        /* AMBIENT GLOW LAYER ISOLATION (ZERO INTERFERENCE WITH CARDS) */
+        /* AMBIENT GLOW LAYER ISOLATION */
         .hf-ambient-backdrop {
           position: fixed;
           inset: 0;
@@ -1868,7 +1887,7 @@ function MainAppContent() {
         }
       `}</style>
 
-      {/* AMBIENT ENHANCED GLOWS (SMOOTH & COOL) */}
+      {/* AMBIENT GLOWS */}
       <div className="hf-ambient-backdrop">
         <div className="hf-mesh-glow w-[380px] sm:w-[560px] h-[380px] sm:h-[560px] -top-20 -left-20 opacity-70" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2 }} />
