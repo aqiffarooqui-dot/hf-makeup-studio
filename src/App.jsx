@@ -735,8 +735,8 @@ const resolveConfigMedia = (live, mediaMap) => {
   return next;
 };
 
-// PRELOADER ANIMATION
-const CosmeticPreloader = ({ studioName = "H&F Makeup Studio" }) => {
+// STATIC COSMETIC PRELOADER WITH REAL-TIME DYNAMIC TITLE AND TAGLINE
+const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
   return (
     <div className="fixed inset-0 z-[99999] bg-[#07060a] flex flex-col items-center justify-center p-6 select-none overflow-hidden">
       <div className="absolute w-80 h-80 rounded-full bg-pink-500/15 blur-[100px] pointer-events-none -top-12 -left-12 animate-pulse" />
@@ -758,23 +758,28 @@ const CosmeticPreloader = ({ studioName = "H&F Makeup Studio" }) => {
           <div className="absolute top-1 -left-2 text-lg animate-pulse" style={{ animationDuration: '1.8s' }}>🌸</div>
         </div>
 
-        {/* Studio Title */}
-        <div className="space-y-2">
-          <h2 className="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-rose-300 to-purple-300 tracking-wider uppercase drop-shadow-md">
-            {studioName}
+        {/* Dynamic Header Name & Tagline Revealed when received from Firebase */}
+        <div className={`space-y-1.5 transition-all duration-700 ease-out ${isDataLoaded ? 'opacity-100 scale-100' : 'opacity-70 scale-95'}`}>
+          <h2 className="text-base sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-rose-300 to-purple-300 tracking-wider uppercase drop-shadow-md">
+            {studioName || 'H&F MAKEUP ARTIST'}
           </h2>
-          <div className="flex items-center justify-center gap-1.5 text-[11px] text-pink-300/80 font-bold tracking-widest uppercase">
-            <span>Styling Vanity</span>
-            <span className="inline-flex gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0s' }} />
-              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
-              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.4s' }} />
-            </span>
-          </div>
+          <p className="text-[10px] sm:text-xs text-pink-300/85 font-extrabold tracking-widest uppercase">
+            {artistTagline || 'Beauty, Styled Your Way'}
+          </p>
+        </div>
+
+        {/* Status Line */}
+        <div className="flex items-center justify-center gap-1.5 text-[10px] text-purple-300/70 font-semibold tracking-widest uppercase mt-4">
+          <span>{isDataLoaded ? 'Theme Ready' : 'Styling Vanity'}</span>
+          <span className="inline-flex gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0s' }} />
+            <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
+            <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.4s' }} />
+          </span>
         </div>
 
         {/* Sleek Line Progress */}
-        <div className="w-44 h-1 bg-white/10 rounded-full overflow-hidden mt-6">
+        <div className="w-44 h-1 bg-white/10 rounded-full overflow-hidden mt-4">
           <div className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-rose-400 rounded-full animate-[hfPreloaderBar_1.8s_ease-in-out_infinite]" />
         </div>
       </div>
@@ -794,17 +799,25 @@ function MainAppContent() {
   const [config, setConfig] = useState(() => {
     try {
       const cachedTheme = localStorage.getItem('hf_cached_theme');
-      if (cachedTheme) {
-        return {
-          ...STUDIO_CONFIG,
-          theme: { ...STUDIO_CONFIG.theme, colorTheme: cachedTheme }
-        };
-      }
-    } catch {}
-    return STUDIO_CONFIG;
+      const cachedTitle = localStorage.getItem('hf_cached_title');
+      const cachedTagline = localStorage.getItem('hf_cached_tagline');
+      return {
+        ...STUDIO_CONFIG,
+        ...(cachedTitle ? { studioName: cachedTitle } : {}),
+        ...(cachedTagline ? { artistTagline: cachedTagline } : {}),
+        theme: {
+          ...STUDIO_CONFIG.theme,
+          ...(cachedTheme ? { colorTheme: cachedTheme } : {})
+        }
+      };
+    } catch {
+      return STUDIO_CONFIG;
+    }
   });
 
   const [isAppReady, setIsAppReady] = useState(false);
+  const [isFirebaseSynced, setIsFirebaseSynced] = useState(false);
+
   const [mediaAssets, setMediaAssets] = useState({});
   const [activeTab, setActiveTab] = useState(() => {
     try {
@@ -939,7 +952,7 @@ function MainAppContent() {
     updateDynamicHeaderHeight();
     window.addEventListener('resize', updateDynamicHeaderHeight);
     return () => window.removeEventListener('resize', updateDynamicHeaderHeight);
-  }, [showSplash, config.toggles?.enableAnnouncements, config.showOfferSection, config.announcements]);
+  }, [showSplash, config.toggles?.enableAnnouncements, config.showOfferSection, config.announcements, isAppReady]);
 
   useEffect(() => {
     const locked = Boolean(viewingPackage || showShareModal || viewingMedia);
@@ -1069,11 +1082,15 @@ function MainAppContent() {
     const applyLive = () => {
       const live = resolveConfigMedia(latestLive, latestMedia);
       
-      // Cache the incoming theme to prevent any future theme mismatch
+      // Cache incoming theme & header titles to eliminate any startup delays
       if (live?.theme?.colorTheme) {
-        try {
-          localStorage.setItem('hf_cached_theme', live.theme.colorTheme);
-        } catch {}
+        try { localStorage.setItem('hf_cached_theme', live.theme.colorTheme); } catch {}
+      }
+      if (live?.studioName) {
+        try { localStorage.setItem('hf_cached_title', live.studioName); } catch {}
+      }
+      if (live?.artistTagline) {
+        try { localStorage.setItem('hf_cached_tagline', live.artistTagline); } catch {}
       }
 
       const mergedKitImages = {
@@ -1099,10 +1116,13 @@ function MainAppContent() {
       });
       setImgLoadFailed(false); setLogoLoadFailed(false);
 
-      // Mark the app fully ready with updated theme
+      // 1. Mark Firebase synced to reveal title & tagline on preloader
+      setIsFirebaseSynced(true);
+
+      // 2. Mark app fully ready with smooth transition into main app
       setTimeout(() => {
         setIsAppReady(true);
-      }, 500);
+      }, 700);
     };
 
     const unsubscribeConfig = subscribeToLiveConfig(STUDIO_CONFIG, (live) => { latestLive = live || STUDIO_CONFIG; applyLive(); });
@@ -1115,8 +1135,9 @@ function MainAppContent() {
     } catch (e) { console.warn('Media live sync unavailable:', e); }
 
     const maxWaitSafetyTimer = setTimeout(() => {
+      setIsFirebaseSynced(true);
       setIsAppReady(true);
-    }, 2500);
+    }, 2800);
 
     return () => { 
       unsubscribeConfig?.(); 
@@ -1511,12 +1532,18 @@ function MainAppContent() {
   };
   const handleTouchEnd = () => setIsDragging(false);
 
-  // 1. COSMETIC DESIGN ANIMATION PRELOADER (SHOWS UNTIL FIREBASE CONFIG AND THEME ARE FULLY INITIALIZED)
+  // 1. DYNAMIC COSMETIC PRELOADER (RUNS ON APP START, REVEALS HEADER TITLE & TAGLINE WHEN RECEIVED FROM FIREBASE)
   if (!isAppReady) {
-    return <CosmeticPreloader studioName={config.studioName || "H&F Makeup Studio"} />;
+    return (
+      <CosmeticPreloader 
+        studioName={config.studioName} 
+        artistTagline={config.artistTagline}
+        isDataLoaded={isFirebaseSynced}
+      />
+    );
   }
 
-  // 2. APP DOWN OR MAINTENANCE SCREEN
+  // 2. APP DOWN / MAINTENANCE SCREEN
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300 ease-out`}>
@@ -1535,7 +1562,7 @@ function MainAppContent() {
     );
   }
 
-  // 3. MAIN INTERFACE RENDER (SEAMLESSLY ALIGNED WITH RESOLVED ADMIN THEME)
+  // 3. MAIN PORTFOLIO & BOOKING APP INTERFACE
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
