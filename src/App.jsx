@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Component, memo } from 'react';
+import React, { useState, useEffect, useRef, Component } from 'react';
 import { 
   Sparkles, Calendar as CalendarIcon, MapPin, Check, Calculator, Crown, ChevronRight, 
   ShieldCheck, Star, Car, CheckCircle2, PackageCheck, Tag, Gift, X, 
@@ -36,7 +36,7 @@ class AppErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4 sm:p-6 text-center">
-          <div className="max-w-md w-full bg-slate-900/90 backdrop-blur-md border border-white/20 p-6 sm:p-8 rounded-[28px] sm:rounded-[36px] space-y-4 shadow-2xl">
+          <div className="max-w-md w-full bg-slate-900/90 backdrop-blur-[50px] border border-white/20 p-6 sm:p-8 rounded-[28px] sm:rounded-[36px] space-y-4 shadow-[0_32px_80px_rgba(0,0,0,0.7)]">
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[20px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
               <ShieldAlert className="w-6 h-6 sm:w-7 sm:h-7" />
             </div>
@@ -122,9 +122,60 @@ const FONT_MAP = {
   roboto: "'Roboto', sans-serif",
   open_sans: "'Open Sans', sans-serif",
   lato: "'Lato', sans-serif",
+  nunito: "'Nunito', sans-serif",
+  raleway: "'Raleway', sans-serif",
+  work_sans: "'Work Sans', sans-serif",
+  dm_sans: "'DM Sans', sans-serif",
+  manrope: "'Manrope', sans-serif",
+  rubik: "'Rubik', sans-serif",
+  mulish: "'Mulish', sans-serif",
+  quicksand: "'Quicksand', sans-serif",
+  urbanist: "'Urbanist', sans-serif",
+  space_grotesk: "'Space Grotesk', sans-serif",
+  sora: "'Sora', sans-serif",
+  bebas_neue: "'Bebas Neue', sans-serif",
+  oswald: "'Oswald', sans-serif",
+  barlow: "'Barlow', sans-serif",
+  barlow_condensed: "'Barlow Condensed', sans-serif",
+  archivo: "'Archivo', sans-serif",
+  archivo_narrow: "'Archivo Narrow', sans-serif",
+  merriweather: "'Merriweather', sans-serif",
   playfair_display: "'Playfair Display', sans-serif",
   cormorant_garamond: "'Cormorant Garamond', sans-serif",
   cinzel: "'Cinzel', sans-serif",
+  libre_baskerville: "'Libre Baskerville', sans-serif",
+  bodoni_moda: "'Bodoni Moda', sans-serif",
+  dm_serif_display: "'DM Serif Display', sans-serif",
+  abril_fatface: "'Abril Fatface', sans-serif",
+  prata: "'Prata', sans-serif",
+  lora: "'Lora', sans-serif",
+  cardo: "'Cardo', sans-serif",
+  spectral: "'Spectral', sans-serif",
+  eb_garamond: "'EB Garamond', sans-serif",
+  cormorant_infant: "'Cormorant Infant', sans-serif",
+  josefin_sans: "'Josefin Sans', sans-serif",
+  josefin_slab: "'Josefin Slab', sans-serif",
+  karla: "'Karla', sans-serif",
+  cabin: "'Cabin', sans-serif",
+  dosis: "'Dosis', sans-serif",
+  exo_2: "'Exo 2', sans-serif",
+  figtree: "'Figtree', sans-serif",
+  lexend: "'Lexend', sans-serif",
+  league_spartan: "'League Spartan', sans-serif",
+  kanit: "'Kanit', sans-serif",
+  teko: "'Teko', sans-serif",
+  marcellus: "'Marcellus', sans-serif",
+  yeseva_one: "'Yeseva One', sans-serif",
+  great_vibes: "'Great Vibes', sans-serif",
+  dancing_script: "'Dancing Script', sans-serif",
+  pacifico: "'Pacifico', sans-serif",
+  caveat: "'Caveat', sans-serif",
+  comfortaa: "'Comfortaa', sans-serif",
+  maven_pro: "'Maven Pro', sans-serif",
+  alata: "'Alata', sans-serif",
+  asap: "'Asap', sans-serif",
+  heebo: "'Heebo', sans-serif",
+  titillium_web: "'Titillium Web', sans-serif",
   sans: "'Plus Jakarta Sans', sans-serif"
 };
 
@@ -132,151 +183,421 @@ const THEME_STYLES = {
   admin_aurora: {
     night: {
       bg: "bg-[#06070b] text-[#FFFFFF]",
-      card: "bg-purple-950/35 backdrop-blur-md border border-purple-400/35 shadow-[0_20px_45px_rgba(168,85,247,0.15)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-purple-900/30 backdrop-blur-sm border border-purple-400/30 shadow-inner",
-      headingColor: "text-purple-300 drop-shadow-[0_2px_8px_rgba(168,85,247,0.4)]",
-      tabActiveText: "text-purple-300 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]",
+      card: "bg-purple-950/20 backdrop-blur-[40px] border border-purple-400/35 shadow-[0_24px_60px_rgba(168,85,247,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-purple-900/20 backdrop-blur-[30px] border border-purple-400/30 shadow-inner",
+      headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
+      tabActiveText: "text-purple-300 drop-shadow-[0_0_12px_rgba(168,85,247,0.9)]",
       accent: "text-purple-400",
       accentText: "text-purple-300 font-extrabold",
-      pillBorder: "border border-purple-400/40 bg-purple-500/15 text-purple-200 backdrop-blur-sm",
+      pillBorder: "border border-purple-400/40 bg-purple-500/15 text-purple-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(236,72,153,0.45)] hover:shadow-[0_14px_30px_rgba(236,72,153,0.6)] rounded-full",
-      inputBg: "bg-black/40 backdrop-blur-sm border border-purple-400/35 text-white placeholder-slate-400 focus:border-purple-300",
-      glowOrb1: "radial-gradient(circle at center, rgba(168, 85, 247, 0.35) 0%, rgba(168, 85, 247, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(236, 72, 153, 0.28) 0%, rgba(236, 72, 153, 0) 65%)"
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-purple-400/35 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.38) 0%, rgba(236, 72, 153, 0) 70%)"
     },
     day: {
       bg: "bg-[#faf5ff] text-[#1e1b4b]",
-      card: "bg-white/70 backdrop-blur-md border border-purple-300/60 shadow-[0_20px_45px_rgba(168,85,247,0.1)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/80 backdrop-blur-sm border border-purple-200/60 shadow-sm",
-      headingColor: "text-purple-950 font-black",
-      tabActiveText: "text-purple-900 font-black drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-purple-300/60 shadow-[0_24px_60px_rgba(168,85,247,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-purple-200/60 shadow-sm",
+      headingColor: "text-purple-950 font-black drop-shadow-sm",
+      tabActiveText: "text-purple-900 font-black drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]",
       accent: "text-purple-700 font-bold",
       accentText: "text-purple-700 font-black",
-      pillBorder: "border border-purple-400/70 bg-white/50 text-purple-950 font-black shadow-sm",
+      pillBorder: "border border-purple-400/70 bg-white/30 text-purple-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white/60 backdrop-blur-sm border border-purple-300/60 text-purple-950 placeholder-purple-400 focus:border-purple-600 shadow-inner font-medium",
-      glowOrb1: "radial-gradient(circle at center, rgba(168, 85, 247, 0.25) 0%, rgba(168, 85, 247, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(236, 72, 153, 0.2) 0%, rgba(236, 72, 153, 0) 65%)"
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-purple-300/60 text-purple-950 placeholder-purple-400 focus:border-purple-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(168, 85, 247, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0) 70%)"
     }
   },
   sunset_glow: {
     night: {
       bg: "bg-[#080605] text-[#FFFFFF]",
-      card: "bg-amber-950/35 backdrop-blur-md border border-amber-400/35 shadow-[0_20px_45px_rgba(245,158,11,0.15)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-amber-900/30 backdrop-blur-sm border border-amber-400/30 shadow-inner",
-      headingColor: "text-amber-300 drop-shadow-[0_2px_8px_rgba(245,158,11,0.4)]",
-      tabActiveText: "text-amber-300 drop-shadow-[0_0_10px_rgba(245,158,11,0.8)]",
+      card: "bg-amber-950/20 backdrop-blur-[40px] border border-amber-400/35 shadow-[0_24px_60px_rgba(245,158,11,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-amber-900/20 backdrop-blur-[30px] border border-amber-400/30 shadow-inner",
+      headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
+      tabActiveText: "text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.9)]",
       accent: "text-amber-400",
       accentText: "text-amber-300 font-extrabold",
-      pillBorder: "border border-amber-400/40 bg-amber-500/15 text-amber-200 backdrop-blur-sm",
+      pillBorder: "border border-amber-400/40 bg-amber-500/15 text-amber-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
-      inputBg: "bg-black/40 backdrop-blur-sm border border-amber-400/35 text-white placeholder-slate-400 focus:border-amber-300",
-      glowOrb1: "radial-gradient(circle at center, rgba(245, 158, 11, 0.35) 0%, rgba(245, 158, 11, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(244, 63, 94, 0.28) 0%, rgba(244, 63, 94, 0) 65%)"
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-amber-400/35 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
     },
     day: {
       bg: "bg-[#fffbeb] text-[#451a03]",
-      card: "bg-white/70 backdrop-blur-md border border-amber-300/60 shadow-[0_20px_45px_rgba(245,158,11,0.1)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/80 backdrop-blur-sm border border-amber-200/60 shadow-sm",
-      headingColor: "text-amber-950 font-black",
-      tabActiveText: "text-amber-900 font-black drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-amber-300/60 shadow-[0_24px_60px_rgba(245,158,11,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-amber-200/60 shadow-sm",
+      headingColor: "text-amber-950 font-black drop-shadow-sm",
+      tabActiveText: "text-amber-900 font-black drop-shadow-[0_0_10px_rgba(245,158,11,0.6)]",
       accent: "text-amber-700 font-bold",
       accentText: "text-amber-700 font-black",
-      pillBorder: "border border-amber-400/70 bg-white/50 text-amber-950 font-black shadow-sm",
+      pillBorder: "border border-amber-400/70 bg-white/30 text-amber-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white font-black shadow-[0_10px_25px_rgba(245,158,11,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white/60 backdrop-blur-sm border border-amber-300/60 text-amber-950 placeholder-amber-400 focus:border-amber-600 shadow-inner font-medium",
-      glowOrb1: "radial-gradient(circle at center, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(244, 63, 94, 0.2) 0%, rgba(244, 63, 94, 0) 65%)"
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-amber-300/60 text-amber-950 placeholder-amber-400 focus:border-amber-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(245, 158, 11, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.3) 0%, rgba(244, 63, 94, 0) 70%)"
     }
   },
   cyber_matrix: {
     night: {
       bg: "bg-[#020808] text-[#FFFFFF]",
-      card: "bg-cyan-950/35 backdrop-blur-md border border-cyan-400/35 shadow-[0_20px_45px_rgba(6,182,212,0.15)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-cyan-900/30 backdrop-blur-sm border border-cyan-400/30 shadow-inner",
-      headingColor: "text-cyan-300 drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]",
-      tabActiveText: "text-cyan-300 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]",
+      card: "bg-cyan-950/20 backdrop-blur-[40px] border border-cyan-400/35 shadow-[0_24px_60px_rgba(6,182,212,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-cyan-900/20 backdrop-blur-[30px] border border-cyan-400/30 shadow-inner",
+      headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
+      tabActiveText: "text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.9)]",
       accent: "text-cyan-400",
       accentText: "text-cyan-300 font-extrabold",
-      pillBorder: "border border-cyan-400/40 bg-cyan-500/15 text-cyan-200 backdrop-blur-sm",
+      pillBorder: "border border-cyan-400/40 bg-cyan-500/15 text-cyan-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_30px_rgba(6,182,212,0.6)] rounded-full",
-      inputBg: "bg-black/40 backdrop-blur-sm border border-cyan-400/35 text-white placeholder-slate-400 focus:border-cyan-300",
-      glowOrb1: "radial-gradient(circle at center, rgba(6, 182, 212, 0.35) 0%, rgba(6, 182, 212, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(16, 185, 129, 0.28) 0%, rgba(16, 185, 129, 0) 65%)"
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-cyan-400/35 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.38) 0%, rgba(16, 185, 129, 0) 70%)"
     },
     day: {
       bg: "bg-[#ecfeff] text-[#083344]",
-      card: "bg-white/70 backdrop-blur-md border border-cyan-300/60 shadow-[0_20px_45px_rgba(6,182,212,0.1)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/80 backdrop-blur-sm border border-cyan-200/60 shadow-sm",
-      headingColor: "text-cyan-950 font-black",
-      tabActiveText: "text-cyan-900 font-black drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-cyan-300/60 shadow-[0_24px_60px_rgba(6,182,212,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-cyan-200/60 shadow-sm",
+      headingColor: "text-cyan-950 font-black drop-shadow-sm",
+      tabActiveText: "text-cyan-900 font-black drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]",
       accent: "text-cyan-700 font-bold",
       accentText: "text-cyan-700 font-black",
-      pillBorder: "border border-cyan-400/70 bg-white/50 text-cyan-950 font-black shadow-sm",
+      pillBorder: "border border-cyan-400/70 bg-white/30 text-cyan-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white/60 backdrop-blur-sm border border-cyan-300/60 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 shadow-inner font-medium",
-      glowOrb1: "radial-gradient(circle at center, rgba(6, 182, 212, 0.25) 0%, rgba(6, 182, 212, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0) 65%)"
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-cyan-300/60 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(6, 182, 212, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0) 70%)"
     }
   },
   real_glass_lens: {
     night: {
       bg: "bg-[#06080e] text-[#FFFFFF]",
-      card: "bg-blue-950/35 backdrop-blur-md border border-blue-400/35 shadow-[0_20px_45px_rgba(0,122,255,0.15)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-blue-900/30 backdrop-blur-sm border border-blue-400/30 shadow-inner",
-      headingColor: "text-sky-300 drop-shadow-[0_2px_8px_rgba(56,189,248,0.4)]",
-      tabActiveText: "text-sky-300 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]",
+      card: "bg-blue-950/20 backdrop-blur-[40px] border border-blue-400/35 shadow-[0_24px_60px_rgba(0,122,255,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-blue-900/20 backdrop-blur-[30px] border border-blue-400/30 shadow-inner",
+      headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
+      tabActiveText: "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]",
       accent: "text-sky-400",
       accentText: "text-sky-300 font-extrabold",
-      pillBorder: "border border-blue-400/40 bg-blue-500/15 text-blue-200 backdrop-blur-sm",
+      pillBorder: "border border-blue-400/40 bg-blue-500/15 text-blue-200 backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] hover:shadow-[0_14px_30px_rgba(0,122,255,0.6)] rounded-full",
-      inputBg: "bg-black/40 backdrop-blur-sm border border-blue-400/35 text-white placeholder-slate-400 focus:border-sky-300",
-      glowOrb1: "radial-gradient(circle at center, rgba(0, 122, 255, 0.35) 0%, rgba(0, 122, 255, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(99, 102, 241, 0.28) 0%, rgba(99, 102, 241, 0) 65%)"
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-blue-400/35 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.45) 0%, rgba(0, 122, 255, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
     },
     day: {
       bg: "bg-[#eff6ff] text-[#1e3a8a]",
-      card: "bg-white/70 backdrop-blur-md border border-blue-300/60 shadow-[0_20px_45px_rgba(0,122,255,0.1)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/80 backdrop-blur-sm border border-blue-200/60 shadow-sm",
-      headingColor: "text-blue-950 font-black",
-      tabActiveText: "text-blue-900 font-black drop-shadow-[0_0_8px_rgba(0,122,255,0.5)]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-blue-300/60 shadow-[0_24px_60px_rgba(0,122,255,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-blue-200/60 shadow-sm",
+      headingColor: "text-blue-950 font-black drop-shadow-sm",
+      tabActiveText: "text-blue-900 font-black drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]",
       accent: "text-blue-700 font-bold",
       accentText: "text-blue-700 font-black",
-      pillBorder: "border border-blue-400/70 bg-white/50 text-blue-950 font-black shadow-sm",
+      pillBorder: "border border-blue-400/70 bg-white/30 text-blue-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white/60 backdrop-blur-sm border border-blue-300/60 text-blue-950 placeholder-blue-400 focus:border-blue-600 shadow-inner font-medium",
-      glowOrb1: "radial-gradient(circle at center, rgba(0, 122, 255, 0.25) 0%, rgba(0, 122, 255, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 65%)"
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-blue-300/60 text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.35) 0%, rgba(0, 122, 255, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0) 70%)"
+    }
+  },
+  real_ios_glass: {
+    night: {
+      bg: "bg-[#06070a] text-[#FFFFFF]",
+      card: "bg-zinc-900/30 backdrop-blur-[40px] border border-white/25 shadow-[0_24px_60px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.35)] rounded-[28px] sm:rounded-[36px]",
+      innerCard: "bg-white/[0.06] backdrop-blur-[30px] border border-white/20 shadow-inner",
+      headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
+      tabActiveText: "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]",
+      accent: "text-sky-400",
+      accentText: "text-sky-300 font-extrabold",
+      pillBorder: "border border-sky-400/40 bg-sky-500/15 text-sky-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-white/25 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.42) 0%, rgba(56, 189, 248, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#f8fafc] text-[#0f172a]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-slate-300/60 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[36px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-slate-200/60 shadow-sm",
+      headingColor: "text-slate-950 font-black drop-shadow-sm",
+      tabActiveText: "text-sky-900 font-black drop-shadow-[0_0_10px_rgba(56,189,248,0.6)]",
+      accent: "text-sky-700 font-bold",
+      accentText: "text-sky-700 font-black",
+      pillBorder: "border border-slate-400/70 bg-white/30 text-slate-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-slate-300/60 text-slate-950 placeholder-slate-400 focus:border-sky-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(56, 189, 248, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0) 70%)"
+    }
+  },
+  liquid_glass: {
+    night: {
+      bg: "bg-[#030610] text-[#FFFFFF]",
+      card: "bg-sky-950/20 backdrop-blur-[40px] border border-cyan-400/35 shadow-[0_24px_60px_rgba(6,182,212,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-sky-900/20 backdrop-blur-[30px] border border-cyan-400/30 shadow-inner",
+      headingColor: "text-cyan-300 drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]",
+      tabActiveText: "text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.9)]",
+      accent: "text-cyan-400",
+      accentText: "text-cyan-300 font-extrabold",
+      pillBorder: "border border-cyan-400/40 bg-cyan-500/15 text-cyan-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] hover:shadow-[0_14px_30px_rgba(6,182,212,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-cyan-400/35 text-white placeholder-slate-400 focus:border-cyan-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.45) 0%, rgba(6, 182, 212, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.38) 0%, rgba(37, 99, 235, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#f0f9ff] text-[#0c4a6e]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-cyan-300/60 shadow-[0_24px_60px_rgba(6,182,212,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-cyan-200/60 shadow-sm",
+      headingColor: "text-cyan-950 font-black drop-shadow-sm",
+      tabActiveText: "text-cyan-900 font-black drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]",
+      accent: "text-cyan-700 font-bold",
+      accentText: "text-cyan-700 font-black",
+      pillBorder: "border border-cyan-400/70 bg-white/30 text-cyan-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 text-white font-black shadow-[0_10px_25px_rgba(6,182,212,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-cyan-300/60 text-cyan-950 placeholder-cyan-400 focus:border-cyan-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(6, 182, 212, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, rgba(37, 99, 235, 0) 70%)"
+    }
+  },
+  one_ui_9: {
+    night: {
+      bg: "bg-[#08080a] text-[#FFFFFF]",
+      card: "bg-zinc-900/35 backdrop-blur-[40px] border border-zinc-500/40 shadow-[0_24px_60px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[30px]",
+      innerCard: "bg-zinc-800/25 backdrop-blur-[30px] border border-zinc-500/35 shadow-inner",
+      headingColor: "text-violet-300 drop-shadow-[0_2px_10px_rgba(139,92,246,0.4)]",
+      tabActiveText: "text-violet-300 drop-shadow-[0_0_12px_rgba(139,92,246,0.9)]",
+      accent: "text-violet-400",
+      accentText: "text-violet-300 font-extrabold",
+      pillBorder: "border border-violet-400/40 bg-violet-500/15 text-violet-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-black shadow-[0_10px_25px_rgba(139,92,246,0.45)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-zinc-500/40 text-white placeholder-slate-400 focus:border-violet-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.42) 0%, rgba(139, 92, 246, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(168, 85, 247, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#f5f3ff] text-[#2e1065]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-violet-300/60 shadow-[0_24px_60px_rgba(139,92,246,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[30px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-violet-200/60 shadow-sm",
+      headingColor: "text-violet-950 font-black drop-shadow-sm",
+      tabActiveText: "text-violet-900 font-black drop-shadow-[0_0_10px_rgba(139,92,246,0.6)]",
+      accent: "text-violet-700 font-bold",
+      accentText: "text-violet-700 font-black",
+      pillBorder: "border border-violet-400/70 bg-white/30 text-violet-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-violet-600 to-purple-600 text-white font-black shadow-[0_10px_25px_rgba(139,92,246,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-violet-300/60 text-violet-950 placeholder-violet-400 focus:border-violet-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(139, 92, 246, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0) 70%)"
+    }
+  },
+  gold_rose: {
+    night: {
+      bg: "bg-[#0a0506] text-[#FFFFFF]",
+      card: "bg-rose-950/20 backdrop-blur-[40px] border border-amber-400/35 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-rose-900/20 backdrop-blur-[30px] border border-amber-400/30 shadow-inner",
+      headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
+      tabActiveText: "text-rose-300 drop-shadow-[0_0_12px_rgba(244,63,94,0.9)]",
+      accent: "text-amber-400",
+      accentText: "text-amber-300 font-extrabold",
+      pillBorder: "border border-rose-400/40 bg-rose-500/15 text-rose-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-rose-400/35 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.38) 0%, rgba(244, 63, 94, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#fff1f2] text-[#4c0519]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-rose-300/60 shadow-[0_24px_60px_rgba(244,63,94,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-rose-200/60 shadow-sm",
+      headingColor: "text-rose-950 font-black drop-shadow-sm",
+      tabActiveText: "text-rose-900 font-black drop-shadow-[0_0_10px_rgba(244,63,94,0.6)]",
+      accent: "text-rose-700 font-bold",
+      accentText: "text-rose-700 font-black",
+      pillBorder: "border border-rose-400/70 bg-white/30 text-rose-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-amber-500 via-rose-500 to-pink-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-rose-300/60 text-rose-950 placeholder-rose-400 focus:border-rose-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(245, 158, 11, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(244, 63, 94, 0.3) 0%, rgba(244, 63, 94, 0) 70%)"
+    }
+  },
+  champagne: {
+    night: {
+      bg: "bg-[#0a0604] text-[#FFFFFF]",
+      card: "bg-orange-950/20 backdrop-blur-[40px] border border-orange-400/35 shadow-[0_24px_60px_rgba(249,115,22,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-orange-900/20 backdrop-blur-[30px] border border-orange-400/30 shadow-inner",
+      headingColor: "text-amber-300 drop-shadow-[0_2px_10px_rgba(245,158,11,0.4)]",
+      tabActiveText: "text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.9)]",
+      accent: "text-amber-400",
+      accentText: "text-amber-300 font-extrabold",
+      pillBorder: "border border-orange-400/40 bg-orange-500/15 text-orange-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(249,115,22,0.45)] hover:shadow-[0_14px_30px_rgba(249,115,22,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-orange-400/35 text-white placeholder-slate-400 focus:border-amber-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.35) 0%, rgba(249, 115, 22, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#fff7ed] text-[#431407]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-orange-300/60 shadow-[0_24px_60px_rgba(249,115,22,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-orange-200/60 shadow-sm",
+      headingColor: "text-orange-950 font-black drop-shadow-sm",
+      tabActiveText: "text-orange-900 font-black drop-shadow-[0_0_10px_rgba(249,115,22,0.6)]",
+      accent: "text-orange-700 font-bold",
+      accentText: "text-orange-700 font-black",
+      pillBorder: "border border-orange-400/70 bg-white/30 text-orange-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 text-neutral-950 font-black shadow-[0_10px_25px_rgba(249,115,22,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-orange-300/60 text-orange-950 placeholder-orange-400 focus:border-orange-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(245, 158, 11, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(249, 115, 22, 0.3) 0%, rgba(249, 115, 22, 0) 70%)"
+    }
+  },
+  emerald: {
+    night: {
+      bg: "bg-[#030907] text-[#FFFFFF]",
+      card: "bg-emerald-950/20 backdrop-blur-[40px] border border-emerald-400/35 shadow-[0_24px_60px_rgba(16,185,129,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-emerald-900/20 backdrop-blur-[30px] border border-emerald-400/30 shadow-inner",
+      headingColor: "text-emerald-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
+      tabActiveText: "text-emerald-300 drop-shadow-[0_0_12px_rgba(16,185,129,0.9)]",
+      accent: "text-emerald-400",
+      accentText: "text-emerald-300 font-extrabold",
+      pillBorder: "border border-emerald-400/40 bg-emerald-500/15 text-emerald-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] hover:shadow-[0_14px_30px_rgba(16,185,129,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-emerald-400/35 text-white placeholder-slate-400 focus:border-emerald-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(16, 185, 129, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.35) 0%, rgba(20, 184, 166, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#ecfdf5] text-[#064e3b]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-emerald-300/60 shadow-[0_24px_60px_rgba(16,185,129,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-emerald-200/60 shadow-sm",
+      headingColor: "text-emerald-950 font-black drop-shadow-sm",
+      tabActiveText: "text-emerald-900 font-black drop-shadow-[0_0_10px_rgba(16,185,129,0.6)]",
+      accent: "text-emerald-700 font-bold",
+      accentText: "text-emerald-700 font-black",
+      pillBorder: "border border-emerald-400/70 bg-white/30 text-emerald-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 text-white font-black shadow-[0_10px_25px_rgba(16,185,129,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-emerald-300/60 text-emerald-950 placeholder-emerald-400 focus:border-emerald-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, rgba(20, 184, 166, 0) 70%)"
+    }
+  },
+  violet: {
+    night: {
+      bg: "bg-[#06030c] text-[#FFFFFF]",
+      card: "bg-purple-950/20 backdrop-blur-[40px] border border-purple-400/35 shadow-[0_24px_60px_rgba(168,85,247,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-purple-900/20 backdrop-blur-[30px] border border-purple-400/30 shadow-inner",
+      headingColor: "text-purple-300 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]",
+      tabActiveText: "text-purple-300 drop-shadow-[0_0_12px_rgba(168,85,247,0.9)]",
+      accent: "text-purple-400",
+      accentText: "text-purple-300 font-extrabold",
+      pillBorder: "border border-purple-400/40 bg-purple-500/15 text-purple-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] hover:shadow-[0_14px_30px_rgba(168,85,247,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-purple-400/35 text-white placeholder-slate-400 focus:border-purple-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.45) 0%, rgba(168, 85, 247, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.38) 0%, rgba(99, 102, 241, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#faf5ff] text-[#3b0764]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-purple-300/60 shadow-[0_24px_60px_rgba(168,85,247,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-purple-200/60 shadow-sm",
+      headingColor: "text-purple-950 font-black drop-shadow-sm",
+      tabActiveText: "text-purple-900 font-black drop-shadow-[0_0_10px_rgba(168,85,247,0.6)]",
+      accent: "text-purple-700 font-bold",
+      accentText: "text-purple-700 font-black",
+      pillBorder: "border border-purple-400/70 bg-white/30 text-purple-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-purple-600 via-indigo-600 to-fuchsia-600 text-white font-black shadow-[0_10px_25px_rgba(168,85,247,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-purple-300/60 text-purple-950 placeholder-purple-400 focus:border-purple-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(168, 85, 247, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0) 70%)"
+    }
+  },
+  ruby: {
+    night: {
+      bg: "bg-[#0c0305] text-[#FFFFFF]",
+      card: "bg-rose-950/20 backdrop-blur-[40px] border border-rose-400/35 shadow-[0_24px_60px_rgba(244,63,94,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-rose-900/20 backdrop-blur-[30px] border border-rose-400/30 shadow-inner",
+      headingColor: "text-rose-300 drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]",
+      tabActiveText: "text-rose-300 drop-shadow-[0_0_12px_rgba(244,63,94,0.9)]",
+      accent: "text-rose-400",
+      accentText: "text-rose-300 font-extrabold",
+      pillBorder: "border border-rose-400/40 bg-rose-500/15 text-rose-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] hover:shadow-[0_14px_30px_rgba(244,63,94,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-rose-400/35 text-white placeholder-slate-400 focus:border-rose-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.45) 0%, rgba(244, 63, 94, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#fff1f2] text-[#4c0519]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-rose-300/60 shadow-[0_24px_60px_rgba(244,63,94,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-rose-200/60 shadow-sm",
+      headingColor: "text-rose-950 font-black drop-shadow-sm",
+      tabActiveText: "text-rose-900 font-black drop-shadow-[0_0_10px_rgba(244,63,94,0.6)]",
+      accent: "text-rose-700 font-bold",
+      accentText: "text-rose-700 font-black",
+      pillBorder: "border border-rose-400/70 bg-white/30 text-rose-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white font-black shadow-[0_10px_25px_rgba(244,63,94,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-rose-300/60 text-rose-950 placeholder-rose-400 focus:border-rose-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(244, 63, 94, 0.35) 0%, rgba(244, 63, 94, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(225, 29, 72, 0.3) 0%, rgba(225, 29, 72, 0) 70%)"
+    }
+  },
+  sapphire: {
+    night: {
+      bg: "bg-[#03050c] text-[#FFFFFF]",
+      card: "bg-blue-950/20 backdrop-blur-[40px] border border-blue-400/35 shadow-[0_24px_60px_rgba(37,99,235,0.18),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-blue-900/20 backdrop-blur-[30px] border border-blue-400/30 shadow-inner",
+      headingColor: "text-blue-300 drop-shadow-[0_2px_10px_rgba(37,99,235,0.4)]",
+      tabActiveText: "text-blue-300 drop-shadow-[0_0_12px_rgba(37,99,235,0.9)]",
+      accent: "text-blue-400",
+      accentText: "text-blue-300 font-extrabold",
+      pillBorder: "border border-blue-400/40 bg-blue-500/15 text-blue-200 backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] hover:shadow-[0_14px_30px_rgba(37,99,235,0.6)] rounded-full",
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-blue-400/35 text-white placeholder-slate-400 focus:border-blue-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, rgba(37, 99, 235, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 70%)"
+    },
+    day: {
+      bg: "bg-[#eff6ff] text-[#1e3a8a]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-blue-300/60 shadow-[0_24px_60px_rgba(37,99,235,0.12),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-blue-200/60 shadow-sm",
+      headingColor: "text-blue-950 font-black drop-shadow-sm",
+      tabActiveText: "text-blue-900 font-black drop-shadow-[0_0_10px_rgba(37,99,235,0.6)]",
+      accent: "text-blue-700 font-bold",
+      accentText: "text-blue-700 font-black",
+      pillBorder: "border border-blue-400/70 bg-white/30 text-blue-950 font-black shadow-sm backdrop-blur-[30px]",
+      btnPrimary: "bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(37,99,235,0.45)] active:scale-[0.98] rounded-full",
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-blue-300/60 text-blue-950 placeholder-blue-400 focus:border-blue-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, rgba(37, 99, 235, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, rgba(79, 70, 229, 0) 70%)"
     }
   },
   default: {
     night: {
       bg: "bg-[#06070a] text-[#FFFFFF]",
-      card: "bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_20px_45px_rgba(0,0,0,0.5)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/5 backdrop-blur-sm border border-white/15 shadow-inner",
-      headingColor: "text-sky-300 drop-shadow-[0_2px_8px_rgba(56,189,248,0.4)]",
-      tabActiveText: "text-sky-300 drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]",
+      card: "bg-white/[0.06] backdrop-blur-[40px] border border-white/25 shadow-[0_24px_60px_rgba(0,0,0,0.6),inset_0_1.5px_2px_rgba(255,255,255,0.25)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/[0.04] backdrop-blur-[30px] border border-white/20 shadow-inner",
+      headingColor: "text-sky-300 drop-shadow-[0_2px_10px_rgba(56,189,248,0.4)]",
+      tabActiveText: "text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.9)]",
       accent: "text-sky-400",
       accentText: "text-sky-300 font-extrabold",
-      pillBorder: "border border-white/25 bg-white/10 text-white backdrop-blur-sm",
+      pillBorder: "border border-white/30 bg-white/10 text-white backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] rounded-full",
-      inputBg: "bg-black/40 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 focus:border-sky-300",
-      glowOrb1: "radial-gradient(circle at center, rgba(0, 122, 255, 0.35) 0%, rgba(0, 122, 255, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0) 65%)"
+      inputBg: "bg-black/30 backdrop-blur-[30px] border border-white/25 text-white placeholder-slate-400 focus:border-sky-300 focus:bg-black/50",
+      glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.42) 0%, rgba(0, 122, 255, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.32) 0%, rgba(56, 189, 248, 0) 70%)"
     },
     day: {
       bg: "bg-[#f8fafc] text-[#0f172a]",
-      card: "bg-white/70 backdrop-blur-md border border-slate-300/60 shadow-[0_20px_45px_rgba(15,23,42,0.08)] rounded-[28px] sm:rounded-[32px]",
-      innerCard: "bg-white/80 backdrop-blur-sm border border-slate-200/60 shadow-sm",
-      headingColor: "text-slate-950 font-black",
-      tabActiveText: "text-sky-900 font-black drop-shadow-[0_0_8px_rgba(0,122,255,0.5)]",
+      card: "bg-white/20 backdrop-blur-[40px] border border-slate-300/60 shadow-[0_24px_60px_rgba(15,23,42,0.1),inset_0_2px_4px_rgba(255,255,255,0.9)] rounded-[28px] sm:rounded-[32px]",
+      innerCard: "bg-white/25 backdrop-blur-[30px] border border-slate-200/60 shadow-sm",
+      headingColor: "text-slate-950 font-black drop-shadow-sm",
+      tabActiveText: "text-sky-900 font-black drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]",
       accent: "text-sky-700 font-bold",
       accentText: "text-sky-700 font-black",
-      pillBorder: "border border-slate-400/70 bg-white/50 text-slate-950 font-black shadow-sm",
+      pillBorder: "border border-slate-400/70 bg-white/30 text-slate-950 font-black shadow-sm backdrop-blur-[30px]",
       btnPrimary: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black shadow-[0_10px_25px_rgba(0,122,255,0.45)] active:scale-[0.98] rounded-full",
-      inputBg: "bg-white/60 backdrop-blur-sm border border-slate-300/60 text-slate-950 placeholder-slate-400 focus:border-sky-600 shadow-inner font-medium",
-      glowOrb1: "radial-gradient(circle at center, rgba(0, 122, 255, 0.25) 0%, rgba(0, 122, 255, 0) 65%)",
-      glowOrb2: "radial-gradient(circle at center, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0) 65%)"
+      inputBg: "bg-white/30 backdrop-blur-[30px] border border-slate-300/60 text-slate-950 placeholder-slate-400 focus:border-sky-600 focus:bg-white/50 shadow-inner font-medium",
+      glowOrb1: "radial-gradient(circle, rgba(0, 122, 255, 0.35) 0%, rgba(0, 122, 255, 0) 70%)",
+      glowOrb2: "radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0) 70%)"
     }
   }
 };
@@ -316,30 +637,6 @@ const getTimeRemaining = (expiryDateStr) => {
   };
 };
 
-const IsolatedTimer = memo(({ expiryDate }) => {
-  const [timerState, setTimerState] = useState(() => getTimeRemaining(expiryDate));
-
-  useEffect(() => {
-    if (!expiryDate) return;
-    const timer = setInterval(() => {
-      const remaining = getTimeRemaining(expiryDate);
-      setTimerState(remaining);
-      if (remaining?.expired) clearInterval(timer);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [expiryDate]);
-
-  if (!timerState) return null;
-  if (timerState.expired) {
-    return <span className="text-[9px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full">Expired</span>;
-  }
-  return (
-    <span className="text-[9px] font-mono font-bold opacity-90 px-2 py-0.5 rounded-full bg-slate-500/10">
-      {timerState.text}
-    </span>
-  );
-});
-
 const isVideoMedia = (item) => {
   if (item?.type === 'video') return true;
   if (typeof item?.url === 'string') {
@@ -370,55 +667,45 @@ const resolveProfileImageUrl = (configData) => {
   return DEFAULT_PROFILE_IMG;
 };
 
-const AutoPlayVideoCard = memo(({ item, onOpen }) => {
+const AutoPlayVideoCard = ({ item, onOpen }) => {
   const videoRef = useRef(null);
-  const containerRef = useRef(null);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!videoRef.current) return;
-        if (entry.isIntersecting) {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        if (videoRef.current) {
+          videoRef.current.muted = true;
           videoRef.current.play().catch(() => {});
-        } else {
-          videoRef.current.pause();
         }
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+      });
+    }
+  }, [item.url]);
 
   return (
     <div 
-      ref={containerRef}
       onClick={() => onOpen?.(item)} 
-      className="h-64 sm:h-80 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[24px] sm:rounded-[32px] transition-transform duration-300 ease-out hover:scale-[1.01] border border-white/20 cursor-pointer"
+      className="h-64 sm:h-80 overflow-hidden relative bg-neutral-950 flex items-center justify-center group rounded-[24px] sm:rounded-[32px] shadow-[inset_0_0_25px_rgba(0,0,0,0.9)] transition-all duration-500 ease-out hover:scale-[1.01] border border-white/20 cursor-pointer"
     >
       <video
         ref={videoRef}
         src={item.url}
+        autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
+        preload="auto"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-out pointer-events-none"
       />
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-4 sm:p-5 text-white">
-        <span className="text-[10px] sm:text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-md">{item.sub || 'Client Transformation'}</span>
-        <h4 className="font-extrabold text-xs sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-sm">
+        <span className="text-[10px] sm:text-[11px] uppercase font-mono font-black text-cyan-300 tracking-wider drop-shadow-lg">{item.sub || 'Client Transformation'}</span>
+        <h4 className="font-extrabold text-xs sm:text-base mt-0.5 flex items-center gap-1.5 text-pink-300 drop-shadow-md">
           <Film className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-pink-400 shrink-0 animate-pulse" />
           <span>{item.title}</span>
         </h4>
       </div>
     </div>
   );
-});
+};
 
 const MEDIA_COLLECTION = 'studio_media';
 const resolveMediaValue = (value, mediaMap) => {
@@ -448,18 +735,76 @@ const resolveConfigMedia = (live, mediaMap) => {
   return next;
 };
 
-const getInitialConfig = () => {
-  try {
-    const cached = localStorage.getItem('hf_cached_config');
-    if (cached) {
-      return { ...STUDIO_CONFIG, ...JSON.parse(cached) };
-    }
-  } catch (e) {}
-  return STUDIO_CONFIG;
+// PRELOADER ANIMATION
+const CosmeticPreloader = ({ studioName = "H&F Makeup Studio" }) => {
+  return (
+    <div className="fixed inset-0 z-[99999] bg-[#07060a] flex flex-col items-center justify-center p-6 select-none overflow-hidden">
+      <div className="absolute w-80 h-80 rounded-full bg-pink-500/15 blur-[100px] pointer-events-none -top-12 -left-12 animate-pulse" />
+      <div className="absolute w-80 h-80 rounded-full bg-purple-600/15 blur-[100px] pointer-events-none -bottom-12 -right-12 animate-pulse" style={{ animationDelay: '1s' }} />
+
+      <div className="relative flex flex-col items-center max-w-xs w-full text-center">
+        {/* Animated Compact & Cosmetic Objects */}
+        <div className="relative w-32 h-32 flex items-center justify-center mb-6">
+          <div className="absolute inset-0 rounded-full border border-pink-500/30 animate-ping opacity-25" />
+          <div className="absolute inset-1 rounded-full border-2 border-dashed border-pink-400/50 animate-spin" style={{ animationDuration: '9s' }} />
+          <div className="absolute inset-4 rounded-full border border-amber-400/30 animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }} />
+          
+          <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-pink-950/70 via-purple-900/50 to-black/80 backdrop-blur-2xl border border-pink-400/50 shadow-[0_0_35px_rgba(236,72,153,0.4)] flex items-center justify-center">
+            <Sparkles className="w-8 h-8 text-pink-300 animate-pulse" />
+          </div>
+
+          <div className="absolute -top-1 -right-1 text-xl animate-bounce" style={{ animationDuration: '2.2s' }}>💄</div>
+          <div className="absolute -bottom-1 -left-1 text-xl animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.4s' }}>✨</div>
+          <div className="absolute top-1 -left-2 text-lg animate-pulse" style={{ animationDuration: '1.8s' }}>🌸</div>
+        </div>
+
+        {/* Studio Title */}
+        <div className="space-y-2">
+          <h2 className="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-rose-300 to-purple-300 tracking-wider uppercase drop-shadow-md">
+            {studioName}
+          </h2>
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-pink-300/80 font-bold tracking-widest uppercase">
+            <span>Styling Vanity</span>
+            <span className="inline-flex gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0s' }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.4s' }} />
+            </span>
+          </div>
+        </div>
+
+        {/* Sleek Line Progress */}
+        <div className="w-44 h-1 bg-white/10 rounded-full overflow-hidden mt-6">
+          <div className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-rose-400 rounded-full animate-[hfPreloaderBar_1.8s_ease-in-out_infinite]" />
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes hfPreloaderBar {
+          0% { width: 0%; transform: translateX(-100%); }
+          50% { width: 85%; transform: translateX(20%); }
+          100% { width: 100%; transform: translateX(100%); }
+        }
+      `}</style>
+    </div>
+  );
 };
 
 function MainAppContent() {
-  const [config, setConfig] = useState(getInitialConfig);
+  const [config, setConfig] = useState(() => {
+    try {
+      const cachedTheme = localStorage.getItem('hf_cached_theme');
+      if (cachedTheme) {
+        return {
+          ...STUDIO_CONFIG,
+          theme: { ...STUDIO_CONFIG.theme, colorTheme: cachedTheme }
+        };
+      }
+    } catch {}
+    return STUDIO_CONFIG;
+  });
+
+  const [isAppReady, setIsAppReady] = useState(false);
   const [mediaAssets, setMediaAssets] = useState({});
   const [activeTab, setActiveTab] = useState(() => {
     try {
@@ -493,6 +838,7 @@ function MainAppContent() {
   const [panPos, setPanPos] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [nowTick, setNowTick] = useState(Date.now());
 
   const [calcPackage, setCalcPackage] = useState('royal_bridal');
   const [calcKit, setCalcKit] = useState('international');
@@ -629,6 +975,11 @@ function MainAppContent() {
   }, [activeTab, viewingPackage, showShareModal, viewingMedia]);
 
   useEffect(() => {
+    const timer = setInterval(() => setNowTick(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
     async function logVisitorTraffic() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -670,9 +1021,9 @@ function MainAppContent() {
       const timer = setTimeout(() => {
         if (isMounted) {
           setSplashFade(true);
-          setTimeout(() => setShowSplash(false), 500);
+          setTimeout(() => setShowSplash(false), 700);
         }
-      }, 1000);
+      }, 1800);
       return () => { isMounted = false; clearTimeout(timer); };
     }
 
@@ -683,17 +1034,17 @@ function MainAppContent() {
     let safetyTimer = setTimeout(() => {
       if (isMounted) {
         setSplashFade(true);
-        setTimeout(() => setShowSplash(false), 500);
+        setTimeout(() => setShowSplash(false), 700);
       }
-    }, 2000);
+    }, 3500);
 
     img.onload = () => {
       clearTimeout(safetyTimer);
       if (isMounted) {
         setTimeout(() => {
           setSplashFade(true);
-          setTimeout(() => setShowSplash(false), 500);
-        }, 800);
+          setTimeout(() => setShowSplash(false), 700);
+        }, 1200);
       }
     };
 
@@ -701,7 +1052,7 @@ function MainAppContent() {
       clearTimeout(safetyTimer);
       if (isMounted) {
         setSplashFade(true);
-        setTimeout(() => setShowSplash(false), 500);
+        setTimeout(() => setShowSplash(false), 700);
       }
     };
 
@@ -711,11 +1062,20 @@ function MainAppContent() {
     };
   }, [resolvedLogoUrl]);
 
+  // LIVE FIRESTORE SYNC & SEAMLESS FULL READY TRANSITION
   useEffect(() => {
-    let latestLive = config;
+    let latestLive = STUDIO_CONFIG;
     let latestMedia = {};
     const applyLive = () => {
       const live = resolveConfigMedia(latestLive, latestMedia);
+      
+      // Cache the incoming theme to prevent any future theme mismatch
+      if (live?.theme?.colorTheme) {
+        try {
+          localStorage.setItem('hf_cached_theme', live.theme.colorTheme);
+        } catch {}
+      }
+
       const mergedKitImages = {
         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
@@ -730,28 +1090,22 @@ function MainAppContent() {
         international: applyDefaults(live.kitText?.international, DEFAULT_KIT_TEXT.international),
         drugstore: applyDefaults(live.kitText?.drugstore, DEFAULT_KIT_TEXT.drugstore)
       };
-
-      const updated = {
+      setConfig({
         ...STUDIO_CONFIG, ...live,
         studioLogo: live.studioLogo || DEFAULT_STUDIO_LOGO,
         kitText: mergedKitText, kitImages: mergedKitImages,
         internationalBrands: (live.internationalBrands?.length ? live.internationalBrands : DEFAULT_BRANDS),
         galleryPhotos: (live.galleryPhotos?.length ? live.galleryPhotos : DEFAULT_GALLERY)
-      };
-
-      setConfig(updated);
-      try {
-        localStorage.setItem('hf_cached_config', JSON.stringify(updated));
-      } catch (e) {}
-
+      });
       setImgLoadFailed(false); setLogoLoadFailed(false);
+
+      // Mark the app fully ready with updated theme
+      setTimeout(() => {
+        setIsAppReady(true);
+      }, 500);
     };
 
-    const unsubscribeConfig = subscribeToLiveConfig(STUDIO_CONFIG, (live) => { 
-      latestLive = live || STUDIO_CONFIG; 
-      applyLive(); 
-    });
-
+    const unsubscribeConfig = subscribeToLiveConfig(STUDIO_CONFIG, (live) => { latestLive = live || STUDIO_CONFIG; applyLive(); });
     let unsubscribeMedia = () => {};
     try {
       unsubscribeMedia = onSnapshot(collection(db, MEDIA_COLLECTION), (snapshot) => {
@@ -759,34 +1113,26 @@ function MainAppContent() {
         latestMedia = map; setMediaAssets(map); applyLive();
       });
     } catch (e) { console.warn('Media live sync unavailable:', e); }
-    return () => { unsubscribeConfig?.(); unsubscribeMedia?.(); };
+
+    const maxWaitSafetyTimer = setTimeout(() => {
+      setIsAppReady(true);
+    }, 2500);
+
+    return () => { 
+      unsubscribeConfig?.(); 
+      unsubscribeMedia?.(); 
+      clearTimeout(maxWaitSafetyTimer);
+    };
   }, []);
 
   useEffect(() => {
-    const fontKey = config.theme?.fontFamily || 'sans';
-    const fontNameMap = {
-      plus_jakarta_sans: "Plus+Jakarta+Sans:wght@400;600;700;800;900",
-      outfit: "Outfit:wght@400;600;800;900",
-      inter: "Inter:wght@400;600;800;900",
-      poppins: "Poppins:wght@400;600;800;900",
-      montserrat: "Montserrat:wght@400;600;800;900",
-      playfair_display: "Playfair+Display:ital,wght@0,600;0,900;1,600",
-      cormorant_garamond: "Cormorant+Garamond:wght@600;700",
-      cinzel: "Cinzel:wght@600;800;900",
-      sans: "Plus+Jakarta+Sans:wght@400;600;700;800;900"
-    };
-
-    const fontQuery = fontNameMap[fontKey] || fontNameMap.sans;
-    const id = 'hf-active-google-font';
-    let link = document.getElementById(id);
-    if (!link) {
-      link = document.createElement('link');
-      link.id = id;
-      link.rel = 'stylesheet';
+    const id = 'hf-google-fonts';
+    if (!document.getElementById(id)) {
+      const link = document.createElement('link'); link.id = id; link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Alata&family=Archivo&family=Archivo+Narrow&family=Asap&family=Bebas+Neue&family=Barlow&family=Cabin&family=Cinzel&family=Comfortaa&family=Cormorant+Garamond&family=Dancing+Script&family=DM+Sans&family=DM+Serif+Display&family=Dosis&family=EB+Garamond&family=Exo+2&family=Figtree&family=Great+Vibes&family=Heebo&family=Inter&family=Josefin+Sans&family=Josefin+Slab&family=Kanit&family=Karla&family=League+Spartan&family=Lexend&family=Lato&family=Libre+Baskerville&family=Lora&family=Maven+Pro&family=Manrope&family=Marcellus&family=Merriweather&family=Montserrat&family=Mulish&family=Nunito&family=Open+Sans&family=Oswald&family=Outfit&family=Pacifico&family=Playfair+Display&family=Poppins&family=Prata&family=Quicksand&family=Raleway&family=Roboto&family=Rubik&family=Sora&family=Space+Grotesk&family=Spectral&family=Teko&family=Titillium+Web&family=Urbanist&family=Work+Sans&family=Yeseva+One&display=swap';
       document.head.appendChild(link);
     }
-    link.href = `https://fonts.googleapis.com/css2?family=${fontQuery}&display=swap`;
-  }, [config.theme?.fontFamily]);
+  }, []);
 
   const handleAddFamilyGuest = () => {
     const defaultKit = 'international';
@@ -1108,6 +1454,9 @@ function MainAppContent() {
 
   const floatingPromoCode = config.floatingBanner?.code || "BRIDE2026";
   const floatingCouponData = config.validCoupons?.[floatingPromoCode];
+  const floatingTimer = floatingCouponData?.expiryDate ? getTimeRemaining(floatingCouponData.expiryDate) : null;
+  const isFloatingExpired = floatingTimer ? floatingTimer.expired : false;
+  const shouldHideFloatingDueToExpiry = isFloatingExpired && (config.floatingBanner?.autoHideOnExpire !== false);
   const qrCodeApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(window.location.href)}`;
   const shouldShowProfileInHeader = config.toggles?.showProfileOnApp !== false;
 
@@ -1138,7 +1487,7 @@ function MainAppContent() {
     updateGliders();
     window.addEventListener('resize', updateGliders);
     return () => window.removeEventListener('resize', updateGliders);
-  }, [activeTab, navTabs.length, showSplash]);
+  }, [activeTab, navTabs.length, showSplash, isAppReady]);
 
   const handleMouseDown = (e) => {
     if (zoomScale <= 1) return;
@@ -1158,13 +1507,20 @@ function MainAppContent() {
   };
   const handleTouchMove = (e) => {
     if (!isDragging || zoomScale <= 1 || !e.touches[0]) return;
-    setPanPos({ x: e.touches[0].clientX - dragStart.x, y: e.touches[0].clientY - dragStart.y });
+    setPanPos({ x: e.touches[0].clientX - panPos.x, y: e.touches[0].clientY - panPos.y });
   };
   const handleTouchEnd = () => setIsDragging(false);
 
+  // 1. COSMETIC DESIGN ANIMATION PRELOADER (SHOWS UNTIL FIREBASE CONFIG AND THEME ARE FULLY INITIALIZED)
+  if (!isAppReady) {
+    return <CosmeticPreloader studioName={config.studioName || "H&F Makeup Studio"} />;
+  }
+
+  // 2. APP DOWN OR MAINTENANCE SCREEN
   if (config.isAppDown || config.maintenanceMode) {
     return (
       <div style={{ fontFamily: currentFontFamily }} className={`min-h-[100dvh] ${activeThemeStyle.bg} flex items-center justify-center p-4 relative overflow-hidden transition-colors duration-300 ease-out`}>
+        <div className="absolute top-1/4 left-1/4 w-80 sm:w-96 h-80 sm:h-96 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ background: activeThemeStyle.glowOrb1 }} />
         <div className={`max-w-md w-full ${activeThemeStyle.card} p-6 sm:p-8 text-center space-y-4 shadow-2xl relative z-10`}>
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[22px] bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto border border-amber-400/40 shadow-[0_0_25px_rgba(245,158,11,0.3)]">
             <Wrench className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -1179,6 +1535,7 @@ function MainAppContent() {
     );
   }
 
+  // 3. MAIN INTERFACE RENDER (SEAMLESSLY ALIGNED WITH RESOLVED ADMIN THEME)
   return (
     <div 
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
@@ -1201,12 +1558,13 @@ function MainAppContent() {
 
         .hf-lens-btn {
           position: relative;
-          background: rgba(255, 255, 255, 0.05) !important;
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.35) !important;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 
-                      inset 0 1px 2px rgba(255, 255, 255, 0.6) !important;
+          background: rgba(255, 255, 255, 0.03) !important;
+          backdrop-filter: blur(28px) saturate(240%) contrast(120%);
+          -webkit-backdrop-filter: blur(28px) saturate(240%) contrast(120%);
+          border: 1px solid rgba(255, 255, 255, 0.4) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), 
+                      inset 0 1.5px 3px rgba(255, 255, 255, 0.8), 
+                      inset 0 -1.5px 3px rgba(0, 0, 0, 0.45) !important;
           transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.25s ease;
           overflow: hidden;
         }
@@ -1217,27 +1575,29 @@ function MainAppContent() {
           left: 14%;
           right: 14%;
           height: 38%;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.01) 100%);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.01) 100%);
           border-radius: 9999px;
           pointer-events: none;
         }
         .hf-lens-btn:hover {
-          background: rgba(255, 255, 255, 0.1) !important;
+          background: rgba(255, 255, 255, 0.08) !important;
           transform: translateY(-1px) scale(1.01);
-          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3) !important;
+          box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 
+                      inset 0 2px 4px rgba(255, 255, 255, 0.9) !important;
         }
         .hf-lens-btn:active {
           transform: scale(0.97) translateY(0);
         }
 
         .hf-app[data-hf-mode="day"] .hf-lens-btn {
-          background: rgba(255, 255, 255, 0.75) !important;
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(99, 102, 241, 0.35) !important;
+          background: rgba(255, 255, 255, 0.65) !important;
+          backdrop-filter: blur(40px) saturate(200%);
+          -webkit-backdrop-filter: blur(40px) saturate(200%);
+          border: 1px solid rgba(99, 102, 241, 0.4) !important;
           color: #1e1b4b !important;
-          box-shadow: 0 8px 20px rgba(99, 102, 241, 0.12), 
-                      inset 0 1.5px 3px rgba(255, 255, 255, 0.95) !important;
+          box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15), 
+                      inset 0 1.5px 3px rgba(255, 255, 255, 0.95), 
+                      inset 0 -1.5px 2.5px rgba(99, 102, 241, 0.15) !important;
         }
 
         .hf-ios-dock-wrapper {
@@ -1259,10 +1619,10 @@ function MainAppContent() {
         }
 
         .hf-kit-enter {
-          animation: hfKitFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: hfKitFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes hfKitFade {
-          0% { opacity: 0; transform: translateY(8px) scale(0.99); }
+          0% { opacity: 0; transform: translateY(10px) scale(0.98); }
           100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
@@ -1277,20 +1637,20 @@ function MainAppContent() {
           pointer-events: none;
           z-index: 0;
           border-radius: 9999px;
-          contain: strict;
-          transform: translateZ(0);
-          animation: hfLiquidFloat 20s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+          filter: blur(85px);
+          transform: translate3d(0,0,0);
+          will-change: transform;
+          animation: hfLiquidFloat 16s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
         }
         @keyframes hfLiquidFloat {
-          0% { transform: translate3d(0, 0, 0) scale(1); }
-          50% { transform: translate3d(25px, 15px, 0) scale(1.1); }
-          100% { transform: translate3d(-15px, 10px, 0) scale(0.95); }
+          0% { transform: scale(1) translate(0px, 0px); }
+          50% { transform: scale(1.25) translate(40px, 25px); }
+          100% { transform: scale(0.9) translate(-25px, 20px); }
         }
 
         .hf-marquee-track {
           display: flex;
           width: max-content;
-          will-change: transform;
           animation: hfRunMarquee 26s linear infinite;
         }
         .hf-marquee-track:hover {
@@ -1302,38 +1662,43 @@ function MainAppContent() {
         }
 
         .hf-tab-enter {
-          animation: hfFadeScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: hfFadeScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes hfFadeScale {
-          0% { opacity: 0; transform: scale(0.99) translateY(8px); }
+          0% { opacity: 0; transform: scale(0.98) translateY(12px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes pixelateToClear {
           0% {
-            filter: blur(8px) contrast(150%);
-            transform: scale(1.08);
+            filter: blur(16px) contrast(300%) grayscale(40%);
+            transform: scale(1.15);
             opacity: 0.1;
           }
+          50% {
+            filter: blur(6px) contrast(180%) grayscale(15%);
+            transform: scale(1.06);
+            opacity: 0.6;
+          }
           100% {
-            filter: blur(0px) contrast(100%);
+            filter: blur(0px) contrast(100%) grayscale(0%);
             transform: scale(1);
             opacity: 1;
           }
         }
         .splash-pixelate-anim {
-          animation: pixelateToClear 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: pixelateToClear 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .hf-modal-backdrop { 
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
           padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); 
-          background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); overflow-y: auto; 
+          background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); overflow-y: auto; 
         }
         .hf-app[data-hf-mode="day"] .hf-modal-backdrop {
-          background: rgba(15, 23, 42, 0.35) !important;
-          backdrop-filter: blur(16px) !important;
-          -webkit-backdrop-filter: blur(16px) !important;
+          background: rgba(15, 23, 42, 0.25) !important;
+          backdrop-filter: blur(35px) !important;
+          -webkit-backdrop-filter: blur(35px) !important;
         }
         .hf-modal-card { width: min(100%, 540px); max-height: min(90dvh, 740px); overflow-y: auto; margin: auto; }
 
@@ -1363,28 +1728,27 @@ function MainAppContent() {
           width: calc(100% - 24px); 
           max-width: 460px; 
           border-radius: 9999px !important; 
-          backdrop-filter: blur(16px); 
-          -webkit-backdrop-filter: blur(16px);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.45); 
+          backdrop-filter: blur(40px); 
+          -webkit-backdrop-filter: blur(40px);
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
           z-index: 50;
         }
       `}</style>
 
-      {/* AMBIENT GRADIENT GLOWS */}
-      <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] -top-16 -left-16 opacity-60" style={{ background: activeThemeStyle.glowOrb1 }} />
-      <div className="hf-mesh-glow w-[300px] sm:w-[460px] h-[300px] sm:h-[460px] top-1/3 -right-16 opacity-50" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-6s' }} />
-      <div className="hf-mesh-glow w-[360px] sm:w-[540px] h-[360px] sm:h-[540px] -bottom-24 left-1/4 opacity-40" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-12s' }} />
+      {/* AMBIENT ENHANCED GLOWS */}
+      <div className="hf-mesh-glow w-[380px] sm:w-[560px] h-[380px] sm:h-[560px] -top-20 -left-20 opacity-70" style={{ background: activeThemeStyle.glowOrb1 }} />
+      <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
+      <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
 
-      {/* SPLASH SCREEN */}
+      {/* BRANDED LOGO SPLASH SCREEN */}
       {showSplash && (
-        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-500 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center ${activeThemeStyle.bg} transition-opacity duration-700 ${splashFade ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           <div className="space-y-6 flex flex-col items-center max-w-sm w-full mx-auto">
             {resolvedLogoUrl ? (
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-sm mx-auto">
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-[28px] overflow-hidden p-2 shadow-2xl flex items-center justify-center bg-black/30 border border-white/20 backdrop-blur-md mx-auto">
                 <img 
                   src={resolvedLogoUrl} 
                   alt="Studio Logo" 
-                  decoding="async"
                   className="w-full h-full object-contain rounded-[20px] splash-pixelate-anim" 
                 />
                 <div className="absolute inset-0 rounded-[28px] border border-purple-400/30 pointer-events-none animate-pulse" />
@@ -1403,7 +1767,7 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* ZOOMABLE MODAL */}
+      {/* ZOOMABLE & DRAGGABLE MEDIA MODAL */}
       {viewingMedia && (
         <div className="hf-modal-backdrop">
           <div className={`hf-modal-card ${activeThemeStyle.card} p-4 sm:p-6 space-y-4 shadow-2xl hf-tab-enter relative`}>
@@ -1449,7 +1813,7 @@ function MainAppContent() {
               )}
 
               {!isVideoMedia(viewingMedia) && (
-                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/75 backdrop-blur-sm p-1.5 rounded-full border border-white/20 z-20">
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 bg-black/75 backdrop-blur-md p-1.5 rounded-full border border-white/20 z-20">
                   <button onClick={() => setZoomScale(prev => Math.min(3.5, prev + 0.3))} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomIn className="w-4 h-4" /></button>
                   <button onClick={() => { setZoomScale(prev => { const next = Math.max(1, prev - 0.3); if (next === 1) setPanPos({ x: 0, y: 0 }); return next; }); }} className="p-1.5 text-white hover:text-cyan-300 transition-all"><ZoomOut className="w-4 h-4" /></button>
                   <button onClick={() => { setZoomScale(1); setPanPos({ x: 0, y: 0 }); }} className="p-1.5 text-white hover:text-cyan-300 transition-all"><RotateCcw className="w-4 h-4" /></button>
@@ -1478,8 +1842,8 @@ function MainAppContent() {
               <span className={`font-black text-xs sm:text-sm flex items-center gap-2 ${activeThemeStyle.headingColor}`}><Share2 className="w-4 h-4" /> Share Lookbook</span>
               <button onClick={() => setShowShareModal(false)} className="p-1.5 rounded-full bg-slate-500/10 hover:bg-slate-500/20 opacity-80 hover:opacity-100 transition-all"><X className="w-4 h-4" /></button>
             </div>
-            <div className="w-36 h-36 sm:w-44 sm:h-44 mx-auto bg-white/90 p-2.5 rounded-[24px] border border-slate-300 flex items-center justify-center shadow-md backdrop-blur-sm">
-              <img src={qrCodeApiUrl} alt="App QR Code" loading="lazy" decoding="async" className="w-full h-full object-contain rounded-[14px]" />
+            <div className="w-36 h-36 sm:w-44 sm:h-44 mx-auto bg-white/90 p-2.5 rounded-[24px] border border-slate-300 flex items-center justify-center shadow-md backdrop-blur-md">
+              <img src={qrCodeApiUrl} alt="App QR Code" className="w-full h-full object-contain rounded-[14px]" />
             </div>
             <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Scan this QR code with any camera or scanner to explore the portfolio & book instantly.</p>
             <div className="flex gap-2 pt-1">
@@ -1507,8 +1871,8 @@ function MainAppContent() {
               <button onClick={() => setViewingPackage(null)} className="p-1.5 rounded-full bg-slate-500/10 hover:bg-slate-500/20 opacity-80 hover:opacity-100 transition-all"><X className="w-4 h-4" /></button>
             </div>
             <div className="w-full h-40 sm:h-48 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-black/20 border border-slate-300 relative">
-              <img src={viewingPackage.image} alt={viewingPackage.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-              <div className="absolute top-2.5 left-2.5 px-3 py-1 rounded-full bg-black/75 text-[10px] sm:text-xs font-mono font-bold text-amber-300 backdrop-blur-sm border border-white/20">
+              <img src={viewingPackage.image} alt={viewingPackage.name} className="w-full h-full object-cover" />
+              <div className="absolute top-2.5 left-2.5 px-3 py-1 rounded-full bg-black/75 text-[10px] sm:text-xs font-mono font-bold text-amber-300 backdrop-blur-md border border-white/20">
                 {selectedKit === 'international' ? '👑 Luxury Tier' : '✨ HD Classic'}
               </div>
             </div>
@@ -1529,10 +1893,10 @@ function MainAppContent() {
         </div>
       )}
 
-      {/* TOP HEADER */}
+      {/* TOP FIXED TICKER & HEADER */}
       <div ref={topHeaderWrapperRef} className="fixed top-0 inset-x-0 z-40">
         {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
-          <div className={`w-full py-1.5 px-3 overflow-hidden text-[10px] sm:text-xs font-bold border-b shadow-sm ${isDarkMode ? 'bg-black/60 border-white/10 text-white backdrop-blur-md' : 'bg-white/70 border-slate-300/60 text-slate-900 backdrop-blur-md'}`}>
+          <div className={`w-full py-1.5 px-3 overflow-hidden text-[10px] sm:text-xs font-bold border-b shadow-sm ${isDarkMode ? 'bg-black/50 border-white/10 text-white backdrop-blur-[40px]' : 'bg-white/20 border-slate-300/60 text-slate-900 backdrop-blur-[40px]'}`}>
             <div className="overflow-hidden whitespace-nowrap w-full flex items-center">
               <div className="hf-marquee-track flex items-center">
                 {(config.announcements && config.announcements.length > 0 ? config.announcements : [
@@ -1545,7 +1909,7 @@ function MainAppContent() {
                   "💄 Certified International Makeup Artist • 100% Genuine Luxury Vanity Products (Dior, Charlotte Tilbury, Huda Beauty)"
                 ]).map((ann, idx) => (
                   <span key={idx} className="mx-6 sm:mx-8 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-pink-500 animate-pulse shrink-0 shadow-[0_0_8px_#ec4899]" />
+                    <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-pink-500 animate-pulse shrink-0 shadow-[0_0_10px_#ec4899]" />
                     <span>{ann}</span>
                   </span>
                 ))}
@@ -1554,13 +1918,14 @@ function MainAppContent() {
           </div>
         )}
 
-        <header className={`w-full px-3 sm:px-8 py-2.5 sm:py-3.5 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 shadow-lg backdrop-blur-md`}>
+        {/* TRANSLUCENT HEADER NAVBAR */}
+        <header className={`w-full px-3 sm:px-8 py-2.5 sm:py-3.5 ${activeThemeStyle.card} !rounded-none !border-x-0 !border-t-0 shadow-lg backdrop-blur-[40px]`}>
           <div className="max-w-5xl mx-auto flex flex-col gap-2.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2.5 sm:space-x-3.5 select-none min-w-0">
                 {config.toggles?.showLogoOnApp !== false && (
                   <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-[16px] sm:rounded-[18px] overflow-hidden shrink-0 border border-slate-400/40 bg-white/10 flex items-center justify-center p-0.5 shadow-sm">
-                    <img src={resolvedLogoUrl} alt="Logo" decoding="async" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[13px]" draggable="false" />
+                    <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[13px]" draggable="false" />
                   </div>
                 )}
                 <div className="truncate">
@@ -1587,14 +1952,15 @@ function MainAppContent() {
 
                 {shouldShowProfileInHeader && (
                   <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-[14px] sm:rounded-[18px] border border-slate-400/40 overflow-hidden shrink-0 shadow-sm p-0.5">
-                    <img src={resolvedAvatar} alt="Artist Profile" decoding="async" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[12px]" />
+                    <img src={resolvedAvatar} alt="Artist Profile" onError={() => setImgLoadFailed(true)} className="w-full h-full object-cover rounded-[12px]" />
                   </div>
                 )}
               </div>
             </div>
 
+            {/* DESKTOP FLUID TABS */}
             <div className="hidden sm:flex w-full items-center justify-center">
-              <nav ref={desktopNavRef} className="hf-ios-dock-wrapper rounded-full border border-slate-400/30 bg-black/15 backdrop-blur-md max-w-xl">
+              <nav ref={desktopNavRef} className="hf-ios-dock-wrapper rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-[40px] max-w-xl">
                 <div 
                   className="hf-ios-glider hf-lens-btn"
                   style={{
@@ -1622,7 +1988,7 @@ function MainAppContent() {
         </header>
       </div>
 
-      {/* MOBILE NAV BAR */}
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
       {!showSplash && (
         <nav aria-label="Mobile Navigation" className={`hf-bottom-nav ${activeThemeStyle.card} sm:hidden border border-slate-400/40 shadow-2xl`}>
           <div ref={mobileNavRef} className="hf-ios-dock-wrapper">
@@ -1679,12 +2045,13 @@ function MainAppContent() {
                 const imgSrc = config.kitImages?.[selectedKit]?.[key] || DEFAULT_KIT_IMAGES[selectedKit][key];
 
                 if (!item.name) return null;
+
                 const displaySkinFinish = item.skinFinish || "16-Hour Water Resistant HD Glass";
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center transition-transform duration-300 hover:scale-[1.01] hover:shadow-xl`}>
+                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-slate-900/20 relative border border-slate-400/30">
-                      <img src={imgSrc} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                      <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
                       <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/75 text-[10px] font-mono font-extrabold text-amber-300 border border-white/20 shadow-sm">
                         {selectedKit === 'international' ? '👑 Luxury' : '✨ HD Classic'}
                       </div>
@@ -1733,13 +2100,13 @@ function MainAppContent() {
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
                 return (
-                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] p-1.5`}>
+                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] p-1.5`}>
                     {isVideo ? <AutoPlayVideoCard item={item} onOpen={(it) => setViewingMedia(it)} /> : (
                       <div 
                         onClick={() => setViewingMedia(item)}
                         className="h-64 sm:h-80 overflow-hidden relative bg-slate-900/20 rounded-[22px] sm:rounded-[26px] border border-slate-400/30 cursor-pointer group"
                       >
-                        <img src={item.url} alt={item.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <img src={item.url} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent flex flex-col justify-end p-4 text-white">
                           <span className="text-[10px] sm:text-[11px] uppercase font-mono font-bold text-cyan-300">{item.sub || 'Client Transformation'}</span>
                           <h4 className="font-extrabold text-xs sm:text-sm mt-0.5 text-white flex items-center justify-between">
@@ -1767,7 +2134,7 @@ function MainAppContent() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2.5 transition-transform duration-300 hover:scale-[1.02]`}>
+                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2.5 transition-all duration-300 hover:scale-[1.02]`}>
                   <span className={`text-[10px] font-extrabold ${activeThemeStyle.accentText} bg-amber-500/15 border border-amber-400/40 uppercase px-3 py-1 rounded-full font-mono inline-block`}>{brand.category}</span>
                   <h4 className={`font-black text-sm sm:text-base ${activeThemeStyle.headingColor}`}>{brand.name}</h4>
                   <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{brand.desc}</p>
@@ -1801,7 +2168,7 @@ function MainAppContent() {
             ) : (
               <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
                 
-                {/* LEFT OPTIONS */}
+                {/* LEFT OPTIONS & DETAILS */}
                 <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-xl`}>
                   <div className="border-b border-slate-400/30 pb-3">
                     <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${activeThemeStyle.headingColor}`}>
@@ -2023,7 +2390,7 @@ function MainAppContent() {
                               const vanityName = config.pricingByKit?.[g.kit]?.name || (g.kit === 'international' ? 'Luxury Kit' : 'HD Kit');
                               const gPkgName = config.kitText?.[g.kit]?.[g.packageKey]?.name || g.packageKey;
                               return (
-                                <div key={i} className={`p-2.5 rounded-[14px] border border-purple-400/30 ${isDarkMode ? 'bg-purple-900/20 text-purple-200' : 'bg-purple-100/35 text-purple-950'} space-y-1 shadow-sm`}>
+                                <div key={i} className={`p-2.5 rounded-[14px] border border-purple-400/30 backdrop-blur-[25px] ${isDarkMode ? 'bg-purple-900/20 text-purple-200' : 'bg-purple-100/35 text-purple-950'} space-y-1 shadow-sm`}>
                                   <div className="flex justify-between items-center font-bold">
                                     <span>Guest #{i + 1} ({vanityName}):</span>
                                     <span className="font-mono font-black">₹{gp.toLocaleString('en-IN')}</span>
@@ -2084,7 +2451,7 @@ function MainAppContent() {
               <form onSubmit={handleSubmitFeedback} className="space-y-4">
                 <div className="flex justify-center gap-2 py-1">
                   {[1, 2, 3, 4, 5].map(star => (
-                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition-all ${star <= feedbackRating ? 'text-amber-400 scale-110 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]' : 'opacity-30 hover:opacity-100 hover:text-amber-400'}`}>
+                    <button key={star} type="button" onClick={() => setFeedbackRating(star)} className={`p-1 transition-all ${star <= feedbackRating ? 'text-amber-400 scale-110 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]' : 'opacity-30 hover:opacity-100 hover:text-amber-400'}`}>
                       <Star className={`w-7 h-7 sm:w-8 sm:h-8 ${star <= feedbackRating ? 'fill-amber-400' : ''}`} />
                     </button>
                   ))}
@@ -2103,27 +2470,25 @@ function MainAppContent() {
         )}
       </main>
 
-      {/* FLOATING PROMO BANNER */}
-      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && (
-        <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border border-slate-400/40 backdrop-blur-md`}>
+      {/* FLOATING PROMO BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
+      {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
+        <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border border-slate-400/40 backdrop-blur-[60px]`}>
           <div className="flex items-start justify-between gap-2.5">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5 shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-400/30 shrink-0 mt-0.5 shadow-[0_0_15px_rgba(245,158,11,0.25)]">
               <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-[9px] font-black bg-amber-500/20 text-amber-400 border border-amber-400/40 uppercase px-2 py-0.5 rounded-full font-mono">{config.floatingBanner?.tag || "SPECIAL OFFER"}</span>
-                <IsolatedTimer expiryDate={floatingCouponData?.expiryDate} />
+                {isFloatingExpired ? <span className="text-[9px] font-mono bg-rose-500/20 text-rose-400 px-2 py-0.5 rounded-full">Expired</span> : floatingTimer ? <span className="text-[9px] font-mono font-bold opacity-90 px-2 py-0.5 rounded-full bg-slate-500/10">{floatingTimer.text}</span> : null}
               </div>
               <h4 className={`font-black text-xs sm:text-sm mt-1 leading-tight ${activeThemeStyle.headingColor}`}>{config.floatingBanner?.title || "Wedding Season Discount"}</h4>
-              <p className={`text-[11px] mt-0.5 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>
-                Use code <span className="font-mono font-black text-amber-400 bg-black/40 px-1.5 py-0.5 rounded border border-amber-400/30">{floatingPromoCode}</span>
-              </p>
+              <p className={`text-[11px] mt-0.5 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{isFloatingExpired ? <span className="text-rose-400">Ended.</span> : <>Use code <span className="font-mono font-black text-amber-400 bg-black/40 px-1.5 py-0.5 rounded border border-amber-400/30">{floatingPromoCode}</span></>}</p>
             </div>
             <button onClick={() => setShowFloatingBanner(false)} className="opacity-70 hover:opacity-100 p-1 shrink-0 transition-all active:scale-90"><X className="w-3.5 h-3.5" /></button>
           </div>
-          <button onClick={() => { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); }} className={`mt-2.5 w-full py-2 sm:py-2.5 text-xs font-black rounded-full transition-all shadow-md ${activeThemeStyle.btnPrimary} active:scale-[0.98]`}>
-            {config.floatingBanner?.actionText || "Apply Code & Book"}
+          <button disabled={isFloatingExpired} onClick={() => { if (!isFloatingExpired) { handleApplyCoupon(null, floatingPromoCode); setActiveTab('calculator'); } }} className={`mt-2.5 w-full py-2 sm:py-2.5 text-xs font-black rounded-full transition-all shadow-md ${isFloatingExpired ? 'bg-slate-500/20 opacity-50 cursor-not-allowed' : `${activeThemeStyle.btnPrimary} active:scale-[0.98]`}`}>
+            {isFloatingExpired ? "Offer Expired" : (config.floatingBanner?.actionText || "Apply Code & Book")}
           </button>
         </aside>
       )}
