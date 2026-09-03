@@ -770,7 +770,7 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
 
         {/* Status Line */}
         <div className="flex items-center justify-center gap-1.5 text-[10px] text-purple-300/70 font-semibold tracking-widest uppercase mt-4">
-          <span>{isDataLoaded ? 'Theme Ready' : 'Styling Vanity'}</span>
+          <span>{isDataLoaded ? 'Theme Ready' : 'Vanity Ready'}</span>
           <span className="inline-flex gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0s' }} />
             <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
@@ -941,7 +941,22 @@ function MainAppContent() {
     } catch {}
   }, [isDarkMode]);
 
-  const toggleTheme = () => setIsDarkMode(prev => !prev);
+  // JITTER-FREE THEME TOGGLER (DISPLAYS INSTANTLY ON MOBILE GPU WITHOUT 60FPS REPAINT STORM)
+  const toggleTheme = () => {
+    try {
+      document.documentElement.classList.add('hf-theme-switching');
+      document.body.classList.add('hf-theme-switching');
+    } catch {}
+    
+    setIsDarkMode(prev => !prev);
+
+    setTimeout(() => {
+      try {
+        document.documentElement.classList.remove('hf-theme-switching');
+        document.body.classList.remove('hf-theme-switching');
+      } catch {}
+    }, 180);
+  };
 
   useEffect(() => {
     const updateDynamicHeaderHeight = () => {
@@ -1568,7 +1583,7 @@ function MainAppContent() {
       style={{ fontFamily: currentFontFamily, WebkitUserSelect: 'none', userSelect: 'none', minHeight: 'calc(var(--vh, 1vh) * 100)' }} 
       data-hf-theme={rawThemeKey}
       data-hf-mode={isDarkMode ? 'night' : 'day'}
-      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative transition-colors duration-300 ease-out overflow-x-hidden`}
+      className={`hf-app min-h-[100dvh] ${activeThemeStyle.bg} relative overflow-x-hidden`}
       onContextMenu={(e) => e.preventDefault()}
     >
       <canvas ref={canvasRef} style={{ display: 'none' }} />
@@ -1581,6 +1596,22 @@ function MainAppContent() {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           text-rendering: optimizeLegibility;
+          isolation: isolate;
+        }
+
+        /* ANDROID GPU STABILIZER: DISABLE EXPENSIVE COLOR INTERPOLATION DURING THEME TOGGLE */
+        .hf-theme-switching,
+        .hf-theme-switching * {
+          transition: none !important;
+          animation-play-state: paused !important;
+        }
+
+        /* HARDWARE ACCELERATED GPU TEXTURES FOR GLASS ELEMENTS */
+        .hf-gpu-layer {
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          perspective: 1000px;
         }
 
         .hf-lens-btn {
@@ -1594,6 +1625,7 @@ function MainAppContent() {
                       inset 0 -1.5px 3px rgba(0, 0, 0, 0.45) !important;
           transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background 0.25s ease;
           overflow: hidden;
+          transform: translateZ(0);
         }
         .hf-lens-btn::before {
           content: '';
@@ -1608,12 +1640,12 @@ function MainAppContent() {
         }
         .hf-lens-btn:hover {
           background: rgba(255, 255, 255, 0.08) !important;
-          transform: translateY(-1px) scale(1.01);
+          transform: translateY(-1px) scale(1.01) translateZ(0);
           box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35), 
                       inset 0 2px 4px rgba(255, 255, 255, 0.9) !important;
         }
         .hf-lens-btn:active {
-          transform: scale(0.97) translateY(0);
+          transform: scale(0.97) translateY(0) translateZ(0);
         }
 
         .hf-app[data-hf-mode="day"] .hf-lens-btn {
@@ -1634,6 +1666,7 @@ function MainAppContent() {
           width: 100%;
           height: 52px;
           padding: 4px;
+          transform: translateZ(0);
         }
         .hf-ios-glider {
           position: absolute;
@@ -1659,10 +1692,19 @@ function MainAppContent() {
           -webkit-user-drag: none;
         }
 
-        .hf-mesh-glow {
+        /* AMBIENT GLOW LAYER ISOLATION (PREVENTS JITTER OVER CARDS) */
+        .hf-ambient-backdrop {
           position: fixed;
+          inset: 0;
+          overflow: hidden;
           pointer-events: none;
           z-index: 0;
+          transform: translateZ(0);
+        }
+
+        .hf-mesh-glow {
+          position: absolute;
+          pointer-events: none;
           border-radius: 9999px;
           filter: blur(85px);
           transform: translate3d(0,0,0);
@@ -1721,13 +1763,14 @@ function MainAppContent() {
           position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; 
           padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); 
           background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); overflow-y: auto; 
+          transform: translateZ(0);
         }
         .hf-app[data-hf-mode="day"] .hf-modal-backdrop {
           background: rgba(15, 23, 42, 0.25) !important;
           backdrop-filter: blur(35px) !important;
           -webkit-backdrop-filter: blur(35px) !important;
         }
-        .hf-modal-card { width: min(100%, 540px); max-height: min(90dvh, 740px); overflow-y: auto; margin: auto; }
+        .hf-modal-card { width: min(100%, 540px); max-height: min(90dvh, 740px); overflow-y: auto; margin: auto; transform: translateZ(0); }
 
         .hf-floating-banner-mobile {
           position: fixed;
@@ -1737,6 +1780,7 @@ function MainAppContent() {
           max-width: 440px;
           margin: 0 auto;
           z-index: 45;
+          transform: translateZ(0);
         }
         @media (min-width: 640px) {
           .hf-floating-banner-mobile {
@@ -1751,7 +1795,7 @@ function MainAppContent() {
           position: fixed; 
           bottom: max(12px, env(safe-area-inset-bottom)); 
           left: 50%; 
-          transform: translateX(-50%); 
+          transform: translateX(-50%) translateZ(0); 
           width: calc(100% - 24px); 
           max-width: 460px; 
           border-radius: 9999px !important; 
@@ -1762,10 +1806,12 @@ function MainAppContent() {
         }
       `}</style>
 
-      {/* AMBIENT ENHANCED GLOWS */}
-      <div className="hf-mesh-glow w-[380px] sm:w-[560px] h-[380px] sm:h-[560px] -top-20 -left-20 opacity-70" style={{ background: activeThemeStyle.glowOrb1 }} />
-      <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
-      <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
+      {/* AMBIENT ENHANCED GLOWS (ISOLATED TO PREVENT JITTER) */}
+      <div className="hf-ambient-backdrop">
+        <div className="hf-mesh-glow w-[380px] sm:w-[560px] h-[380px] sm:h-[560px] -top-20 -left-20 opacity-70" style={{ background: activeThemeStyle.glowOrb1 }} />
+        <div className="hf-mesh-glow w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] top-1/3 -right-20 opacity-60" style={{ background: activeThemeStyle.glowOrb2, animationDelay: '-5s' }} />
+        <div className="hf-mesh-glow w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] -bottom-32 left-1/4 opacity-50" style={{ background: activeThemeStyle.glowOrb1, animationDelay: '-10s' }} />
+      </div>
 
       {/* BRANDED LOGO SPLASH SCREEN */}
       {showSplash && (
@@ -1921,7 +1967,7 @@ function MainAppContent() {
       )}
 
       {/* TOP FIXED TICKER & HEADER */}
-      <div ref={topHeaderWrapperRef} className="fixed top-0 inset-x-0 z-40">
+      <div ref={topHeaderWrapperRef} className="fixed top-0 inset-x-0 z-40 hf-gpu-layer">
         {!showSplash && config.toggles?.enableAnnouncements !== false && config.showOfferSection !== false && (
           <div className={`w-full py-1.5 px-3 overflow-hidden text-[10px] sm:text-xs font-bold border-b shadow-sm ${isDarkMode ? 'bg-black/50 border-white/10 text-white backdrop-blur-[40px]' : 'bg-white/20 border-slate-300/60 text-slate-900 backdrop-blur-[40px]'}`}>
             <div className="overflow-hidden whitespace-nowrap w-full flex items-center">
@@ -2076,7 +2122,7 @@ function MainAppContent() {
                 const displaySkinFinish = item.skinFinish || "16-Hour Water Resistant HD Glass";
 
                 return (
-                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center transition-all duration-300 hover:scale-[1.01] hover:shadow-xl`}>
+                  <div key={`${selectedKit}_${key}`} className={`${activeThemeStyle.card} hf-gpu-layer p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center transition-transform duration-300 hover:scale-[1.01] hover:shadow-xl`}>
                     <div className="w-full sm:w-36 h-40 sm:h-36 shrink-0 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-slate-900/20 relative border border-slate-400/30">
                       <img src={imgSrc} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
                       <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-black/75 text-[10px] font-mono font-extrabold text-amber-300 border border-white/20 shadow-sm">
@@ -2127,7 +2173,7 @@ function MainAppContent() {
               {(config.galleryPhotos || DEFAULT_GALLERY).map((item, idx) => {
                 const isVideo = isVideoMedia(item);
                 return (
-                  <div key={idx} className={`${activeThemeStyle.card} overflow-hidden flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] p-1.5`}>
+                  <div key={idx} className={`${activeThemeStyle.card} hf-gpu-layer overflow-hidden flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02] p-1.5`}>
                     {isVideo ? <AutoPlayVideoCard item={item} onOpen={(it) => setViewingMedia(it)} /> : (
                       <div 
                         onClick={() => setViewingMedia(item)}
@@ -2161,7 +2207,7 @@ function MainAppContent() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
               {(config.internationalBrands || DEFAULT_BRANDS).map((brand, idx) => (
-                <div key={idx} className={`${activeThemeStyle.card} p-5 space-y-2.5 transition-all duration-300 hover:scale-[1.02]`}>
+                <div key={idx} className={`${activeThemeStyle.card} hf-gpu-layer p-5 space-y-2.5 transition-transform duration-300 hover:scale-[1.02]`}>
                   <span className={`text-[10px] font-extrabold ${activeThemeStyle.accentText} bg-amber-500/15 border border-amber-400/40 uppercase px-3 py-1 rounded-full font-mono inline-block`}>{brand.category}</span>
                   <h4 className={`font-black text-sm sm:text-base ${activeThemeStyle.headingColor}`}>{brand.name}</h4>
                   <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>{brand.desc}</p>
@@ -2174,7 +2220,7 @@ function MainAppContent() {
         {activeTab === 'calculator' && config.toggles?.enableEstimator !== false && (
           <div className="max-w-4xl mx-auto hf-tab-enter">
             {isBookingDone ? (
-              <div className={`${activeThemeStyle.card} p-6 sm:p-10 text-center space-y-5 shadow-2xl max-w-lg mx-auto`}>
+              <div className={`${activeThemeStyle.card} hf-gpu-layer p-6 sm:p-10 text-center space-y-5 shadow-2xl max-w-lg mx-auto`}>
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-[24px] bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-400/40 shadow-[0_0_25px_rgba(16,185,129,0.3)]">
                   <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
                 </div>
@@ -2196,7 +2242,7 @@ function MainAppContent() {
               <form onSubmit={handleDirectEstimateBooking} className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
                 
                 {/* LEFT OPTIONS & DETAILS */}
-                <div className={`md:col-span-7 ${activeThemeStyle.card} p-5 sm:p-7 space-y-5 shadow-xl`}>
+                <div className={`md:col-span-7 ${activeThemeStyle.card} hf-gpu-layer p-5 sm:p-7 space-y-5 shadow-xl`}>
                   <div className="border-b border-slate-400/30 pb-3">
                     <h3 className={`font-black text-sm sm:text-base flex items-center gap-2 ${activeThemeStyle.headingColor}`}>
                       <Calculator className="w-4 h-4 sm:w-5 sm:h-5" /> 1. Calculate & Choose Looks
@@ -2385,7 +2431,7 @@ function MainAppContent() {
 
                 {/* RIGHT SUMMARY */}
                 <div className="md:col-span-5 flex flex-col gap-5">
-                  <div className={`${activeThemeStyle.card} p-5 sm:p-7 flex flex-col justify-between space-y-4 shadow-xl sticky top-28`}>
+                  <div className={`${activeThemeStyle.card} hf-gpu-layer p-5 sm:p-7 flex flex-col justify-between space-y-4 shadow-xl sticky top-28`}>
                     <div>
                       <span className={`text-[11px] font-black uppercase tracking-widest ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Total Investment Summary</span>
                       <div className="mt-1 text-2xl sm:text-4xl font-black flex items-baseline gap-1">
@@ -2461,7 +2507,7 @@ function MainAppContent() {
         )}
 
         {activeTab === 'feedback' && (
-          <div className={`${activeThemeStyle.card} p-5 sm:p-8 rounded-[28px] sm:rounded-[36px] max-w-xl mx-auto space-y-5 shadow-2xl hf-tab-enter`}>
+          <div className={`${activeThemeStyle.card} hf-gpu-layer p-5 sm:p-8 rounded-[28px] sm:rounded-[36px] max-w-xl mx-auto space-y-5 shadow-2xl hf-tab-enter`}>
             <div className="text-center space-y-1">
               <span className={`text-[10px] font-extrabold uppercase tracking-widest ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>Client Experience</span>
               <h3 className={`text-xl sm:text-2xl font-black ${activeThemeStyle.headingColor}`}>Feedback & Suggestions</h3>
