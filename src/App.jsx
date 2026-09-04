@@ -1530,11 +1530,21 @@ function MainAppContent() {
     }
   };
 
-  useEffect(() => {
+ useEffect(() => {
     updateGliders();
     window.addEventListener('resize', updateGliders);
     return () => window.removeEventListener('resize', updateGliders);
   }, [activeTab, navTabs.length, showSplash, isAppReady]);
+
+  // Bubble glider ko preloader hatne ke baad force update karne ke liye
+  useEffect(() => {
+    if (isAppReady && !isLoading) {
+      const timer = setTimeout(() => {
+        updateGliders();
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isAppReady, isLoading, activeTab]);
 
   const handleMouseDown = (e) => {
     if (zoomScale <= 1) return;
