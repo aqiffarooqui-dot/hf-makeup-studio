@@ -850,7 +850,7 @@ function MainAppContent() {
       return 'international';
     }
   });
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
  
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
