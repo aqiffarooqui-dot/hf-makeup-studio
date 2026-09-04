@@ -850,14 +850,8 @@ function MainAppContent() {
       return 'international';
     }
   });
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    try {
-      const saved = localStorage.getItem('hf_theme_preference');
-      return saved === null ? true : saved === 'dark';
-    } catch {
-      return true;
-    }
-  });
+  const [isDarkMode, setIsDarkMode] = useState(true);
+ 
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
   const [showSplash, setShowSplash] = useState(true);
