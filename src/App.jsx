@@ -1136,15 +1136,13 @@ function MainAppContent() {
       setIsLoading(false);
       setImgLoadFailed(false); setLogoLoadFailed(false);
 
-      // Background cache saving for offline/future sessions only after live data is fetched
-      try {
-        if (finalConfig?.theme?.colorTheme) localStorage.setItem('hf_cached_theme', finalConfig.theme.colorTheme);
-        if (finalConfig?.studioName) localStorage.setItem('hf_cached_title', finalConfig.studioName);
-        if (finalConfig?.artistTagline) localStorage.setItem('hf_cached_tagline', finalConfig.artistTagline);
-        localStorage.setItem('hf_full_app_snapshot', JSON.stringify(finalConfig));
-        localStorage.setItem('hf_full_media_snapshot', JSON.stringify(latestMedia));
-      } catch (e) {}
-
+   // Non-blocking background caching
+      setTimeout(() => {
+        try {
+          if (finalConfig?.theme?.colorTheme) localStorage.setItem('hf_cached_theme', finalConfig.theme.colorTheme);
+          if (finalConfig?.studioName) localStorage.setItem('hf_cached_title', finalConfig.studioName);
+        } catch (e) {}
+      }, 100);
       setIsFirebaseSynced(true);
       setTimeout(() => {
         setIsAppReady(true);
@@ -1537,15 +1535,12 @@ function MainAppContent() {
   }, [activeTab, navTabs.length, showSplash, isAppReady]);
 
   // Bubble glider ko preloader hatne ke baad force update karne ke liye
+ // Glider update on ready
   useEffect(() => {
     if (isAppReady && !isLoading) {
-      const timer = setTimeout(() => {
-        updateGliders();
-      }, 50);
-      return () => clearTimeout(timer);
+      updateGliders();
     }
-  }, [isAppReady, isLoading, activeTab]);
-
+  }, [isAppReady, isLoading]);
   const handleMouseDown = (e) => {
     if (zoomScale <= 1) return;
     setIsDragging(true);
