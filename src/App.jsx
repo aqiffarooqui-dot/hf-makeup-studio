@@ -806,29 +806,8 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
 };
 
 function MainAppContent() {
-  const [config, setConfig] = useState(() => {
-    try {
-      const cachedFullConfig = localStorage.getItem('hf_full_app_snapshot');
-      if (cachedFullConfig) {
-        const parsed = JSON.parse(cachedFullConfig);
-        if (parsed && parsed.studioName) return parsed;
-      }
-      const cachedTheme = localStorage.getItem('hf_cached_theme');
-      const cachedTitle = localStorage.getItem('hf_cached_title');
-      const cachedTagline = localStorage.getItem('hf_cached_tagline');
-      return {
-        ...STUDIO_CONFIG,
-        ...(cachedTitle ? { studioName: cachedTitle } : {}),
-        ...(cachedTagline ? { artistTagline: cachedTagline } : {}),
-        theme: {
-          ...STUDIO_CONFIG.theme,
-          ...(cachedTheme ? { colorTheme: cachedTheme } : {})
-        }
-      };
-    } catch {
-      return STUDIO_CONFIG;
-    }
-  });
+  // Fresh initialization from STUDIO_CONFIG (Live Firebase First, No localStorage blocking on reload)
+  const [config, setConfig] = useState(STUDIO_CONFIG);
 
   const [isAppReady, setIsAppReady] = useState(false);
   const [isFirebaseSynced, setIsFirebaseSynced] = useState(false);
@@ -855,13 +834,7 @@ function MainAppContent() {
     return { platform, tier };
   });
 
-  const [mediaAssets, setMediaAssets] = useState(() => {
-    try {
-      const cachedMedia = localStorage.getItem('hf_full_media_snapshot');
-      if (cachedMedia) return JSON.parse(cachedMedia);
-    } catch {}
-    return {};
-  });
+  const [mediaAssets, setMediaAssets] = useState({});
 
   const [activeTab, setActiveTab] = useState(() => {
     try {
@@ -1083,15 +1056,7 @@ function MainAppContent() {
     resolvedLogoUrl = mediaAssets[mediaKey] || "";
   }
   if (!resolvedLogoUrl || resolvedLogoUrl === '') {
-    try {
-      resolvedLogoUrl = localStorage.getItem('hf_cached_logo') || "";
-    } catch {
-      resolvedLogoUrl = "";
-    }
-  } else {
-    try {
-      localStorage.setItem('hf_cached_logo', resolvedLogoUrl);
-    } catch {}
+    resolvedLogoUrl = "";
   }
 
   useEffect(() => {
@@ -1143,23 +1108,13 @@ function MainAppContent() {
     };
   }, [resolvedLogoUrl]);
 
-  // LIVE FIRESTORE SYNC & A-TO-Z SNAPSHOT CACHE REPLACEMENT
+  // LIVE FIRESTORE SYNC & BACKGROUND CACHE UPDATE (FRESH LOAD FROM FIREBASE ON EVERY RELOAD)
   useEffect(() => {
     let latestLive = STUDIO_CONFIG;
     let latestMedia = {};
     const applyLive = () => {
       const live = resolveConfigMedia(latestLive, latestMedia);
       
-      if (live?.theme?.colorTheme) {
-        try { localStorage.setItem('hf_cached_theme', live.theme.colorTheme); } catch {}
-      }
-      if (live?.studioName) {
-        try { localStorage.setItem('hf_cached_title', live.studioName); } catch {}
-      }
-      if (live?.artistTagline) {
-        try { localStorage.setItem('hf_cached_tagline', live.artistTagline); } catch {}
-      }
-
       const mergedKitImages = {
         international: { ...DEFAULT_KIT_IMAGES.international, ...(live.kitImages?.international || {}) },
         drugstore: { ...DEFAULT_KIT_IMAGES.drugstore, ...(live.kitImages?.drugstore || {}) }
@@ -1186,8 +1141,11 @@ function MainAppContent() {
       setConfig(finalConfig);
       setImgLoadFailed(false); setLogoLoadFailed(false);
 
-      // A-to-Z Cache Snapshot replacement after server hydration
+      // Background cache saving for offline/future sessions only after live data is fetched
       try {
+        if (finalConfig?.theme?.colorTheme) localStorage.setItem('hf_cached_theme', finalConfig.theme.colorTheme);
+        if (finalConfig?.studioName) localStorage.setItem('hf_cached_title', finalConfig.studioName);
+        if (finalConfig?.artistTagline) localStorage.setItem('hf_cached_tagline', finalConfig.artistTagline);
         localStorage.setItem('hf_full_app_snapshot', JSON.stringify(finalConfig));
         localStorage.setItem('hf_full_media_snapshot', JSON.stringify(latestMedia));
       } catch (e) {}
@@ -1935,7 +1893,7 @@ function MainAppContent() {
       {/* ZOOMABLE & DRAGGABLE MEDIA MODAL */}
       {viewingMedia && (
         <div className="hf-modal-backdrop">
-          <div className={`hf-modal-card ${activeThemeStyle.card} p-4 sm:p-6 space-y-4 shadow-2xl hf-tab-enter relative`}>
+          <div className={`hf-modal-card ${activeThemeStyle.card} p-4 sm:p-6 space-y-4 shadow-2xl hf-tab-enter`}>
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] sm:text-xs uppercase font-mono font-black text-cyan-400">{viewingMedia.sub || 'Client Transformation'}</span>
