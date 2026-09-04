@@ -1558,11 +1558,11 @@ function MainAppContent() {
   const handleTouchEnd = () => setIsDragging(false);
 
   // 1. DYNAMIC COSMETIC PRELOADER (RUNS ON APP START, REVEALS HEADER TITLE & TAGLINE WHEN RECEIVED FROM FIREBASE)
- if (!isAppReady || !config) {
+  if (!isAppReady) {
     return (
       <CosmeticPreloader 
-        studioName={config?.studioName} 
-        artistTagline={config?.artistTagline}
+        studioName={config.studioName} 
+        artistTagline={config.artistTagline}
         isDataLoaded={isFirebaseSynced}
       />
     );
