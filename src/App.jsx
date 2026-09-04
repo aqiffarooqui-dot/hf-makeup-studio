@@ -807,8 +807,8 @@ const CosmeticPreloader = ({ studioName, artistTagline, isDataLoaded }) => {
 
 function MainAppContent() {
   // Fresh initialization from STUDIO_CONFIG (Live Firebase First, No localStorage blocking on reload)
-  const [config, setConfig] = useState(null);
-
+  const [config, setConfig] = useState(STUDIO_CONFIG);
+  const [isLoading, setIsLoading] = useState(true);
   const [isAppReady, setIsAppReady] = useState(false);
   const [isFirebaseSynced, setIsFirebaseSynced] = useState(false);
 
@@ -1133,6 +1133,7 @@ function MainAppContent() {
       };
 
       setConfig(finalConfig);
+      setIsLoading(false);
       setImgLoadFailed(false); setLogoLoadFailed(false);
 
       // Background cache saving for offline/future sessions only after live data is fetched
@@ -1558,11 +1559,11 @@ function MainAppContent() {
   const handleTouchEnd = () => setIsDragging(false);
 
   // 1. DYNAMIC COSMETIC PRELOADER (RUNS ON APP START, REVEALS HEADER TITLE & TAGLINE WHEN RECEIVED FROM FIREBASE)
-  if (!isAppReady) {
+if (!isAppReady || isLoading) {
     return (
       <CosmeticPreloader 
-        studioName={config.studioName} 
-        artistTagline={config.artistTagline}
+        studioName={config?.studioName} 
+        artistTagline={config?.artistTagline}
         isDataLoaded={isFirebaseSynced}
       />
     );
