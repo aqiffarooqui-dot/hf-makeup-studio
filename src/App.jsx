@@ -2223,7 +2223,8 @@ if (!isAppReady || isLoading) {
         style={{ paddingTop: `${headerOffsetHeight + 18}px` }} 
         className="max-w-5xl mx-auto px-3 sm:px-6 pb-28 sm:pb-24 relative z-10"
       >
-        {activeTab === 'menu' && (
+
+  {activeTab === 'menu' && (
           <div className="space-y-6 sm:space-y-7 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full ${activeThemeStyle.pillBorder} text-[10px] sm:text-xs font-black inline-flex items-center gap-1.5 shadow-sm`}>
@@ -2231,6 +2232,17 @@ if (!isAppReady || isLoading) {
               </span>
               <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Select your vanity tier to view tailored makeover packages:</p>
+
+              {/* 👉 LIVE STUDIO BOOKINGS COUNTER BANNER */}
+              <div className={`${activeThemeStyle.card} p-3 sm:p-3.5 rounded-[20px] border border-white/20 shadow-md flex items-center justify-between px-5 my-3`}>
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className={`text-xs font-bold ${activeThemeStyle.headingColor}`}>Live Studio Bookings</span>
+                </div>
+                <div className="text-xs font-mono font-black text-pink-400">
+                  {totalBookingsCount || 0}+ Bookings Completed 🔥
+                </div>
+              </div>
 
               <div className="inline-flex p-1 rounded-full bg-slate-500/10 border border-slate-400/40 mt-1 gap-1.5">
                 <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btnPrimary} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
@@ -2738,7 +2750,7 @@ if (!isAppReady || isLoading) {
                 commentsList.map((c, idx) => (
                   <div key={c.id || idx} className={`${activeThemeStyle.card} p-4 rounded-[20px] border border-white/10 space-y-2`}>
                     <div className="flex items-center justify-between">
-                      <span className="font-black text-xs sm:text-sm text-white">{c.clientName}</span>
+                      <span className={`font-black text-xs sm:text-sm ${activeThemeStyle.headingColor}`}>{c.clientName}</span>
                       <div className="flex text-amber-400 text-xs">
                         {Array.from({ length: c.rating || 5 }).map((_, i) => (<Star key={i} className="w-3.5 h-3.5 fill-amber-400" />))}
                       </div>
@@ -2775,15 +2787,19 @@ if (!isAppReady || isLoading) {
         </aside>
       )}
 
-      {/* FLOATING LIVE REVIEW POP-UP TOAST WITH CLOSE BUTTON */}
+ {/* FLOATING SPEECH-BUBBLE REVIEW POPUP (WITH TAIL POINTING TO NAV BAR) */}
       {showPopupToast && currentPopupReview && (
-        <div className="fixed bottom-20 left-4 z-50 max-w-xs w-full animate-bounce duration-1000">
-          <div className={`${activeThemeStyle.card} p-3 rounded-[20px] border border-white/20 shadow-2xl backdrop-blur-xl flex items-start gap-3 relative`}>
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 sm:left-auto sm:right-8 z-50 max-w-xs w-full animate-bounce duration-1000 px-4 sm:px-0">
+          <div className={`${activeThemeStyle.card} p-3.5 rounded-[22px] border border-pink-500/30 shadow-2xl backdrop-blur-2xl flex items-start gap-3 relative`}>
+            
+            {/* Speech Bubble Arrow Tail pointing towards navigation bar */}
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-slate-900 border-r border-b border-pink-500/30" />
+
             {/* Close Button */}
             <button 
               type="button"
               onClick={() => setShowPopupToast(false)} 
-              className="absolute top-2 right-2 text-slate-400 hover:text-white p-1 rounded-full bg-black/30 transition"
+              className="absolute top-2 right-2 opacity-70 hover:opacity-100 p-1 rounded-full bg-black/30 transition text-white"
               title="Close popup"
             >
               <X className="w-3 h-3" />
