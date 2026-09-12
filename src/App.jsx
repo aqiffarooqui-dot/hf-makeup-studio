@@ -2128,12 +2128,26 @@ if (!isAppReady || isLoading) {
                     <img src={resolvedLogoUrl} alt="Logo" onError={() => setLogoLoadFailed(true)} className="w-full h-full object-cover rounded-[13px]" draggable="false" />
                   </div>
                 )}
+    
+ <div className="truncate flex items-center gap-3">
                 <div className="truncate">
                   <h1 className={`font-black text-sm sm:text-lg truncate tracking-tight ${activeThemeStyle.headingColor}`}>{config.studioName || 'H&F Makeup Artist'}</h1>
                   <p className={`text-[10px] sm:text-xs ${activeThemeStyle.accentText} flex items-center gap-1.5 truncate font-extrabold uppercase tracking-wider`}>
                     <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
                   </p>
                 </div>
+                {/* 👉 HEADER TOTAL BOOKINGS RECEIVED COUNTER */}
+                {config.toggles?.showBookingCounter !== false && (
+                  <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/30 shadow-sm shrink-0">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-xs font-mono font-black text-pink-300">
+                      {config.manualBookingCount !== undefined && config.manualBookingCount !== "" 
+                        ? config.manualBookingCount 
+                        : (totalBookingsCount || 0)} Total Bookings Received 🔥
+                    </span>
+                  </div>
+                )}
+              </div>
               </div>
 
               <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
@@ -2224,7 +2238,7 @@ if (!isAppReady || isLoading) {
         className="max-w-5xl mx-auto px-3 sm:px-6 pb-28 sm:pb-24 relative z-10"
       >
 
-  {activeTab === 'menu' && (
+{activeTab === 'menu' && (
           <div className="space-y-6 sm:space-y-7 hf-tab-enter">
             <div className="text-center max-w-xl mx-auto space-y-2">
               <span className={`px-3.5 py-1 rounded-full ${activeThemeStyle.pillBorder} text-[10px] sm:text-xs font-black inline-flex items-center gap-1.5 shadow-sm`}>
@@ -2232,17 +2246,6 @@ if (!isAppReady || isLoading) {
               </span>
               <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>Curated Makeup Menu</h2>
               <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Select your vanity tier to view tailored makeover packages:</p>
-
-              {/* 👉 LIVE STUDIO BOOKINGS COUNTER BANNER */}
-              <div className={`${activeThemeStyle.card} p-3 sm:p-3.5 rounded-[20px] border border-white/20 shadow-md flex items-center justify-between px-5 my-3`}>
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className={`text-xs font-bold ${activeThemeStyle.headingColor}`}>Live Studio Bookings</span>
-                </div>
-                <div className="text-xs font-mono font-black text-pink-400">
-                  {totalBookingsCount || 0}+ Bookings Completed 🔥
-                </div>
-              </div>
 
               <div className="inline-flex p-1 rounded-full bg-slate-500/10 border border-slate-400/40 mt-1 gap-1.5">
                 <button onClick={() => setSelectedKit('international')} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-black transition-all ${selectedKit === 'international' ? `${activeThemeStyle.btnPrimary} shadow-md` : `${isDarkMode ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-slate-900'}`}`}>👑 Luxury Kit</button>
@@ -2787,39 +2790,42 @@ if (!isAppReady || isLoading) {
         </aside>
       )}
 
- {/* FLOATING SPEECH-BUBBLE REVIEW POPUP (WITH TAIL POINTING TO NAV BAR) */}
+ {/* 👉 PRECISE SQUARE REVIEW CARD POPUP WITH TAIL POINTING TO REVIEWS TAB */}
       {showPopupToast && currentPopupReview && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 sm:left-auto sm:right-8 z-50 max-w-xs w-full animate-bounce duration-1000 px-4 sm:px-0">
-          <div className={`${activeThemeStyle.card} p-3.5 rounded-[22px] border border-pink-500/30 shadow-2xl backdrop-blur-2xl flex items-start gap-3 relative`}>
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[320px] animate-[bounce_1.5s_infinite] px-2">
+          <div className={`${activeThemeStyle.card} p-4 rounded-[20px] border border-pink-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl space-y-2 relative`}>
             
-            {/* Speech Bubble Arrow Tail pointing towards navigation bar */}
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-slate-900 border-r border-b border-pink-500/30" />
+            {/* Sharp Tail pointing down towards the bottom navigation Reviews button */}
+            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rotate-45 bg-slate-900/90 border-r border-b border-pink-500/40 shadow-lg" />
 
             {/* Close Button */}
             <button 
               type="button"
               onClick={() => setShowPopupToast(false)} 
-              className="absolute top-2 right-2 opacity-70 hover:opacity-100 p-1 rounded-full bg-black/30 transition text-white"
+              className="absolute top-2.5 right-2.5 opacity-70 hover:opacity-100 p-1 rounded-full bg-black/40 transition text-white"
               title="Close popup"
             >
-              <X className="w-3 h-3" />
+              <X className="w-3.5 h-3.5" />
             </button>
 
-            <div className="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-black text-xs shrink-0 border border-pink-400/30">
-              💬
-            </div>
-            <div className="flex-1 min-w-0 space-y-0.5 pr-4">
-              <div className="flex items-center justify-between">
-                <span className={`font-black text-xs ${activeThemeStyle.headingColor} truncate`}>{currentPopupReview.clientName}</span>
-                <div className="flex text-amber-400 text-[9px]">
-                  {Array.from({ length: currentPopupReview.rating || 5 }).map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-amber-400" />
-                  ))}
-                </div>
+            {/* Review Card Header */}
+            <div className="flex items-center justify-between pr-5">
+              <span className={`font-black text-xs sm:text-sm ${activeThemeStyle.headingColor} truncate`}>{currentPopupReview.clientName}</span>
+              <div className="flex text-amber-400 text-xs shrink-0">
+                {Array.from({ length: currentPopupReview.rating || 5 }).map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-amber-400" />
+                ))}
               </div>
-              <p className={`text-[10px] italic leading-tight line-clamp-2 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                "{currentPopupReview.message}"
-              </p>
+            </div>
+
+            {/* Review Card Message Body */}
+            <p className={`text-xs font-medium leading-relaxed italic ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+              "{currentPopupReview.message}"
+            </p>
+
+            <div className="flex items-center justify-between pt-1 border-t border-white/10 text-[10px] opacity-70 font-mono">
+              <span>💬 Live Client Review</span>
+              <span className="text-pink-400 font-bold">Tap Reviews tab</span>
             </div>
           </div>
         </div>
@@ -2835,4 +2841,3 @@ export default function App() {
     </AppErrorBoundary>
   );
 }
-      
