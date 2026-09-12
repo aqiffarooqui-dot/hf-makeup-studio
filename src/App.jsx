@@ -1693,7 +1693,8 @@ if (!isAppReady || isLoading) {
           text-rendering: optimizeLegibility;
           isolation: isolate;
         }
-         /* 👉 Yeh naya animation yahan daalna hai */
+
+        /* 👉 Yeh naya animation yahan daalna hai */
         @keyframes speechBubblePop {
           0% {
             opacity: 0;
