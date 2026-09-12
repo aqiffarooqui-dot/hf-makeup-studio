@@ -819,6 +819,8 @@ function MainAppContent() {
   const [commentSuccess, setCommentSuccess] = useState(false);
   const [isAppReady, setIsAppReady] = useState(false);
   const [isFirebaseSynced, setIsFirebaseSynced] = useState(false);
+  const [currentPopupReview, setCurrentPopupReview] = useState(null);
+  const [showPopupToast, setShowPopupToast] = useState(false);
 
   // AUTOMATIC DEVICE & BROWSER TIER ENGINE (SAFARI / SAMSUNG / ANDROID CHROME / LOW-END)
   const [deviceProfile, setDeviceProfile] = useState(() => {
@@ -858,7 +860,7 @@ function MainAppContent() {
       return 'international';
     }
   });
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
  
   const [showFloatingBanner, setShowFloatingBanner] = useState(true);
 
@@ -946,6 +948,48 @@ function MainAppContent() {
       return () => window.removeEventListener('resize', handleResize);
     } catch {}
   }, []);
+
+// Live Comments & Bookings Count Sync from Firestore
+  useEffect(() => {
+    try {
+      const unsubComments = onSnapshot(collection(db, "studio_comments"), (snapshot) => {
+        const list = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        const approved = list.filter(c => c.isApproved !== false);
+        setCommentsList(approved);
+        
+        const shuffled = [...approved].sort(() => 0.5 - Math.random());
+        setTopRandomComments(shuffled.slice(0, 5));
+      });
+
+      const unsubBookingsCount = onSnapshot(collection(db, "bookings"), (snapshot) => {
+        setTotalBookingsCount(snapshot.size);
+      });
+
+      return () => {
+        unsubComments?.();
+        unsubBookingsCount?.();
+      };
+    } catch (e) {
+      console.warn("Sync error:", e);
+    }
+  }, []);
+
+  // Floating review toast rotator for mobile/desktop
+  useEffect(() => {
+    if (commentsList.length === 0) return;
+    
+    const interval = setInterval(() => {
+      const randomReview = commentsList[Math.floor(Math.random() * commentsList.length)];
+      setCurrentPopupReview(randomReview);
+      setShowPopupToast(true);
+
+      setTimeout(() => {
+        setShowPopupToast(false);
+      }, 4000);
+    }, 9000);
+
+    return () => clearInterval(interval);
+  }, [commentsList]);
 
   useEffect(() => {
     try {
@@ -2663,13 +2707,20 @@ if (!isAppReady || isLoading) {
                     setIsSubmittingComment(false);
                   }
                 }} className="space-y-3">
-                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                     <span className="text-xs font-bold opacity-80">Rating:</span>
-                    <select value={newCommentRating} onChange={e => setNewCommentRating(e.target.value)} className={`p-2 rounded-[12px] text-xs font-bold ${activeThemeStyle.inputBg}`}>
-                      <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                      <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                      <option value="3">⭐⭐⭐ (3/5)</option>
-                    </select>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          type="button"
+                          key={star}
+                          onClick={() => setNewCommentRating(star)}
+                          className={`p-1 transition-transform ${star <= newCommentRating ? 'text-amber-400 scale-110' : 'text-slate-500 opacity-40 hover:opacity-100'}`}
+                        >
+                          <Star className={`w-5 h-5 ${star <= newCommentRating ? 'fill-amber-400' : ''}`} />
+                        </button>
+                      ))}
+                    </div>
                   </div>
                   <input type="text" required placeholder="Your Name" value={newCommentName} onChange={e => setNewCommentName(e.target.value)} className={`w-full p-3 rounded-[14px] text-xs font-semibold ${activeThemeStyle.inputBg}`} />
                   <textarea rows={3} required placeholder="Write your experience..." value={newCommentText} onChange={e => setNewCommentText(e.target.value)} className={`w-full p-3 rounded-[14px] text-xs ${activeThemeStyle.inputBg}`} />
@@ -2723,6 +2774,32 @@ if (!isAppReady || isLoading) {
           </button>
         </aside>
       )}
+{/* Floating Live Review Pop-up Toast */}
+      {showPopupToast && currentPopupReview && (
+        <div className="fixed bottom-20 left-4 z-50 max-w-xs w-full animate-bounce duration-1000">
+          <div className={`${activeThemeStyle.card} p-3 rounded-[20px] border border-white/20 shadow-2xl backdrop-blur-xl flex items-start gap-3`}>
+            <div className="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-black text-xs shrink-0 border border-pink-400/30">
+              💬
+            </div>
+            <div className="flex-1 min-w-0 space-y-0.5">
+              <div className="flex items-center justify-between">
+                <span className={`font-black text-xs ${activeThemeStyle.headingColor} truncate`}>{currentPopupReview.clientName}</span>
+                <div className="flex text-amber-400 text-[9px]">
+                  {Array.from({ length: currentPopupReview.rating || 5 }).map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-amber-400" />
+                  ))}
+                </div>
+              </div>
+              <p className={`text-[10px] italic leading-tight line-clamp-2 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                "{currentPopupReview.message}"
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
     </div>
   );
 }
