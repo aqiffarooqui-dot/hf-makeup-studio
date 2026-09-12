@@ -2781,21 +2781,21 @@ if (!isAppReady || isLoading) {
             </div>
 
             <div className="space-y-3">
-              {commentsList.length === 0 ? (
-                <p className="text-center text-xs opacity-60 py-8">No reviews published yet. Be the first to share!</p>
-              ) : (
-                commentsList.map((c, idx) => (
-                  <div key={c.id || idx} className={`${activeThemeStyle.card} p-4 rounded-[20px] border border-white/10 space-y-2`}>
-                    <div className="flex items-center justify-between">
-                      <span className={`font-black text-xs sm:text-sm ${activeThemeStyle.headingColor}`}>{c.clientName}</span>
-                      <div className="flex text-amber-400 text-xs">
-                        {Array.from({ length: c.rating || 5 }).map((_, i) => (<Star key={i} className="w-3.5 h-3.5 fill-amber-400" />))}
-                      </div>
-                    </div>
-                    <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>"{c.message}"</p>
-                  </div>
+    {commentsList.length === 0 ? (
+  <p className="text-center text-xs opacity-60 py-8">No reviews published yet. Be the first to share!</p>
+) : (
+  commentsList.map((c, idx) => (
+    <div key={c.id || idx} className={`${activeThemeStyle.card} p-4 rounded-[20px] border border-white/10 space-y-2`}>
+      <div className="flex items-center justify-between">
+        <span className={`font-black text-xs sm:text-sm ${activeThemeStyle.headingColor}`}>{c.clientName || c.name || 'Valued Client'}</span>
+        <div className="flex text-amber-400 text-xs">
+          {Array.from({ length: c.rating || 5 }).map((_, i) => (<Star key={i} className="w-3.5 h-3.5 fill-amber-400" />))}
+        </div>
+      </div>
+      <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>"{c.message || c.comment || c.feedback || ''}"</p>
+                </div>
                 ))
-              )}
+             )}
             </div>
           </div>
         )}
@@ -2824,9 +2824,9 @@ if (!isAppReady || isLoading) {
         </aside>
       )}
 
- {/* 👉 FINAL SPEECH-BUBBLE REVIEW POPUP */}
-      {showPopupToast && currentPopupReview && (
-        <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-[300px] pointer-events-none">
+ {/* 👉 FINAL SPEECH-BUBBLE REVIEW POPUP (Admin Toggle Check Added) */}
+{config.toggles?.showReviewPopup !== false && showPopupToast && currentPopupReview && (
+  <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-[300px] pointer-events-none">
           <div className={`hf-speech-bubble-card pointer-events-auto ${activeThemeStyle.card} p-3.5 rounded-[22px] border border-pink-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl space-y-1.5 relative`}>
             
             <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-slate-900/95 border-r border-b border-pink-500/50 shadow-md" />
