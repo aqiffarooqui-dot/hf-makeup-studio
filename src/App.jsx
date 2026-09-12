@@ -2160,7 +2160,7 @@ if (!isAppReady || isLoading) {
 
             {/* DESKTOP FLUID TABS */}
             <div className="hidden sm:flex w-full items-center justify-center">
-              <nav ref={desktopNavRef} className="hf-ios-dock-wrapper rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-[25px] max-w-xl">
+            <nav ref={desktopNavRef} className="hf-ios-dock-wrapper rounded-full border border-slate-400/30 bg-black/10 backdrop-blur-[25px] max-w-3xl w-full px-2">
                 <div 
                   className="hf-ios-glider hf-lens-btn"
                   style={{
@@ -2752,7 +2752,7 @@ if (!isAppReady || isLoading) {
         )}
       </main>
 
-      {/* FLOATING PROMO BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
+{/* FLOATING PROMO BANNER (MOBILE-OPTIMIZED ABOVE NAV PILL BAR) */}
       {config.toggles?.enableFloatingBanner !== false && config.floatingBanner?.enabled !== false && showFloatingBanner && !shouldHideFloatingDueToExpiry && (
         <aside aria-label="Promotional offer" className={`hf-floating-banner-mobile ${activeThemeStyle.card} p-3.5 sm:p-4 rounded-[22px] sm:rounded-[28px] shadow-2xl transition-all border border-slate-400/40 backdrop-blur-[25px]`}>
           <div className="flex items-start justify-between gap-2.5">
@@ -2774,14 +2774,25 @@ if (!isAppReady || isLoading) {
           </button>
         </aside>
       )}
-{/* Floating Live Review Pop-up Toast */}
+
+      {/* FLOATING LIVE REVIEW POP-UP TOAST WITH CLOSE BUTTON */}
       {showPopupToast && currentPopupReview && (
         <div className="fixed bottom-20 left-4 z-50 max-w-xs w-full animate-bounce duration-1000">
-          <div className={`${activeThemeStyle.card} p-3 rounded-[20px] border border-white/20 shadow-2xl backdrop-blur-xl flex items-start gap-3`}>
+          <div className={`${activeThemeStyle.card} p-3 rounded-[20px] border border-white/20 shadow-2xl backdrop-blur-xl flex items-start gap-3 relative`}>
+            {/* Close Button */}
+            <button 
+              type="button"
+              onClick={() => setShowPopupToast(false)} 
+              className="absolute top-2 right-2 text-slate-400 hover:text-white p-1 rounded-full bg-black/30 transition"
+              title="Close popup"
+            >
+              <X className="w-3 h-3" />
+            </button>
+
             <div className="w-8 h-8 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-black text-xs shrink-0 border border-pink-400/30">
               💬
             </div>
-            <div className="flex-1 min-w-0 space-y-0.5">
+            <div className="flex-1 min-w-0 space-y-0.5 pr-4">
               <div className="flex items-center justify-between">
                 <span className={`font-black text-xs ${activeThemeStyle.headingColor} truncate`}>{currentPopupReview.clientName}</span>
                 <div className="flex text-amber-400 text-[9px]">
@@ -2800,6 +2811,7 @@ if (!isAppReady || isLoading) {
     </div>
   );
 }
+
 export default function App() {
   return (
     <AppErrorBoundary>
@@ -2807,3 +2819,4 @@ export default function App() {
     </AppErrorBoundary>
   );
 }
+      
