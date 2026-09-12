@@ -2168,17 +2168,17 @@ if (!isAppReady || isLoading) {
                     </span>
                   </div>
                 )}
-            {/* 👉 MOBILE COUNTER ROW (Sirf Mobile ke liye header ke andar niche wali row) */}
+            {/* 👉 MOBILE DEDICATED NEW LINE BOOKING ROW */}
             {config.toggles?.showBookingCounter !== false && (
-              <div className={`sm:hidden ${activeThemeStyle.innerCard} px-3 py-1.5 rounded-full flex items-center justify-between border border-pink-500/25 shadow-sm`}>
-                <div className="flex items-center gap-1.5">
+              <div className={`sm:hidden w-full ${activeThemeStyle.innerCard} px-4 py-2 rounded-[16px] flex items-center justify-between border border-pink-500/30 shadow-sm mt-1`}>
+                <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className={`text-[10px] font-bold ${activeThemeStyle.headingColor}`}>Live Studio Activity</span>
+                  <span className={`text-[11px] font-extrabold ${activeThemeStyle.headingColor}`}>Total Bookings Received</span>
                 </div>
-                <div className="text-[10px] font-mono font-black text-pink-400">
+                <div className="text-[11px] font-mono font-black text-pink-400">
                   {config.manualBookingCount !== undefined && config.manualBookingCount !== "" 
                     ? config.manualBookingCount 
-                    : (totalBookingsCount || 0)} Total Bookings Received 🔥
+                    : (totalBookingsCount || 0)} 🔥
                 </div>
               </div>
             )}
