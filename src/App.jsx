@@ -1693,6 +1693,26 @@ if (!isAppReady || isLoading) {
           text-rendering: optimizeLegibility;
           isolation: isolate;
         }
+         /* 👉 Yeh naya animation yahan daalna hai */
+        @keyframes speechBubblePop {
+          0% {
+            opacity: 0;
+            transform: translate(-50%, 15px) scale(0.1);
+            transform-origin: bottom center;
+          }
+          70% {
+            transform: translate(-50%, -4px) scale(1.02);
+          }
+          100% {
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+            transform-origin: bottom center;
+          }
+        }
+
+        .hf-speech-bubble-card {
+          animation: speechBubblePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
+        }
 
         /* 1. JITTER-FREE THEME SWITCHING HOOK */
         .hf-theme-switching,
@@ -2136,17 +2156,31 @@ if (!isAppReady || isLoading) {
                     <span className="truncate">{config.artistTagline || 'Beauty, Styled Your Way'}</span>
                   </p>
                 </div>
-                {/* 👉 HEADER TOTAL BOOKINGS RECEIVED COUNTER */}
+               {/* 👉 DESKTOP COUNTER (Header ki line mein) */}
                 {config.toggles?.showBookingCounter !== false && (
-                  <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/30 shadow-sm shrink-0">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-xs font-mono font-black text-pink-300">
+                  <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/15 border border-pink-500/30 shadow-sm shrink-0">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    <span className="text-xs font-mono font-black text-pink-300 whitespace-nowrap">
                       {config.manualBookingCount !== undefined && config.manualBookingCount !== "" 
                         ? config.manualBookingCount 
                         : (totalBookingsCount || 0)} Total Bookings Received 🔥
                     </span>
                   </div>
                 )}
+            {/* 👉 MOBILE COUNTER ROW (Sirf Mobile ke liye header ke andar niche wali row) */}
+            {config.toggles?.showBookingCounter !== false && (
+              <div className={`sm:hidden ${activeThemeStyle.innerCard} px-3 py-1.5 rounded-full flex items-center justify-between border border-pink-500/25 shadow-sm`}>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className={`text-[10px] font-bold ${activeThemeStyle.headingColor}`}>Live Studio Activity</span>
+                </div>
+                <div className="text-[10px] font-mono font-black text-pink-400">
+                  {config.manualBookingCount !== undefined && config.manualBookingCount !== "" 
+                    ? config.manualBookingCount 
+                    : (totalBookingsCount || 0)} Total Bookings Received 🔥
+                </div>
+              </div>
+            )}
               </div>
               </div>
 
@@ -2790,42 +2824,43 @@ if (!isAppReady || isLoading) {
         </aside>
       )}
 
- {/* 👉 PRECISE SQUARE REVIEW CARD POPUP WITH TAIL POINTING TO REVIEWS TAB */}
+ {/* 👉 FINAL SPEECH-BUBBLE REVIEW POPUP (ATTACHED TO REVIEWS TAB BUTTON) */}
       {showPopupToast && currentPopupReview && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[320px] animate-[bounce_1.5s_infinite] px-2">
-          <div className={`${activeThemeStyle.card} p-4 rounded-[20px] border border-pink-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl space-y-2 relative`}>
+        <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-[300px] pointer-events-none">
+          <div className={`hf-speech-bubble-card pointer-events-auto ${activeThemeStyle.card} p-3.5 rounded-[22px] border border-pink-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl space-y-1.5 relative`}>
             
-            {/* Sharp Tail pointing down towards the bottom navigation Reviews button */}
-            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-5 rotate-45 bg-slate-900/90 border-r border-b border-pink-500/40 shadow-lg" />
+            {/* Sharp Speech Bubble Arrow Tail pointing directly down towards the Reviews button */}
+            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-slate-900/95 border-r border-b border-pink-500/50 shadow-md" />
 
             {/* Close Button */}
             <button 
               type="button"
               onClick={() => setShowPopupToast(false)} 
-              className="absolute top-2.5 right-2.5 opacity-70 hover:opacity-100 p-1 rounded-full bg-black/40 transition text-white"
+              className="absolute top-2 right-2 opacity-75 hover:opacity-100 p-1 rounded-full bg-black/40 transition text-white active:scale-90"
               title="Close popup"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3 h-3" />
             </button>
 
-            {/* Review Card Header */}
+            {/* Header: Client Name & Star Rating */}
             <div className="flex items-center justify-between pr-5">
-              <span className={`font-black text-xs sm:text-sm ${activeThemeStyle.headingColor} truncate`}>{currentPopupReview.clientName}</span>
-              <div className="flex text-amber-400 text-xs shrink-0">
+              <span className={`font-black text-xs ${activeThemeStyle.headingColor} truncate`}>{currentPopupReview.clientName}</span>
+              <div className="flex text-amber-400 text-[10px] shrink-0">
                 {Array.from({ length: currentPopupReview.rating || 5 }).map((_, i) => (
-                  <Star key={i} className="w-3 h-3 fill-amber-400" />
+                  <Star key={i} className="w-2.5 h-2.5 fill-amber-400" />
                 ))}
               </div>
             </div>
 
-            {/* Review Card Message Body */}
-            <p className={`text-xs font-medium leading-relaxed italic ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+            {/* Review Message Body */}
+            <p className={`text-[11px] font-medium leading-tight italic line-clamp-2 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
               "{currentPopupReview.message}"
             </p>
 
-            <div className="flex items-center justify-between pt-1 border-t border-white/10 text-[10px] opacity-70 font-mono">
-              <span>💬 Live Client Review</span>
-              <span className="text-pink-400 font-bold">Tap Reviews tab</span>
+            {/* Footer Tag */}
+            <div className="flex items-center justify-between pt-1 border-t border-white/10 text-[9px] opacity-75 font-mono">
+              <span>💬 Live Review</span>
+              <span className="text-pink-400 font-bold">Attached to Reviews Tab</span>
             </div>
           </div>
         </div>
