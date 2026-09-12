@@ -2800,10 +2800,6 @@ if (!isAppReady || isLoading) {
     </div>
   );
 }
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <AppErrorBoundary>
