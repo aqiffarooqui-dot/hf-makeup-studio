@@ -1096,14 +1096,15 @@ function MainAppContent() {
     logVisitorTraffic();
   }, []);
 
-useEffect(() => {
+// Live Comments & Bookings Count Sync from Firestore (Fixed)
+  useEffect(() => {
     try {
       const unsubComments = onSnapshot(collection(db, "studio_comments"), (snapshot) => {
         const list = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-        const approved = list.filter(c => c.isApproved !== false);
-        setCommentsList(approved);
+        // Saare reviews utha lo chahe isApproved ho ya na ho
+        setCommentsList(list);
         
-        const shuffled = [...approved].sort(() => 0.5 - Math.random());
+        const shuffled = [...list].sort(() => 0.5 - Math.random());
         setTopRandomComments(shuffled.slice(0, 5));
       });
 
