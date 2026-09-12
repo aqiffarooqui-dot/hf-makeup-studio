@@ -809,6 +809,14 @@ function MainAppContent() {
   // Fresh initialization from STUDIO_CONFIG (Live Firebase First, No localStorage blocking on reload)
   const [config, setConfig] = useState(STUDIO_CONFIG);
   const [isLoading, setIsLoading] = useState(true);
+  const [commentsList, setCommentsList] = useState([]);
+  const [topRandomComments, setTopRandomComments] = useState([]);
+  const [totalBookingsCount, setTotalBookingsCount] = useState(0);
+  const [newCommentName, setNewCommentName] = useState('');
+  const [newCommentText, setNewCommentText] = useState('');
+  const [newCommentRating, setNewCommentRating] = useState(5);
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  const [commentSuccess, setCommentSuccess] = useState(false);
   const [isAppReady, setIsAppReady] = useState(false);
   const [isFirebaseSynced, setIsFirebaseSynced] = useState(false);
 
@@ -1042,6 +1050,30 @@ function MainAppContent() {
       } catch (err) {}
     }
     logVisitorTraffic();
+  }, []);
+
+useEffect(() => {
+    try {
+      const unsubComments = onSnapshot(collection(db, "studio_comments"), (snapshot) => {
+        const list = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        const approved = list.filter(c => c.isApproved !== false);
+        setCommentsList(approved);
+        
+        const shuffled = [...approved].sort(() => 0.5 - Math.random());
+        setTopRandomComments(shuffled.slice(0, 5));
+      });
+
+      const unsubBookingsCount = onSnapshot(collection(db, "bookings"), (snapshot) => {
+        setTotalBookingsCount(snapshot.size);
+      });
+
+      return () => {
+        unsubComments?.();
+        unsubBookingsCount?.();
+      };
+    } catch (e) {
+      console.warn("Sync error:", e);
+    }
   }, []);
 
   let resolvedLogoUrl = config.studioLogo;
@@ -1510,6 +1542,7 @@ function MainAppContent() {
     { id: 'gallery', label: 'Transformations', icon: Camera, show: config.toggles?.enableGallery !== false },
     { id: 'brands', label: 'Vanity', icon: Star, show: config.toggles?.enableBrands !== false },
     { id: 'calculator', label: 'Booking', icon: Calculator, show: config.toggles?.enableEstimator !== false },
+    { id: 'comments', label: 'Reviews', icon: MessageSquare, show: true }, // 👉 Yeh naya tab add kiya
     { id: 'feedback', label: 'Feedback', icon: MessageSquare, show: true }
   ].filter(t => t.show);
 
@@ -2589,6 +2622,81 @@ if (!isAppReady || isLoading) {
                 </button>
               </form>
             )}
+          </div>
+        )}
+{activeTab === 'comments' && (
+          <div className="max-w-2xl mx-auto space-y-6 hf-tab-enter">
+            <div className="text-center space-y-2">
+              <span className={`px-3.5 py-1 rounded-full ${activeThemeStyle.pillBorder} text-[10px] sm:text-xs font-black inline-flex items-center gap-1.5 shadow-sm`}>
+                <MessageSquare className="w-3.5 h-3.5 text-pink-400" /> Client Love & Reviews
+              </span>
+              <h2 className={`text-xl sm:text-3xl font-black tracking-tight ${activeThemeStyle.headingColor}`}>What Our Clients Say</h2>
+              <p className={`text-xs sm:text-sm font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Read real experiences or share your own feedback.</p>
+            </div>
+
+            <div className={`${activeThemeStyle.card} p-5 sm:p-6 rounded-[24px] border border-white/20 shadow-xl space-y-4`}>
+              <h3 className={`font-black text-sm sm:text-base ${activeThemeStyle.headingColor}`}>Leave Your Review</h3>
+              {commentSuccess ? (
+                <div className="p-4 rounded-[16px] bg-emerald-500/20 text-emerald-400 text-center font-bold text-xs">
+                  ✨ Thank you! Your review has been added successfully.
+                </div>
+              ) : (
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!newCommentName.trim() || !newCommentText.trim()) return;
+                  setIsSubmittingComment(true);
+                  try {
+                    await addDoc(collection(db, "studio_comments"), {
+                      clientName: newCommentName.trim(),
+                      message: newCommentText.trim(),
+                      rating: Number(newCommentRating) || 5,
+                      isApproved: true,
+                      submittedAt: serverTimestamp()
+                    });
+                    setNewCommentName('');
+                    setNewCommentText('');
+                    setCommentSuccess(true);
+                    setTimeout(() => setCommentSuccess(false), 4000);
+                  } catch (err) {
+                    alert("Error: " + err.message);
+                  } finally {
+                    setIsSubmittingComment(false);
+                  }
+                }} className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold opacity-80">Rating:</span>
+                    <select value={newCommentRating} onChange={e => setNewCommentRating(e.target.value)} className={`p-2 rounded-[12px] text-xs font-bold ${activeThemeStyle.inputBg}`}>
+                      <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                      <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                      <option value="3">⭐⭐⭐ (3/5)</option>
+                    </select>
+                  </div>
+                  <input type="text" required placeholder="Your Name" value={newCommentName} onChange={e => setNewCommentName(e.target.value)} className={`w-full p-3 rounded-[14px] text-xs font-semibold ${activeThemeStyle.inputBg}`} />
+                  <textarea rows={3} required placeholder="Write your experience..." value={newCommentText} onChange={e => setNewCommentText(e.target.value)} className={`w-full p-3 rounded-[14px] text-xs ${activeThemeStyle.inputBg}`} />
+                  <button type="submit" disabled={isSubmittingComment} className={`w-full py-3 ${activeThemeStyle.btnPrimary} text-xs font-black rounded-full`}>
+                    {isSubmittingComment ? 'Submitting...' : 'Post Review'}
+                  </button>
+                </form>
+              )}
+            </div>
+
+            <div className="space-y-3">
+              {commentsList.length === 0 ? (
+                <p className="text-center text-xs opacity-60 py-8">No reviews published yet. Be the first to share!</p>
+              ) : (
+                commentsList.map((c, idx) => (
+                  <div key={c.id || idx} className={`${activeThemeStyle.card} p-4 rounded-[20px] border border-white/10 space-y-2`}>
+                    <div className="flex items-center justify-between">
+                      <span className="font-black text-xs sm:text-sm text-white">{c.clientName}</span>
+                      <div className="flex text-amber-400 text-xs">
+                        {Array.from({ length: c.rating || 5 }).map((_, i) => (<Star key={i} className="w-3.5 h-3.5 fill-amber-400" />))}
+                      </div>
+                    </div>
+                    <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>"{c.message}"</p>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         )}
       </main>
