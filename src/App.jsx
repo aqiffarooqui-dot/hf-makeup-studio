@@ -2794,7 +2794,10 @@ if (!isAppReady || isLoading) {
         </div>
       </div>
       <p className={`text-xs font-medium leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-800'}`}>"{c.message || c.comment || c.feedback || ''}"</p>
+<div className="flex justify-end pt-1 text-[10px] font-mono opacity-70">
+        <span>{c.submittedAt?.toDate ? new Date(c.submittedAt.toDate()).toLocaleString() : (c.submittedAt ? new Date(c.submittedAt).toLocaleString() : 'Recent')}</span>
                 </div>
+               </div>
                 ))
              )}
             </div>
