@@ -2825,7 +2825,7 @@ if (!isAppReady || isLoading) {
         </aside>
       )}
 
- {/* 👉 FINAL SPEECH-BUBBLE REVIEW POPUP (Admin Toggle Check Added) */}
+{/* 👉 FINAL SPEECH-BUBBLE REVIEW POPUP (Controlled by Admin Toggle) */}
 {config.toggles?.showReviewPopup !== false && showPopupToast && currentPopupReview && (
   <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-[300px] pointer-events-none">
           <div className={`hf-speech-bubble-card pointer-events-auto ${activeThemeStyle.card} p-3.5 rounded-[22px] border border-pink-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.7)] backdrop-blur-2xl space-y-1.5 relative`}>
